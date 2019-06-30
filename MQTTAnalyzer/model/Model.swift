@@ -123,7 +123,7 @@ class MessageModel : BindableObject {
         var values = Array(messagesByTopic.values)
             
         values.sort {
-            $0.topic.name > $1.topic.name
+            $0.topic.name < $1.topic.name
         }
         
         return values
