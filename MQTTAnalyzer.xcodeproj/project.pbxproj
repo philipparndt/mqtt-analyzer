@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,16 @@
 		2253F8E522C8C008007E35A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */; };
 		2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */; };
 		2253F8FB22C8C008007E35A2 /* MQTTAnalyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */; };
+		22FD7CF222C8C44A0078795F /* SwiftMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22FD7CF122C8C44A0078795F /* SwiftMQTT */; };
+		22FD7CF522C8D23B0078795F /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 22FD7CF422C8D23B0078795F /* SwiftUICharts */; };
+		22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
+		22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF722C8D2650078795F /* MessageDetailsView.swift */; };
+		22FD7CFF22C8D2660078795F /* MQTTController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF822C8D2650078795F /* MQTTController.swift */; };
+		22FD7D0022C8D2660078795F /* NewHostFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF922C8D2650078795F /* NewHostFormView.swift */; };
+		22FD7D0122C8D2660078795F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFA22C8D2650078795F /* Model.swift */; };
+		22FD7D0222C8D2660078795F /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFB22C8D2650078795F /* RootModel.swift */; };
+		22FD7D0322C8D2660078795F /* HostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFC22C8D2660078795F /* HostsView.swift */; };
+		22FD7D0522C8D2820078795F /* ChartDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* ChartDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +61,14 @@
 		2253F8F622C8C008007E35A2 /* MQTTAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerUITests.swift; sourceTree = "<group>"; };
 		2253F8FC22C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22FD7CF622C8D2650078795F /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		22FD7CF722C8D2650078795F /* MessageDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailsView.swift; sourceTree = "<group>"; };
+		22FD7CF822C8D2650078795F /* MQTTController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTController.swift; sourceTree = "<group>"; };
+		22FD7CF922C8D2650078795F /* NewHostFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHostFormView.swift; sourceTree = "<group>"; };
+		22FD7CFA22C8D2650078795F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		22FD7CFB22C8D2650078795F /* RootModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModel.swift; sourceTree = "<group>"; };
+		22FD7CFC22C8D2660078795F /* HostsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsView.swift; sourceTree = "<group>"; };
+		22FD7D0422C8D2810078795F /* ChartDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +76,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22FD7CF222C8C44A0078795F /* SwiftMQTT in Frameworks */,
+				22FD7CF522C8D23B0078795F /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,8 +121,16 @@
 		2253F8D422C8C007007E35A2 /* MQTTAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
-				2253F8D522C8C007007E35A2 /* AppDelegate.swift */,
 				2253F8D722C8C007007E35A2 /* SceneDelegate.swift */,
+				22FD7CFC22C8D2660078795F /* HostsView.swift */,
+				22FD7CF722C8D2650078795F /* MessageDetailsView.swift */,
+				22FD7D0422C8D2810078795F /* ChartDetailsView.swift */,
+				22FD7CF622C8D2650078795F /* MessagesView.swift */,
+				22FD7CFA22C8D2650078795F /* Model.swift */,
+				22FD7CF822C8D2650078795F /* MQTTController.swift */,
+				22FD7CF922C8D2650078795F /* NewHostFormView.swift */,
+				22FD7CFB22C8D2650078795F /* RootModel.swift */,
+				2253F8D522C8C007007E35A2 /* AppDelegate.swift */,
 				2253F8DC22C8C007007E35A2 /* ContentView.swift */,
 				2253F8DE22C8C008007E35A2 /* Assets.xcassets */,
 				2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */,
@@ -155,6 +183,10 @@
 			dependencies = (
 			);
 			name = MQTTAnalyzer;
+			packageProductDependencies = (
+				22FD7CF122C8C44A0078795F /* SwiftMQTT */,
+				22FD7CF422C8D23B0078795F /* SwiftUICharts */,
+			);
 			productName = MQTTAnalyzer;
 			productReference = 2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */;
 			productType = "com.apple.product-type.application";
@@ -227,6 +259,10 @@
 				Base,
 			);
 			mainGroup = 2253F8C922C8C007007E35A2;
+			packageReferences = (
+				22FD7CF022C8C44A0078795F /* XCRemoteSwiftPackageReference "SwiftMQTT" */,
+				22FD7CF322C8D23B0078795F /* XCRemoteSwiftPackageReference "ChartView" */,
+			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -270,10 +306,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22FD7D0122C8D2660078795F /* Model.swift in Sources */,
+				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
+				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
 				2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */,
+				22FD7CFF22C8D2660078795F /* MQTTController.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* ContentView.swift in Sources */,
+				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
+				22FD7D0522C8D2820078795F /* ChartDetailsView.swift in Sources */,
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
+				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
+				22FD7D0022C8D2660078795F /* NewHostFormView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +640,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		22FD7CF022C8C44A0078795F /* XCRemoteSwiftPackageReference "SwiftMQTT" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/philipparndt/SwiftMQTT";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.2;
+			};
+		};
+		22FD7CF322C8D23B0078795F /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		22FD7CF122C8C44A0078795F /* SwiftMQTT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22FD7CF022C8C44A0078795F /* XCRemoteSwiftPackageReference "SwiftMQTT" */;
+			productName = SwiftMQTT;
+		};
+		22FD7CF422C8D23B0078795F /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22FD7CF322C8D23B0078795F /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */ = {
