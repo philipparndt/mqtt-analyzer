@@ -10,8 +10,7 @@ import SwiftUI
 import SwiftUICharts
 
 struct TopicsView : View {
-//    @ObjectBinding var model : MessageModel = MessageModel.sampleModel()
-    
+    @ObjectBinding
     var model : MessageModel
     
     var body: some View {
