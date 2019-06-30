@@ -10,7 +10,7 @@
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
 		2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D722C8C007007E35A2 /* SceneDelegate.swift */; };
 		2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */; };
-		2253F8DD22C8C007007E35A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8DC22C8C007007E35A2 /* ContentView.swift */; };
+		2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8DC22C8C007007E35A2 /* TopicsView.swift */; };
 		2253F8DF22C8C008007E35A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8DE22C8C008007E35A2 /* Assets.xcassets */; };
 		2253F8E222C8C008007E35A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E122C8C008007E35A2 /* Preview Assets.xcassets */; };
 		2253F8E522C8C008007E35A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */; };
@@ -20,7 +20,7 @@
 		22FD7CF522C8D23B0078795F /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 22FD7CF422C8D23B0078795F /* SwiftUICharts */; };
 		22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
 		22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF722C8D2650078795F /* MessageDetailsView.swift */; };
-		22FD7CFF22C8D2660078795F /* MQTTController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF822C8D2650078795F /* MQTTController.swift */; };
+		22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF822C8D2650078795F /* MQTTSessionController.swift */; };
 		22FD7D0022C8D2660078795F /* NewHostFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF922C8D2650078795F /* NewHostFormView.swift */; };
 		22FD7D0122C8D2660078795F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFA22C8D2650078795F /* Model.swift */; };
 		22FD7D0222C8D2660078795F /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFB22C8D2650078795F /* RootModel.swift */; };
@@ -50,7 +50,7 @@
 		2253F8D522C8C007007E35A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2253F8D722C8C007007E35A2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2253F8DA22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MQTTAnalyzer.xcdatamodel; sourceTree = "<group>"; };
-		2253F8DC22C8C007007E35A2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2253F8DC22C8C007007E35A2 /* TopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsView.swift; sourceTree = "<group>"; };
 		2253F8DE22C8C008007E35A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2253F8E122C8C008007E35A2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2253F8E422C8C008007E35A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 		2253F8FC22C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22FD7CF622C8D2650078795F /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		22FD7CF722C8D2650078795F /* MessageDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailsView.swift; sourceTree = "<group>"; };
-		22FD7CF822C8D2650078795F /* MQTTController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTController.swift; sourceTree = "<group>"; };
+		22FD7CF822C8D2650078795F /* MQTTSessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTSessionController.swift; sourceTree = "<group>"; };
 		22FD7CF922C8D2650078795F /* NewHostFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHostFormView.swift; sourceTree = "<group>"; };
 		22FD7CFA22C8D2650078795F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		22FD7CFB22C8D2650078795F /* RootModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModel.swift; sourceTree = "<group>"; };
@@ -121,17 +121,16 @@
 		2253F8D422C8C007007E35A2 /* MQTTAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
+				22FD7D0722C8D39D0078795F /* model */,
+				22FD7D0622C8D3760078795F /* mqtt */,
 				2253F8D722C8C007007E35A2 /* SceneDelegate.swift */,
 				22FD7CFC22C8D2660078795F /* HostsView.swift */,
 				22FD7CF722C8D2650078795F /* MessageDetailsView.swift */,
 				22FD7D0422C8D2810078795F /* ChartDetailsView.swift */,
 				22FD7CF622C8D2650078795F /* MessagesView.swift */,
-				22FD7CFA22C8D2650078795F /* Model.swift */,
-				22FD7CF822C8D2650078795F /* MQTTController.swift */,
+				2253F8DC22C8C007007E35A2 /* TopicsView.swift */,
 				22FD7CF922C8D2650078795F /* NewHostFormView.swift */,
-				22FD7CFB22C8D2650078795F /* RootModel.swift */,
 				2253F8D522C8C007007E35A2 /* AppDelegate.swift */,
-				2253F8DC22C8C007007E35A2 /* ContentView.swift */,
 				2253F8DE22C8C008007E35A2 /* Assets.xcassets */,
 				2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */,
 				2253F8E622C8C008007E35A2 /* Info.plist */,
@@ -165,6 +164,23 @@
 				2253F8FC22C8C008007E35A2 /* Info.plist */,
 			);
 			path = MQTTAnalyzerUITests;
+			sourceTree = "<group>";
+		};
+		22FD7D0622C8D3760078795F /* mqtt */ = {
+			isa = PBXGroup;
+			children = (
+				22FD7CF822C8D2650078795F /* MQTTSessionController.swift */,
+			);
+			path = mqtt;
+			sourceTree = "<group>";
+		};
+		22FD7D0722C8D39D0078795F /* model */ = {
+			isa = PBXGroup;
+			children = (
+				22FD7CFA22C8D2650078795F /* Model.swift */,
+				22FD7CFB22C8D2650078795F /* RootModel.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,8 +327,8 @@
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
 				2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */,
-				22FD7CFF22C8D2660078795F /* MQTTController.swift in Sources */,
-				2253F8DD22C8C007007E35A2 /* ContentView.swift in Sources */,
+				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
+				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
 				22FD7D0522C8D2820078795F /* ChartDetailsView.swift in Sources */,
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,

@@ -9,22 +9,15 @@
 import SwiftUI
 import SwiftUICharts
 
-struct ContentView : View {
-    @ObjectBinding var model : MessageModel = MessageModel.sampleModel()
+struct TopicsView : View {
+//    @ObjectBinding var model : MessageModel = MessageModel.sampleModel()
     
-    init() {
-        //        let host = Host()
-        //        host.hostname = "192.168.3.3"
-        //        host.topic = "#"
-        //
-        //        let controller = MQTTController()
-        //        controller.connect(host)
-    }
+    var model : MessageModel
     
     var body: some View {
         List {
             Section {
-                ForEach(model.messagesByTopic) { messages in
+                ForEach(Array(model.sortedTopics())) { messages in
                     MessageGroupCell(messages: messages)
                     }
                     .onDelete(perform: model.delete)
@@ -52,9 +45,9 @@ struct MessageGroupCell : View {
 }
 
 #if DEBUG
-struct ContentView_Previews : PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews : PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
 #endif

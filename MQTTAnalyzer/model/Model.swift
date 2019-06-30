@@ -30,8 +30,14 @@ class MessagesByTopic : Identifiable, BindableObject {
         messages.remove(at: offsets.first!)
     }
 
+    func newMessage(_ message : Message) {
+        messages.insert(message, at: 0)
+    }
+    
     func debugAddMessage() {
+        print("insert data")
         messages.insert(Message(data: "some data", date: Date()), at: 0)
+        print(messages.count)
     }
 }
 
@@ -79,7 +85,7 @@ class Topic : Hashable {
     let name : String
     let lastSegment : String
 
-    init(name: String) {
+    init(_ name: String) {
         self.name = name
         self.lastSegment = Topic.lastSegment(of: name)
     }
@@ -103,47 +109,72 @@ class Topic : Hashable {
 
 class MessageModel : BindableObject {
 
-    var messagesByTopic: [MessagesByTopic] {
+    var messagesByTopic: [String: MessagesByTopic] {
         didSet { didChange.send() }
     }
     
     var didChange = PassthroughSubject<Void, Never>()
     
-    init(messagesByTopic: [MessagesByTopic] = []) {
+    init(messagesByTopic: [String: MessagesByTopic] = [:]) {
         self.messagesByTopic = messagesByTopic
+    }
+    
+    func sortedTopics() -> [MessagesByTopic] {
+        var values = Array(messagesByTopic.values)
+            
+        values.sort {
+            $0.topic.name > $1.topic.name
+        }
+        
+        return values
     }
     
     func delete(at offsets: IndexSet) {
         // TODO how to remove all?
-        messagesByTopic.remove(at: offsets.first!)
+        // messagesByTopic.remove(at: offsets.first!)
+    }
+    
+    func append(topic: String, message: Message) {
+//        let newGroup = MessagesByTopic(topic: Topic(topic), messages:[])
+        //        messagesByTopic[topic, default: newGroup].debugAddMessage()
+        
+        var msgbt = messagesByTopic[topic]
+        
+        if (msgbt == nil) {
+            msgbt = MessagesByTopic(topic: Topic(topic), messages:[])
+            messagesByTopic[topic] = msgbt
+        }
+        
+        msgbt!.newMessage(message)
     }
     
     class func sampleModel() -> MessageModel {
-        let vl = Topic(name: "haus/ug/heizung/solar_vl")
-        let rl = Topic(name: "haus/ug/heizung/solar_rl")
+//        let vl = Topic("haus/ug/heizung/solar_vl")
+        let vl = Topic("a")
+        let rl = Topic("haus/ug/heizung/solar_rl")
         
         let result = MessageModel()
 
-        var messagesByTopic : [MessagesByTopic] = []
-        messagesByTopic.append(MessagesByTopic(topic: vl, messages: [
+        var messagesByTopic : [String : MessagesByTopic] = [:]
+        messagesByTopic[vl.name] = MessagesByTopic(topic: vl, messages: [
             Message(data: "{\"temperature\": 59.3125 }", date: Date()),
             Message(data: "{\"temperature\": 58.125 }", date: Date()),
             Message(data: "{\"temperature\": 56.125 }", date: Date()),
             Message(data: "{\"temperature\": 57.3125 }", date: Date()),
             Message(data: "{\"temperature\": 62.0 }", date: Date()),
             Message(data: "{\"temperature\": 58.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }", date: Date(timeIntervalSince1970: 1415637900))
-            ]))
+            ])
         
-        messagesByTopic.append(MessagesByTopic(topic: rl, messages: [
+        messagesByTopic[rl.name] = MessagesByTopic(topic: rl, messages: [
             Message(data: "{\"temperature\": 59.3125 }", date: Date())
-            ]))
+            ])
         
         result.messagesByTopic = messagesByTopic;
         return result
     }
 }
 
-class Host : Identifiable {
+class Host : Identifiable, Hashable {
     var alias : String = ""
     var hostname : String = ""
     var port : UInt16 = 1883
@@ -154,6 +185,18 @@ class Host : Identifiable {
     var auth : Bool = false
     var username : String = ""
     var password : String = ""
+    
+    static func == (lhs: Host, rhs: Host) -> Bool {
+        return lhs.hostname == rhs.hostname
+            && lhs.topic == rhs.topic
+            && lhs.port == rhs.port
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(hostname)
+        hasher.combine(port)
+        hasher.combine(topic)
+    }
 }
 
 class HostsModel : BindableObject {

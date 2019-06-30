@@ -82,11 +82,11 @@ struct MessagesView : View {
 }
 
 #if DEBUG
-struct MessagesView_Previews : PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            MessagesView(messagesByTopic : MessageModel().messagesByTopic[0])
-        }
-    }
-}
+//struct MessagesView_Previews : PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            MessagesView(messagesByTopic : MessageModel().messagesByTopic[0])
+//        }
+//    }
+//}
 #endif

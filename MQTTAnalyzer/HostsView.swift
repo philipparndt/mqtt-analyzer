@@ -9,12 +9,8 @@
 import SwiftUI
 
 struct HostsView : View {
-//    @EnvironmentObject var controller : MQTTController
-    @EnvironmentObject var controller : RootModel
+    @EnvironmentObject var model : RootModel
 
-    @ObjectBinding
-    var hosts: HostsModel = HostsModel.sampleModel()
-    
     @State
     var isPresented = false
 
@@ -22,8 +18,8 @@ struct HostsView : View {
         NavigationView {
             VStack (alignment: .leading) {
                 List {
-                    ForEach(hosts.hosts) { host in
-                        HostCell(host: host)
+                    ForEach(model.hostsModel.hosts) { host in
+                        HostCell(host: host, messageModel: (self.model.messageModelByHost[host]!))
                     }
                 }
             }
@@ -37,7 +33,7 @@ struct HostsView : View {
             )
         }
             .presentation( isPresented ?
-                Modal(NewHostFormModalView(isPresented: $isPresented, hosts: hosts), onDismiss: cancelHostCreation)
+                Modal(NewHostFormModalView(isPresented: $isPresented, hosts: model.hostsModel), onDismiss: cancelHostCreation)
                 : nil )
     }
     
@@ -52,9 +48,12 @@ struct HostsView : View {
 
 struct HostCell : View {
     var host: Host
+    @EnvironmentObject var model : RootModel
+
+    var messageModel: MessageModel
     
     var body: some View {
-        NavigationButton(destination: ContentView()) {
+        NavigationButton(destination: TopicsView(model: messageModel)) {
             HStack {
                 Image(systemName: "desktopcomputer")
                     .foregroundColor(.green)
@@ -82,12 +81,11 @@ struct HostCell : View {
     }
 }
 #if DEBUG
-
-struct HostsView_Previews : PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            HostsView(hosts : HostsModel.sampleModel())
-        }
-    }
-}
+//struct HostsView_Previews : PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            HostsView(hosts : HostsModel.sampleModel())
+//        }
+//    }
+//}
 #endif
