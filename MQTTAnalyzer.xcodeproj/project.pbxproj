@@ -1,0 +1,614 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
+		2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D722C8C007007E35A2 /* SceneDelegate.swift */; };
+		2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */; };
+		2253F8DD22C8C007007E35A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8DC22C8C007007E35A2 /* ContentView.swift */; };
+		2253F8DF22C8C008007E35A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8DE22C8C008007E35A2 /* Assets.xcassets */; };
+		2253F8E222C8C008007E35A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E122C8C008007E35A2 /* Preview Assets.xcassets */; };
+		2253F8E522C8C008007E35A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */; };
+		2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */; };
+		2253F8FB22C8C008007E35A2 /* MQTTAnalyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2253F8EC22C8C008007E35A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2253F8D122C8C007007E35A2;
+			remoteInfo = MQTTAnalyzer;
+		};
+		2253F8F722C8C008007E35A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2253F8D122C8C007007E35A2;
+			remoteInfo = MQTTAnalyzer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2253F8D522C8C007007E35A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2253F8D722C8C007007E35A2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		2253F8DA22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MQTTAnalyzer.xcdatamodel; sourceTree = "<group>"; };
+		2253F8DC22C8C007007E35A2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2253F8DE22C8C008007E35A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2253F8E122C8C008007E35A2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2253F8E422C8C008007E35A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2253F8E622C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerTests.swift; sourceTree = "<group>"; };
+		2253F8F122C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2253F8F622C8C008007E35A2 /* MQTTAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerUITests.swift; sourceTree = "<group>"; };
+		2253F8FC22C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2253F8CF22C8C007007E35A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2253F8E822C8C008007E35A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2253F8F322C8C008007E35A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2253F8C922C8C007007E35A2 = {
+			isa = PBXGroup;
+			children = (
+				2253F8D422C8C007007E35A2 /* MQTTAnalyzer */,
+				2253F8EE22C8C008007E35A2 /* MQTTAnalyzerTests */,
+				2253F8F922C8C008007E35A2 /* MQTTAnalyzerUITests */,
+				2253F8D322C8C007007E35A2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2253F8D322C8C007007E35A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */,
+				2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */,
+				2253F8F622C8C008007E35A2 /* MQTTAnalyzerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2253F8D422C8C007007E35A2 /* MQTTAnalyzer */ = {
+			isa = PBXGroup;
+			children = (
+				2253F8D522C8C007007E35A2 /* AppDelegate.swift */,
+				2253F8D722C8C007007E35A2 /* SceneDelegate.swift */,
+				2253F8DC22C8C007007E35A2 /* ContentView.swift */,
+				2253F8DE22C8C008007E35A2 /* Assets.xcassets */,
+				2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */,
+				2253F8E622C8C008007E35A2 /* Info.plist */,
+				2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */,
+				2253F8E022C8C008007E35A2 /* Preview Content */,
+			);
+			path = MQTTAnalyzer;
+			sourceTree = "<group>";
+		};
+		2253F8E022C8C008007E35A2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				2253F8E122C8C008007E35A2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2253F8EE22C8C008007E35A2 /* MQTTAnalyzerTests */ = {
+			isa = PBXGroup;
+			children = (
+				2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */,
+				2253F8F122C8C008007E35A2 /* Info.plist */,
+			);
+			path = MQTTAnalyzerTests;
+			sourceTree = "<group>";
+		};
+		2253F8F922C8C008007E35A2 /* MQTTAnalyzerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */,
+				2253F8FC22C8C008007E35A2 /* Info.plist */,
+			);
+			path = MQTTAnalyzerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2253F8D122C8C007007E35A2 /* MQTTAnalyzer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2253F8FF22C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzer" */;
+			buildPhases = (
+				2253F8CE22C8C007007E35A2 /* Sources */,
+				2253F8CF22C8C007007E35A2 /* Frameworks */,
+				2253F8D022C8C007007E35A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MQTTAnalyzer;
+			productName = MQTTAnalyzer;
+			productReference = 2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2253F8EA22C8C008007E35A2 /* MQTTAnalyzerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2253F90222C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerTests" */;
+			buildPhases = (
+				2253F8E722C8C008007E35A2 /* Sources */,
+				2253F8E822C8C008007E35A2 /* Frameworks */,
+				2253F8E922C8C008007E35A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2253F8ED22C8C008007E35A2 /* PBXTargetDependency */,
+			);
+			name = MQTTAnalyzerTests;
+			productName = MQTTAnalyzerTests;
+			productReference = 2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2253F8F522C8C008007E35A2 /* MQTTAnalyzerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2253F90522C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerUITests" */;
+			buildPhases = (
+				2253F8F222C8C008007E35A2 /* Sources */,
+				2253F8F322C8C008007E35A2 /* Frameworks */,
+				2253F8F422C8C008007E35A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2253F8F822C8C008007E35A2 /* PBXTargetDependency */,
+			);
+			name = MQTTAnalyzerUITests;
+			productName = MQTTAnalyzerUITests;
+			productReference = 2253F8F622C8C008007E35A2 /* MQTTAnalyzerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2253F8CA22C8C007007E35A2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+				ORGANIZATIONNAME = "Philipp Arndt";
+				TargetAttributes = {
+					2253F8D122C8C007007E35A2 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					2253F8EA22C8C008007E35A2 = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 2253F8D122C8C007007E35A2;
+					};
+					2253F8F522C8C008007E35A2 = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 2253F8D122C8C007007E35A2;
+					};
+				};
+			};
+			buildConfigurationList = 2253F8CD22C8C007007E35A2 /* Build configuration list for PBXProject "MQTTAnalyzer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2253F8C922C8C007007E35A2;
+			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2253F8D122C8C007007E35A2 /* MQTTAnalyzer */,
+				2253F8EA22C8C008007E35A2 /* MQTTAnalyzerTests */,
+				2253F8F522C8C008007E35A2 /* MQTTAnalyzerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2253F8D022C8C007007E35A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2253F8E522C8C008007E35A2 /* LaunchScreen.storyboard in Resources */,
+				2253F8E222C8C008007E35A2 /* Preview Assets.xcassets in Resources */,
+				2253F8DF22C8C008007E35A2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2253F8E922C8C008007E35A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2253F8F422C8C008007E35A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2253F8CE22C8C007007E35A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
+				2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */,
+				2253F8DD22C8C007007E35A2 /* ContentView.swift in Sources */,
+				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2253F8E722C8C008007E35A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2253F8F222C8C008007E35A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2253F8FB22C8C008007E35A2 /* MQTTAnalyzerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2253F8ED22C8C008007E35A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
+			targetProxy = 2253F8EC22C8C008007E35A2 /* PBXContainerItemProxy */;
+		};
+		2253F8F822C8C008007E35A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
+			targetProxy = 2253F8F722C8C008007E35A2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2253F8E422C8C008007E35A2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2253F8FD22C8C008007E35A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2253F8FE22C8C008007E35A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2253F90022C8C008007E35A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = MQTTAnalyzer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2253F90122C8C008007E35A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = MQTTAnalyzer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2253F90322C8C008007E35A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				INFOPLIST_FILE = MQTTAnalyzerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/MQTTAnalyzer";
+			};
+			name = Debug;
+		};
+		2253F90422C8C008007E35A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				INFOPLIST_FILE = MQTTAnalyzerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/MQTTAnalyzer";
+			};
+			name = Release;
+		};
+		2253F90622C8C008007E35A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MQTTAnalyzer;
+			};
+			name = Debug;
+		};
+		2253F90722C8C008007E35A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MQTTAnalyzer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2253F8CD22C8C007007E35A2 /* Build configuration list for PBXProject "MQTTAnalyzer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2253F8FD22C8C008007E35A2 /* Debug */,
+				2253F8FE22C8C008007E35A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2253F8FF22C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2253F90022C8C008007E35A2 /* Debug */,
+				2253F90122C8C008007E35A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2253F90222C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2253F90322C8C008007E35A2 /* Debug */,
+				2253F90422C8C008007E35A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2253F90522C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2253F90622C8C008007E35A2 /* Debug */,
+				2253F90722C8C008007E35A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2253F8DA22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodel */,
+			);
+			currentVersion = 2253F8DA22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodel */;
+			path = MQTTAnalyzer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 2253F8CA22C8C007007E35A2 /* Project object */;
+}
