@@ -64,20 +64,21 @@ struct MessagesView : View {
                 }
                 
                 Section(header: Text("Messages")) {
-                    Button(action: messagesByTopic.debugAddMessage) {
-                        Text("Debug add message")
-                    }
-                    
                     ForEach(messagesByTopic.messages) { message in
                         MessageCell(message: message)
                     }
                     .onDelete(perform: messagesByTopic.delete)
                 }
             }
-            
         }
         .navigationBarTitle(Text(messagesByTopic.topic.lastSegment))
         .listStyle(.grouped)
+            .onAppear {
+                self.messagesByTopic.markRead()
+                print("MessagesView appeared!")
+            }.onDisappear {
+                print("MessagesView disappeared!")
+        }
     }
 }
 

@@ -12,6 +12,8 @@ import Combine
 
 class MessagesByTopic : Identifiable, BindableObject {
     let topic: Topic
+    var read: Bool = true
+    
     var messages: [Message] {
         didSet {
             didChange.send()
@@ -32,12 +34,16 @@ class MessagesByTopic : Identifiable, BindableObject {
 
     func newMessage(_ message : Message) {
         messages.insert(message, at: 0)
+        read = false
     }
     
-    func debugAddMessage() {
-        print("insert data")
-        messages.insert(Message(data: "some data", date: Date()), at: 0)
-        print(messages.count)
+    func markRead() {
+        read = true
+        didChange.send()
+    }
+    
+    func getFirst() -> String {
+        return messages.isEmpty ? "" : messages[0].data
     }
 }
 
@@ -146,6 +152,8 @@ class MessageModel : BindableObject {
         }
         
         msgbt!.newMessage(message)
+        
+        didChange.send()
     }
     
     class func sampleModel() -> MessageModel {
@@ -212,8 +220,10 @@ class HostsModel : BindableObject {
     
     class func sampleModel() -> HostsModel {
         let host = Host()
-        host.alias = "some alias"
+        host.alias = "pisvr"
         host.hostname = "192.168.3.3"
+//        host.alias = "Mosquitto Test server"
+//        host.hostname = "test.mosquitto.org"
         
         return HostsModel(hosts: [host])
     }
