@@ -66,9 +66,10 @@ class MQTTSessionController: MQTTSessionDelegate {
     }
     
     func mqttDidReceive(message: MQTTMessage, from session: MQTTSession) {
-        print("mqtt receive")
+        print("mqtt receive: \(message.retain) \(message.topic) \(message.stringRepresentation ?? "")")
         
-        let msg = Message(data: message.stringRepresentation!, date: Date())
+        let messageString = message.stringRepresentation ?? "";
+        let msg = Message(data: messageString, date: Date())
         
         model.append(topic: message.topic, message: msg)
     }
