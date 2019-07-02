@@ -39,7 +39,10 @@ class MessagesByTopic : Identifiable, BindableObject {
         read = false
         
         if (message.isJson()) {
-            traverseJson(node: message.jsonData![0])
+            let jsonData = message.jsonData!
+            if (jsonData.count > 0) {
+                traverseJson(node: message.jsonData![0])
+            }
         }
     }
     
@@ -273,10 +276,10 @@ class HostsModel : BindableObject {
     
     class func sampleModel() -> HostsModel {
         let host = Host()
-        host.alias = "pisvr"
-        host.hostname = "192.168.3.3"
-//        host.alias = "Mosquitto Test server"
-//        host.hostname = "test.mosquitto.org"
+//        host.alias = "pisvr"
+//        host.hostname = "192.168.3.3"
+        host.alias = "Mosquitto Test server"
+        host.hostname = "test.mosquitto.org"
         
         return HostsModel(hosts: [host])
     }
