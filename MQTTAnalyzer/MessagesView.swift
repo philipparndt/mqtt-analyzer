@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct MessageCell : View {
-    var message: Message
+    let message: Message
+    let topic: Topic
     
     var body: some View {
-        NavigationButton(destination: MessageDetailsView(message: message)) {
+        NavigationButton(destination: MessageDetailsView(message: message, topic: topic)) {
             HStack {
                 Image(systemName: "radiowaves.right")
                     .font(.subheadline)
@@ -65,7 +66,7 @@ struct MessagesView : View {
                 
                 Section(header: Text("Messages")) {
                     ForEach(messagesByTopic.messages) { message in
-                        MessageCell(message: message)
+                        MessageCell(message: message, topic: self.messagesByTopic.topic)
                     }
                     .onDelete(perform: messagesByTopic.delete)
                 }

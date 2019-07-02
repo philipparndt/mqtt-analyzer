@@ -31,6 +31,7 @@ struct TopicsView : View {
                     Text("Read all")
                 }
             }
+            
             Section(header: Text("Topics")) {
                 ForEach(Array(model.sortedTopics())) { messages in
                     MessageGroupCell(messages: messages)
