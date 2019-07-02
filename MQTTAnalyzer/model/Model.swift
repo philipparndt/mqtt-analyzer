@@ -135,6 +135,10 @@ class MessageModel : BindableObject {
         return values
     }
     
+    func countMessages() -> Int {
+        return messagesByTopic.values.map { $0.messages.count }.reduce(0, +)
+    }
+    
     func delete(at offsets: IndexSet) {
         // TODO how to remove all?
         // messagesByTopic.remove(at: offsets.first!)

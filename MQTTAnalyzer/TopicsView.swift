@@ -15,30 +15,57 @@ struct TopicsView : View {
     
     var body: some View {
         List {
+            Section(header: Text("Statistics")) {
+                HStack {
+                    Text("Topics")
+                    Spacer()
+                    Text(String(model.messagesByTopic.count))
+                }
+                HStack {
+                    Text("Messages")
+                    Spacer()
+                    Text(String(model.countMessages()))
+                }
+            }
             Section {
                 ForEach(Array(model.sortedTopics())) { messages in
                     MessageGroupCell(messages: messages)
                     }
                     .onDelete(perform: model.delete)
             }
-            }
-            .navigationBarTitle(Text("home/#"))
-            .navigationBarItems(trailing: EditButton())
-            .listStyle(.grouped)
+        }
+        .navigationBarTitle(Text("home/#"))
+        .navigationBarItems(trailing: EditButton())
+        .listStyle(.grouped)
     }
 }
 
 struct MessageGroupCell : View {
+    @ObjectBinding
     var messages: MessagesByTopic
     
     var body: some View {
         NavigationButton(destination: MessagesView(messagesByTopic: messages)) {
-            VStack (alignment: .leading) {
-                Text(messages.topic.name)
-                Text("\(messages.messages.count) messages")
+            HStack {
+                messages.read ?
+                    Image(systemName: "circle")
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                : Image(systemName: "circle.fill")
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.blue)
+                
+                VStack (alignment: .leading) {
+                    Text(messages.topic.name)
+                    Text(messages.getFirst()).font(.subheadline)
+                        .foregroundColor(.secondary)
+                    Text("\(messages.messages.count) messages")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
             }
+            
+            
         }
     }
 }
