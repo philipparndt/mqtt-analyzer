@@ -20,6 +20,8 @@ class MessagesByTopic : Identifiable, BindableObject {
         }
     }
     
+    var diagrams = Set<DiagramPath>()
+    
     var didChange = PassthroughSubject<Void, Never>()
 
     init(topic: Topic, messages: [Message]) {
@@ -35,6 +37,27 @@ class MessagesByTopic : Identifiable, BindableObject {
     func newMessage(_ message : Message) {
         messages.insert(message, at: 0)
         read = false
+        
+        if (message.isJson()) {
+            traverseJson(node: message.jsonData![0])
+        }
+    }
+    
+    func traverseJson(node: Dictionary<String, Any>) {
+        print(node)
+        
+        node.forEach {
+            let child = $0.value
+            if (child is Dictionary<String, Any>) {
+                traverseJson(node: child as! Dictionary<String, Any>)
+            }
+        }
+
+        let numberKeys = node.filter { $0.value is NSNumber }
+            .map { $0.key }
+        
+        numberKeys.map { DiagramPath($0) }
+            .forEach { self.diagrams.insert($0)}
     }
     
     func markRead() {
@@ -44,6 +67,26 @@ class MessagesByTopic : Identifiable, BindableObject {
     
     func getFirst() -> String {
         return messages.isEmpty ? "<undef>" : messages[0].data
+    }
+    
+    func getDiagrams() -> [DiagramPath] {
+        return Array(diagrams)
+    }
+}
+
+class DiagramPath : Hashable, Identifiable {
+    let path : String
+    
+    init(_ path : String) {
+        self.path = path
+    }
+    
+    static func == (lhs: DiagramPath, rhs: DiagramPath) -> Bool {
+        return lhs.path == rhs.path
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(path)
     }
 }
 

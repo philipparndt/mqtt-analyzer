@@ -31,7 +31,7 @@ struct MessageCell : View {
 }
 
 struct ChartCell : View {
-    var path : String
+    let path : String
 
     var body: some View {
         NavigationButton(destination: ChartDetailsView(title: path)) {
@@ -59,15 +59,29 @@ struct MessagesView : View {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
-                
                 Section(header: Text("Diagrams")) {
-                    ChartCell(path: "temperature")
+                    ForEach(messagesByTopic.getDiagrams()) {
+                        ChartCell(path: $0.path)
+                    }
                 }
+//                Section(header: Text("Diagrams")) {
+//                    ForEach(messagesByTopic.messages) { ChartCell(path: $0) }
+//
+//
+//                    ForEach(messagesByTopic.diagrams) { ChartCell(path: $0.path) }
+//
+//                    ForEach(messagesByTopic.getDiagrams()) { diagram in
+//                        ChartCell(path: diagram.path)
+//                    }
+//                }
+                
+//                Section(header: Text("Messages")) {
+//                    ForEach(messagesByTopic.messages) { ChartCell(path: self.messagesByTopic.topic) }
+//                        .onDelete(perform: messagesByTopic.delete)
+//                }
                 
                 Section(header: Text("Messages")) {
-                    ForEach(messagesByTopic.messages) { message in
-                        MessageCell(message: message, topic: self.messagesByTopic.topic)
-                    }
+                    ForEach(messagesByTopic.messages) { MessageCell(message: $0, topic: self.messagesByTopic.topic) }
                     .onDelete(perform: messagesByTopic.delete)
                 }
             }
