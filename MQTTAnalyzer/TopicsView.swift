@@ -15,7 +15,7 @@ struct TopicsView : View {
     
     var body: some View {
         List {
-            Section(header: Text("Statistics")) {
+            Section(header: Text("Tools")) {
                 HStack {
                     Text("Topics")
                     Spacer()
@@ -26,6 +26,10 @@ struct TopicsView : View {
                     Spacer()
                     Text(String(model.countMessages()))
                 }
+                
+                Button(action: model.readall) {
+                    Text("Read all")
+                }
             }
             Section {
                 ForEach(Array(model.sortedTopics())) { messages in
@@ -34,7 +38,7 @@ struct TopicsView : View {
                     .onDelete(perform: model.delete)
             }
         }
-        .navigationBarTitle(Text("home/#"))
+        .navigationBarTitle(Text("home/#"), displayMode: .inline)
         .navigationBarItems(trailing: EditButton())
         .listStyle(.grouped)
     }

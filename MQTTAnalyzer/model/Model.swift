@@ -43,7 +43,7 @@ class MessagesByTopic : Identifiable, BindableObject {
     }
     
     func getFirst() -> String {
-        return messages.isEmpty ? "" : messages[0].data
+        return messages.isEmpty ? "<undef>" : messages[0].data
     }
 }
 
@@ -133,6 +133,12 @@ class MessageModel : BindableObject {
         }
         
         return values
+    }
+    
+    func readall() {
+        messagesByTopic.values.forEach { $0.markRead() }
+        
+        didChange.send()
     }
     
     func countMessages() -> Int {
