@@ -41,25 +41,26 @@ class MessagesByTopic : Identifiable, BindableObject {
         if (message.isJson()) {
             let jsonData = message.jsonData!
             if (jsonData.count > 0) {
-                traverseJson(node: message.jsonData![0])
+                traverseJson(node: message.jsonData![0], path: "")
             }
         }
     }
     
-    func traverseJson(node: Dictionary<String, Any>) {
+    func traverseJson(node: Dictionary<String, Any>, path: String) {
         print(node)
         
         node.forEach {
             let child = $0.value
             if (child is Dictionary<String, Any>) {
-                traverseJson(node: child as! Dictionary<String, Any>)
+                let nextPath = path + $0.key
+                traverseJson(node: child as! Dictionary<String, Any>, path: nextPath + ".")
             }
         }
 
         let numberKeys = node.filter { $0.value is NSNumber }
             .map { $0.key }
         
-        numberKeys.map { DiagramPath($0) }
+        numberKeys.map { DiagramPath(path + $0) }
             .forEach { self.diagrams.insert($0)}
     }
     
@@ -276,10 +277,10 @@ class HostsModel : BindableObject {
     
     class func sampleModel() -> HostsModel {
         let host = Host()
-//        host.alias = "pisvr"
-//        host.hostname = "192.168.3.3"
-        host.alias = "Mosquitto Test server"
-        host.hostname = "test.mosquitto.org"
+        host.alias = "pisvr"
+        host.hostname = "192.168.3.3"
+//        host.alias = "Mosquitto Test server"
+//        host.hostname = "test.mosquitto.org"
         
         return HostsModel(hosts: [host])
     }
