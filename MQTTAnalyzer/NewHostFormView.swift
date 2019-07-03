@@ -95,8 +95,8 @@ struct ServerFormView : View {
                     .foregroundColor(.secondary)
                     .font(.headline)
                 Spacer()
-
-                TextField($host.alias, placeholder: Text("optional"))
+                
+                TextField("optional", text: $host.alias)
                     .multilineTextAlignment(.trailing)
             }
             HStack {
@@ -105,7 +105,7 @@ struct ServerFormView : View {
 
                 Spacer()
 
-                TextField($host.hostname, placeholder: Text("ip address / name"))
+                TextField("ip address / name", text: $host.hostname)
                 .multilineTextAlignment(.trailing)
             }
             HStack {
@@ -114,7 +114,7 @@ struct ServerFormView : View {
 
                 Spacer()
 
-                TextField($host.port, placeholder: Text("1883"))
+                TextField("1883", text: $host.port)
                 .multilineTextAlignment(.trailing)
             }
         }
@@ -133,7 +133,7 @@ struct TopicFormView : View {
                 
                 Spacer()
                 
-                TextField($host.topic, placeholder: Text("#"))
+                TextField("#", text: $host.topic)
                     .multilineTextAlignment(.trailing)
             }
             
@@ -172,7 +172,7 @@ struct AuthFormView : View {
                     
                     Spacer()
                 
-                    TextField($host.username)
+                    TextField("username", text: $host.username)
                         .multilineTextAlignment(.trailing)
                 }
                 
@@ -182,7 +182,7 @@ struct AuthFormView : View {
                     
                         Spacer()
                     
-                        SecureField($host.password)
+                    SecureField("password", text: $host.password)
                             .multilineTextAlignment(.trailing)
                 }
             }

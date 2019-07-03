@@ -50,7 +50,7 @@ struct MessageGroupCell : View {
     var messages: MessagesByTopic
     
     var body: some View {
-        NavigationButton(destination: MessagesView(messagesByTopic: messages)) {
+        NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
             HStack {
                 messages.read ?
                     Image(systemName: "circle")

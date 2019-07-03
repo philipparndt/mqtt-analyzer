@@ -13,7 +13,7 @@ struct MessageCell : View {
     let topic: Topic
     
     var body: some View {
-        NavigationButton(destination: MessageDetailsView(message: message, topic: topic)) {
+        NavigationLink(destination: MessageDetailsView(message: message, topic: topic)) {
             HStack {
                 Image(systemName: "radiowaves.right")
                     .font(.subheadline)
@@ -34,7 +34,7 @@ struct ChartCell : View {
     let path : String
 
     var body: some View {
-        NavigationButton(destination: ChartDetailsView(title: path)) {
+        NavigationLink(destination: ChartDetailsView(title: path)) {
             HStack {
                 Image(systemName: "chart.bar")
                     .font(.subheadline)

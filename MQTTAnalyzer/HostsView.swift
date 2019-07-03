@@ -53,7 +53,7 @@ struct HostCell : View {
     var messageModel: MessageModel
     
     var body: some View {
-        NavigationButton(destination: TopicsView(model: messageModel)) {
+        NavigationLink(destination: TopicsView(model: messageModel)) {
             HStack {
                 Image(systemName: "desktopcomputer")
                     .foregroundColor(.green)
