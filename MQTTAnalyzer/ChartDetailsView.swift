@@ -30,7 +30,7 @@ struct ChartDetailsView : View {
                         Chart(path: path, messagesByTopic: messagesByTopic)
                     }
                     Section(header: Text("Values")) {
-                        ForEach(messagesByTopic.getTimeSeriesId(path)) {
+                        ForEach(messagesByTopic.getTimeSeriesId(path).reversed()) {
                             ValueCell(path: $0)
                         }
                     }
