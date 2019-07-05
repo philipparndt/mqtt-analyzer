@@ -20,7 +20,7 @@ class MessagesByTopic : Identifiable, BindableObject {
         }
     }
     
-    var timeSeries = Multimap<DiagramPath, NSNumber>() {
+    var timeSeries = Multimap<DiagramPath, TimeSeriesValue>() {
         didSet {
             didChange.send()
         }
@@ -44,21 +44,21 @@ class MessagesByTopic : Identifiable, BindableObject {
         if (message.isJson()) {
             let jsonData = message.jsonData!
             if (jsonData.count > 0) {
-                traverseJson(node: message.jsonData![0], path: "")
+                traverseJson(node: message.jsonData![0], path: "", dateFormatted: message.dateString)
             }
         }
         
         messages.insert(message, at: 0)
     }
     
-    func traverseJson(node: Dictionary<String, Any>, path: String) {
+    func traverseJson(node: Dictionary<String, Any>, path: String, dateFormatted: String) {
         print(node)
         
         node.forEach {
             let child = $0.value
             if (child is Dictionary<String, Any>) {
                 let nextPath = path + $0.key
-                traverseJson(node: child as! Dictionary<String, Any>, path: nextPath + ".")
+                traverseJson(node: child as! Dictionary<String, Any>, path: nextPath + ".", dateFormatted: dateFormatted)
             }
         }
 
@@ -67,7 +67,7 @@ class MessagesByTopic : Identifiable, BindableObject {
                 let path = DiagramPath(path + $0.key)
                 let value : NSNumber = $0.value as! NSNumber
                 
-                self.timeSeries.put(key: path, value: value)
+                self.timeSeries.put(key: path, value: TimeSeriesValue(value: value, at: Date(), dateFormatted: dateFormatted))
             }
     }
     
@@ -84,27 +84,31 @@ class MessagesByTopic : Identifiable, BindableObject {
         return Array(timeSeries._dict.keys)
     }
     
-    func getTimeSeries(_ path: DiagramPath) -> [NSNumber] {
-        return timeSeries._dict[path] ?? [NSNumber]()
+    func getTimeSeries(_ path: DiagramPath) -> [TimeSeriesValue] {
+        return timeSeries._dict[path] ?? [TimeSeriesValue]()
     }
     
     func getTimeSeriesInt(_ path: DiagramPath) -> [Int] {
-        return getTimeSeries(path).map { $0.intValue }
+        return getTimeSeries(path).map { $0.num.intValue }
     }
     
-    func getTimeSeriesId(_ path: DiagramPath) -> [IdentifiableNumber] {
-        return getTimeSeries(path).map { IdentifiableNumber(num: $0) }
+    func getTimeSeriesId(_ path: DiagramPath) -> [TimeSeriesValue] {
+        return getTimeSeries(path)
     }
 }
 
-class IdentifiableNumber : Hashable, Identifiable {
+class TimeSeriesValue : Hashable, Identifiable {
     let num : NSNumber
+    let date : Date
+    let dateString: String
     
-    init(num : NSNumber) {
+    init(value num : NSNumber, at date: Date, dateFormatted: String) {
         self.num = num
+        self.date = date
+        self.dateString = dateFormatted
     }
     
-    static func == (lhs: IdentifiableNumber, rhs: IdentifiableNumber) -> Bool {
+    static func == (lhs: TimeSeriesValue, rhs: TimeSeriesValue) -> Bool {
         return lhs.num == rhs.num
     }
     

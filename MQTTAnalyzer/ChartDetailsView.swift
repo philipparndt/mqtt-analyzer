@@ -41,17 +41,17 @@ struct ChartDetailsView : View {
 }
 
 struct ValueCell : View {
-    let path : IdentifiableNumber
+    let path : TimeSeriesValue
     
     var body: some View {
         HStack {
-            Image(systemName: "chart.bar")
+            Image(systemName: "number.circle.fill")
                 .font(.subheadline)
                 .foregroundColor(.blue)
             
-            VStack (alignment: .leading) {
-                Text("\(path.num)")
-            }
+            Text("\(path.num)")
+            Spacer()
+            Text("\(path.dateString)").foregroundColor(.secondary)
         }
     }
 }
@@ -68,10 +68,6 @@ struct Chart : View {
                 ChartRow(data: messagesByTopic.getTimeSeriesInt(self.path))
                 .foregroundColor(.blue)
             }.frame(height: CGFloat(150))
-            
-//            ChartView(data: messagesByTopic.getTimeSeriesInt(self.path),
-//                      title: "",
-//                      legend: path.path, backgroundColor:Color(red: 226.0/255.0, green: 250.0/255.0, blue: 231.0/255.0) , accentColor:Color(red: 114.0/255.0, green: 191.0/255.0, blue: 130.0/255.0))
         }
     }
 }

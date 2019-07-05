@@ -10,7 +10,6 @@ import SwiftUI
 
 public struct ChartCell : View {
     var value: Double
-    var index: Int = 0
     var width: Float
     var numberOfDataPoints: Int
     var cellWidth: Double {
@@ -28,6 +27,8 @@ public struct ChartCell : View {
                 self.scaleValue = self.value
         }
         .animation(Animation.spring())
+        
+        
         
     }
 }

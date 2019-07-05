@@ -20,5 +20,148 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "09CCE559-FCE8-4F21-99E8-35D995CF1B9E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MQTTAnalyzer/Timeseries/ChartRow.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "09CCE559-FCE8-4F21-99E8-35D995CF1B9E - 1d0b3670ab9a6eec"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MQTTAnalyzer.ChartRow.body.getter : some"
+                  moduleName = "MQTTAnalyzer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartRow.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "09CCE559-FCE8-4F21-99E8-35D995CF1B9E - c94675c940c34767"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI._ModifiedContent&lt;SwiftUI.HStack&lt;SwiftUI.ForEach&lt;Swift.Array&lt;Swift.Int&gt;, MQTTAnalyzer.ChartCell&gt;&gt;, SwiftUI._PaddingLayout&gt; in MQTTAnalyzer.ChartRow.body.getter : some"
+                  moduleName = "MQTTAnalyzer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartRow.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "204">
+               </Location>
+               <Location
+                  uuid = "09CCE559-FCE8-4F21-99E8-35D995CF1B9E - 3cfb3aef1fbb3ccb"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;Swift.Int&gt;, MQTTAnalyzer.ChartCell&gt; in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI._ModifiedContent&lt;SwiftUI.HStack&lt;SwiftUI.ForEach&lt;Swift.Array&lt;Swift.Int&gt;, MQTTAnalyzer.ChartCell&gt;&gt;, SwiftUI._PaddingLayout&gt; in MQTTAnalyzer.ChartRow.body.getter : some"
+                  moduleName = "MQTTAnalyzer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartRow.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E266CB70-B6D0-4EC6-AF9B-165467F7CA52"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MQTTAnalyzer/Timeseries/ChartCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "E266CB70-B6D0-4EC6-AF9B-165467F7CA52 - d75257361d93fe88"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MQTTAnalyzer.ChartCell.body.getter : some"
+                  moduleName = "MQTTAnalyzer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "360">
+               </Location>
+               <Location
+                  uuid = "E266CB70-B6D0-4EC6-AF9B-165467F7CA52 - aca856f98ea74571"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI._ModifiedContent&lt;SwiftUI.Rectangle, SwiftUI._ClipEffect&lt;SwiftUI.RoundedRectangle&gt;&gt; in MQTTAnalyzer.ChartCell.body.getter : some"
+                  moduleName = "MQTTAnalyzer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DA1FCDFD-B075-4780-A9C7-07C21701BFB9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MQTTAnalyzer/Timeseries/ChartRow.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC7ACA7C-674A-4ECB-83D5-51864B1594AE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MQTTAnalyzer/Timeseries/ChartRow.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

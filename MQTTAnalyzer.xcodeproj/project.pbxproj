@@ -18,7 +18,6 @@
 		2253F8FB22C8C008007E35A2 /* MQTTAnalyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */; };
 		228911D122CF86D10095301F /* ChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228911D022CF86D10095301F /* ChartCell.swift */; };
 		228911D322CF86D70095301F /* ChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228911D222CF86D70095301F /* ChartRow.swift */; };
-		228911D722CF87040095301F /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228911D622CF87030095301F /* ChartView.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
 		22FD7CF222C8C44A0078795F /* SwiftMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22FD7CF122C8C44A0078795F /* SwiftMQTT */; };
@@ -67,7 +66,6 @@
 		2253F8FC22C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		228911D022CF86D10095301F /* ChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCell.swift; sourceTree = "<group>"; };
 		228911D222CF86D70095301F /* ChartRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRow.swift; sourceTree = "<group>"; };
-		228911D622CF87030095301F /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		22D50F9622CE4C4300F37EAF /* Multimap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multimap.swift; sourceTree = "<group>"; };
 		22FD7CF622C8D2650078795F /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
@@ -181,7 +179,6 @@
 			children = (
 				228911D022CF86D10095301F /* ChartCell.swift */,
 				228911D222CF86D70095301F /* ChartRow.swift */,
-				228911D622CF87030095301F /* ChartView.swift */,
 			);
 			path = Timeseries;
 			sourceTree = "<group>";
@@ -349,7 +346,6 @@
 				2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */,
 				228911D122CF86D10095301F /* ChartCell.swift in Sources */,
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
-				228911D722CF87040095301F /* ChartView.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
 				22FD7D0522C8D2820078795F /* ChartDetailsView.swift in Sources */,
