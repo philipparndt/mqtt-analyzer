@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import SwiftUICharts
 
 struct TopicsView : View {
     @ObjectBinding

@@ -30,18 +30,19 @@ struct MessageCell : View {
     }
 }
 
-struct ChartCell : View {
-    let path : String
+struct ChartsCell : View {
+    let path : DiagramPath
+    @ObjectBinding var messagesByTopic: MessagesByTopic
 
     var body: some View {
-        NavigationLink(destination: ChartDetailsView(title: path)) {
+        NavigationLink(destination: ChartDetailsView(path: path, messagesByTopic: messagesByTopic)) {
             HStack {
                 Image(systemName: "chart.bar")
                     .font(.subheadline)
                     .foregroundColor(.blue)
 
                 VStack (alignment: .leading) {
-                    Text(path)
+                    Text(path.path)
                 }
             }
         }
@@ -61,24 +62,9 @@ struct MessagesView : View {
                 }
                 Section(header: Text("Diagrams")) {
                     ForEach(messagesByTopic.getDiagrams()) {
-                        ChartCell(path: $0.path)
+                        ChartsCell(path: $0, messagesByTopic: self.messagesByTopic)
                     }
                 }
-//                Section(header: Text("Diagrams")) {
-//                    ForEach(messagesByTopic.messages) { ChartCell(path: $0) }
-//
-//
-//                    ForEach(messagesByTopic.diagrams) { ChartCell(path: $0.path) }
-//
-//                    ForEach(messagesByTopic.getDiagrams()) { diagram in
-//                        ChartCell(path: diagram.path)
-//                    }
-//                }
-                
-//                Section(header: Text("Messages")) {
-//                    ForEach(messagesByTopic.messages) { ChartCell(path: self.messagesByTopic.topic) }
-//                        .onDelete(perform: messagesByTopic.delete)
-//                }
                 
                 Section(header: Text("Messages")) {
                     ForEach(messagesByTopic.messages) { MessageCell(message: $0, topic: self.messagesByTopic.topic) }

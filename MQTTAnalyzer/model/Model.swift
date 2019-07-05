@@ -20,7 +20,11 @@ class MessagesByTopic : Identifiable, BindableObject {
         }
     }
     
-    var diagrams = Set<DiagramPath>()
+    var timeSeries = Multimap<DiagramPath, NSNumber>() {
+        didSet {
+            didChange.send()
+        }
+    }
     
     var didChange = PassthroughSubject<Void, Never>()
 
@@ -35,7 +39,6 @@ class MessagesByTopic : Identifiable, BindableObject {
     }
 
     func newMessage(_ message : Message) {
-        messages.insert(message, at: 0)
         read = false
         
         if (message.isJson()) {
@@ -44,6 +47,8 @@ class MessagesByTopic : Identifiable, BindableObject {
                 traverseJson(node: message.jsonData![0], path: "")
             }
         }
+        
+        messages.insert(message, at: 0)
     }
     
     func traverseJson(node: Dictionary<String, Any>, path: String) {
@@ -57,11 +62,13 @@ class MessagesByTopic : Identifiable, BindableObject {
             }
         }
 
-        let numberKeys = node.filter { $0.value is NSNumber }
-            .map { $0.key }
-        
-        numberKeys.map { DiagramPath(path + $0) }
-            .forEach { self.diagrams.insert($0)}
+        node.filter { $0.value is NSNumber }
+            .forEach {
+                let path = DiagramPath(path + $0.key)
+                let value : NSNumber = $0.value as! NSNumber
+                
+                self.timeSeries.put(key: path, value: value)
+            }
     }
     
     func markRead() {
@@ -74,7 +81,35 @@ class MessagesByTopic : Identifiable, BindableObject {
     }
     
     func getDiagrams() -> [DiagramPath] {
-        return Array(diagrams)
+        return Array(timeSeries._dict.keys)
+    }
+    
+    func getTimeSeries(_ path: DiagramPath) -> [NSNumber] {
+        return timeSeries._dict[path] ?? [NSNumber]()
+    }
+    
+    func getTimeSeriesInt(_ path: DiagramPath) -> [Int] {
+        return getTimeSeries(path).map { $0.intValue }
+    }
+    
+    func getTimeSeriesId(_ path: DiagramPath) -> [IdentifiableNumber] {
+        return getTimeSeries(path).map { IdentifiableNumber(num: $0) }
+    }
+}
+
+class IdentifiableNumber : Hashable, Identifiable {
+    let num : NSNumber
+    
+    init(num : NSNumber) {
+        self.num = num
+    }
+    
+    static func == (lhs: IdentifiableNumber, rhs: IdentifiableNumber) -> Bool {
+        return lhs.num == rhs.num
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(num)
     }
 }
 
