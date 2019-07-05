@@ -36,7 +36,7 @@ struct ChartDetailsView : View {
                     }
                 }.listStyle(.grouped)
             }
-        }
+        }.navigationBarTitle(path.path)
     }
 }
 
