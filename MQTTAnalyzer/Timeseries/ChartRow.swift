@@ -11,7 +11,16 @@ import SwiftUI
 public struct ChartRow : View {
     var data: [Int]
     var maxValue: Int {
-        data.max() ?? 0
+        get {
+            let result = data.max() ?? 1
+            
+            if (result != 0) {
+                return result
+            }
+            else {
+                return 1
+            }
+        }
     }
     public var body: some View {
         GeometryReader { geometry in
