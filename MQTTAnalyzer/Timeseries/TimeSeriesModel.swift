@@ -21,11 +21,11 @@ class MTimeSeriesModel {
 
     var values : [MTimeSeriesValue] = []
     
-    func getMeanValue(amount segements : Int, in rangeHours : Int, to end: Date) -> [MTimeSeriesMeanValue] {
+    func getMeanValue(amount segements : Int, in rangeMinutes : Int, to end: Date) -> [MTimeSeriesMeanValue] {
         // MARK: TODO Subscript for mean values in range
         
-        let distance = TimeInterval((rangeHours * 60 * 60) / segements)
-        let start = end.advanced(by: -distance)
+        let distance = TimeInterval((rangeMinutes * 60) / segements)
+        let start = end.advanced(by: -TimeInterval((rangeMinutes * 60)))
         
         let inRange = valuesInRange(values: values, from: start, to: end)
         

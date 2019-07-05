@@ -65,7 +65,7 @@ struct Chart : View {
 
         VStack {
             ZStack {
-                ChartRow(data: messagesByTopic.getTimeSeriesInt(self.path))
+                ChartRow(data: messagesByTopic.getValuesLastHour(self.path))
                 .foregroundColor(.blue)
             }.frame(height: CGFloat(150))
         }

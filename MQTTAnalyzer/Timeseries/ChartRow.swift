@@ -22,6 +22,7 @@ public struct ChartRow : View {
             }
         }
     }
+
     public var body: some View {
         GeometryReader { geometry in
             HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width-22)/CGFloat(self.data.count * 3)){
@@ -33,7 +34,7 @@ public struct ChartRow : View {
                     )
                 }
             }.padding([.trailing,.leading], 15)
-        }
+        }.drawingGroup()
     }
 }
 

@@ -26,6 +26,12 @@ class MessagesByTopic : Identifiable, BindableObject {
         }
     }
     
+    var timeSeriesModels = [DiagramPath : MTimeSeriesModel]() {
+        didSet {
+            didChange.send()
+        }
+    }
+    
     var didChange = PassthroughSubject<Void, Never>()
 
     init(topic: Topic, messages: [Message]) {
@@ -68,6 +74,16 @@ class MessagesByTopic : Identifiable, BindableObject {
                 let value : NSNumber = $0.value as! NSNumber
                 
                 self.timeSeries.put(key: path, value: TimeSeriesValue(value: value, at: Date(), dateFormatted: dateFormatted))
+                
+                let val = MTimeSeriesValue(value: value, timestamp: Date())
+                if let existingValues = self.timeSeriesModels[path] {
+                    existingValues.values.append(val)
+                    self.timeSeriesModels[path] = existingValues
+                } else {
+                    let model = MTimeSeriesModel()
+                    model.values.append(val)
+                    self.timeSeriesModels[path] = model
+                }
             }
     }
     
@@ -94,6 +110,21 @@ class MessagesByTopic : Identifiable, BindableObject {
     
     func getTimeSeriesId(_ path: DiagramPath) -> [TimeSeriesValue] {
         return getTimeSeries(path)
+    }
+    
+    func getValuesLastHour(_ path: DiagramPath) -> [Int] {
+        if let model = self.timeSeriesModels[path] {
+            let values = model.getMeanValue(amount: 30, in: 30, to: Date())
+                .map { $0.meanValue ?? 0 }
+            
+//            let minValue = values.filter {$0 != 0} .min() ?? 0
+//            return values
+//                .map { $0 == 0 ? 1 : $0 - minValue }
+            
+            return values
+        } else {
+            return [Int]()
+        }
     }
 }
 
