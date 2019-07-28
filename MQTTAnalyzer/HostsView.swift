@@ -32,9 +32,9 @@ struct HostsView : View {
                 }
             )
         }
-            .presentation( isPresented ?
-                Modal(NewHostFormModalView(isPresented: $isPresented, hosts: model.hostsModel), onDismiss: cancelHostCreation)
-                : nil )
+        .sheet(isPresented: $isPresented, onDismiss: cancelHostCreation, content: {
+            NewHostFormModalView(isPresented: self.$isPresented, hosts: self.model.hostsModel)
+        })
     }
     
     func createHost() {
