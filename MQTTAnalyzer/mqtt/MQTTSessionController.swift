@@ -14,19 +14,24 @@ class MQTTSessionController: MQTTSessionDelegate {
     
     var mqttSession: MQTTSession!
     let model : MessageModel
+    let host : Host
     
     init(host: Host, model: MessageModel) {
         self.model = model
+        self.host = host
         
-        connect(host)
+        self.host.reconnectDelegate = reconnect
+        
+        reconnect()
     }
     
     deinit {
+        host.connected = false
         print("MQTTController deinit")
     }
-    
-    func connect(_ host: Host) {
-        establishConnection(host)
+        
+    func reconnect() {
+        establishConnection(self.host)
     }
     
     func establishConnection(_ host: Host) {
@@ -43,9 +48,11 @@ class MQTTSessionController: MQTTSessionDelegate {
         
         mqttSession.connect {
             if $0 == .none {
+                host.connected = true
                 print("MQTT Connected.")
                 self.subscribeToChannel(host)
             } else {
+                host.connected = false
                 print("Error occurred during connection:")
                 print($0.description)
             }
@@ -80,6 +87,7 @@ class MQTTSessionController: MQTTSessionDelegate {
     
     func mqttDidDisconnect(session: MQTTSession, error: MQTTSessionError) {
         print("mqtt disconnected")
+        host.connected = false
     }
     
     // MARK: - Utilities

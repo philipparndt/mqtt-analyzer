@@ -12,8 +12,26 @@ struct TopicsView : View {
     @ObjectBinding
     var model : MessageModel
     
+    @ObjectBinding
+    var host : Host
+    
     var body: some View {
         List {
+            if (!host.connected) {
+                Section(header: Text("Connection")) {
+                    HStack {
+                        Image(systemName: "desktopcomputer")
+                                            .padding()
+                        
+                        Button(action: reconnect) {
+                            Text("Disconnected")
+                        }
+                    }.foregroundColor(.red)
+
+                   
+                }
+            }
+            
             Section(header: Text("Tools")) {
                 HStack {
                     Text("Topics")
@@ -41,6 +59,10 @@ struct TopicsView : View {
         .navigationBarTitle(Text("home/#"), displayMode: .inline)
         .navigationBarItems(trailing: EditButton())
         .listStyle(.grouped)
+    }
+    
+    func reconnect() {
+        self.host.reconnect()
     }
 }
 

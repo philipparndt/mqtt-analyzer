@@ -14,29 +14,29 @@
             filePath = "MQTTAnalyzer/mqtt/MQTTSessionController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "mqttDidReceive(message:from:)"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "subscribeToChannel(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "09CCE559-FCE8-4F21-99E8-35D995CF1B9E"
+            uuid = "EA885426-4586-403F-97E7-1931EDBE4F2F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MQTTAnalyzer/Timeseries/ChartRow.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "09CCE559-FCE8-4F21-99E8-35D995CF1B9E - 1d0b3670ab9a6eec"
+                  uuid = "EA885426-4586-403F-97E7-1931EDBE4F2F - 1d0b3670ab9a6eec"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -46,12 +46,12 @@
                   urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartRow.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "52">
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "28">
                </Location>
                <Location
-                  uuid = "09CCE559-FCE8-4F21-99E8-35D995CF1B9E - c94675c940c34767"
+                  uuid = "EA885426-4586-403F-97E7-1931EDBE4F2F - c94675c940c34767"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -61,12 +61,12 @@
                   urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartRow.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "204">
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "216">
                </Location>
                <Location
-                  uuid = "09CCE559-FCE8-4F21-99E8-35D995CF1B9E - 3cfb3aef1fbb3ccb"
+                  uuid = "EA885426-4586-403F-97E7-1931EDBE4F2F - 3cfb3aef1fbb3ccb"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -76,9 +76,9 @@
                   urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartRow.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "32">
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "39">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -86,63 +86,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E266CB70-B6D0-4EC6-AF9B-165467F7CA52"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MQTTAnalyzer/Timeseries/ChartCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "E266CB70-B6D0-4EC6-AF9B-165467F7CA52 - d75257361d93fe88"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MQTTAnalyzer.ChartCell.body.getter : some"
-                  moduleName = "MQTTAnalyzer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20"
-                  offsetFromSymbolStart = "360">
-               </Location>
-               <Location
-                  uuid = "E266CB70-B6D0-4EC6-AF9B-165467F7CA52 - aca856f98ea74571"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; SwiftUI._ModifiedContent&lt;SwiftUI.Rectangle, SwiftUI._ClipEffect&lt;SwiftUI.RoundedRectangle&gt;&gt; in MQTTAnalyzer.ChartCell.body.getter : some"
-                  moduleName = "MQTTAnalyzer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DA1FCDFD-B075-4780-A9C7-07C21701BFB9"
+            uuid = "AA6C04CF-DE76-4F45-A1D9-F2980D804571"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MQTTAnalyzer/Timeseries/ChartRow.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -150,17 +102,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CC7ACA7C-674A-4ECB-83D5-51864B1594AE"
+            uuid = "FEFC2842-6CA5-480B-9EC5-4BE4BCA6BE61"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MQTTAnalyzer/Timeseries/ChartRow.swift"
+            filePath = "MQTTAnalyzer/model/Model.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "getValuesLastHour(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E96A03C5-48D1-45BF-A487-B8C4C8AFB032"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MQTTAnalyzer/Timeseries/TimeSeriesModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
             endingLineNumber = "30"
-            landmarkName = "body"
-            landmarkType = "24">
+            landmarkName = "getMeanValue(amount:in:to:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

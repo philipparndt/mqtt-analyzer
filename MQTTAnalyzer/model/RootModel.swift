@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 class RootModel: BindableObject {
-    var didChange = PassthroughSubject<RootModel, Never>()
+    var willChange = PassthroughSubject<RootModel, Never>()
     
     let mqttSession: MQTTSessionController
     let hostsModel: HostsModel

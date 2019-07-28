@@ -26,6 +26,9 @@ struct ChartDetailsView : View {
             
             VStack (alignment: .leading) {
                 List {
+                    Section(header: Text("Diagram Demo")) {
+                        ChartDemo()
+                    }
                     Section(header: Text("Diagram")) {
                         Chart(path: path, messagesByTopic: messagesByTopic)
                     }
@@ -67,6 +70,25 @@ struct Chart : View {
             ZStack {
                 ChartRow(data: messagesByTopic.getValuesLastHour(self.path))
                 .foregroundColor(.blue)
+            }.frame(height: CGFloat(150))
+        }
+    }
+}
+
+struct ChartDemo : View {
+    
+    var body: some View {
+        
+        VStack {
+            ZStack {
+                ChartRow(data: [1,2,3,4,5,6,7,8,9,0,
+                                1,2,3,4,5,6,7,8,9,0,
+                                1,2,3,4,5,6,7,8,9,0,
+                                1,2,3,4,5,6,7,8,9,0,
+                                1,2,3,4,5,6,7,8,9,0,
+                                1,2,3,4,5,6,7,8,9,0,
+                              ])
+                    .foregroundColor(.blue)
             }.frame(height: CGFloat(150))
         }
     }

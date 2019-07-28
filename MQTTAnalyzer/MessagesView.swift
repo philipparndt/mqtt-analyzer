@@ -41,11 +41,20 @@ struct ChartsCell : View {
                     .font(.subheadline)
                     .foregroundColor(.blue)
 
-                VStack (alignment: .leading) {
-                    Text(path.path)
-                }
+                Text(path.path)
+                
+                Spacer()
+                
+                Text(lastValue().stringValue)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
             }
         }
+    }
+    
+    func lastValue() -> NSNumber {
+        let last = self.messagesByTopic.getTimeSeriesLastValue(self.path)
+        return last.map { $0.num } ?? 0
     }
 }
 

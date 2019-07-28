@@ -53,10 +53,10 @@ struct HostCell : View {
     var messageModel: MessageModel
     
     var body: some View {
-        NavigationLink(destination: TopicsView(model: messageModel)) {
+        NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
             HStack {
                 Image(systemName: "desktopcomputer")
-                    .foregroundColor(.green)
+                    .foregroundColor(host.connected ? .green : .red)
                     .padding()
                 
                 VStack(alignment: .leading) {

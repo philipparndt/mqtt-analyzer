@@ -15,24 +15,24 @@ class MessagesByTopic : Identifiable, BindableObject {
     var read: Bool = true
     
     var messages: [Message] {
-        didSet {
-            didChange.send()
+        willSet {
+            willChange.send()
         }
     }
     
     var timeSeries = Multimap<DiagramPath, TimeSeriesValue>() {
-        didSet {
-            didChange.send()
+        willSet {
+            willChange.send()
         }
     }
     
     var timeSeriesModels = [DiagramPath : MTimeSeriesModel]() {
-        didSet {
-            didChange.send()
+        willSet {
+            willChange.send()
         }
     }
     
-    var didChange = PassthroughSubject<Void, Never>()
+    var willChange = PassthroughSubject<Void, Never>()
 
     init(topic: Topic, messages: [Message]) {
         self.topic = topic
@@ -88,8 +88,8 @@ class MessagesByTopic : Identifiable, BindableObject {
     }
     
     func markRead() {
+        willChange.send()
         read = true
-        didChange.send()
     }
     
     func getFirst() -> String {
@@ -98,6 +98,11 @@ class MessagesByTopic : Identifiable, BindableObject {
     
     func getDiagrams() -> [DiagramPath] {
         return Array(timeSeries._dict.keys)
+    }
+    
+    func getTimeSeriesLastValue(_ path: DiagramPath) -> TimeSeriesValue? {
+        let values = timeSeries._dict[path] ?? [TimeSeriesValue]()
+        return values.last
     }
     
     func getTimeSeries(_ path: DiagramPath) -> [TimeSeriesValue] {
@@ -233,10 +238,10 @@ class Topic : Hashable {
 class MessageModel : BindableObject {
 
     var messagesByTopic: [String: MessagesByTopic] {
-        didSet { didChange.send() }
+        willSet { willChange.send() }
     }
     
-    var didChange = PassthroughSubject<Void, Never>()
+    var willChange = PassthroughSubject<Void, Never>()
     
     init(messagesByTopic: [String: MessagesByTopic] = [:]) {
         self.messagesByTopic = messagesByTopic
@@ -253,9 +258,8 @@ class MessageModel : BindableObject {
     }
     
     func readall() {
+        willChange.send()
         messagesByTopic.values.forEach { $0.markRead() }
-        
-        didChange.send()
     }
     
     func countMessages() -> Int {
@@ -280,7 +284,7 @@ class MessageModel : BindableObject {
         
         msgbt!.newMessage(message)
         
-        didChange.send()
+        willChange.send()
     }
     
     class func sampleModel() -> MessageModel {
@@ -309,7 +313,10 @@ class MessageModel : BindableObject {
     }
 }
 
-class Host : Identifiable, Hashable {
+class Host : Identifiable, Hashable, BindableObject {
+    var willChange = PassthroughSubject<Void, Never>()
+    
+    
     var alias : String = ""
     var hostname : String = ""
     var port : UInt16 = 1883
@@ -320,6 +327,16 @@ class Host : Identifiable, Hashable {
     var auth : Bool = false
     var username : String = ""
     var password : String = ""
+    
+    var reconnectDelegate: (()->())?
+
+    var connected = false {
+        willSet { willChange.send() }
+    }
+    
+    func reconnect() {
+        self.reconnectDelegate?()
+    }
     
     static func == (lhs: Host, rhs: Host) -> Bool {
         return lhs.hostname == rhs.hostname
@@ -336,10 +353,10 @@ class Host : Identifiable, Hashable {
 
 class HostsModel : BindableObject {
     var hosts: [Host] {
-        didSet { didChange.send() }
+        willSet { willChange.send() }
     }
     
-    var didChange = PassthroughSubject<Void, Never>()
+    var willChange = PassthroughSubject<Void, Never>()
     
     init(hosts: [Host] = []) {
         self.hosts = hosts
