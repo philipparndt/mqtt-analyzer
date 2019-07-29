@@ -35,6 +35,7 @@ class MQTTSessionController: MQTTSessionDelegate {
     }
     
     func establishConnection(_ host: Host) {
+        host.connecting = true
         let clientID = self.clientID()
         
         mqttSession = MQTTSession(host: host.hostname,
@@ -49,10 +50,12 @@ class MQTTSessionController: MQTTSessionDelegate {
         mqttSession.connect {
             if $0 == .none {
                 host.connected = true
+                host.connecting = false
                 print("MQTT Connected.")
                 self.subscribeToChannel(host)
             } else {
                 host.connected = false
+                host.connecting = false
                 print("Error occurred during connection:")
                 print($0.description)
             }

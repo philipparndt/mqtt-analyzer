@@ -334,6 +334,10 @@ class Host : Identifiable, Hashable, BindableObject {
         willSet { willChange.send() }
     }
     
+    var connecting = false {
+        willSet { willChange.send() }
+    }
+    
     func reconnect() {
         self.reconnectDelegate?()
     }

@@ -17,20 +17,7 @@ struct TopicsView : View {
     
     var body: some View {
         List {
-            if (!host.connected) {
-                Section(header: Text("Connection")) {
-                    HStack {
-                        Image(systemName: "desktopcomputer")
-                                            .padding()
-                        
-                        Button(action: reconnect) {
-                            Text("Disconnected")
-                        }
-                    }.foregroundColor(.red)
-
-                   
-                }
-            }
+            ReconnectView(host: self.host)
             
             Section(header: Text("Tools")) {
                 HStack {
