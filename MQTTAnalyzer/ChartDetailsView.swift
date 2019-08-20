@@ -16,15 +16,14 @@ struct ChartDetailsView : View {
     @State var range : Int = 60
     
     var body: some View {
-        Text("test")
-        /*
+
         VStack {
             Picker(selection: $range, label: Text("")) {
                 Text("1h").tag(60)
                 Text("6h").tag(60 * 6)
                 Text("12h").tag(60 * 12)
                 Text("1d").tag(60 * 24)
-            }.padding()
+                }.pickerStyle(SegmentedPickerStyle()).padding()
             
             VStack (alignment: .leading) {
                 List {
@@ -39,10 +38,10 @@ struct ChartDetailsView : View {
                             ValueCell(path: $0)
                         }
                     }
-                }.listStyle(.grouped)
+                }
+                .listStyle(GroupedListStyle())
             }
         }
-        .navigationBarTitle(path.path) */
     }
 }
 
