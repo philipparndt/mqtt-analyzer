@@ -38,7 +38,7 @@ struct MessageDetailsView : View {
                     }
                 }
             }
-            .listStyle(.grouped)
+            .listStyle(GroupedListStyle())
         }
     }
 }

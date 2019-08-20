@@ -11,13 +11,15 @@ import SwiftUI
 struct ChartDetailsView : View {
     
     let path : DiagramPath
-    @ObjectBinding var messagesByTopic: MessagesByTopic
+    @ObservedObject var messagesByTopic: MessagesByTopic
 
     @State var range : Int = 60
     
     var body: some View {
+        Text("test")
+        /*
         VStack {
-            SegmentedControl(selection: $range) {
+            Picker(selection: $range, label: Text("")) {
                 Text("1h").tag(60)
                 Text("6h").tag(60 * 6)
                 Text("12h").tag(60 * 12)
@@ -39,7 +41,8 @@ struct ChartDetailsView : View {
                     }
                 }.listStyle(.grouped)
             }
-        }.navigationBarTitle(path.path)
+        }
+        .navigationBarTitle(path.path) */
     }
 }
 
@@ -62,7 +65,7 @@ struct ValueCell : View {
 struct Chart : View {
     
     let path : DiagramPath
-    @ObjectBinding var messagesByTopic: MessagesByTopic
+    @ObservedObject var messagesByTopic: MessagesByTopic
     
     var body: some View {
 

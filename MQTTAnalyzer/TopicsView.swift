@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct TopicsView : View {
-    @ObjectBinding
+    @ObservedObject
     var model : MessageModel
     
-    @ObjectBinding
+    @ObservedObject
     var host : Host
     
     var body: some View {
@@ -45,7 +45,7 @@ struct TopicsView : View {
         }
         .navigationBarTitle(Text("home/#"), displayMode: .inline)
         .navigationBarItems(trailing: EditButton())
-        .listStyle(.grouped)
+        .listStyle(GroupedListStyle())
     }
     
     func reconnect() {
@@ -54,7 +54,7 @@ struct TopicsView : View {
 }
 
 struct MessageGroupCell : View {
-    @ObjectBinding
+    @ObservedObject
     var messages: MessagesByTopic
     
     var body: some View {

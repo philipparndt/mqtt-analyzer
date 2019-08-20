@@ -32,7 +32,7 @@ struct MessageCell : View {
 
 struct ChartsCell : View {
     let path : DiagramPath
-    @ObjectBinding var messagesByTopic: MessagesByTopic
+    @ObservedObject var messagesByTopic: MessagesByTopic
 
     var body: some View {
         NavigationLink(destination: ChartDetailsView(path: path, messagesByTopic: messagesByTopic)) {
@@ -59,7 +59,7 @@ struct ChartsCell : View {
 }
 
 struct MessagesView : View {
-    @ObjectBinding var messagesByTopic: MessagesByTopic
+    @ObservedObject var messagesByTopic: MessagesByTopic
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -82,7 +82,7 @@ struct MessagesView : View {
             }
         }
         .navigationBarTitle(Text(messagesByTopic.topic.lastSegment))
-        .listStyle(.grouped)
+        .listStyle(GroupedListStyle())
             .onAppear {
                 self.messagesByTopic.markRead()
                 print("MessagesView appeared!")

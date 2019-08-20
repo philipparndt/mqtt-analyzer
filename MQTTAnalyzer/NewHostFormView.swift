@@ -138,16 +138,11 @@ struct TopicFormView : View {
             }
             
             HStack {
-                Text("QoS")
-                    .font(.headline)
-                
-                Spacer()
-                
-                SegmentedControl(selection: $host.qos) {
+                Picker(selection: $host.qos, label: Text("QoS")) {
                     Text("0").tag(0)
                     Text("1").tag(1)
                     Text("2").tag(2)
-                }
+                }.pickerStyle(SegmentedPickerStyle())
             }
         }
     }

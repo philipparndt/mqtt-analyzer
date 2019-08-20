@@ -10,29 +10,13 @@ import Foundation
 import SwiftUI
 import Combine
 
-class MessagesByTopic : Identifiable, BindableObject {
+class MessagesByTopic : Identifiable, ObservableObject {
     let topic: Topic
-    var read: Bool = true
     
-    var messages: [Message] {
-        willSet {
-            willChange.send()
-        }
-    }
-    
-    var timeSeries = Multimap<DiagramPath, TimeSeriesValue>() {
-        willSet {
-            willChange.send()
-        }
-    }
-    
-    var timeSeriesModels = [DiagramPath : MTimeSeriesModel]() {
-        willSet {
-            willChange.send()
-        }
-    }
-    
-    var willChange = PassthroughSubject<Void, Never>()
+    @Published var read: Bool = true
+    @Published var messages: [Message]
+    @Published var timeSeries = Multimap<DiagramPath, TimeSeriesValue>()
+    @Published var timeSeriesModels = [DiagramPath : MTimeSeriesModel]()
 
     init(topic: Topic, messages: [Message]) {
         self.topic = topic
@@ -88,7 +72,6 @@ class MessagesByTopic : Identifiable, BindableObject {
     }
     
     func markRead() {
-        willChange.send()
         read = true
     }
     
@@ -235,13 +218,9 @@ class Topic : Hashable {
     }
 }
 
-class MessageModel : BindableObject {
-
-    var messagesByTopic: [String: MessagesByTopic] {
-        willSet { willChange.send() }
-    }
+class MessageModel : ObservableObject {
     
-    var willChange = PassthroughSubject<Void, Never>()
+    @Published var messagesByTopic: [String: MessagesByTopic]
     
     init(messagesByTopic: [String: MessagesByTopic] = [:]) {
         self.messagesByTopic = messagesByTopic
@@ -258,7 +237,6 @@ class MessageModel : BindableObject {
     }
     
     func readall() {
-        willChange.send()
         messagesByTopic.values.forEach { $0.markRead() }
     }
     
@@ -274,7 +252,7 @@ class MessageModel : BindableObject {
     func append(topic: String, message: Message) {
 //        let newGroup = MessagesByTopic(topic: Topic(topic), messages:[])
         //        messagesByTopic[topic, default: newGroup].debugAddMessage()
-        
+
         var msgbt = messagesByTopic[topic]
         
         if (msgbt == nil) {
@@ -283,8 +261,6 @@ class MessageModel : BindableObject {
         }
         
         msgbt!.newMessage(message)
-        
-        willChange.send()
     }
     
     class func sampleModel() -> MessageModel {
@@ -313,9 +289,7 @@ class MessageModel : BindableObject {
     }
 }
 
-class Host : Identifiable, Hashable, BindableObject {
-    var willChange = PassthroughSubject<Void, Never>()
-    
+class Host : Identifiable, Hashable, ObservableObject {
     
     var alias : String = ""
     var hostname : String = ""
@@ -330,13 +304,9 @@ class Host : Identifiable, Hashable, BindableObject {
     
     var reconnectDelegate: (()->())?
 
-    var connected = false {
-        willSet { willChange.send() }
-    }
+    @Published var connected = false
     
-    var connecting = false {
-        willSet { willChange.send() }
-    }
+    @Published var connecting = false
     
     func reconnect() {
         self.reconnectDelegate?()
@@ -355,12 +325,8 @@ class Host : Identifiable, Hashable, BindableObject {
     }
 }
 
-class HostsModel : BindableObject {
-    var hosts: [Host] {
-        willSet { willChange.send() }
-    }
-    
-    var willChange = PassthroughSubject<Void, Never>()
+class HostsModel : ObservableObject {
+    @Published var hosts: [Host]
     
     init(hosts: [Host] = []) {
         self.hosts = hosts

@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ReconnectView : View {
     
-    @ObjectBinding
+    @ObservedObject
     var host : Host
     
     var body: some View {
