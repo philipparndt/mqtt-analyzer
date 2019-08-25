@@ -23,101 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EA885426-4586-403F-97E7-1931EDBE4F2F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MQTTAnalyzer/Timeseries/ChartRow.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "EA885426-4586-403F-97E7-1931EDBE4F2F - 1d0b3670ab9a6eec"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MQTTAnalyzer.ChartRow.body.getter : some"
-                  moduleName = "MQTTAnalyzer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartRow.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "28">
-               </Location>
-               <Location
-                  uuid = "EA885426-4586-403F-97E7-1931EDBE4F2F - c94675c940c34767"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI._ModifiedContent&lt;SwiftUI.HStack&lt;SwiftUI.ForEach&lt;Swift.Array&lt;Swift.Int&gt;, MQTTAnalyzer.ChartCell&gt;&gt;, SwiftUI._PaddingLayout&gt; in MQTTAnalyzer.ChartRow.body.getter : some"
-                  moduleName = "MQTTAnalyzer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartRow.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "216">
-               </Location>
-               <Location
-                  uuid = "EA885426-4586-403F-97E7-1931EDBE4F2F - 3cfb3aef1fbb3ccb"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;Swift.Int&gt;, MQTTAnalyzer.ChartCell&gt; in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI._ModifiedContent&lt;SwiftUI.HStack&lt;SwiftUI.ForEach&lt;Swift.Array&lt;Swift.Int&gt;, MQTTAnalyzer.ChartCell&gt;&gt;, SwiftUI._PaddingLayout&gt; in MQTTAnalyzer.ChartRow.body.getter : some"
-                  moduleName = "MQTTAnalyzer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/Timeseries/ChartRow.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "39">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AA6C04CF-DE76-4F45-A1D9-F2980D804571"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MQTTAnalyzer/Timeseries/ChartRow.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FEFC2842-6CA5-480B-9EC5-4BE4BCA6BE61"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MQTTAnalyzer/model/Model.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "getValuesLastHour(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E96A03C5-48D1-45BF-A487-B8C4C8AFB032"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -129,6 +34,22 @@
             endingLineNumber = "30"
             landmarkName = "getMeanValue(amount:in:to:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "235F8277-2E66-40EC-BFD7-17BF58CF4531"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MQTTAnalyzer/TopicsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

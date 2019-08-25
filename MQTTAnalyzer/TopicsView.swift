@@ -60,13 +60,23 @@ struct MessageGroupCell : View {
     var body: some View {
         NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
             HStack {
-                messages.read ?
-                    Image(systemName: "circle")
+                Group {
+                    if (messages.read) {
+//                        Image(uiImage: UIImage(named: "empty")!)
+//                        .font(.subheadline)
+//                        .foregroundColor(.blue)
+                        Spacer()
+                            .fixedSize()
+                            .frame(width: 23, height: 23)
+                    }
+                    else {
+                        Image(systemName: "circle.fill")
                         .font(.subheadline)
-                        .foregroundColor(.white)
-                : Image(systemName: "circle.fill")
-                    .font(.subheadline)
-                    .foregroundColor(.blue)
+                        .foregroundColor(.blue)
+                    }
+                }
+                .scaleEffect(messages.read ? 0 : 1)
+                .animation(.easeInOut)
                 
                 VStack (alignment: .leading) {
                     Text(messages.topic.name)
