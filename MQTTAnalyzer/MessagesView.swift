@@ -69,9 +69,12 @@ struct MessagesView : View {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
-                Section(header: Text("Diagrams")) {
-                    ForEach(messagesByTopic.getDiagrams()) {
-                        ChartsCell(path: $0, messagesByTopic: self.messagesByTopic)
+                
+                if (messagesByTopic.hasDiagrams()) {
+                    Section(header: Text("Diagrams")) {
+                        ForEach(messagesByTopic.getDiagrams()) {
+                            ChartsCell(path: $0, messagesByTopic: self.messagesByTopic)
+                        }
                     }
                 }
                 

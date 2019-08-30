@@ -83,6 +83,10 @@ class MessagesByTopic : Identifiable, ObservableObject {
         return Array(timeSeries._dict.keys)
     }
     
+    func hasDiagrams() -> Bool {
+        return timeSeries._dict.count > 0
+    }
+    
     func getTimeSeriesLastValue(_ path: DiagramPath) -> TimeSeriesValue? {
         let values = timeSeries._dict[path] ?? [TimeSeriesValue]()
         return values.last
