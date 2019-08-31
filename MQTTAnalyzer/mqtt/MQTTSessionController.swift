@@ -7,14 +7,15 @@
 //
 
 import Foundation
-import SwiftMQTT
 import Combine
+import Moscapsule
 
-class MQTTSessionController: MQTTSessionDelegate {
+class MQTTSessionController {
     
-    var mqttSession: MQTTSession!
     let model : MessageModel
     let host : Host
+    
+    var mqtt: MQTTClient!
     
     init(host: Host, model: MessageModel) {
         self.model = model
@@ -22,7 +23,7 @@ class MQTTSessionController: MQTTSessionDelegate {
         
         self.host.reconnectDelegate = reconnect
         
-        reconnect()
+        establishConnection(self.host)
     }
     
     deinit {
@@ -31,67 +32,41 @@ class MQTTSessionController: MQTTSessionDelegate {
     }
         
     func reconnect() {
-        establishConnection(self.host)
+        mqtt.reconnect()
     }
     
     func establishConnection(_ host: Host) {
-        host.connecting = true
-        let clientID = self.clientID()
-        
-        mqttSession = MQTTSession(host: host.hostname,
-                                  port: host.port,
-                                  clientID: clientID,
-                                  cleanSession: true,
-                                  keepAlive: 15,
-                                  useSSL: false)
-        mqttSession.delegate = self
-        print("Trying to connect to \(host) on port \(host.port) for clientID \(clientID)")
-        
-        mqttSession.connect {
-            if $0 == .none {
-                host.connected = true
-                host.connecting = false
-                print("MQTT Connected.")
-                self.subscribeToChannel(host)
-            } else {
-                host.connected = false
-                host.connecting = false
-                print("Error occurred during connection:")
-                print($0.description)
-            }
+        let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
+        mqttConfig.onConnectCallback = { returnCode in
+            NSLog("Connected. Return Code is \(returnCode.description)")
+            host.connected = true
         }
+        mqttConfig.onDisconnectCallback = { returnCode in
+           NSLog("Disconnected. Return Code is \(returnCode.description)")
+           host.connected = false
+       }
+        
+        mqttConfig.onMessageCallback = { mqttMessage in
+            let messageString = mqttMessage.payloadString ?? "";
+            NSLog("MQTT receive. \(messageString)")
+            let msg = Message(data: messageString, date: Date())
+            self.model.append(topic: mqttMessage.topic, message: msg)
+        }
+
+        // create new MQTT Connection
+        mqtt = MQTT.newConnection(mqttConfig)
+
+        subscribeToChannel(host)
+        
+        // publish and subscribe
+//        mqtt.publish(string: "message", topic: "publish/topic", qos: 2, retain: false)
+//        mqtt.subscribe("#", qos: 2)
     }
     
     func subscribeToChannel(_ host: Host) {
-        let channel = host.topic
-        print("subscribe to channel \(channel)")
-        mqttSession.subscribe(to: channel, delivering: .atLeastOnce) {
-            if $0 == .none {
-                print("Subscribed to \(channel)")
-            } else {
-                print("Error occurred during subscription:")
-                print($0.description)
-            }
-        }
+        mqtt.subscribe(host.topic, qos: 2)
     }
     
-    func mqttDidReceive(message: MQTTMessage, from session: MQTTSession) {
-        print("mqtt receive: \(message.retain) \(message.topic) \(message.stringRepresentation ?? "")")
-        
-        let messageString = message.stringRepresentation ?? "";
-        let msg = Message(data: messageString, date: Date())
-        
-        model.append(topic: message.topic, message: msg)
-    }
-    
-    func mqttDidAcknowledgePing(from session: MQTTSession) {
-        print("mqtt ack ping")
-    }
-    
-    func mqttDidDisconnect(session: MQTTSession, error: MQTTSessionError) {
-        print("mqtt disconnected")
-        host.connected = false
-    }
     
     // MARK: - Utilities
     

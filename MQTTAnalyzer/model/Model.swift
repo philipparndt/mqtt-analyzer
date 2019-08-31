@@ -297,7 +297,7 @@ class Host : Identifiable, Hashable, ObservableObject {
     
     var alias : String = ""
     var hostname : String = ""
-    var port : UInt16 = 1883
+    var port : Int32 = 1883
     var topic : String = "#"
     
     var qos : Int = 0
@@ -338,10 +338,11 @@ class HostsModel : ObservableObject {
     
     class func sampleModel() -> HostsModel {
         let host = Host()
-        host.alias = "pisvr"
-        host.hostname = "192.168.3.3"
-//        host.alias = "Mosquitto Test server"
-//        host.hostname = "test.mosquitto.org"
+//        host.alias = "pisvr"
+//        host.hostname = "192.168.3.3"
+        host.alias = "Mosquitto Test server"
+        host.hostname = "test.mosquitto.org"
+        host.topic = "de.wsv/#"
         
         return HostsModel(hosts: [host])
     }
