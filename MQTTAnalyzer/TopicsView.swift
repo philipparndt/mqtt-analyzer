@@ -15,6 +15,9 @@ struct TopicsView : View {
     @ObservedObject
     var host : Host
     
+    @State
+    private var searchFilter : String = ""
+    
     var body: some View {
         List {
             ReconnectView(host: self.host)
@@ -34,16 +37,18 @@ struct TopicsView : View {
                 Button(action: model.readall) {
                     Text("Read all")
                 }
+                
+//                TextField("Search", text: $searchFilter)
             }
             
             Section(header: Text("Topics")) {
-                ForEach(Array(model.sortedTopics())) { messages in
+                ForEach(Array(model.sortedTopicsByFilter(filter: searchFilter))) { messages in
                     MessageGroupCell(messages: messages)
                     }
                     .onDelete(perform: model.delete)
             }
         }
-        .navigationBarTitle(Text("home/#"), displayMode: .inline)
+        .navigationBarTitle(Text(host.topic), displayMode: .inline)
         .navigationBarItems(trailing: EditButton())
         .listStyle(GroupedListStyle())
     }

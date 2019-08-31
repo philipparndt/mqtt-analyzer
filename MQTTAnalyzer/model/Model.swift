@@ -18,6 +18,8 @@ class MessagesByTopic : Identifiable, ObservableObject {
     @Published var timeSeries = Multimap<DiagramPath, TimeSeriesValue>()
     @Published var timeSeriesModels = [DiagramPath : MTimeSeriesModel]()
 
+    var willChange = PassthroughSubject<Void, Never>()
+    
     init(topic: Topic, messages: [Message]) {
         self.topic = topic
         self.messages = messages
@@ -222,6 +224,12 @@ class Topic : Hashable {
     }
 }
 
+extension String {
+  var isBlank: Bool {
+    return allSatisfy({ $0.isWhitespace })
+  }
+}
+
 class MessageModel : ObservableObject {
     
     @Published var messagesByTopic: [String: MessagesByTopic]
@@ -231,13 +239,33 @@ class MessageModel : ObservableObject {
     }
     
     func sortedTopics() -> [MessagesByTopic] {
+        return sortedTopicsByFilter(filter : nil)
+    }
+    
+    func sortedTopicsByFilter(filter : String?) -> [MessagesByTopic] {
         var values = Array(messagesByTopic.values)
             
         values.sort {
             $0.topic.name < $1.topic.name
         }
         
-        return values
+//        let stuff = ["nate", "", nil, "loves", nil, "swift", ""]
+//        let a = stuff.map { $0.nilIfEmpty }
+//        print(a) // [Optional("nate"), nil, nil, Optional("loves"), nil, Optional("swift"), nil]
+
+                
+        return values.filter {
+            let trimmed = filter?.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            return trimmed == nil || trimmed!.isBlank || $0.topic.name.localizedCaseInsensitiveContains(trimmed!)
+            
+//            let trimmed = filter?.trimmingCharacters(in: .whitespacesAndNewlines).nili
+//
+//            trimmed == nil || trimmed.isEmpty {
+//                true
+//                }
+//                || $0.topic.name.localizedCaseInsensitiveContains(trimmed!)
+        }
     }
     
     func readall() {
