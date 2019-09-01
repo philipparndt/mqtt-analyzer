@@ -188,12 +188,18 @@ class Message : Identifiable {
     }
     
     class func toJson(messageData : String) -> [Dictionary<String, Any>]? {
-        let data = "[\(messageData)]".data(using: .utf8)!
+        let data = "[\(cleanEscapedValues(messageData))]".data(using: .utf8)!
         do {
             return try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>]
         } catch _ as NSError {
             return nil
         }
+    }
+    
+    class func cleanEscapedValues(_ messageData: String) -> String {
+        return messageData.replacingOccurrences(of: "[\"'](-?\\d+)[\"']",
+        with: "$1",
+        options: .regularExpression);
     }
 }
 
@@ -371,7 +377,8 @@ class HostsModel : ObservableObject {
         host.alias = "Mosquitto Test server"
         host.hostname = "test.mosquitto.org"
         host.topic = "de.wsv/#"
-        
+        //host.topic = "revspace/sensors/co2/#"
+        //host.topic = "revspace/#"
         return HostsModel(hosts: [host])
     }
 }
