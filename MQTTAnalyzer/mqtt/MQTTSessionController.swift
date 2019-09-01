@@ -39,28 +39,30 @@ class MQTTSessionController {
         let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
         mqttConfig.onConnectCallback = { returnCode in
             NSLog("Connected. Return Code is \(returnCode.description)")
-            host.connected = true
+            DispatchQueue.main.async {
+                host.connected = true
+            }
         }
         mqttConfig.onDisconnectCallback = { returnCode in
            NSLog("Disconnected. Return Code is \(returnCode.description)")
-           host.connected = false
+            DispatchQueue.main.async {
+                host.connected = false
+            }
        }
         
         mqttConfig.onMessageCallback = { mqttMessage in
-            let messageString = mqttMessage.payloadString ?? "";
-            NSLog("MQTT receive. \(messageString)")
-            let msg = Message(data: messageString, date: Date())
-            self.model.append(topic: mqttMessage.topic, message: msg)
+            DispatchQueue.main.async {
+                let messageString = mqttMessage.payloadString ?? "";
+                           NSLog("MQTT receive. \(messageString)")
+                           let msg = Message(data: messageString, date: Date())
+                           self.model.append(topic: mqttMessage.topic, message: msg)
+            }
         }
-
+        
         // create new MQTT Connection
         mqtt = MQTT.newConnection(mqttConfig)
 
         subscribeToChannel(host)
-        
-        // publish and subscribe
-//        mqtt.publish(string: "message", topic: "publish/topic", qos: 2, retain: false)
-//        mqtt.subscribe("#", qos: 2)
     }
     
     func subscribeToChannel(_ host: Host) {
