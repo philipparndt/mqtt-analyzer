@@ -188,7 +188,7 @@ class Message : Identifiable {
     }
     
     class func toJson(messageData : String) -> [Dictionary<String, Any>]? {
-        let data = "[\(cleanEscapedValues(messageData))]".data(using: .utf8)!
+        let data = "[\(cleanEscapedNumbers(messageData))]".data(using: .utf8)!
         do {
             return try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>]
         } catch _ as NSError {
@@ -196,7 +196,7 @@ class Message : Identifiable {
         }
     }
     
-    class func cleanEscapedValues(_ messageData: String) -> String {
+    class func cleanEscapedNumbers(_ messageData: String) -> String {
         return messageData.replacingOccurrences(of: "[\"'](-?\\d+)[\"']",
         with: "$1",
         options: .regularExpression);
