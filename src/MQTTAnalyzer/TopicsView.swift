@@ -98,6 +98,13 @@ struct MessageGroupCell : View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
+                .contextMenu {
+                    Button(action: copy) {
+                        Text("Copy topic")
+                        Image(systemName: "doc.on.doc")
+                    }
+
+                }
             }
         }
     }

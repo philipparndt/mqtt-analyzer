@@ -26,7 +26,17 @@ struct MessageCell : View {
                         .foregroundColor(.secondary)
                 }
             }
+            .contextMenu {
+                Button(action: copy) {
+                    Text("Copy message")
+                    Image(systemName: "doc.on.doc")
+                }
+            }
         }
+    }
+    
+    func copy() {
+        UIPasteboard.general.string = self.message.data
     }
 }
 
