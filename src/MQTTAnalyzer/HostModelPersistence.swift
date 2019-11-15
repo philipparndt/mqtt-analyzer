@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct HostPersistable : Codable {
+private struct HostPersistable : Codable {
     var alias : String = ""
     var hostname : String = ""
     var port : Int32 = 1883
@@ -23,10 +23,7 @@ struct HostPersistable : Codable {
 
 class HostsModelPersistence {
     class func persist(_ hosts: [Host]) {
-        let hostsPersist = hosts.map {
-            HostPersistable(alias: $0.alias,
-                            hostname: $0.hostname, port: $0.port, topic: $0.topic, qos: $0.qos, auth: $0.auth, username: $0.username, password: $0.password)
-        }
+        let hostsPersist = hosts.map { transform($0) }
         
         do {
             let jsonEncoder = JSONEncoder()
@@ -66,17 +63,13 @@ class HostsModelPersistence {
         }
         
         let host = Host()
-        //        host.alias = "pisvr"
-        //        host.hostname = "192.168.3.3"
         host.alias = "Mosquitto Test server"
         host.hostname = "test.mosquitto.org"
         host.topic = "de.wsv/#"
-        //host.topic = "revspace/sensors/co2/#"
-        //host.topic = "revspace/#"
         return HostsModel(hosts: [host])
     }
     
-    class func transform(_ persistable: HostPersistable) -> Host {
+    private class func transform(_ persistable: HostPersistable) -> Host {
         let host = Host()
         host.alias = persistable.alias
         host.hostname = persistable.hostname
@@ -86,5 +79,16 @@ class HostsModelPersistence {
         host.username = persistable.username
         host.password = persistable.password
         return host
+    }
+    
+    private class func transform(_ host: Host) -> HostPersistable {
+        return HostPersistable(alias: host.alias,
+            hostname: host.hostname,
+            port: host.port,
+            topic: host.topic,
+            qos: host.qos,
+            auth: host.auth,
+            username: host.username,
+            password: host.password)
     }
 }
