@@ -28,11 +28,12 @@ struct HostsView : View {
             .navigationBarItems(
                 trailing: Button(action: createHost ) {
                     HStack {
-                        Image(systemName: "plus.circle")
-                        Text("Add")
+                        Image(systemName: "plus")
+                         .font(.body)
                     }
                 }
             )
+            .navigationBarTitle(Text("Servers"), displayMode: .inline)
         }
         .sheet(isPresented: $isPresented, onDismiss: cancelHostCreation, content: {
             NewHostFormModalView(isPresented: self.$isPresented, hosts: self.model.hostsModel)
