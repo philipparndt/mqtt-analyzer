@@ -40,7 +40,8 @@ struct TopicsView : View {
                     Text("Read all")
                 }
                 
-//                TextField("Search", text: $searchFilter)
+                TextField("Search", text: $searchFilter)
+                    .disableAutocorrection(true)
             }
             
             Section(header: Text("Topics")) {
