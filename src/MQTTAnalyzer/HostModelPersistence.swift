@@ -45,28 +45,50 @@ class HostsModelPersistence {
     }
     
     class func load() -> HostsModel {
+        let json = loadJson()
+        let jsonDecoder = JSONDecoder()
+         do {
+            let hosts = try jsonDecoder.decode([HostPersistable].self, from: json.data(using: .utf8)!)
+            
+            return HostsModel(hosts: hosts.map { transform($0) })
+            
+        } catch {
+            // TODO: Implement error dialog
+            let nserror = error as NSError
+            fatalError("Unable to persist the hosts error \(nserror), \(nserror.userInfo)")
+        }
+    }
+    
+    class func loadJson() -> String {
         let userDefaults = UserDefaults.standard
         let clientIDPersistenceKey = "hosts"
         
-        if let json = userDefaults.object(forKey: clientIDPersistenceKey) as? String {
-            let jsonDecoder = JSONDecoder()
-             do {
-                let hosts = try jsonDecoder.decode([HostPersistable].self, from: json.data(using: .utf8)!)
-                
-                return HostsModel(hosts: hosts.map { transform($0) })
-                
-            } catch {
-                // TODO: Implement error dialog
-                let nserror = error as NSError
-                fatalError("Unable to persist the hosts error \(nserror), \(nserror.userInfo)")
-            }
-        }
+        let json = userDefaults.object(forKey: clientIDPersistenceKey) as? String
         
-        let host = Host()
-        host.alias = "Mosquitto Test server"
-        host.hostname = "test.mosquitto.org"
-        host.topic = "de.wsv/#"
-        return HostsModel(hosts: [host])
+        return json ?? """
+            [
+                {
+                    "alias": "Water levels",
+                    "auth": false,
+                    "hostname": "test.mosquitto.org",
+                    "password": "",
+                    "port": 1883,
+                    "qos": 0,
+                    "topic": "de.wsv/#",
+                    "username": ""
+                },
+                {
+                    "alias": "Revspace sensors",
+                    "auth": false,
+                    "hostname": "test.mosquitto.org",
+                    "password": "",
+                    "port": 1883,
+                    "qos": 0,
+                    "topic": "revspace/sensors/#",
+                    "username": ""
+                }
+            ]
+        """
     }
     
     private class func transform(_ host: HostPersistable) -> Host {
