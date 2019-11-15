@@ -69,16 +69,16 @@ class HostsModelPersistence {
         return HostsModel(hosts: [host])
     }
     
-    private class func transform(_ persistable: HostPersistable) -> Host {
-        let host = Host()
-        host.alias = persistable.alias
-        host.hostname = persistable.hostname
-        host.topic = persistable.topic
-        host.qos = persistable.qos
-        host.auth = persistable.auth
-        host.username = persistable.username
-        host.password = persistable.password
-        return host
+    private class func transform(_ host: HostPersistable) -> Host {
+        let result = Host()
+        result.alias = host.alias
+        result.hostname = host.hostname
+        result.topic = host.topic
+        result.qos = host.qos
+        result.auth = host.auth
+        result.username = host.username
+        result.password = host.password
+        return result
     }
     
     private class func transform(_ host: Host) -> HostPersistable {
