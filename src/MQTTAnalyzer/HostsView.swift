@@ -70,7 +70,9 @@ struct HostCell : View {
                     HStack {
                         VStack(alignment: .leading) {
                             Text("hostname:")
+                                .disableAutocorrection(true)
                             Text("topic:")
+                                .disableAutocorrection(true)
                         }.foregroundColor(.secondary)
                         
                         VStack(alignment: .leading) {
