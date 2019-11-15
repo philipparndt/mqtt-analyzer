@@ -18,13 +18,27 @@ class RootModel: ObservableObject {
     var messageModelByHost: [Host: MessageModel] = [:]
     
     init() {
-        hostsModel = HostsModel.sampleModel()
+        hostsModel = HostsModelPersistence.load()
+        
+        for host in hostsModel.hosts {
+            messageModelByHost[host] = MessageModel()
+        }
+
+        // FIXME: remove hardcoded session
         let host = hostsModel.hosts[0]
-        let model = MessageModel()
-        
-        messageModelByHost[host] = model
-        
+        let model = messageModelByHost[host]!
         mqttSession = MQTTSessionController(host: host, model: model)
+    }
+ 
+    func getMessageModel(_ host: Host) -> MessageModel {
+        var model = messageModelByHost[host]
+        
+        if (model == nil) {
+            model = MessageModel()
+            messageModelByHost[host] = model
+        }
+        
+        return model!
     }
     
 }

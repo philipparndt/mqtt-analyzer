@@ -19,7 +19,9 @@ struct HostsView : View {
             VStack (alignment: .leading) {
                 List {
                     ForEach(model.hostsModel.hosts) { host in
-                        HostCell(host: host, messageModel: (self.model.messageModelByHost[host]!))
+                        HostCell(host: host, messageModel: (
+                            self.model.getMessageModel(host)
+                        ))
                     }
                 }
             }

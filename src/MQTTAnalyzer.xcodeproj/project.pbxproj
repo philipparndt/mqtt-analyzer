@@ -19,6 +19,7 @@
 		2267069222EE094200A88D75 /* ReconnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267069122EE094200A88D75 /* ReconnectView.swift */; };
 		228911D122CF86D10095301F /* ChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228911D022CF86D10095301F /* ChartCell.swift */; };
 		228911D322CF86D70095301F /* ChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228911D222CF86D70095301F /* ChartRow.swift */; };
+		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
@@ -74,6 +75,7 @@
 		2267069122EE094200A88D75 /* ReconnectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReconnectView.swift; path = ../../../../../../System/Volumes/Data/Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/ReconnectView.swift; sourceTree = "<group>"; };
 		228911D022CF86D10095301F /* ChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCell.swift; sourceTree = "<group>"; };
 		228911D222CF86D70095301F /* ChartRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRow.swift; sourceTree = "<group>"; };
+		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				22FD7CFA22C8D2650078795F /* Model.swift */,
 				22FD7CFB22C8D2650078795F /* RootModel.swift */,
 				22D50F9622CE4C4300F37EAF /* Multimap.swift */,
+				229005CE237E7A8600D5A706 /* HostModelPersistence.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */,
 				22FD7D0122C8D2660078795F /* Model.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
+				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
 				2267069222EE094200A88D75 /* ReconnectView.swift in Sources */,
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,

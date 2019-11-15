@@ -364,21 +364,15 @@ class Host : Identifiable, Hashable, ObservableObject {
 }
 
 class HostsModel : ObservableObject {
-    @Published var hosts: [Host]
+    @Published var hosts: [Host] {
+        willSet {
+            NSLog("hosts willSet \(newValue)")
+            HostsModelPersistence.persist(newValue)
+        }
+    }
     
     init(hosts: [Host] = []) {
         self.hosts = hosts
     }
-    
-    class func sampleModel() -> HostsModel {
-        let host = Host()
-//        host.alias = "pisvr"
-//        host.hostname = "192.168.3.3"
-        host.alias = "Mosquitto Test server"
-        host.hostname = "test.mosquitto.org"
-        host.topic = "de.wsv/#"
-        //host.topic = "revspace/sensors/co2/#"
-        //host.topic = "revspace/#"
-        return HostsModel(hosts: [host])
-    }
+   
 }
