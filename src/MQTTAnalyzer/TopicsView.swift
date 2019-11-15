@@ -91,16 +91,23 @@ struct MessageGroupCell : View {
                 
                 VStack (alignment: .leading) {
                     Text(messages.topic.name)
-                    Text(messages.getFirst()).font(.subheadline)
+                    Text(messagePreview())
+                        .font(.subheadline)
                         .foregroundColor(.secondary)
                     Text("\(messages.messages.count) messages")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
             }
-            
-            
         }
+    }
+    
+    func messagePreview() -> String {
+        return self.messages.getFirst().trunc(length: 200)
+    }
+    
+    func copy() {
+        UIPasteboard.general.string = self.messages.topic.name
     }
 }
 
