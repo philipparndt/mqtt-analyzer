@@ -74,7 +74,7 @@ struct HostCell : View {
                         }.foregroundColor(.secondary)
                         
                         VStack(alignment: .leading) {
-                            Text("\(host.hostname):\(String(host.port))")
+                            Text("\(host.hostname)")
                             Text(host.topic)
                         }
                     }
