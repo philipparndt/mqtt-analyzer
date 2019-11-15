@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct TopicsView : View {
+    @EnvironmentObject var rootModel : RootModel
+    
     @ObservedObject
     var model : MessageModel
     
@@ -51,6 +53,9 @@ struct TopicsView : View {
         .navigationBarTitle(Text(host.topic), displayMode: .inline)
         .navigationBarItems(trailing: EditButton())
         .listStyle(GroupedListStyle())
+        .onAppear {
+            self.rootModel.connect(to: self.host)
+        }
     }
     
     func reconnect() {

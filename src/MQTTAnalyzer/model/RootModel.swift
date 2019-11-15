@@ -12,7 +12,7 @@ import Combine
 class RootModel: ObservableObject {
     var willChange = PassthroughSubject<RootModel, Never>()
     
-    let mqttSession: MQTTSessionController
+    var sessions: [Host: MQTTSessionController] = [:]
     let hostsModel: HostsModel
     
     var messageModelByHost: [Host: MessageModel] = [:]
@@ -23,11 +23,6 @@ class RootModel: ObservableObject {
         for host in hostsModel.hosts {
             messageModelByHost[host] = MessageModel()
         }
-
-        // FIXME: remove hardcoded session
-        let host = hostsModel.hosts[0]
-        let model = messageModelByHost[host]!
-        mqttSession = MQTTSessionController(host: host, model: model)
     }
  
     func getMessageModel(_ host: Host) -> MessageModel {
@@ -39,6 +34,21 @@ class RootModel: ObservableObject {
         }
         
         return model!
+    }
+    
+    func connect(to: Host) {
+        print("Connecting to " + to.hostname)
+        
+        var session = sessions[to]
+        if (session == nil) {
+            let model = messageModelByHost[to]
+            if (model != nil) {
+                session = MQTTSessionController(host: to, model: model!)
+                sessions[to] = session
+            }
+        }
+        
+        session?.connect()
     }
     
 }

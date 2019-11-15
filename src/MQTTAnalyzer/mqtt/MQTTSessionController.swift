@@ -17,22 +17,32 @@ class MQTTSessionController {
     
     var mqtt: MQTTClient!
     
+    var connected: Bool = false
+    
     init(host: Host, model: MessageModel) {
         self.model = model
         self.host = host
         
         self.host.reconnectDelegate = reconnect
-        
-        establishConnection(self.host)
     }
     
     deinit {
         host.connected = false
         print("MQTTController deinit")
     }
-        
+    
     func reconnect() {
         mqtt.reconnect()
+    }
+    
+    func connect() {
+        if (connected) {
+            reconnect()
+        }
+        else {
+            establishConnection(host)
+            connected = true
+        }
     }
     
     func establishConnection(_ host: Host) {
