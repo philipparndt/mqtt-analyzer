@@ -78,7 +78,12 @@ struct MessagesView : View {
                 Section(header: Text("Topic")) {
                     Text(messagesByTopic.topic.name)
                         .font(.subheadline)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.gray).contextMenu {
+                            Button(action: copyTopic) {
+                                Text("Copy topic")
+                                Image(systemName: "doc.on.doc")
+                            }
+                        }
                 }
                 
                 if (messagesByTopic.hasDiagrams()) {
@@ -103,6 +108,10 @@ struct MessagesView : View {
         }.onDisappear {
             print("MessagesView disappeared!")
         }
+    }
+    
+    func copyTopic() {
+        UIPasteboard.general.string = self.messagesByTopic.topic.name
     }
 }
 
