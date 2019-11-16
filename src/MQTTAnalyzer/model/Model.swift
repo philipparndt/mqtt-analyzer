@@ -236,7 +236,13 @@ extension String {
 
 class MessageModel : ObservableObject {
     
-    @Published var messagesByTopic: [String: MessagesByTopic]
+    @Published var messagesByTopic: [String: MessagesByTopic] {
+        willSet {
+            willChange.send(Void())
+        }
+    }
+    
+    var willChange = PassthroughSubject<Void, Never>()
     
     init(messagesByTopic: [String: MessagesByTopic] = [:]) {
         self.messagesByTopic = messagesByTopic

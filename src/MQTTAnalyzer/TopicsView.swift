@@ -43,7 +43,7 @@ struct TopicsView : View {
 struct TopicsToolsView : View {
     @ObservedObject
     var model : MessageModel
-        
+    
     @Binding
     var searchFilter : String
     
