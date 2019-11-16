@@ -18,20 +18,26 @@ struct ChartDetailsView : View {
     var body: some View {
 
         VStack {
-            Picker(selection: $range, label: Text("")) {
-                Text("1h").tag(60)
-                Text("6h").tag(60 * 6)
-                Text("12h").tag(60 * 12)
-                Text("1d").tag(60 * 24)
-                }.pickerStyle(SegmentedPickerStyle()).padding()
+//            Picker(selection: $range, label: Text("")) {
+//                Text("1h").tag(60)
+//                Text("6h").tag(60 * 6)
+//                Text("12h").tag(60 * 12)
+//                Text("1d").tag(60 * 24)
+//                }.pickerStyle(SegmentedPickerStyle()).padding()
             
             VStack (alignment: .leading) {
                 List {
-                    Section(header: Text("Diagram Demo")) {
-                        ChartDemo()
+//                    Section(header: Text("Diagram Demo")) {
+//                        ChartDemo()
+//                    }
+//                    Section(header: Text("Diagram")) {
+//                        Chart(path: path, messagesByTopic: messagesByTopic)
+//                    }
+                    Section(header: Text("Topic")) {
+                        Text(messagesByTopic.topic.name)
                     }
-                    Section(header: Text("Diagram")) {
-                        Chart(path: path, messagesByTopic: messagesByTopic)
+                    Section(header: Text("Value path")) {
+                        Text(path.path)
                     }
                     Section(header: Text("Values")) {
                         ForEach(messagesByTopic.getTimeSeriesId(path).reversed()) {

@@ -87,7 +87,7 @@ struct MessagesView : View {
                 }
                 
                 if (messagesByTopic.hasDiagrams()) {
-                    Section(header: Text("Diagrams")) {
+                    Section(header: Text("Data series")) {
                         ForEach(messagesByTopic.getDiagrams()) {
                             ChartsCell(path: $0, messagesByTopic: self.messagesByTopic)
                         }
