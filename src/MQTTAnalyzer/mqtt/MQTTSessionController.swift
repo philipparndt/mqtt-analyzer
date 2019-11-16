@@ -45,6 +45,12 @@ class MQTTSessionController {
         }
     }
     
+    func disconnect() {
+        mqtt.disconnect()
+        connected = false
+        mqtt = nil
+    }
+    
     func establishConnection(_ host: Host) {
         let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
         mqttConfig.onConnectCallback = { returnCode in

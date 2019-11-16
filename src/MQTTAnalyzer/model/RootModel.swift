@@ -12,10 +12,11 @@ import Combine
 class RootModel: ObservableObject {
     var willChange = PassthroughSubject<RootModel, Never>()
     
-    var sessions: [Host: MQTTSessionController] = [:]
     let hostsModel: HostsModel
     
     var messageModelByHost: [Host: MessageModel] = [:]
+    
+    var currentSession: MQTTSessionController?
     
     init() {
         hostsModel = HostsModelPersistence.load()
@@ -37,18 +38,31 @@ class RootModel: ObservableObject {
     }
     
     func connect(to: Host) {
-        print("Connecting to " + to.hostname)
-        
-        var session = sessions[to]
-        if (session == nil) {
-            let model = messageModelByHost[to]
-            if (model != nil) {
-                session = MQTTSessionController(host: to, model: model!)
-                sessions[to] = session
+        if (currentSession != nil) {
+            let session = currentSession!
+            if (session.host == to) {
+                if (!session.connected) {
+                    print("Reconnecting to " + session.host.hostname)
+                    session.reconnect()
+                }
+                return;
+            }
+            else {
+                print("Disconnecting from " + session.host.hostname)
+                session.disconnect()
             }
         }
         
-        session?.connect()
+        print("Connecting to " + to.hostname)
+        let model = messageModelByHost[to]
+        if (model != nil) {
+            currentSession = MQTTSessionController(host: to, model: model!)
+        }
+        
+        currentSession?.connect()
     }
     
+    func disconnect() {
+        currentSession?.disconnect()
+    }
 }

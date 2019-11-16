@@ -36,6 +36,7 @@ struct HostsView : View {
         .sheet(isPresented: $isPresented, onDismiss: cancelHostCreation, content: {
             NewHostFormModalView(isPresented: self.$isPresented, hosts: self.model.hostsModel)
         })
+
     }
     
     func createHost() {
@@ -43,7 +44,7 @@ struct HostsView : View {
     }
     
     func cancelHostCreation() {
-         isPresented = false
+        isPresented = false
     }
 }
 
@@ -90,6 +91,7 @@ struct HostCell : View {
                 }
             }
         }
+
     }
 }
 #if DEBUG
