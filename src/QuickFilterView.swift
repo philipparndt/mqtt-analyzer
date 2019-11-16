@@ -15,6 +15,9 @@ struct QuickFilterView : View {
     
     var body: some View {
         HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
+            
             TextField("Search", text: $searchFilter)
             .disableAutocorrection(true)
             
