@@ -20,7 +20,7 @@ struct MessageCell : View {
                     .foregroundColor(message.isJson() ? .green : .gray)
                 
                 VStack (alignment: .leading) {
-                    Text(message.data)
+                    Text(messagePreview())
                     Text(message.localDate())
                         .font(.subheadline)
                         .foregroundColor(.secondary)
@@ -33,6 +33,10 @@ struct MessageCell : View {
                 }
             }
         }
+    }
+    
+    func messagePreview() -> String {
+        return self.message.data.trunc(length: 500)
     }
     
     func copy() {
