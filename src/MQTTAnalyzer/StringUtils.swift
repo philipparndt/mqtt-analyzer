@@ -16,6 +16,6 @@ extension String {
             
             return String(self[...index])
         }
-        return self;
+        return "";
     }
 }
