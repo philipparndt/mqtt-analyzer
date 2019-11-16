@@ -63,6 +63,13 @@ struct TopicsToolsView : View {
             Button(action: model.readall) {
                 Text("Read all")
             }
+            
+            Button(action: model.clear) {
+                HStack {
+                    Image(systemName: "bin.xmark")
+                    Text("Clear")
+                }
+            }
 
             QuickFilterView(searchFilter: self.$searchFilter)
         }

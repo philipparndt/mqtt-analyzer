@@ -270,6 +270,10 @@ class MessageModel : ObservableObject {
         messagesByTopic.values.forEach { $0.read.markRead() }
     }
     
+    func clear() {
+        messagesByTopic = [:]
+    }
+    
     func countMessages() -> Int {
         return messagesByTopic.values.map { $0.messages.count }.reduce(0, +)
     }
