@@ -48,7 +48,7 @@ struct TopicsToolsView : View {
     var searchFilter : String
     
     var body: some View {
-         Section(header: Text("Tools")) {
+        Section(header: Text("Tools")) {
             HStack {
                 Text("Topics")
                 Spacer()
