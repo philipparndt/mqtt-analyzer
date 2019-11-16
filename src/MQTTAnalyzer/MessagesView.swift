@@ -20,7 +20,8 @@ struct MessageCell : View {
                     .foregroundColor(message.isJson() ? .green : .gray)
                 
                 VStack (alignment: .leading) {
-                    Text(messagePreview())
+                    Text(message.data)
+                        .lineLimit(8)
                     Text(message.localDate())
                         .font(.subheadline)
                         .foregroundColor(.secondary)
@@ -34,11 +35,7 @@ struct MessageCell : View {
             }
         }
     }
-    
-    func messagePreview() -> String {
-        return self.message.data.trunc(length: 500)
-    }
-    
+        
     func copy() {
         UIPasteboard.general.string = self.message.data
     }

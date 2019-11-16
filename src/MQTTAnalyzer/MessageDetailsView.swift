@@ -39,7 +39,10 @@ struct MessageDetailsView : View {
                 }
                 Section(header: Text("Message")) {
                     VStack {
-                        Text(message.isJson() ? message.prettyJson() : message.data).lineLimit(nil).padding(20)
+                        Text(message.isJson() ? message.prettyJson() : message.data)
+                            .lineLimit(nil)
+                            .padding(20)
+                            .font(.system(.body, design: .monospaced))
                     }
                 }
             }
