@@ -71,23 +71,7 @@ struct MessageGroupCell : View {
     var body: some View {
         NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
             HStack {
-                Group {
-                    if (messages.read) {
-//                        Image(uiImage: UIImage(named: "empty")!)
-//                        .font(.subheadline)
-//                        .foregroundColor(.blue)
-                        Spacer()
-                            .fixedSize()
-                            .frame(width: 23, height: 23)
-                    }
-                    else {
-                        Image(systemName: "circle.fill")
-                        .font(.subheadline)
-                        .foregroundColor(.blue)
-                    }
-                }
-                .scaleEffect(messages.read ? 0 : 1)
-                .animation(.easeInOut)
+                ReadMarkerView(read: messages.read)
                 
                 VStack (alignment: .leading) {
                     Text(messages.topic.name)

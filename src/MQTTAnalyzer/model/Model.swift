@@ -13,7 +13,7 @@ import Combine
 class MessagesByTopic : Identifiable, ObservableObject {
     let topic: Topic
     
-    @Published var read: Bool = true
+    @Published var read: Readstate = Readstate()
     @Published var messages: [Message]
     @Published var timeSeries = Multimap<DiagramPath, TimeSeriesValue>()
     @Published var timeSeriesModels = [DiagramPath : MTimeSeriesModel]()
@@ -31,7 +31,7 @@ class MessagesByTopic : Identifiable, ObservableObject {
     }
 
     func newMessage(_ message : Message) {
-        read = false
+        read.markUnread()
         
         if (message.isJson()) {
             let jsonData = message.jsonData!
@@ -71,10 +71,6 @@ class MessagesByTopic : Identifiable, ObservableObject {
                     self.timeSeriesModels[path] = model
                 }
             }
-    }
-    
-    func markRead() {
-        read = true
     }
     
     func getFirst() -> String {
@@ -275,7 +271,7 @@ class MessageModel : ObservableObject {
     }
     
     func readall() {
-        messagesByTopic.values.forEach { $0.markRead() }
+        messagesByTopic.values.forEach { $0.read.markRead() }
     }
     
     func countMessages() -> Int {
