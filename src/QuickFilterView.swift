@@ -29,21 +29,28 @@ struct QuickFilterView : View {
             
             Spacer()
             if (!model.filter.isBlank) {
-                Button(action: clearSearch) {
-                    Image(systemName: "xmark.circle")
+                Button(action: noAction) {
+                    Image(systemName: "line.horizontal.3.decrease.circle")
                         .foregroundColor(.gray)
-                        .contextMenu {
-                            Button(action: up) {
-                                Text("Focus on parent")
-                                Image(systemName: "eye.fill")
-                            }
-                        }
+                        
+                }.contextMenu {
+                    Button(action: clear) {
+                        Text("Clear")
+                        Image(systemName: "xmark.circle")
+                    }
+                    Button(action: up) {
+                        Text("Focus on parent")
+                        Image(systemName: "eye.fill")
+                    }
                 }
             }
         }
     }
     
-    func clearSearch() {
+    func noAction() {
+    }
+    
+    func clear() {
         model.filter = ""
     }
     
