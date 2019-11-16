@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Foundation
 
 struct TopicsView : View {
     @EnvironmentObject var rootModel : RootModel
@@ -41,8 +40,7 @@ struct TopicsView : View {
                     Text("Read all")
                 }
                 
-                TextField("Search", text: $searchFilter)
-                    .disableAutocorrection(true)
+                QuickFilterView(searchFilter: self.$searchFilter)
             }
             
             Section(header: Text("Topics")) {
@@ -59,7 +57,7 @@ struct TopicsView : View {
             self.rootModel.connect(to: self.host)
         }
     }
-    
+        
     func reconnect() {
         self.host.reconnect()
     }
@@ -94,6 +92,10 @@ struct MessageGroupCell : View {
                     Image(systemName: "doc.on.doc")
                 }
                 Button(action: focus) {
+                    Text("Focus on")
+                    Image(systemName: "eye.fill")
+                }
+                Button(action: focusParent) {
                     Text("Focus on parent")
                     Image(systemName: "eye.fill")
                 }
@@ -110,11 +112,11 @@ struct MessageGroupCell : View {
     }
     
     func focus() {
-        var parent = self.messages.topic.name
-        if let range = parent.range(of: "/", options: .backwards)  {
-            parent = String(parent[...range.lowerBound])
-        }
-        self.searchFilter = parent
+        self.searchFilter = self.messages.topic.name
+    }
+    
+    func focusParent() {
+        self.searchFilter = self.messages.topic.name.pathUp()
     }
 }
 
