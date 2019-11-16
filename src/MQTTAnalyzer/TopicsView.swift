@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct TopicsView : View {
     @EnvironmentObject var rootModel : RootModel
@@ -46,7 +47,7 @@ struct TopicsView : View {
             
             Section(header: Text("Topics")) {
                 ForEach(Array(model.sortedTopicsByFilter(filter: searchFilter))) { messages in
-                    MessageGroupCell(messages: messages)
+                    MessageGroupCell(messages: messages, searchFilter: self.$searchFilter)
                     }
                     .onDelete(perform: model.delete)
             }
@@ -67,6 +68,9 @@ struct TopicsView : View {
 struct MessageGroupCell : View {
     @ObservedObject
     var messages: MessagesByTopic
+    
+    @Binding
+    var searchFilter : String
     
     var body: some View {
         NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
@@ -89,6 +93,10 @@ struct MessageGroupCell : View {
                     Text("Copy topic")
                     Image(systemName: "doc.on.doc")
                 }
+                Button(action: focus) {
+                    Text("Focus on parent")
+                    Image(systemName: "eye.fill")
+                }
             }
         }
     }
@@ -99,6 +107,14 @@ struct MessageGroupCell : View {
     
     func copy() {
         UIPasteboard.general.string = self.messages.topic.name
+    }
+    
+    func focus() {
+        var parent = self.messages.topic.name
+        if let range = parent.range(of: "/", options: .backwards)  {
+            parent = String(parent[...range.lowerBound])
+        }
+        self.searchFilter = parent
     }
 }
 
