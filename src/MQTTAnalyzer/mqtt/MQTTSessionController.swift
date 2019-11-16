@@ -28,7 +28,7 @@ class MQTTSessionController {
     
     deinit {
         host.connected = false
-        print("MQTTController deinit")
+        NSLog("MQTTController deinit")
     }
     
     func reconnect() {
@@ -69,7 +69,6 @@ class MQTTSessionController {
         mqttConfig.onMessageCallback = { mqttMessage in
             DispatchQueue.main.async {
                 let messageString = mqttMessage.payloadString ?? "";
-                           NSLog("MQTT receive. \(messageString)")
                 let msg = Message(data: messageString, date: Date(), qos: mqttMessage.qos)
                            self.model.append(topic: mqttMessage.topic, message: msg)
             }
