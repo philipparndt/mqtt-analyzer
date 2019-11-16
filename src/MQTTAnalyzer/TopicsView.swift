@@ -78,6 +78,7 @@ struct MessageGroupCell : View {
                     Text(messagePreview())
                         .font(.subheadline)
                         .foregroundColor(.secondary)
+                        .lineLimit(8)
                     Text("\(messages.messages.count) messages")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
@@ -94,7 +95,7 @@ struct MessageGroupCell : View {
     }
     
     func messagePreview() -> String {
-        return self.messages.getFirst().trunc(length: 200)
+        return self.messages.getFirst()
     }
     
     func copy() {
