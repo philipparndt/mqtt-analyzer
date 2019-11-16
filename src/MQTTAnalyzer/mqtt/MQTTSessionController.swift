@@ -70,7 +70,7 @@ class MQTTSessionController {
             DispatchQueue.main.async {
                 let messageString = mqttMessage.payloadString ?? "";
                            NSLog("MQTT receive. \(messageString)")
-                           let msg = Message(data: messageString, date: Date())
+                let msg = Message(data: messageString, date: Date(), qos: mqttMessage.qos)
                            self.model.append(topic: mqttMessage.topic, message: msg)
             }
         }

@@ -158,12 +158,14 @@ class Message : Identifiable {
     let data : String
     let date : Date
     let dateString : String
+    let qos : Int32
     
     let jsonData : [Dictionary<String, Any>]?
     
-    init(data: String, date : Date) {
+    init(data: String, date : Date, qos: Int32) {
         self.data = data
         self.date = date;
+        self.qos = qos
         self.jsonData = Message.toJson(messageData: data)
         
         let dateFormatter = DateFormatter()
@@ -306,16 +308,16 @@ class MessageModel : ObservableObject {
 
         var messagesByTopic : [String : MessagesByTopic] = [:]
         messagesByTopic[vl.name] = MessagesByTopic(topic: vl, messages: [
-            Message(data: "{\"temperature\": 59.3125 }", date: Date()),
-            Message(data: "{\"temperature\": 58.125 }", date: Date()),
-            Message(data: "{\"temperature\": 56.125 }", date: Date()),
-            Message(data: "{\"temperature\": 57.3125 }", date: Date()),
-            Message(data: "{\"temperature\": 62.0 }", date: Date()),
-            Message(data: "{\"temperature\": 58.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }", date: Date(timeIntervalSince1970: 1415637900))
+            Message(data: "{\"temperature\": 59.3125 }", date: Date(), qos: 0),
+            Message(data: "{\"temperature\": 58.125 }", date: Date(), qos: 0),
+            Message(data: "{\"temperature\": 56.125 }", date: Date(), qos: 0),
+            Message(data: "{\"temperature\": 57.3125 }", date: Date(), qos: 0),
+            Message(data: "{\"temperature\": 62.0 }", date: Date(), qos: 0),
+            Message(data: "{\"temperature\": 58.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }", date: Date(timeIntervalSince1970: 1415637900), qos: 0)
             ])
         
         messagesByTopic[rl.name] = MessagesByTopic(topic: rl, messages: [
-            Message(data: "{\"temperature\": 59.3125 }", date: Date())
+            Message(data: "{\"temperature\": 59.3125 }", date: Date(), qos: 0)
             ])
         
         result.messagesByTopic = messagesByTopic;
