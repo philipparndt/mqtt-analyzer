@@ -240,12 +240,37 @@ class MessageModel : ObservableObject {
         willSet {
             willChange.send(Void())
         }
+        
+        didSet {
+            updateDisplayTopics()
+        }
     }
+    
+    @Published var filter : String = "" {
+        didSet {
+            updateDisplayTopicsAsync()
+        }
+    }
+    
+    @Published var displayTopics : [MessagesByTopic] = []
     
     var willChange = PassthroughSubject<Void, Never>()
     
     init(messagesByTopic: [String: MessagesByTopic] = [:]) {
         self.messagesByTopic = messagesByTopic
+    }
+    
+    private func updateDisplayTopics() {
+        self.displayTopics = self.sortedTopicsByFilter(filter: self.filter)
+    }
+    
+    private func updateDisplayTopicsAsync() {
+        // MARK: done this due to performance reasons
+        // otherwise SwiftUI will trigger a repaint for each changed element
+        self.displayTopics = []
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+            self.updateDisplayTopics()
+        }
     }
     
     func sortedTopics() -> [MessagesByTopic] {

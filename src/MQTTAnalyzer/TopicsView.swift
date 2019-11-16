@@ -16,19 +16,16 @@ struct TopicsView : View {
     
     @ObservedObject
     var host : Host
-    
-    @State
-    private var searchFilter : String = ""
-    
+  
     var body: some View {
         List {
             ReconnectView(host: self.host)
             
-            TopicsToolsView(model: self.model, searchFilter: self.$searchFilter)
+            TopicsToolsView(model: self.model)
             
             Section(header: Text("Topics")) {
-                ForEach(Array(model.sortedTopicsByFilter(filter: searchFilter))) { messages in
-                    TopicCellView(messages: messages, searchFilter: self.$searchFilter)
+                ForEach(model.displayTopics) { messages in
+                    TopicCellView(messages: messages, model: self.model)
                 }
             }
         }
@@ -43,9 +40,6 @@ struct TopicsView : View {
 struct TopicsToolsView : View {
     @ObservedObject
     var model : MessageModel
-    
-    @Binding
-    var searchFilter : String
     
     var body: some View {
         Section(header: Text("Tools")) {
@@ -71,7 +65,7 @@ struct TopicsToolsView : View {
                 }
             }
 
-            QuickFilterView(searchFilter: self.$searchFilter)
+            QuickFilterView(model: self.model)
         }
     }
 }
@@ -80,8 +74,8 @@ struct TopicCellView : View {
     @ObservedObject
     var messages: MessagesByTopic
     
-    @Binding
-    var searchFilter : String
+    @ObservedObject
+    var model : MessageModel
     
     var body: some View {
         NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
@@ -125,11 +119,11 @@ struct TopicCellView : View {
     }
     
     func focus() {
-        self.searchFilter = self.messages.topic.name
+        self.model.filter = self.messages.topic.name
     }
     
     func focusParent() {
-        self.searchFilter = self.messages.topic.name.pathUp()
+        self.model.filter = self.messages.topic.name.pathUp()
     }
 }
 

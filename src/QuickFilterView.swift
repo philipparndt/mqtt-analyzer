@@ -10,19 +10,25 @@ import SwiftUI
 
 struct QuickFilterView : View {
     
-    @Binding
-    var searchFilter : String
+    @ObservedObject
+    var model : MessageModel
     
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
             
-            TextField("Search", text: $searchFilter)
+            TextField("Search", text: Binding(
+            get: {
+                return self.model.filter
+            },
+            set: { (newValue) in
+                return self.model.filter = newValue
+            }))
             .disableAutocorrection(true)
             
             Spacer()
-            if (!searchFilter.isBlank) {
+            if (!model.filter.isBlank) {
                 Button(action: clearSearch) {
                     Image(systemName: "xmark.circle")
                         .foregroundColor(.gray)
@@ -38,10 +44,10 @@ struct QuickFilterView : View {
     }
     
     func clearSearch() {
-        searchFilter = ""
+        model.filter = ""
     }
     
     func up() {
-        searchFilter = searchFilter.pathUp()
+        model.filter = model.filter.pathUp()
     }
 }
