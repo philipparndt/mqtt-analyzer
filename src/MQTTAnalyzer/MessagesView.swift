@@ -96,11 +96,11 @@ struct MessagesView : View {
         }
         .navigationBarTitle(Text(messagesByTopic.topic.lastSegment))
         .listStyle(GroupedListStyle())
-            .onAppear {
-                self.messagesByTopic.read.markRead()
-                print("MessagesView appeared!")
-            }.onDisappear {
-                print("MessagesView disappeared!")
+        .onAppear {
+            self.messagesByTopic.read.markRead()
+            print("MessagesView appeared!")
+        }.onDisappear {
+            print("MessagesView disappeared!")
         }
     }
 }
