@@ -24,30 +24,12 @@ struct TopicsView : View {
         List {
             ReconnectView(host: self.host)
             
-            Section(header: Text("Tools")) {
-                HStack {
-                    Text("Topics")
-                    Spacer()
-                    Text(String(model.messagesByTopic.count))
-                }
-                HStack {
-                    Text("Messages")
-                    Spacer()
-                    Text(String(model.countMessages()))
-                }
-                
-                Button(action: model.readall) {
-                    Text("Read all")
-                }
-                
-                QuickFilterView(searchFilter: self.$searchFilter)
-            }
+            TopicsToolsView(model: self.model, searchFilter: self.$searchFilter)
             
             Section(header: Text("Topics")) {
                 ForEach(Array(model.sortedTopicsByFilter(filter: searchFilter))) { messages in
                     MessageGroupCell(messages: messages, searchFilter: self.$searchFilter)
-                    }
-                    .onDelete(perform: model.delete)
+                }
             }
         }
         .navigationBarTitle(Text(host.topic), displayMode: .inline)
@@ -56,9 +38,34 @@ struct TopicsView : View {
             self.rootModel.connect(to: self.host)
         }
     }
+}
+
+struct TopicsToolsView : View {
+    @ObservedObject
+    var model : MessageModel
         
-    func reconnect() {
-        self.host.reconnect()
+    @Binding
+    var searchFilter : String
+    
+    var body: some View {
+         Section(header: Text("Tools")) {
+            HStack {
+                Text("Topics")
+                Spacer()
+                Text(String(model.messagesByTopic.count))
+            }
+            HStack {
+                Text("Messages")
+                Spacer()
+                Text(String(model.countMessages()))
+            }
+
+            Button(action: model.readall) {
+                Text("Read all")
+            }
+
+            QuickFilterView(searchFilter: self.$searchFilter)
+        }
     }
 }
 

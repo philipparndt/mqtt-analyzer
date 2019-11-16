@@ -268,11 +268,6 @@ class MessageModel : ObservableObject {
         return messagesByTopic.values.map { $0.messages.count }.reduce(0, +)
     }
     
-    func delete(at offsets: IndexSet) {
-         // TODO how to remove all?
-        // messagesByTopic.remove(at: offsets.first!)
-    }
-    
     func append(topic: String, message: Message) {
         var msgbt = messagesByTopic[topic]
         
