@@ -18,21 +18,8 @@ struct ChartDetailsView : View {
     var body: some View {
 
         VStack {
-//            Picker(selection: $range, label: Text("")) {
-//                Text("1h").tag(60)
-//                Text("6h").tag(60 * 6)
-//                Text("12h").tag(60 * 12)
-//                Text("1d").tag(60 * 24)
-//                }.pickerStyle(SegmentedPickerStyle()).padding()
-            
             VStack (alignment: .leading) {
                 List {
-//                    Section(header: Text("Diagram Demo")) {
-//                        ChartDemo()
-//                    }
-//                    Section(header: Text("Diagram")) {
-//                        Chart(path: path, messagesByTopic: messagesByTopic)
-//                    }
                     Section(header: Text("Topic")) {
                         Text(messagesByTopic.topic.name)
                     }
@@ -63,41 +50,6 @@ struct ValueCell : View {
             Text("\(path.num)")
             Spacer()
             Text("\(path.dateString)").foregroundColor(.secondary)
-        }
-    }
-}
-
-struct Chart : View {
-    
-    let path : DiagramPath
-    @ObservedObject var messagesByTopic: MessagesByTopic
-    
-    var body: some View {
-
-        VStack {
-            ZStack {
-                ChartRow(data: messagesByTopic.getValuesLastHour(self.path))
-                .foregroundColor(.blue)
-            }.frame(height: CGFloat(150))
-        }
-    }
-}
-
-struct ChartDemo : View {
-    
-    var body: some View {
-        
-        VStack {
-            ZStack {
-                ChartRow(data: [1,2,3,4,5,6,7,8,9,0,
-                                1,2,3,4,5,6,7,8,9,0,
-                                1,2,3,4,5,6,7,8,9,0,
-                                1,2,3,4,5,6,7,8,9,0,
-                                1,2,3,4,5,6,7,8,9,0,
-                                1,2,3,4,5,6,7,8,9,0,
-                              ])
-                    .foregroundColor(.blue)
-            }.frame(height: CGFloat(150))
         }
     }
 }

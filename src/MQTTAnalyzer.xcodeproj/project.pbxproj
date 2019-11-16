@@ -17,8 +17,6 @@
 		2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */; };
 		2253F8FB22C8C008007E35A2 /* MQTTAnalyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */; };
 		2267069222EE094200A88D75 /* ReconnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267069122EE094200A88D75 /* ReconnectView.swift */; };
-		228911D122CF86D10095301F /* ChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228911D022CF86D10095301F /* ChartCell.swift */; };
-		228911D322CF86D70095301F /* ChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228911D222CF86D70095301F /* ChartRow.swift */; };
 		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
@@ -76,8 +74,6 @@
 		2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerUITests.swift; sourceTree = "<group>"; };
 		2253F8FC22C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2267069122EE094200A88D75 /* ReconnectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReconnectView.swift; path = ../../../../../../System/Volumes/Data/Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/ReconnectView.swift; sourceTree = "<group>"; };
-		228911D022CF86D10095301F /* ChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCell.swift; sourceTree = "<group>"; };
-		228911D222CF86D70095301F /* ChartRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRow.swift; sourceTree = "<group>"; };
 		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,8 +207,6 @@
 		228911CF22CF86B20095301F /* Timeseries */ = {
 			isa = PBXGroup;
 			children = (
-				228911D022CF86D10095301F /* ChartCell.swift */,
-				228911D222CF86D70095301F /* ChartRow.swift */,
 				22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */,
 			);
 			path = Timeseries;
@@ -499,14 +493,12 @@
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
 				2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */,
-				228911D122CF86D10095301F /* ChartCell.swift in Sources */,
 				22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */,
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
 				22FD7D0522C8D2820078795F /* ChartDetailsView.swift in Sources */,
 				22C386A322CB84900054C385 /* RootView.swift in Sources */,
-				228911D322CF86D70095301F /* ChartRow.swift in Sources */,
 				22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */,
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
