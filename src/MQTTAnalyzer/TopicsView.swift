@@ -28,7 +28,7 @@ struct TopicsView : View {
             
             Section(header: Text("Topics")) {
                 ForEach(Array(model.sortedTopicsByFilter(filter: searchFilter))) { messages in
-                    MessageGroupCell(messages: messages, searchFilter: self.$searchFilter)
+                    TopicCellView(messages: messages, searchFilter: self.$searchFilter)
                 }
             }
         }
@@ -69,7 +69,7 @@ struct TopicsToolsView : View {
     }
 }
 
-struct MessageGroupCell : View {
+struct TopicCellView : View {
     @ObservedObject
     var messages: MessagesByTopic
     
