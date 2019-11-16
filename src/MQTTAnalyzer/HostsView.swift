@@ -26,12 +26,10 @@ struct HostsView : View {
                 }
             }
             .navigationBarItems(
-                trailing: Button(action: createHost ) {
-                    HStack {
-                        Image(systemName: "plus")
-                         .font(.body)
-                    }
+                trailing: Button(action: createHost) {
+                    Image(systemName: "plus")
                 }
+                .buttonStyle(ActionStyle())
             )
             .navigationBarTitle(Text("Servers"), displayMode: .inline)
         }
@@ -46,6 +44,15 @@ struct HostsView : View {
     
     func cancelHostCreation() {
          isPresented = false
+    }
+}
+
+struct ActionStyle: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .foregroundColor(.accentColor)
+            .font(.system(size: 22))
     }
 }
 
