@@ -252,23 +252,11 @@ class MessageModel : ObservableObject {
         values.sort {
             $0.topic.name < $1.topic.name
         }
-        
-//        let stuff = ["nate", "", nil, "loves", nil, "swift", ""]
-//        let a = stuff.map { $0.nilIfEmpty }
-//        print(a) // [Optional("nate"), nil, nil, Optional("loves"), nil, Optional("swift"), nil]
-
-                
+               
         return values.filter {
             let trimmed = filter?.trimmingCharacters(in: .whitespacesAndNewlines)
             
             return trimmed == nil || trimmed!.isBlank || $0.topic.name.localizedCaseInsensitiveContains(trimmed!)
-            
-//            let trimmed = filter?.trimmingCharacters(in: .whitespacesAndNewlines).nili
-//
-//            trimmed == nil || trimmed.isEmpty {
-//                true
-//                }
-//                || $0.topic.name.localizedCaseInsensitiveContains(trimmed!)
         }
     }
     
@@ -281,7 +269,7 @@ class MessageModel : ObservableObject {
     }
     
     func delete(at offsets: IndexSet) {
-        // TODO how to remove all?
+         // TODO how to remove all?
         // messagesByTopic.remove(at: offsets.first!)
     }
     
