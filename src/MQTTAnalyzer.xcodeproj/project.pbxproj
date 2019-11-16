@@ -24,6 +24,7 @@
 		22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */; };
 		22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D6237FC03500D72BD6 /* Readstate.swift */; };
 		22E469D923800A2200D72BD6 /* QuickFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D823800A2200D72BD6 /* QuickFilterView.swift */; };
+		22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469DA23801CA000D72BD6 /* ArrayUtils.swift */; };
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
 		22FD7CF222C8C44A0078795F /* SwiftMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22FD7CF122C8C44A0078795F /* SwiftMQTT */; };
 		22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
@@ -84,6 +85,7 @@
 		22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMarkerView.swift; sourceTree = "<group>"; };
 		22E469D6237FC03500D72BD6 /* Readstate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Readstate.swift; sourceTree = "<group>"; };
 		22E469D823800A2200D72BD6 /* QuickFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickFilterView.swift; sourceTree = SOURCE_ROOT; };
+		22E469DA23801CA000D72BD6 /* ArrayUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtils.swift; sourceTree = "<group>"; };
 		22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesModel.swift; sourceTree = "<group>"; };
 		22FD7CF622C8D2650078795F /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		22FD7CF722C8D2650078795F /* MessageDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailsView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				2253F8E022C8C008007E35A2 /* Preview Content */,
 				22E469D2237F490100D72BD6 /* StringUtils.swift */,
 				22E469D823800A2200D72BD6 /* QuickFilterView.swift */,
+				22E469DA23801CA000D72BD6 /* ArrayUtils.swift */,
 			);
 			path = MQTTAnalyzer;
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 				22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */,
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
+				22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */,
 				22E469D3237F490100D72BD6 /* StringUtils.swift in Sources */,
 				22FD7D0022C8D2660078795F /* NewHostFormView.swift in Sources */,
 			);

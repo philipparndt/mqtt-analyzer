@@ -13,16 +13,20 @@ struct HostsView : View {
 
     @State
     var isPresented = false
+    
+    @ObservedObject
+    var hostsModel : HostsModel
 
     var body: some View {
         NavigationView {
             VStack (alignment: .leading) {
                 List {
-                    ForEach(model.hostsModel.hosts) { host in
+                    ForEach(hostsModel.hosts) { host in
                         HostCell(host: host, messageModel: (
                             self.model.getMessageModel(host)
                         ))
                     }
+                    .onDelete(perform: hostsModel.delete)
                 }
             }
             .navigationBarItems(

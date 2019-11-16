@@ -372,5 +372,15 @@ class HostsModel : ObservableObject {
     init(hosts: [Host] = []) {
         self.hosts = hosts
     }
-   
+    
+    func delete(at offsets: IndexSet) {
+        var copy = hosts
+        copy.remove(atOffsets: offsets)
+        self.hosts = copy;
+        
+    }
+    
+    func delete(_ host : Host) {
+        self.hosts = self.hosts.filter { $0 != host }
+    }
 }
