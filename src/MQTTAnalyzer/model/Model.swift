@@ -286,9 +286,6 @@ class MessageModel : ObservableObject {
     }
     
     func append(topic: String, message: Message) {
-//        let newGroup = MessagesByTopic(topic: Topic(topic), messages:[])
-        //        messagesByTopic[topic, default: newGroup].debugAddMessage()
-
         var msgbt = messagesByTopic[topic]
         
         if (msgbt == nil) {
@@ -299,30 +296,6 @@ class MessageModel : ObservableObject {
         msgbt!.newMessage(message)
     }
     
-    class func sampleModel() -> MessageModel {
-//        let vl = Topic("haus/ug/heizung/solar_vl")
-        let vl = Topic("a")
-        let rl = Topic("haus/ug/heizung/solar_rl")
-        
-        let result = MessageModel()
-
-        var messagesByTopic : [String : MessagesByTopic] = [:]
-        messagesByTopic[vl.name] = MessagesByTopic(topic: vl, messages: [
-            Message(data: "{\"temperature\": 59.3125 }", date: Date(), qos: 0),
-            Message(data: "{\"temperature\": 58.125 }", date: Date(), qos: 0),
-            Message(data: "{\"temperature\": 56.125 }", date: Date(), qos: 0),
-            Message(data: "{\"temperature\": 57.3125 }", date: Date(), qos: 0),
-            Message(data: "{\"temperature\": 62.0 }", date: Date(), qos: 0),
-            Message(data: "{\"temperature\": 58.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }", date: Date(timeIntervalSince1970: 1415637900), qos: 0)
-            ])
-        
-        messagesByTopic[rl.name] = MessagesByTopic(topic: rl, messages: [
-            Message(data: "{\"temperature\": 59.3125 }", date: Date(), qos: 0)
-            ])
-        
-        result.messagesByTopic = messagesByTopic;
-        return result
-    }
 }
 
 class Host : Identifiable, Hashable, ObservableObject {
