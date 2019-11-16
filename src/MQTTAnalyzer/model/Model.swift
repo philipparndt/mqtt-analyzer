@@ -275,6 +275,8 @@ class MessageModel : ObservableObject {
     }
     
     func append(topic: String, message: Message) {
+        willChange.send(Void())
+        
         var msgbt = messagesByTopic[topic]
         
         if (msgbt == nil) {
