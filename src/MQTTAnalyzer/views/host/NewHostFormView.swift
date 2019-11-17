@@ -94,10 +94,12 @@ struct ServerFormView : View {
                 Text("Alias")
                     .foregroundColor(.secondary)
                     .font(.headline)
+                
                 Spacer()
                 
                 TextField("optional", text: $host.alias)
                     .multilineTextAlignment(.trailing)
+                    .disableAutocorrection(true)
             }
             HStack {
                 Text("Hostname")
@@ -106,16 +108,18 @@ struct ServerFormView : View {
                 Spacer()
 
                 TextField("ip address / name", text: $host.hostname)
-                .multilineTextAlignment(.trailing)
+                    .multilineTextAlignment(.trailing)
+                    .disableAutocorrection(true)
             }
             HStack {
                 Text("Port")
-                .font(.headline)
+                    .font(.headline)
 
                 Spacer()
 
                 TextField("1883", text: $host.port)
-                .multilineTextAlignment(.trailing)
+                    .multilineTextAlignment(.trailing)
+                    .disableAutocorrection(true)
             }
         }
     }
@@ -135,6 +139,7 @@ struct TopicFormView : View {
                 
                 TextField("#", text: $host.topic)
                     .multilineTextAlignment(.trailing)
+                    .disableAutocorrection(true)
             }
             
             HStack {

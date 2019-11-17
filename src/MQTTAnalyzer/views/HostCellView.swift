@@ -16,30 +16,15 @@ struct HostCellView : View {
     
     var body: some View {
         NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
-            HStack {
-                Image(systemName: "desktopcomputer")
-                    .foregroundColor(host.connected ? .green : .red)
-                    .padding()
-                
-                VStack(alignment: .leading) {
-                    Text(host.alias)
-                    .font(.title)
-                    .padding([.bottom])
-                    
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("hostname:")
-                                .disableAutocorrection(true)
-                            Text("topic:")
-                                .disableAutocorrection(true)
-                        }.foregroundColor(.secondary)
-                        
-                        VStack(alignment: .leading) {
-                            Text("\(host.hostname)")
-                            Text(host.topic)
-                        }
-                    }
+            VStack(alignment: .leading) {
+                Text(host.alias)
+                Spacer()
+                Group {
+                    Text("\(host.hostname)")
+                    Text(host.topic)
                 }
+                .font(.footnote)
+                .foregroundColor(.secondary)
             }
         }
     }
