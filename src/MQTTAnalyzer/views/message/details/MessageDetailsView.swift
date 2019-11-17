@@ -37,33 +37,16 @@ struct MessageDetailsView : View {
                     
                     Section(header: Text("Message")) {
                         if (message.isJson()) {
-                            JSONView(message: JsonFormatString(json: message.prettyJson()))
+                            MessageDetailsJsonView(message: JsonFormatString(json: message.prettyJson()))
                         }
                         else {
-                            Text(message.data)
-                            .lineLimit(nil)
-                            .padding(10)
-                            .font(.system(.body, design: .monospaced))
+                            MessageDetailsPlainTextView(message: message)
                         }
                     }
                 }
                 
             }
         }
-    }
-}
-
-struct JSONView : View {
-    let message: JsonFormatString
-    
-    // Workaround: update triggered due to change on this state
-    @State var workaroundUpdate = false
-    
-    var body: some View {
-        VStack {
-            AttributedUILabel(attributedString: message.getAttributed(), workaroundUpdate: self.$workaroundUpdate)
-        }
-        .frame(height: message.getAttributed().height(withConstrainedWidth: 500), alignment: .top)
     }
 }
 

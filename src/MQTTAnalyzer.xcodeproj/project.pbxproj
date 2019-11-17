@@ -16,9 +16,11 @@
 		2253F8E522C8C008007E35A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */; };
 		2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */; };
 		2253F8FB22C8C008007E35A2 /* MQTTAnalyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */; };
-		2267069222EE094200A88D75 /* ReconnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267069122EE094200A88D75 /* ReconnectView.swift */; };
 		2281047623816FD800112F24 /* QuickFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281047423816FD800112F24 /* QuickFilterView.swift */; };
 		2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */; };
+		22810480238171A900112F24 /* ReconnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281047F238171A900112F24 /* ReconnectView.swift */; };
+		228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104822381723D00112F24 /* MessageDetailsJsonView.swift */; };
+		228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */; };
 		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
@@ -80,9 +82,12 @@
 		2253F8F622C8C008007E35A2 /* MQTTAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerUITests.swift; sourceTree = "<group>"; };
 		2253F8FC22C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2267069122EE094200A88D75 /* ReconnectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReconnectView.swift; path = ../../../../../../System/Volumes/Data/Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/ReconnectView.swift; sourceTree = "<group>"; };
+		2267069122EE094200A88D75 /* ReconnectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReconnectView.swift; path = /System/Volumes/Data/Users/philipparndt/src/MQTTAnalyzer/MQTTAnalyzer/MQTTAnalyzer/ReconnectView.swift; sourceTree = "<absolute>"; };
 		2281047423816FD800112F24 /* QuickFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickFilterView.swift; sourceTree = "<group>"; };
 		2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickFilterTextDebounce.swift; sourceTree = "<group>"; };
+		2281047F238171A900112F24 /* ReconnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReconnectView.swift; path = MQTTAnalyzer/views/ReconnectView.swift; sourceTree = "<group>"; };
+		228104822381723D00112F24 /* MessageDetailsJsonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailsJsonView.swift; sourceTree = "<group>"; };
+		228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailsPlainTextView.swift; sourceTree = "<group>"; };
 		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +151,7 @@
 		2253F8C922C8C007007E35A2 = {
 			isa = PBXGroup;
 			children = (
+				2281047F238171A900112F24 /* ReconnectView.swift */,
 				2253F8D422C8C007007E35A2 /* MQTTAnalyzer */,
 				2253F8EE22C8C008007E35A2 /* MQTTAnalyzerTests */,
 				2253F8F922C8C008007E35A2 /* MQTTAnalyzerUITests */,
@@ -168,30 +174,17 @@
 		2253F8D422C8C007007E35A2 /* MQTTAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
-				22E469DC2380457800D72BD6 /* text */,
-				228911CF22CF86B20095301F /* Timeseries */,
 				22FD7D0722C8D39D0078795F /* model */,
+				228104782381708E00112F24 /* views */,
+				22810479238170A200112F24 /* extensions */,
 				22FD7D0622C8D3760078795F /* mqtt */,
-				22C386A222CB84900054C385 /* RootView.swift */,
 				2253F8D722C8C007007E35A2 /* SceneDelegate.swift */,
-				22FD7CFC22C8D2660078795F /* HostsView.swift */,
-				22FD7CF722C8D2650078795F /* MessageDetailsView.swift */,
-				22FD7D0422C8D2810078795F /* ChartDetailsView.swift */,
-				22FD7CF622C8D2650078795F /* MessagesView.swift */,
-				2253F8DC22C8C007007E35A2 /* TopicsView.swift */,
-				22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */,
-				2267069122EE094200A88D75 /* ReconnectView.swift */,
-				22FD7CF922C8D2650078795F /* NewHostFormView.swift */,
 				2253F8D522C8C007007E35A2 /* AppDelegate.swift */,
 				2253F8DE22C8C008007E35A2 /* Assets.xcassets */,
 				2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */,
 				2253F8E622C8C008007E35A2 /* Info.plist */,
 				2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */,
 				2253F8E022C8C008007E35A2 /* Preview Content */,
-				2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */,
-				2281047423816FD800112F24 /* QuickFilterView.swift */,
-				22E469D2237F490100D72BD6 /* StringUtils.swift */,
-				22E469DA23801CA000D72BD6 /* ArrayUtils.swift */,
 			);
 			path = MQTTAnalyzer;
 			sourceTree = "<group>";
@@ -222,23 +215,77 @@
 			path = MQTTAnalyzerUITests;
 			sourceTree = "<group>";
 		};
-		228911CF22CF86B20095301F /* Timeseries */ = {
+		228104782381708E00112F24 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				2281047E2381713000112F24 /* quickfilter */,
+				22E469DC2380457800D72BD6 /* json-text */,
+				22810481238171FA00112F24 /* message */,
+				22C386A222CB84900054C385 /* RootView.swift */,
+				22FD7CFC22C8D2660078795F /* HostsView.swift */,
+				2253F8DC22C8C007007E35A2 /* TopicsView.swift */,
+				22FD7D0422C8D2810078795F /* ChartDetailsView.swift */,
+				2267069122EE094200A88D75 /* ReconnectView.swift */,
+				22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */,
+				22FD7CF922C8D2650078795F /* NewHostFormView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		22810479238170A200112F24 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				22E469DA23801CA000D72BD6 /* ArrayUtils.swift */,
+				22E469E323814CEF00D72BD6 /* JsonFormatString.swift */,
+				22E469D2237F490100D72BD6 /* StringUtils.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		2281047E2381713000112F24 /* quickfilter */ = {
+			isa = PBXGroup;
+			children = (
+				2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */,
+				2281047423816FD800112F24 /* QuickFilterView.swift */,
+			);
+			path = quickfilter;
+			sourceTree = "<group>";
+		};
+		22810481238171FA00112F24 /* message */ = {
+			isa = PBXGroup;
+			children = (
+				228104862381733B00112F24 /* details */,
+				22FD7CF622C8D2650078795F /* MessagesView.swift */,
+			);
+			path = message;
+			sourceTree = "<group>";
+		};
+		228104862381733B00112F24 /* details */ = {
+			isa = PBXGroup;
+			children = (
+				22FD7CF722C8D2650078795F /* MessageDetailsView.swift */,
+				228104822381723D00112F24 /* MessageDetailsJsonView.swift */,
+				228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */,
+			);
+			path = details;
+			sourceTree = "<group>";
+		};
+		228911CF22CF86B20095301F /* timeseries */ = {
 			isa = PBXGroup;
 			children = (
 				22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */,
 			);
-			path = Timeseries;
+			path = timeseries;
 			sourceTree = "<group>";
 		};
-		22E469DC2380457800D72BD6 /* text */ = {
+		22E469DC2380457800D72BD6 /* json-text */ = {
 			isa = PBXGroup;
 			children = (
 				22E469DD2380459700D72BD6 /* TextWithAttributedString.swift */,
 				22E469DF23813BB000D72BD6 /* AttributedUILabel.swift */,
 				22E469E1238149FD00D72BD6 /* StringSizeExtension.swift */,
-				22E469E323814CEF00D72BD6 /* JsonFormatString.swift */,
 			);
-			path = text;
+			path = "json-text";
 			sourceTree = "<group>";
 		};
 		22FD7D0622C8D3760078795F /* mqtt */ = {
@@ -252,6 +299,7 @@
 		22FD7D0722C8D39D0078795F /* model */ = {
 			isa = PBXGroup;
 			children = (
+				228911CF22CF86B20095301F /* timeseries */,
 				22FD7CFA22C8D2650078795F /* Model.swift */,
 				22FD7CFB22C8D2650078795F /* RootModel.swift */,
 				22D50F9622CE4C4300F37EAF /* Multimap.swift */,
@@ -519,8 +567,8 @@
 				22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
+				22810480238171A900112F24 /* ReconnectView.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
-				2267069222EE094200A88D75 /* ReconnectView.swift in Sources */,
 				2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */,
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
@@ -529,9 +577,11 @@
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
 				22E469DE2380459700D72BD6 /* TextWithAttributedString.swift in Sources */,
+				228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
 				22FD7D0522C8D2820078795F /* ChartDetailsView.swift in Sources */,
 				22C386A322CB84900054C385 /* RootView.swift in Sources */,
+				228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */,
 				22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */,
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
