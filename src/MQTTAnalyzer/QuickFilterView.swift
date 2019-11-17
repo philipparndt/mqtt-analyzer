@@ -20,10 +20,10 @@ struct QuickFilterView : View {
             
             TextField("Search", text: Binding(
             get: {
-                return self.model.filter
+                return self.model.filterText
             },
             set: { (newValue) in
-                return self.model.filter = newValue
+                return self.model.filterText = newValue
             }))
             .disableAutocorrection(true)
             

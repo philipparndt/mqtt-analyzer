@@ -234,7 +234,7 @@ extension String {
   }
 }
 
-class MessageModel : ObservableObject {
+class MessageModel : QuickFilterTextDebounce, ObservableObject {
     
     @Published var messagesByTopic: [String: MessagesByTopic] {
         willSet {
@@ -245,11 +245,15 @@ class MessageModel : ObservableObject {
             updateDisplayTopics()
         }
     }
-    
+
     @Published var filter : String = "" {
         didSet {
             updateDisplayTopicsAsync()
         }
+    }
+    
+    override func onChange(text: String) {
+        self.filter = text
     }
     
     @Published var displayTopics : [MessagesByTopic] = []
