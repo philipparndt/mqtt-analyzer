@@ -15,18 +15,18 @@ struct MessageDetailsView : View {
     
     var body: some View {
         VStack {
-            List {
-                Section(header: Text("Metadata")) {
+            VStack {
+                Form {
                     HStack {
                         Text("Topic")
                         Spacer()
                         Text(topic.name)
                     }
-                    HStack {
-                        Text("Type")
-                        Spacer()
-                        Text(message.isJson() ? "JSON" : "Plain Text")
-                    }
+//                    HStack {
+//                        Text("Type")
+//                        Spacer()
+//                        Text(message.isJson() ? "JSON" : "Plain Text")
+//                    }
                     HStack {
                         Text("Timestamp")
                         Spacer()
@@ -38,58 +38,37 @@ struct MessageDetailsView : View {
                         Text("\(message.qos)")
                     }
                 }
-                Section(header: Text("Message")) {
-                    VStack {
-                        if (message.isJson()) {
-                            JSONView(message: message.prettyJson())
-                        }
-                        else {
-                            Text(message.data)
-                            .lineLimit(nil)
-                            .padding(20)
-                            .font(.system(.body, design: .monospaced))
-                        }
-                        
-                    }
+                .frame(minWidth: 200, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .topLeading)
+//            Section(header: Text("Metadata")) {
+                
+//            }
+            }.padding()
+            VStack {
+                if (message.isJson()) {
+                    JSONView(message: message.prettyJson())
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+//                    .background(Color.red)
                 }
+                else {
+                    Text(message.data)
+                    .lineLimit(nil)
+                    .padding(10)
+                    .font(.system(.body, design: .monospaced))
+                }
+                
             }
         }
     }
 }
 
-//struct TextView: UIViewRepresentable {
-//    @Binding var text: String
-//
-//    func makeUIView(context: Context) -> UITextView {
-//        return UITextView()
-//    }
-//
-//    func updateUIView(_ uiView: UITextView, context: Context) {
-//        uiView.text = text
-//    }
-//}
-//
-//struct ContentView : View {
-//    @State var text = ""
-//
-//    var body: some View {
-//        TextView(text: $text)
-//            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-//    }
-//}
-
 struct JSONView : View {
     let message: String
-    @State private var textViewHeight: CGFloat = 400
     
     var body: some View {
-        TextWithAttributedString(textViewHeight: self.$textViewHeight,
-                                 attributedString: highlightText(json: self.message))
-//        .frame(minWidth: 0, maxWidth: .infinity, minHeight: size(json: self.message), maxHeight: .infinity)
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: textViewHeight, maxHeight: .infinity)
-//        .frame(height: size(json: self.message))
+        TextWithAttributedString(attributedString: highlightText(json: self.message))
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
         .lineLimit(nil)
-        .padding(20)
+        .padding(10)
     }
     
     private func highlightText(json message: String) -> NSAttributedString {
@@ -98,19 +77,6 @@ struct JSONView : View {
 
         return highlightr.highlight(message, as: "json")!
     }
-    
-//    private func size(json message: String) -> CGFloat {
-//        let highlightr = Highlightr()!
-//        highlightr.setTheme(to: "paraiso-dark")
-//        let string =  highlightr.highlight(message, as: "json")!
-//
-//        let view = ViewWithLabel(frame:CGRect.zero)
-//        view.setString(string)
-//        view.scale()
-//        print(view.height)
-//
-//        return view.height * 2
-//    }
 }
 
 #if DEBUG

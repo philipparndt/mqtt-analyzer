@@ -8,13 +8,12 @@
 import SwiftUI
 
 class ViewWithLabel : UIView {
-    private var label = UILabel()
+    private var label = UITextView()
     var height : CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame:frame)
         self.addSubview(label)
-        label.numberOfLines = 0
         label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         if traitCollection.userInterfaceStyle == .light {
@@ -37,10 +36,7 @@ class ViewWithLabel : UIView {
     }
     
     func setString(_ attributedString:NSAttributedString) {
-//        self.label.numberOfLines = 0
         self.label.attributedText = attributedString
-//        self.label.sizeToFit()
-//        self.height = self.label.frame.height
     }
     
     func scale() {
@@ -51,7 +47,6 @@ class ViewWithLabel : UIView {
 }
 
 struct TextWithAttributedString: UIViewRepresentable {
-    @Binding var textViewHeight: CGFloat
     var attributedString:NSAttributedString
     
     func makeUIView(context: Context) -> ViewWithLabel {
@@ -60,11 +55,5 @@ struct TextWithAttributedString: UIViewRepresentable {
     
     func updateUIView(_ uiView: ViewWithLabel, context: UIViewRepresentableContext<TextWithAttributedString>) {
         uiView.setString(attributedString)
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
-//            print("Update heigt")
-//            self.textViewHeight = uiView.height
-//        }
-
     }
 }
