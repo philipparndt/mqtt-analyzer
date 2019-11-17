@@ -48,7 +48,7 @@ struct MessageDetailsView : View {
                     }
                 }
                 
-            }.padding()
+            }
         }
     }
 }
