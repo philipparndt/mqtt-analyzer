@@ -22,7 +22,7 @@ struct HostsView : View {
             VStack (alignment: .leading) {
                 List {
                     ForEach(hostsModel.hosts) { host in
-                        HostCell(host: host, messageModel: (
+                        HostCellView(host: host, messageModel: (
                             self.model.getMessageModel(host)
                         ))
                     }
@@ -61,43 +61,6 @@ struct ActionStyle: ButtonStyle {
     }
 }
 
-struct HostCell : View {
-    var host: Host
-    @EnvironmentObject var model : RootModel
-
-    var messageModel: MessageModel
-    
-    var body: some View {
-        NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
-            HStack {
-                Image(systemName: "desktopcomputer")
-                    .foregroundColor(host.connected ? .green : .red)
-                    .padding()
-                
-                VStack(alignment: .leading) {
-                    Text(host.alias)
-                    .font(.title)
-                    .padding([.bottom])
-                    
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("hostname:")
-                                .disableAutocorrection(true)
-                            Text("topic:")
-                                .disableAutocorrection(true)
-                        }.foregroundColor(.secondary)
-                        
-                        VStack(alignment: .leading) {
-                            Text("\(host.hostname)")
-                            Text(host.topic)
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-}
 #if DEBUG
 //struct HostsView_Previews : PreviewProvider {
 //    static var previews: some View {

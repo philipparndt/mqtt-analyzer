@@ -29,7 +29,7 @@ struct DataSeriesCellView : View {
     @ObservedObject var messagesByTopic: MessagesByTopic
 
     var body: some View {
-        NavigationLink(destination: ChartDetailsView(path: path, messagesByTopic: messagesByTopic)) {
+        NavigationLink(destination: DataSeriesDetailsView(path: path, messagesByTopic: messagesByTopic)) {
             HStack {
                 Image(systemName: "chart.bar")
                     .font(.subheadline)

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ChartDetailsView : View {
+struct DataSeriesDetailsView : View {
     
     let path : DiagramPath
     @ObservedObject var messagesByTopic: MessagesByTopic
@@ -28,7 +28,7 @@ struct ChartDetailsView : View {
                     }
                     Section(header: Text("Values")) {
                         ForEach(messagesByTopic.getTimeSeriesId(path).reversed()) {
-                            ValueCell(path: $0)
+                            DataSeriesCell(path: $0)
                         }
                     }
                 }
@@ -38,7 +38,7 @@ struct ChartDetailsView : View {
     }
 }
 
-struct ValueCell : View {
+struct DataSeriesCell : View {
     let path : TimeSeriesValue
     
     var body: some View {
