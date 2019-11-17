@@ -226,6 +226,7 @@
 			children = (
 				2281047E2381713000112F24 /* quickfilter */,
 				22E469DC2380457800D72BD6 /* json-text */,
+				2281048D2381765200112F24 /* message.details */,
 				22810481238171FA00112F24 /* message */,
 				22C386A222CB84900054C385 /* RootView.swift */,
 				22FD7CFC22C8D2660078795F /* HostsView.swift */,
@@ -260,7 +261,6 @@
 		22810481238171FA00112F24 /* message */ = {
 			isa = PBXGroup;
 			children = (
-				228104862381733B00112F24 /* details */,
 				22FD7CF622C8D2650078795F /* MessagesView.swift */,
 				22810487238173BB00112F24 /* DataSeriesView.swift */,
 				228104892381740000112F24 /* MessageView.swift */,
@@ -269,14 +269,14 @@
 			path = message;
 			sourceTree = "<group>";
 		};
-		228104862381733B00112F24 /* details */ = {
+		2281048D2381765200112F24 /* message.details */ = {
 			isa = PBXGroup;
 			children = (
 				22FD7CF722C8D2650078795F /* MessageDetailsView.swift */,
 				228104822381723D00112F24 /* MessageDetailsJsonView.swift */,
 				228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */,
 			);
-			path = details;
+			path = message.details;
 			sourceTree = "<group>";
 		};
 		228911CF22CF86B20095301F /* timeseries */ = {
