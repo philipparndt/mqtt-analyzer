@@ -20,16 +20,19 @@ struct MessageDetailsView : View {
                     Section(header: Text("Metadata")) {
                         HStack {
                             Text("Topic")
+                                .foregroundColor(.secondary)
                             Spacer()
                             Text(topic.name)
                         }
                         HStack {
                             Text("Timestamp")
+                                .foregroundColor(.secondary)
                             Spacer()
                             Text(message.localDate())
                         }
                         HStack {
                             Text("QoS")
+                                .foregroundColor(.secondary)
                             Spacer()
                             Text("\(message.qos)")
                         }
