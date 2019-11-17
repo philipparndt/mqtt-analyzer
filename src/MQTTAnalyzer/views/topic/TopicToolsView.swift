@@ -13,7 +13,7 @@ struct TopicsToolsView : View {
     var model : MessageModel
     
     var body: some View {
-        Section(header: Text("Tools")) {
+        Section() {
             HStack {
                 Text("Topics/Messages")
                 Spacer()
