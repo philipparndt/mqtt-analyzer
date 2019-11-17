@@ -26,8 +26,9 @@ struct TopicCellView : View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .lineLimit(8)
-                    Text("\(messages.messages.count) messages")
-                        .font(.subheadline)
+                    Spacer()
+                    Text("\(messages.messages.count) message\(messages.messages.count == 1 ? "" : "s")")
+                        .font(.footnote)
                         .foregroundColor(.secondary)
                 }
             }
