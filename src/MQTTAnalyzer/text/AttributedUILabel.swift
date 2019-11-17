@@ -12,7 +12,6 @@ import SwiftUI
 
 class LabelUIView : UIView {
     private var label = UILabel()
-    var height : CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -29,20 +28,13 @@ class LabelUIView : UIView {
         self.label.attributedText = attributedString
         self.label.numberOfLines = 0
         self.label.sizeToFit()
-        self.height = self.label.frame.height
-    }
-    
-    func scale() {
-        self.label.layoutSubviews()
-        self.label.sizeToFit()
-        self.height = self.label.frame.height
     }
 }
 
 struct AttributedUILabel : UIViewRepresentable {
     let attributedString:NSAttributedString
     
-    @Binding var height: CGFloat
+    @Binding var workaroundUpdate: Bool
     
     func makeUIView(context: UIViewRepresentableContext<AttributedUILabel>) -> LabelUIView {
         let label = LabelUIView(frame: .zero)
@@ -51,7 +43,7 @@ struct AttributedUILabel : UIViewRepresentable {
     
     func updateUIView(_ uiView: LabelUIView, context: UIViewRepresentableContext<AttributedUILabel>) {
         uiView.setString(attributedString)
-        context.coordinator.heightChanged(uiView)
+        context.coordinator.workaroundUpdate(uiView)
     }
     
     func makeCoordinator() -> AttributedUILabel.Coordinator {
@@ -65,9 +57,9 @@ struct AttributedUILabel : UIViewRepresentable {
             self.label = label
         }
         
-        @objc func heightChanged(_ sender: LabelUIView) {
+        @objc func workaroundUpdate(_ sender: LabelUIView) {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10 )) {
-                 self.label.height = sender.height
+                 self.label.workaroundUpdate = true
             }
         }
     }

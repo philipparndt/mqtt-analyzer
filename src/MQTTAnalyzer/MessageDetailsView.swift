@@ -56,13 +56,12 @@ struct MessageDetailsView : View {
 struct JSONView : View {
     let message: JsonFormatString
     
-    @State var height : CGFloat = 500
+    // Workaround: update triggered due to change on this state
+    @State var workaroundUpdate = false
     
     var body: some View {
         VStack {
-            AttributedUILabel(attributedString: message.getAttributed(), height: self.$height)
-            
-            Text("\(height)")
+            AttributedUILabel(attributedString: message.getAttributed(), workaroundUpdate: self.$workaroundUpdate)
         }
         .frame(height: message.getAttributed().height(withConstrainedWidth: 500), alignment: .top)
     }
