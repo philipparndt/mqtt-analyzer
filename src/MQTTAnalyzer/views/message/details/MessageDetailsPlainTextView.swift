@@ -11,9 +11,6 @@ import SwiftUI
 struct MessageDetailsPlainTextView : View {
     let message: Message
     
-    // Workaround: update triggered due to change on this state
-    @State var workaroundUpdate = false
-    
     var body: some View {
         Text(message.data)
             .lineLimit(nil)
