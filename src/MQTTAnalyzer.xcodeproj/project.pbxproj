@@ -26,6 +26,9 @@
 		22E469D923800A2200D72BD6 /* QuickFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D823800A2200D72BD6 /* QuickFilterView.swift */; };
 		22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469DA23801CA000D72BD6 /* ArrayUtils.swift */; };
 		22E469DE2380459700D72BD6 /* TextWithAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469DD2380459700D72BD6 /* TextWithAttributedString.swift */; };
+		22E469E023813BB000D72BD6 /* AttributedUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469DF23813BB000D72BD6 /* AttributedUILabel.swift */; };
+		22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E1238149FD00D72BD6 /* StringSizeExtension.swift */; };
+		22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E323814CEF00D72BD6 /* JsonFormatString.swift */; };
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
 		22FD7CF222C8C44A0078795F /* SwiftMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22FD7CF122C8C44A0078795F /* SwiftMQTT */; };
 		22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
@@ -88,6 +91,9 @@
 		22E469D823800A2200D72BD6 /* QuickFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickFilterView.swift; sourceTree = SOURCE_ROOT; };
 		22E469DA23801CA000D72BD6 /* ArrayUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtils.swift; sourceTree = "<group>"; };
 		22E469DD2380459700D72BD6 /* TextWithAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithAttributedString.swift; sourceTree = "<group>"; };
+		22E469DF23813BB000D72BD6 /* AttributedUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedUILabel.swift; sourceTree = "<group>"; };
+		22E469E1238149FD00D72BD6 /* StringSizeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSizeExtension.swift; sourceTree = "<group>"; };
+		22E469E323814CEF00D72BD6 /* JsonFormatString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonFormatString.swift; sourceTree = "<group>"; };
 		22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesModel.swift; sourceTree = "<group>"; };
 		22FD7CF622C8D2650078795F /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		22FD7CF722C8D2650078795F /* MessageDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailsView.swift; sourceTree = "<group>"; };
@@ -225,6 +231,9 @@
 			isa = PBXGroup;
 			children = (
 				22E469DD2380459700D72BD6 /* TextWithAttributedString.swift */,
+				22E469DF23813BB000D72BD6 /* AttributedUILabel.swift */,
+				22E469E1238149FD00D72BD6 /* StringSizeExtension.swift */,
+				22E469E323814CEF00D72BD6 /* JsonFormatString.swift */,
 			);
 			path = text;
 			sourceTree = "<group>";
@@ -502,8 +511,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */,
+				22E469E023813BB000D72BD6 /* AttributedUILabel.swift in Sources */,
 				22E469D923800A2200D72BD6 /* QuickFilterView.swift in Sources */,
 				22FD7D0122C8D2660078795F /* Model.swift in Sources */,
+				22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
@@ -521,6 +532,7 @@
 				22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */,
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
+				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
 				22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */,
 				22E469D3237F490100D72BD6 /* StringUtils.swift in Sources */,
 				22FD7D0022C8D2660078795F /* NewHostFormView.swift in Sources */,

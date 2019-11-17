@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Highlightr
+
 
 struct MessageDetailsView : View {
     let message: Message
@@ -16,66 +16,55 @@ struct MessageDetailsView : View {
     var body: some View {
         VStack {
             VStack {
-                Form {
-                    HStack {
-                        Text("Topic")
-                        Spacer()
-                        Text(topic.name)
+                List {
+                    Section(header: Text("Metadata")) {
+                        HStack {
+                            Text("Topic")
+                            Spacer()
+                            Text(topic.name)
+                        }
+                        HStack {
+                            Text("Timestamp")
+                            Spacer()
+                            Text(message.localDate())
+                        }
+                        HStack {
+                            Text("QoS")
+                            Spacer()
+                            Text("\(message.qos)")
+                        }
                     }
-//                    HStack {
-//                        Text("Type")
-//                        Spacer()
-//                        Text(message.isJson() ? "JSON" : "Plain Text")
-//                    }
-                    HStack {
-                        Text("Timestamp")
-                        Spacer()
-                        Text(message.localDate())
-                    }
-                    HStack {
-                        Text("QoS")
-                        Spacer()
-                        Text("\(message.qos)")
+                    
+                    Section(header: Text("Message")) {
+                        if (message.isJson()) {
+                            JSONView(message: JsonFormatString(json: message.prettyJson()))
+                        }
+                        else {
+                            Text(message.data)
+                            .lineLimit(nil)
+                            .padding(10)
+                            .font(.system(.body, design: .monospaced))
+                        }
                     }
                 }
-                .frame(minWidth: 200, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .topLeading)
-//            Section(header: Text("Metadata")) {
                 
-//            }
             }.padding()
-            VStack {
-                if (message.isJson()) {
-                    JSONView(message: message.prettyJson())
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-//                    .background(Color.red)
-                }
-                else {
-                    Text(message.data)
-                    .lineLimit(nil)
-                    .padding(10)
-                    .font(.system(.body, design: .monospaced))
-                }
-                
-            }
         }
     }
 }
 
 struct JSONView : View {
-    let message: String
+    let message: JsonFormatString
+    
+    @State var height : CGFloat = 500
     
     var body: some View {
-        TextWithAttributedString(attributedString: highlightText(json: self.message))
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-        .lineLimit(nil)
-        .padding(10)
-    }
-    
-    private func highlightText(json message: String) -> NSAttributedString {
-        let highlightr = Highlightr()!
-        highlightr.setTheme(to: "paraiso-dark")
-
-        return highlightr.highlight(message, as: "json")!
+        VStack {
+            AttributedUILabel(attributedString: message.getAttributed(), height: self.$height)
+            
+            Text("\(height)")
+        }
+        .frame(height: message.getAttributed().height(withConstrainedWidth: 500), alignment: .top)
     }
 }
 
