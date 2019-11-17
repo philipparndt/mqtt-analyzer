@@ -33,8 +33,12 @@ struct TopicCellView : View {
                 }
             }
             .contextMenu {
-                Button(action: copy) {
+                Button(action: copyTopic) {
                     Text("Copy topic")
+                    Image(systemName: "doc.on.doc")
+                }
+                Button(action: copyMessage) {
+                    Text("Copy recent message")
                     Image(systemName: "doc.on.doc")
                 }
                 Button(action: focus) {
@@ -53,8 +57,12 @@ struct TopicCellView : View {
         return self.messages.getFirst()
     }
     
-    func copy() {
+    func copyTopic() {
         UIPasteboard.general.string = self.messages.topic.name
+    }
+    
+    func copyMessage() {
+        UIPasteboard.general.string = self.messages.getFirst()
     }
     
     func focus() {
