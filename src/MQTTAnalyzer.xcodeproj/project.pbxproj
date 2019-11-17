@@ -21,6 +21,9 @@
 		22810480238171A900112F24 /* ReconnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281047F238171A900112F24 /* ReconnectView.swift */; };
 		228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104822381723D00112F24 /* MessageDetailsJsonView.swift */; };
 		228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */; };
+		22810488238173BB00112F24 /* DataSeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22810487238173BB00112F24 /* DataSeriesView.swift */; };
+		2281048A2381740000112F24 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104892381740000112F24 /* MessageView.swift */; };
+		2281048C2381744300112F24 /* TopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281048B2381744300112F24 /* TopicView.swift */; };
 		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
@@ -88,6 +91,9 @@
 		2281047F238171A900112F24 /* ReconnectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReconnectView.swift; path = MQTTAnalyzer/views/ReconnectView.swift; sourceTree = "<group>"; };
 		228104822381723D00112F24 /* MessageDetailsJsonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailsJsonView.swift; sourceTree = "<group>"; };
 		228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailsPlainTextView.swift; sourceTree = "<group>"; };
+		22810487238173BB00112F24 /* DataSeriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSeriesView.swift; sourceTree = "<group>"; };
+		228104892381740000112F24 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		2281048B2381744300112F24 /* TopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicView.swift; sourceTree = "<group>"; };
 		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +262,9 @@
 			children = (
 				228104862381733B00112F24 /* details */,
 				22FD7CF622C8D2650078795F /* MessagesView.swift */,
+				22810487238173BB00112F24 /* DataSeriesView.swift */,
+				228104892381740000112F24 /* MessageView.swift */,
+				2281048B2381744300112F24 /* TopicView.swift */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -565,6 +574,7 @@
 				22E469E023813BB000D72BD6 /* AttributedUILabel.swift in Sources */,
 				22FD7D0122C8D2660078795F /* Model.swift in Sources */,
 				22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */,
+				2281048C2381744300112F24 /* TopicView.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
 				22810480238171A900112F24 /* ReconnectView.swift in Sources */,
@@ -572,6 +582,8 @@
 				2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */,
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
+				22810488238173BB00112F24 /* DataSeriesView.swift in Sources */,
+				2281048A2381740000112F24 /* MessageView.swift in Sources */,
 				2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */,
 				22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */,
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
