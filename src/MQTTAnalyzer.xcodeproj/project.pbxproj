@@ -235,7 +235,6 @@
 				2281047E2381713000112F24 /* quickfilter */,
 				22E469DC2380457800D72BD6 /* json-text */,
 				22C386A222CB84900054C385 /* RootView.swift */,
-				22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -288,6 +287,7 @@
 				228104922381773100112F24 /* TopicCellView.swift */,
 				228104902381770000112F24 /* ReconnectView.swift */,
 				228104942381779000112F24 /* TopicToolsView.swift */,
+				22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */,
 			);
 			path = topic;
 			sourceTree = "<group>";
