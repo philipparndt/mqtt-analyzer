@@ -66,10 +66,10 @@ struct TopicCellView : View {
     }
     
     func focus() {
-        self.model.filter = self.messages.topic.name
+        self.model.setFilterImmediatelly(self.messages.topic.name)
     }
     
     func focusParent() {
-        self.model.filter = self.messages.topic.name.pathUp()
+        self.model.setFilterImmediatelly(self.messages.topic.name.pathUp())
     }
 }

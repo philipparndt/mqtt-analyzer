@@ -253,7 +253,9 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
     }
     
     override func onChange(text: String) {
-        self.filter = text
+        if (self.filter != text) {
+            self.filter = text
+        }
     }
     
     @Published var displayTopics : [MessagesByTopic] = []
@@ -262,6 +264,11 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
     
     init(messagesByTopic: [String: MessagesByTopic] = [:]) {
         self.messagesByTopic = messagesByTopic
+    }
+    
+    func setFilterImmediatelly(_ filter : String) {
+        self.filter = filter
+        self.filterText = filter
     }
     
     private func updateDisplayTopics() {

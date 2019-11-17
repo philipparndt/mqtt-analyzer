@@ -51,10 +51,10 @@ struct QuickFilterView : View {
     }
     
     func clear() {
-        model.filter = ""
+        model.setFilterImmediatelly("")
     }
     
     func up() {
-        model.filter = model.filter.pathUp()
+        model.setFilterImmediatelly(model.filterText.pathUp())
     }
 }

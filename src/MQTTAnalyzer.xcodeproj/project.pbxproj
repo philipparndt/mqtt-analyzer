@@ -232,7 +232,6 @@
 				2281048E2381769700112F24 /* topic */,
 				22810481238171FA00112F24 /* message */,
 				2281048D2381765200112F24 /* message.details */,
-				2281047E2381713000112F24 /* quickfilter */,
 				22E469DC2380457800D72BD6 /* json-text */,
 				22C386A222CB84900054C385 /* RootView.swift */,
 			);
@@ -283,6 +282,7 @@
 		2281048E2381769700112F24 /* topic */ = {
 			isa = PBXGroup;
 			children = (
+				2281047E2381713000112F24 /* quickfilter */,
 				2253F8DC22C8C007007E35A2 /* TopicsView.swift */,
 				228104922381773100112F24 /* TopicCellView.swift */,
 				228104902381770000112F24 /* ReconnectView.swift */,
