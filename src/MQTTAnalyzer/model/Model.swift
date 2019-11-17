@@ -182,7 +182,7 @@ class Message : Identifiable {
     }
     
     func prettyJson() -> String {
-        return String(data: try! JSONSerialization.data(withJSONObject: jsonData as Any, options: .prettyPrinted), encoding: .utf8)!
+        return data.data(using: .utf8)?.prettyPrintedJSONString ?? "{}"
     }
     
     class func toJson(messageData : String) -> [Dictionary<String, Any>]? {

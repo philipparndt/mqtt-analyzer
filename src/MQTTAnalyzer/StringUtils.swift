@@ -1,3 +1,5 @@
+import Foundation
+
 extension String {
     /*
      Truncates the string to the specified length number of characters and appends an optional trailing string if longer.
@@ -17,5 +19,16 @@ extension String {
             return String(self[...index])
         }
         return "";
+    }
+}
+
+
+extension Data {
+    var prettyPrintedJSONString: String? { /// NSString gives us a nice sanitized debugDescription
+        guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
+              let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+              let prettyPrintedString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else { return nil }
+
+        return String(prettyPrintedString)
     }
 }
