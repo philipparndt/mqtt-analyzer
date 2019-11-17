@@ -44,29 +44,34 @@ struct TopicsToolsView : View {
     var body: some View {
         Section(header: Text("Tools")) {
             HStack {
-                Text("Topics")
+                Text("Topics/Messages")
                 Spacer()
-                Text(String(model.messagesByTopic.count))
-            }
-            HStack {
-                Text("Messages")
-                Spacer()
-                Text(String(model.countMessages()))
-            }
-
-            Button(action: model.readall) {
-                Text("Read all")
-            }
-            
-            Button(action: model.clear) {
-                HStack {
-                    Image(systemName: "bin.xmark")
-                    Text("Clear")
+                Text("\(model.messagesByTopic.count)/\(model.countMessages())")
+                
+                Button(action: model.readall) {
+                    Button(action: noAction) {
+                        Image(systemName: "line.horizontal.3.decrease.circle")
+                            .foregroundColor(.gray)
+                            
+                    }.contextMenu {
+                        Button(action: model.clear) {
+                            Text("Delete all")
+                            Image(systemName: "bin.xmark")
+                        }
+                        Button(action: model.readall) {
+                            Text("Mark all as read")
+                            Image(systemName: "eye.fill")
+                        }
+                    }
                 }
             }
-
+         
             QuickFilterView(model: self.model)
         }
+    }
+    
+    private func noAction() {
+        
     }
 }
 
