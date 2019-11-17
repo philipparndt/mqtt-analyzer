@@ -24,8 +24,14 @@ struct TopicsView : View {
             TopicsToolsView(model: self.model)
             
             Section(header: Text("Topics")) {
-                ForEach(model.displayTopics) { messages in
-                    TopicCellView(messages: messages, model: self.model)
+                if (model.displayTopics.isEmpty) {
+                    Text("no topics available")
+                        .foregroundColor(.secondary)
+                }
+                else {
+                    ForEach(model.displayTopics) { messages in
+                        TopicCellView(messages: messages, model: self.model)
+                    }
                 }
             }
         }
