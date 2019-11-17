@@ -8,46 +8,62 @@
 
 import SwiftUI
 
+
 struct MessageDetailsView : View {
     let message: Message
     let topic: Topic
     
     var body: some View {
         VStack {
-            List {
-                Section(header: Text("Metadata")) {
-                    HStack {
-                        Text("Topic")
-                        Spacer()
-                        Text(topic.name)
+            VStack {
+                List {
+                    Section(header: Text("Metadata")) {
+                        HStack {
+                            Text("Topic")
+                            Spacer()
+                            Text(topic.name)
+                        }
+                        HStack {
+                            Text("Timestamp")
+                            Spacer()
+                            Text(message.localDate())
+                        }
+                        HStack {
+                            Text("QoS")
+                            Spacer()
+                            Text("\(message.qos)")
+                        }
                     }
-                    HStack {
-                        Text("Type")
-                        Spacer()
-                        Text(message.isJson() ? "JSON" : "Plain Text")
-                    }
-                    HStack {
-                        Text("Timestamp")
-                        Spacer()
-                        Text(message.localDate())
-                    }
-                    HStack {
-                        Text("QoS")
-                        Spacer()
-                        Text("\(message.qos)")
-                    }
-                }
-                Section(header: Text("Message")) {
-                    VStack {
-                        Text(message.isJson() ? message.prettyJson() : message.data)
+                    
+                    Section(header: Text("Message")) {
+                        if (message.isJson()) {
+                            JSONView(message: JsonFormatString(json: message.prettyJson()))
+                        }
+                        else {
+                            Text(message.data)
                             .lineLimit(nil)
-                            .padding(20)
+                            .padding(10)
                             .font(.system(.body, design: .monospaced))
+                        }
                     }
                 }
+                
             }
-            .listStyle(GroupedListStyle())
         }
+    }
+}
+
+struct JSONView : View {
+    let message: JsonFormatString
+    
+    // Workaround: update triggered due to change on this state
+    @State var workaroundUpdate = false
+    
+    var body: some View {
+        VStack {
+            AttributedUILabel(attributedString: message.getAttributed(), workaroundUpdate: self.$workaroundUpdate)
+        }
+        .frame(height: message.getAttributed().height(withConstrainedWidth: 500), alignment: .top)
     }
 }
 

@@ -1,10 +1,12 @@
 PODS:
+  - Highlightr (2.1.0)
   - Moscapsule (0.6.4)
   - OpenSSL-Universal (1.0.2.18):
     - OpenSSL-Universal/Static (= 1.0.2.18)
   - OpenSSL-Universal/Static (1.0.2.18)
 
 DEPENDENCIES:
+  - Highlightr (from `https://github.com/raspu/Highlightr.git`)
   - Moscapsule (from `https://github.com/flightonary/Moscapsule.git`)
   - OpenSSL-Universal
 
@@ -13,18 +15,24 @@ SPEC REPOS:
     - OpenSSL-Universal
 
 EXTERNAL SOURCES:
+  Highlightr:
+    :git: https://github.com/raspu/Highlightr.git
   Moscapsule:
     :git: https://github.com/flightonary/Moscapsule.git
 
 CHECKOUT OPTIONS:
+  Highlightr:
+    :commit: 87465e7ac116a4c8672fa29aae840e9c9e68bedb
+    :git: https://github.com/raspu/Highlightr.git
   Moscapsule:
     :commit: 784f5fc78cbca66b8c3436251d74d470a4aae5b3
     :git: https://github.com/flightonary/Moscapsule.git
 
 SPEC CHECKSUMS:
+  Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
   Moscapsule: 6bb834c60e24251897dc1cb2c4552fd674f887f3
   OpenSSL-Universal: d10ab08e0b258023e5184f77660b1b9f4ec93926
 
-PODFILE CHECKSUM: d074b3f21efcf8ed91e4087f61e23635150c62e8
+PODFILE CHECKSUM: db8d827d77b2a7fcde4e8afa078485605a0b8be4
 
 COCOAPODS: 1.7.3
