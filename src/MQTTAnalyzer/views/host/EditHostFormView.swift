@@ -29,7 +29,7 @@ struct NewHostFormModalView : View {
     
     var body: some View {
         NavigationView {
-            NewHostFormView(host: $host, auth: $auth)
+            EditHostFormView(host: $host, auth: $auth)
                 .font(.caption)
                 .navigationBarTitle(Text("New host"))
                 .navigationBarItems(
@@ -71,7 +71,62 @@ struct NewHostFormModalView : View {
     }
 }
 
-struct NewHostFormView : View {
+struct EditHostFormModalView : View {
+    @Binding var isPresented : Bool
+    var hosts: HostsModel
+
+    let original : Host
+    
+    @State var host : HostFormModel
+    @State private var auth : Bool = false
+    
+    var body: some View {
+        NavigationView {
+            EditHostFormView(host: $host, auth: $auth)
+                .font(.caption)
+                .navigationBarTitle(Text("Edit host"))
+                .navigationBarItems(
+                    leading: Button(action: cancel) { Text("Cancel") },
+                    trailing: Button(action: save) { Text("Save") }
+            )
+        }
+    }
+    
+    func save() {
+        let myHost = Host()
+        myHost.alias = host.alias
+        myHost.hostname = host.hostname
+        myHost.qos = host.qos
+        myHost.auth = self.auth
+        myHost.port = Int32(host.port) ?? 1883
+        myHost.topic = host.topic
+        
+        if (self.auth) {
+            myHost.username = host.username
+            myHost.password = host.password
+        }
+        
+        var filtered = hosts.hosts.filter { $0 != original}
+        filtered.append(myHost)
+        hosts.hosts = filtered
+        
+        self.isPresented = false
+        clear()
+    }
+    
+    func cancel() {
+        self.isPresented = false
+        clear()
+    }
+    
+    
+    func clear() {
+        host = HostFormModel()
+        auth = false
+    }
+}
+
+struct EditHostFormView : View {
     @Binding var host : HostFormModel
     @Binding var auth : Bool
     
@@ -143,6 +198,11 @@ struct TopicFormView : View {
             }
             
             HStack {
+                Text("QoS")
+                .font(.headline)
+                
+                Spacer()
+                
                 Picker(selection: $host.qos, label: Text("QoS")) {
                     Text("0").tag(0)
                     Text("1").tag(1)

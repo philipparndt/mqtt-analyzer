@@ -14,6 +14,9 @@ struct HostCellView : View {
 
     var messageModel: MessageModel
     
+    @State
+    var editHostPresented = false
+    
     var body: some View {
         NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
             VStack(alignment: .leading) {
@@ -26,6 +29,35 @@ struct HostCellView : View {
                 .font(.footnote)
                 .foregroundColor(.secondary)
             }
-        }
+            .contextMenu {
+                Button(action: editHost) {
+                    Text("Edit")
+                    Image(systemName: "pencil.circle")
+                }
+            }
+        }.sheet(isPresented: $editHostPresented, onDismiss: cancelEditCreation, content: {
+            EditHostFormModalView(isPresented: self.$editHostPresented,
+                                  hosts: self.model.hostsModel,
+                                  original: self.host,
+                                  host: self.transformHost())
+        })
+    }
+    
+    func transformHost() -> HostFormModel {
+        return HostFormModel(alias: host.alias,
+                             hostname: host.hostname,
+                             port: "\(host.port)",
+                             topic: host.topic,
+                             qos: host.qos,
+                             username: host.username,
+                             password: host.password)
+    }
+    
+    func editHost() {
+        editHostPresented = true
+    }
+    
+    func cancelEditCreation() {
+        editHostPresented = false
     }
 }

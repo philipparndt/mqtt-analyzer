@@ -12,7 +12,7 @@ struct HostsView : View {
     @EnvironmentObject var model : RootModel
 
     @State
-    var isPresented = false
+    var createHostPresented = false
     
     @ObservedObject
     var hostsModel : HostsModel
@@ -37,18 +37,18 @@ struct HostsView : View {
             )
             .navigationBarTitle(Text("Servers"), displayMode: .inline)
         }
-        .sheet(isPresented: $isPresented, onDismiss: cancelHostCreation, content: {
-            NewHostFormModalView(isPresented: self.$isPresented, hosts: self.model.hostsModel)
+        .sheet(isPresented: $createHostPresented, onDismiss: cancelHostCreation, content: {
+            NewHostFormModalView(isPresented: self.$createHostPresented, hosts: self.model.hostsModel)
         })
 
     }
     
     func createHost() {
-        isPresented = true
+        createHostPresented = true
     }
     
     func cancelHostCreation() {
-        isPresented = false
+        createHostPresented = false
     }
 }
 

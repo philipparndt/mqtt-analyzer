@@ -43,7 +43,7 @@
 		22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
 		22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF722C8D2650078795F /* MessageDetailsView.swift */; };
 		22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF822C8D2650078795F /* MQTTSessionController.swift */; };
-		22FD7D0022C8D2660078795F /* NewHostFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF922C8D2650078795F /* NewHostFormView.swift */; };
+		22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF922C8D2650078795F /* EditHostFormView.swift */; };
 		22FD7D0122C8D2660078795F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFA22C8D2650078795F /* Model.swift */; };
 		22FD7D0222C8D2660078795F /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFB22C8D2650078795F /* RootModel.swift */; };
 		22FD7D0322C8D2660078795F /* HostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFC22C8D2660078795F /* HostsView.swift */; };
@@ -116,7 +116,7 @@
 		22FD7CF622C8D2650078795F /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		22FD7CF722C8D2650078795F /* MessageDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailsView.swift; sourceTree = "<group>"; };
 		22FD7CF822C8D2650078795F /* MQTTSessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTSessionController.swift; sourceTree = "<group>"; };
-		22FD7CF922C8D2650078795F /* NewHostFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHostFormView.swift; sourceTree = "<group>"; };
+		22FD7CF922C8D2650078795F /* EditHostFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHostFormView.swift; sourceTree = "<group>"; };
 		22FD7CFA22C8D2650078795F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		22FD7CFB22C8D2650078795F /* RootModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModel.swift; sourceTree = "<group>"; };
 		22FD7CFC22C8D2660078795F /* HostsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsView.swift; sourceTree = "<group>"; };
@@ -297,7 +297,7 @@
 			children = (
 				22FD7CFC22C8D2660078795F /* HostsView.swift */,
 				228104972381796B00112F24 /* HostCellView.swift */,
-				22FD7CF922C8D2650078795F /* NewHostFormView.swift */,
+				22FD7CF922C8D2650078795F /* EditHostFormView.swift */,
 			);
 			path = host;
 			sourceTree = "<group>";
@@ -627,7 +627,7 @@
 				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
 				22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */,
 				22E469D3237F490100D72BD6 /* StringUtils.swift in Sources */,
-				22FD7D0022C8D2660078795F /* NewHostFormView.swift in Sources */,
+				22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
