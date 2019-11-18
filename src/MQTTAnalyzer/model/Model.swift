@@ -246,6 +246,12 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
         }
     }
 
+    @Published var messageCount: Int = 0 {
+        willSet {
+           willChange.send(Void())
+       }
+    }
+    
     @Published var filter : String = "" {
         didSet {
             updateDisplayTopicsAsync()
@@ -272,6 +278,7 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
     }
     
     private func updateDisplayTopics() {
+        self.messageCount = countMessages()
         self.displayTopics = self.sortedTopicsByFilter(filter: self.filter)
     }
     
@@ -316,7 +323,6 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
     
     func append(topic: String, message: Message) {
         willChange.send(Void())
-        
         var msgbt = messagesByTopic[topic]
         
         if (msgbt == nil) {
@@ -325,6 +331,7 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
         }
         
         msgbt!.newMessage(message)
+        self.messageCount = countMessages()
     }
     
 }

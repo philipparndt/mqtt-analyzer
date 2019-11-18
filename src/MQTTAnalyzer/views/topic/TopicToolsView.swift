@@ -11,13 +11,13 @@ import SwiftUI
 struct TopicsToolsView : View {
     @ObservedObject
     var model : MessageModel
-    
+        
     var body: some View {
         Section() {
             HStack {
                 Text("Topics/Messages")
                 Spacer()
-                Text("\(model.messagesByTopic.count)/\(model.countMessages())")
+                Text("\(model.messagesByTopic.count)/\(model.messageCount)")
                 
                 Button(action: model.readall) {
                     Button(action: noAction) {
