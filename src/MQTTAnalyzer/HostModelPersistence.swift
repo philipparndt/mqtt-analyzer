@@ -30,10 +30,14 @@ class HostsModelPersistence {
             let jsonData = try jsonEncoder.encode(hostsPersist)
             let json = String(data: jsonData, encoding: String.Encoding.utf8)
 
-            let userDefaults = UserDefaults.standard
-            let clientIDPersistenceKey = "hosts"
-
-            userDefaults.set(json, forKey: clientIDPersistenceKey)
+            let store = NSUbiquitousKeyValueStore.default
+            store.set(json, forKey: "hosts")
+            store.synchronize()
+            
+//            let userDefaults = UserDefaults.standard
+//            let clientIDPersistenceKey = "hosts"
+//
+//            userDefaults.set(json, forKey: clientIDPersistenceKey)
             
             NSLog(json!)
             
@@ -60,35 +64,41 @@ class HostsModelPersistence {
     }
     
     class func loadJson() -> String {
-        let userDefaults = UserDefaults.standard
-        let clientIDPersistenceKey = "hosts"
+//        let userDefaults = UserDefaults.standard
+//        let clientIDPersistenceKey = "hosts"
         
-        let json = userDefaults.object(forKey: clientIDPersistenceKey) as? String
+        let store = NSUbiquitousKeyValueStore.default
+        if (!store.bool(forKey: "hosts-initialized.1")) {
+            store.set("""
+                [
+                    {
+                        "alias": "Water levels",
+                        "auth": false,
+                        "hostname": "test.mosquitto.org",
+                        "password": "",
+                        "port": 1883,
+                        "qos": 0,
+                        "topic": "de.wsv/#",
+                        "username": ""
+                    },
+                    {
+                        "alias": "Revspace sensors",
+                        "auth": false,
+                        "hostname": "test.mosquitto.org",
+                        "password": "",
+                        "port": 1883,
+                        "qos": 0,
+                        "topic": "revspace/sensors/#",
+                        "username": ""
+                    }
+                ]
+            """, forKey: "hosts")
+            
+            store.set(true, forKey: "hosts-initialized.1")
+            store.synchronize()
+        }
         
-        return json ?? """
-            [
-                {
-                    "alias": "Water levels",
-                    "auth": false,
-                    "hostname": "test.mosquitto.org",
-                    "password": "",
-                    "port": 1883,
-                    "qos": 0,
-                    "topic": "de.wsv/#",
-                    "username": ""
-                },
-                {
-                    "alias": "Revspace sensors",
-                    "auth": false,
-                    "hostname": "test.mosquitto.org",
-                    "password": "",
-                    "port": 1883,
-                    "qos": 0,
-                    "topic": "revspace/sensors/#",
-                    "username": ""
-                }
-            ]
-        """
+        return store.string(forKey: "hosts") ?? "[]"
     }
     
     private class func transform(_ host: HostPersistable) -> Host {
