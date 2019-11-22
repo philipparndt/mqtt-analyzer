@@ -30,6 +30,8 @@
 		228104952381779000112F24 /* TopicToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104942381779000112F24 /* TopicToolsView.swift */; };
 		228104982381796B00112F24 /* HostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104972381796B00112F24 /* HostCellView.swift */; };
 		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
+		22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE62388858B001D9F87 /* NewHostFormModalView.swift */; };
+		22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
 		22E469D3237F490100D72BD6 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D2237F490100D72BD6 /* StringUtils.swift */; };
@@ -107,6 +109,8 @@
 		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/model/persistence/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22AF3AE62388858B001D9F87 /* NewHostFormModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHostFormModalView.swift; sourceTree = "<group>"; };
+		22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostFormModalView.swift; sourceTree = "<group>"; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		22D50F9622CE4C4300F37EAF /* Multimap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multimap.swift; sourceTree = "<group>"; };
 		22E469D2237F490100D72BD6 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
@@ -314,6 +318,8 @@
 				22FD7CFC22C8D2660078795F /* HostsView.swift */,
 				228104972381796B00112F24 /* HostCellView.swift */,
 				22FD7CF922C8D2650078795F /* EditHostFormView.swift */,
+				22AF3AE62388858B001D9F87 /* NewHostFormModalView.swift */,
+				22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */,
 			);
 			path = host;
 			sourceTree = "<group>";
@@ -618,6 +624,7 @@
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				228104982381796B00112F24 /* HostCellView.swift in Sources */,
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
+				22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
 				2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */,
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
@@ -641,6 +648,7 @@
 				223EF0062387084D002ADF3E /* HostSetting.swift in Sources */,
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
+				22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */,
 				2281047623816FD800112F24 /* QuickFilterView.swift in Sources */,
 				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
 				22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */,
