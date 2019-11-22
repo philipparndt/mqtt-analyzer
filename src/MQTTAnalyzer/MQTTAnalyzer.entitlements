@@ -6,7 +6,6 @@
 	<string>development</string>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
-		<string>iCloud.mqtt-analyzer-settings</string>
 		<string>iCloud.de.rnd7.MQTTAnalyzer</string>
 	</array>
 	<key>com.apple.developer.icloud-services</key>

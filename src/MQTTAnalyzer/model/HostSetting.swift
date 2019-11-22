@@ -24,8 +24,6 @@ class HostSetting: Object {
     @objc dynamic var username : String = ""
     @objc dynamic var password : String = ""
 
-    
-    @objc dynamic var deleted = false
     @objc dynamic var isDeleted = false
     
     override class func primaryKey() -> String? {
