@@ -59,6 +59,18 @@ class HostsModelPersistence {
         }
     }
     
+    func delete(_ host: Host) {
+        let realm = try! Realm()
+        let settings = realm.objects(HostSetting.self)
+            .filter("id = %@", host.id)
+        
+        if let setting = settings.first {
+            try! realm.write {
+                setting.deleted = true
+            }
+        }
+    }
+    
     private func initializeExampleData(realm: Realm) {
         let example1 = HostSetting()
         example1.id = "example.test.mosquitto.org.1"
@@ -106,13 +118,14 @@ class HostsModelPersistence {
         
         Observable.array(from: settings).subscribe(onNext: { (settings) in
             self.model.hosts = settings
-                .filter { !$0.isDeleted }
+                .filter { !$0.deleted }
                 .map{ self.transform($0) }
         }).disposed(by: self.bag)
     }
     
     private func transform(_ host: HostSetting) -> Host {
         let result = Host()
+        result.deleted = host.deleted
         result.id = host.id
         result.alias = host.alias
         result.hostname = host.hostname
@@ -126,6 +139,7 @@ class HostsModelPersistence {
     
     private func transform(_ host: Host) -> HostSetting {
         let result = HostSetting()
+        result.deleted = host.deleted
         result.id = host.id
         result.alias = host.alias
         result.hostname = host.hostname

@@ -339,6 +339,7 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
 class Host : Identifiable, Hashable, ObservableObject {
     
     var id = NSUUID().uuidString
+    var deleted = false
     
     var alias : String = ""
     var hostname : String = ""
@@ -382,6 +383,12 @@ class HostsModel : ObservableObject {
     }
     
     func delete(at offsets: IndexSet) {
+        let original = hosts
+        
+        for idx in offsets {
+            HostsModelPersistence(model: self).delete(original[idx])
+        }
+        
         var copy = hosts
         copy.remove(atOffsets: offsets)
         self.hosts = copy;

@@ -18,8 +18,11 @@ class RootModel: ObservableObject {
     
     var currentSession: MQTTSessionController?
     
+    let persistence: HostsModelPersistence
+    
     init() {
-        HostsModelPersistence(model: hostsModel).load()
+        self.persistence = HostsModelPersistence(model: hostsModel)
+        self.persistence.load()
         
         for host in hostsModel.hosts {
             messageModelByHost[host] = MessageModel()
