@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		223EF0062387084D002ADF3E /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
+		223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
 		2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D722C8C007007E35A2 /* SceneDelegate.swift */; };
 		2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */; };
@@ -74,6 +76,8 @@
 		1C7F7D8A56B0E9F9E2F1B518 /* Pods-MQTTAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
 		222C9BFC6423D4AE9EA3416A /* Pods_MQTTAnalyzerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzer.entitlements; sourceTree = "<group>"; };
+		223EF0052387084D002ADF3E /* HostSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostSetting.swift; path = MQTTAnalyzer/model/HostSetting.swift; sourceTree = SOURCE_ROOT; };
+		223EF00723870AA5002ADF3E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2253F8D522C8C007007E35A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2253F8D722C8C007007E35A2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,7 +104,7 @@
 		228104922381773100112F24 /* TopicCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCellView.swift; sourceTree = "<group>"; };
 		228104942381779000112F24 /* TopicToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicToolsView.swift; sourceTree = "<group>"; };
 		228104972381796B00112F24 /* HostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostCellView.swift; path = MQTTAnalyzer/views/HostCellView.swift; sourceTree = SOURCE_ROOT; };
-		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
+		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/model/persistence/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */,
 				22FD7CF222C8C44A0078795F /* SwiftMQTT in Frameworks */,
 				45AEF32312488446BB9A7C50 /* Pods_MQTTAnalyzer.framework in Frameworks */,
 			);
@@ -160,6 +165,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		223EF0042387082E002ADF3E /* persistence */ = {
+			isa = PBXGroup;
+			children = (
+				223EF0052387084D002ADF3E /* HostSetting.swift */,
+				229005CE237E7A8600D5A706 /* HostModelPersistence.swift */,
+			);
+			path = persistence;
+			sourceTree = "<group>";
+		};
 		2253F8C922C8C007007E35A2 = {
 			isa = PBXGroup;
 			children = (
@@ -333,11 +347,11 @@
 		22FD7D0722C8D39D0078795F /* model */ = {
 			isa = PBXGroup;
 			children = (
+				223EF0042387082E002ADF3E /* persistence */,
 				228911CF22CF86B20095301F /* timeseries */,
 				22FD7CFA22C8D2650078795F /* Model.swift */,
 				22FD7CFB22C8D2650078795F /* RootModel.swift */,
 				22D50F9622CE4C4300F37EAF /* Multimap.swift */,
-				229005CE237E7A8600D5A706 /* HostModelPersistence.swift */,
 				22E469D6237FC03500D72BD6 /* Readstate.swift */,
 			);
 			path = model;
@@ -346,6 +360,7 @@
 		45E8AFAA8B14B8DFB865D13B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				223EF00723870AA5002ADF3E /* CloudKit.framework */,
 				229D30C923197D8200632896 /* CocoaAsyncSocket.framework */,
 				229D30CA23197D8200632896 /* CocoaMQTT.framework */,
 				95084FE936763CB7326EC2E0 /* Pods_MQTTAnalyzer.framework */,
@@ -623,6 +638,7 @@
 				228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */,
 				22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */,
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
+				223EF0062387084D002ADF3E /* HostSetting.swift in Sources */,
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
 				2281047623816FD800112F24 /* QuickFilterView.swift in Sources */,

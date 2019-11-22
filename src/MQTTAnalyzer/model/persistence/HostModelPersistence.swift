@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 private struct HostPersistable : Codable {
     var alias : String = ""
@@ -49,6 +50,28 @@ class HostsModelPersistence {
     }
     
     class func load() -> HostsModel {
+        
+        let hostSetting = HostSetting()
+        
+        hostSetting.alias = "pisvr"
+        hostSetting.auth = false
+        hostSetting.hostname = "192.168.3.3"
+        hostSetting.topic = "#"
+        
+        let realm = try! Realm()
+        
+        let settings = realm.objects(HostSetting.self)
+        print(settings.count)
+        
+        for setting in settings {
+            print(setting.hostname)
+        }
+        
+//        try! realm.write {
+//            realm.add(hostSetting)
+//        }
+        
+        
         let json = loadJson()
         let jsonDecoder = JSONDecoder()
          do {
