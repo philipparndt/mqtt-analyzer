@@ -160,6 +160,7 @@ struct ServerFormView : View {
                 TextField("optional", text: $host.alias)
                     .multilineTextAlignment(.trailing)
                     .disableAutocorrection(true)
+                    .font(.body)
             }
             HStack {
                 Text("Hostname")
@@ -170,6 +171,7 @@ struct ServerFormView : View {
                 TextField("ip address / name", text: $host.hostname)
                     .multilineTextAlignment(.trailing)
                     .disableAutocorrection(true)
+                    .font(.body)
             }
             HStack {
                 Text("Port")
@@ -180,6 +182,7 @@ struct ServerFormView : View {
                 TextField("1883", text: $host.port)
                     .multilineTextAlignment(.trailing)
                     .disableAutocorrection(true)
+                    .font(.body)
             }
         }
     }
@@ -200,6 +203,7 @@ struct TopicFormView : View {
                 TextField("#", text: $host.topic)
                     .multilineTextAlignment(.trailing)
                     .disableAutocorrection(true)
+                    .font(.body)
             }
             
             HStack {
@@ -239,6 +243,7 @@ struct AuthFormView : View {
                 
                     TextField("username", text: $host.username)
                         .multilineTextAlignment(.trailing)
+                        .font(.body)
                 }
                 
                 HStack {
@@ -248,7 +253,8 @@ struct AuthFormView : View {
                         Spacer()
                     
                     SecureField("password", text: $host.password)
-                            .multilineTextAlignment(.trailing)
+                        .multilineTextAlignment(.trailing)
+                        .font(.body)
                 }
             }
         }
