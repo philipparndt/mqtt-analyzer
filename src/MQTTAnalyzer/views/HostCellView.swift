@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct HostCellView : View {
-    var host: Host
     @EnvironmentObject var model : RootModel
+
+    var host: Host
 
     var messageModel: MessageModel
     
@@ -37,6 +38,7 @@ struct HostCellView : View {
             }
         }.sheet(isPresented: $editHostPresented, onDismiss: cancelEditCreation, content: {
             EditHostFormModalView(isPresented: self.$editHostPresented,
+                                  root: self.model,
                                   hosts: self.model.hostsModel,
                                   original: self.host,
                                   host: self.transformHost())

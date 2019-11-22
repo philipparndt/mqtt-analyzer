@@ -22,11 +22,12 @@ struct HostFormModel {
 
 struct NewHostFormModalView : View {
     @Binding var isPresented : Bool
+    let root : RootModel
     var hosts: HostsModel
-
+    
     @State private var host : HostFormModel = HostFormModel()
     @State private var auth : Bool = false
-    @EnvironmentObject var root : RootModel
+    
     
     var body: some View {
         NavigationView {
@@ -76,11 +77,10 @@ struct NewHostFormModalView : View {
 
 struct EditHostFormModalView : View {
     @Binding var isPresented : Bool
+    let root : RootModel
     var hosts: HostsModel
-
     let original : Host
     
-    @EnvironmentObject var root : RootModel
     @State var host : HostFormModel
     @State private var auth : Bool = false
     

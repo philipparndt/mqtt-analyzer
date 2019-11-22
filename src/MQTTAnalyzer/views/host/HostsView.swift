@@ -38,7 +38,9 @@ struct HostsView : View {
             .navigationBarTitle(Text("Servers"), displayMode: .inline)
         }
         .sheet(isPresented: $createHostPresented, onDismiss: cancelHostCreation, content: {
-            NewHostFormModalView(isPresented: self.$createHostPresented, hosts: self.model.hostsModel)
+            NewHostFormModalView(isPresented: self.$createHostPresented,
+                                 root: self.model,
+                                 hosts: self.model.hostsModel)
         })
 
     }
