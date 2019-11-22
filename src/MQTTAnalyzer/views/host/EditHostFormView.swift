@@ -26,6 +26,7 @@ struct NewHostFormModalView : View {
 
     @State private var host : HostFormModel = HostFormModel()
     @State private var auth : Bool = false
+    @EnvironmentObject var root : RootModel
     
     var body: some View {
         NavigationView {
@@ -55,7 +56,7 @@ struct NewHostFormModalView : View {
         
         hosts.hosts.append(newHost)
         
-        HostsModelPersistence(model: hosts).create(newHost)
+        root.persistence.create(newHost)
         
         self.isPresented = false
         clear()
@@ -79,6 +80,7 @@ struct EditHostFormModalView : View {
 
     let original : Host
     
+    @EnvironmentObject var root : RootModel
     @State var host : HostFormModel
     @State private var auth : Bool = false
     
@@ -111,12 +113,8 @@ struct EditHostFormModalView : View {
             original.password = ""
         }
         
-        HostsModelPersistence(model: hosts).update(original)
-        
-//        var filtered = hosts.hosts.filter { $0 != original}
-//        filtered.append(changedHost)
-//        hosts.hosts = filtered
-        
+        root.persistence.update(original)
+
         self.isPresented = false
         clear()
     }

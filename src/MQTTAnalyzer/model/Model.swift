@@ -382,11 +382,11 @@ class HostsModel : ObservableObject {
         self.hosts = hosts
     }
     
-    func delete(at offsets: IndexSet) {
+    func delete(at offsets: IndexSet, persistence: HostsModelPersistence) {
         let original = hosts
         
         for idx in offsets {
-            HostsModelPersistence(model: self).delete(original[idx])
+            persistence.delete(original[idx])
         }
         
         var copy = hosts
