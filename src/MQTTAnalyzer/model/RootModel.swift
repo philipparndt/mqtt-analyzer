@@ -12,14 +12,14 @@ import Combine
 class RootModel: ObservableObject {
     var willChange = PassthroughSubject<RootModel, Never>()
     
-    let hostsModel: HostsModel
+    let hostsModel = HostsModel()
     
     var messageModelByHost: [Host: MessageModel] = [:]
     
     var currentSession: MQTTSessionController?
     
     init() {
-        hostsModel = HostsModelPersistence.load()
+        HostsModelPersistence(model: hostsModel).load()
         
         for host in hostsModel.hosts {
             messageModelByHost[host] = MessageModel()

@@ -40,20 +40,22 @@ struct NewHostFormModalView : View {
     }
     
     func save() {
-        let myHost = Host()
-        myHost.alias = host.alias
-        myHost.hostname = host.hostname
-        myHost.qos = host.qos
-        myHost.auth = self.auth
-        myHost.port = Int32(host.port) ?? 1883
-        myHost.topic = host.topic
+        let newHost =  Host()
+        newHost.alias = host.alias
+        newHost.hostname = host.hostname
+        newHost.qos = host.qos
+        newHost.auth = self.auth
+        newHost.port = Int32(host.port) ?? 1883
+        newHost.topic = host.topic
         
         if (self.auth) {
-            myHost.username = host.username
-            myHost.password = host.password
+            newHost.username = host.username
+            newHost.password = host.password
         }
         
-        hosts.hosts.append(myHost)
+        hosts.hosts.append(newHost)
+        
+        HostsModelPersistence(model: hosts).create(newHost)
         
         self.isPresented = false
         clear()
@@ -93,22 +95,27 @@ struct EditHostFormModalView : View {
     }
     
     func save() {
-        let myHost = Host()
-        myHost.alias = host.alias
-        myHost.hostname = host.hostname
-        myHost.qos = host.qos
-        myHost.auth = self.auth
-        myHost.port = Int32(host.port) ?? 1883
-        myHost.topic = host.topic
+        original.alias = host.alias
+        original.hostname = host.hostname
+        original.qos = host.qos
+        original.auth = self.auth
+        original.port = Int32(host.port) ?? 1883
+        original.topic = host.topic
         
         if (self.auth) {
-            myHost.username = host.username
-            myHost.password = host.password
+            original.username = host.username
+            original.password = host.password
+        }
+        else {
+            original.username = ""
+            original.password = ""
         }
         
-        var filtered = hosts.hosts.filter { $0 != original}
-        filtered.append(myHost)
-        hosts.hosts = filtered
+        HostsModelPersistence(model: hosts).update(original)
+        
+//        var filtered = hosts.hosts.filter { $0 != original}
+//        filtered.append(changedHost)
+//        hosts.hosts = filtered
         
         self.isPresented = false
         clear()

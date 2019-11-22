@@ -338,6 +338,8 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
 
 class Host : Identifiable, Hashable, ObservableObject {
     
+    var id = NSUUID().uuidString
+    
     var alias : String = ""
     var hostname : String = ""
     var port : Int32 = 1883
@@ -373,12 +375,7 @@ class Host : Identifiable, Hashable, ObservableObject {
 }
 
 class HostsModel : ObservableObject {
-    @Published var hosts: [Host] {
-        willSet {
-            NSLog("hosts willSet \(newValue)")
-            HostsModelPersistence.persist(newValue)
-        }
-    }
+    @Published var hosts: [Host]
     
     init(hosts: [Host] = []) {
         self.hosts = hosts
@@ -388,7 +385,6 @@ class HostsModel : ObservableObject {
         var copy = hosts
         copy.remove(atOffsets: offsets)
         self.hosts = copy;
-        
     }
     
     func delete(_ host : Host) {
