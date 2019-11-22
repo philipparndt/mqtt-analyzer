@@ -11,19 +11,6 @@ import RealmSwift
 import RxRealm
 import RxSwift
 
-private struct HostPersistable : Codable {
-    var alias : String = ""
-    var hostname : String = ""
-    var port : Int32 = 1883
-    var topic : String = "#"
-    
-    var qos : Int = 0
-    
-    var auth : Bool = false
-    var username : String = ""
-    var password : String = ""
-}
-
 class HostsModelPersistence {
     let bag = DisposeBag()
     let model : HostsModel
@@ -119,7 +106,7 @@ class HostsModelPersistence {
         Observable.array(from: settings).subscribe(onNext: { (settings) in
             self.model.hosts = settings
                 .filter { !$0.deleted }
-                .map{ self.transform($0) }
+                .map { self.transform($0) }
         }).disposed(by: self.bag)
     }
     
