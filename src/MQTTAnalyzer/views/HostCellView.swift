@@ -18,15 +18,25 @@ struct HostCellView : View {
     
     var body: some View {
         NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
-            VStack(alignment: .leading) {
-                Text(host.alias)
-                Spacer()
-                Group {
-                    Text("\(host.hostname)")
-                    Text(host.topic)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(host.alias)
+                    Spacer()
+                    Group {
+                        Text("\(host.hostname)")
+                        Text(host.topic)
+                    }
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
                 }
-                .font(.footnote)
-                .foregroundColor(.secondary)
+                
+                if (host.connected) {
+                    Spacer()
+                     Image(systemName: "circle.fill")
+                                   .font(.subheadline)
+                                   .foregroundColor(.green)
+                }
+                
             }
             .contextMenu {
                 Button(action: editHost) {
