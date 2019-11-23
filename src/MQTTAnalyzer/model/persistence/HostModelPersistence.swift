@@ -65,7 +65,6 @@ class HostsModelPersistence {
         
         token = settings.observe {
             (changes: RealmCollectionChange) in
-            print ("observer received changes")
             self.pushModel(settings: settings)
         }
     }
