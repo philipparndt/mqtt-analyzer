@@ -228,12 +228,6 @@ class Topic : Hashable {
     }
 }
 
-extension String {
-  var isBlank: Bool {
-    return allSatisfy({ $0.isWhitespace })
-  }
-}
-
 class MessageModel : QuickFilterTextDebounce, ObservableObject {
     
     @Published var messagesByTopic: [String: MessagesByTopic] {

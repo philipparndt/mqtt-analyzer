@@ -20,8 +20,11 @@ extension String {
         }
         return "";
     }
+    
+    var isBlank: Bool {
+        return allSatisfy({ $0.isWhitespace })
+    }
 }
-
 
 extension Data {
     var prettyPrintedJSONString: String? { /// NSString gives us a nice sanitized debugDescription
