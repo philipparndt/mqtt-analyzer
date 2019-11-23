@@ -32,6 +32,7 @@
 		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
 		22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE62388858B001D9F87 /* NewHostFormModalView.swift */; };
 		22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */; };
+		22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
 		22E469D3237F490100D72BD6 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D2237F490100D72BD6 /* StringUtils.swift */; };
@@ -111,6 +112,7 @@
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22AF3AE62388858B001D9F87 /* NewHostFormModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHostFormModalView.swift; sourceTree = "<group>"; };
 		22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostFormModalView.swift; sourceTree = "<group>"; };
+		22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSettingExamples.swift; sourceTree = "<group>"; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		22D50F9622CE4C4300F37EAF /* Multimap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multimap.swift; sourceTree = "<group>"; };
 		22E469D2237F490100D72BD6 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			children = (
 				223EF0052387084D002ADF3E /* HostSetting.swift */,
 				229005CE237E7A8600D5A706 /* HostModelPersistence.swift */,
+				22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
 				223EF0062387084D002ADF3E /* HostSetting.swift in Sources */,
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
+				22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */,
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */,
 				2281047623816FD800112F24 /* QuickFilterView.swift in Sources */,
