@@ -26,7 +26,7 @@ struct HostsView : View {
                             self.model.getMessageModel(host)
                         ))
                     }
-                    .onDelete(perform: hostsModel.delete)
+                    .onDelete(perform: self.delete)
                 }
             }
             .navigationBarItems(
@@ -38,9 +38,15 @@ struct HostsView : View {
             .navigationBarTitle(Text("Servers"), displayMode: .inline)
         }
         .sheet(isPresented: $createHostPresented, onDismiss: cancelHostCreation, content: {
-            NewHostFormModalView(isPresented: self.$createHostPresented, hosts: self.model.hostsModel)
+            NewHostFormModalView(isPresented: self.$createHostPresented,
+                                 root: self.model,
+                                 hosts: self.model.hostsModel)
         })
 
+    }
+    
+    func delete(at indexSet: IndexSet) {
+        hostsModel.delete(at: indexSet, persistence: model.persistence)
     }
     
     func createHost() {

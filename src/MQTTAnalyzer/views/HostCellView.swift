@@ -9,13 +9,12 @@
 import SwiftUI
 
 struct HostCellView : View {
-    var host: Host
     @EnvironmentObject var model : RootModel
+    @ObservedObject var host: Host
 
     var messageModel: MessageModel
     
-    @State
-    var editHostPresented = false
+    @State var editHostPresented = false
     
     var body: some View {
         NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
@@ -37,6 +36,7 @@ struct HostCellView : View {
             }
         }.sheet(isPresented: $editHostPresented, onDismiss: cancelEditCreation, content: {
             EditHostFormModalView(isPresented: self.$editHostPresented,
+                                  root: self.model,
                                   hosts: self.model.hostsModel,
                                   original: self.host,
                                   host: self.transformHost())

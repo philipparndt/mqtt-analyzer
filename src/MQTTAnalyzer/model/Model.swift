@@ -228,12 +228,6 @@ class Topic : Hashable {
     }
 }
 
-extension String {
-  var isBlank: Bool {
-    return allSatisfy({ $0.isWhitespace })
-  }
-}
-
 class MessageModel : QuickFilterTextDebounce, ObservableObject {
     
     @Published var messagesByTopic: [String: MessagesByTopic] {
@@ -338,6 +332,10 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
 
 class Host : Identifiable, Hashable, ObservableObject {
     
+    var ID : String = NSUUID().uuidString
+    
+    var deleted = false
+    
     var alias : String = ""
     var hostname : String = ""
     var port : Int32 = 1883
@@ -373,22 +371,22 @@ class Host : Identifiable, Hashable, ObservableObject {
 }
 
 class HostsModel : ObservableObject {
-    @Published var hosts: [Host] {
-        willSet {
-            NSLog("hosts willSet \(newValue)")
-            HostsModelPersistence.persist(newValue)
-        }
-    }
+    @Published var hosts: [Host]
     
     init(hosts: [Host] = []) {
         self.hosts = hosts
     }
     
-    func delete(at offsets: IndexSet) {
+    func delete(at offsets: IndexSet, persistence: HostsModelPersistence) {
+        let original = hosts
+        
+        for idx in offsets {
+            persistence.delete(original[idx])
+        }
+        
         var copy = hosts
         copy.remove(atOffsets: offsets)
         self.hosts = copy;
-        
     }
     
     func delete(_ host : Host) {
