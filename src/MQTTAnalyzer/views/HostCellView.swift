@@ -10,13 +10,11 @@ import SwiftUI
 
 struct HostCellView : View {
     @EnvironmentObject var model : RootModel
-
-    var host: Host
+    @ObservedObject var host: Host
 
     var messageModel: MessageModel
     
-    @State
-    var editHostPresented = false
+    @State var editHostPresented = false
     
     var body: some View {
         NavigationLink(destination: TopicsView(model: messageModel, host: host)) {

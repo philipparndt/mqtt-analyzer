@@ -15,6 +15,7 @@ class HostsModelPersistence {
     let bag = DisposeBag()
     let model : HostsModel
     let realm : Realm
+    var token : NotificationToken? = nil
     
     init(model: HostsModel) {
         self.model = model
@@ -32,7 +33,7 @@ class HostsModelPersistence {
         
     func update(_ host: Host) {
         let settings = realm.objects(HostSetting.self)
-            .filter("id = %@", host.id)
+            .filter("id = %@", host.ID)
         
         if let setting = settings.first {
             try! realm.write {
@@ -63,17 +64,28 @@ class HostsModelPersistence {
         
         let settings = realm.objects(HostSetting.self)
         
-        Observable.array(from: settings).subscribe(onNext: { (settings) in
-            self.model.hosts = settings
-                .filter { !$0.isDeleted }
-                .map { self.transform($0) }
-        }).disposed(by: self.bag)
+        token?.invalidate()
+        
+        token = settings.observe {
+            (changes: RealmCollectionChange) in
+            print ("observer received changes")
+            self.pushModel(settings: settings)
+        }
+    }
+    
+    private func pushModel(settings: Results<HostSetting>) {
+        self.model.hosts = []
+        
+        let hosts : [Host] = settings
+        .filter { !$0.isDeleted }
+        .map { self.transform($0) }
+        self.model.hosts = hosts
     }
     
     private func transform(_ host: HostSetting) -> Host {
         let result = Host()
         result.deleted = host.isDeleted
-        result.id = host.id
+        result.ID = host.id
         result.alias = host.alias
         result.hostname = host.hostname
         result.topic = host.topic
@@ -87,7 +99,7 @@ class HostsModelPersistence {
     private func transform(_ host: Host) -> HostSetting {
         let result = HostSetting()
         result.isDeleted = host.deleted
-        result.id = host.id
+        result.id = host.ID
         result.alias = host.alias
         result.hostname = host.hostname
         result.topic = host.topic

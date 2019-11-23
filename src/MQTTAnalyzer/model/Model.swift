@@ -338,7 +338,8 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
 
 class Host : Identifiable, Hashable, ObservableObject {
     
-    var id = NSUUID().uuidString
+    var ID : String = NSUUID().uuidString
+    
     var deleted = false
     
     var alias : String = ""
