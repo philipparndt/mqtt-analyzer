@@ -47,7 +47,7 @@ class HostsModelPersistence {
     
     func delete(_ host: Host) {
         let settings = realm.objects(HostSetting.self)
-            .filter("id = %@", host.id)
+            .filter("id = %@", host.ID)
         
         if let setting = settings.first {
             try! realm.write {
