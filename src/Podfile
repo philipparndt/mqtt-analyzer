@@ -12,7 +12,6 @@ target 'MQTTAnalyzer' do
   pod 'OpenSSL-Universal'
   
   pod 'RealmSwift'
-  pod 'RxRealm'
   pod 'IceCream'
 
   pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git'

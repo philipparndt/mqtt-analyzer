@@ -8,11 +8,8 @@
 
 import Foundation
 import RealmSwift
-import RxRealm
-import RxSwift
 
 class HostsModelPersistence {
-    let bag = DisposeBag()
     let model : HostsModel
     let realm : Realm
     var token : NotificationToken? = nil
