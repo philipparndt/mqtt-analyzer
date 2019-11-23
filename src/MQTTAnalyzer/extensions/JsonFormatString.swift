@@ -25,8 +25,7 @@ class JsonFormatString {
     
     private func highlightText(json message: String) -> NSAttributedString {
         let highlightr = Highlightr()!
-        highlightr.setTheme(to: "paraiso-dark")
-
+        highlightr.setTheme(to: UITraitCollection.current.userInterfaceStyle == .light ? "paraiso-light" : "paraiso-dark")
         return highlightr.highlight(message, as: "json")!
     }
 }
