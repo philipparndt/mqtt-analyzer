@@ -33,7 +33,8 @@ struct HostsView : View {
                 trailing: Button(action: createHost) {
                     Image(systemName: "plus")
                 }
-                .buttonStyle(ActionStyle())
+                .font(.system(size: 22))
+                .buttonStyle(ActionStyleTrailing())
             )
             .navigationBarTitle(Text("Servers"), displayMode: .inline)
         }
@@ -58,14 +59,7 @@ struct HostsView : View {
     }
 }
 
-struct ActionStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .foregroundColor(.accentColor)
-            .font(.system(size: 22))
-    }
-}
+
 
 #if DEBUG
 //struct HostsView_Previews : PreviewProvider {

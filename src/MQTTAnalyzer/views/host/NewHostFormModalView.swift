@@ -23,8 +23,13 @@ struct NewHostFormModalView : View {
                 .font(.caption)
                 .navigationBarTitle(Text("New host"))
                 .navigationBarItems(
-                    leading: Button(action: cancel) { Text("Cancel") },
-                    trailing: Button(action: save) { Text("Save") }
+                    leading: Button(action: cancel) {
+                        Text("Cancel")
+                        
+                    }.buttonStyle(ActionStyleLeading()),
+                    trailing: Button(action: save) {
+                        Text("Save")
+                    }.buttonStyle(ActionStyleTrailing())
             )
         }
     }

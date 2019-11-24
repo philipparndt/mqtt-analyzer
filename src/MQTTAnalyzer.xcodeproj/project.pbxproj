@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
 		223EF0062387084D002ADF3E /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
 		223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
@@ -77,6 +78,7 @@
 
 /* Begin PBXFileReference section */
 		1C7F7D8A56B0E9F9E2F1B518 /* Pods-MQTTAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
+		2205E5E0238A7EE2001638DF /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		222C9BFC6423D4AE9EA3416A /* Pods_MQTTAnalyzerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzer.entitlements; sourceTree = "<group>"; };
 		223EF0052387084D002ADF3E /* HostSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostSetting.swift; path = MQTTAnalyzer/model/HostSetting.swift; sourceTree = SOURCE_ROOT; };
@@ -318,6 +320,7 @@
 		228104962381780D00112F24 /* host */ = {
 			isa = PBXGroup;
 			children = (
+				2205E5E0238A7EE2001638DF /* ButtonStyle.swift */,
 				22FD7CFC22C8D2660078795F /* HostsView.swift */,
 				228104972381796B00112F24 /* HostCellView.swift */,
 				22FD7CF922C8D2650078795F /* EditHostFormView.swift */,
@@ -652,6 +655,7 @@
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
 				22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */,
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
+				2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */,
 				2281047623816FD800112F24 /* QuickFilterView.swift in Sources */,
 				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
