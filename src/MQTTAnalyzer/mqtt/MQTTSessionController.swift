@@ -101,14 +101,21 @@ class MQTTSessionController: ReconnectDelegate {
 	func onMessage(_ mqttMessage: MQTTMessage) {
 		DispatchQueue.main.async {
 			let messageString = mqttMessage.payloadString ?? ""
-			let msg = Message(data: messageString, date: Date(), qos: mqttMessage.qos)
-					   self.model.append(topic: mqttMessage.topic, message: msg)
+			let msg = Message(data: messageString,
+							  date: Date(),
+							  qos: mqttMessage.qos,
+							  retain: mqttMessage.retain)
+			self.model.append(topic: mqttMessage.topic, message: msg)
 		}
 	}
 	
     func subscribeToChannel(_ host: Host) {
         mqtt?.subscribe(host.topic, qos: 2)
     }
+	
+	func post(topic: Topic, _ message: Message) {
+		mqtt?.publish(string: message.data, topic: topic.name, qos: message.qos, retain: message.retain)
+	}
     
     // MARK: - Utilities
     

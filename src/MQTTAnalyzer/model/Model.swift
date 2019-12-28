@@ -158,14 +158,16 @@ class Message: Identifiable {
 	let date: Date
     let dateString: String
     let qos: Int32
+	let retain: Bool
     
     let jsonData: [[String: Any]]?
     
-    init(data: String, date: Date, qos: Int32) {
+    init(data: String, date: Date, qos: Int32, retain: Bool) {
         self.data = data
         self.date = date
         self.qos = qos
         self.jsonData = Message.toJson(messageData: data)
+		self.retain = retain
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

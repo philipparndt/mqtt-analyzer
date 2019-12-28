@@ -68,4 +68,9 @@ class RootModel: ObservableObject {
     func disconnect() {
         currentSession?.disconnect()
     }
+    
+	func post(topic: Topic, _ message: Message) {
+		currentSession?.post(topic: topic, message)
+    }
+	
 }

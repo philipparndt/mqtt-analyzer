@@ -22,6 +22,7 @@ struct MessageView: View {
 }
 
 struct MessageCellView: View {
+	@EnvironmentObject var model: RootModel
     let message: Message
     let topic: Topic
     
@@ -45,11 +46,19 @@ struct MessageCellView: View {
                     Text("Copy message")
                     Image(systemName: "doc.on.doc")
                 }
+                Button(action: post) {
+                    Text("Post message again")
+                    Image(systemName: "paperplane.fill")
+                }
             }
         }
     }
         
     func copy() {
         UIPasteboard.general.string = self.message.data
+    }
+	
+    func post() {
+		self.model.post(topic: topic, message)
     }
 }
