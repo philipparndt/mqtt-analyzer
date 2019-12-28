@@ -75,6 +75,10 @@ class MessagesByTopic: Identifiable, ObservableObject {
     func getFirst() -> String {
         return messages.isEmpty ? "<undef>" : messages[0].data
     }
+	
+    func getFirstMessage() -> Message? {
+		return messages.isEmpty ? nil : messages[0]
+    }
     
     func getDiagrams() -> [DiagramPath] {
         return Array(timeSeries.dict.keys)

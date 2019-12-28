@@ -9,12 +9,16 @@
 import SwiftUI
 
 struct TopicCellView: View {
+	@EnvironmentObject var root: RootModel
+
     @ObservedObject
     var messages: MessagesByTopic
     
     @ObservedObject
     var model: MessageModel
     
+    @State var postMessagePresented = false
+
     var body: some View {
         NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
             HStack {
@@ -49,10 +53,48 @@ struct TopicCellView: View {
                     Text("Focus on parent")
                     Image(systemName: "eye.fill")
                 }
+				Button(action: post) {
+					  Text("Post message again")
+					  Image(systemName: "paperplane.fill")
+				}
+                Button(action: postManually) {
+                    Text("Post new message")
+                    Image(systemName: "paperplane.fill")
+                }
             }
         }
+        .sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
+            PostMessageFormModalView(isPresented: self.$postMessagePresented,
+                                 root: self.root,
+								 model: self.createPostFormModel())
+        })
     }
-    
+	
+	func createPostFormModel() -> PostMessageFormModel {
+		var model = PostMessageFormModel()
+		if let first = self.messages.getFirstMessage() {
+			model.message = first.data
+			model.topic = self.messages.topic.name
+			model.qos = Int(first.qos)
+			model.retain = first.retain
+		}
+		return model
+	}
+	
+    func post() {
+		if let first = self.messages.getFirstMessage() {
+			self.root.post(topic: self.messages.topic, first)
+		}
+	}
+	
+    func postManually() {
+		postMessagePresented = true
+    }
+	
+    func cancelPostMessageCreation() {
+        postMessagePresented = false
+    }
+	
     func messagePreview() -> String {
         return self.messages.getFirst()
     }
