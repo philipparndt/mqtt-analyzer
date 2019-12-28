@@ -32,7 +32,12 @@ class MQTTSessionController {
     }
     
     func reconnect() {
-        mqtt?.reconnect()
+		if mqtt != nil {
+			mqtt?.reconnect()
+		}
+		else {
+			connect()
+		}
     }
     
     func connect() {
@@ -55,47 +60,53 @@ class MQTTSessionController {
         host.connectionMessage = nil
         
         let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
-        mqttConfig.onConnectCallback = { returnCode in
-            NSLog("Connected. Return Code is \(returnCode.description)")
-            DispatchQueue.main.async {
-                host.connected = true
-            }
-        }
-        mqttConfig.onDisconnectCallback = { returnCode in
-            if returnCode == .mosq_conn_refused {
-                NSLog("Connection refused")
-                host.connectionMessage = "Connection refused"
-            }
-            else {
-               host.connectionMessage = returnCode.description
-            }
+		
+        mqttConfig.onConnectCallback = onConnect
+        mqttConfig.onDisconnectCallback = onDisconnect
+		mqttConfig.onMessageCallback = onMessage
 
-            self.disconnect()
-            
-            NSLog("Disconnected. Return Code is \(returnCode.description)")
-            DispatchQueue.main.async {
-                host.connected = false
-            }
-       }
-        
-        mqttConfig.onMessageCallback = { mqttMessage in
-            DispatchQueue.main.async {
-                let messageString = mqttMessage.payloadString ?? ""
-                let msg = Message(data: messageString, date: Date(), qos: mqttMessage.qos)
-                           self.model.append(topic: mqttMessage.topic, message: msg)
-            }
-        }
-        
-        if host.auth {
-            mqttConfig.mqttAuthOpts = MQTTAuthOpts(username: host.username, password: host.password)
-        }
-        
-        // create new MQTT Connection
-        mqtt = MQTT.newConnection(mqttConfig)
+		if host.auth {
+			mqttConfig.mqttAuthOpts = MQTTAuthOpts(username: host.username, password: host.password)
+		}
 
-        subscribeToChannel(host)
+		// create new MQTT Connection
+		mqtt = MQTT.newConnection(mqttConfig)
+
+		subscribeToChannel(host)
     }
     
+	func onConnect(_ returnCode: ReturnCode) {
+		NSLog("Connected. Return Code is \(returnCode.description)")
+		DispatchQueue.main.async {
+			self.host.connected = true
+		}
+	}
+	
+	func onDisconnect(_ returnCode: ReasonCode) {
+		if returnCode == .mosq_conn_refused {
+			NSLog("Connection refused")
+			host.connectionMessage = "Connection refused"
+		}
+		else {
+		   host.connectionMessage = returnCode.description
+		}
+
+		self.disconnect()
+		
+		NSLog("Disconnected. Return Code is \(returnCode.description)")
+		DispatchQueue.main.async {
+			self.host.connected = false
+		}
+	}
+	
+	func onMessage(_ mqttMessage: MQTTMessage) {
+		DispatchQueue.main.async {
+			let messageString = mqttMessage.payloadString ?? ""
+			let msg = Message(data: messageString, date: Date(), qos: mqttMessage.qos)
+					   self.model.append(topic: mqttMessage.topic, message: msg)
+		}
+	}
+	
     func subscribeToChannel(_ host: Host) {
         mqtt?.subscribe(host.topic, qos: 2)
     }
