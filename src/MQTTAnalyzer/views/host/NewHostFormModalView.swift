@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import swift_petitparser
 
 // MARK: Create Host
 struct NewHostFormModalView : View {
@@ -42,6 +43,20 @@ struct NewHostFormModalView : View {
         newHost.auth = self.auth
         newHost.port = Int32(host.port) ?? 1883
         newHost.topic = host.topic
+        
+        let ip1 = NumbersParser
+            .int(from: 1, to: 255)
+            .seq(CharacterParser.of(".")
+                .seq(NumbersParser.int(from: 0, to: 255)))
+            .times(3).trim().flatten()
+        
+        let host1 = CharacterParser.anyOf("a-zA-Z0-9.").plus()
+            .trim().flatten()
+
+        let server = ip1.or(host1)
+        
+        let result = server.parse(newHost.hostname)
+        print(result)
         
         if (self.auth) {
             newHost.username = host.username

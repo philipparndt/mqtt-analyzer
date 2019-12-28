@@ -12,13 +12,13 @@ import SwiftUI
 // MARK: Edit Host
 struct EditHostFormModalView : View {
     @Binding var isPresented : Bool
-    let root : RootModel
+    let root: RootModel
     var hosts: HostsModel
-    let original : Host
+    let original: Host
     
-    @State var host : HostFormModel
-    @State private var auth : Bool = false
-    
+    @State var host: HostFormModel
+    @State var auth: Bool
+
     var body: some View {
         NavigationView {
             EditHostFormView(host: $host, auth: $auth)

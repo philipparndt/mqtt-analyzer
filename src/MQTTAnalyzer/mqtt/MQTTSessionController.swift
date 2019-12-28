@@ -15,7 +15,7 @@ class MQTTSessionController {
     let model : MessageModel
     let host : Host
     
-    var mqtt: MQTTClient!
+    var mqtt: MQTTClient?
     
     var connected: Bool = false
     
@@ -32,7 +32,7 @@ class MQTTSessionController {
     }
     
     func reconnect() {
-        mqtt.reconnect()
+        mqtt?.reconnect()
     }
     
     func connect() {
@@ -46,12 +46,14 @@ class MQTTSessionController {
     }
     
     func disconnect() {
-        mqtt.disconnect()
+        mqtt?.disconnect()
         connected = false
         mqtt = nil
     }
     
     func establishConnection(_ host: Host) {
+        host.connectionMessage = nil
+        
         let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
         mqttConfig.onConnectCallback = { returnCode in
             NSLog("Connected. Return Code is \(returnCode.description)")
@@ -60,7 +62,17 @@ class MQTTSessionController {
             }
         }
         mqttConfig.onDisconnectCallback = { returnCode in
-           NSLog("Disconnected. Return Code is \(returnCode.description)")
+            if returnCode == .mosq_conn_refused {
+                NSLog("Connection refused")
+                host.connectionMessage = "Connection refused"
+            }
+            else {
+               host.connectionMessage = returnCode.description
+            }
+
+            self.disconnect()
+            
+            NSLog("Disconnected. Return Code is \(returnCode.description)")
             DispatchQueue.main.async {
                 host.connected = false
             }
@@ -74,6 +86,11 @@ class MQTTSessionController {
             }
         }
         
+        if host.auth {
+            mqttConfig.mqttAuthOpts = MQTTAuthOpts(username: host.username, password: host.password)
+        }
+        
+        
         // create new MQTT Connection
         mqtt = MQTT.newConnection(mqttConfig)
 
@@ -81,7 +98,7 @@ class MQTTSessionController {
     }
     
     func subscribeToChannel(_ host: Host) {
-        mqtt.subscribe(host.topic, qos: 2)
+        mqtt?.subscribe(host.topic, qos: 2)
     }
     
     

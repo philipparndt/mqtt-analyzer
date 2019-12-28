@@ -330,22 +330,24 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
     
 }
 
-class Host : Identifiable, Hashable, ObservableObject {
+class Host: Identifiable, Hashable, ObservableObject {
     
-    var ID : String = NSUUID().uuidString
+    var ID: String = NSUUID().uuidString
     
     var deleted = false
     
-    var alias : String = ""
-    var hostname : String = ""
-    var port : Int32 = 1883
-    var topic : String = "#"
+    var alias: String = ""
+    var hostname: String = ""
+    var port: Int32 = 1883
+    var topic: String = "#"
     
-    var qos : Int = 0
+    var qos: Int = 0
     
-    var auth : Bool = false
-    var username : String = ""
-    var password : String = ""
+    var auth: Bool = false
+    var username: String = ""
+    var password: String = ""
+    
+    var connectionMessage: String?
     
     var reconnectDelegate: (()->())?
 

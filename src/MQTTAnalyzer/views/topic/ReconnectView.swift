@@ -18,20 +18,26 @@ struct ReconnectView : View {
         Group {
             if (host.connecting) {
                 Section(header: Text("Connection")) {
-                   HStack {
+                    HStack {
                        Text("Connecting...")
-                   }.foregroundColor(.gray)
+                    }.foregroundColor(.gray)
                 }
             } else if (!host.connected) {
                 Section(header: Text("Connection")) {
-                   HStack {
-                       Image(systemName: "desktopcomputer")
+                    HStack {
+                        Image(systemName: "desktopcomputer")
                                            .padding()
 
-                       Button(action: reconnect) {
-                           Text("Disconnected")
-                       }
-                   }.foregroundColor(.red)
+                        Button(action: reconnect) {
+                            Text("Disconnected")
+                        }
+    
+                        if host.connectionMessage != nil {
+                            HStack {
+                                Text(host.connectionMessage!)
+                            }.foregroundColor(.gray)
+                        }
+                    }.foregroundColor(.red)
                 }
             }
         }
