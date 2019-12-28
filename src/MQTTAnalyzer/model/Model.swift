@@ -328,6 +328,10 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
     
 }
 
+protocol ReconnectDelegate: class {
+	func reconnect()
+}
+
 class Host: Identifiable, Hashable, ObservableObject {
     
     var ID: String = NSUUID().uuidString
@@ -347,15 +351,15 @@ class Host: Identifiable, Hashable, ObservableObject {
     
     var connectionMessage: String?
     
-    var reconnectDelegate: (() -> ())?
+    weak var reconnectDelegate: ReconnectDelegate?
 
     @Published var connected = false
     
     @Published var connecting = false
     
     func reconnect() {
-        self.reconnectDelegate?()
-    }
+		self.reconnectDelegate?.reconnect()
+	}
     
     static func == (lhs: Host, rhs: Host) -> Bool {
         return lhs.hostname == rhs.hostname

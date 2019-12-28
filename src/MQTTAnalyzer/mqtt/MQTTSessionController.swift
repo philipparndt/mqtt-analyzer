@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import Moscapsule
 
-class MQTTSessionController {
+class MQTTSessionController: ReconnectDelegate {
     
     let model: MessageModel
     let host: Host
@@ -22,8 +22,7 @@ class MQTTSessionController {
     init(host: Host, model: MessageModel) {
         self.model = model
         self.host = host
-        
-        self.host.reconnectDelegate = reconnect
+        self.host.reconnectDelegate = self
     }
     
     deinit {
