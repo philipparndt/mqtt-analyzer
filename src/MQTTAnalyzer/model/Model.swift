@@ -26,8 +26,7 @@ class MessagesByTopic: Identifiable, ObservableObject {
     }
 
     func delete(at offsets: IndexSet) {
-        // TODO how to remove all?
-        messages.remove(at: offsets.first!)
+		messages.remove(atOffsets: offsets)
     }
 
     func newMessage(_ message: Message) {
