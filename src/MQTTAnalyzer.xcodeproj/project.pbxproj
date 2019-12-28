@@ -38,6 +38,8 @@
 		22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F72E23B7486E00892C4B /* .swiftlint.yml */; };
+		22C9F73123B78F9700892C4B /* PostMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PostMessageFormView.swift */; };
+		22C9F73723B79A1300892C4B /* MultilineTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MultilineTextView.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
 		22E469D3237F490100D72BD6 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D2237F490100D72BD6 /* StringUtils.swift */; };
 		22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */; };
@@ -122,6 +124,8 @@
 		22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSettingExamples.swift; sourceTree = "<group>"; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		22C9F72E23B7486E00892C4B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		22C9F73023B78F9700892C4B /* PostMessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMessageFormView.swift; sourceTree = "<group>"; };
+		22C9F73623B79A1300892C4B /* MultilineTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextView.swift; sourceTree = "<group>"; };
 		22D50F9622CE4C4300F37EAF /* Multimap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multimap.swift; sourceTree = "<group>"; };
 		22E469D2237F490100D72BD6 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMarkerView.swift; sourceTree = "<group>"; };
@@ -266,6 +270,7 @@
 				2281048E2381769700112F24 /* topic */,
 				22810481238171FA00112F24 /* message */,
 				2281048D2381765200112F24 /* message.details */,
+				22C9F73823B79BFD00892C4B /* multiline-text */,
 				22E469DC2380457800D72BD6 /* json-text */,
 				22C386A222CB84900054C385 /* RootView.swift */,
 			);
@@ -299,6 +304,7 @@
 				22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */,
 				228104892381740000112F24 /* MessageView.swift */,
 				2281048B2381744300112F24 /* TopicView.swift */,
+				22C9F73023B78F9700892C4B /* PostMessageFormView.swift */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -346,6 +352,14 @@
 				22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */,
 			);
 			path = timeseries;
+			sourceTree = "<group>";
+		};
+		22C9F73823B79BFD00892C4B /* multiline-text */ = {
+			isa = PBXGroup;
+			children = (
+				22C9F73623B79A1300892C4B /* MultilineTextView.swift */,
+			);
+			path = "multiline-text";
 			sourceTree = "<group>";
 		};
 		22E469DC2380457800D72BD6 /* json-text */ = {
@@ -671,6 +685,7 @@
 				22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */,
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
 				2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */,
+				22C9F73123B78F9700892C4B /* PostMessageFormView.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
 				22E469DE2380459700D72BD6 /* TextWithAttributedString.swift in Sources */,
 				228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */,
@@ -689,6 +704,7 @@
 				22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */,
 				2281047623816FD800112F24 /* QuickFilterView.swift in Sources */,
 				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
+				22C9F73723B79A1300892C4B /* MultilineTextView.swift in Sources */,
 				22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */,
 				22E469D3237F490100D72BD6 /* StringUtils.swift in Sources */,
 				22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */,

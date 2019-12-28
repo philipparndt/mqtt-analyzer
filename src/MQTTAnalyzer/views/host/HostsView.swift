@@ -10,12 +10,8 @@ import SwiftUI
 
 struct HostsView: View {
     @EnvironmentObject var model: RootModel
-
-    @State
-    var createHostPresented = false
-    
-    @ObservedObject
-    var hostsModel: HostsModel
+    @State var createHostPresented = false
+    @ObservedObject var hostsModel: HostsModel
 
     var body: some View {
         NavigationView {

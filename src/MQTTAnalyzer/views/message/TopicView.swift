@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MessageTopicView: View {
     @ObservedObject var messagesByTopic: MessagesByTopic
-    
+
     var body: some View {
         Section(header: Text("Topic")) {
             Text(messagesByTopic.topic.name)

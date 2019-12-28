@@ -12,7 +12,7 @@ import swift_petitparser
 // MARK: Create Host
 struct NewHostFormModalView: View {
     @Binding var isPresented: Bool
-    let root: RootModel
+	let root: RootModel
     var hosts: HostsModel
     
     @State private var host: HostFormModel = HostFormModel()
