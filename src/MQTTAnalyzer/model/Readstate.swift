@@ -8,8 +8,8 @@
 
 import Foundation
 
-class Readstate : ObservableObject {
-    @Published var read : Bool = false
+class Readstate: ObservableObject {
+    @Published var read: Bool = false
 
     func markRead() {
         read = true

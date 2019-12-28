@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MessageTopicView : View {
+struct MessageTopicView: View {
     @ObservedObject var messagesByTopic: MessagesByTopic
     
     var body: some View {

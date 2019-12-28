@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct TopicsToolsView : View {
+struct TopicsToolsView: View {
     @ObservedObject
-    var model : MessageModel
+    var model: MessageModel
         
     var body: some View {
         Section() {

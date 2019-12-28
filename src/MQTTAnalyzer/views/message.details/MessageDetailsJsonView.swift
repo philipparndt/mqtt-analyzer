@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MessageDetailsJsonView : View {
+struct MessageDetailsJsonView: View {
     let message: JsonFormatString
     
     // Workaround: update triggered due to change on this state

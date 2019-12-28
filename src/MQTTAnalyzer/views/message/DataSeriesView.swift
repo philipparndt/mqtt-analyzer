@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-struct DataSeriesView : View {
+struct DataSeriesView: View {
     @ObservedObject var messagesByTopic: MessagesByTopic
 
     var body: some View {
         Group {
-            if (messagesByTopic.hasDiagrams()) {
+            if messagesByTopic.hasDiagrams() {
                 Section(header: Text("Data series")) {
                     ForEach(messagesByTopic.getDiagrams()) {
                         DataSeriesCellView(path: $0, messagesByTopic: self.messagesByTopic)
@@ -24,8 +24,8 @@ struct DataSeriesView : View {
     }
 }
 
-struct DataSeriesCellView : View {
-    let path : DiagramPath
+struct DataSeriesCellView: View {
+    let path: DiagramPath
     @ObservedObject var messagesByTopic: MessagesByTopic
 
     var body: some View {

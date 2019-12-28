@@ -8,10 +8,10 @@
 
 import SwiftUI
 
-struct QuickFilterView : View {
+struct QuickFilterView: View {
     
     @ObservedObject
-    var model : MessageModel
+    var model: MessageModel
     
     var body: some View {
         HStack {
@@ -28,7 +28,7 @@ struct QuickFilterView : View {
             .disableAutocorrection(true)
             
             Spacer()
-            if (!model.filter.isBlank) {
+            if !model.filter.isBlank {
                 Button(action: noAction) {
                     Image(systemName: "line.horizontal.3.decrease.circle")
                         .foregroundColor(.gray)

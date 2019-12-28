@@ -6,23 +6,22 @@
 //  Copyright © 2019 Philipp Arndt. All rights reserved.
 //
 
-
 import SwiftUI
 
-struct ReconnectView : View {
+struct ReconnectView: View {
     
     @ObservedObject
-    var host : Host
+    var host: Host
     
     var body: some View {
         Group {
-            if (host.connecting) {
+            if host.connecting {
                 Section(header: Text("Connection")) {
                     HStack {
                        Text("Connecting...")
                     }.foregroundColor(.gray)
                 }
-            } else if (!host.connected) {
+            } else if !host.connected {
                 Section(header: Text("Connection")) {
                     HStack {
                         Image(systemName: "desktopcomputer")

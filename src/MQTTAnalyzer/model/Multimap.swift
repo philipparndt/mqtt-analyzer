@@ -9,14 +9,14 @@
 import Foundation
 
 class Multimap<K: Hashable, V> {
-    var _dict = Dictionary<K, [V]>()
+	var dict: [K: [V]] = [:]
     
     func put(key: K, value: V) {
-        if var existingValues = self._dict[key] {
+        if var existingValues = self.dict[key] {
             existingValues.append(value)
-            self._dict[key] = existingValues
+            self.dict[key] = existingValues
         } else {
-            self._dict[key] = [value]
+            self.dict[key] = [value]
         }
     }
 }

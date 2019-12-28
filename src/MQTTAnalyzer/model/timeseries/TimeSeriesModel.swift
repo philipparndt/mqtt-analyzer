@@ -9,19 +9,19 @@
 import Foundation
 
 struct MTimeSeriesValue {
-    let value : NSNumber
-    let timestamp : Date
+    let value: NSNumber
+    let timestamp: Date
 }
 
 struct MTimeSeriesMeanValue {
-    let meanValue : Int?
+    let meanValue: Int?
 }
 
 class MTimeSeriesModel {
 
-    var values : [MTimeSeriesValue] = []
+    var values: [MTimeSeriesValue] = []
     
-    func getMeanValue(amount segements : Int, in rangeMinutes : Int, to end: Date) -> [MTimeSeriesMeanValue] {
+    func getMeanValue(amount segements: Int, in rangeMinutes: Int, to end: Date) -> [MTimeSeriesMeanValue] {
         // MARK: TODO Subscript for mean values in range
         
         let distance = TimeInterval((rangeMinutes * 60) / segements)
@@ -52,7 +52,7 @@ class MTimeSeriesModel {
     }
     
     func buildMean(value range: [MTimeSeriesValue]) -> MTimeSeriesMeanValue {
-        if (range.isEmpty) {
+        if range.isEmpty {
             return MTimeSeriesMeanValue(meanValue: nil)
         }
         else {

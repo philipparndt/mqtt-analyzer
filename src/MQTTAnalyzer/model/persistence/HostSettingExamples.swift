@@ -41,7 +41,8 @@ class HostSettingExamples {
         let settings = realm.objects(HostSetting.self)
              .filter("id = %@", setting.id)
         
-        if (settings.isEmpty) {
+        if settings.isEmpty {
+			// swiftlint:disable force_try
             try! realm.write {
                 realm.add(setting)
             }

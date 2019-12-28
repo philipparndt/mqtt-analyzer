@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MessageView : View {
+struct MessageView: View {
     @ObservedObject var messagesByTopic: MessagesByTopic
 
     var body: some View {
@@ -21,7 +21,7 @@ struct MessageView : View {
     }
 }
 
-struct MessageCellView : View {
+struct MessageCellView: View {
     let message: Message
     let topic: Topic
     
@@ -32,7 +32,7 @@ struct MessageCellView : View {
                     .font(.subheadline)
                     .foregroundColor(message.isJson() ? .green : .gray)
                 
-                VStack (alignment: .leading) {
+                VStack(alignment: .leading) {
                     Text(message.data)
                         .lineLimit(8)
                     Text(message.localDate())

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MessageDetailsPlainTextView : View {
+struct MessageDetailsPlainTextView: View {
     let message: Message
     
     var body: some View {

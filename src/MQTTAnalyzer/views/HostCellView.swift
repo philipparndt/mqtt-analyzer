@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct HostCellView : View {
-    @EnvironmentObject var model : RootModel
+struct HostCellView: View {
+    @EnvironmentObject var model: RootModel
     @ObservedObject var host: Host
 
     var messageModel: MessageModel
@@ -30,7 +30,7 @@ struct HostCellView : View {
                     .foregroundColor(.secondary)
                 }
                 
-                if (host.connected) {
+                if host.connected {
                     Spacer()
                      Image(systemName: "circle.fill")
                                    .font(.subheadline)

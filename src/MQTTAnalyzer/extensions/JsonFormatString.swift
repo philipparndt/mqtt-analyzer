@@ -11,9 +11,9 @@ import Highlightr
 
 class JsonFormatString {
     var attributedMessage: NSAttributedString?
-    let json : String
+    let json: String
     
-    init(json : String) {
+    init(json: String) {
         self.json = json
     }
     

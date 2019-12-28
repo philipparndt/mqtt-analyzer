@@ -9,20 +9,20 @@
 import SwiftUI
 
 struct HostFormModel {
-    var alias : String = ""
-    var hostname : String = ""
-    var port : String = "1883"
-    var topic : String = "#"
+    var alias: String = ""
+    var hostname: String = ""
+    var port: String = "1883"
+    var topic: String = "#"
     
-    var qos : Int = 0
+    var qos: Int = 0
     
-    var username : String = ""
-    var password : String = ""
+    var username: String = ""
+    var password: String = ""
 }
 
-struct EditHostFormView : View {
-    @Binding var host : HostFormModel
-    @Binding var auth : Bool
+struct EditHostFormView: View {
+    @Binding var host: HostFormModel
+    @Binding var auth: Bool
     
     var body: some View {
         Form {
@@ -34,8 +34,8 @@ struct EditHostFormView : View {
 }
 
 // MARK: Server
-struct ServerFormView : View {
-    @Binding var host : HostFormModel
+struct ServerFormView: View {
+    @Binding var host: HostFormModel
     
     var body: some View {
         return Section(header: Text("Server")) {
@@ -79,8 +79,8 @@ struct ServerFormView : View {
 }
 
 // MARK: Topic
-struct TopicFormView : View {
-    @Binding var host : HostFormModel
+struct TopicFormView: View {
+    @Binding var host: HostFormModel
 
     var body: some View {
         return Section(header: Text("Subscribe to")) {
@@ -114,9 +114,9 @@ struct TopicFormView : View {
 }
 
 // MARK: Auth
-struct AuthFormView : View {
-    @Binding var host : HostFormModel
-    @Binding var auth : Bool
+struct AuthFormView: View {
+    @Binding var host: HostFormModel
+    @Binding var auth: Bool
 
     var body: some View {
         return Section(header: Text("Authentification")) {
@@ -125,7 +125,7 @@ struct AuthFormView : View {
                     .font(.headline)
             }
             
-            if (self.auth) {
+            if self.auth {
                 HStack {
                     Text("Username")
                         .font(.headline)
@@ -155,7 +155,6 @@ struct AuthFormView : View {
         }
     }
 }
-
 
 #if DEBUG
 //struct NewHostFormView_Previews : PreviewProvider {

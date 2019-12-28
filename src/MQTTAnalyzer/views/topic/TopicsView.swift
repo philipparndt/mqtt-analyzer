@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct TopicsView : View {
-    @EnvironmentObject var rootModel : RootModel
+struct TopicsView: View {
+    @EnvironmentObject var rootModel: RootModel
     
     @ObservedObject
-    var model : MessageModel
+    var model: MessageModel
     
     @ObservedObject
-    var host : Host
+    var host: Host
   
     var body: some View {
         List {
@@ -24,7 +24,7 @@ struct TopicsView : View {
             TopicsToolsView(model: self.model)
             
             Section(header: Text("Topics")) {
-                if (model.displayTopics.isEmpty) {
+                if model.displayTopics.isEmpty {
                     Text("no topics available")
                         .foregroundColor(.secondary)
                 }
@@ -42,7 +42,6 @@ struct TopicsView : View {
         }
     }
 }
-
 
 #if DEBUG
 //struct ContentView_Previews : PreviewProvider {

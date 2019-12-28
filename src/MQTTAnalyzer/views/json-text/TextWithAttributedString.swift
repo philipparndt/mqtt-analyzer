@@ -7,12 +7,12 @@
 //
 import SwiftUI
 
-class ViewWithLabel : UIView {
+class ViewWithLabel: UIView {
     private var label = UITextView()
-    var height : CGFloat = 0
+    var height: CGFloat = 0
     
     override init(frame: CGRect) {
-        super.init(frame:frame)
+        super.init(frame: frame)
         self.addSubview(label)
         label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
@@ -35,7 +35,7 @@ class ViewWithLabel : UIView {
         super.init(coder: coder)
     }
     
-    func setString(_ attributedString:NSAttributedString) {
+    func setString(_ attributedString: NSAttributedString) {
         self.label.attributedText = attributedString
     }
     
@@ -47,10 +47,10 @@ class ViewWithLabel : UIView {
 }
 
 struct TextWithAttributedString: UIViewRepresentable {
-    var attributedString:NSAttributedString
+    var attributedString: NSAttributedString
     
     func makeUIView(context: Context) -> ViewWithLabel {
-        return ViewWithLabel(frame:CGRect.zero)
+        return ViewWithLabel(frame: CGRect.zero)
     }
     
     func updateUIView(_ uiView: ViewWithLabel, context: UIViewRepresentableContext<TextWithAttributedString>) {

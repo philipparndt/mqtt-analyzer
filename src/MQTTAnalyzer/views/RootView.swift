@@ -9,8 +9,8 @@
 import SwiftUI
 import Highlightr
 
-struct RootView : View {
-    @EnvironmentObject var model : RootModel
+struct RootView: View {
+    @EnvironmentObject var model: RootModel
 
     var body: some View {
         VStack {

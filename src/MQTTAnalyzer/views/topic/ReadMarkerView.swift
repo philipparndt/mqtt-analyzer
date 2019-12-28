@@ -8,13 +8,13 @@
 
 import SwiftUI
 
-struct ReadMarkerView : View {
+struct ReadMarkerView: View {
     @ObservedObject
     var read: Readstate
     
     var body: some View {
         Group {
-            if (read.read) {
+            if read.read {
 //                        Image(uiImage: UIImage(named: "empty")!)
 //                        .font(.subheadline)
 //                        .foregroundColor(.blue)

@@ -10,13 +10,13 @@ import Foundation
 import SwiftUI
 import Combine
 
-class MessagesByTopic : Identifiable, ObservableObject {
+class MessagesByTopic: Identifiable, ObservableObject {
     let topic: Topic
     
     @Published var read: Readstate = Readstate()
     @Published var messages: [Message]
     @Published var timeSeries = Multimap<DiagramPath, TimeSeriesValue>()
-    @Published var timeSeriesModels = [DiagramPath : MTimeSeriesModel]()
+    @Published var timeSeriesModels = [DiagramPath: MTimeSeriesModel]()
 
     var willChange = PassthroughSubject<Void, Never>()
     
@@ -30,12 +30,12 @@ class MessagesByTopic : Identifiable, ObservableObject {
         messages.remove(at: offsets.first!)
     }
 
-    func newMessage(_ message : Message) {
+    func newMessage(_ message: Message) {
         read.markUnread()
         
-        if (message.isJson()) {
+        if message.isJson() {
             let jsonData = message.jsonData!
-            if (jsonData.count > 0) {
+			if !jsonData.isEmpty {
                 traverseJson(node: message.jsonData![0], path: "", dateFormatted: message.dateString)
             }
         }
@@ -43,21 +43,21 @@ class MessagesByTopic : Identifiable, ObservableObject {
         messages.insert(message, at: 0)
     }
     
-    func traverseJson(node: Dictionary<String, Any>, path: String, dateFormatted: String) {
+    func traverseJson(node: [String: Any], path: String, dateFormatted: String) {
         print(node)
         
         node.forEach {
             let child = $0.value
-            if (child is Dictionary<String, Any>) {
+            if child is [String: Any] {
                 let nextPath = path + $0.key
-                traverseJson(node: child as! Dictionary<String, Any>, path: nextPath + ".", dateFormatted: dateFormatted)
+                traverseJson(node: child as! [String: Any], path: nextPath + ".", dateFormatted: dateFormatted)
             }
         }
 
         node.filter { $0.value is NSNumber }
             .forEach {
                 let path = DiagramPath(path + $0.key)
-                let value : NSNumber = $0.value as! NSNumber
+                let value: NSNumber = $0.value as! NSNumber
                 
                 self.timeSeries.put(key: path, value: TimeSeriesValue(value: value, at: Date(), dateFormatted: dateFormatted))
                 
@@ -78,20 +78,20 @@ class MessagesByTopic : Identifiable, ObservableObject {
     }
     
     func getDiagrams() -> [DiagramPath] {
-        return Array(timeSeries._dict.keys)
+        return Array(timeSeries.dict.keys)
     }
     
     func hasDiagrams() -> Bool {
-        return timeSeries._dict.count > 0
+		return !timeSeries.dict.isEmpty
     }
     
     func getTimeSeriesLastValue(_ path: DiagramPath) -> TimeSeriesValue? {
-        let values = timeSeries._dict[path] ?? [TimeSeriesValue]()
+        let values = timeSeries.dict[path] ?? [TimeSeriesValue]()
         return values.last
     }
     
     func getTimeSeries(_ path: DiagramPath) -> [TimeSeriesValue] {
-        return timeSeries._dict[path] ?? [TimeSeriesValue]()
+        return timeSeries.dict[path] ?? [TimeSeriesValue]()
     }
     
     func getTimeSeriesInt(_ path: DiagramPath) -> [Int] {
@@ -118,12 +118,12 @@ class MessagesByTopic : Identifiable, ObservableObject {
     }
 }
 
-class TimeSeriesValue : Hashable, Identifiable {
-    let num : NSNumber
-    let date : Date
+class TimeSeriesValue: Hashable, Identifiable {
+    let num: NSNumber
+    let date: Date
     let dateString: String
     
-    init(value num : NSNumber, at date: Date, dateFormatted: String) {
+    init(value num: NSNumber, at date: Date, dateFormatted: String) {
         self.num = num
         self.date = date
         self.dateString = dateFormatted
@@ -138,10 +138,10 @@ class TimeSeriesValue : Hashable, Identifiable {
     }
 }
 
-class DiagramPath : Hashable, Identifiable {
-    let path : String
+class DiagramPath: Hashable, Identifiable {
+    let path: String
     
-    init(_ path : String) {
+    init(_ path: String) {
         self.path = path
     }
     
@@ -154,17 +154,17 @@ class DiagramPath : Hashable, Identifiable {
     }
 }
 
-class Message : Identifiable {
-    let data : String
-    let date : Date
-    let dateString : String
-    let qos : Int32
+class Message: Identifiable {
+    let data: String
+	let date: Date
+    let dateString: String
+    let qos: Int32
     
-    let jsonData : [Dictionary<String, Any>]?
+    let jsonData: [[String: Any]]?
     
-    init(data: String, date : Date, qos: Int32) {
+    init(data: String, date: Date, qos: Int32) {
         self.data = data
-        self.date = date;
+        self.date = date
         self.qos = qos
         self.jsonData = Message.toJson(messageData: data)
         
@@ -185,10 +185,10 @@ class Message : Identifiable {
         return data.data(using: .utf8)?.prettyPrintedJSONString ?? "{}"
     }
     
-    class func toJson(messageData : String) -> [Dictionary<String, Any>]? {
+    class func toJson(messageData: String) -> [[String: Any]]? {
         let data = "[\(cleanEscapedNumbers(messageData))]".data(using: .utf8)!
         do {
-            return try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>]
+            return try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String: Any]]
         } catch _ as NSError {
             return nil
         }
@@ -197,14 +197,13 @@ class Message : Identifiable {
     class func cleanEscapedNumbers(_ messageData: String) -> String {
         return messageData.replacingOccurrences(of: "[\"'](-?[1-9]+\\d*)[\"']",
         with: "$1",
-        options: .regularExpression);
+        options: .regularExpression)
     }
 }
 
-
-class Topic : Hashable {
-    let name : String
-    let lastSegment : String
+class Topic: Hashable {
+    let name: String
+    let lastSegment: String
 
     init(_ name: String) {
         self.name = name
@@ -228,7 +227,7 @@ class Topic : Hashable {
     }
 }
 
-class MessageModel : QuickFilterTextDebounce, ObservableObject {
+class MessageModel: QuickFilterTextDebounce, ObservableObject {
     
     @Published var messagesByTopic: [String: MessagesByTopic] {
         willSet {
@@ -246,19 +245,19 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
        }
     }
     
-    @Published var filter : String = "" {
+    @Published var filter: String = "" {
         didSet {
             updateDisplayTopicsAsync()
         }
     }
     
     override func onChange(text: String) {
-        if (self.filter != text) {
+        if self.filter != text {
             self.filter = text
         }
     }
     
-    @Published var displayTopics : [MessagesByTopic] = []
+    @Published var displayTopics: [MessagesByTopic] = []
     
     var willChange = PassthroughSubject<Void, Never>()
     
@@ -266,7 +265,7 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
         self.messagesByTopic = messagesByTopic
     }
     
-    func setFilterImmediatelly(_ filter : String) {
+    func setFilterImmediatelly(_ filter: String) {
         self.filter = filter
         self.filterText = filter
     }
@@ -286,10 +285,10 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
     }
     
     func sortedTopics() -> [MessagesByTopic] {
-        return sortedTopicsByFilter(filter : nil)
+        return sortedTopicsByFilter(filter: nil)
     }
     
-    func sortedTopicsByFilter(filter : String?) -> [MessagesByTopic] {
+    func sortedTopicsByFilter(filter: String?) -> [MessagesByTopic] {
         var values = Array(messagesByTopic.values)
             
         values.sort {
@@ -319,8 +318,8 @@ class MessageModel : QuickFilterTextDebounce, ObservableObject {
         willChange.send(Void())
         var msgbt = messagesByTopic[topic]
         
-        if (msgbt == nil) {
-            msgbt = MessagesByTopic(topic: Topic(topic), messages:[])
+        if msgbt == nil {
+            msgbt = MessagesByTopic(topic: Topic(topic), messages: [])
             messagesByTopic[topic] = msgbt
         }
         
@@ -349,7 +348,7 @@ class Host: Identifiable, Hashable, ObservableObject {
     
     var connectionMessage: String?
     
-    var reconnectDelegate: (()->())?
+    var reconnectDelegate: (() -> ())?
 
     @Published var connected = false
     
@@ -372,7 +371,7 @@ class Host: Identifiable, Hashable, ObservableObject {
     }
 }
 
-class HostsModel : ObservableObject {
+class HostsModel: ObservableObject {
     @Published var hosts: [Host]
     
     init(hosts: [Host] = []) {
@@ -388,10 +387,10 @@ class HostsModel : ObservableObject {
         
         var copy = hosts
         copy.remove(atOffsets: offsets)
-        self.hosts = copy;
+        self.hosts = copy
     }
     
-    func delete(_ host : Host) {
+    func delete(_ host: Host) {
         self.hosts = self.hosts.filter { $0 != host }
     }
 }

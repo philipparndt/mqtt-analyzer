@@ -9,12 +9,11 @@
 import Foundation
 import SwiftUI
 
-
-class LabelUIView : UIView {
+class LabelUIView: UIView {
     private var label = UILabel()
     
     override init(frame: CGRect) {
-        super.init(frame:frame)
+        super.init(frame: frame)
         self.addSubview(label)
         label.numberOfLines = 0
         label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -24,15 +23,15 @@ class LabelUIView : UIView {
         super.init(coder: coder)
     }
     
-    func setString(_ attributedString:NSAttributedString) {
+    func setString(_ attributedString: NSAttributedString) {
         self.label.attributedText = attributedString
         self.label.numberOfLines = 0
         self.label.sizeToFit()
     }
 }
 
-struct AttributedUILabel : UIViewRepresentable {
-    let attributedString:NSAttributedString
+struct AttributedUILabel: UIViewRepresentable {
+    let attributedString: NSAttributedString
     
     @Binding var workaroundUpdate: Bool
     

@@ -12,8 +12,8 @@ import Moscapsule
 
 class MQTTSessionController {
     
-    let model : MessageModel
-    let host : Host
+    let model: MessageModel
+    let host: Host
     
     var mqtt: MQTTClient?
     
@@ -36,7 +36,7 @@ class MQTTSessionController {
     }
     
     func connect() {
-        if (connected) {
+        if connected {
             reconnect()
         }
         else {
@@ -80,7 +80,7 @@ class MQTTSessionController {
         
         mqttConfig.onMessageCallback = { mqttMessage in
             DispatchQueue.main.async {
-                let messageString = mqttMessage.payloadString ?? "";
+                let messageString = mqttMessage.payloadString ?? ""
                 let msg = Message(data: messageString, date: Date(), qos: mqttMessage.qos)
                            self.model.append(topic: mqttMessage.topic, message: msg)
             }
@@ -89,7 +89,6 @@ class MQTTSessionController {
         if host.auth {
             mqttConfig.mqttAuthOpts = MQTTAuthOpts(username: host.username, password: host.password)
         }
-        
         
         // create new MQTT Connection
         mqtt = MQTT.newConnection(mqttConfig)
@@ -100,7 +99,6 @@ class MQTTSessionController {
     func subscribeToChannel(_ host: Host) {
         mqtt?.subscribe(host.topic, qos: 2)
     }
-    
     
     // MARK: - Utilities
     
@@ -123,6 +121,6 @@ class MQTTSessionController {
     // http://stackoverflow.com/questions/26845307/generate-random-alphanumeric-string-in-swift
     func randomStringWithLength(_ length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return String((0..<length).map{ _ in letters.randomElement()! })
+        return String((0..<length).map { _ in letters.randomElement()! })
     }
 }

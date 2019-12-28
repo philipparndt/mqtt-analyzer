@@ -32,7 +32,7 @@ class RootModel: ObservableObject {
     func getMessageModel(_ host: Host) -> MessageModel {
         var model = messageModelByHost[host]
         
-        if (model == nil) {
+        if model == nil {
             model = MessageModel()
             messageModelByHost[host] = model
         }
@@ -41,14 +41,14 @@ class RootModel: ObservableObject {
     }
     
     func connect(to: Host) {
-        if (currentSession != nil) {
+        if currentSession != nil {
             let session = currentSession!
-            if (session.host == to) {
-                if (!session.connected) {
+            if session.host == to {
+                if !session.connected {
                     print("Reconnecting to " + session.host.hostname)
                     session.reconnect()
                 }
-                return;
+                return
             }
             else {
                 print("Disconnecting from " + session.host.hostname)
@@ -58,7 +58,7 @@ class RootModel: ObservableObject {
         
         print("Connecting to " + to.hostname)
         let model = messageModelByHost[to]
-        if (model != nil) {
+        if model != nil {
             currentSession = MQTTSessionController(host: to, model: model!)
         }
         

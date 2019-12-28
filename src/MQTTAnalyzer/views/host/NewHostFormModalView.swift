@@ -10,13 +10,13 @@ import SwiftUI
 import swift_petitparser
 
 // MARK: Create Host
-struct NewHostFormModalView : View {
-    @Binding var isPresented : Bool
-    let root : RootModel
+struct NewHostFormModalView: View {
+    @Binding var isPresented: Bool
+    let root: RootModel
     var hosts: HostsModel
     
-    @State private var host : HostFormModel = HostFormModel()
-    @State private var auth : Bool = false
+    @State private var host: HostFormModel = HostFormModel()
+    @State private var auth: Bool = false
     
     var body: some View {
         NavigationView {
@@ -58,7 +58,7 @@ struct NewHostFormModalView : View {
         let result = server.parse(newHost.hostname)
         print(result)
         
-        if (self.auth) {
+        if self.auth {
             newHost.username = host.username
             newHost.password = host.password
         }
@@ -75,7 +75,6 @@ struct NewHostFormModalView : View {
         self.isPresented = false
         clear()
     }
-    
     
     func clear() {
         host = HostFormModel()

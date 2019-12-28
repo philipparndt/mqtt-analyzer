@@ -8,17 +8,17 @@
 
 import SwiftUI
 
-struct DataSeriesDetailsView : View {
+struct DataSeriesDetailsView: View {
     
-    let path : DiagramPath
+    let path: DiagramPath
     @ObservedObject var messagesByTopic: MessagesByTopic
 
-    @State var range : Int = 60
+    @State var range: Int = 60
     
     var body: some View {
 
         VStack {
-            VStack (alignment: .leading) {
+            VStack(alignment: .leading) {
                 List {
                     Section(header: Text("Topic")) {
                         Text(messagesByTopic.topic.name)
@@ -38,8 +38,8 @@ struct DataSeriesDetailsView : View {
     }
 }
 
-struct DataSeriesCell : View {
-    let path : TimeSeriesValue
+struct DataSeriesCell: View {
+    let path: TimeSeriesValue
     
     var body: some View {
         HStack {

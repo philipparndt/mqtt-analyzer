@@ -13,12 +13,12 @@ extension String {
     }
     
     func pathUp() -> String {
-        if let range = self.range(of: "/", options: .backwards )  {
+        if let range = self.range(of: "/", options: .backwards ) {
             let index = self.index(range.lowerBound, offsetBy: -1)
             
             return String(self[...index])
         }
-        return "";
+        return ""
     }
     
     var isBlank: Bool {

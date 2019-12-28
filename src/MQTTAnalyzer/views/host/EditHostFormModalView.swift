@@ -8,10 +8,9 @@
 
 import SwiftUI
 
-
 // MARK: Edit Host
-struct EditHostFormModalView : View {
-    @Binding var isPresented : Bool
+struct EditHostFormModalView: View {
+    @Binding var isPresented: Bool
     let root: RootModel
     var hosts: HostsModel
     let original: Host
@@ -39,7 +38,7 @@ struct EditHostFormModalView : View {
         original.port = Int32(host.port) ?? 1883
         original.topic = host.topic
         
-        if (self.auth) {
+        if self.auth {
             original.username = host.username
             original.password = host.password
         }
@@ -58,7 +57,6 @@ struct EditHostFormModalView : View {
         self.isPresented = false
         clear()
     }
-    
     
     func clear() {
         host = HostFormModel()

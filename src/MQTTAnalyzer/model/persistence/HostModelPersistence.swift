@@ -9,10 +9,11 @@
 import Foundation
 import RealmSwift
 
+// swiftlint:disable force_try
 class HostsModelPersistence {
-    let model : HostsModel
-    let realm : Realm
-    var token : NotificationToken? = nil
+    let model: HostsModel
+    let realm: Realm
+    var token: NotificationToken?
     
     init(model: HostsModel) {
         self.model = model
@@ -63,8 +64,7 @@ class HostsModelPersistence {
         
         token?.invalidate()
         
-        token = settings.observe {
-            (changes: RealmCollectionChange) in
+        token = settings.observe { (_: RealmCollectionChange) in
             self.pushModel(settings: settings)
         }
     }
@@ -72,7 +72,7 @@ class HostsModelPersistence {
     private func pushModel(settings: Results<HostSetting>) {
         self.model.hosts = []
         
-        let hosts : [Host] = settings
+        let hosts: [Host] = settings
         .filter { !$0.isDeleted }
         .map { self.transform($0) }
         self.model.hosts = hosts

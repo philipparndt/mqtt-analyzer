@@ -8,18 +8,18 @@
 
 import SwiftUI
 
-struct HostsView : View {
-    @EnvironmentObject var model : RootModel
+struct HostsView: View {
+    @EnvironmentObject var model: RootModel
 
     @State
     var createHostPresented = false
     
     @ObservedObject
-    var hostsModel : HostsModel
+    var hostsModel: HostsModel
 
     var body: some View {
         NavigationView {
-            VStack (alignment: .leading) {
+            VStack(alignment: .leading) {
                 List {
                     ForEach(hostsModel.hosts) { host in
                         HostCellView(host: host, messageModel: (
@@ -58,8 +58,6 @@ struct HostsView : View {
         createHostPresented = false
     }
 }
-
-
 
 #if DEBUG
 //struct HostsView_Previews : PreviewProvider {

@@ -8,8 +8,7 @@
 
 import SwiftUI
 
-
-struct MessageDetailsView : View {
+struct MessageDetailsView: View {
     let message: Message
     let topic: Topic
     
@@ -39,7 +38,7 @@ struct MessageDetailsView : View {
                     }
                     
                     Section(header: Text("Message")) {
-                        if (message.isJson()) {
+                        if message.isJson() {
                             MessageDetailsJsonView(message: JsonFormatString(json: message.prettyJson()))
                         }
                         else {
@@ -54,9 +53,10 @@ struct MessageDetailsView : View {
 }
 
 #if DEBUG
-struct MessageDetailsView_Previews : PreviewProvider {
+struct MessageDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        MessageDetailsView(message : Message(data: "{\"temperature\": 56.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }", date: Date(), qos: 0), topic: Topic("some topic"))
+		// swiftlint:disable line_length
+        MessageDetailsView(message: Message(data: "{\"temperature\": 56.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }", date: Date(), qos: 0), topic: Topic("some topic"))
     }
 }
 #endif

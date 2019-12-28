@@ -8,19 +8,19 @@
 
 import SwiftUI
 
-struct TopicCellView : View {
+struct TopicCellView: View {
     @ObservedObject
     var messages: MessagesByTopic
     
     @ObservedObject
-    var model : MessageModel
+    var model: MessageModel
     
     var body: some View {
         NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
             HStack {
                 ReadMarkerView(read: messages.read)
                 
-                VStack (alignment: .leading) {
+                VStack(alignment: .leading) {
                     Text(messages.topic.name)
                     Text(messagePreview())
                         .font(.subheadline)

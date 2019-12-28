@@ -8,13 +8,11 @@
 
 import SwiftUI
 
-
-
-struct MessagesView : View {
+struct MessagesView: View {
     @ObservedObject var messagesByTopic: MessagesByTopic
     
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             List {
                 MessageTopicView(messagesByTopic: messagesByTopic)
 
