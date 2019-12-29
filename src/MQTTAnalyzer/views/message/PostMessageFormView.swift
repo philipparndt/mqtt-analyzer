@@ -39,11 +39,11 @@ struct PostMessageFormModalView: View {
     }
     
     func post() {
-        self.isPresented = false
 		let msg = Message(data: model.message,
 						  date: Date.init(),
 						  qos: Int32(model.qos), retain: model.retain)
 		root.post(topic: Topic(model.topic), msg)
+		self.isPresented = false
     }
     
     func cancel() {
@@ -56,45 +56,30 @@ struct PostMessageFormView: View {
     
     var body: some View {
         Form {
-			HStack {
-                Text("Topic")
-                    .font(.headline)
-                
-                Spacer()
-                
-                TextField("#", text: $message.topic)
-                    .multilineTextAlignment(.trailing)
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .font(.body)
-            }
-			
-			HStack {
-                Text("Message")
-                    .font(.headline)
-                
-                Spacer()
-				
-				TextView(text: $message.message)
+			Section(header: Text("Topic")) {
+				TextField("#", text: $message.topic)
+					.disableAutocorrection(true)
+					.autocapitalization(.none)
+					.font(.body)
+			}
+
+			Section(header: Text("Message")) {
+				MessageTextView(text: $message.message)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
-				.font(.body)
-				.lineLimit(nil)
+				.font(.system(.body, design: .monospaced))
 				.frame(height: 250)
-            }
-            
-            HStack {
-                Text("QoS")
-                .font(.headline)
-                
-                Spacer()
-                
-                Picker(selection: $message.qos, label: Text("QoS")) {
+			}
+			
+			Section(header: Text("QoS")) {
+				Picker(selection: $message.qos, label: Text("QoS")) {
                     Text("0").tag(0)
                     Text("1").tag(1)
                     Text("2").tag(2)
                 }.pickerStyle(SegmentedPickerStyle())
-            }
+			}
+			
+			Text("").frame(height: 250) // Scoll Spacer
         }
     }
 }

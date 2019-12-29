@@ -10,14 +10,9 @@ import SwiftUI
 
 struct TopicCellView: View {
 	@EnvironmentObject var root: RootModel
-
-    @ObservedObject
-    var messages: MessagesByTopic
-    
-    @ObservedObject
-    var model: MessageModel
-    
-    @State var postMessagePresented = false
+    @ObservedObject var messages: MessagesByTopic
+    @ObservedObject var model: MessageModel
+	@State private var postMessagePresented = false
 
     var body: some View {
         NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
@@ -63,7 +58,7 @@ struct TopicCellView: View {
                 }
             }
         }
-        .sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
+		.sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
             PostMessageFormModalView(isPresented: self.$postMessagePresented,
                                  root: self.root,
 								 model: self.createPostFormModel())

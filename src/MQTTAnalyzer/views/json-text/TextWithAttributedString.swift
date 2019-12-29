@@ -8,7 +8,7 @@
 import SwiftUI
 
 class ViewWithLabel: UIView {
-    private var label = UITextView()
+    fileprivate var label = UITextView()
     var height: CGFloat = 0
     
     override init(frame: CGRect) {
@@ -35,10 +35,6 @@ class ViewWithLabel: UIView {
         super.init(coder: coder)
     }
     
-    func setString(_ attributedString: NSAttributedString) {
-        self.label.attributedText = attributedString
-    }
-    
     func scale() {
         self.label.layoutSubviews()
         self.label.sizeToFit()
@@ -54,6 +50,6 @@ struct TextWithAttributedString: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: ViewWithLabel, context: UIViewRepresentableContext<TextWithAttributedString>) {
-        uiView.setString(attributedString)
+		uiView.label.attributedText = attributedString
     }
 }

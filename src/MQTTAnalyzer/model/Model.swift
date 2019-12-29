@@ -17,7 +17,7 @@ class MessagesByTopic: Identifiable, ObservableObject {
     @Published var messages: [Message]
     @Published var timeSeries = Multimap<DiagramPath, TimeSeriesValue>()
     @Published var timeSeriesModels = [DiagramPath: MTimeSeriesModel]()
-
+	
     var willChange = PassthroughSubject<Void, Never>()
     
     init(topic: Topic, messages: [Message]) {
