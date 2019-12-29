@@ -70,15 +70,20 @@ struct MessageCellView: View {
 		model.topic = topic.name
 		model.qos = Int(message.qos)
 		model.retain = message.retain
-		model.properties.append(
-			PostMessageProperty(name: "temperature", value: PostMessagePropertyValueText(value: "123"))
-		)
-		model.properties.append(
-			PostMessageProperty(name: "contact", value: PostMessagePropertyValueBoolean(value: true))
-		)
-		model.properties.append(
-			PostMessageProperty(name: "foo", value: PostMessagePropertyValueText(value: "bar"))
-		)
+		model.json = message.isJson()
+		model.jsonData = message.jsonData
+		
+		if message.isJson() {
+			let data = message.jsonData!
+			print(data)
+			print(message.json(jsonData: data)?.prettyPrintedJSONString ?? "{}")
+			
+			var properties: [PostMessageProperty] = []
+			PostMessageFormModel.createJsonProperties(json: data, path: [], properties: &properties)
+			
+			properties.forEach { model.properties.append($0) }
+		}
+		
 		return model
 	}
 	

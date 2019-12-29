@@ -25,11 +25,14 @@ struct EditHostFormView: View {
     @Binding var auth: Bool
     
     var body: some View {
-        Form {
-            ServerFormView(host: $host)
-            TopicFormView(host: $host)
-            AuthFormView(host: $host, auth: $auth)
-        }
+		Group {
+			Form {
+				ServerFormView(host: $host)
+				TopicFormView(host: $host)
+				AuthFormView(host: $host, auth: $auth)
+				Spacer().frame(height: 300) // Keyboard scoll spacer
+			}
+		}
     }
 }
 
