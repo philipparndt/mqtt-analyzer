@@ -70,6 +70,15 @@ struct MessageCellView: View {
 		model.topic = topic.name
 		model.qos = Int(message.qos)
 		model.retain = message.retain
+		model.properties.append(
+			PostMessageProperty(name: "temperature", value: PostMessagePropertyValueText(value: "123"))
+		)
+		model.properties.append(
+			PostMessageProperty(name: "contact", value: PostMessagePropertyValueBoolean(value: true))
+		)
+		model.properties.append(
+			PostMessageProperty(name: "foo", value: PostMessagePropertyValueText(value: "bar"))
+		)
 		return model
 	}
 	

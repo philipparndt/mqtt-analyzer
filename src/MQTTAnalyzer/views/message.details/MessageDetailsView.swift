@@ -55,7 +55,6 @@ struct MessageDetailsView: View {
 #if DEBUG
 struct MessageDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-		// swiftlint:disable line_length
         MessageDetailsView(message: Message(
 			data: "{\"temperature\": 56.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }",
 			date: Date(),

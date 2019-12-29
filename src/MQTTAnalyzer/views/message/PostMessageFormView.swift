@@ -9,11 +9,57 @@
 import Foundation
 import SwiftUI
 
+enum PostMessagePropertyType {
+	case boolean
+	case number
+	case text
+}
+
+class PostMessagePropertyValue {
+	var valueText: String
+	var valueBool: Bool
+	
+	init(value: Any) {
+		if let v = value as? String {
+			self.valueText = v
+			self.valueBool = false
+		}
+		else if let v = value as? Bool {
+			self.valueText = ""
+			self.valueBool = v
+		}
+		else {
+			self.valueText = ""
+			self.valueBool = false
+		}
+	}
+	
+	func type() -> PostMessagePropertyType {
+		return .text
+	}
+}
+
+class PostMessagePropertyValueBoolean: PostMessagePropertyValue {
+	override func type() -> PostMessagePropertyType {
+		return .boolean
+	}
+}
+
+class PostMessagePropertyValueText: PostMessagePropertyValue {
+}
+
+struct PostMessageProperty: Identifiable {
+	let id: String = NSUUID().uuidString
+	let name: String
+	var value: PostMessagePropertyValue
+}
+
 struct PostMessageFormModel {
 	var topic: String = "/"
     var message: String = ""
     var qos: Int = 0
 	var retain: Bool = false
+	var properties: [PostMessageProperty] = []
 }
 
 struct PostMessageFormModalView: View {
@@ -71,15 +117,37 @@ struct PostMessageFormView: View {
 				.frame(height: 250)
 			}
 			
-			Section(header: Text("QoS")) {
-				Picker(selection: $message.qos, label: Text("QoS")) {
-                    Text("0").tag(0)
-                    Text("1").tag(1)
-                    Text("2").tag(2)
-                }.pickerStyle(SegmentedPickerStyle())
+			ForEach(message.properties.indices) { index in
+				Section(header: Text(self.message.properties[index].name)) {
+					MessageProperyView(property: self.$message.properties[index])
+				}
 			}
 			
+			QOSSectionView(qos: $message.qos)
+
 			Text("").frame(height: 250) // Scoll Spacer
         }
+    }
+}
+
+struct MessageProperyView: View {
+	@Binding var property: PostMessageProperty
+    
+    var body: some View {
+
+		HStack {
+			if property.value is PostMessagePropertyValueBoolean {
+				Toggle(property.name, isOn: self.$property.value.valueBool)
+			}
+			else if property.value is PostMessagePropertyValueText {
+				TextField("", text: self.$property.value.valueText)
+				.disableAutocorrection(true)
+				.autocapitalization(.none)
+				.font(.body)
+			}
+			else {
+				Text("Unknown property type")
+			}
+		}
     }
 }

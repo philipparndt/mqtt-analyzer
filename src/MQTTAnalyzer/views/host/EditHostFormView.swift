@@ -103,11 +103,7 @@ struct TopicFormView: View {
                 
                 Spacer()
                 
-                Picker(selection: $host.qos, label: Text("QoS")) {
-                    Text("0").tag(0)
-                    Text("1").tag(1)
-                    Text("2").tag(2)
-                }.pickerStyle(SegmentedPickerStyle())
+				QOSPicker(qos: $host.qos)
             }
         }
     }
