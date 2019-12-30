@@ -66,14 +66,10 @@ struct TopicCellView: View {
     }
 	
 	func createPostFormModel() -> PostMessageFormModel {
-		var model = PostMessageFormModel()
 		if let first = self.messages.getFirstMessage() {
-			model.message = first.data
-			model.topic = self.messages.topic.name
-			model.qos = Int(first.qos)
-			model.retain = first.retain
+			return PostMessageFormModel.of(message: first, topic: self.messages.topic)
 		}
-		return model
+		return PostMessageFormModel()
 	}
 	
     func post() {

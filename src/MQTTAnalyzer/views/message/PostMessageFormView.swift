@@ -70,6 +70,29 @@ class PostMessageFormModel {
 	var jsonData: [String: Any]?
 	var properties: [PostMessageProperty] = []
 	
+	class func of(message: Message, topic: Topic) -> PostMessageFormModel {
+		let model = PostMessageFormModel()
+		model.message = message.data
+		model.topic = topic.name
+		model.qos = Int(message.qos)
+		model.retain = message.retain
+		model.json = message.isJson()
+		model.jsonData = message.jsonData
+		
+		if message.isJson() {
+			let data = message.jsonData!
+			print(data)
+			print(message.json(jsonData: data)?.prettyPrintedJSONString ?? "{}")
+			
+			var properties: [PostMessageProperty] = []
+			PostMessageFormModel.createJsonProperties(json: data, path: [], properties: &properties)
+			
+			properties.forEach { model.properties.append($0) }
+		}
+		
+		return model
+	}
+	
 	func updateMessageFromJsonData() {
 		if var data = jsonData {
 			for property in properties {
