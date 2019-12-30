@@ -35,7 +35,7 @@ class MessagesByTopic: Identifiable, ObservableObject {
         if message.isJson() {
             let jsonData = message.jsonData!
 			if !jsonData.isEmpty {
-                traverseJson(node: message.jsonData![0], path: "", dateFormatted: message.dateString)
+                traverseJson(node: message.jsonData!, path: "", dateFormatted: message.dateString)
             }
         }
         
@@ -157,14 +157,16 @@ class DiagramPath: Hashable, Identifiable {
     }
 }
 
-class Message: Identifiable {
+class Message: Identifiable, JSONSerializable {
+	var jsonData: [String: Any]?
+	
     let data: String
 	let date: Date
     let dateString: String
     let qos: Int32
 	let retain: Bool
     
-    let jsonData: [[String: Any]]?
+//    let jsonData: [[String: Any]]?
     
     init(data: String, date: Date, qos: Int32, retain: Bool) {
         self.data = data
@@ -190,10 +192,18 @@ class Message: Identifiable {
         return data.data(using: .utf8)?.prettyPrintedJSONString ?? "{}"
     }
     
-    class func toJson(messageData: String) -> [[String: Any]]? {
-        let data = "[\(cleanEscapedNumbers(messageData))]".data(using: .utf8)!
+    class func toJson(messageData: String) -> [String: Any]? {
+//        let data = "[\(cleanEscapedNumbers(messageData))]".data(using: .utf8)!
+		let data = messageData.data(using: .utf8)!
         do {
-            return try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String: Any]]
+			let data = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+			
+			if let arrayOfArray = data as? [[String: Any]] {
+				return arrayOfArray[0]
+			}
+			else {
+				return data as? [String: Any]
+			}
         } catch _ as NSError {
             return nil
         }
@@ -204,6 +214,23 @@ class Message: Identifiable {
         with: "$1",
         options: .regularExpression)
     }
+}
+
+protocol JSONSerializable {
+	var jsonData: [String: Any]? { get }
+}
+
+extension JSONSerializable {
+	func json() -> Data? {
+		return json(jsonData: self.jsonData)
+	}
+	
+	func json(jsonData: [String: Any]?) -> Data? {
+		if let data = jsonData {
+			return try? JSONSerialization.data(withJSONObject: data)
+        }
+		return nil
+	}
 }
 
 class Topic: Hashable {

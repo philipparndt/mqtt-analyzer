@@ -25,18 +25,45 @@ struct EditHostFormView: View {
     @Binding var auth: Bool
     
     var body: some View {
-        Form {
-            ServerFormView(host: $host)
-            TopicFormView(host: $host)
-            AuthFormView(host: $host, auth: $auth)
-        }
+		Group {
+			Form {
+				ServerFormView(host: $host)
+				TopicFormView(host: $host)
+				AuthFormView(host: $host, auth: $auth)
+				Spacer().frame(height: 300) // Keyboard scoll spacer
+			}
+		}
     }
 }
+
+struct FormFieldInvalidMark: View {
+	var invalid: Bool
+	
+	var body: some View {
+		Group {
+			if invalid {
+				Image(systemName: "xmark.octagon.fill")
+				.font(.headline)
+					.foregroundColor(.red)
+			}
+		}
+    }
+}
+
 
 // MARK: Server
 struct ServerFormView: View {
     @Binding var host: HostFormModel
-    
+
+	var hostnameInvalid: Bool {
+		return !host.hostname.isEmpty
+			&& HostFormValidator.validateHostname(name: host.hostname) == nil
+	}
+
+	var portInvalid: Bool {
+		return HostFormValidator.validatePort(port: host.port) == nil
+	}
+
     var body: some View {
         return Section(header: Text("Server")) {
             HStack {
@@ -52,6 +79,8 @@ struct ServerFormView: View {
                     .font(.body)
             }
             HStack {
+				FormFieldInvalidMark(invalid: hostnameInvalid)
+				
                 Text("Hostname")
                     .font(.headline)
 
@@ -64,6 +93,8 @@ struct ServerFormView: View {
                     .font(.body)
             }
             HStack {
+				FormFieldInvalidMark(invalid: portInvalid)
+
                 Text("Port")
                     .font(.headline)
 
@@ -103,11 +134,7 @@ struct TopicFormView: View {
                 
                 Spacer()
                 
-                Picker(selection: $host.qos, label: Text("QoS")) {
-                    Text("0").tag(0)
-                    Text("1").tag(1)
-                    Text("2").tag(2)
-                }.pickerStyle(SegmentedPickerStyle())
+				QOSPicker(qos: $host.qos)
             }
         }
     }

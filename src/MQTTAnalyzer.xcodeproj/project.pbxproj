@@ -40,6 +40,7 @@
 		22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F72E23B7486E00892C4B /* .swiftlint.yml */; };
 		22C9F73123B78F9700892C4B /* PostMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PostMessageFormView.swift */; };
 		22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MessageTextView.swift */; };
+		22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73923B8CCCC00892C4B /* QOSView.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
 		22E469D3237F490100D72BD6 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D2237F490100D72BD6 /* StringUtils.swift */; };
 		22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */; };
@@ -126,6 +127,7 @@
 		22C9F72E23B7486E00892C4B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		22C9F73023B78F9700892C4B /* PostMessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMessageFormView.swift; sourceTree = "<group>"; };
 		22C9F73623B79A1300892C4B /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
+		22C9F73923B8CCCC00892C4B /* QOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QOSView.swift; sourceTree = "<group>"; };
 		22D50F9622CE4C4300F37EAF /* Multimap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multimap.swift; sourceTree = "<group>"; };
 		22E469D2237F490100D72BD6 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMarkerView.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				228104892381740000112F24 /* MessageView.swift */,
 				2281048B2381744300112F24 /* TopicView.swift */,
 				22C9F73023B78F9700892C4B /* PostMessageFormView.swift */,
+				22C9F73923B8CCCC00892C4B /* QOSView.swift */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
+				22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */,
 				228104982381796B00112F24 /* HostCellView.swift in Sources */,
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */,
@@ -876,7 +880,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				ENABLE_PREVIEWS = YES;
@@ -899,7 +903,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				ENABLE_PREVIEWS = YES;

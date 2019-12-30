@@ -16,7 +16,7 @@ target 'MQTTAnalyzer' do
 
   pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git'
   
-  pod 'swift-petitparser', '~> 1.0'
+  pod 'swift-petitparser', '~> 1.1.1'
   
   target 'MQTTAnalyzerTests' do
     inherit! :search_paths
