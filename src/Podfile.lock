@@ -11,7 +11,7 @@ PODS:
   - Realm/Headers (3.17.0)
   - RealmSwift (3.17.0):
     - Realm (= 3.17.0)
-  - swift-petitparser (1.1.0)
+  - swift-petitparser (1.1.1)
 
 DEPENDENCIES:
   - Highlightr (from `https://github.com/raspu/Highlightr.git`)
@@ -19,7 +19,7 @@ DEPENDENCIES:
   - Moscapsule (from `https://github.com/flightonary/Moscapsule.git`)
   - OpenSSL-Universal
   - RealmSwift
-  - swift-petitparser (~> 1.0)
+  - swift-petitparser (~> 1.1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -50,8 +50,8 @@ SPEC CHECKSUMS:
   OpenSSL-Universal: d10ab08e0b258023e5184f77660b1b9f4ec93926
   Realm: b30db41ff34fc858ffc25ba8d44a82c164e7ccd0
   RealmSwift: fe733e459d60dc7b6971d4cbee2eb4854097d12c
-  swift-petitparser: 0cb70cbe3414cfe03e21f7f1104200dfcc0f3003
+  swift-petitparser: c1c6f7f5227a0e830df76c36426e6a2294e248ae
 
-PODFILE CHECKSUM: a0acb3c4038132a336244373a6e7d29f8170c6b6
+PODFILE CHECKSUM: a06e37b7ac51bddc8df45ff1a04a250239324f46
 
 COCOAPODS: 1.7.3
