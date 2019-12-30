@@ -36,10 +36,34 @@ struct EditHostFormView: View {
     }
 }
 
+struct FormFieldInvalidMark: View {
+	var invalid: Bool
+	
+	var body: some View {
+		Group {
+			if invalid {
+				Image(systemName: "xmark.octagon.fill")
+				.font(.headline)
+					.foregroundColor(.red)
+			}
+		}
+    }
+}
+
+
 // MARK: Server
 struct ServerFormView: View {
     @Binding var host: HostFormModel
-    
+
+	var hostnameInvalid: Bool {
+		return !host.hostname.isEmpty
+			&& HostFormValidator.validateHostname(name: host.hostname) == nil
+	}
+
+	var portInvalid: Bool {
+		return HostFormValidator.validatePort(port: host.port) == nil
+	}
+
     var body: some View {
         return Section(header: Text("Server")) {
             HStack {
@@ -55,6 +79,8 @@ struct ServerFormView: View {
                     .font(.body)
             }
             HStack {
+				FormFieldInvalidMark(invalid: hostnameInvalid)
+				
                 Text("Hostname")
                     .font(.headline)
 
@@ -67,6 +93,8 @@ struct ServerFormView: View {
                     .font(.body)
             }
             HStack {
+				FormFieldInvalidMark(invalid: portInvalid)
+
                 Text("Port")
                     .font(.headline)
 

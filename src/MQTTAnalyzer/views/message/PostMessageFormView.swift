@@ -127,6 +127,7 @@ class PostMessageFormModel {
 		}
 		
 		json.filter { $0.value is Int }
+			.filter { !($0.value is Bool) }
 		.forEach {
 			var propertyPath = path
 			propertyPath.append($0.key)
