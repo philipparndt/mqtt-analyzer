@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import SwiftyJSON
+import swift_petitparser
 
 enum PostMessagePropertyType {
 	case boolean
@@ -145,14 +146,18 @@ class PostMessageFormModel {
 		
 		let name = path[path.count - 1]
 		let pathName = path.joined(separator: ".")
+		
+		let raw = json.rawString() ?? ""
+		let isInt = NumbersParser.int().trim().end().accept(raw)
+		
 		if let value = json.bool {
 			return PostMessageProperty(name: name, pathName: pathName,
 									   path: path,
 									   value: PostMessagePropertyValueBoolean(value: value))
 		}
-		else if let value = json.int {
+		else if isInt {
 			return PostMessageProperty(name: name, pathName: pathName,
-									   path: path, value: PostMessagePropertyValueNumber(value: "\(value)"))
+									   path: path, value: PostMessagePropertyValueNumber(value: "\(json.intValue)"))
 		}
 		else if let value = json.double {
 			return PostMessageProperty(name: name, pathName: pathName,
