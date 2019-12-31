@@ -96,10 +96,7 @@ class PostMessageFormModel {
 			let json = JSON(parseJSON: message.data)
 			model.jsonData = json
 			
-			var properties: [PostMessageProperty] =
 			PostMessageFormModel.createJsonProperties(json: json, path: [])
-			
-			properties
 				.sorted(by: { $0.pathName < $1.pathName })
 				.forEach { model.properties.append($0) }
 		}
