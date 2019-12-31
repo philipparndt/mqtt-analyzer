@@ -70,6 +70,7 @@ class PostMessagePropertyValueText: PostMessagePropertyValue {
 struct PostMessageProperty: Identifiable {
 	let id: String = NSUUID().uuidString
 	let name: String
+	let pathName: String
 	let path: [JSONSubscriptType]
 	var value: PostMessagePropertyValue
 }
@@ -98,7 +99,9 @@ class PostMessageFormModel {
 			var properties: [PostMessageProperty] = []
 			PostMessageFormModel.createJsonProperties(json: json, path: [], properties: &properties)
 			
-			properties.forEach { model.properties.append($0) }
+			properties
+				.sorted(by: { $0.pathName < $1.pathName })
+				.forEach { model.properties.append($0) }
 		}
 		
 		return model
@@ -123,7 +126,6 @@ class PostMessageFormModel {
 	
 	class func createJsonProperties(json: JSON, path: [String], properties: inout [PostMessageProperty]) {
 		json.dictionaryValue
-		.sorted(by: { $0.key < $1.key })
 		.forEach {
             let child = $0.value
 			var nextPath = path
@@ -143,17 +145,23 @@ class PostMessageFormModel {
 		}
 		
 		let name = path[path.count - 1]
+		let pathName = path.joined(separator: ".")
 		if let value = json.bool {
-			return PostMessageProperty(name: name, path: path, value: PostMessagePropertyValueBoolean(value: value))
+			return PostMessageProperty(name: name, pathName: pathName,
+									   path: path,
+									   value: PostMessagePropertyValueBoolean(value: value))
 		}
 		else if let value = json.int {
-			return PostMessageProperty(name: name, path: path, value: PostMessagePropertyValueNumber(value: "\(value)"))
+			return PostMessageProperty(name: name, pathName: pathName,
+									   path: path, value: PostMessagePropertyValueNumber(value: "\(value)"))
 		}
 		else if let value = json.double {
-			return PostMessageProperty(name: name, path: path, value: PostMessagePropertyValueNumber(value: "\(value)"))
+			return PostMessageProperty(name: name, pathName: pathName,
+									   path: path, value: PostMessagePropertyValueNumber(value: "\(value)"))
 		}
 		else if let value = json.string {
-			return PostMessageProperty(name: name, path: path, value: PostMessagePropertyValueText(value: value))
+			return PostMessageProperty(name: name, pathName: pathName,
+									   path: path, value: PostMessagePropertyValueText(value: value))
 		}
 		else {
 			return nil
@@ -255,7 +263,7 @@ struct PostMessageFormJSONView: View {
 		Section(header: Text("Properties")) {
 			ForEach(message.properties.indices) { index in
 				HStack {
-					Text(self.message.properties[index].name)
+					Text(self.message.properties[index].pathName)
 					Spacer()
 					MessageProperyView(property: self.$message.properties[index])
 				}
