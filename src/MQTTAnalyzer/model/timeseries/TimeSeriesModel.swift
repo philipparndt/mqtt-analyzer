@@ -17,6 +17,43 @@ struct MTimeSeriesMeanValue {
     let meanValue: Int?
 }
 
+class TimeSeriesValue: Hashable, Identifiable {
+    let num: NSNumber
+    let date: Date
+    let dateString: String
+    
+    init(value num: NSNumber, at date: Date, dateFormatted: String) {
+        self.num = num
+        self.date = date
+        self.dateString = dateFormatted
+    }
+    
+    static func == (lhs: TimeSeriesValue, rhs: TimeSeriesValue) -> Bool {
+        return lhs.num == rhs.num
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(num)
+    }
+}
+
+class DiagramPath: Hashable, Identifiable {
+    let path: String
+    
+    init(_ path: String) {
+        self.path = path
+    }
+    
+    static func == (lhs: DiagramPath, rhs: DiagramPath) -> Bool {
+        return lhs.path == rhs.path
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(path)
+    }
+}
+
+
 class MTimeSeriesModel {
 
     var values: [MTimeSeriesValue] = []

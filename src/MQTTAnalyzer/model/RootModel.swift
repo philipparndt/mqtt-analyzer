@@ -9,6 +9,28 @@
 import SwiftUI
 import Combine
 
+protocol JSONSerializable {
+	var jsonData: [String: Any]? { get }
+}
+
+extension JSONSerializable {
+	func json() -> Data? {
+		return json(jsonData: self.jsonData)
+	}
+	
+	func json(jsonData: [String: Any]?) -> Data? {
+		if let data = jsonData {
+			return try? JSONSerialization.data(withJSONObject: data)
+        }
+		return nil
+	}
+}
+
+protocol ReconnectDelegate: class {
+	func reconnect()
+}
+
+
 class RootModel: ObservableObject {
     var willChange = PassthroughSubject<RootModel, Never>()
     
@@ -72,5 +94,4 @@ class RootModel: ObservableObject {
 	func post(topic: Topic, _ message: Message) {
 		currentSession?.post(topic: topic, message)
     }
-	
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -41,6 +41,10 @@
 		22C9F73123B78F9700892C4B /* PostMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PostMessageFormView.swift */; };
 		22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MessageTextView.swift */; };
 		22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73923B8CCCC00892C4B /* QOSView.swift */; };
+		22C9F73C23BB5E1300892C4B /* MessagesByTopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73B23BB5E1300892C4B /* MessagesByTopic.swift */; };
+		22C9F73E23BB5E5C00892C4B /* HostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73D23BB5E5C00892C4B /* HostModel.swift */; };
+		22C9F74023BB5EA700892C4B /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73F23BB5EA700892C4B /* MessageModel.swift */; };
+		22C9F74223BB5EF100892C4B /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F74123BB5EF100892C4B /* TopicModel.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
 		22E469D3237F490100D72BD6 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D2237F490100D72BD6 /* StringUtils.swift */; };
 		22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */; };
@@ -51,12 +55,10 @@
 		22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E1238149FD00D72BD6 /* StringSizeExtension.swift */; };
 		22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E323814CEF00D72BD6 /* JsonFormatString.swift */; };
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
-		22FD7CF222C8C44A0078795F /* SwiftMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22FD7CF122C8C44A0078795F /* SwiftMQTT */; };
 		22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
 		22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF722C8D2650078795F /* MessageDetailsView.swift */; };
 		22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF822C8D2650078795F /* MQTTSessionController.swift */; };
 		22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF922C8D2650078795F /* EditHostFormView.swift */; };
-		22FD7D0122C8D2660078795F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFA22C8D2650078795F /* Model.swift */; };
 		22FD7D0222C8D2660078795F /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFB22C8D2650078795F /* RootModel.swift */; };
 		22FD7D0322C8D2660078795F /* HostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFC22C8D2660078795F /* HostsView.swift */; };
 		22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */; };
@@ -128,6 +130,10 @@
 		22C9F73023B78F9700892C4B /* PostMessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMessageFormView.swift; sourceTree = "<group>"; };
 		22C9F73623B79A1300892C4B /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
 		22C9F73923B8CCCC00892C4B /* QOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QOSView.swift; sourceTree = "<group>"; };
+		22C9F73B23BB5E1300892C4B /* MessagesByTopic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesByTopic.swift; sourceTree = "<group>"; };
+		22C9F73D23BB5E5C00892C4B /* HostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostModel.swift; sourceTree = "<group>"; };
+		22C9F73F23BB5EA700892C4B /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		22C9F74123BB5EF100892C4B /* TopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
 		22D50F9622CE4C4300F37EAF /* Multimap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multimap.swift; sourceTree = "<group>"; };
 		22E469D2237F490100D72BD6 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMarkerView.swift; sourceTree = "<group>"; };
@@ -142,7 +148,6 @@
 		22FD7CF722C8D2650078795F /* MessageDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailsView.swift; sourceTree = "<group>"; };
 		22FD7CF822C8D2650078795F /* MQTTSessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTSessionController.swift; sourceTree = "<group>"; };
 		22FD7CF922C8D2650078795F /* EditHostFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHostFormView.swift; sourceTree = "<group>"; };
-		22FD7CFA22C8D2650078795F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		22FD7CFB22C8D2650078795F /* RootModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModel.swift; sourceTree = "<group>"; };
 		22FD7CFC22C8D2660078795F /* HostsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsView.swift; sourceTree = "<group>"; };
 		22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSeriesDetailsView.swift; sourceTree = "<group>"; };
@@ -161,7 +166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */,
-				22FD7CF222C8C44A0078795F /* SwiftMQTT in Frameworks */,
 				45AEF32312488446BB9A7C50 /* Pods_MQTTAnalyzer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,10 +392,13 @@
 			children = (
 				223EF0042387082E002ADF3E /* persistence */,
 				228911CF22CF86B20095301F /* timeseries */,
-				22FD7CFA22C8D2650078795F /* Model.swift */,
 				22FD7CFB22C8D2650078795F /* RootModel.swift */,
 				22D50F9622CE4C4300F37EAF /* Multimap.swift */,
 				22E469D6237FC03500D72BD6 /* Readstate.swift */,
+				22C9F73B23BB5E1300892C4B /* MessagesByTopic.swift */,
+				22C9F73D23BB5E5C00892C4B /* HostModel.swift */,
+				22C9F73F23BB5EA700892C4B /* MessageModel.swift */,
+				22C9F74123BB5EF100892C4B /* TopicModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -442,7 +449,6 @@
 			);
 			name = MQTTAnalyzer;
 			packageProductDependencies = (
-				22FD7CF122C8C44A0078795F /* SwiftMQTT */,
 			);
 			productName = MQTTAnalyzer;
 			productReference = 2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */;
@@ -519,7 +525,6 @@
 			);
 			mainGroup = 2253F8C922C8C007007E35A2;
 			packageReferences = (
-				22FD7CF022C8C44A0078795F /* XCRemoteSwiftPackageReference "SwiftMQTT" */,
 			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
 			projectDirPath = "";
@@ -670,7 +675,6 @@
 			files = (
 				22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */,
 				22E469E023813BB000D72BD6 /* AttributedUILabel.swift in Sources */,
-				22FD7D0122C8D2660078795F /* Model.swift in Sources */,
 				22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
@@ -679,6 +683,7 @@
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
+				22C9F74223BB5EF100892C4B /* TopicModel.swift in Sources */,
 				2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */,
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
 				228104912381770000112F24 /* ReconnectView.swift in Sources */,
@@ -686,8 +691,11 @@
 				22810488238173BB00112F24 /* DataSeriesView.swift in Sources */,
 				2281048A2381740000112F24 /* MessageView.swift in Sources */,
 				2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */,
+				22C9F73C23BB5E1300892C4B /* MessagesByTopic.swift in Sources */,
+				22C9F74023BB5EA700892C4B /* MessageModel.swift in Sources */,
 				22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */,
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
+				22C9F73E23BB5E5C00892C4B /* HostModel.swift in Sources */,
 				2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */,
 				22C9F73123B78F9700892C4B /* PostMessageFormView.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
@@ -1045,25 +1053,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		22FD7CF022C8C44A0078795F /* XCRemoteSwiftPackageReference "SwiftMQTT" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/philipparndt/SwiftMQTT";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		22FD7CF122C8C44A0078795F /* SwiftMQTT */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 22FD7CF022C8C44A0078795F /* XCRemoteSwiftPackageReference "SwiftMQTT" */;
-			productName = SwiftMQTT;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */ = {

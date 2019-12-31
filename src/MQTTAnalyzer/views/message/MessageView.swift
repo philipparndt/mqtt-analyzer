@@ -10,11 +10,11 @@ import SwiftUI
 
 struct MessageView: View {
     @ObservedObject var messagesByTopic: MessagesByTopic
-
+	
     var body: some View {
         Section(header: Text("Messages")) {
             ForEach(messagesByTopic.messages) {
-                MessageCellView(message: $0, topic: self.messagesByTopic.topic)
+				MessageCellView(message: $0, topic: self.messagesByTopic.topic)
             }
             .onDelete(perform: messagesByTopic.delete)
         }
@@ -23,6 +23,7 @@ struct MessageView: View {
 
 struct MessageCellView: View {
 	@EnvironmentObject var model: RootModel
+	
     let message: Message
     let topic: Topic
     @State var postMessagePresented = false
@@ -60,7 +61,8 @@ struct MessageCellView: View {
         .sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
             PostMessageFormModalView(isPresented: self.$postMessagePresented,
                                  root: self.model,
-								 model: PostMessageFormModel.of(message: self.message, topic: self.topic))
+								 model: PostMessageFormModel.of(
+									message: self.message, topic: self.topic))
         })
     }
 	

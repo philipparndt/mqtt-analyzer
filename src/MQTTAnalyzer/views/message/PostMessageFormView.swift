@@ -51,6 +51,12 @@ class PostMessagePropertyValueInteger: PostMessagePropertyValue {
 	}
 }
 
+class PostMessagePropertyValueDouble: PostMessagePropertyValue {
+	override func type() -> PostMessagePropertyType {
+		return .integer
+	}
+}
+
 class PostMessagePropertyValueText: PostMessagePropertyValue {
 }
 
@@ -111,6 +117,11 @@ class PostMessageFormModel {
 					// TODO: Lookup path
 					data[path[0]] = Int(property.value.valueText)
 				}
+				else if property.value is PostMessagePropertyValueDouble {
+					let path = property.path
+					// TODO: Lookup path
+					data[path[0]] = Double(property.value.valueText)
+				}
 			}
 			
 			self.message = serializeJson(data: data)
@@ -157,6 +168,14 @@ class PostMessageFormModel {
 			let property = PostMessageProperty(name: $0.key, path: propertyPath, value: PostMessagePropertyValueInteger(value: "\($0.value)"))
 			properties.append(property)
 		}
+		
+		json.filter { $0.value is Double }
+		.forEach {
+			var propertyPath = path
+			propertyPath.append($0.key)
+			let property = PostMessageProperty(name: $0.key, path: propertyPath, value: PostMessagePropertyValueDouble(value: "\($0.value)"))
+			properties.append(property)
+		}
 	}
 }
 
@@ -164,10 +183,10 @@ struct PostMessageFormModalView: View {
     @Binding var isPresented: Bool
     let root: RootModel
 	@State var model: PostMessageFormModel
-    
+
     var body: some View {
         NavigationView {
-            PostMessageFormView(message: $model)
+			PostMessageFormView(message: $model)
                 .font(.caption)
                 .navigationBarTitle(Text("Post message"))
                 .navigationBarItems(
@@ -199,9 +218,15 @@ struct PostMessageFormModalView: View {
 
 struct PostMessageFormView: View {
 	@Binding var message: PostMessageFormModel
-    
+
     var body: some View {
 		Form {
+//			Section(header: Text("Debug")) {
+//				Button(action: debugClear) {
+//					Text("Clear Messages")
+//				}
+//			}
+			
 			Section(header: Text("Topic")) {
 				TextField("#", text: $message.topic)
 					.disableAutocorrection(true)
@@ -221,6 +246,10 @@ struct PostMessageFormView: View {
 			Spacer().frame(height: 300) // Keyboard scoll spacer
 		}
     }
+	
+	func debugClear() {
+//		self.messagesByTopic.clear()
+	}
 }
 
 struct PostMessageFormPlainTextView: View {
@@ -272,7 +301,8 @@ struct MessageProperyView: View {
 				.autocapitalization(.none)
 				.font(.body)
 			}
-			else if property.value is PostMessagePropertyValueInteger {
+			else if property.value is PostMessagePropertyValueInteger
+				 || property.value is PostMessagePropertyValueDouble {
 				TextField("", text: self.$property.value.valueText)
 				.disableAutocorrection(true)
 				.multilineTextAlignment(.trailing)
