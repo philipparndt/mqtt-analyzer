@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftyJSON
 
 enum PostMessagePropertyType {
 	case boolean
@@ -37,17 +38,29 @@ class PostMessagePropertyValue {
 	func type() -> PostMessagePropertyType {
 		return .text
 	}
+	
+	func getTypedValue() -> Any {
+		return valueText
+	}
 }
 
 class PostMessagePropertyValueBoolean: PostMessagePropertyValue {
 	override func type() -> PostMessagePropertyType {
 		return .boolean
 	}
+	
+	override func getTypedValue() -> Any {
+		return valueBool
+	}
 }
 
 class PostMessagePropertyValueNumber: PostMessagePropertyValue {
 	override func type() -> PostMessagePropertyType {
 		return .number
+	}
+	
+	override func getTypedValue() -> Any {
+		return Double(valueText) ?? 0
 	}
 }
 
@@ -57,7 +70,7 @@ class PostMessagePropertyValueText: PostMessagePropertyValue {
 struct PostMessageProperty: Identifiable {
 	let id: String = NSUUID().uuidString
 	let name: String
-	let path: [String]
+	let path: [JSONSubscriptType]
 	var value: PostMessagePropertyValue
 }
 
@@ -67,7 +80,7 @@ class PostMessageFormModel {
     var qos: Int = 0
 	var retain: Bool = false
 	var json: Bool = false
-	var jsonData: [String: Any]?
+	var jsonData: JSON?
 	var properties: [PostMessageProperty] = []
 	
 	class func of(message: Message, topic: Topic) -> PostMessageFormModel {
@@ -77,15 +90,13 @@ class PostMessageFormModel {
 		model.qos = Int(message.qos)
 		model.retain = message.retain
 		model.json = message.isJson()
-		model.jsonData = message.jsonData
 		
 		if message.isJson() {
-			let data = message.jsonData!
-			print(data)
-			print(message.json(jsonData: data)?.prettyPrintedJSONString ?? "{}")
+			let json = JSON(parseJSON: message.data)
+			model.jsonData = json
 			
 			var properties: [PostMessageProperty] = []
-			PostMessageFormModel.createJsonProperties(json: data, path: [], properties: &properties)
+			PostMessageFormModel.createJsonProperties(json: json, path: [], properties: &properties)
 			
 			properties.forEach { model.properties.append($0) }
 		}
@@ -94,26 +105,14 @@ class PostMessageFormModel {
 	}
 	
 	func updateMessageFromJsonData() {
-		if var data = jsonData {
+		if var json = jsonData {
 			for property in properties {
-				if property.value is PostMessagePropertyValueBoolean {
-					let path = property.path
-					// TODO: Lookup path
-					data[path[0]] = property.value.valueBool
-				}
-				else if property.value is PostMessagePropertyValueText {
-					let path = property.path
-					// TODO: Lookup path
-					data[path[0]] = property.value.valueText
-				}
-				else if property.value is PostMessagePropertyValueNumber {
-					let path = property.path
-					// TODO: Lookup path
-					data[path[0]] = Int(property.value.valueText)
-				}
+				json[property.path] = JSON(property.value.getTypedValue())
 			}
 			
-			self.message = serializeJson(data: data)
+			if let message = json.rawString(options: []) {
+				self.message = message
+			}
 		}
 	}
 	
@@ -122,42 +121,42 @@ class PostMessageFormModel {
 		return try! JSONSerialization.data(withJSONObject: data).printedJSONString ?? "{}"
 	}
 	
-	class func createJsonProperties(json: [String: Any], path: [String], properties: inout [PostMessageProperty]) {
-        json.forEach {
+	class func createJsonProperties(json: JSON, path: [String], properties: inout [PostMessageProperty]) {
+		json.dictionaryValue
+		.sorted(by: { $0.key < $1.key })
+		.forEach {
             let child = $0.value
-            if child is [String: Any] {
-                var nextPath = path
-				nextPath.append($0.key)
-				
-                createJsonProperties(json: child as! [String: Any], path: nextPath, properties: &properties)
-            }
+			var nextPath = path
+			nextPath.append($0.key)
+			
+			createJsonProperties(json: child, path: nextPath, properties: &properties)
         }
 		
-		json.filter { $0.value is Bool }
-		.forEach {
-			var propertyPath = path
-			propertyPath.append($0.key)
-			let property = PostMessageProperty(name: $0.key, path: propertyPath, value: PostMessagePropertyValueBoolean(value: $0.value))
+		if let property = createProperty(json: json, path: path) {
 			properties.append(property)
 		}
-		
-		json.filter { $0.value is String }
-		.forEach {
-			var propertyPath = path
-			propertyPath.append($0.key)
-			let property = PostMessageProperty(name: $0.key, path: propertyPath, value: PostMessagePropertyValueText(value: $0.value))
-			properties.append(property)
+	}
+	
+	class func createProperty(json: JSON, path: [String]) -> PostMessageProperty? {
+		if path.isEmpty {
+			return nil
 		}
 		
-		json.filter { $0.value is Int || $0.value is Double }
-			.filter { !($0.value is Bool) }
-		.forEach {
-			var propertyPath = path
-			propertyPath.append($0.key)
-			let property = PostMessageProperty(name: $0.key,
-											   path: propertyPath,
-											   value: PostMessagePropertyValueNumber(value: "\($0.value)"))
-			properties.append(property)
+		let name = path[path.count - 1]
+		if let value = json.bool {
+			return PostMessageProperty(name: name, path: path, value: PostMessagePropertyValueBoolean(value: value))
+		}
+		else if let value = json.int {
+			return PostMessageProperty(name: name, path: path, value: PostMessagePropertyValueNumber(value: "\(value)"))
+		}
+		else if let value = json.double {
+			return PostMessageProperty(name: name, path: path, value: PostMessagePropertyValueNumber(value: "\(value)"))
+		}
+		else if let value = json.string {
+			return PostMessageProperty(name: name, path: path, value: PostMessagePropertyValueText(value: value))
+		}
+		else {
+			return nil
 		}
 	}
 }

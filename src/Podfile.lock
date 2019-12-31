@@ -12,6 +12,7 @@ PODS:
   - RealmSwift (3.17.0):
     - Realm (= 3.17.0)
   - swift-petitparser (1.1.1)
+  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Highlightr (from `https://github.com/raspu/Highlightr.git`)
@@ -20,6 +21,7 @@ DEPENDENCIES:
   - OpenSSL-Universal
   - RealmSwift
   - swift-petitparser (~> 1.1.1)
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -28,6 +30,7 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - swift-petitparser
+    - SwiftyJSON
 
 EXTERNAL SOURCES:
   Highlightr:
@@ -51,7 +54,8 @@ SPEC CHECKSUMS:
   Realm: b30db41ff34fc858ffc25ba8d44a82c164e7ccd0
   RealmSwift: fe733e459d60dc7b6971d4cbee2eb4854097d12c
   swift-petitparser: c1c6f7f5227a0e830df76c36426e6a2294e248ae
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: a06e37b7ac51bddc8df45ff1a04a250239324f46
+PODFILE CHECKSUM: d9af0ee1b83af0e5fe2afe48efb8d613fb0d8a75
 
 COCOAPODS: 1.7.3
