@@ -96,8 +96,8 @@ class PostMessageFormModel {
 			let json = JSON(parseJSON: message.data)
 			model.jsonData = json
 			
-			var properties: [PostMessageProperty] = []
-			PostMessageFormModel.createJsonProperties(json: json, path: [], properties: &properties)
+			var properties: [PostMessageProperty] =
+			PostMessageFormModel.createJsonProperties(json: json, path: [])
 			
 			properties
 				.sorted(by: { $0.pathName < $1.pathName })
@@ -124,19 +124,21 @@ class PostMessageFormModel {
 		return try! JSONSerialization.data(withJSONObject: data).printedJSONString ?? "{}"
 	}
 	
-	class func createJsonProperties(json: JSON, path: [String], properties: inout [PostMessageProperty]) {
+	class func createJsonProperties(json: JSON, path: [String]) -> [PostMessageProperty] {
+		var result: [PostMessageProperty] = []
 		json.dictionaryValue
 		.forEach {
             let child = $0.value
 			var nextPath = path
-			nextPath.append($0.key)
-			
-			createJsonProperties(json: child, path: nextPath, properties: &properties)
+			nextPath += [$0.key]
+			result += createJsonProperties(json: child, path: nextPath)
         }
 		
 		if let property = createProperty(json: json, path: path) {
-			properties.append(property)
+			result += [property]
 		}
+		
+		return result
 	}
 	
 	class func createProperty(json: JSON, path: [String]) -> PostMessageProperty? {
