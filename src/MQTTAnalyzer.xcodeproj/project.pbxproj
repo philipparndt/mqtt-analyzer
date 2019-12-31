@@ -275,7 +275,8 @@
 				228104962381780D00112F24 /* host */,
 				2281048E2381769700112F24 /* topic */,
 				22810481238171FA00112F24 /* message */,
-				2281048D2381765200112F24 /* message.details */,
+				22C9F74723BB71E200892C4B /* message-post */,
+				2281048D2381765200112F24 /* message-details */,
 				22C9F73823B79BFD00892C4B /* multiline-text */,
 				22E469DC2380457800D72BD6 /* json-text */,
 				22C386A222CB84900054C385 /* RootView.swift */,
@@ -310,20 +311,19 @@
 				22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */,
 				228104892381740000112F24 /* MessageView.swift */,
 				2281048B2381744300112F24 /* TopicView.swift */,
-				22C9F73023B78F9700892C4B /* PostMessageFormView.swift */,
 				22C9F73923B8CCCC00892C4B /* QOSView.swift */,
 			);
 			path = message;
 			sourceTree = "<group>";
 		};
-		2281048D2381765200112F24 /* message.details */ = {
+		2281048D2381765200112F24 /* message-details */ = {
 			isa = PBXGroup;
 			children = (
 				22FD7CF722C8D2650078795F /* MessageDetailsView.swift */,
 				228104822381723D00112F24 /* MessageDetailsJsonView.swift */,
 				228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */,
 			);
-			path = message.details;
+			path = "message-details";
 			sourceTree = "<group>";
 		};
 		2281048E2381769700112F24 /* topic */ = {
@@ -367,6 +367,14 @@
 				22C9F73623B79A1300892C4B /* MessageTextView.swift */,
 			);
 			path = "multiline-text";
+			sourceTree = "<group>";
+		};
+		22C9F74723BB71E200892C4B /* message-post */ = {
+			isa = PBXGroup;
+			children = (
+				22C9F73023B78F9700892C4B /* PostMessageFormView.swift */,
+			);
+			path = "message-post";
 			sourceTree = "<group>";
 		};
 		22E469DC2380457800D72BD6 /* json-text */ = {

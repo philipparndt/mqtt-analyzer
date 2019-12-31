@@ -11,7 +11,7 @@ import SwiftUI
 
 enum PostMessagePropertyType {
 	case boolean
-	case integer
+	case number
 	case text
 }
 
@@ -45,15 +45,9 @@ class PostMessagePropertyValueBoolean: PostMessagePropertyValue {
 	}
 }
 
-class PostMessagePropertyValueInteger: PostMessagePropertyValue {
+class PostMessagePropertyValueNumber: PostMessagePropertyValue {
 	override func type() -> PostMessagePropertyType {
-		return .integer
-	}
-}
-
-class PostMessagePropertyValueDouble: PostMessagePropertyValue {
-	override func type() -> PostMessagePropertyType {
-		return .integer
+		return .number
 	}
 }
 
@@ -112,15 +106,10 @@ class PostMessageFormModel {
 					// TODO: Lookup path
 					data[path[0]] = property.value.valueText
 				}
-				else if property.value is PostMessagePropertyValueInteger {
+				else if property.value is PostMessagePropertyValueNumber {
 					let path = property.path
 					// TODO: Lookup path
 					data[path[0]] = Int(property.value.valueText)
-				}
-				else if property.value is PostMessagePropertyValueDouble {
-					let path = property.path
-					// TODO: Lookup path
-					data[path[0]] = Double(property.value.valueText)
 				}
 			}
 			
@@ -160,20 +149,14 @@ class PostMessageFormModel {
 			properties.append(property)
 		}
 		
-		json.filter { $0.value is Int }
+		json.filter { $0.value is Int || $0.value is Double }
 			.filter { !($0.value is Bool) }
 		.forEach {
 			var propertyPath = path
 			propertyPath.append($0.key)
-			let property = PostMessageProperty(name: $0.key, path: propertyPath, value: PostMessagePropertyValueInteger(value: "\($0.value)"))
-			properties.append(property)
-		}
-		
-		json.filter { $0.value is Double }
-		.forEach {
-			var propertyPath = path
-			propertyPath.append($0.key)
-			let property = PostMessageProperty(name: $0.key, path: propertyPath, value: PostMessagePropertyValueDouble(value: "\($0.value)"))
+			let property = PostMessageProperty(name: $0.key,
+											   path: propertyPath,
+											   value: PostMessagePropertyValueNumber(value: "\($0.value)"))
 			properties.append(property)
 		}
 	}
@@ -277,9 +260,6 @@ struct PostMessageFormJSONView: View {
 					Spacer()
 					MessageProperyView(property: self.$message.properties[index])
 				}
-//				Section(header: Text(self.message.properties[index].name)) {
-//					MessageProperyView(property: self.$message.properties[index])
-//				}
 			}
 		}
     }
@@ -291,26 +271,25 @@ struct MessageProperyView: View {
     var body: some View {
 
 		HStack {
-			if property.value is PostMessagePropertyValueBoolean {
+			if property.value.type() == .boolean {
 				Toggle("", isOn: self.$property.value.valueBool)
 			}
-			else if property.value is PostMessagePropertyValueText {
+			else if property.value.type() == .text {
 				TextField("", text: self.$property.value.valueText)
-				.disableAutocorrection(true)
-				.multilineTextAlignment(.trailing)
-				.autocapitalization(.none)
-				.font(.body)
+					.disableAutocorrection(true)
+					.multilineTextAlignment(.trailing)
+					.autocapitalization(.none)
+					.font(.body)
 			}
-			else if property.value is PostMessagePropertyValueInteger
-				 || property.value is PostMessagePropertyValueDouble {
+			else if property.value.type() == .number {
 				TextField("", text: self.$property.value.valueText)
-				.disableAutocorrection(true)
-				.multilineTextAlignment(.trailing)
-				.autocapitalization(.none)
-				.font(.body)
+					.disableAutocorrection(true)
+					.multilineTextAlignment(.trailing)
+					.autocapitalization(.none)
+					.font(.body)
 			}
 			else {
-				Text("Unknown property type")
+				Text("Unknown property type.")
 			}
 		}
     }
