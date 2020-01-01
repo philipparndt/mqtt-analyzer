@@ -215,12 +215,6 @@ struct PostMessageFormView: View {
 
     var body: some View {
 		Form {
-//			Section(header: Text("Debug")) {
-//				Button(action: debugClear) {
-//					Text("Clear Messages")
-//				}
-//			}
-			
 			Section(header: Text("Topic")) {
 				TextField("#", text: $message.topic)
 					.disableAutocorrection(true)

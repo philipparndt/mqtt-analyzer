@@ -70,20 +70,12 @@ class Message: Identifiable, JSONSerializable {
 class MessageModel: QuickFilterTextDebounce, ObservableObject {
     
     @Published var messagesByTopic: [String: MessagesByTopic] {
-        willSet {
-            willChange.send(Void())
-        }
-        
         didSet {
             updateDisplayTopics()
         }
     }
 
-    @Published var messageCount: Int = 0 {
-        willSet {
-           willChange.send(Void())
-       }
-    }
+	@Published var messageCount: Int = 0
     
     @Published var filter: String = "" {
         didSet {
@@ -98,8 +90,6 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
     }
     
     @Published var displayTopics: [MessagesByTopic] = []
-    
-    var willChange = PassthroughSubject<Void, Never>()
     
     init(messagesByTopic: [String: MessagesByTopic] = [:]) {
         self.messagesByTopic = messagesByTopic
@@ -155,7 +145,6 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
     }
     
     func append(topic: String, message: Message) {
-        willChange.send(Void())
         var msgbt = messagesByTopic[topic]
         
         if msgbt == nil {
