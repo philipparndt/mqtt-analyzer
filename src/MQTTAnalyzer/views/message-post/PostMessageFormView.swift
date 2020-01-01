@@ -200,9 +200,8 @@ struct PostMessageFormModalView: View {
 		
 		let msg = Message(data: model.message,
 						  date: Date.init(),
-						  qos: Int32(model.qos), retain: model.retain)
-		root.post(topic: Topic(model.topic), msg)
-		self.isPresented = false
+						  qos: Int32(model.qos), retain: model.retain, topic: model.topic)
+		root.post(message: msg)
     }
     
     func cancel() {

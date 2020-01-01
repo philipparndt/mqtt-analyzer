@@ -9,7 +9,6 @@
 import Foundation
 import Combine
 
-
 class Message: Identifiable, JSONSerializable {
 	var jsonData: [String: Any]?
 	
@@ -18,13 +17,15 @@ class Message: Identifiable, JSONSerializable {
     let dateString: String
     let qos: Int32
 	let retain: Bool
+	let topic: String
     
-    init(data: String, date: Date, qos: Int32, retain: Bool) {
+	init(data: String, date: Date, qos: Int32, retain: Bool, topic: String) {
         self.data = data
         self.date = date
         self.qos = qos
         self.jsonData = Message.toJson(messageData: data)
 		self.retain = retain
+		self.topic = topic
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -144,16 +145,22 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
         return messagesByTopic.values.map { $0.messages.count }.reduce(0, +)
     }
     
-    func append(topic: String, message: Message) {
-        var msgbt = messagesByTopic[topic]
+    func append(message: Message) {
+		var msgbt = messagesByTopic[message.topic]
         
         if msgbt == nil {
-            msgbt = MessagesByTopic(topic: Topic(topic), messages: [])
-            messagesByTopic[topic] = msgbt
+            msgbt = MessagesByTopic(topic: Topic(message.topic), messages: [])
+            messagesByTopic[message.topic] = msgbt
         }
         
         msgbt!.newMessage(message)
         self.messageCount = countMessages()
     }
+	
+	func append(messges: [Message]) {
+		messges.forEach {
+			self.append(message: $0)
+		}
+	}
     
 }

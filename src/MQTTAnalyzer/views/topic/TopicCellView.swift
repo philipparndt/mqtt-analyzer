@@ -17,19 +17,19 @@ struct TopicCellView: View {
     var body: some View {
         NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
             HStack {
-                ReadMarkerView(read: messages.read)
-                
-                VStack(alignment: .leading) {
-                    Text(messages.topic.name)
-                    Text(messagePreview())
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .lineLimit(8)
-                    Spacer()
-                    Text("\(messages.messages.count) message\(messages.messages.count == 1 ? "" : "s")")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                }
+				ReadMarkerView(read: messages.read)
+				
+				VStack(alignment: .leading) {
+					Text(messages.topic.name)
+					Text(messagePreview())
+						.font(.subheadline)
+						.foregroundColor(.secondary)
+						.lineLimit(8)
+					Spacer()
+					Text("\(messages.messages.count) message\(messages.messages.count == 1 ? "" : "s")")
+						.font(.footnote)
+						.foregroundColor(.secondary)
+				}
             }
             .contextMenu {
                 Button(action: copyTopic) {
@@ -74,7 +74,7 @@ struct TopicCellView: View {
 	
     func post() {
 		if let first = self.messages.getFirstMessage() {
-			self.root.post(topic: self.messages.topic, first)
+			self.root.post(message: first)
 		}
 	}
 	

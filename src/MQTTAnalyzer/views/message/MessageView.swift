@@ -71,7 +71,7 @@ struct MessageCellView: View {
     }
 	
     func post() {
-		self.model.post(topic: topic, message)
+		self.model.post(message: message)
     }
 	
     func postManually() {

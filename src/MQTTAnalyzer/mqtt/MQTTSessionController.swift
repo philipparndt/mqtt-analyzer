@@ -19,6 +19,14 @@ class MQTTSessionController: ReconnectDelegate {
     
     var connected: Bool = false
     
+	let messageSubject = PassthroughSubject<MQTTMessage, Never>()
+	
+	private var messageSubjectCancellable: Cancellable? {
+        didSet {
+            oldValue?.cancel()
+        }
+    }
+	
     init(host: Host, model: MessageModel) {
         self.model = model
         self.host = host
@@ -50,6 +58,7 @@ class MQTTSessionController: ReconnectDelegate {
     }
     
     func disconnect() {
+		messageSubjectCancellable?.cancel()
         mqtt?.disconnect()
         connected = false
         mqtt = nil
@@ -59,7 +68,6 @@ class MQTTSessionController: ReconnectDelegate {
         host.connectionMessage = nil
         
         let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
-		
         mqttConfig.onConnectCallback = onConnect
         mqttConfig.onDisconnectCallback = onDisconnect
 		mqttConfig.onMessageCallback = onMessage
@@ -71,6 +79,14 @@ class MQTTSessionController: ReconnectDelegate {
 		// create new MQTT Connection
 		mqtt = MQTT.newConnection(mqttConfig)
 
+		let queue = DispatchQueue(label: "Message dispache queue")
+        messageSubjectCancellable = messageSubject.eraseToAnyPublisher()
+		.collect(.byTime(queue, 1.0))
+        .receive(on: DispatchQueue.main)
+        .sink(receiveValue: {
+			self.onMessageInMain(messages: $0)
+        })
+		
 		subscribeToChannel(host)
     }
     
@@ -98,23 +114,30 @@ class MQTTSessionController: ReconnectDelegate {
 		}
 	}
 	
-	func onMessage(_ mqttMessage: MQTTMessage) {
-		DispatchQueue.main.async {
-			let messageString = mqttMessage.payloadString ?? ""
-			let msg = Message(data: messageString,
+	func onMessage(_ message: MQTTMessage) {
+		messageSubject.send(message)
+	}
+	
+	func onMessageInMain(messages: [MQTTMessage]) {
+		let mapped = messages.map({ (message: MQTTMessage) -> Message in
+			let messageString = message.payloadString ?? ""
+			return Message(data: messageString,
 							  date: Date(),
-							  qos: mqttMessage.qos,
-							  retain: mqttMessage.retain)
-			self.model.append(topic: mqttMessage.topic, message: msg)
-		}
+							  qos: message.qos,
+							  retain: message.retain,
+							  topic: message.topic
+			)
+		})
+		print(messages.count)
+		self.model.append(messges: mapped)
 	}
 	
     func subscribeToChannel(_ host: Host) {
         mqtt?.subscribe(host.topic, qos: 2)
     }
 	
-	func post(topic: Topic, _ message: Message) {
-		mqtt?.publish(string: message.data, topic: topic.name, qos: message.qos, retain: message.retain)
+	func post(message: Message) {
+		mqtt?.publish(string: message.data, topic: message.topic, qos: message.qos, retain: message.retain)
 	}
     
     // MARK: - Utilities

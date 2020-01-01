@@ -59,7 +59,7 @@ struct MessageDetailsView_Previews: PreviewProvider {
 			data: "{\"temperature\": 56.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }",
 			date: Date(),
 			qos: 0,
-			retain: false), topic: Topic("some topic"))
+			retain: false, topic: "some topic"), topic: Topic("some topic"))
     }
 }
 #endif
