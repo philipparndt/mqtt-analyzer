@@ -81,7 +81,7 @@ class MQTTSessionController: ReconnectDelegate {
 
 		let queue = DispatchQueue(label: "Message dispache queue")
         messageSubjectCancellable = messageSubject.eraseToAnyPublisher()
-		.collect(.byTime(queue, 1.0))
+		.collect(.byTime(queue, 0.5))
         .receive(on: DispatchQueue.main)
         .sink(receiveValue: {
 			self.onMessageInMain(messages: $0)
