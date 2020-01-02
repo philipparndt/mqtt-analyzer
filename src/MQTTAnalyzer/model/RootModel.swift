@@ -30,7 +30,6 @@ protocol ReconnectDelegate: class {
 	func reconnect()
 }
 
-
 class RootModel: ObservableObject {
     let hostsModel = HostsModel()
     

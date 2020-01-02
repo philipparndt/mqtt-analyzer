@@ -53,7 +53,6 @@ class DiagramPath: Hashable, Identifiable {
     }
 }
 
-
 class MTimeSeriesModel {
 
     var values: [MTimeSeriesValue] = []

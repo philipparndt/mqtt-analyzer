@@ -50,7 +50,6 @@ struct FormFieldInvalidMark: View {
     }
 }
 
-
 // MARK: Server
 struct ServerFormView: View {
     @Binding var host: HostFormModel
