@@ -19,9 +19,16 @@ struct MTimeSeriesMeanValue {
 
 class TimeSeriesValue: Hashable, Identifiable {
     let num: NSNumber
+	var numString: String {
+		let formatter = NumberFormatter()
+		formatter.numberStyle = .decimal
+		formatter.locale = Locale(identifier: "en")
+		return formatter.string(from: num) ?? ""
+	}
+
     let date: Date
     let dateString: String
-    
+	
     init(value num: NSNumber, at date: Date, dateFormatted: String) {
         self.num = num
         self.date = date

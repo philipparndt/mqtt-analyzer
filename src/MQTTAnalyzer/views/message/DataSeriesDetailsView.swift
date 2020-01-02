@@ -47,7 +47,7 @@ struct DataSeriesCell: View {
                 .font(.subheadline)
                 .foregroundColor(.blue)
             
-            Text("\(path.num)")
+            Text(path.numString)
             Spacer()
             Text("\(path.dateString)").foregroundColor(.secondary)
         }
