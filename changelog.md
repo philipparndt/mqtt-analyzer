@@ -1,3 +1,7 @@
+Neu in Build 10:
+- Switch zwischen JSON und plain Text wenn Message erstellt wird
+- Fixed UI issue im post message sheet
+
 Neu in Build 9:
 - Fehler behoben durchden sich das "Post Message" sheet geschlossen hat :)
 
