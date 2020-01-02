@@ -13,37 +13,32 @@ struct MessageView: View {
 
     @ObservedObject var messagesByTopic: MessagesByTopic
     @State var postMessagePresented = false
+	@State var postMessageFormModel: PostMessageFormModel?
 
     var body: some View {
         Section(header: Text("Messages")) {
             ForEach(messagesByTopic.messages) {
 				MessageCellView(message: $0,
 								topic: self.messagesByTopic.topic,
-								postMessagePresented: self.$postMessagePresented,
 								selectMessage: self.selectMessage)
             }
             .onDelete(perform: messagesByTopic.delete)
         }
 		.sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
-            PostMessageFormModalView(cancelCallback: self.cancelPostMessageCreation,
+            PostMessageFormModalView(closeCallback: self.cancelPostMessageCreation,
                                  root: self.rootModel,
-								 model: self.createPostFormModel())
+								 model: self.postMessageFormModel!)
         })
     }
 	
-	func createPostFormModel() -> PostMessageFormModel {
-		if let selected = rootModel.selectedMessage {
-			return PostMessageFormModel.of(message: selected)
-		}
-		return PostMessageFormModel()
-	}
-	
 	func selectMessage(message: Message) {
-		rootModel.selectedMessage = message
+		self.postMessageFormModel = PostMessageFormModel.of(message: message)
+		postMessagePresented = true
 	}
 	
     func cancelPostMessageCreation() {
         postMessagePresented = false
+		postMessageFormModel = nil
     }
 }
 
@@ -52,7 +47,6 @@ struct MessageCellView: View {
 	
     let message: Message
     let topic: Topic
-	@Binding var postMessagePresented: Bool
 	let selectMessage: (Message) -> Void
 
     var body: some View {
@@ -96,7 +90,7 @@ struct MessageCellView: View {
     }
 	
     func postManually() {
-		postMessagePresented = true
+		selectMessage(message)
     }
 
 }

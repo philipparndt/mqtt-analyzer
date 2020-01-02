@@ -39,8 +39,6 @@ class RootModel: ObservableObject {
     
     let persistence: HostsModelPersistence
     
-	var selectedMessage: Message?
-
     init() {
         self.persistence = HostsModelPersistence(model: hostsModel)
         self.persistence.load()

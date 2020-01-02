@@ -13,6 +13,7 @@ struct TopicsView: View {
     @ObservedObject var model: MessageModel
     @ObservedObject var host: Host
 	@State private var postMessagePresented = false
+	@State private var postMessageModel: PostMessageFormModel?
 
     var body: some View {
         List {
@@ -42,26 +43,19 @@ struct TopicsView: View {
             self.rootModel.connect(to: self.host)
         }
 		.sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
-            PostMessageFormModalView(cancelCallback: self.cancelPostMessageCreation,
+            PostMessageFormModalView(closeCallback: self.cancelPostMessageCreation,
                                  root: self.rootModel,
-								 model: self.createPostFormModel())
+								 model: self.postMessageModel!)
         })
     }
 	
     func cancelPostMessageCreation() {
         postMessagePresented = false
-		rootModel.selectedMessage = nil
+		postMessageModel = nil
     }
 	
 	func selectMessage(message: Message) {
-		rootModel.selectedMessage = message
-	}
-	
-	func createPostFormModel() -> PostMessageFormModel {
-		if let selected = rootModel.selectedMessage {
-			return PostMessageFormModel.of(message: selected)
-		}
-		return PostMessageFormModel()
+		self.postMessageModel = PostMessageFormModel.of(message: message)
 	}
 
 }

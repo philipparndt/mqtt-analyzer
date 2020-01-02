@@ -76,14 +76,15 @@ struct PostMessageProperty: Identifiable {
 	var value: PostMessagePropertyValue
 }
 
-class PostMessageFormModel {
+class PostMessageFormModel: ObservableObject {
 	var topic: String = "/"
     var message: String = ""
     var qos: Int = 0
 	var retain: Bool = false
-	var json: Bool = false
 	var jsonData: JSON?
 	var properties: [PostMessageProperty] = []
+	
+	@Published var messageType: PostMessageType = .plain
 	
 	class func of(message: Message) -> PostMessageFormModel {
 		let model = PostMessageFormModel()
@@ -91,7 +92,7 @@ class PostMessageFormModel {
 		model.topic = message.topic
 		model.qos = Int(message.qos)
 		model.retain = message.retain
-		model.json = message.isJson()
+		model.messageType = message.isJson() ? .json : .plain
 		
 		if message.isJson() {
 			let json = JSON(parseJSON: message.data)
@@ -174,13 +175,13 @@ class PostMessageFormModel {
 }
 
 struct PostMessageFormModalView: View {
-	let cancelCallback: () -> Void
+	let closeCallback: () -> Void
     let root: RootModel
-	@State var model: PostMessageFormModel
+	@ObservedObject var model: PostMessageFormModel
 
     var body: some View {
         NavigationView {
-			PostMessageFormView(message: $model)
+			PostMessageFormView(message: model, type: self.$model.messageType)
                 .font(.caption)
                 .navigationBarTitle(Text("Post message"))
                 .navigationBarItems(
@@ -194,23 +195,28 @@ struct PostMessageFormModalView: View {
             )
         }
     }
-    
+    	
     func post() {
-		model.updateMessageFromJsonData()
+		if model.messageType == .json {
+			model.updateMessageFromJsonData()
+		}
 		
 		let msg = Message(data: model.message,
 						  date: Date.init(),
 						  qos: Int32(model.qos), retain: model.retain, topic: model.topic)
 		root.post(message: msg)
+		
+		closeCallback()
     }
     
     func cancel() {
-		cancelCallback()
+		closeCallback()
     }
 }
 
 struct PostMessageFormView: View {
-	@Binding var message: PostMessageFormModel
+	@ObservedObject var message: PostMessageFormModel
+	@Binding var type: PostMessageType
 
     var body: some View {
 		Form {
@@ -221,22 +227,35 @@ struct PostMessageFormView: View {
 					.font(.body)
 			}
 
-			if message.json {
-				PostMessageFormJSONView(message: $message)
+			QOSSectionView(qos: $message.qos)
+
+			PostMessageTypeView(type: self.$type)
+			
+			if type == .json {
+				PostMessageFormJSONView(message: message)
 			}
 			else {
 				PostMessageFormPlainTextView(message: $message.message)
 			}
-			
-			QOSSectionView(qos: $message.qos)
 
 			Spacer().frame(height: 300) // Keyboard scoll spacer
 		}
     }
-	
-	func debugClear() {
-//		self.messagesByTopic.clear()
-	}
+}
+enum PostMessageType {
+	case plain
+	case json
+}
+
+struct PostMessageTypeView: View {
+	@Binding var type: PostMessageType
+
+    var body: some View {
+		Picker(selection: $type, label: Text("Type")) {
+			Text("Plain text").tag(PostMessageType.plain)
+			Text("JSON").tag(PostMessageType.json)
+		}.pickerStyle(SegmentedPickerStyle())
+    }
 }
 
 struct PostMessageFormPlainTextView: View {
@@ -254,7 +273,7 @@ struct PostMessageFormPlainTextView: View {
 }
 
 struct PostMessageFormJSONView: View {
-	@Binding var message: PostMessageFormModel
+	@ObservedObject var message: PostMessageFormModel
     
     var body: some View {
 		Section(header: Text("Properties")) {
