@@ -227,17 +227,28 @@ struct PostMessageFormView: View {
 					.font(.body)
 			}
 
-			QOSSectionView(qos: $message.qos)
-
-			PostMessageTypeView(type: self.$type)
+			Section(header: Text("Settings")) {
+				HStack {
+					Text("QoS")
+					
+					QOSPicker(qos: $message.qos)
+				}
+				
+				Toggle(isOn: $message.retain) {
+					Text("Retain")
+				}
+			}
 			
-			if type == .json {
-				PostMessageFormJSONView(message: message)
+			Section(header: Text("Message")) {
+				PostMessageTypeView(type: self.$type)
+				
+				if type == .json {
+					PostMessageFormJSONView(message: message)
+				}
+				else {
+					PostMessageFormPlainTextView(message: $message.message)
+				}
 			}
-			else {
-				PostMessageFormPlainTextView(message: $message.message)
-			}
-
 			Spacer().frame(height: 300) // Keyboard scoll spacer
 		}
     }
@@ -262,7 +273,7 @@ struct PostMessageFormPlainTextView: View {
 	@Binding var message: String
     
     var body: some View {
-		Section(header: Text("Message")) {
+		Group {
 			MessageTextView(text: $message)
 			.disableAutocorrection(true)
 			.autocapitalization(.none)
@@ -276,7 +287,7 @@ struct PostMessageFormJSONView: View {
 	@ObservedObject var message: PostMessageFormModel
     
     var body: some View {
-		Section(header: Text("Properties")) {
+		Group {
 			ForEach(message.properties.indices) { index in
 				HStack {
 					Text(self.message.properties[index].pathName)
