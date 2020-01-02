@@ -205,7 +205,7 @@ struct PostMessageFormModalView: View {
     }
     
     func cancel() {
-//        self.isPresented = false
+		cancelCallback()
     }
 }
 
