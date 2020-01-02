@@ -26,7 +26,7 @@ struct TopicsToolsView: View {
                             
                     }.contextMenu {
                         Button(action: model.clear) {
-                            Text("Delete all")
+                            Text("Clear")
                             Image(systemName: "bin.xmark")
                         }
                         Button(action: model.readall) {
