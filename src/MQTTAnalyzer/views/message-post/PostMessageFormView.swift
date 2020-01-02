@@ -85,10 +85,10 @@ class PostMessageFormModel {
 	var jsonData: JSON?
 	var properties: [PostMessageProperty] = []
 	
-	class func of(message: Message, topic: Topic) -> PostMessageFormModel {
+	class func of(message: Message) -> PostMessageFormModel {
 		let model = PostMessageFormModel()
 		model.message = message.data
-		model.topic = topic.name
+		model.topic = message.topic
 		model.qos = Int(message.qos)
 		model.retain = message.retain
 		model.json = message.isJson()
@@ -174,7 +174,7 @@ class PostMessageFormModel {
 }
 
 struct PostMessageFormModalView: View {
-    @Binding var isPresented: Bool
+	let cancelCallback: () -> Void
     let root: RootModel
 	@State var model: PostMessageFormModel
 
@@ -205,7 +205,7 @@ struct PostMessageFormModalView: View {
     }
     
     func cancel() {
-        self.isPresented = false
+//        self.isPresented = false
     }
 }
 

@@ -12,8 +12,10 @@ struct TopicCellView: View {
 	@EnvironmentObject var root: RootModel
     @ObservedObject var messages: MessagesByTopic
     @ObservedObject var model: MessageModel
-	@State private var postMessagePresented = false
-
+	@Binding var postMessagePresented: Bool
+	
+	let selectMessage: (Message) -> Void
+	
     var body: some View {
         NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
             HStack {
@@ -58,19 +60,7 @@ struct TopicCellView: View {
                 }
             }
         }
-		.sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
-            PostMessageFormModalView(isPresented: self.$postMessagePresented,
-                                 root: self.root,
-								 model: self.createPostFormModel())
-        })
     }
-	
-	func createPostFormModel() -> PostMessageFormModel {
-		if let first = self.messages.getFirstMessage() {
-			return PostMessageFormModel.of(message: first, topic: self.messages.topic)
-		}
-		return PostMessageFormModel()
-	}
 	
     func post() {
 		if let first = self.messages.getFirstMessage() {
@@ -79,11 +69,10 @@ struct TopicCellView: View {
 	}
 	
     func postManually() {
-		postMessagePresented = true
-    }
-	
-    func cancelPostMessageCreation() {
-        postMessagePresented = false
+		if let first = self.messages.getFirstMessage() {
+			selectMessage(first)
+			postMessagePresented = true
+		}
     }
 	
     func messagePreview() -> String {

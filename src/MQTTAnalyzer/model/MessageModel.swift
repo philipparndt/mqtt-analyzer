@@ -69,7 +69,6 @@ class Message: Identifiable, JSONSerializable {
 }
 
 class MessageModel: QuickFilterTextDebounce, ObservableObject {
-    
     @Published var messagesByTopic: [String: MessagesByTopic] {
         didSet {
             updateDisplayTopics()

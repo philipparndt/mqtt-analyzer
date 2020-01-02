@@ -10,13 +10,10 @@ import SwiftUI
 
 struct TopicsView: View {
     @EnvironmentObject var rootModel: RootModel
-    
-    @ObservedObject
-    var model: MessageModel
-    
-    @ObservedObject
-    var host: Host
-  
+    @ObservedObject var model: MessageModel
+    @ObservedObject var host: Host
+	@State private var postMessagePresented = false
+
     var body: some View {
         List {
             ReconnectView(host: self.host)
@@ -30,7 +27,11 @@ struct TopicsView: View {
                 }
                 else {
                     ForEach(model.displayTopics) { messages in
-                        TopicCellView(messages: messages, model: self.model)
+						TopicCellView(
+							messages: messages,
+							model: self.model,
+							postMessagePresented: self.$postMessagePresented,
+							selectMessage: self.selectMessage)
                     }
                 }
             }
@@ -40,7 +41,29 @@ struct TopicsView: View {
         .onAppear {
             self.rootModel.connect(to: self.host)
         }
+		.sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
+            PostMessageFormModalView(cancelCallback: self.cancelPostMessageCreation,
+                                 root: self.rootModel,
+								 model: self.createPostFormModel())
+        })
     }
+	
+    func cancelPostMessageCreation() {
+        postMessagePresented = false
+		rootModel.selectedMessage = nil
+    }
+	
+	func selectMessage(message: Message) {
+		rootModel.selectedMessage = message
+	}
+	
+	func createPostFormModel() -> PostMessageFormModel {
+		if let selected = rootModel.selectedMessage {
+			return PostMessageFormModel.of(message: selected)
+		}
+		return PostMessageFormModel()
+	}
+
 }
 
 #if DEBUG

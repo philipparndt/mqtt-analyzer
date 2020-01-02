@@ -9,15 +9,41 @@
 import SwiftUI
 
 struct MessageView: View {
+	@EnvironmentObject var rootModel: RootModel
+
     @ObservedObject var messagesByTopic: MessagesByTopic
-	
+    @State var postMessagePresented = false
+
     var body: some View {
         Section(header: Text("Messages")) {
             ForEach(messagesByTopic.messages) {
-				MessageCellView(message: $0, topic: self.messagesByTopic.topic)
+				MessageCellView(message: $0,
+								topic: self.messagesByTopic.topic,
+								postMessagePresented: self.$postMessagePresented,
+								selectMessage: self.selectMessage)
             }
             .onDelete(perform: messagesByTopic.delete)
         }
+		.sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
+            PostMessageFormModalView(cancelCallback: self.cancelPostMessageCreation,
+                                 root: self.rootModel,
+								 model: self.createPostFormModel())
+        })
+    }
+	
+	func createPostFormModel() -> PostMessageFormModel {
+		if let selected = rootModel.selectedMessage {
+			return PostMessageFormModel.of(message: selected)
+		}
+		return PostMessageFormModel()
+	}
+	
+	func selectMessage(message: Message) {
+		rootModel.selectedMessage = message
+	}
+	
+    func cancelPostMessageCreation() {
+        postMessagePresented = false
     }
 }
 
@@ -26,7 +52,8 @@ struct MessageCellView: View {
 	
     let message: Message
     let topic: Topic
-    @State var postMessagePresented = false
+	@Binding var postMessagePresented: Bool
+	let selectMessage: (Message) -> Void
 
     var body: some View {
         NavigationLink(destination: MessageDetailsView(message: message, topic: topic)) {
@@ -58,12 +85,6 @@ struct MessageCellView: View {
                 }
             }
         }
-        .sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
-            PostMessageFormModalView(isPresented: self.$postMessagePresented,
-                                 root: self.model,
-								 model: PostMessageFormModel.of(
-									message: self.message, topic: self.topic))
-        })
     }
 	
     func copy() {
@@ -77,8 +98,5 @@ struct MessageCellView: View {
     func postManually() {
 		postMessagePresented = true
     }
-	
-    func cancelPostMessageCreation() {
-        postMessagePresented = false
-    }
+
 }

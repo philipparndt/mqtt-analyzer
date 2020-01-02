@@ -32,8 +32,6 @@ protocol ReconnectDelegate: class {
 
 
 class RootModel: ObservableObject {
-    var willChange = PassthroughSubject<RootModel, Never>()
-    
     let hostsModel = HostsModel()
     
     var messageModelByHost: [Host: MessageModel] = [:]
@@ -42,6 +40,8 @@ class RootModel: ObservableObject {
     
     let persistence: HostsModelPersistence
     
+	var selectedMessage: Message?
+
     init() {
         self.persistence = HostsModelPersistence(model: hostsModel)
         self.persistence.load()
