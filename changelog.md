@@ -1,3 +1,7 @@
+Build 12:
+- fixed crash when cancel create host with auth
+https://github.com/philipparndt/mqtt-analyzer/issues/13
+
 Neu in Build 11:
 - Verbessertes Keyboard Verhalten
 - In der Topic View neue Messages posten wenn noch keine vorhanden sind
