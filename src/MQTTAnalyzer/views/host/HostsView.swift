@@ -8,11 +8,19 @@
 
 import SwiftUI
 
+enum HostsSheetType {
+	case none
+	case about
+	case createHost
+}
+
 struct HostsView: View {
     @EnvironmentObject var model: RootModel
-    @State var createHostPresented = false
     @ObservedObject var hostsModel: HostsModel
 
+	@State var presented = false
+	@State var sheetType: HostsSheetType = .none
+	
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
@@ -26,6 +34,9 @@ struct HostsView: View {
                 }
             }
             .navigationBarItems(
+				leading: Button(action: showAbout) {
+                    Text("About")
+                },
                 trailing: Button(action: createHost) {
                     Image(systemName: "plus")
                 }
@@ -34,24 +45,40 @@ struct HostsView: View {
             )
             .navigationBarTitle(Text("Servers"), displayMode: .inline)
         }
-        .sheet(isPresented: $createHostPresented, onDismiss: cancelHostCreation, content: {
-            NewHostFormModalView(isPresented: self.$createHostPresented,
-                                 root: self.model,
-                                 hosts: self.model.hostsModel)
+        .sheet(isPresented: $presented, onDismiss: hideSheet, content: {
+			if self.sheetType == .createHost {
+				NewHostFormModalView(isPresented: self.$presented,
+									 root: self.model,
+									 hosts: self.model.hostsModel)
+			}
+			else {
+				AboutView(isPresented: self.$presented)
+			}
         })
-
+        
     }
     
     func delete(at indexSet: IndexSet) {
         hostsModel.delete(at: indexSet, persistence: model.persistence)
     }
     
-    func createHost() {
-        createHostPresented = true
+    func showSheet() {
+        presented = true
     }
     
-    func cancelHostCreation() {
-        createHostPresented = false
+    func hideSheet() {
+		sheetType = .none
+        presented = false
+    }
+	
+    func createHost() {
+		sheetType = .createHost
+        showSheet()
+    }
+	
+    func showAbout() {
+		sheetType = .about
+		showSheet()
     }
 }
 
