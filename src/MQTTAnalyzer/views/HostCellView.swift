@@ -46,7 +46,7 @@ struct HostCellView: View {
             }
         }.sheet(isPresented: $editHostPresented, onDismiss: cancelEditCreation, content: {
             
-            EditHostFormModalView(isPresented: self.$editHostPresented,
+			EditHostFormModalView(closeHandler: self.cancelEditCreation,
                                   root: self.model,
                                   hosts: self.model.hostsModel,
                                   original: self.host,

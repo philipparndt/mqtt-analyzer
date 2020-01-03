@@ -47,14 +47,14 @@ struct HostsView: View {
         }
         .sheet(isPresented: $presented, onDismiss: hideSheet, content: {
 			if self.sheetType == .createHost {
-				NewHostFormModalView(isPresented: self.$presented,
+				NewHostFormModalView(closeHandler: self.hideSheet,
 									 root: self.model,
 									 hosts: self.model.hostsModel)
 			}
 			else {
 				AboutView(isPresented: self.$presented)
 			}
-        })
+			})
         
     }
     

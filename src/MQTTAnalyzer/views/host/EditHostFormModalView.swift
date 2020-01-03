@@ -10,13 +10,13 @@ import SwiftUI
 
 // MARK: Edit Host
 struct EditHostFormModalView: View {
-    @Binding var isPresented: Bool
+	let closeHandler: () -> Void
     let root: RootModel
-    var hosts: HostsModel
+    var hosts: HostsModel = HostsModel()
     let original: Host
     
     @State var host: HostFormModel
-    @State var auth: Bool
+    @State var auth: Bool = false
 
     var body: some View {
         NavigationView {
@@ -48,18 +48,9 @@ struct EditHostFormModalView: View {
         }
         
         root.persistence.update(original)
-
-        self.isPresented = false
-        clear()
     }
     
     func cancel() {
-        self.isPresented = false
-        clear()
-    }
-    
-    func clear() {
-        host = HostFormModel()
-        auth = false
+		closeHandler()
     }
 }

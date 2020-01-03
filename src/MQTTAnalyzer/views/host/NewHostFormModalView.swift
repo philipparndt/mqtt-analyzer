@@ -11,7 +11,7 @@ import swift_petitparser
 
 // MARK: Create Host
 struct NewHostFormModalView: View {
-    @Binding var isPresented: Bool
+	let closeHandler: () -> Void
 	let root: RootModel
     var hosts: HostsModel
     
@@ -66,17 +66,10 @@ struct NewHostFormModalView: View {
         
         root.persistence.create(newHost)
         
-        self.isPresented = false
-        clear()
+        closeHandler()
     }
     
     func cancel() {
-        self.isPresented = false
-        clear()
-    }
-    
-    func clear() {
-        host = HostFormModel()
-        auth = false
+        closeHandler()
     }
 }
