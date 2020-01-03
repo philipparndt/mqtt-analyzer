@@ -77,7 +77,7 @@ struct PostMessageProperty: Identifiable {
 }
 
 class PostMessageFormModel: ObservableObject {
-	var topic: String = "/"
+	var topic: String = ""
     var message: String = ""
     var qos: Int = 0
 	var retain: Bool = false

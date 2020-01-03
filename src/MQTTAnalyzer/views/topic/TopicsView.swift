@@ -39,6 +39,13 @@ struct TopicsView: View {
         }
         .navigationBarTitle(Text(host.topic), displayMode: .inline)
         .listStyle(GroupedListStyle())
+		.navigationBarItems(
+			trailing: Button(action: createTopic) {
+				Image(systemName: "plus")
+			}
+			.font(.system(size: 22))
+			.buttonStyle(ActionStyleTrailing())
+		)
         .onAppear {
             self.rootModel.connect(to: self.host)
         }
@@ -48,6 +55,11 @@ struct TopicsView: View {
 								 model: self.postMessageModel!)
         })
     }
+	
+	func createTopic() {
+		self.postMessageModel = PostMessageFormModel()
+		postMessagePresented = true
+	}
 	
     func cancelPostMessageCreation() {
         postMessagePresented = false
