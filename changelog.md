@@ -1,3 +1,8 @@
+Neu in Build 11:
+- Verbessertes Keyboard Verhalten
+- In der Topic View neue Messages posten wenn noch keine vorhanden sind
+- About Seite
+
 Neu in Build 10:
 - Switch zwischen JSON und plain Text wenn Message erstellt wird
 - Fixed UI issue im post message sheet
