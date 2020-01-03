@@ -1,6 +1,7 @@
 Neu in Build 11:
 - Verbessertes Keyboard Verhalten
 - In der Topic View neue Messages posten wenn noch keine vorhanden sind
+- Zahlen immer durch '.' getrennt wie bei JSON üblich
 - About Seite
 
 Neu in Build 10:
@@ -28,6 +29,4 @@ Folgende bekannte Probleme gibt es:
 - Kein Wechsel von JSON zu Plain Text möglich
 
 Sonstige bekannte Probleme:
-- Werte einmal mit Komma mal durch Punkt getrennt (locale)
-- JSON View sollte scrollbar sein
-- Tastatur überlappt Eingabe bei user/password, post message (neu: ist aber scrollbar)
+https://github.com/philipparndt/mqtt-analyzer/issues
