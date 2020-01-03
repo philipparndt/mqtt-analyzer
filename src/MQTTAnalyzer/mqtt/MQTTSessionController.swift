@@ -39,8 +39,10 @@ class MQTTSessionController: ReconnectDelegate {
     }
     
     func reconnect() {
-		if mqtt != nil {
-			mqtt?.reconnect()
+		if let mqtt = self.mqtt {
+			mqtt.disconnect()
+            establishConnection(host)
+            connected = true
 		}
 		else {
 			connect()
@@ -110,15 +112,22 @@ class MQTTSessionController: ReconnectDelegate {
 		
 		NSLog("Disconnected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {
+			self.host.pause = false
 			self.host.connected = false
 		}
 	}
 	
 	func onMessage(_ message: MQTTMessage) {
-		messageSubject.send(message)
+		if !host.pause {
+			messageSubject.send(message)
+		}
 	}
 	
 	func onMessageInMain(messages: [MQTTMessage]) {
+		if host.pause {
+			return
+		}
+		
 		let mapped = messages.map({ (message: MQTTMessage) -> Message in
 			let messageString = message.payloadString ?? ""
 			return Message(data: messageString,

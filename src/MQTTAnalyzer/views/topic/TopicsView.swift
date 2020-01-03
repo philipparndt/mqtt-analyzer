@@ -16,27 +16,30 @@ struct TopicsView: View {
 	@State private var postMessageModel: PostMessageFormModel?
 
     var body: some View {
-        List {
-            ReconnectView(host: self.host)
-            
-            TopicsToolsView(model: self.model)
-            
-            Section(header: Text("Topics")) {
-                if model.displayTopics.isEmpty {
-                    Text("no topics available")
-                        .foregroundColor(.secondary)
-                }
-                else {
-                    ForEach(model.displayTopics) { messages in
-						TopicCellView(
-							messages: messages,
-							model: self.model,
-							postMessagePresented: self.$postMessagePresented,
-							selectMessage: self.selectMessage)
-                    }
-                }
-            }
-        }
+		Group {
+			List {
+				ReconnectView(host: self.host)
+	
+				TopicsToolsView(model: self.model)
+				
+				Section(header: Text("Topics")) {
+					if model.displayTopics.isEmpty {
+						Text("no topics available")
+							.foregroundColor(.secondary)
+					}
+					else {
+						ForEach(model.displayTopics) { messages in
+							TopicCellView(
+								messages: messages,
+								model: self.model,
+								postMessagePresented: self.$postMessagePresented,
+								selectMessage: self.selectMessage)
+						}
+					}
+				}
+			}
+			.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+		}
         .navigationBarTitle(Text(host.topic), displayMode: .inline)
         .listStyle(GroupedListStyle())
 		.navigationBarItems(

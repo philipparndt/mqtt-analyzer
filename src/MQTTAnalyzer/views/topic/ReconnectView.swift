@@ -15,33 +15,46 @@ struct ReconnectView: View {
     
     var body: some View {
         Group {
-            if host.connecting {
-                Section(header: Text("Connection")) {
-                    HStack {
-                       Text("Connecting...")
-                    }.foregroundColor(.gray)
-                }
-            } else if !host.connected {
-                Section(header: Text("Connection")) {
-                    HStack {
-                        Image(systemName: "desktopcomputer")
-                                           .padding()
+			Section(header: Text("Connection")) {
+				if host.connecting {
+					HStack {
+					   Text("Connecting...")
+					}.foregroundColor(.gray)
+				} else if !host.connected {
+						HStack {
+							Image(systemName: "desktopcomputer")
+											   .padding()
 
-                        Button(action: reconnect) {
-                            Text("Disconnected")
-                        }
-    
-                        if host.connectionMessage != nil {
-                            HStack {
-                                Text(host.connectionMessage!)
-                            }.foregroundColor(.gray)
-                        }
-                    }.foregroundColor(.red)
-                }
-            }
+							Button(action: reconnect) {
+								Text("Disconnected")
+							}
+		
+							if host.connectionMessage != nil {
+								HStack {
+									Text(host.connectionMessage!)
+								}.foregroundColor(.gray)
+							}
+						}.foregroundColor(.red)
+				}
+				else {
+					HStack {
+						Text(host.pause ? "Connected (paused)" : "Connected")
+						
+						Spacer()
+						
+						Button(action: pause) {
+							Image(systemName: host.pause ? "play.fill" : "pause.fill")
+						}
+					}.foregroundColor(.gray)
+				}
+			}
         }
     }
     
+	func pause() {
+		self.host.pause.toggle()
+    }
+	
     func reconnect() {
         self.host.reconnect()
     }

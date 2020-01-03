@@ -32,6 +32,8 @@ class Host: Identifiable, Hashable, ObservableObject {
     @Published var connected = false
     
     @Published var connecting = false
+	
+	@Published var pause = false
     
     func reconnect() {
 		self.reconnectDelegate?.reconnect()
