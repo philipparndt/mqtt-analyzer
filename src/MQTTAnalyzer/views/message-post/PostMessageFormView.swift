@@ -181,18 +181,19 @@ struct PostMessageFormModalView: View {
 
     var body: some View {
         NavigationView {
-			PostMessageFormView(message: model, type: self.$model.messageType)
-                .font(.caption)
-                .navigationBarTitle(Text("Post message"))
-                .navigationBarItems(
-                    leading: Button(action: cancel) {
-                        Text("Cancel")
-                        
-                    }.buttonStyle(ActionStyleLeading()),
-                    trailing: Button(action: post) {
-                        Text("Post")
-                    }.buttonStyle(ActionStyleTrailing())
-            )
+			PostMessageFormView(message: self.model, type: self.$model.messageType)
+				.font(.caption)
+				.navigationBarTitle(Text("Post message"))
+				.navigationBarItems(
+					leading: Button(action: self.cancel) {
+						Text("Cancel")
+						
+					}.buttonStyle(ActionStyleLeading()),
+					trailing: Button(action: self.post) {
+						Text("Post")
+					}.buttonStyle(ActionStyleTrailing())
+			)
+			.keyboardResponsive()
         }
     }
     	
@@ -249,7 +250,6 @@ struct PostMessageFormView: View {
 					PostMessageFormPlainTextView(message: $message.message)
 				}
 			}
-			Spacer().frame(height: 300) // Keyboard scoll spacer
 		}
     }
 }
