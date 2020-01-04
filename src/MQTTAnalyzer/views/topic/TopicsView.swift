@@ -12,9 +12,18 @@ struct TopicsView: View {
     @EnvironmentObject var rootModel: RootModel
     @ObservedObject var model: MessageModel
     @ObservedObject var host: Host
+	@State private var actionSheetPresented = false
 	@State private var postMessagePresented = false
 	@State private var postMessageModel: PostMessageFormModel?
 
+	var actionSheet: ActionSheet {
+        ActionSheet(title: Text("Actions"), buttons: [
+			.default(Text("Post new message"), action: createTopic),
+			.default(Text(host.pause ? "Resume connection" : "Pause connection"), action: pauseConnection),
+            .cancel()
+        ])
+    }
+	
     var body: some View {
 		Group {
 			ReconnectView(host: self.host)
@@ -42,8 +51,8 @@ struct TopicsView: View {
 		.navigationBarTitle(Text(host.topic), displayMode: .inline)
 		.listStyle(GroupedListStyle())
 		.navigationBarItems(
-			trailing: Button(action: createTopic) {
-				Image(systemName: "plus")
+			trailing: Button(action: showActionSheet) {
+				Image(systemName: "line.horizontal.3")
 			}
 			.font(.system(size: 22))
 			.buttonStyle(ActionStyleTrailing())
@@ -56,11 +65,22 @@ struct TopicsView: View {
 								 root: self.rootModel,
 								 model: self.postMessageModel!)
 		})
+		.actionSheet(isPresented: self.$actionSheetPresented, content: {
+			self.actionSheet
+		})
     }
 	
+	func showActionSheet() {
+		actionSheetPresented = true
+	}
+	
 	func createTopic() {
-		self.postMessageModel = PostMessageFormModel()
+		postMessageModel = PostMessageFormModel()
 		postMessagePresented = true
+	}
+
+	func pauseConnection() {
+		host.pause.toggle()
 	}
 	
     func cancelPostMessageCreation() {
@@ -69,7 +89,7 @@ struct TopicsView: View {
     }
 	
 	func selectMessage(message: Message) {
-		self.postMessageModel = PostMessageFormModel.of(message: message)
+		postMessageModel = PostMessageFormModel.of(message: message)
 	}
 
 }
