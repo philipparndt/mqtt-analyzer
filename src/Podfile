@@ -21,13 +21,13 @@ target 'MQTTAnalyzer' do
   pod 'SwiftyJSON', '~> 4.0'
   
   target 'MQTTAnalyzerTests' do
-    inherit! :search_paths
-    # Pods for testing
+	inherit! :search_paths
+	# Pods for testing
   end
 
   target 'MQTTAnalyzerUITests' do
-    inherit! :search_paths
-    # Pods for testing
+	inherit! :search_paths
+	# Pods for testing
   end
 
 end

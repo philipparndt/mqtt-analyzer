@@ -8,48 +8,48 @@
 import SwiftUI
 
 class ViewWithLabel: UIView {
-    fileprivate var label = UITextView()
-    var height: CGFloat = 0
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.addSubview(label)
-        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        if traitCollection.userInterfaceStyle == .light {
-            print("Light mode")
-        } else {
-            print("Dark mode")
-        }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if traitCollection.userInterfaceStyle == .light {
-            print("Light mode")
-        } else {
-            print("Dark mode")
-        }
-    }
+	fileprivate var label = UITextView()
+	var height: CGFloat = 0
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		self.addSubview(label)
+		label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		
+		if traitCollection.userInterfaceStyle == .light {
+			print("Light mode")
+		} else {
+			print("Dark mode")
+		}
+	}
+	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		if traitCollection.userInterfaceStyle == .light {
+			print("Light mode")
+		} else {
+			print("Dark mode")
+		}
+	}
 
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    func scale() {
-        self.label.layoutSubviews()
-        self.label.sizeToFit()
-        self.height = self.label.frame.height
-    }
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+	}
+	
+	func scale() {
+		self.label.layoutSubviews()
+		self.label.sizeToFit()
+		self.height = self.label.frame.height
+	}
 }
 
 struct TextWithAttributedString: UIViewRepresentable {
-    var attributedString: NSAttributedString
-    
-    func makeUIView(context: Context) -> ViewWithLabel {
-        return ViewWithLabel(frame: CGRect.zero)
-    }
-    
-    func updateUIView(_ uiView: ViewWithLabel, context: UIViewRepresentableContext<TextWithAttributedString>) {
+	var attributedString: NSAttributedString
+	
+	func makeUIView(context: Context) -> ViewWithLabel {
+		return ViewWithLabel(frame: CGRect.zero)
+	}
+	
+	func updateUIView(_ uiView: ViewWithLabel, context: UIViewRepresentableContext<TextWithAttributedString>) {
 		uiView.label.attributedText = attributedString
-    }
+	}
 }

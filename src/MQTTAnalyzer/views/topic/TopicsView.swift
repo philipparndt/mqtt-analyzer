@@ -9,22 +9,22 @@
 import SwiftUI
 
 struct TopicsView: View {
-    @EnvironmentObject var rootModel: RootModel
-    @ObservedObject var model: MessageModel
-    @ObservedObject var host: Host
+	@EnvironmentObject var rootModel: RootModel
+	@ObservedObject var model: MessageModel
+	@ObservedObject var host: Host
 	@State private var actionSheetPresented = false
 	@State private var postMessagePresented = false
 	@State private var postMessageModel: PostMessageFormModel?
 
 	var actionSheet: ActionSheet {
-        ActionSheet(title: Text("Actions"), buttons: [
+		ActionSheet(title: Text("Actions"), buttons: [
 			.default(Text("Post new message"), action: createTopic),
 			.default(Text(host.pause ? "Resume connection" : "Pause connection"), action: pauseConnection),
-            .cancel()
-        ])
-    }
+			.cancel()
+		])
+	}
 	
-    var body: some View {
+	var body: some View {
 		Group {
 			ReconnectView(host: self.host)
 
@@ -68,7 +68,7 @@ struct TopicsView: View {
 		.actionSheet(isPresented: self.$actionSheetPresented, content: {
 			self.actionSheet
 		})
-    }
+	}
 	
 	func showActionSheet() {
 		actionSheetPresented = true
@@ -83,10 +83,10 @@ struct TopicsView: View {
 		host.pause.toggle()
 	}
 	
-    func cancelPostMessageCreation() {
-        postMessagePresented = false
+	func cancelPostMessageCreation() {
+		postMessagePresented = false
 		postMessageModel = nil
-    }
+	}
 	
 	func selectMessage(message: Message) {
 		postMessageModel = PostMessageFormModel.of(message: message)
@@ -96,8 +96,8 @@ struct TopicsView: View {
 
 #if DEBUG
 //struct ContentView_Previews : PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
+//	static var previews: some View {
+//		ContentView()
+//	}
 //}
 #endif

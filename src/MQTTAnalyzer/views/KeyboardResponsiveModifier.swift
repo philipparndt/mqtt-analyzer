@@ -34,13 +34,13 @@ class KeyboardResponsive {
 			let bottomInset = UIApplication.shared.windows.first?.safeAreaInsets.bottom
 			let offset = height - (bottomInset ?? 0)
 			heightConsumer(offset)
-        }
+		}
 	}
 	
 	func registerWillHideNotification(heightConsumer: @escaping (CGFloat) -> Void) -> Any {
 		return NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
 			heightConsumer(0)
-        }
+		}
 	}
 }
 
@@ -65,6 +65,6 @@ struct KeyboardResponsiveModifier: ViewModifier {
 
 extension View {
   func keyboardResponsive() -> ModifiedContent<Self, KeyboardResponsiveModifier> {
-    return modifier(KeyboardResponsiveModifier())
+	return modifier(KeyboardResponsiveModifier())
   }
 }

@@ -78,8 +78,8 @@ struct PostMessageProperty: Identifiable {
 
 class PostMessageFormModel: ObservableObject {
 	var topic: String = ""
-    var message: String = ""
-    var qos: Int = 0
+	var message: String = ""
+	var qos: Int = 0
 	var retain: Bool = false
 	var jsonData: JSON?
 	var properties: [PostMessageProperty] = []
@@ -127,11 +127,11 @@ class PostMessageFormModel: ObservableObject {
 		var result: [PostMessageProperty] = []
 		json.dictionaryValue
 		.forEach {
-            let child = $0.value
+			let child = $0.value
 			var nextPath = path
 			nextPath += [$0.key]
 			result += createJsonProperties(json: child, path: nextPath)
-        }
+		}
 		
 		if let property = createProperty(json: json, path: path) {
 			result += [property]
@@ -176,11 +176,11 @@ class PostMessageFormModel: ObservableObject {
 
 struct PostMessageFormModalView: View {
 	let closeCallback: () -> Void
-    let root: RootModel
+	let root: RootModel
 	@ObservedObject var model: PostMessageFormModel
 
-    var body: some View {
-        NavigationView {
+	var body: some View {
+		NavigationView {
 			PostMessageFormView(message: self.model, type: self.$model.messageType)
 				.font(.caption)
 				.navigationBarTitle(Text("Post message"))
@@ -194,10 +194,10 @@ struct PostMessageFormModalView: View {
 					}.buttonStyle(ActionStyleTrailing())
 			)
 			.keyboardResponsive()
-        }
-    }
-    	
-    func post() {
+		}
+	}
+		
+	func post() {
 		if model.messageType == .json {
 			model.updateMessageFromJsonData()
 		}
@@ -208,18 +208,18 @@ struct PostMessageFormModalView: View {
 		root.post(message: msg)
 		
 		closeCallback()
-    }
-    
-    func cancel() {
+	}
+	
+	func cancel() {
 		closeCallback()
-    }
+	}
 }
 
 struct PostMessageFormView: View {
 	@ObservedObject var message: PostMessageFormModel
 	@Binding var type: PostMessageType
 
-    var body: some View {
+	var body: some View {
 		Form {
 			Section(header: Text("Topic")) {
 				TextField("#", text: $message.topic)
@@ -251,7 +251,7 @@ struct PostMessageFormView: View {
 				}
 			}
 		}
-    }
+	}
 }
 enum PostMessageType {
 	case plain
@@ -261,18 +261,18 @@ enum PostMessageType {
 struct PostMessageTypeView: View {
 	@Binding var type: PostMessageType
 
-    var body: some View {
+	var body: some View {
 		Picker(selection: $type, label: Text("Type")) {
 			Text("Plain text").tag(PostMessageType.plain)
 			Text("JSON").tag(PostMessageType.json)
 		}.pickerStyle(SegmentedPickerStyle())
-    }
+	}
 }
 
 struct PostMessageFormPlainTextView: View {
 	@Binding var message: String
-    
-    var body: some View {
+	
+	var body: some View {
 		Group {
 			MessageTextView(text: $message)
 			.disableAutocorrection(true)
@@ -280,13 +280,13 @@ struct PostMessageFormPlainTextView: View {
 			.font(.system(.body, design: .monospaced))
 			.frame(height: 250)
 		}
-    }
+	}
 }
 
 struct PostMessageFormJSONView: View {
 	@ObservedObject var message: PostMessageFormModel
-    
-    var body: some View {
+	
+	var body: some View {
 		Group {
 			ForEach(message.properties.indices) { index in
 				HStack {
@@ -296,13 +296,13 @@ struct PostMessageFormJSONView: View {
 				}
 			}
 		}
-    }
+	}
 }
 
 struct MessageProperyView: View {
 	@Binding var property: PostMessageProperty
-    
-    var body: some View {
+	
+	var body: some View {
 
 		HStack {
 			if property.value.type() == .boolean {
@@ -326,5 +326,5 @@ struct MessageProperyView: View {
 				Text("Unknown property type.")
 			}
 		}
-    }
+	}
 }

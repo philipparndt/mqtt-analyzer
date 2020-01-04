@@ -15,37 +15,37 @@ enum HostsSheetType {
 }
 
 struct HostsView: View {
-    @EnvironmentObject var model: RootModel
-    @ObservedObject var hostsModel: HostsModel
+	@EnvironmentObject var model: RootModel
+	@ObservedObject var hostsModel: HostsModel
 
 	@State var presented = false
 	@State var sheetType: HostsSheetType = .none
 	
-    var body: some View {
-        NavigationView {
-            VStack(alignment: .leading) {
-                List {
-                    ForEach(hostsModel.hosts) { host in
-                        HostCellView(host: host, messageModel: (
-                            self.model.getMessageModel(host)
-                        ))
-                    }
-                    .onDelete(perform: self.delete)
-                }
-            }
-            .navigationBarItems(
+	var body: some View {
+		NavigationView {
+			VStack(alignment: .leading) {
+				List {
+					ForEach(hostsModel.hosts) { host in
+						HostCellView(host: host, messageModel: (
+							self.model.getMessageModel(host)
+						))
+					}
+					.onDelete(perform: self.delete)
+				}
+			}
+			.navigationBarItems(
 				leading: Button(action: showAbout) {
-                    Text("About")
-                },
-                trailing: Button(action: createHost) {
-                    Image(systemName: "plus")
-                }
-                .font(.system(size: 22))
-                .buttonStyle(ActionStyleTrailing())
-            )
-            .navigationBarTitle(Text("Servers"), displayMode: .inline)
-        }
-        .sheet(isPresented: $presented, onDismiss: hideSheet, content: {
+					Text("About")
+				},
+				trailing: Button(action: createHost) {
+					Image(systemName: "plus")
+				}
+				.font(.system(size: 22))
+				.buttonStyle(ActionStyleTrailing())
+			)
+			.navigationBarTitle(Text("Servers"), displayMode: .inline)
+		}
+		.sheet(isPresented: $presented, onDismiss: hideSheet, content: {
 			if self.sheetType == .createHost {
 				NewHostFormModalView(closeHandler: self.hideSheet,
 									 root: self.model,
@@ -55,39 +55,39 @@ struct HostsView: View {
 				AboutView(isPresented: self.$presented)
 			}
 			})
-        
-    }
-    
-    func delete(at indexSet: IndexSet) {
-        hostsModel.delete(at: indexSet, persistence: model.persistence)
-    }
-    
-    func showSheet() {
-        presented = true
-    }
-    
-    func hideSheet() {
+		
+	}
+	
+	func delete(at indexSet: IndexSet) {
+		hostsModel.delete(at: indexSet, persistence: model.persistence)
+	}
+	
+	func showSheet() {
+		presented = true
+	}
+	
+	func hideSheet() {
 		sheetType = .none
-        presented = false
-    }
+		presented = false
+	}
 	
-    func createHost() {
+	func createHost() {
 		sheetType = .createHost
-        showSheet()
-    }
+		showSheet()
+	}
 	
-    func showAbout() {
+	func showAbout() {
 		sheetType = .about
 		showSheet()
-    }
+	}
 }
 
 #if DEBUG
 //struct HostsView_Previews : PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            HostsView(hosts : HostsModel.sampleModel())
-//        }
-//    }
+//	static var previews: some View {
+//		NavigationView {
+//			HostsView(hosts : HostsModel.sampleModel())
+//		}
+//	}
 //}
 #endif

@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct MessageTextView: UIViewRepresentable {
-    @Binding var text: String
+	@Binding var text: String
 
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
+	func makeCoordinator() -> Coordinator {
+		Coordinator(self)
+	}
 
-    func makeUIView(context: Context) -> UITextView {
+	func makeUIView(context: Context) -> UITextView {
 		let label = UITextView(frame: CGRect.zero)
 		label.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
 		label.isScrollEnabled = true
@@ -26,25 +26,25 @@ struct MessageTextView: UIViewRepresentable {
 		label.autocorrectionType = .no
 		label.autocapitalizationType = .none
 		return label
-    }
+	}
 
-    func updateUIView(_ uiView: UITextView, context: Context) {
+	func updateUIView(_ uiView: UITextView, context: Context) {
 		uiView.text = text
-    }
+	}
 
-    class Coordinator: NSObject, UITextViewDelegate {
-        var parent: MessageTextView
+	class Coordinator: NSObject, UITextViewDelegate {
+		var parent: MessageTextView
 
-        init(_ uiTextView: MessageTextView) {
-            self.parent = uiTextView
-        }
+		init(_ uiTextView: MessageTextView) {
+			self.parent = uiTextView
+		}
 
-        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-            return true
-        }
+		func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+			return true
+		}
 
-        func textViewDidChange(_ textView: UITextView) {
-            self.parent.text = textView.text
-        }
-    }
+		func textViewDidChange(_ textView: UITextView) {
+			self.parent.text = textView.text
+		}
+	}
 }

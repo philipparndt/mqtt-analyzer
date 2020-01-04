@@ -11,69 +11,69 @@ import Combine
 import Moscapsule
 
 class MQTTSessionController: ReconnectDelegate {
-    
-    let model: MessageModel
-    let host: Host
-    
-    var mqtt: MQTTClient?
-    
-    var connected: Bool = false
-    
+	
+	let model: MessageModel
+	let host: Host
+	
+	var mqtt: MQTTClient?
+	
+	var connected: Bool = false
+	
 	let messageSubject = PassthroughSubject<MQTTMessage, Never>()
 	
 	private var messageSubjectCancellable: Cancellable? {
-        didSet {
-            oldValue?.cancel()
-        }
-    }
+		didSet {
+			oldValue?.cancel()
+		}
+	}
 	
-    init(host: Host, model: MessageModel) {
-        self.model = model
-        self.host = host
-        self.host.reconnectDelegate = self
-    }
-    
-    deinit {
+	init(host: Host, model: MessageModel) {
+		self.model = model
+		self.host = host
+		self.host.reconnectDelegate = self
+	}
+	
+	deinit {
 		DispatchQueue.main.async {
 			self.host.connected = false
 		}
-        NSLog("MQTTController deinit")
-    }
-    
-    func reconnect() {
+		NSLog("MQTTController deinit")
+	}
+	
+	func reconnect() {
 		if let mqtt = self.mqtt {
 			mqtt.disconnect()
-            establishConnection(host)
-            connected = true
+			establishConnection(host)
+			connected = true
 		}
 		else {
 			connect()
 		}
-    }
-    
-    func connect() {
-        if connected {
-            reconnect()
-        }
-        else {
-            establishConnection(host)
-            connected = true
-        }
-    }
-    
-    func disconnect() {
+	}
+	
+	func connect() {
+		if connected {
+			reconnect()
+		}
+		else {
+			establishConnection(host)
+			connected = true
+		}
+	}
+	
+	func disconnect() {
 		messageSubjectCancellable?.cancel()
-        mqtt?.disconnect()
-        connected = false
-        mqtt = nil
-    }
-    
-    func establishConnection(_ host: Host) {
-        host.connectionMessage = nil
-        
-        let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
-        mqttConfig.onConnectCallback = onConnect
-        mqttConfig.onDisconnectCallback = onDisconnect
+		mqtt?.disconnect()
+		connected = false
+		mqtt = nil
+	}
+	
+	func establishConnection(_ host: Host) {
+		host.connectionMessage = nil
+		
+		let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
+		mqttConfig.onConnectCallback = onConnect
+		mqttConfig.onDisconnectCallback = onDisconnect
 		mqttConfig.onMessageCallback = onMessage
 
 		if host.auth {
@@ -84,16 +84,16 @@ class MQTTSessionController: ReconnectDelegate {
 		mqtt = MQTT.newConnection(mqttConfig)
 
 		let queue = DispatchQueue(label: "Message dispache queue")
-        messageSubjectCancellable = messageSubject.eraseToAnyPublisher()
+		messageSubjectCancellable = messageSubject.eraseToAnyPublisher()
 		.collect(.byTime(queue, 0.5))
-        .receive(on: DispatchQueue.main)
-        .sink(receiveValue: {
+		.receive(on: DispatchQueue.main)
+		.sink(receiveValue: {
 			self.onMessageInMain(messages: $0)
-        })
+		})
 		
 		subscribeToChannel(host)
-    }
-    
+	}
+	
 	func onConnect(_ returnCode: ReturnCode) {
 		NSLog("Connected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {
@@ -142,35 +142,35 @@ class MQTTSessionController: ReconnectDelegate {
 		self.model.append(messges: mapped)
 	}
 	
-    func subscribeToChannel(_ host: Host) {
-        mqtt?.subscribe(host.topic, qos: 2)
-    }
+	func subscribeToChannel(_ host: Host) {
+		mqtt?.subscribe(host.topic, qos: 2)
+	}
 	
 	func post(message: Message) {
 		mqtt?.publish(string: message.data, topic: message.topic, qos: message.qos, retain: message.retain)
 	}
-    
-    // MARK: - Utilities
-    
-    func clientID() -> String {
-        let userDefaults = UserDefaults.standard
-        let clientIDPersistenceKey = "clientID"
-        let clientID: String
+	
+	// MARK: - Utilities
+	
+	func clientID() -> String {
+		let userDefaults = UserDefaults.standard
+		let clientIDPersistenceKey = "clientID"
+		let clientID: String
 
-        if let savedClientID = userDefaults.object(forKey: clientIDPersistenceKey) as? String {
-            clientID = savedClientID
-        } else {
-            clientID = "MQTTAnalyzer_" + randomStringWithLength(10)
-            userDefaults.set(clientID, forKey: clientIDPersistenceKey)
-            userDefaults.synchronize()
-        }
+		if let savedClientID = userDefaults.object(forKey: clientIDPersistenceKey) as? String {
+			clientID = savedClientID
+		} else {
+			clientID = "MQTTAnalyzer_" + randomStringWithLength(10)
+			userDefaults.set(clientID, forKey: clientIDPersistenceKey)
+			userDefaults.synchronize()
+		}
 
-        return clientID
-    }
-    
-    // http://stackoverflow.com/questions/26845307/generate-random-alphanumeric-string-in-swift
-    func randomStringWithLength(_ length: Int) -> String {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return String((0..<length).map { _ in letters.randomElement()! })
-    }
+		return clientID
+	}
+	
+	// http://stackoverflow.com/questions/26845307/generate-random-alphanumeric-string-in-swift
+	func randomStringWithLength(_ length: Int) -> String {
+		let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+		return String((0..<length).map { _ in letters.randomElement()! })
+	}
 }

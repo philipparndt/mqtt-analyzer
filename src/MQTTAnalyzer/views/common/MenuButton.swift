@@ -9,14 +9,14 @@
 import SwiftUI
 
 struct MenuButton: View {
-    let title: String
-    let systemImage: String
+	let title: String
+	let systemImage: String
 	let action: () -> Void
 
-    var body: some View {
+	var body: some View {
 		Button(action: action) {
 			Text(title)
 			Image(systemName: systemImage)
 		}
-    }
+	}
 }

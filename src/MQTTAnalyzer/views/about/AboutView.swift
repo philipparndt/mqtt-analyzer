@@ -10,9 +10,9 @@ import SwiftUI
 
 // MARK: Create Host
 struct AboutView: View {
-    @Binding var isPresented: Bool
+	@Binding var isPresented: Bool
 	
-    var body: some View {
+	var body: some View {
 		VStack(alignment: .leading) {
 			Group {
 				Text("MQTTAnalyzer")
@@ -81,17 +81,17 @@ struct AboutView: View {
 		.padding()
 		.frame(maxWidth: .infinity, alignment: .leading)
 		.multilineTextAlignment(.leading)
-        .navigationBarTitle(Text("About"))
+		.navigationBarTitle(Text("About"))
 		.navigationBarItems(
 			leading: Button(action: close) {
 				Text("Close")
 			}.buttonStyle(ActionStyleLeading())
 		)
-    }
-    
-    func close() {
-        self.isPresented = false
-    }
+	}
+	
+	func close() {
+		self.isPresented = false
+	}
 }
 
 struct LinkButtonView: View {
@@ -102,10 +102,10 @@ struct LinkButtonView: View {
 		Button(action: open) {
 			Text(text)
 		}
-    }
-    
-    func open() {
+	}
+	
+	func open() {
 		let url: NSURL = URL(string: self.url)! as NSURL
 		UIApplication.shared.open(url as URL)
-    }
+	}
 }

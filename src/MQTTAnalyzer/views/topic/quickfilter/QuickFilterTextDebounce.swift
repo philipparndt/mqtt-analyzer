@@ -12,38 +12,38 @@ import SwiftUI
 import Combine
 
 class QuickFilterTextDebounce {
-    var filterText = "" {
-        willSet {
-            DispatchQueue.main.async {
-                self.searchSubject.send(newValue)
-            }
-        }
-    }
-        //
-    let searchSubject = PassthroughSubject<String, Never>()
-    
-    private var filterCancellable: Cancellable? {
-        didSet {
-            oldValue?.cancel()
-        }
-    }
-    
-    deinit {
-        filterCancellable?.cancel()
-    }
-    
-    init() {
-        filterCancellable = searchSubject.eraseToAnyPublisher()
-        .map { $0 }
-        .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
-        .removeDuplicates()
-        .filter { !$0.isEmpty }
-        .receive(on: DispatchQueue.main)
-        .sink(receiveValue: { (searchText) in
-            self.onChange(text: searchText)
-        })
-    }
-    
-    func onChange(text: String) {
-    }
+	var filterText = "" {
+		willSet {
+			DispatchQueue.main.async {
+				self.searchSubject.send(newValue)
+			}
+		}
+	}
+		//
+	let searchSubject = PassthroughSubject<String, Never>()
+	
+	private var filterCancellable: Cancellable? {
+		didSet {
+			oldValue?.cancel()
+		}
+	}
+	
+	deinit {
+		filterCancellable?.cancel()
+	}
+	
+	init() {
+		filterCancellable = searchSubject.eraseToAnyPublisher()
+		.map { $0 }
+		.debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+		.removeDuplicates()
+		.filter { !$0.isEmpty }
+		.receive(on: DispatchQueue.main)
+		.sink(receiveValue: { (searchText) in
+			self.onChange(text: searchText)
+		})
+	}
+	
+	func onChange(text: String) {
+	}
 }
