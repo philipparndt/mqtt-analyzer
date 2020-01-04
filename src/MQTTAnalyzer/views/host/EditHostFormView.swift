@@ -27,8 +27,8 @@ struct EditHostFormView: View {
 	var body: some View {
 		Form {
 			ServerFormView(host: $host)
-			TopicFormView(host: $host)
 			AuthFormView(host: $host, auth: $auth)
+			TopicFormView(host: $host)
 		}.keyboardResponsive()
 	}
 }
