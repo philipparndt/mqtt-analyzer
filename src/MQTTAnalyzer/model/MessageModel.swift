@@ -14,7 +14,7 @@ class Message: Identifiable, JSONSerializable {
 	
     let data: String
 	let date: Date
-    let dateString: String
+    let localDate: String
     let qos: Int32
 	let retain: Bool
 	let topic: String
@@ -29,11 +29,7 @@ class Message: Identifiable, JSONSerializable {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        self.dateString = dateFormatter.string(from: date)
-    }
-    
-    func localDate() -> String {
-        return dateString
+        self.localDate = dateFormatter.string(from: date)
     }
     
     func isJson() -> Bool {

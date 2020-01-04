@@ -34,30 +34,14 @@ struct TopicCellView: View {
 				}
             }
             .contextMenu {
-                Button(action: copyTopic) {
-                    Text("Copy topic")
-                    Image(systemName: "doc.on.doc")
-                }
-                Button(action: copyMessage) {
-                    Text("Copy recent message")
-                    Image(systemName: "doc.on.doc")
-                }
-                Button(action: focus) {
-                    Text("Focus on")
-                    Image(systemName: "eye.fill")
-                }
-                Button(action: focusParent) {
-                    Text("Focus on parent")
-                    Image(systemName: "eye.fill")
-                }
-				Button(action: post) {
-					  Text("Post message again")
-					  Image(systemName: "paperplane.fill")
-				}
-                Button(action: postManually) {
-                    Text("Post new message")
-                    Image(systemName: "paperplane.fill")
-                }
+				MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
+				MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
+				
+				MenuButton(title: "Focus on", systemImage: "eye.fill", action: focus)
+				MenuButton(title: "Focus on parent", systemImage: "eye.fill", action: focusParent)
+				
+				MenuButton(title: "Post message again", systemImage: "paperplane.fill", action: post)
+				MenuButton(title: "Post new message", systemImage: "paperplane.fill", action: postManually)
             }
         }
     }

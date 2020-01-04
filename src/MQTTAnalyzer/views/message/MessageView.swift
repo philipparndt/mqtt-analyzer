@@ -59,24 +59,21 @@ struct MessageCellView: View {
                 VStack(alignment: .leading) {
                     Text(message.data)
                         .lineLimit(8)
-                    Text(message.localDate())
+                    Text(message.localDate)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
             }
             .contextMenu {
-                Button(action: copy) {
-                    Text("Copy message")
-                    Image(systemName: "doc.on.doc")
-                }
-                Button(action: post) {
-                    Text("Post message again")
-                    Image(systemName: "paperplane.fill")
-                }
-                Button(action: postManually) {
-                    Text("Post new message")
-                    Image(systemName: "paperplane.fill")
-                }
+				MenuButton(title: "Copy message",
+						   systemImage: "doc.on.doc",
+						   action: copy)
+				MenuButton(title: "Post message again",
+						   systemImage: "paperplane.fill",
+						   action: post)
+				MenuButton(title: "Post new message",
+						   systemImage: "paperplane.fill",
+						   action: postManually)
             }
         }
     }
@@ -92,5 +89,4 @@ struct MessageCellView: View {
     func postManually() {
 		selectMessage(message)
     }
-
 }

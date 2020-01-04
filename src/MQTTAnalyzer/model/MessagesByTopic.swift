@@ -39,7 +39,7 @@ class MessagesByTopic: Identifiable, ObservableObject {
         if message.isJson() {
             let jsonData = message.jsonData!
 			if !jsonData.isEmpty {
-                traverseJson(node: message.jsonData!, path: "", dateFormatted: message.dateString)
+                traverseJson(node: message.jsonData!, path: "", dateFormatted: message.localDate)
             }
         }
         

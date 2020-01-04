@@ -8,6 +8,20 @@
 
 import SwiftUI
 
+struct MetadataTextView: View {
+    let key: String
+    let value: String
+    
+    var body: some View {
+		HStack {
+			Text(key)
+				.foregroundColor(.secondary)
+			Spacer()
+			Text(value)
+		}
+    }
+}
+
 struct MessageDetailsView: View {
     let message: Message
     let topic: Topic
@@ -17,24 +31,9 @@ struct MessageDetailsView: View {
             VStack {
                 List {
                     Section(header: Text("Metadata")) {
-                        HStack {
-                            Text("Topic")
-                                .foregroundColor(.secondary)
-                            Spacer()
-                            Text(topic.name)
-                        }
-                        HStack {
-                            Text("Timestamp")
-                                .foregroundColor(.secondary)
-                            Spacer()
-                            Text(message.localDate())
-                        }
-                        HStack {
-                            Text("QoS")
-                                .foregroundColor(.secondary)
-                            Spacer()
-                            Text("\(message.qos)")
-                        }
+						MetadataTextView(key: "Topic", value: topic.name)
+						MetadataTextView(key: "Timestamp", value: message.localDate)
+						MetadataTextView(key: "QoS", value: "\(message.qos)")
                     }
                     
                     Section(header: Text("Message")) {
