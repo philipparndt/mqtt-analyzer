@@ -35,5 +35,5 @@ Nachrichten versenden:
 Folgende bekannte Probleme gibt es:
 - Kein Wechsel von JSON zu Plain Text möglich
 
-Sonstige bekannte Probleme:
+Known issues:
 https://github.com/philipparndt/mqtt-analyzer/issues
