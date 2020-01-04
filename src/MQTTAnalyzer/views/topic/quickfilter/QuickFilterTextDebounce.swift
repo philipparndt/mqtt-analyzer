@@ -19,7 +19,7 @@ class QuickFilterTextDebounce {
 			}
 		}
 	}
-		//
+
 	let searchSubject = PassthroughSubject<String, Never>()
 	
 	private var filterCancellable: Cancellable? {

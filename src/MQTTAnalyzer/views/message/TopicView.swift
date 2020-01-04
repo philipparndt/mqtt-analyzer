@@ -25,6 +25,6 @@ struct MessageTopicView: View {
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = self.messagesByTopic.topic.name
+		UIPasteboard.general.string = messagesByTopic.topic.name
 	}
 }

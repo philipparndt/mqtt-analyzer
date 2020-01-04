@@ -64,10 +64,10 @@ struct ReconnectView: View {
 	}
 	
 	func pause() {
-		self.host.pause.toggle()
+		host.pause.toggle()
 	}
 	
 	func reconnect() {
-		self.host.reconnect()
+		host.reconnect()
 	}
 }

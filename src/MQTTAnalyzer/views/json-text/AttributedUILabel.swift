@@ -14,7 +14,7 @@ class LabelUIView: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		self.addSubview(label)
+		addSubview(label)
 		label.numberOfLines = 0
 		label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 	}
@@ -24,9 +24,9 @@ class LabelUIView: UIView {
 	}
 	
 	func setString(_ attributedString: NSAttributedString) {
-		self.label.attributedText = attributedString
-		self.label.numberOfLines = 0
-		self.label.sizeToFit()
+		label.attributedText = attributedString
+		label.numberOfLines = 0
+		label.sizeToFit()
 	}
 }
 

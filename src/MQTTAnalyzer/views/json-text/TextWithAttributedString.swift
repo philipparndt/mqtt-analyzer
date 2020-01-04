@@ -13,7 +13,8 @@ class ViewWithLabel: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		self.addSubview(label)
+		addSubview(label)
+		
 		label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		
 		if traitCollection.userInterfaceStyle == .light {
@@ -36,9 +37,9 @@ class ViewWithLabel: UIView {
 	}
 	
 	func scale() {
-		self.label.layoutSubviews()
-		self.label.sizeToFit()
-		self.height = self.label.frame.height
+		label.layoutSubviews()
+		label.sizeToFit()
+		height = label.frame.height
 	}
 }
 

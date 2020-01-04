@@ -54,7 +54,7 @@ struct HostsView: View {
 			else {
 				AboutView(isPresented: self.$presented)
 			}
-			})
+		})
 		
 	}
 	

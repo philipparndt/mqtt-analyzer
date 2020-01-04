@@ -36,7 +36,7 @@ struct MessageTextView: UIViewRepresentable {
 		var parent: MessageTextView
 
 		init(_ uiTextView: MessageTextView) {
-			self.parent = uiTextView
+			parent = uiTextView
 		}
 
 		func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -44,7 +44,7 @@ struct MessageTextView: UIViewRepresentable {
 		}
 
 		func textViewDidChange(_ textView: UITextView) {
-			self.parent.text = textView.text
+			parent.text = textView.text
 		}
 	}
 }

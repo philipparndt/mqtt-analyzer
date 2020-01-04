@@ -79,11 +79,11 @@ struct MessageCellView: View {
 	}
 	
 	func copy() {
-		UIPasteboard.general.string = self.message.data
+		UIPasteboard.general.string = message.data
 	}
 	
 	func post() {
-		self.model.post(message: message)
+		model.post(message: message)
 	}
 	
 	func postManually() {

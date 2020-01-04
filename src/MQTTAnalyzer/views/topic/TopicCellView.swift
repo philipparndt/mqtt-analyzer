@@ -47,35 +47,35 @@ struct TopicCellView: View {
 	}
 	
 	func post() {
-		if let first = self.messages.getFirstMessage() {
-			self.root.post(message: first)
+		if let first = messages.getFirstMessage() {
+			root.post(message: first)
 		}
 	}
 	
 	func postManually() {
-		if let first = self.messages.getFirstMessage() {
+		if let first = messages.getFirstMessage() {
 			selectMessage(first)
 			postMessagePresented = true
 		}
 	}
 	
 	func messagePreview() -> String {
-		return self.messages.getFirst()
+		return messages.getFirst()
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = self.messages.topic.name
+		UIPasteboard.general.string = messages.topic.name
 	}
 	
 	func copyMessage() {
-		UIPasteboard.general.string = self.messages.getFirst()
+		UIPasteboard.general.string = messages.getFirst()
 	}
 	
 	func focus() {
-		self.model.setFilterImmediatelly(self.messages.topic.name)
+		model.setFilterImmediatelly(messages.topic.name)
 	}
 	
 	func focusParent() {
-		self.model.setFilterImmediatelly(self.messages.topic.name.pathUp())
+		model.setFilterImmediatelly(messages.topic.name.pathUp())
 	}
 }
