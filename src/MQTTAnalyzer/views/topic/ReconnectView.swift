@@ -8,6 +8,23 @@
 
 import SwiftUI
 
+struct FillingText: View {
+	let text: String
+	var imageName: String? = nil
+    
+    var body: some View {
+        HStack {
+			Text(text)
+			
+			Spacer()
+			
+			if imageName != nil {
+				Image(systemName: imageName!)
+			}
+		}
+    }
+}
+
 struct ReconnectView: View {
     
     @ObservedObject
@@ -25,32 +42,18 @@ struct ReconnectView: View {
         Group {
 			if host.connecting {
 				HStack {
-					Text("Connecting...")
-					
-					Spacer()
+					FillingText(text: "Connecting...")
 				}
 			} else if !host.connected {
 				Button(action: reconnect) {
-					VStack {
-						HStack {
-							Text(host.connectionMessage ?? "Disconnected")
-							
-							Spacer()
-							
-							Image(systemName: "desktopcomputer")
-						}
-					}
+					FillingText(text: host.connectionMessage ?? "Disconnected",
+								imageName: "xmark.octagon.fill")
 				}
 			}
-			else {
+			else if host.pause {
 				Button(action: pause) {
-					HStack {
-						Text(host.pause ? "Connected (paused)" : "Connected")
-						
-						Spacer()
-
-						Image(systemName: host.pause ? "play.fill" : "pause.fill")
-					}
+					FillingText(text: "Connected (paused)",
+								imageName: "play.fill")
 				}
 			}
 		}
