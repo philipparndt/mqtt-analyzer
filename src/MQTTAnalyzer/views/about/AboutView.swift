@@ -15,12 +15,24 @@ struct AboutView: View {
 	var body: some View {
 		VStack(alignment: .leading) {
 			Group {
-				Text("MQTTAnalyzer")
-					.font(.title)
+				HStack {
+					Image("About")
+						.resizable()
+						.frame(width: 50.0, height: 50.0)
+						.cornerRadius(10)
+						.shadow(radius: 10)
+						.padding(.trailing)
+					
+					VStack(alignment: .leading) {
+						Text("MQTTAnalyzer")
+							.font(.title)
+	
+						LinkButtonView(text: "© 2020 Philipp Arndt", url: "https://github.com/philipparndt")
+							.font(.caption)
+							.foregroundColor(.secondary)
+					}
+				}
 				
-				LinkButtonView(text: "© 2020 Philipp Arndt", url: "https://github.com/philipparndt")
-					.font(.caption)
-					.foregroundColor(.secondary)
 			}.frame(maxWidth: .infinity, alignment: .center)
 			.multilineTextAlignment(.center)
 			
