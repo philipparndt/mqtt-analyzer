@@ -20,7 +20,7 @@ struct HostsView: View {
 
 	@State var presented = false
 	@State var sheetType: HostsSheetType = .none
-	
+
 	var body: some View {
 		NavigationView {
 			VStack(alignment: .leading) {
@@ -45,15 +45,11 @@ struct HostsView: View {
 			)
 			.navigationBarTitle(Text("Servers"), displayMode: .inline)
 		}
-		.sheet(isPresented: $presented, onDismiss: hideSheet, content: {
-			if self.sheetType == .createHost {
-				NewHostFormModalView(closeHandler: self.hideSheet,
-									 root: self.model,
-									 hosts: self.model.hostsModel)
-			}
-			else {
-				AboutView(isPresented: self.$presented)
-			}
+		.sheet(isPresented: $presented, onDismiss: { self.presented=false}, content: {
+			HostsViewSheetDelegate(model: self.model,
+								   hostsModel: self.hostsModel,
+								   presented: self.$presented,
+								   sheetType: self.$sheetType)
 		})
 		
 	}
@@ -62,32 +58,34 @@ struct HostsView: View {
 		hostsModel.delete(at: indexSet, persistence: model.persistence)
 	}
 	
-	func showSheet() {
-		presented = true
-	}
-	
-	func hideSheet() {
-		sheetType = .none
-		presented = false
-	}
-	
 	func createHost() {
 		sheetType = .createHost
-		showSheet()
+		presented = true
 	}
 	
 	func showAbout() {
 		sheetType = .about
-		showSheet()
+		presented = true
 	}
 }
 
-#if DEBUG
-//struct HostsView_Previews : PreviewProvider {
-//	static var previews: some View {
-//		NavigationView {
-//			HostsView(hosts : HostsModel.sampleModel())
-//		}
-//	}
-//}
-#endif
+struct HostsViewSheetDelegate: View {
+	let model: RootModel
+	let hostsModel: HostsModel
+
+	@Binding var presented: Bool
+	@Binding var sheetType: HostsSheetType
+
+	var body: some View {
+		Group {
+			if self.sheetType == .createHost {
+				NewHostFormModalView(closeHandler: { self.presented = false },
+									 root: self.model,
+									 hosts: self.hostsModel)
+			}
+			else if self.sheetType == .about {
+				AboutView(isPresented: self.$presented)
+			}
+		}
+	}
+}
