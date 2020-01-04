@@ -1,6 +1,9 @@
 Build 12:
 - fixed crash when cancel create host with auth
 https://github.com/philipparndt/mqtt-analyzer/issues/13
+- improved reconnection
+- pause connection
+- connection status bar
 
 Neu in Build 11:
 - Verbessertes Keyboard Verhalten
