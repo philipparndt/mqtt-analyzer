@@ -34,7 +34,9 @@ class MQTTSessionController: ReconnectDelegate {
     }
     
     deinit {
-        host.connected = false
+		DispatchQueue.main.async {
+			self.host.connected = false
+		}
         NSLog("MQTTController deinit")
     }
     
@@ -137,7 +139,6 @@ class MQTTSessionController: ReconnectDelegate {
 							  topic: message.topic
 			)
 		})
-		print(messages.count)
 		self.model.append(messges: mapped)
 	}
 	
