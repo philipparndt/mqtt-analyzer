@@ -15,9 +15,6 @@ struct ReadMarkerView: View {
     var body: some View {
         Group {
             if read.read {
-//                        Image(uiImage: UIImage(named: "empty")!)
-//                        .font(.subheadline)
-//                        .foregroundColor(.blue)
                 Spacer()
                     .fixedSize()
                     .frame(width: 23, height: 23)
