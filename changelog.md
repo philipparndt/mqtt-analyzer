@@ -1,4 +1,4 @@
-Build 12:
+Build 13:
 - fixed crash when cancel create host with auth
 https://github.com/philipparndt/mqtt-analyzer/issues/13
 - improved reconnection
