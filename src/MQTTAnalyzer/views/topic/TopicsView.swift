@@ -17,11 +17,11 @@ struct TopicsView: View {
 
     var body: some View {
 		Group {
+			ReconnectView(host: self.host)
+
 			List {
-				ReconnectView(host: self.host)
-	
 				TopicsToolsView(model: self.model)
-				
+
 				Section(header: Text("Topics")) {
 					if model.displayTopics.isEmpty {
 						Text("no topics available")
@@ -38,10 +38,9 @@ struct TopicsView: View {
 					}
 				}
 			}
-			.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
 		}
-        .navigationBarTitle(Text(host.topic), displayMode: .inline)
-        .listStyle(GroupedListStyle())
+		.navigationBarTitle(Text(host.topic), displayMode: .inline)
+		.listStyle(GroupedListStyle())
 		.navigationBarItems(
 			trailing: Button(action: createTopic) {
 				Image(systemName: "plus")
@@ -49,14 +48,14 @@ struct TopicsView: View {
 			.font(.system(size: 22))
 			.buttonStyle(ActionStyleTrailing())
 		)
-        .onAppear {
-            self.rootModel.connect(to: self.host)
-        }
+		.onAppear {
+			self.rootModel.connect(to: self.host)
+		}
 		.sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
-            PostMessageFormModalView(closeCallback: self.cancelPostMessageCreation,
-                                 root: self.rootModel,
+			PostMessageFormModalView(closeCallback: self.cancelPostMessageCreation,
+								 root: self.rootModel,
 								 model: self.postMessageModel!)
-        })
+		})
     }
 	
 	func createTopic() {

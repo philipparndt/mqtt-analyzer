@@ -13,42 +13,51 @@ struct ReconnectView: View {
     @ObservedObject
     var host: Host
     
+	var foregroundColor: Color {
+		host.connected && !host.pause ? .gray : .white
+	}
+	
+	var backgroundColor: Color {
+		host.connected ? host.pause ? .gray : Color.green.opacity(0.3) : host.connecting ? .gray : .red
+	}
+	
     var body: some View {
         Group {
-			Section(header: Text("Connection")) {
-				if host.connecting {
-					HStack {
-					   Text("Connecting...")
-					}.foregroundColor(.gray)
-				} else if !host.connected {
-						HStack {
-							Image(systemName: "desktopcomputer")
-											   .padding()
-
-							Button(action: reconnect) {
-								Text("Disconnected")
-							}
-		
-							if host.connectionMessage != nil {
-								HStack {
-									Text(host.connectionMessage!)
-								}.foregroundColor(.gray)
-							}
-						}.foregroundColor(.red)
+			if host.connecting {
+				HStack {
+					Text("Connecting...")
+					
+					Spacer()
 				}
-				else {
+			} else if !host.connected {
+				Button(action: reconnect) {
+					VStack {
+						HStack {
+							Text(host.connectionMessage ?? "Disconnected")
+							
+							Spacer()
+							
+							Image(systemName: "desktopcomputer")
+						}
+					}
+				}
+			}
+			else {
+				Button(action: pause) {
 					HStack {
 						Text(host.pause ? "Connected (paused)" : "Connected")
 						
 						Spacer()
-						
-						Button(action: pause) {
-							Image(systemName: host.pause ? "play.fill" : "pause.fill")
-						}
-					}.foregroundColor(.gray)
+
+						Image(systemName: host.pause ? "play.fill" : "pause.fill")
+					}
 				}
 			}
-        }
+		}
+		.padding([.leading, .trailing])
+		.padding([.bottom, .top], 10)
+		.foregroundColor(foregroundColor)
+		.background(backgroundColor)
     }
     
 	func pause() {
