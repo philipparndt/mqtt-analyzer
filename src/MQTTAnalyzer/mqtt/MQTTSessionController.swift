@@ -34,8 +34,9 @@ class MQTTSessionController: ReconnectDelegate {
 	}
 	
 	deinit {
+		let host = self.host
 		DispatchQueue.main.async {
-			self.host.connected = false
+			host.connected = false
 		}
 		NSLog("MQTTController deinit")
 	}
@@ -102,7 +103,7 @@ class MQTTSessionController: ReconnectDelegate {
 	}
 	
 	func onDisconnect(_ returnCode: ReasonCode) {
-		if returnCode == .mosq_conn_refused {
+ 		if returnCode == .mosq_conn_refused {
 			NSLog("Connection refused")
 			host.connectionMessage = "Connection refused"
 		}

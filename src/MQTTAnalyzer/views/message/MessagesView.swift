@@ -25,9 +25,6 @@ struct MessagesView: View {
 		.listStyle(GroupedListStyle())
 		.onAppear {
 			self.messagesByTopic.read.markRead()
-			print("MessagesView appeared!")
-		}.onDisappear {
-			print("MessagesView disappeared!")
 		}
 	}
 	
@@ -35,13 +32,3 @@ struct MessagesView: View {
 		UIPasteboard.general.string = messagesByTopic.topic.name
 	}
 }
-
-#if DEBUG
-//struct MessagesView_Previews : PreviewProvider {
-//	static var previews: some View {
-//		NavigationView {
-//			MessagesView(messagesByTopic : MessageModel().messagesByTopic[0])
-//		}
-//	}
-//}
-#endif
