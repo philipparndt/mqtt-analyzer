@@ -122,9 +122,7 @@ class PostMessageFormModel: ObservableObject {
 		json.dictionaryValue
 		.forEach {
 			let child = $0.value
-			var nextPath = path
-			nextPath += [$0.key]
-			result += createJsonProperties(json: child, path: nextPath)
+			result += createJsonProperties(json: child, path: path + [$0.key])
 		}
 		
 		if let property = createProperty(json: json, path: path) {
