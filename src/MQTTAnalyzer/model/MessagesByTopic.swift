@@ -18,8 +18,6 @@ class MessagesByTopic: Identifiable, ObservableObject {
 	@Published var timeSeries = Multimap<DiagramPath, TimeSeriesValue>()
 	@Published var timeSeriesModels = [DiagramPath: MTimeSeriesModel]()
 	
-	var willChange = PassthroughSubject<Void, Never>()
-	
 	init(topic: Topic, messages: [Message]) {
 		self.topic = topic
 		self.messages = messages
@@ -47,8 +45,6 @@ class MessagesByTopic: Identifiable, ObservableObject {
 	}
 	
 	func traverseJson(node: [String: Any], path: String, dateFormatted: String) {
-		print(node)
-		
 		node.forEach {
 			let child = $0.value
 			if child is [String: Any] {
@@ -107,20 +103,5 @@ class MessagesByTopic: Identifiable, ObservableObject {
 	
 	func getTimeSeriesId(_ path: DiagramPath) -> [TimeSeriesValue] {
 		return getTimeSeries(path)
-	}
-	
-	func getValuesLastHour(_ path: DiagramPath) -> [Int] {
-		if let model = self.timeSeriesModels[path] {
-			let values = model.getMeanValue(amount: 30, in: 30, to: Date())
-				.map { $0.meanValue ?? 0 }
-			
-//			let minValue = values.filter {$0 != 0} .min() ?? 0
-//			return values
-//				.map { $0 == 0 ? 1 : $0 - minValue }
-			
-			return values
-		} else {
-			return [Int]()
-		}
 	}
 }
