@@ -22,7 +22,7 @@ all of your iCloud devices. We do not have any access to this data.
 # Changes to the privacy policy
 
 We reserve the right to change this privacy policy at any time. You can see all changes in this changelog:
-https://github.com/philipparndt/mqtt-analyzer/commits/master/privacy-policy.md
+https://github.com/philipparndt/mqtt-analyzer/commits/master/Docs/privacy-policy.md
 
 # Contact
 
