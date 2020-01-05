@@ -54,10 +54,3 @@ struct DataSeriesCell: View {
 	}
 }
 
-#if DEBUG
-//struct ChartDetailsView_Previews : PreviewProvider {
-//	static var previews: some View {
-//		ChartDetailsView(title: "some title")
-//	}
-//}
-#endif

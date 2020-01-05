@@ -47,7 +47,7 @@ struct DataSeriesCellView: View {
 	}
 	
 	func lastValue() -> NSNumber {
-		let last = messagesByTopic.getTimeSeriesLastValue(path)
-		return last.map { $0.num } ?? 0
+		return messagesByTopic.getTimeSeriesLastValue(path)
+			.map { $0.num } ?? 0
 	}
 }
