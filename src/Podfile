@@ -16,7 +16,7 @@ target 'MQTTAnalyzer' do
 
   pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git'
   
-  pod 'swift-petitparser', '~> 1.1.1'
+  pod 'swift-petitparser', '~> 1.2.0'
   
   pod 'SwiftyJSON', '~> 4.0'
   
