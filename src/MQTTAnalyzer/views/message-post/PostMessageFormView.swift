@@ -94,8 +94,7 @@ class PostMessageFormModel: ObservableObject {
 		model.retain = message.retain
 		model.messageType = message.isJson() ? .json : .plain
 		
-		if message.isJson() {
-			let json = JSON(parseJSON: message.data)
+		if let json = message.jsonData {
 			model.jsonData = json
 			
 			PostMessageFormModel.createJsonProperties(json: json, path: [])

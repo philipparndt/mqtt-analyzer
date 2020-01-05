@@ -8,9 +8,10 @@
 
 import Foundation
 import Combine
+import SwiftyJSON
 
-class Message: Identifiable, JSONSerializable {
-	var jsonData: [String: Any]?
+class Message: Identifiable {
+	var jsonData: JSON?
 	
 	let data: String
 	let date: Date
@@ -40,20 +41,13 @@ class Message: Identifiable, JSONSerializable {
 		return data.data(using: .utf8)?.prettyPrintedJSONString ?? "{}"
 	}
 	
-	class func toJson(messageData: String) -> [String: Any]? {
-//		let data = "[\(cleanEscapedNumbers(messageData))]".data(using: .utf8)!
-		let data = messageData.data(using: .utf8)!
-		do {
-			let data = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-			
-			if let arrayOfArray = data as? [[String: Any]] {
-				return arrayOfArray[0]
-			}
-			else {
-				return data as? [String: Any]
-			}
-		} catch _ as NSError {
+	class func toJson(messageData: String) -> JSON? {
+		let json = JSON(parseJSON: messageData)
+		if json.isEmpty {
 			return nil
+		}
+		else {
+			return json
 		}
 	}
 	
@@ -157,5 +151,4 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
 			self.append(message: $0)
 		}
 	}
-	
 }
