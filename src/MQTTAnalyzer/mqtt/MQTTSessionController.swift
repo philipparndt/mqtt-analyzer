@@ -42,8 +42,13 @@ class MQTTSessionController: ReconnectDelegate {
 	}
 	
 	func reconnect() {
-		if let mqtt = self.mqtt {
-			mqtt.disconnect()
+		DispatchQueue.main.async {
+			self.host.connecting = true
+		}
+		
+		if self.mqtt != nil || connected {
+			disconnect()
+			
 			establishConnection(host)
 			connected = true
 		}
