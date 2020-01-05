@@ -117,11 +117,6 @@ class PostMessageFormModel: ObservableObject {
 		}
 	}
 	
-	func serializeJson(data: [String: Any]) -> String {
-		// swiftlint:disable force_try
-		return try! JSONSerialization.data(withJSONObject: data).printedJSONString ?? "{}"
-	}
-	
 	class func createJsonProperties(json: JSON, path: [String]) -> [PostMessageProperty] {
 		var result: [PostMessageProperty] = []
 		json.dictionaryValue

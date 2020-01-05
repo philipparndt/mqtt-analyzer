@@ -38,7 +38,7 @@ class Message: Identifiable {
 	}
 	
 	func prettyJson() -> String {
-		return data.data(using: .utf8)?.prettyPrintedJSONString ?? "{}"
+		return jsonData?.rawString() ?? "{}"
 	}
 	
 	class func toJson(messageData: String) -> JSON? {
