@@ -37,7 +37,6 @@ class QuickFilterTextDebounce {
 		.map { $0 }
 		.debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
 		.removeDuplicates()
-		.filter { !$0.isEmpty }
 		.receive(on: DispatchQueue.main)
 		.sink(receiveValue: { (searchText) in
 			self.onChange(text: searchText)
