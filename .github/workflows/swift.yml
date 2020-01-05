@@ -12,4 +12,4 @@ jobs:
     - name: Build
       run: |
           cd src
-          xcodebuild clean test -workspace MQTTAnalyzer.xcworkspace -scheme MQTTAnalyzer -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+          xcodebuild clean test -workspace MQTTAnalyzer.xcworkspace -scheme MQTTAnalyzer -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.1' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
