@@ -1,7 +1,9 @@
 # mqtt-analyzer
 
-With MQTTAnalyzer you can connect to your MQTT Broker and
-subscribe to a topic.
+MQTTAnalyzer is an iOS App that alows to connect to your MQTT Broker and
+subscribe to a topic. It is written in Swift using SwiftUI.
+
+This App is open source, contributions are welcome.
 
 Features:
 - create multiple broker settings
