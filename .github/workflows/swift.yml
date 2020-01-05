@@ -1,0 +1,15 @@
+name: Swift
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: |
+          cd src
+          xcodebuild clean test -workspace MQTTAnalyzer.xcworkspace -scheme MQTTAnalyzer -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
