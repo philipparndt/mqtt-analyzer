@@ -1,3 +1,6 @@
+Build 15:
+- fix: filter cannot be deleted by deleting the text
+
 Build 14:
 - refactoring
 
