@@ -11,6 +11,8 @@ import Combine
 import Moscapsule
 
 class MQTTSession {
+	static var sessionNum = 0
+	let sessionNum: Int
 	let model: MessageModel
 	let host: Host
 	var mqtt: MQTTClient?
@@ -26,12 +28,17 @@ class MQTTSession {
 	}
 	
 	init(host: Host, model: MessageModel) {
+		MQTTSession.sessionNum += 1
+		
 		self.model = model
+		self.sessionNum = MQTTSession.sessionNum
 		self.host = host
 	}
 	
 	func connect() {
+		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topic)")
 		host.connectionMessage = nil
+		host.connecting = true
 		
 		let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
 		mqttConfig.onConnectCallback = onConnect
@@ -52,27 +59,66 @@ class MQTTSession {
 		.sink(receiveValue: {
 			self.onMessageInMain(messages: $0)
 		})
-		
-		subscribeToChannel(host)
 	}
 	
 	func disconnect() {
+		print("CONNECTION: disconnect \(sessionNum) \(host.hostname) \(host.topic)")
+		
 		messageSubjectCancellable?.cancel()
-		mqtt?.unsubscribe(host.topic)
-		mqtt?.disconnect()
+		
+		if let mqtt = self.mqtt {
+			mqtt.unsubscribe(host.topic)
+			mqtt.disconnect()
+			
+			waitDisconnected()
+			
+			print("CONNECTION: disconnected \(sessionNum) \(host.hostname) \(host.topic)")
+		}
+		setDisconnected()
+	}
+	
+	func waitDisconnected() {
+		let group = DispatchGroup()
+		group.enter()
+
+		DispatchQueue.global().async {
+			while self.connected {
+				print("CONNECTION: waiting for disconnect \(self.sessionNum) \(self.host.hostname) \(self.host.topic)")
+				usleep(useconds_t(500))
+			}
+			group.leave()
+		}
+
+		let result = group.wait(timeout: .now() + 10)
+		if result == .success {
+			return
+		}
+		else {
+			print("CONNECTION: disconnected timeout \(sessionNum): \(result)")
+		}
+	}
+	
+	func setDisconnected() {
 		connected = false
 		messageSubjectCancellable = nil
 		mqtt = nil
 	}
 	
 	func onConnect(_ returnCode: ReturnCode) {
+		print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topic)")
+		connected = true
 		NSLog("Connected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {
+			self.host.connecting = false
 			self.host.connected = true
 		}
+		
+		subscribeToChannel(host)
 	}
 	
 	func onDisconnect(_ returnCode: ReasonCode) {
+		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topic)")
+		
  		if returnCode == .mosq_conn_refused {
 			NSLog("Connection refused")
 			host.connectionMessage = "Connection refused"
@@ -81,7 +127,7 @@ class MQTTSession {
 		   host.connectionMessage = returnCode.description
 		}
 
-		self.disconnect()
+		self.setDisconnected()
 		
 		NSLog("Disconnected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {

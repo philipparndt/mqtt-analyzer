@@ -40,7 +40,10 @@ struct ReconnectView: View {
 	
 	var body: some View {
 		Group {
-			if host.connecting {
+			if host.connected {
+				// Do nothing
+			}
+			else if host.connecting {
 				HStack {
 					FillingText(text: "Connecting...")
 				}
