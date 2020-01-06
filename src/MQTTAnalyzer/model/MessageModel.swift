@@ -141,7 +141,7 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
 		var msgbt = messagesByTopic[message.topic]
 		
 		if msgbt == nil {
-			if messagesByTopic.count >= 800 {
+			if messagesByTopic.count >= 250 {
 				topicLimit = true
 				return
 			}
@@ -155,7 +155,7 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
 	}
 	
 	func append(messages: [Message]) {
-		if messages.count > 2000 {
+		if messages.count > 1000 {
 			// Message limit per batch
 			messageLimit = true
 			return

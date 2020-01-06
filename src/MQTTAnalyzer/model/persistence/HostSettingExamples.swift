@@ -11,17 +11,6 @@ import RealmSwift
 
 class HostSettingExamples {
 	class func inititalize(realm: Realm) {
-		let example1 = HostSetting()
-		example1.id = "example.test.mosquitto.org.1"
-		example1.alias = "Water levels"
-		example1.auth = false
-		example1.hostname = "test.mosquitto.org"
-		example1.username = ""
-		example1.password = ""
-		example1.port = 1883
-		example1.qos = 0
-		example1.topic = "de.wsv/#"
-		
 		let example2 = HostSetting()
 		example2.id = "example.test.mosquitto.org.2"
 		example2.alias = "Revspace sensors"
@@ -33,8 +22,19 @@ class HostSettingExamples {
 		example2.qos = 0
 		example2.topic = "revspace/sensors/#"
 		
-		createIfNotPresent(setting: example1, realm: realm)
+		let example3 = HostSetting()
+		example3.id = "example.test.mosquitto.org.4"
+		example3.alias = "mqtt-analyzer mosquitto example"
+		example3.auth = false
+		example3.hostname = "test.mosquitto.org"
+		example3.username = ""
+		example3.password = ""
+		example3.port = 1883
+		example3.qos = 0
+		example3.topic = "de/rnd7/mqtt-analyzer/#"
+		
 		createIfNotPresent(setting: example2, realm: realm)
+		createIfNotPresent(setting: example3, realm: realm)
 	}
 	
 	private class func createIfNotPresent(setting: HostSetting, realm: Realm) {
