@@ -26,6 +26,7 @@ struct QuickFilterView: View {
 				return self.model.filterText = newValue
 			}))
 			.disableAutocorrection(true)
+			.autocapitalization(.none)
 			
 			Spacer()
 			if !model.filter.isBlank {
