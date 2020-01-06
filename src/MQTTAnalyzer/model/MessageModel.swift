@@ -81,6 +81,9 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
 	
 	@Published var displayTopics: [MessagesByTopic] = []
 	
+	@Published var topicLimit = false
+	@Published var messageLimit = false
+	
 	init(messagesByTopic: [String: MessagesByTopic] = [:]) {
 		self.messagesByTopic = messagesByTopic
 	}
@@ -138,6 +141,11 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
 		var msgbt = messagesByTopic[message.topic]
 		
 		if msgbt == nil {
+			if messagesByTopic.count >= 800 {
+				topicLimit = true
+				return
+			}
+			
 			msgbt = MessagesByTopic(topic: Topic(message.topic), messages: [])
 			messagesByTopic[message.topic] = msgbt
 		}
@@ -146,8 +154,14 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
 		self.messageCount = countMessages()
 	}
 	
-	func append(messges: [Message]) {
-		messges.forEach {
+	func append(messages: [Message]) {
+		if messages.count > 2000 {
+			// Message limit per batch
+			messageLimit = true
+			return
+		}
+		
+		messages.forEach {
 			self.append(message: $0)
 		}
 	}

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct FillingText: View {
 	let text: String
-	var imageName: String? = nil
+	var imageName: String?
 	
 	var body: some View {
 		HStack {
@@ -30,17 +30,53 @@ struct ReconnectView: View {
 	@ObservedObject
 	var host: Host
 	
+	@ObservedObject
+	var model: MessageModel
+	
 	var foregroundColor: Color {
-		host.connected && !host.pause ? .gray : .white
+		if host.connected {
+			if model.topicLimit || model.messageLimit {
+				return .black
+			}
+			
+			return host.connected && !host.pause ? .gray : .white
+		}
+		else {
+			return .white
+		}
 	}
 	
 	var backgroundColor: Color {
-		host.connected ? host.pause ? .gray : Color.green.opacity(0.3) : host.connecting ? .gray : .red
+		if host.connected {
+			if model.topicLimit || model.messageLimit {
+				return .yellow
+			}
+			
+			return .green
+		}
+		else if host.connecting {
+			return .gray
+		}
+		else {
+			return .red
+		}
 	}
 	
 	var body: some View {
 		Group {
-			if host.connected {
+			if model.topicLimit {
+				HStack {
+					FillingText(text: "Topic limit exceeded.\nReduce the subscription topic!",
+					imageName: "exclamationmark.octagon.fill")
+				}
+			}
+			else if model.messageLimit {
+				HStack {
+					FillingText(text: "Message limit exceeded.\nReduce the subscription topic!",
+					imageName: "exclamationmark.octagon.fill")
+				}
+			}
+			else if host.connected {
 				// Do nothing
 			}
 			else if host.connecting {

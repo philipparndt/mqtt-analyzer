@@ -185,17 +185,17 @@ class MQTTSession {
 		if host.pause {
 			return
 		}
-		
+		let date = Date()
 		let mapped = messages.map({ (message: MQTTMessage) -> Message in
 			let messageString = message.payloadString ?? ""
 			return Message(data: messageString,
-							  date: Date(),
+							  date: date,
 							  qos: message.qos,
 							  retain: message.retain,
 							  topic: message.topic
 			)
 		})
-		self.model.append(messges: mapped)
+		self.model.append(messages: mapped)
 	}
 	
 	func subscribeToChannel(_ host: Host) {

@@ -26,7 +26,7 @@ struct TopicsView: View {
 	
 	var body: some View {
 		Group {
-			ReconnectView(host: self.host)
+			ReconnectView(host: self.host, model: self.model)
 
 			List {
 				TopicsToolsView(model: self.model)
