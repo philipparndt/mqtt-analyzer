@@ -60,6 +60,9 @@ class MQTTSessionController: ReconnectDelegate {
 			disconnect()
 			session = MQTTSession(host: host!, model: model!)
 		}
+		else if session?.connectionAlive ?? false {
+			return
+		}
 		else if session?.connected ?? false {
 			reconnect()
 			return
