@@ -16,6 +16,10 @@ struct HostCellView: View {
 	
 	@State var editHostPresented = false
 	
+	var connectionColor: Color {
+		host.connected ? .green : .gray
+	}
+	
 	var body: some View {
 		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
 			HStack {
@@ -30,11 +34,12 @@ struct HostCellView: View {
 					.foregroundColor(.secondary)
 				}
 				
-				if host.connected {
-					Spacer()
+				Spacer()
+
+				if host.connected || host.connecting {
 					Image(systemName: "circle.fill")
 						.font(.subheadline)
-						.foregroundColor(.green)
+						.foregroundColor(connectionColor)
 				}
 			}
 			.contextMenu {
