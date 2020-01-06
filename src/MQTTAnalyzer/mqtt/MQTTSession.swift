@@ -52,13 +52,15 @@ class MQTTSession {
 		// create new MQTT Connection
 		mqtt = MQTT.newConnection(mqttConfig)
 
+		waitConnected()
+		
 		let queue = DispatchQueue(label: "Message dispache queue")
 		messageSubjectCancellable = messageSubject.eraseToAnyPublisher()
-		.collect(.byTime(queue, 0.5))
-		.receive(on: DispatchQueue.main)
-		.sink(receiveValue: {
-			self.onMessageInMain(messages: $0)
-		})
+			.collect(.byTime(queue, 0.5))
+			.receive(on: DispatchQueue.main)
+			.sink(receiveValue: {
+				self.onMessageInMain(messages: $0)
+			})
 	}
 	
 	func disconnect() {
@@ -78,18 +80,8 @@ class MQTTSession {
 	}
 	
 	func waitDisconnected() {
-		let group = DispatchGroup()
-		group.enter()
+		let result = waitFor(predicate: { !self.connected })
 
-		DispatchQueue.global().async {
-			while self.connected {
-				print("CONNECTION: waiting for disconnect \(self.sessionNum) \(self.host.hostname) \(self.host.topic)")
-				usleep(useconds_t(500))
-			}
-			group.leave()
-		}
-
-		let result = group.wait(timeout: .now() + 10)
 		if result == .success {
 			return
 		}
@@ -98,8 +90,53 @@ class MQTTSession {
 		}
 	}
 	
+	func waitConnected() {
+		
+		let group = DispatchGroup()
+		group.enter()
+
+		DispatchQueue.global().async {
+			var i = 10
+			while !self.connected && i > 0 {
+				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
+				sleep(1)
+				DispatchQueue.main.async {
+					self.host.connectionMessage = "Connecting... \(i)"
+				}
+				i-=1
+			}
+			group.leave()
+		}
+
+		group.notify(queue: .main) {
+			if !self.host.connected {
+				self.setDisconnected()
+				
+				self.host.connectionMessage = "Connection timeout"
+			}
+		}
+	}
+	
+	func waitFor(predicate: @escaping () -> Bool) -> DispatchTimeoutResult {
+		let group = DispatchGroup()
+		group.enter()
+
+		DispatchQueue.global().async {
+			while !predicate() {
+				print("CONNECTION: waiting... \(self.sessionNum) \(self.host.hostname) \(self.host.topic)")
+				usleep(useconds_t(500))
+			}
+			group.leave()
+		}
+
+		return group.wait(timeout: .now() + 10)
+	}
+	
 	func setDisconnected() {
 		connected = false
+		DispatchQueue.main.async {
+				self.host.connecting = false
+		}
 		messageSubjectCancellable = nil
 		mqtt = nil
 	}
@@ -124,7 +161,9 @@ class MQTTSession {
 			host.connectionMessage = "Connection refused"
 		}
 		else {
-		   host.connectionMessage = returnCode.description
+			DispatchQueue.main.async {
+				self.host.connectionMessage = returnCode.description
+			}
 		}
 
 		self.setDisconnected()

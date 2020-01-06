@@ -25,7 +25,7 @@ class Host: Identifiable, Hashable, ObservableObject {
 	var username: String = ""
 	var password: String = ""
 	
-	var connectionMessage: String?
+	@Published var connectionMessage: String?
 	
 	weak var reconnectDelegate: ReconnectDelegate?
 

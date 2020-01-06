@@ -45,7 +45,7 @@ struct ReconnectView: View {
 			}
 			else if host.connecting {
 				HStack {
-					FillingText(text: "Connecting...")
+					FillingText(text: host.connectionMessage ?? "Connecting...")
 				}
 			} else if !host.connected {
 				Button(action: reconnect) {
