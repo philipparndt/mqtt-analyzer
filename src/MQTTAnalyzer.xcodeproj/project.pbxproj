@@ -58,6 +58,7 @@
 		22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E323814CEF00D72BD6 /* JsonFormatString.swift */; };
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
 		22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE623C24A5800422BFF /* StringUtils.swift */; };
+		22F8BEE923C31C3B00422BFF /* MQTTSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE823C31C3B00422BFF /* MQTTSession.swift */; };
 		22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
 		22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF722C8D2650078795F /* MessageDetailsView.swift */; };
 		22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF822C8D2650078795F /* MQTTSessionController.swift */; };
@@ -150,6 +151,7 @@
 		22E469E323814CEF00D72BD6 /* JsonFormatString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonFormatString.swift; sourceTree = "<group>"; };
 		22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesModel.swift; sourceTree = "<group>"; };
 		22F8BEE623C24A5800422BFF /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
+		22F8BEE823C31C3B00422BFF /* MQTTSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTSession.swift; sourceTree = "<group>"; };
 		22FD7CF622C8D2650078795F /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		22FD7CF722C8D2650078795F /* MessageDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailsView.swift; sourceTree = "<group>"; };
 		22FD7CF822C8D2650078795F /* MQTTSessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTSessionController.swift; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				22FD7CF822C8D2650078795F /* MQTTSessionController.swift */,
+				22F8BEE823C31C3B00422BFF /* MQTTSession.swift */,
 			);
 			path = mqtt;
 			sourceTree = "<group>";
@@ -737,6 +740,7 @@
 				22E469DE2380459700D72BD6 /* TextWithAttributedString.swift in Sources */,
 				228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
+				22F8BEE923C31C3B00422BFF /* MQTTSession.swift in Sources */,
 				22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */,
 				22C386A322CB84900054C385 /* RootView.swift in Sources */,
 				228104932381773100112F24 /* TopicCellView.swift in Sources */,

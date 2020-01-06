@@ -18,7 +18,7 @@ class RootModel: ObservableObject {
 	
 	var messageModelByHost: [Host: MessageModel] = [:]
 	
-	var currentSession: MQTTSessionController?
+	var sessionController = MQTTSessionController()
 	
 	let persistence: HostsModelPersistence
 	
@@ -43,35 +43,16 @@ class RootModel: ObservableObject {
 	}
 	
 	func connect(to: Host) {
-		if currentSession != nil {
-			let session = currentSession!
-			if session.host == to {
-				if !session.connected {
-					print("Reconnecting to " + session.host.hostname)
-					session.reconnect()
-				}
-				return
-			}
-			else {
-				print("Disconnecting from " + session.host.hostname)
-				session.disconnect()
-			}
-		}
-		
-		print("Connecting to " + to.hostname)
-		let model = messageModelByHost[to]
-		if model != nil {
-			currentSession = MQTTSessionController(host: to, model: model!)
-		}
-		
-		currentSession?.connect()
+		sessionController.host = to
+		sessionController.model = messageModelByHost[to]
+		sessionController.connect()
 	}
 	
 	func disconnect() {
-		currentSession?.disconnect()
+		sessionController.disconnect()
 	}
 	
 	func post(message: Message) {
-		currentSession?.post(message: message)
+		sessionController.session?.post(message: message)
 	}
 }
