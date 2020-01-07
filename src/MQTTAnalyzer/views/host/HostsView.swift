@@ -45,6 +45,7 @@ struct HostsView: View {
 			)
 			.navigationBarTitle(Text("Servers"), displayMode: .inline)
 		}
+		.navigationViewStyle(StackNavigationViewStyle())
 		.sheet(isPresented: $presented, onDismiss: { self.presented=false}, content: {
 			HostsViewSheetDelegate(model: self.model,
 								   hostsModel: self.hostsModel,
