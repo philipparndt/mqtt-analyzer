@@ -175,7 +175,7 @@ struct AuthFormView: View {
 						.font(.body)
 				}
 				
-				FillingText(text: "Leave username and/or password empty. In order to not persist them. You will get an login dialog.",
+				FillingText(text: "Leave username and/or password empty. In order to not persist them. You will get a login dialog.",
 							imageName: "info.circle.fill")
 				.padding()
 					.font(.body)
