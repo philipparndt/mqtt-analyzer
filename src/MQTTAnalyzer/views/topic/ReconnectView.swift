@@ -69,7 +69,7 @@ struct ReconnectView: View {
 		Group {
 			if host.needsAuth {
 				Button(action: authenticate) {
-					FillingText(text: "Authentification required!",
+					FillingText(text: "Authentication required!",
 					imageName: "exclamationmark.octagon.fill")
 				}
 			}
