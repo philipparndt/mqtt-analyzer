@@ -174,6 +174,14 @@ struct AuthFormView: View {
 						.multilineTextAlignment(.trailing)
 						.font(.body)
 				}
+				
+				FillingText(text: "Leave username and/or password empty. In order to not persist them. You will get an login dialog.",
+							imageName: "info.circle.fill")
+				.padding()
+					.font(.body)
+					.foregroundColor(.white)
+					.background(Color.blue)
+				
 			}
 		}
 	}

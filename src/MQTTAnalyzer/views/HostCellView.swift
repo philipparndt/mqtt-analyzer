@@ -21,7 +21,7 @@ struct HostCellView: View {
 	}
 	
 	var body: some View {
-		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
+		NavigationLink(destination: TopicsView(model: messageModel, host: host, dialogPresented: host.needsAuth)) {
 			HStack {
 				VStack(alignment: .leading) {
 					Text(host.alias)

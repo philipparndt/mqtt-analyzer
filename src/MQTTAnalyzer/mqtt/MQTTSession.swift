@@ -22,6 +22,7 @@ class MQTTSession {
 			oldValue?.cancel()
 		}
 	}
+	var connectionFailed: String?
 	var connected: Bool = false
 	var connectionAlive: Bool {
 		self.mqtt != nil || connected
@@ -39,6 +40,7 @@ class MQTTSession {
 		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topic)")
 		host.connectionMessage = nil
 		host.connecting = true
+		connectionFailed = nil
 		
 		let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
 		mqttConfig.onConnectCallback = onConnect
@@ -46,7 +48,9 @@ class MQTTSession {
 		mqttConfig.onMessageCallback = onMessage
 
 		if host.auth {
-			mqttConfig.mqttAuthOpts = MQTTAuthOpts(username: host.username, password: host.password)
+			let username = host.usernameNonpersistent ?? host.username
+			let password = host.passwordNonpersistent ?? host.password
+			mqttConfig.mqttAuthOpts = MQTTAuthOpts(username: username, password: password)
 		}
 
 		// create new MQTT Connection
@@ -97,7 +101,7 @@ class MQTTSession {
 
 		DispatchQueue.global().async {
 			var i = 10
-			while !self.connected && i > 0 {
+			while !self.connected && i > 0 && self.connectionFailed == nil {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
 				sleep(1)
 				DispatchQueue.main.async {
@@ -109,6 +113,12 @@ class MQTTSession {
 		}
 
 		group.notify(queue: .main) {
+			if let errorMessage = self.connectionFailed {
+				self.setDisconnected()
+				self.host.connectionMessage = errorMessage
+				return
+			}
+			
 			if !self.host.connected {
 				self.setDisconnected()
 				
@@ -158,9 +168,15 @@ class MQTTSession {
 		
  		if returnCode == .mosq_conn_refused {
 			NSLog("Connection refused")
-			host.connectionMessage = "Connection refused"
+			connectionFailed = "Connection refused"
+			DispatchQueue.main.async {
+				self.host.usernameNonpersistent = nil
+				self.host.passwordNonpersistent = nil
+				self.host.connectionMessage = "Connection refused"
+			}
 		}
 		else {
+			connectionFailed = returnCode.description
 			DispatchQueue.main.async {
 				self.host.connectionMessage = returnCode.description
 			}

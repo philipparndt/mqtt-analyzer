@@ -13,9 +13,9 @@ struct TopicsView: View {
 	@ObservedObject var model: MessageModel
 	@ObservedObject var host: Host
 	@State private var actionSheetPresented = false
-	@State private var postMessagePresented = false
+	@State var dialogPresented: Bool
 	@State private var postMessageModel: PostMessageFormModel?
-
+	
 	var actionSheet: ActionSheet {
 		ActionSheet(title: Text("Actions"), buttons: [
 			.default(Text("Post new message"), action: createTopic),
@@ -26,7 +26,7 @@ struct TopicsView: View {
 	
 	var body: some View {
 		Group {
-			ReconnectView(host: self.host, model: self.model)
+			ReconnectView(host: self.host, model: self.model, loginDialogPresented: self.$dialogPresented)
 
 			List {
 				TopicsToolsView(model: self.model)
@@ -41,7 +41,7 @@ struct TopicsView: View {
 							TopicCellView(
 								messages: messages,
 								model: self.model,
-								postMessagePresented: self.$postMessagePresented,
+								postMessagePresented: self.$dialogPresented,
 								selectMessage: self.selectMessage)
 						}
 					}
@@ -58,16 +58,27 @@ struct TopicsView: View {
 			.buttonStyle(ActionStyleTrailing())
 		)
 		.onAppear {
-			self.rootModel.connect(to: self.host)
+			if !self.host.needsAuth {
+				self.rootModel.connect(to: self.host)
+			}
 		}
-		.sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
-			PostMessageFormModalView(closeCallback: self.cancelPostMessageCreation,
-								 root: self.rootModel,
-								 model: self.postMessageModel!)
+		.sheet(isPresented: $dialogPresented, onDismiss: cancelPostMessageCreation, content: {
+			if self.host.needsAuth {
+				LoginDialogView(loginCallback: self.login, host: self.host, data: self.createLoginDataModel())
+			}
+			else {
+				PostMessageFormModalView(closeCallback: self.cancelPostMessageCreation,
+										 root: self.rootModel,
+										 model: self.postMessageModel!)
+			}
 		})
 		.actionSheet(isPresented: self.$actionSheetPresented, content: {
 			self.actionSheet
 		})
+	}
+	
+	func createLoginDataModel() -> LoginData {
+		return LoginData(username: host.username, password: host.password)
 	}
 	
 	func showActionSheet() {
@@ -76,7 +87,7 @@ struct TopicsView: View {
 	
 	func createTopic() {
 		postMessageModel = PostMessageFormModel()
-		postMessagePresented = true
+		dialogPresented = true
 	}
 
 	func pauseConnection() {
@@ -84,8 +95,17 @@ struct TopicsView: View {
 	}
 	
 	func cancelPostMessageCreation() {
-		postMessagePresented = false
+		dialogPresented = false
 		postMessageModel = nil
+	}
+	
+	func cancelLogin() {
+		dialogPresented = false
+	}
+	
+	func login() {
+		dialogPresented = false
+		self.rootModel.connect(to: self.host)
 	}
 	
 	func selectMessage(message: Message) {

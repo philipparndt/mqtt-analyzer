@@ -33,6 +33,9 @@ struct ReconnectView: View {
 	@ObservedObject
 	var model: MessageModel
 	
+	@Binding
+	var loginDialogPresented: Bool
+	
 	var foregroundColor: Color {
 		if host.connected {
 			if model.topicLimit || model.messageLimit {
@@ -64,7 +67,13 @@ struct ReconnectView: View {
 	
 	var body: some View {
 		Group {
-			if model.topicLimit {
+			if host.needsAuth {
+				Button(action: authenticate) {
+					FillingText(text: "Authentification required!",
+					imageName: "exclamationmark.octagon.fill")
+				}
+			}
+			else if model.topicLimit {
 				HStack {
 					FillingText(text: "Topic limit exceeded.\nReduce the subscription topic!",
 					imageName: "exclamationmark.octagon.fill")
@@ -108,5 +117,9 @@ struct ReconnectView: View {
 	
 	func reconnect() {
 		host.reconnect()
+	}
+	
+	func authenticate() {
+		loginDialogPresented = true
 	}
 }

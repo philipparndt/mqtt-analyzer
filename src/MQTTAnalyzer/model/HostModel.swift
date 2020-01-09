@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class Host: Identifiable, Hashable, ObservableObject {
 	
@@ -24,6 +25,15 @@ class Host: Identifiable, Hashable, ObservableObject {
 	var auth: Bool = false
 	var username: String = ""
 	var password: String = ""
+	
+	@Published var usernameNonpersistent: String?
+	@Published var passwordNonpersistent: String?
+	
+	var needsAuth: Bool {
+		return auth
+			&& (username.isBlank || password.isBlank)
+			&& (usernameNonpersistent == nil || passwordNonpersistent == nil)
+	}
 	
 	@Published var connectionMessage: String?
 	

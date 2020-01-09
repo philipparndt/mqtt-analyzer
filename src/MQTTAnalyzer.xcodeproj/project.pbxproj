@@ -59,6 +59,7 @@
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
 		22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE623C24A5800422BFF /* StringUtils.swift */; };
 		22F8BEE923C31C3B00422BFF /* MQTTSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE823C31C3B00422BFF /* MQTTSession.swift */; };
+		22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEEB23C7871F00422BFF /* LoginDialog.swift */; };
 		22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
 		22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF722C8D2650078795F /* MessageDetailsView.swift */; };
 		22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF822C8D2650078795F /* MQTTSessionController.swift */; };
@@ -152,6 +153,7 @@
 		22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesModel.swift; sourceTree = "<group>"; };
 		22F8BEE623C24A5800422BFF /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		22F8BEE823C31C3B00422BFF /* MQTTSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTSession.swift; sourceTree = "<group>"; };
+		22F8BEEB23C7871F00422BFF /* LoginDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDialog.swift; sourceTree = "<group>"; };
 		22FD7CF622C8D2650078795F /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		22FD7CF722C8D2650078795F /* MessageDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailsView.swift; sourceTree = "<group>"; };
 		22FD7CF822C8D2650078795F /* MQTTSessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MQTTSessionController.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 		228104782381708E00112F24 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				22F8BEEA23C7870C00422BFF /* login */,
 				2291424D23C0C0270086C251 /* common */,
 				2291424A23BF77DC0086C251 /* about */,
 				228104962381780D00112F24 /* host */,
@@ -412,6 +415,14 @@
 				22E469E1238149FD00D72BD6 /* StringSizeExtension.swift */,
 			);
 			path = "json-text";
+			sourceTree = "<group>";
+		};
+		22F8BEEA23C7870C00422BFF /* login */ = {
+			isa = PBXGroup;
+			children = (
+				22F8BEEB23C7871F00422BFF /* LoginDialog.swift */,
+			);
+			path = login;
 			sourceTree = "<group>";
 		};
 		22FD7D0622C8D3760078795F /* mqtt */ = {
@@ -754,6 +765,7 @@
 				2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */,
 				2281047623816FD800112F24 /* QuickFilterView.swift in Sources */,
+				22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */,
 				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
 				2291424C23BF78000086C251 /* AboutView.swift in Sources */,
 				22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */,
