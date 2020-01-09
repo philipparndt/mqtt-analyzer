@@ -13,6 +13,10 @@ protocol ReconnectDelegate: class {
 	func reconnect()
 }
 
+protocol DisconnectDelegate: class {
+	func disconnect()
+}
+
 class RootModel: ObservableObject {
 	let hostsModel = HostsModel()
 	

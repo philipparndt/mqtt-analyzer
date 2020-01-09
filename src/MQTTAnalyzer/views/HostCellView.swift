@@ -43,9 +43,9 @@ struct HostCellView: View {
 				}
 			}
 			.contextMenu {
-				Button(action: editHost) {
-					Text("Edit")
-					Image(systemName: "pencil.circle")
+				MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
+				if host.connected || host.connecting {
+					MenuButton(title: "Disconnect", systemImage: "stop.circle", action: disconnect)
 				}
 			}
 		}.sheet(isPresented: $editHostPresented, onDismiss: cancelEditCreation, content: {
@@ -71,6 +71,10 @@ struct HostCellView: View {
 	
 	func editHost() {
 		editHostPresented = true
+	}
+	
+	func disconnect() {
+		host.disconnect()
 	}
 	
 	func cancelEditCreation() {

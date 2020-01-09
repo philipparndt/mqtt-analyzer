@@ -10,12 +10,13 @@ import Foundation
 import Combine
 import Moscapsule
 
-class MQTTSessionController: ReconnectDelegate {
+class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 	var model: MessageModel?
 	var host: Host? {
 		didSet {
 			if let current = self.host {
 				current.reconnectDelegate = self
+				current.disconnectDelegate = self
 			}
 		}
 	}
