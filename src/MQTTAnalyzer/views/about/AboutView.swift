@@ -78,10 +78,11 @@ struct LicenseView: View {
 				.padding(.bottom)
 			
 			Group {
-				Text("This project is open source. Feel free to contribute enhancements, fixes and issue tickes:")
+				Text("This project is open source. Contributions are welcome. Feel free to open an issue ticket and discuss new features:")
 				
 				LinkButtonView(text: "https://github.com/philipparndt/mqtt-analyzer",
 							   url: "https://github.com/philipparndt/mqtt-analyzer")
+				
 				LinkButtonView(text: "License",
 							   url: "https://github.com/philipparndt/mqtt-analyzer/blob/master/LICENSE")
 			}
