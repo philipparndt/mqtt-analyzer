@@ -142,7 +142,7 @@ struct AuthFormView: View {
 	@Binding var auth: Bool
 
 	var body: some View {
-		return Section(header: Text("Authentification")) {
+		return Section(header: Text("Authentication")) {
 			Toggle(isOn: $auth) {
 				Text("Use auth")
 					.font(.headline)
