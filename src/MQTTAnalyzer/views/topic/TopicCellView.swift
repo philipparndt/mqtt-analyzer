@@ -14,10 +14,11 @@ struct TopicCellView: View {
 	@ObservedObject var model: MessageModel
 	@Binding var postMessagePresented: Bool
 	
+	let host: Host
 	let selectMessage: (Message) -> Void
 	
 	var body: some View {
-		NavigationLink(destination: MessagesView(messagesByTopic: messages)) {
+		NavigationLink(destination: MessagesView(messagesByTopic: messages, host: host)) {
 			HStack {
 				ReadMarkerView(read: messages.read)
 				
@@ -48,7 +49,7 @@ struct TopicCellView: View {
 	
 	func post() {
 		if let first = messages.getFirstMessage() {
-			root.post(message: first)
+			root.post(message: first, on: host)
 		}
 	}
 	

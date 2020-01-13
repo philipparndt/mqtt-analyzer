@@ -12,15 +12,7 @@ import Moscapsule
 
 class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 	var model: MessageModel?
-	var host: Host? {
-		didSet {
-			if let current = self.host {
-				current.reconnectDelegate = self
-				current.disconnectDelegate = self
-			}
-		}
-	}
-	var session: MQTTSession?
+	var sessions: [Host: MQTTSession] = [:]
 	
 	private var messageSubjectCancellable: Cancellable? {
 		didSet {
@@ -29,43 +21,42 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 	}
 	
 	deinit {
-		let host = self.host
 		DispatchQueue.main.async {
-			host?.connected = false
+			for host in self.sessions.keys {
+				host.connected = false
+			}
 		}
 		NSLog("MQTTController deinit")
 	}
 	
-	func reconnect() {
+	func reconnect(host: Host) {
 		DispatchQueue.main.async {
-			self.host?.connecting = true
+			host.connecting = true
 		}
 		
-		if session?.connectionAlive ?? false {
-			disconnect()
+		if sessions[host]?.connectionAlive ?? false {
+			disconnect(host: host)
 		}
 
-		connect()
+		connect(host: host)
 	}
 	
-	func connect() {
-		if host == nil {
-			NSLog("host must be set in order to connect")
-		}
-		
+	func connect(host: Host) {
 		if model == nil {
 			NSLog("model must be set in order to connect")
 		}
 		
+		var session = sessions[host]
+		
 		if session?.host !== host {
-			disconnect()
-			session = MQTTSession(host: host!, model: model!)
+			disconnect(host: host)
+			session = MQTTSession(host: host, model: model!)
 		}
 		else if session?.connectionAlive ?? false {
 			return
 		}
 		else if session?.connected ?? false {
-			reconnect()
+			reconnect(host: host)
 			return
 		}
 		
@@ -74,10 +65,18 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 			return
 		}
 		current.connect()
+		current.reconnectDelegate = self
+		current.disconnectDelegate = self
+		
+		sessions[host] = current
 	}
 	
-	func disconnect() {
-		session?.disconnect()
-		session = nil
+	func disconnect(host: Host) {
+		sessions[host]?.disconnect()
+		sessions.removeValue(forKey: host)
+	}
+	
+	func post(message: Message, on: Host) {
+		sessions[on]?.post(message: message)
 	}
 }

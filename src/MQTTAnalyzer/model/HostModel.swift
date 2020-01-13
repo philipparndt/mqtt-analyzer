@@ -47,11 +47,11 @@ class Host: Identifiable, Hashable, ObservableObject {
 	@Published var pause = false
 	
 	func reconnect() {
-		reconnectDelegate?.reconnect()
+		reconnectDelegate?.reconnect(host: self)
 	}
 	
 	func disconnect() {
-		disconnectDelegate?.disconnect()
+		disconnectDelegate?.disconnect(host: self)
 		connected = false
 		usernameNonpersistent = nil
 		passwordNonpersistent = nil

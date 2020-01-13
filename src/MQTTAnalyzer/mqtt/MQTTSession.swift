@@ -237,7 +237,7 @@ class MQTTSession {
 			userDefaults.synchronize()
 		}
 
-		return clientID
+		return clientID + randomStringWithLength(4)
 	}
 	
 	// http://stackoverflow.com/questions/26845307/generate-random-alphanumeric-string-in-swift

@@ -42,6 +42,7 @@ struct TopicsView: View {
 								messages: messages,
 								model: self.model,
 								postMessagePresented: self.$dialogPresented,
+								host: self.host,
 								selectMessage: self.selectMessage)
 						}
 					}
@@ -69,6 +70,7 @@ struct TopicsView: View {
 			else {
 				PostMessageFormModalView(closeCallback: self.cancelPostMessageCreation,
 										 root: self.rootModel,
+										 host: self.host,
 										 model: self.postMessageModel!)
 			}
 		})
