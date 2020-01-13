@@ -65,8 +65,8 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 			return
 		}
 		current.connect()
-		current.reconnectDelegate = self
-		current.disconnectDelegate = self
+		host.reconnectDelegate = self
+		host.disconnectDelegate = self
 		
 		sessions[host] = current
 	}
