@@ -40,11 +40,19 @@ class Host: Identifiable, Hashable, ObservableObject {
 	weak var reconnectDelegate: ReconnectDelegate?
 	weak var disconnectDelegate: DisconnectDelegate?
 
-	@Published var connected = false
+	@Published var connected = false {
+		didSet {
+			if connected {
+				wasConnected = true
+			}
+		}
+	}
 	
 	@Published var connecting = false
 	
 	@Published var pause = false
+	
+	var wasConnected = false
 	
 	func reconnect() {
 		reconnectDelegate?.reconnect(host: self)
@@ -55,6 +63,7 @@ class Host: Identifiable, Hashable, ObservableObject {
 		connected = false
 		usernameNonpersistent = nil
 		passwordNonpersistent = nil
+		wasConnected = false
 	}
 	
 	static func == (lhs: Host, rhs: Host) -> Bool {

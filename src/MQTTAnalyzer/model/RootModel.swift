@@ -47,6 +47,7 @@ class RootModel: ObservableObject {
 	}
 	
 	func connect(to: Host) {
+		to.connecting = true
 		sessionController.model = messageModelByHost[to]
 		sessionController.connect(host: to)
 	}
@@ -57,5 +58,13 @@ class RootModel: ObservableObject {
 	
 	func post(message: Message, on: Host) {
 		sessionController.post(message: message, on: on)
+	}
+	
+	func reconnect() {
+		for host in hostsModel.hosts {
+			if host.wasConnected && !host.connected && !host.connecting {
+				connect(to: host)
+			}
+		}
 	}
 }
