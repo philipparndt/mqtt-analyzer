@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MessagesView: View {
 	@ObservedObject var messagesByTopic: MessagesByTopic
+	let host: Host
 	
 	var body: some View {
 		VStack(alignment: .leading) {
@@ -18,7 +19,7 @@ struct MessagesView: View {
 
 				DataSeriesView(messagesByTopic: messagesByTopic)
 				
-				MessageView(messagesByTopic: messagesByTopic)
+				MessageView(messagesByTopic: messagesByTopic, host: host)
 			}
 		}
 		.navigationBarTitle(Text(messagesByTopic.topic.lastSegment))

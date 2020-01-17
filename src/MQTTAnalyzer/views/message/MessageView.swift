@@ -14,19 +14,22 @@ struct MessageView: View {
 	@ObservedObject var messagesByTopic: MessagesByTopic
 	@State var postMessagePresented = false
 	@State var postMessageFormModel: PostMessageFormModel?
+	let host: Host
 
 	var body: some View {
 		Section(header: Text("Messages")) {
 			ForEach(messagesByTopic.messages) {
 				MessageCellView(message: $0,
 								topic: self.messagesByTopic.topic,
-								selectMessage: self.selectMessage)
+								selectMessage: self.selectMessage,
+								host: self.host)
 			}
 			.onDelete(perform: messagesByTopic.delete)
 		}
 		.sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
 			PostMessageFormModalView(closeCallback: self.cancelPostMessageCreation,
 								 root: self.rootModel,
+								 host: self.host,
 								 model: self.postMessageFormModel!)
 		})
 	}
@@ -48,7 +51,8 @@ struct MessageCellView: View {
 	let message: Message
 	let topic: Topic
 	let selectMessage: (Message) -> Void
-
+	let host: Host
+	
 	var body: some View {
 		NavigationLink(destination: MessageDetailsView(message: message, topic: topic)) {
 			HStack {
@@ -83,7 +87,7 @@ struct MessageCellView: View {
 	}
 	
 	func post() {
-		model.post(message: message)
+		model.post(message: message, on: host)
 	}
 	
 	func postManually() {

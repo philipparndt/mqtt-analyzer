@@ -169,6 +169,7 @@ class PostMessageFormModel: ObservableObject {
 struct PostMessageFormModalView: View {
 	let closeCallback: () -> Void
 	let root: RootModel
+	let host: Host
 	@ObservedObject var model: PostMessageFormModel
 
 	var body: some View {
@@ -197,7 +198,8 @@ struct PostMessageFormModalView: View {
 		let msg = Message(data: model.message,
 						  date: Date.init(),
 						  qos: Int32(model.qos), retain: model.retain, topic: model.topic)
-		root.post(message: msg)
+		
+		root.post(message: msg, on: self.host)
 		
 		closeCallback()
 	}

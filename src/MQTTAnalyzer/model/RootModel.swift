@@ -10,11 +10,11 @@ import SwiftUI
 import Combine
 
 protocol ReconnectDelegate: class {
-	func reconnect()
+	func reconnect(host: Host)
 }
 
 protocol DisconnectDelegate: class {
-	func disconnect()
+	func disconnect(host: Host)
 }
 
 class RootModel: ObservableObject {
@@ -47,16 +47,24 @@ class RootModel: ObservableObject {
 	}
 	
 	func connect(to: Host) {
-		sessionController.host = to
+		to.connecting = true
 		sessionController.model = messageModelByHost[to]
-		sessionController.connect()
+		sessionController.connect(host: to)
 	}
 	
-	func disconnect() {
-		sessionController.disconnect()
+	func disconnect(from: Host) {
+		sessionController.disconnect(host: from)
 	}
 	
-	func post(message: Message) {
-		sessionController.session?.post(message: message)
+	func post(message: Message, on: Host) {
+		sessionController.post(message: message, on: on)
+	}
+	
+	func reconnect() {
+		for host in hostsModel.hosts {
+			if host.wasConnected && !host.connected && !host.connecting {
+				connect(to: host)
+			}
+		}
 	}
 }
