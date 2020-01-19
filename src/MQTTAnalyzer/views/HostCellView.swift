@@ -24,10 +24,10 @@ struct HostCellView: View {
 		NavigationLink(destination: TopicsView(model: messageModel, host: host, dialogPresented: host.needsAuth)) {
 			HStack {
 				VStack(alignment: .leading) {
-					Text(host.alias)
+					Text(host.aliasOrHost)
 					Spacer()
 					Group {
-						Text("\(host.hostname)")
+						Text(host.hostname)
 						Text(host.topic)
 					}
 					.font(.footnote)

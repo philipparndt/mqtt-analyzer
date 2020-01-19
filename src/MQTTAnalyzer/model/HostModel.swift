@@ -20,6 +20,10 @@ class Host: Identifiable, Hashable, ObservableObject {
 	var port: Int32 = 1883
 	var topic: String = "#"
 	
+	var aliasOrHost: String {
+		return alias.isBlank ? hostname : alias
+	}
+	
 	var qos: Int = 0
 	
 	var auth: Bool = false
