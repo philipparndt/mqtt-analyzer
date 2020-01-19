@@ -30,24 +30,34 @@ struct DataSeriesCellView: View {
 
 	var body: some View {
 		NavigationLink(destination: DataSeriesDetailsView(path: path, messagesByTopic: messagesByTopic)) {
-			HStack {
-				Image(systemName: "chart.bar")
-					.font(.subheadline)
-					.foregroundColor(.blue)
+			VStack {
+				HStack {
+					Image(systemName: "chart.bar")
+						.font(.subheadline)
+						.foregroundColor(.blue)
 
-				Text(path.path)
+					Text(path.lastSegment)
+					
+					Spacer()
+					
+					Text(lastValue())
+						.font(.subheadline)
+						.foregroundColor(.gray)
+				}
 				
-				Spacer()
-				
-				Text(lastValue().stringValue)
-					.font(.subheadline)
-					.foregroundColor(.gray)
+				if path.hasSubpath {
+					HStack {
+						Text(path.path).font(.footnote).foregroundColor(.gray)
+						Spacer()
+					}
+				}
 			}
+			
 		}
 	}
 	
-	func lastValue() -> NSNumber {
+	func lastValue() -> String {
 		return messagesByTopic.getTimeSeriesLastValue(path)
-			.map { $0.num } ?? 0
+			.map { $0.valueString } ?? "<no value>"
 	}
 }

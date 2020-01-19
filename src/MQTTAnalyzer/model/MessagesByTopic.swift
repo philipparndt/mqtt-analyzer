@@ -36,34 +36,33 @@ class MessagesByTopic: Identifiable, ObservableObject {
 		read.markUnread()
 		
 		if let json = message.jsonData {
-			collectNumbers(json: json, path: [], dateFormatted: message.localDate)
+			collectValues(date: message.date, json: json, path: [], dateFormatted: message.localDate)
 		}
 		
 		messages.insert(message, at: 0)
 	}
 	
-	func collectNumbers(json: JSON, path: [String], dateFormatted: String) {
-		
+	func collectValues(date: Date, json: JSON, path: [String], dateFormatted: String) {
 		json.dictionaryValue
 		.forEach {
 			let child = $0.value
 			var nextPath = path
 			nextPath += [$0.key]
 			
-			collectNumbers(json: child, path: nextPath, dateFormatted: dateFormatted)
+			collectValues(date: date, json: child, path: nextPath, dateFormatted: dateFormatted)
 		}
 		
-		if let value = json.number {
-			let path = DiagramPath(path.joined(separator: "."))
-			self.timeSeries.put(key: path, value: TimeSeriesValue(value: value, at: Date(), dateFormatted: dateFormatted))
-
-			let val = MTimeSeriesValue(value: value, timestamp: Date())
+		let path = DiagramPath(path.joined(separator: "."))
+		if let value = json.rawValue as? AnyHashable {
+			self.timeSeries.put(key: path, value: TimeSeriesValue(value: value, at: date, dateFormatted: dateFormatted))
+			
+			let val = MTimeSeriesValue(value: value, timestamp: date)
 			if let existingValues = self.timeSeriesModels[path] {
-				existingValues.values.append(val)
+				existingValues.values += [val]
 				self.timeSeriesModels[path] = existingValues
 			} else {
 				let model = MTimeSeriesModel()
-				model.values.append(val)
+				model.values += [val]
 				self.timeSeriesModels[path] = model
 			}
 		}
@@ -78,7 +77,7 @@ class MessagesByTopic: Identifiable, ObservableObject {
 	}
 	
 	func getDiagrams() -> [DiagramPath] {
-		return Array(timeSeries.dict.keys)
+		return Array(timeSeries.dict.keys).sorted { $0.path < $1.path }
 	}
 	
 	func hasDiagrams() -> Bool {
@@ -92,10 +91,6 @@ class MessagesByTopic: Identifiable, ObservableObject {
 	
 	func getTimeSeries(_ path: DiagramPath) -> [TimeSeriesValue] {
 		return timeSeries.dict[path] ?? [TimeSeriesValue]()
-	}
-	
-	func getTimeSeriesInt(_ path: DiagramPath) -> [Int] {
-		return getTimeSeries(path).map { $0.num.intValue }
 	}
 	
 	func getTimeSeriesId(_ path: DiagramPath) -> [TimeSeriesValue] {

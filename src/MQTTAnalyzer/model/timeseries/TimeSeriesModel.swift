@@ -9,7 +9,7 @@
 import Foundation
 
 struct MTimeSeriesValue {
-	let value: NSNumber
+	let value: AnyHashable
 	let timestamp: Date
 }
 
@@ -18,34 +18,56 @@ struct MTimeSeriesMeanValue {
 }
 
 class TimeSeriesValue: Hashable, Identifiable {
-	let num: NSNumber
-	var numString: String {
-		let formatter = NumberFormatter()
-		formatter.numberStyle = .decimal
-		formatter.locale = Locale(identifier: "en")
-		return formatter.string(from: num) ?? ""
+	let value: AnyHashable
+	var valueString: String {
+		if let num = value as? NSNumber {
+			let formatter = NumberFormatter()
+			formatter.numberStyle = .decimal
+			formatter.locale = Locale(identifier: "en")
+			return formatter.string(from: num) ?? ""
+		}
+		else if let bool = value as? Bool {
+			return "\(bool)"
+		}
+		else if let s = value as? String {
+			return s
+		}
+		else {
+			return "unknown type"
+		}
 	}
 
 	let date: Date
 	let dateString: String
 	
-	init(value num: NSNumber, at date: Date, dateFormatted: String) {
-		self.num = num
+	init(value: AnyHashable, at date: Date, dateFormatted: String) {
+		self.value = value
 		self.date = date
 		self.dateString = dateFormatted
 	}
 	
 	static func == (lhs: TimeSeriesValue, rhs: TimeSeriesValue) -> Bool {
-		return lhs.num == rhs.num
+		return lhs.value == rhs.value
 	}
 	
 	func hash(into hasher: inout Hasher) {
-		hasher.combine(num)
+		hasher.combine(value)
 	}
 }
 
 class DiagramPath: Hashable, Identifiable {
 	let path: String
+	var lastSegment: String {
+		if let idx = path.lastIndex(of: ".") {
+			let start = path.index(after: idx)
+			return String(path[start...])
+		}
+		return path
+	}
+	
+	var hasSubpath: Bool {
+		return path.contains(".")
+	}
 	
 	init(_ path: String) {
 		self.path = path
