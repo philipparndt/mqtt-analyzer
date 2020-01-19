@@ -1,5 +1,7 @@
 # mqtt-analyzer
 
+<a href="https://apps.apple.com/de/app/mqttanalyzer/id1493015317?mt=8">![Download on AppStore](https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-01-07&kind=iossoftware&bubble=apple_music)</a>
+
 MQTTAnalyzer is an iOS App that allows to connect to your MQTT Broker and
 subscribe to a topic. It is written in Swift using SwiftUI.
 
@@ -22,4 +24,3 @@ Features:
 ![Screenshot 5](screenshot-5.png)
 ![Screenshot 5](screenshot-6.png)
 
-<a href="https://apps.apple.com/de/app/mqttanalyzer/id1493015317?mt=8">![Download on AppStore](https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-01-07&kind=iossoftware&bubble=apple_music)</a>
