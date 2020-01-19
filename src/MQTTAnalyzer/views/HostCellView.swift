@@ -11,8 +11,7 @@ import SwiftUI
 struct HostCellView: View {
 	@EnvironmentObject var model: RootModel
 	@ObservedObject var host: Host
-
-	var messageModel: MessageModel
+	@ObservedObject var messageModel: MessageModel
 	
 	@State var editHostPresented = false
 	
@@ -35,8 +34,12 @@ struct HostCellView: View {
 				}
 				
 				Spacer()
-
+				
 				if host.connected || host.connecting {
+					Text("\(messageModel.messageCount)")
+						.font(.system(size: 14, design: .monospaced))
+						.foregroundColor(.secondary)
+					
 					Image(systemName: "circle.fill")
 						.font(.subheadline)
 						.foregroundColor(connectionColor)
