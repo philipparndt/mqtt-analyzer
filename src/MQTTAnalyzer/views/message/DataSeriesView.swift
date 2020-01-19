@@ -39,15 +39,15 @@ struct DataSeriesCellView: View {
 				
 				Spacer()
 				
-				Text(lastValue().stringValue)
+				Text(lastValue())
 					.font(.subheadline)
 					.foregroundColor(.gray)
 			}
 		}
 	}
 	
-	func lastValue() -> NSNumber {
+	func lastValue() -> String {
 		return messagesByTopic.getTimeSeriesLastValue(path)
-			.map { $0.num } ?? 0
+			.map { $0.valueString } ?? "<no value>"
 	}
 }
