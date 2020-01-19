@@ -53,4 +53,3 @@ struct DataSeriesCell: View {
 		}
 	}
 }
-

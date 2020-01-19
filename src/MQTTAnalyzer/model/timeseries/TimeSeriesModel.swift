@@ -57,6 +57,17 @@ class TimeSeriesValue: Hashable, Identifiable {
 
 class DiagramPath: Hashable, Identifiable {
 	let path: String
+	var lastSegment: String {
+		if let idx = path.lastIndex(of: ".") {
+			let start = path.index(after: idx)
+			return String(path[start...])
+		}
+		return path
+	}
+	
+	var hasSubpath: Bool {
+		return path.contains(".")
+	}
 	
 	init(_ path: String) {
 		self.path = path

@@ -77,7 +77,7 @@ class MessagesByTopic: Identifiable, ObservableObject {
 	}
 	
 	func getDiagrams() -> [DiagramPath] {
-		return Array(timeSeries.dict.keys)
+		return Array(timeSeries.dict.keys).sorted { $0.path < $1.path }
 	}
 	
 	func hasDiagrams() -> Bool {
