@@ -20,6 +20,13 @@ class Host: Identifiable, Hashable, ObservableObject {
 	var port: Int32 = 1883
 	var topic: String = "#"
 	
+	var clientID = Host.randomClientId()
+	
+	var computeClientID: String {
+		let trimmed = clientID.trimmingCharacters(in: [" "])
+		return trimmed.isBlank ? Host.randomClientId() : trimmed
+	}
+	
 	var aliasOrHost: String {
 		return alias.isBlank ? hostname : alias
 	}

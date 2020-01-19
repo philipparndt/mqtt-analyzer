@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var syncEngine: SyncEngine?
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		
+		DataMigration.initMigration()
 		syncEngine = SyncEngine(objects: [
 				SyncObject<HostSetting>()
 			], databaseScope: .private)
@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		return true
 	}
-
+	
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 		
 		// swiftlint:disable line_length

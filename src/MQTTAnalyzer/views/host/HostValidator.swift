@@ -24,4 +24,13 @@ public class HostFormValidator {
 		return parser.parse(port).get()
 		.map { (int: Int) -> Int32 in Int32(int) }
 	}
+	
+	public class func validateClientID(id: String, random: Bool) -> String? {
+		if random {
+			return id
+		}
+		
+		let parser = CharacterParser.pattern("a-zA-Z0-9.").plus().trim().flatten().end()
+		return parser.parse(id).get()
+	}
 }

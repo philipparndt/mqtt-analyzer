@@ -17,12 +17,16 @@ class HostsModelPersistence {
 	
 	init(model: HostsModel) {
 		self.model = model
-		self.realm = try! Realm()
+		self.realm = HostsModelPersistence.initRelam()
+	}
+	
+	class func initRelam() -> Realm {
+		return try! Realm()
 	}
 	
 	func create(_ host: Host) {
 		let setting = transform(host)
-
+		
 		let realm = try! Realm()
 		try! realm.write {
 			realm.add(setting)
@@ -42,6 +46,7 @@ class HostsModelPersistence {
 				setting.auth = host.auth
 				setting.username = host.username
 				setting.password = host.password
+				setting.clientID = host.clientID
 			}
 		}
 	}
@@ -89,6 +94,7 @@ class HostsModelPersistence {
 		result.auth = host.auth
 		result.username = host.username
 		result.password = host.password
+		result.clientID = host.clientID
 		return result
 	}
 	
@@ -103,6 +109,7 @@ class HostsModelPersistence {
 		result.auth = host.auth
 		result.username = host.username
 		result.password = host.password
+		result.clientID = host.clientID
 		return result
 	}
 }

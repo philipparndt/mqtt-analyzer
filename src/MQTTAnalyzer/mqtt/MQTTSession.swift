@@ -42,7 +42,7 @@ class MQTTSession {
 		host.connecting = true
 		connectionFailed = nil
 		
-		let mqttConfig = MQTTConfig(clientId: clientID(), host: host.hostname, port: host.port, keepAlive: 60)
+		let mqttConfig = MQTTConfig(clientId: host.computeClientID, host: host.hostname, port: host.port, keepAlive: 60)
 		mqttConfig.onConnectCallback = onConnect
 		mqttConfig.onDisconnectCallback = onDisconnect
 		mqttConfig.onMessageCallback = onMessage
@@ -220,29 +220,5 @@ class MQTTSession {
 	
 	func post(message: Message) {
 		mqtt?.publish(string: message.data, topic: message.topic, qos: message.qos, retain: message.retain)
-	}
-	
-	// MARK: - Utilities
-	
-	func clientID() -> String {
-		let userDefaults = UserDefaults.standard
-		let clientIDPersistenceKey = "clientID"
-		let clientID: String
-
-		if let savedClientID = userDefaults.object(forKey: clientIDPersistenceKey) as? String {
-			clientID = savedClientID
-		} else {
-			clientID = "MQTTAnalyzer_" + randomStringWithLength(10)
-			userDefaults.set(clientID, forKey: clientIDPersistenceKey)
-			userDefaults.synchronize()
-		}
-
-		return clientID + randomStringWithLength(4)
-	}
-	
-	// http://stackoverflow.com/questions/26845307/generate-random-alphanumeric-string-in-swift
-	func randomStringWithLength(_ length: Int) -> String {
-		let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-		return String((0..<length).map { _ in letters.randomElement()! })
 	}
 }

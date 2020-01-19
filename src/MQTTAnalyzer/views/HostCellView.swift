@@ -69,7 +69,8 @@ struct HostCellView: View {
 							 topic: host.topic,
 							 qos: host.qos,
 							 username: host.username,
-							 password: host.password)
+							 password: host.password,
+							 clientID: host.clientID)
 	}
 	
 	func editHost() {

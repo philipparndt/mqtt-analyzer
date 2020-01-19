@@ -18,6 +18,8 @@ struct HostFormModel {
 	
 	var username: String = ""
 	var password: String = ""
+	
+	var clientID = Host.randomClientId()
 }
 
 struct EditHostFormView: View {
@@ -29,6 +31,7 @@ struct EditHostFormView: View {
 			ServerFormView(host: $host)
 			AuthFormView(host: $host, auth: $auth)
 			TopicFormView(host: $host)
+			ClientIDFormView(host: $host)
 		}.keyboardResponsive()
 	}
 }
@@ -131,6 +134,28 @@ struct TopicFormView: View {
 				Spacer()
 				
 				QOSPicker(qos: $host.qos)
+			}
+		}
+	}
+}
+
+// MARK: ClientID
+struct ClientIDFormView: View {
+	@Binding var host: HostFormModel
+	
+	var body: some View {
+		return Section(header: Text("Client ID")) {
+			HStack {
+				Text("ID")
+					.font(.headline)
+				
+				Spacer()
+			
+				TextField("Client ID", text: $host.clientID)
+					.disableAutocorrection(true)
+					.autocapitalization(.none)
+					.multilineTextAlignment(.trailing)
+					.font(.body)
 			}
 		}
 	}

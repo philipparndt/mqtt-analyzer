@@ -57,6 +57,7 @@
 		22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E1238149FD00D72BD6 /* StringSizeExtension.swift */; };
 		22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E323814CEF00D72BD6 /* JsonFormatString.swift */; };
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
+		22F6057B23D4911000E6338B /* DataMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6057A23D4911000E6338B /* DataMigration.swift */; };
 		22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE623C24A5800422BFF /* StringUtils.swift */; };
 		22F8BEE923C31C3B00422BFF /* MQTTSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE823C31C3B00422BFF /* MQTTSession.swift */; };
 		22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEEB23C7871F00422BFF /* LoginDialog.swift */; };
@@ -151,6 +152,7 @@
 		22E469E1238149FD00D72BD6 /* StringSizeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSizeExtension.swift; sourceTree = "<group>"; };
 		22E469E323814CEF00D72BD6 /* JsonFormatString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonFormatString.swift; sourceTree = "<group>"; };
 		22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesModel.swift; sourceTree = "<group>"; };
+		22F6057A23D4911000E6338B /* DataMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigration.swift; sourceTree = "<group>"; };
 		22F8BEE623C24A5800422BFF /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		22F8BEE823C31C3B00422BFF /* MQTTSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTSession.swift; sourceTree = "<group>"; };
 		22F8BEEB23C7871F00422BFF /* LoginDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDialog.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				223EF0052387084D002ADF3E /* HostSetting.swift */,
 				229005CE237E7A8600D5A706 /* HostModelPersistence.swift */,
 				22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */,
+				22F6057A23D4911000E6338B /* DataMigration.swift */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				223EF0062387084D002ADF3E /* HostSetting.swift in Sources */,
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
 				22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */,
+				22F6057B23D4911000E6338B /* DataMigration.swift in Sources */,
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
 				2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */,

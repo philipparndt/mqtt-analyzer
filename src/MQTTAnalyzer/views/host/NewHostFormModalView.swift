@@ -56,6 +56,7 @@ struct NewHostFormModalView: View {
 		newHost.auth = self.auth
 		newHost.port = port!
 		newHost.topic = host.topic
+		newHost.clientID = host.clientID
 		
 		if self.auth {
 			newHost.username = host.username

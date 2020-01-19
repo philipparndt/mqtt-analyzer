@@ -24,10 +24,18 @@ class HostSetting: Object {
 	@objc dynamic var username: String = ""
 	@objc dynamic var password: String = ""
 
+	@objc dynamic var clientID = Host.randomClientId()
+
 	@objc dynamic var isDeleted = false
 	
 	override class func primaryKey() -> String? {
 		return "id"
+	}
+}
+
+extension Host {
+	static func randomClientId() -> String {
+		return "mqtt-analyzer-\(String.random(length: 8))"
 	}
 }
 

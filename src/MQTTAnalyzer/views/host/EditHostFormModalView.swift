@@ -37,6 +37,7 @@ struct EditHostFormModalView: View {
 		original.auth = self.auth
 		original.port = Int32(host.port) ?? 1883
 		original.topic = host.topic
+		original.clientID = host.clientID
 		
 		if self.auth {
 			original.username = host.username
