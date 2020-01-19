@@ -65,6 +65,14 @@ class DiagramPath: Hashable, Identifiable {
 		return path
 	}
 	
+	var parentPath: String {
+		if let idx = path.lastIndex(of: ".") {
+			let end = path.index(before: idx)
+			return String(path[...end])
+		}
+		return ""
+	}
+	
 	var hasSubpath: Bool {
 		return path.contains(".")
 	}

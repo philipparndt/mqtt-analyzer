@@ -30,29 +30,33 @@ struct DataSeriesCellView: View {
 
 	var body: some View {
 		NavigationLink(destination: DataSeriesDetailsView(path: path, messagesByTopic: messagesByTopic)) {
-			VStack {
-				HStack {
-					Image(systemName: "chart.bar")
-						.font(.subheadline)
-						.foregroundColor(.blue)
-
-					Text(path.lastSegment)
-					
-					Spacer()
-					
-					Text(lastValue())
-						.font(.subheadline)
-						.foregroundColor(.gray)
-				}
+			HStack {
+				Image(systemName: "chart.bar")
+					.font(.subheadline)
+					.foregroundColor(.blue)
 				
-				if path.hasSubpath {
+				VStack {
 					HStack {
-						Text(path.path).font(.footnote).foregroundColor(.gray)
+						Text(path.lastSegment)
 						Spacer()
 					}
+					
+					if path.hasSubpath {
+						HStack {
+							Text(path.parentPath)
+								.font(.footnote)
+								.foregroundColor(.gray)
+							Spacer()
+						}
+					}
 				}
+				
+				Spacer()
+				
+				Text(lastValue())
+					.font(.subheadline)
+					.foregroundColor(.gray)
 			}
-			
 		}
 	}
 	
