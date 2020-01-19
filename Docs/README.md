@@ -20,5 +20,6 @@ Features:
 ![Screenshot 3](screenshot-3.png)
 ![Screenshot 4](screenshot-4.png)
 ![Screenshot 5](screenshot-5.png)
+![Screenshot 5](screenshot-6.png)
 
 <a href="https://apps.apple.com/de/app/mqttanalyzer/id1493015317?mt=8">![Download on AppStore](https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-01-07&kind=iossoftware&bubble=apple_music)</a>
