@@ -199,7 +199,6 @@ struct LimitsFormView: View {
 	}
 }
 
-
 // MARK: Auth
 struct AuthFormView: View {
 	@Binding var host: HostFormModel
@@ -208,7 +207,7 @@ struct AuthFormView: View {
 	var body: some View {
 		return Section(header: Text("Authentication")) {
 			Toggle(isOn: $auth) {
-				Text("Use auth")
+				Text("User/password")
 					.font(.headline)
 			}
 			
@@ -244,8 +243,8 @@ struct AuthFormView: View {
 				.padding()
 					.font(.body)
 					.foregroundColor(.white)
-					.background(Color.blue)
-				
+					.background(Color.blue.opacity(0.7))
+					.cornerRadius(10)
 			}
 		}
 	}
