@@ -42,6 +42,9 @@ class MQTTSession {
 		host.connecting = true
 		connectionFailed = nil
 		
+		model.limitMessagesPerBatch = host.limitMessagesBatch
+		model.limitTopics = host.limitTopic
+		
 		let mqttConfig = MQTTConfig(clientId: host.computeClientID, host: host.hostname, port: host.port, keepAlive: 60)
 		mqttConfig.onConnectCallback = onConnect
 		mqttConfig.onDisconnectCallback = onDisconnect

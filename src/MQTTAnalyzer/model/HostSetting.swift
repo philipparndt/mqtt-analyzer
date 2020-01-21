@@ -26,6 +26,9 @@ class HostSetting: Object {
 
 	@objc dynamic var clientID = Host.randomClientId()
 
+	@objc dynamic var limitTopic = 250
+	@objc dynamic var limitMessagesBatch = 1000
+	
 	@objc dynamic var isDeleted = false
 	
 	override class func primaryKey() -> String? {

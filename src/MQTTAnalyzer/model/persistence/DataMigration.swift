@@ -12,9 +12,9 @@ import RealmSwift
 class DataMigration {
 	class func initMigration() {
 		let configuration = Realm.Configuration(
-			schemaVersion: 2,
+			schemaVersion: 3,
 			migrationBlock: { migration, oldSchemaVersion in
-				if oldSchemaVersion < 2 {
+				if oldSchemaVersion < 3 {
 					migration.enumerateObjects(ofType: HostSetting.className()) { _, newObject in
 						newObject!["clientID"] = Host.randomClientId()
 					}

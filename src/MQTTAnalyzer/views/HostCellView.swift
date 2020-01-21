@@ -70,7 +70,9 @@ struct HostCellView: View {
 							 qos: host.qos,
 							 username: host.username,
 							 password: host.password,
-							 clientID: host.clientID)
+							 clientID: host.clientID,
+							 limitTopic: "\(host.limitTopic)",
+							 limitMessagesBatch: "\(host.limitMessagesBatch)")
 	}
 	
 	func editHost() {

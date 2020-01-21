@@ -19,7 +19,10 @@ class Host: Identifiable, Hashable, ObservableObject {
 	var hostname: String = ""
 	var port: Int32 = 1883
 	var topic: String = "#"
-	
+
+	var limitTopic = 250
+	var limitMessagesBatch = 1000
+
 	var clientID = Host.randomClientId()
 	
 	var computeClientID: String {

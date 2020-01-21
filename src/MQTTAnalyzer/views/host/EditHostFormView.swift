@@ -20,6 +20,9 @@ struct HostFormModel {
 	var password: String = ""
 	
 	var clientID = Host.randomClientId()
+	
+	var limitTopic = "250"
+	var limitMessagesBatch = "1000"
 }
 
 struct EditHostFormView: View {
@@ -32,6 +35,7 @@ struct EditHostFormView: View {
 			AuthFormView(host: $host, auth: $auth)
 			TopicFormView(host: $host)
 			ClientIDFormView(host: $host)
+			LimitsFormView(host: $host)
 		}.keyboardResponsive()
 	}
 }
@@ -160,6 +164,41 @@ struct ClientIDFormView: View {
 		}
 	}
 }
+
+struct LimitsFormView: View {
+	@Binding var host: HostFormModel
+	
+	var body: some View {
+		return Section(header: Text("Limits")) {
+			HStack {
+				Text("Topics")
+					.font(.headline)
+				
+				Spacer()
+			
+				TextField("250", text: $host.limitTopic)
+					.disableAutocorrection(true)
+					.autocapitalization(.none)
+					.multilineTextAlignment(.trailing)
+					.font(.body)
+			}
+			
+			HStack {
+				Text("Message per batch")
+					.font(.headline)
+				
+				Spacer()
+			
+				TextField("1000", text: $host.limitMessagesBatch)
+					.disableAutocorrection(true)
+					.autocapitalization(.none)
+					.multilineTextAlignment(.trailing)
+					.font(.body)
+			}
+		}
+	}
+}
+
 
 // MARK: Auth
 struct AuthFormView: View {

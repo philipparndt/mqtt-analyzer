@@ -47,6 +47,8 @@ class HostsModelPersistence {
 				setting.username = host.username
 				setting.password = host.password
 				setting.clientID = host.clientID
+				setting.limitTopic = host.limitTopic
+				setting.limitMessagesBatch = host.limitMessagesBatch
 			}
 		}
 	}
@@ -95,6 +97,8 @@ class HostsModelPersistence {
 		result.username = host.username
 		result.password = host.password
 		result.clientID = host.clientID
+		result.limitTopic = host.limitTopic
+		result.limitMessagesBatch = host.limitMessagesBatch
 		return result
 	}
 	
@@ -110,6 +114,8 @@ class HostsModelPersistence {
 		result.username = host.username
 		result.password = host.password
 		result.clientID = host.clientID
+		result.limitTopic = host.limitTopic
+		result.limitMessagesBatch = host.limitMessagesBatch
 		return result
 	}
 }

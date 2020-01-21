@@ -38,6 +38,8 @@ struct EditHostFormModalView: View {
 		original.port = Int32(host.port) ?? 1883
 		original.topic = host.topic
 		original.clientID = host.clientID
+		original.limitTopic = Int(host.limitTopic) ?? 250
+		original.limitMessagesBatch = Int(host.limitMessagesBatch) ?? 1000
 		
 		if self.auth {
 			original.username = host.username
