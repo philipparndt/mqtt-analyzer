@@ -79,13 +79,13 @@ struct ReconnectView: View {
 					imageName: "exclamationmark.octagon.fill")
 				}
 			}
-			else if model.topicLimit {
+			else if model.topicLimit && !host.pause {
 				HStack {
 					FillingText(text: "Topic limit exceeded.\nReduce the subscription topic!",
 					imageName: "exclamationmark.octagon.fill")
 				}
 			}
-			else if model.messageLimit {
+			else if model.messageLimit && !host.pause {
 				HStack {
 					FillingText(text: "Message limit exceeded.\nReduce the subscription topic!",
 					imageName: "exclamationmark.octagon.fill")
