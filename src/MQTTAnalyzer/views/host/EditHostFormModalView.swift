@@ -51,6 +51,7 @@ struct EditHostFormModalView: View {
 		}
 		
 		root.persistence.update(original)
+		closeHandler()
 	}
 	
 	func cancel() {

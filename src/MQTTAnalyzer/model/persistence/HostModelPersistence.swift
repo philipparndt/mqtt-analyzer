@@ -77,12 +77,13 @@ class HostsModelPersistence {
 	}
 	
 	private func pushModel(settings: Results<HostSetting>) {
-		self.model.hosts = []
-		
 		let hosts: [Host] = settings
 		.filter { !$0.isDeleted }
 		.map { self.transform($0) }
-		self.model.hosts = hosts
+		
+		DispatchQueue.main.async {
+			self.model.hosts = hosts
+		}
 	}
 	
 	private func transform(_ host: HostSetting) -> Host {
