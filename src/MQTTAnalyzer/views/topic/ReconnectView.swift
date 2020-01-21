@@ -38,7 +38,10 @@ struct ReconnectView: View {
 	
 	var foregroundColor: Color {
 		if host.connected {
-			if model.topicLimit || model.messageLimit {
+			if host.pause {
+				return .white
+			}
+			else if model.topicLimit || model.messageLimit {
 				return .black
 			}
 			
@@ -51,7 +54,10 @@ struct ReconnectView: View {
 	
 	var backgroundColor: Color {
 		if host.connected {
-			if model.topicLimit || model.messageLimit {
+			if host.pause {
+				return .gray
+			}
+			else if model.topicLimit || model.messageLimit {
 				return .yellow
 			}
 			
@@ -64,7 +70,7 @@ struct ReconnectView: View {
 			return .red
 		}
 	}
-	
+
 	var body: some View {
 		Group {
 			if host.needsAuth {
@@ -86,7 +92,12 @@ struct ReconnectView: View {
 				}
 			}
 			else if host.connected {
-				// Do nothing
+				if host.pause {
+					Button(action: pause) {
+						FillingText(text: "Connected (paused)",
+									imageName: "play.fill")
+					}
+				}
 			}
 			else if host.connecting {
 				HStack {
@@ -96,12 +107,6 @@ struct ReconnectView: View {
 				Button(action: reconnect) {
 					FillingText(text: host.connectionMessage ?? "Disconnected",
 								imageName: "xmark.octagon.fill")
-				}
-			}
-			else if host.pause {
-				Button(action: pause) {
-					FillingText(text: "Connected (paused)",
-								imageName: "play.fill")
 				}
 			}
 		}
