@@ -28,14 +28,23 @@ struct HostFormModel {
 struct EditHostFormView: View {
 	@Binding var host: HostFormModel
 	@Binding var auth: Bool
+	@State var advanced = false
 	
 	var body: some View {
 		Form {
 			ServerFormView(host: $host)
 			AuthFormView(host: $host, auth: $auth)
 			TopicFormView(host: $host)
-			ClientIDFormView(host: $host)
-			LimitsFormView(host: $host)
+			
+			Toggle(isOn: $advanced) {
+				Text("More settings")
+					.font(.headline)
+			}
+			
+			if self.advanced {
+				ClientIDFormView(host: $host)
+				LimitsFormView(host: $host)
+			}
 		}.keyboardResponsive()
 	}
 }
