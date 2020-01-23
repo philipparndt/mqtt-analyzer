@@ -55,7 +55,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		else if session?.connectionAlive ?? false {
 			return
 		}
-		else if session?.connected ?? false {
+		else if session?.connectionState.connected ?? false {
 			reconnect(host: host)
 			return
 		}

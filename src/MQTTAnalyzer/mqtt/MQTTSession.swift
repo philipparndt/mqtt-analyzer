@@ -10,22 +10,34 @@ import Foundation
 import Combine
 import Moscapsule
 
+struct ConnectionState {
+	var connectionFailed: String?
+	var connected: Bool = false
+	var connecting: Bool = false
+
+	var isConnecting: Bool {
+		!self.connected && self.connectionFailed == nil && self.connecting
+	}
+}
+
 class MQTTSession {
 	static var sessionNum = 0
 	let sessionNum: Int
 	let model: MessageModel
 	let host: Host
 	var mqtt: MQTTClient?
+	
+	var connectionState = ConnectionState()
+	
+	var connectionAlive: Bool {
+		self.mqtt != nil || connectionState.connected
+	}
+	
 	let messageSubject = PassthroughSubject<MQTTMessage, Never>()
 	private var messageSubjectCancellable: Cancellable? {
 		didSet {
 			oldValue?.cancel()
 		}
-	}
-	var connectionFailed: String?
-	var connected: Bool = false
-	var connectionAlive: Bool {
-		self.mqtt != nil || connected
 	}
 	
 	init(host: Host, model: MessageModel) {
@@ -40,7 +52,8 @@ class MQTTSession {
 		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topic)")
 		host.connectionMessage = nil
 		host.connecting = true
-		connectionFailed = nil
+		connectionState.connectionFailed = nil
+		connectionState.connecting = true
 		
 		model.limitMessagesPerBatch = host.limitMessagesBatch
 		model.limitTopics = host.limitTopic
@@ -87,7 +100,7 @@ class MQTTSession {
 	}
 	
 	func waitDisconnected() {
-		let result = waitFor(predicate: { !self.connected })
+		let result = waitFor(predicate: { !self.connectionState.connected })
 
 		if result == .success {
 			return
@@ -104,7 +117,7 @@ class MQTTSession {
 
 		DispatchQueue.global().async {
 			var i = 10
-			while !self.connected && i > 0 && self.connectionFailed == nil {
+			while self.connectionState.isConnecting && i > 0 {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
 				sleep(1)
 				DispatchQueue.main.async {
@@ -116,7 +129,7 @@ class MQTTSession {
 		}
 
 		group.notify(queue: .main) {
-			if let errorMessage = self.connectionFailed {
+			if let errorMessage = self.connectionState.connectionFailed {
 				self.setDisconnected()
 				self.host.connectionMessage = errorMessage
 				return
@@ -146,9 +159,11 @@ class MQTTSession {
 	}
 	
 	func setDisconnected() {
-		connected = false
+		connectionState.connected = false
+		connectionState.connecting = false
+		
 		DispatchQueue.main.async {
-				self.host.connecting = false
+			self.host.connecting = false
 		}
 		messageSubjectCancellable = nil
 		mqtt = nil
@@ -156,7 +171,7 @@ class MQTTSession {
 	
 	func onConnect(_ returnCode: ReturnCode) {
 		print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topic)")
-		connected = true
+		connectionState.connected = true
 		NSLog("Connected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {
 			self.host.connecting = false
@@ -171,7 +186,7 @@ class MQTTSession {
 		
  		if returnCode == .mosq_conn_refused {
 			NSLog("Connection refused")
-			connectionFailed = "Connection refused"
+			connectionState.connectionFailed = "Connection refused"
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
@@ -179,7 +194,7 @@ class MQTTSession {
 			}
 		}
 		else {
-			connectionFailed = returnCode.description
+			connectionState.connectionFailed = returnCode.description
 			DispatchQueue.main.async {
 				self.host.connectionMessage = returnCode.description
 			}
