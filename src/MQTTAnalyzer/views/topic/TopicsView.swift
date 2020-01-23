@@ -107,7 +107,7 @@ struct TopicsView: View {
 	
 	func login() {
 		dialogPresented = false
-		self.rootModel.connect(to: self.host)
+		rootModel.connect(to: self.host)
 	}
 	
 	func selectMessage(message: Message) {
