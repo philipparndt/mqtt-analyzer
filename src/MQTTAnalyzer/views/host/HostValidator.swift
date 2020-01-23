@@ -19,9 +19,21 @@ public class HostFormValidator {
 		return parser.parse(hostname).get()
 	}
 	
+	public class func validateMaxTopic(value: String) -> Int32? {
+		return validateInt(value: value, max: 2500)
+	}
+	
+	public class func validateMaxMessagesBatch(value: String) -> Int32? {
+		return validateInt(value: value, max: 2500)
+	}
+	
 	public class func validatePort(port: String) -> Int32? {
-		let parser = NumbersParser.int(from: 0, to: 65535).trim().end()
-		return parser.parse(port).get()
+		return validateInt(value: port, max: 65535)
+	}
+	
+	public class func validateInt(value: String, max: Int) -> Int32? {
+		let parser = NumbersParser.int(from: 0, to: max).trim().end()
+		return parser.parse(value).get()
 		.map { (int: Int) -> Int32 in Int32(int) }
 	}
 	

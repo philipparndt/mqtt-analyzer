@@ -17,6 +17,13 @@ struct EditHostFormModalView: View {
 	
 	@State var host: HostFormModel
 	@State var auth: Bool = false
+	
+	var disableSave: Bool {
+		return HostFormValidator.validateHostname(name: host.hostname) == nil
+			|| HostFormValidator.validatePort(port: host.port) == nil
+			|| HostFormValidator.validateMaxTopic(value: host.limitTopic) == nil
+			|| HostFormValidator.validateMaxMessagesBatch(value: host.limitMessagesBatch) == nil
+	}
 
 	var body: some View {
 		NavigationView {
@@ -25,7 +32,7 @@ struct EditHostFormModalView: View {
 				.navigationBarTitle(Text("Edit host"))
 				.navigationBarItems(
 					leading: Button(action: cancel) { Text("Cancel") },
-					trailing: Button(action: save) { Text("Save") }
+					trailing: Button(action: save) { Text("Save") }.disabled(disableSave)
 			)
 		}
 	}

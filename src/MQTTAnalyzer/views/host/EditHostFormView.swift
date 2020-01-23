@@ -177,9 +177,19 @@ struct ClientIDFormView: View {
 struct LimitsFormView: View {
 	@Binding var host: HostFormModel
 	
+	var limitTopicInvalid: Bool {
+		return HostFormValidator.validateMaxTopic(value: host.limitTopic) == nil
+	}
+	
+	var limitMessagesBatchInvalid: Bool {
+		return HostFormValidator.validateMaxMessagesBatch(value: host.limitMessagesBatch) == nil
+	}
+	
 	var body: some View {
 		return Section(header: Text("Limits")) {
 			HStack {
+				FormFieldInvalidMark(invalid: limitTopicInvalid)
+				
 				Text("Topics")
 					.font(.headline)
 				
@@ -193,6 +203,8 @@ struct LimitsFormView: View {
 			}
 			
 			HStack {
+				FormFieldInvalidMark(invalid: limitMessagesBatchInvalid)
+				
 				Text("Message per batch")
 					.font(.headline)
 				
