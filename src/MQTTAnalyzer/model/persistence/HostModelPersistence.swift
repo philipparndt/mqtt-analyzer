@@ -41,6 +41,7 @@ class HostsModelPersistence {
 			try! realm.write {
 				setting.alias = host.alias
 				setting.hostname = host.hostname
+				setting.port = host.port
 				setting.topic = host.topic
 				setting.qos = host.qos
 				setting.auth = host.auth
@@ -92,6 +93,7 @@ class HostsModelPersistence {
 		result.ID = host.id
 		result.alias = host.alias
 		result.hostname = host.hostname
+		result.port = host.port
 		result.topic = host.topic
 		result.qos = host.qos
 		result.auth = host.auth
@@ -109,6 +111,7 @@ class HostsModelPersistence {
 		result.id = host.ID
 		result.alias = host.alias
 		result.hostname = host.hostname
+		result.port = host.port
 		result.topic = host.topic
 		result.qos = host.qos
 		result.auth = host.auth
