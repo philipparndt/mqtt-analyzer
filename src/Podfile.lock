@@ -12,6 +12,7 @@ PODS:
   - RealmSwift (4.3.0):
     - Realm (= 4.3.0)
   - swift-petitparser (1.2.0)
+  - SwiftLint (0.39.1)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
@@ -21,15 +22,17 @@ DEPENDENCIES:
   - OpenSSL-Universal
   - RealmSwift
   - swift-petitparser (~> 1.2.0)
+  - SwiftLint
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - IceCream
     - OpenSSL-Universal
     - Realm
     - RealmSwift
     - swift-petitparser
+    - SwiftLint
     - SwiftyJSON
 
 EXTERNAL SOURCES:
@@ -54,8 +57,9 @@ SPEC CHECKSUMS:
   Realm: 9357c3589555793e1860a7104a7412bca4a48d99
   RealmSwift: 402f1e379a8ef82c635313037b043f0f06de880c
   swift-petitparser: cf1bf3d9f9e24de982c0f83406d45b5b9f6a54c6
+  SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 59feadce15a6c073cedcd917a83a63784d26b9d1
+PODFILE CHECKSUM: 1fd13166f868a3c96f3ff06772edf436f2a75f32
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.8.4

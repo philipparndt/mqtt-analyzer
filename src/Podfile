@@ -19,6 +19,8 @@ target 'MQTTAnalyzer' do
   pod 'swift-petitparser', '~> 1.2.0'
   
   pod 'SwiftyJSON', '~> 4.0'
+
+  pod 'SwiftLint'
   
   target 'MQTTAnalyzerTests' do
 	inherit! :search_paths
