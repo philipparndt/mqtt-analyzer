@@ -498,8 +498,6 @@
 			dependencies = (
 			);
 			name = MQTTAnalyzer;
-			packageProductDependencies = (
-			);
 			productName = MQTTAnalyzer;
 			productReference = 2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */;
 			productType = "com.apple.product-type.application";
@@ -574,8 +572,6 @@
 				Base,
 			);
 			mainGroup = 2253F8C922C8C007007E35A2;
-			packageReferences = (
-			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
