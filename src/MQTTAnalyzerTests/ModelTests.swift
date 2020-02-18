@@ -122,14 +122,26 @@ class ModelTests: XCTestCase {
 	{"toggle": false}
 	""")
 		
-		let diagrams = messages.getDiagrams()
-		XCTAssertEqual(1, diagrams.count)
-		let only = diagrams[0]
-		XCTAssertEqual("toggle", only.path)
-		let series = messages.getTimeSeries(only)
-		XCTAssertEqual(1, series.count)
-		let onlyValue = series[0]
+		let onlyValue = messages.getTimeSeries(messages.getDiagrams()[0])[0]
 		XCTAssertFalse(onlyValue.value as! Bool)
+	}
+	
+	func testNumberPropertyInJSON() {
+		let (_, messages) = modelWithOneMessage(messageData: """
+		{"temperature": 22.1}
+		""")
+			
+		let onlyValue = messages.getTimeSeries(messages.getDiagrams()[0])[0]
+		XCTAssertEqual(22.1, onlyValue.value as! Double)
+	}
+	
+	func testStringPropertyInJSON() {
+		let (_, messages) = modelWithOneMessage(messageData: """
+		{"status": "offline"}
+		""")
+			
+		let onlyValue = messages.getTimeSeries(messages.getDiagrams()[0])[0]
+		XCTAssertEqual("offline", onlyValue.value as! String)
 	}
 
 }
