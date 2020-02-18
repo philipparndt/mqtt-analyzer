@@ -41,6 +41,22 @@ class ModelTests: XCTestCase {
 		XCTAssertEqual(10, messageModel.countMessages())
 	}
 	
+	func testMessagesNotAffectedByTopicLimit() {
+		let (model, host) = rootWithLocalhost()
+		let messageModel = model.getMessageModel(host)
+		messageModel.limitTopics = 10
+		
+		for _ in 0..<15 {
+			messageModel.append(message: Message(data: "text message",
+												 date: Date(),
+												 qos: 0,
+												 retain: false,
+												 topic: "topic"))
+		}
+		
+		XCTAssertEqual(15, messageModel.countMessages())
+	}
+	
 	func rootWithLocalhost() -> (RootModel, Host) {
 		let model = RootModel()
 		let hostsModel = model.hostsModel
