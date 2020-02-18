@@ -32,6 +32,7 @@
 		228104932381773100112F24 /* TopicCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104922381773100112F24 /* TopicCellView.swift */; };
 		228104952381779000112F24 /* TopicToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104942381779000112F24 /* TopicToolsView.swift */; };
 		228104982381796B00112F24 /* HostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104972381796B00112F24 /* HostCellView.swift */; };
+		228B069323FC318100E988D0 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228B069223FC318100E988D0 /* ModelTests.swift */; };
 		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
 		2291424923BF6ECE0086C251 /* KeyboardResponsiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424823BF6ECE0086C251 /* KeyboardResponsiveModifier.swift */; };
 		2291424C23BF78000086C251 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424B23BF78000086C251 /* AboutView.swift */; };
@@ -125,6 +126,7 @@
 		228104922381773100112F24 /* TopicCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCellView.swift; sourceTree = "<group>"; };
 		228104942381779000112F24 /* TopicToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicToolsView.swift; sourceTree = "<group>"; };
 		228104972381796B00112F24 /* HostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostCellView.swift; path = MQTTAnalyzer/views/HostCellView.swift; sourceTree = SOURCE_ROOT; };
+		228B069223FC318100E988D0 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/model/persistence/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
 		2291424823BF6ECE0086C251 /* KeyboardResponsiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponsiveModifier.swift; sourceTree = "<group>"; };
 		2291424B23BF78000086C251 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */,
 				2209C86D23B72184007C1D93 /* HostValidatorTests.swift */,
 				2253F8F122C8C008007E35A2 /* Info.plist */,
+				228B069223FC318100E988D0 /* ModelTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
 			sourceTree = "<group>";
@@ -779,6 +782,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				228B069323FC318100E988D0 /* ModelTests.swift in Sources */,
 				2209C86E23B72184007C1D93 /* HostValidatorTests.swift in Sources */,
 				2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */,
 			);
