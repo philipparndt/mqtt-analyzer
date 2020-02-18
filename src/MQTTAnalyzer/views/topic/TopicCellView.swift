@@ -61,7 +61,7 @@ struct TopicCellView: View {
 	}
 	
 	func messagePreview() -> String {
-		return messages.getFirst()
+		return messages.getRecent()
 	}
 	
 	func copyTopic() {
@@ -69,7 +69,7 @@ struct TopicCellView: View {
 	}
 	
 	func copyMessage() {
-		UIPasteboard.general.string = messages.getFirst()
+		UIPasteboard.general.string = messages.getRecent()
 	}
 	
 	func focus() {

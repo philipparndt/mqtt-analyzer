@@ -68,7 +68,7 @@ class MessagesByTopic: Identifiable, ObservableObject {
 		}
 	}
 	
-	func getFirst() -> String {
+	func getRecent() -> String {
 		return messages.isEmpty ? "<undef>" : messages[0].data
 	}
 	

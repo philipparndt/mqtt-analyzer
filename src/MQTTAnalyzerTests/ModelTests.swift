@@ -22,20 +22,23 @@ class ModelTests: XCTestCase {
 	}
 
 	func modelWithOneMessage(messageData: String) -> (RootModel, MessagesByTopic) {
+		return modelWithMessages(messageData: messageData)
+	}
+
+	func modelWithMessages(messageData: String...) -> (RootModel, MessagesByTopic) {
 		let (model, host) = rootWithLocalhost()
 		let messageModel = model.getMessageModel(host)
 
-		XCTAssertEqual(0, messageModel.countMessages())
-		messageModel.append(message: Message(data: messageData,
-											 date: Date(),
-											 qos: 0,
-											 retain: false,
-											 topic: "topic"))
-
-		XCTAssertEqual(1, messageModel.countMessages())
+		for data in messageData {
+			messageModel.append(message: Message(data: data,
+												 date: Date(),
+												 qos: 0,
+												 retain: false,
+												 topic: "topic"))
+		}
 		return (model, messageModel.messagesByTopic["topic"]!)
 	}
-	
+
 	func testAppendMessage() {
 		let (model, host) = rootWithLocalhost()
 		let messageModel = model.getMessageModel(host)
@@ -144,4 +147,9 @@ class ModelTests: XCTestCase {
 		XCTAssertEqual("offline", onlyValue.value as! String)
 	}
 
+	func testRecentMessage() {
+		let (_, messages) = modelWithMessages(messageData: "1st", "2nd")
+		
+		XCTAssertEqual("2nd", messages.getRecent())
+	}
 }
