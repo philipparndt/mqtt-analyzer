@@ -23,6 +23,8 @@ class ModelTests: XCTestCase {
 											 topic: "topic"))
 
 		XCTAssertEqual(1, messageModel.countMessages())
+		let message = messageModel.messagesByTopic["topic"]!.messages[0]
+		XCTAssertFalse(message.isJson())
 	}
 	
 	func testLimitTopics() {
@@ -65,6 +67,24 @@ class ModelTests: XCTestCase {
 		
 		hostsModel.hosts += [host]
 		return (model, host)
+	}
+	
+	func testJSONMessage() {
+		let (model, host) = rootWithLocalhost()
+		let messageModel = model.getMessageModel(host)
+
+		XCTAssertEqual(0, messageModel.countMessages())
+		messageModel.append(message: Message(data: """
+												{"toggle": true}
+												""",
+											 date: Date(),
+											 qos: 0,
+											 retain: false,
+											 topic: "topic"))
+
+		XCTAssertEqual(1, messageModel.countMessages())
+		let message = messageModel.messagesByTopic["topic"]!.messages[0]
+		XCTAssertTrue(message.isJson())
 	}
 	
 	func testWithqHostname() {
