@@ -10,6 +10,31 @@ import XCTest
 @testable import MQTTAnalyzer
 
 class ModelTests: XCTestCase {
+
+	func rootWithLocalhost() -> (RootModel, Host) {
+		let model = RootModel()
+		let hostsModel = model.hostsModel
+		let host = Host()
+		host.hostname = "localhost"
+		
+		hostsModel.hosts += [host]
+		return (model, host)
+	}
+
+	func modelWithOneMessage(messageData: String) -> (RootModel, MessagesByTopic) {
+		let (model, host) = rootWithLocalhost()
+		let messageModel = model.getMessageModel(host)
+
+		XCTAssertEqual(0, messageModel.countMessages())
+		messageModel.append(message: Message(data: messageData,
+											 date: Date(),
+											 qos: 0,
+											 retain: false,
+											 topic: "topic"))
+
+		XCTAssertEqual(1, messageModel.countMessages())
+		return (model, messageModel.messagesByTopic["topic"]!)
+	}
 	
 	func testAppendMessage() {
 		let (model, host) = rootWithLocalhost()
@@ -58,17 +83,7 @@ class ModelTests: XCTestCase {
 		
 		XCTAssertEqual(15, messageModel.countMessages())
 	}
-	
-	func rootWithLocalhost() -> (RootModel, Host) {
-		let model = RootModel()
-		let hostsModel = model.hostsModel
-		let host = Host()
-		host.hostname = "localhost"
 		
-		hostsModel.hosts += [host]
-		return (model, host)
-	}
-	
 	func testJSONMessage() {
 		let (model, host) = rootWithLocalhost()
 		let messageModel = model.getMessageModel(host)
@@ -86,18 +101,35 @@ class ModelTests: XCTestCase {
 		let message = messageModel.messagesByTopic["topic"]!.messages[0]
 		XCTAssertTrue(message.isJson())
 	}
-	
-	func testWithqHostname() {
-		XCTAssertEqual(HostFormValidator.validateHostname(name: "pisvr"), "pisvr")
+
+	func testBooleanTruePropInJSON() {
+		let (_, messages) = modelWithOneMessage(messageData: """
+	{"toggle": true}
+	""")
+		
+		let diagrams = messages.getDiagrams()
+		XCTAssertEqual(1, diagrams.count)
+		let only = diagrams[0]
+		XCTAssertEqual("toggle", only.path)
+		let series = messages.getTimeSeries(only)
+		XCTAssertEqual(1, series.count)
+		let onlyValue = series[0]
+		XCTAssertTrue(onlyValue.value as! Bool)
 	}
-	
-	func testWithIP() {
-		XCTAssertEqual(HostFormValidator.validateHostname(name: "10.0.0.1")!, "10.0.0.1")
-		XCTAssertEqual(HostFormValidator.validateHostname(name: " 10.0.0.1 ")!, "10.0.0.1")
+
+	func testBooleanFalsePropInJSON() {
+		let (_, messages) = modelWithOneMessage(messageData: """
+	{"toggle": false}
+	""")
+		
+		let diagrams = messages.getDiagrams()
+		XCTAssertEqual(1, diagrams.count)
+		let only = diagrams[0]
+		XCTAssertEqual("toggle", only.path)
+		let series = messages.getTimeSeries(only)
+		XCTAssertEqual(1, series.count)
+		let onlyValue = series[0]
+		XCTAssertFalse(onlyValue.value as! Bool)
 	}
-	
-	func testWithDomainName() {
-		XCTAssertEqual(HostFormValidator.validateHostname(name: "test.mosquitto.org"), "test.mosquitto.org")
-		XCTAssertEqual(HostFormValidator.validateHostname(name: "test.mosquitto.org  "), "test.mosquitto.org")
-	}
+
 }
