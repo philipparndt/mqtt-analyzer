@@ -152,4 +152,19 @@ class ModelTests: XCTestCase {
 		
 		XCTAssertEqual("2nd", messages.getRecent())
 	}
+	
+	func testJSONPath() {
+		let (_, messages) = modelWithOneMessage(messageData: """
+		{
+			"some": {
+				"toggle": true
+			}
+		}
+		""")
+			
+		let diagrams = messages.getDiagrams()
+		XCTAssertEqual(1, diagrams.count)
+		let only = diagrams[0]
+		XCTAssertEqual("some.toggle", only.path)
+	}
 }
