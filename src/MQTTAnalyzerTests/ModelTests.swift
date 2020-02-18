@@ -11,7 +11,7 @@ import XCTest
 
 class ModelTests: XCTestCase {
 	
-	func testModel() {
+	func testAppendMessage() {
 		let (model, host) = rootWithLocalhost()
 		let messageModel = model.getMessageModel(host)
 
@@ -20,9 +20,25 @@ class ModelTests: XCTestCase {
 											 date: Date(),
 											 qos: 0,
 											 retain: false,
-											 topic: "home"))
+											 topic: "topic"))
 
 		XCTAssertEqual(1, messageModel.countMessages())
+	}
+	
+	func testLimitTopics() {
+		let (model, host) = rootWithLocalhost()
+		let messageModel = model.getMessageModel(host)
+		messageModel.limitTopics = 10
+		
+		for i in 0...15 {
+			messageModel.append(message: Message(data: "text message",
+												 date: Date(),
+												 qos: 0,
+												 retain: false,
+												 topic: "topic/\(i)"))
+		}
+		
+		XCTAssertEqual(10, messageModel.countMessages())
 	}
 	
 	func rootWithLocalhost() -> (RootModel, Host) {
