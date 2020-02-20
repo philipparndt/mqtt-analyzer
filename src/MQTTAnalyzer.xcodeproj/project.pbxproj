@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
-		2209C86E23B72184007C1D93 /* HostValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86D23B72184007C1D93 /* HostValidatorTests.swift */; };
 		223EF0062387084D002ADF3E /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
 		223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
@@ -99,7 +98,6 @@
 		1C7F7D8A56B0E9F9E2F1B518 /* Pods-MQTTAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
 		2205E5E0238A7EE2001638DF /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
-		2209C86D23B72184007C1D93 /* HostValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidatorTests.swift; sourceTree = "<group>"; };
 		222C9BFC6423D4AE9EA3416A /* Pods_MQTTAnalyzerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzer.entitlements; sourceTree = "<group>"; };
 		223EF0052387084D002ADF3E /* HostSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostSetting.swift; path = MQTTAnalyzer/model/HostSetting.swift; sourceTree = SOURCE_ROOT; };
@@ -277,7 +275,6 @@
 			isa = PBXGroup;
 			children = (
 				2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */,
-				2209C86D23B72184007C1D93 /* HostValidatorTests.swift */,
 				2253F8F122C8C008007E35A2 /* Info.plist */,
 				228B069223FC318100E988D0 /* ModelTests.swift */,
 				22D236F223FEF86E0003D87F /* MultimapTests.swift */,
@@ -795,7 +792,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				228B069323FC318100E988D0 /* ModelTests.swift in Sources */,
-				2209C86E23B72184007C1D93 /* HostValidatorTests.swift in Sources */,
 				22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */,
 				22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */,
 				22D236F923FEFBA10003D87F /* HostFormValidatorTests.swift in Sources */,
