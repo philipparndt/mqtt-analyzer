@@ -48,13 +48,13 @@ struct TopicCellView: View {
 	}
 	
 	func post() {
-		if let first = messages.getFirstMessage() {
+		if let first = messages.getRecentMessage() {
 			root.post(message: first, on: host)
 		}
 	}
 	
 	func postManually() {
-		if let first = messages.getFirstMessage() {
+		if let first = messages.getRecentMessage() {
 			selectMessage(first)
 			postMessagePresented = true
 		}
