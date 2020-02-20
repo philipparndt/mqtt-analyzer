@@ -38,6 +38,14 @@ class ModelTests: XCTestCase {
 		}
 		return (model, messageModel.messagesByTopic["topic"]!)
 	}
+	
+	func topicOfMessages(messageData: String...) -> MessagesByTopic {
+		let (root, _) = modelWithMessages(messageData: "a", "b")
+		let host = root.messageModelByHost.keys.first!
+		let messageModel = root.getMessageModel(host)
+		let topicEntry = messageModel.messagesByTopic.first!
+		return topicEntry.value
+	}
 
 	func testAppendMessage() {
 		let (model, host) = rootWithLocalhost()
@@ -167,4 +175,32 @@ class ModelTests: XCTestCase {
 		let only = diagrams[0]
 		XCTAssertEqual("some.toggle", only.path)
 	}
+	
+	func testClearTopics() {
+		let (root, _) = modelWithMessages(messageData: "a", "b")
+		let host = root.messageModelByHost.keys.first!
+		let messageModel = root.getMessageModel(host)
+		XCTAssertEqual(2, messageModel.countMessages())
+		messageModel.clear()
+		XCTAssertEqual(0, messageModel.countMessages())
+	}
+	
+	func testClearMessagesFromTopic() {
+		let topic = topicOfMessages(messageData: "a", "b")
+		XCTAssertFalse(topic.messages.isEmpty)
+		topic.clear()
+		XCTAssertTrue(topic.messages.isEmpty)
+	}
+	
+	func testMarkRead() {
+		let (root, _) = modelWithMessages(messageData: "a", "b")
+		let host = root.messageModelByHost.keys.first!
+		let messageModel = root.getMessageModel(host)
+		let topicEntry = messageModel.messagesByTopic.first!
+		let topic = topicEntry.value
+		XCTAssertFalse(topic.read.read)
+		messageModel.readall()
+		XCTAssertTrue(topic.read.read)
+	}
+		
 }
