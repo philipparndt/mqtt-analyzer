@@ -22,6 +22,10 @@ extension String {
 	
 	func pathUp() -> String {
 		if let range = self.range(of: "/", options: .backwards ) {
+			if range.lowerBound.utf16Offset(in: self) == 0 {
+				return self
+			}
+			
 			let index = self.index(range.lowerBound, offsetBy: -1)
 			
 			return String(self[...index])
