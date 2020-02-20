@@ -52,6 +52,7 @@
 		22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F223FEF86E0003D87F /* MultimapTests.swift */; };
 		22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F423FEF9C50003D87F /* ReadstateTests.swift */; };
 		22D236F723FEFA970003D87F /* TopicModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F623FEFA970003D87F /* TopicModelTests.swift */; };
+		22D236F923FEFBA10003D87F /* HostFormValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
 		22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */; };
 		22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D6237FC03500D72BD6 /* Readstate.swift */; };
@@ -151,6 +152,7 @@
 		22D236F223FEF86E0003D87F /* MultimapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultimapTests.swift; sourceTree = "<group>"; };
 		22D236F423FEF9C50003D87F /* ReadstateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadstateTests.swift; sourceTree = "<group>"; };
 		22D236F623FEFA970003D87F /* TopicModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModelTests.swift; sourceTree = "<group>"; };
+		22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormValidatorTests.swift; sourceTree = "<group>"; };
 		22D50F9622CE4C4300F37EAF /* Multimap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multimap.swift; sourceTree = "<group>"; };
 		22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMarkerView.swift; sourceTree = "<group>"; };
 		22E469D6237FC03500D72BD6 /* Readstate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Readstate.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				22D236F223FEF86E0003D87F /* MultimapTests.swift */,
 				22D236F423FEF9C50003D87F /* ReadstateTests.swift */,
 				22D236F623FEFA970003D87F /* TopicModelTests.swift */,
+				22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
 			sourceTree = "<group>";
@@ -795,6 +798,7 @@
 				2209C86E23B72184007C1D93 /* HostValidatorTests.swift in Sources */,
 				22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */,
 				22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */,
+				22D236F923FEFBA10003D87F /* HostFormValidatorTests.swift in Sources */,
 				2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */,
 				22D236F723FEFA970003D87F /* TopicModelTests.swift in Sources */,
 			);

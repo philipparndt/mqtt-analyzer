@@ -42,7 +42,7 @@ public class HostFormValidator {
 			return id
 		}
 		
-		let parser = CharacterParser.pattern("a-zA-Z0-9.").plus().trim().flatten().end()
+		let parser = CharacterParser.pattern("a-zA-Z0-9.").plus().flatten().trim().end()
 		return parser.parse(id).get()
 	}
 }
