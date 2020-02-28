@@ -16,7 +16,7 @@ struct NewHostFormModalView: View {
 	var hosts: HostsModel
 	
 	@State private var host: HostFormModel = HostFormModel()
-	@State private var auth: Bool = false
+	@State private var auth: HostAuthenticationType = .none
 	
 	var disableSave: Bool {
 		return HostFormValidator.validateHostname(name: host.hostname) == nil
@@ -59,10 +59,14 @@ struct NewHostFormModalView: View {
 		newHost.port = port!
 		newHost.topic = host.topic
 		newHost.clientID = host.clientID
+		newHost.auth = self.auth
 		
-		if self.auth {
+		if self.auth == .usernamePassword {
 			newHost.username = host.username
 			newHost.password = host.password
+		}
+		else if self.auth == .certificate {
+			// todo implment me!
 		}
 		
 		hosts.hosts.append(newHost)

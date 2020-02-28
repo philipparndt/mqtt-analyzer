@@ -16,7 +16,7 @@ struct EditHostFormModalView: View {
 	let original: Host
 	
 	@State var host: HostFormModel
-	@State var auth: Bool = false
+	@State var auth: HostAuthenticationType = .none
 	
 	var disableSave: Bool {
 		return HostFormValidator.validateHostname(name: host.hostname) == nil
@@ -47,14 +47,18 @@ struct EditHostFormModalView: View {
 		original.clientID = host.clientID
 		original.limitTopic = Int(host.limitTopic) ?? 250
 		original.limitMessagesBatch = Int(host.limitMessagesBatch) ?? 1000
+		original.auth = self.auth
 		
-		if self.auth {
+		if self.auth == .none {
+			original.username = ""
+			original.password = ""
+		}
+		else if self.auth == .usernamePassword {
 			original.username = host.username
 			original.password = host.password
 		}
-		else {
-			original.username = ""
-			original.password = ""
+		else if self.auth == .certificate {
+			// todo implement me!
 		}
 		
 		root.persistence.update(original)
