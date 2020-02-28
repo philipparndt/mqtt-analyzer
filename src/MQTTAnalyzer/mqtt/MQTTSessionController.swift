@@ -20,6 +20,11 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		}
 	}
 	
+	init() {
+		// Init is necessary to provide SSL/TLS functions.
+		moscapsule_init()
+	}
+	
 	deinit {
 		for host in self.sessions.keys {
 			DispatchQueue.main.async {
