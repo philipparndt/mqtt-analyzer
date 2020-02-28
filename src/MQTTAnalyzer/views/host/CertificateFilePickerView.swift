@@ -19,6 +19,9 @@ struct FileItemView: View {
 			Image(systemName: self.selection == fileName ? "largecircle.fill.circle" : "circle")
 				.foregroundColor(.blue)
 			
+			Image(systemName: "doc.text.fill")
+				.foregroundColor(.secondary)
+			
 			Text(fileName)
 			
 			Spacer()
