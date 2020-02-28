@@ -91,9 +91,11 @@ class MQTTSession {
 			let certFile = documentsPathString + "/\(host.certServerCA)"
 			let usercertFile = documentsPathString + "/\(host.certClient)"
 			let userkeyFile = documentsPathString + "/\(host.certClientKey)"
-
+			
 			config.mqttServerCert = MQTTServerCert(cafile: certFile, capath: nil)
-			config.mqttClientCert = MQTTClientCert(certfile: usercertFile, keyfile: userkeyFile, keyfile_passwd: nil)
+			config.mqttClientCert = MQTTClientCert(certfile: usercertFile,
+												   keyfile: userkeyFile,
+												   keyfile_passwd: host.certClientKeyPassword.isBlank ? nil : host.certClientKeyPassword)
 		}
 	}
 	
