@@ -44,7 +44,7 @@ class HostsModelPersistence {
 				setting.port = host.port
 				setting.topic = host.topic
 				setting.qos = host.qos
-				setting.auth = host.auth
+				setting.authType = transformAuth(host.auth)
 				setting.username = host.username
 				setting.password = host.password
 				setting.clientID = host.clientID
@@ -87,6 +87,28 @@ class HostsModelPersistence {
 		}
 	}
 	
+	private func transformAuth(_ type: HostAuthenticationType) -> Int8 {
+		switch type {
+		case .usernamePassword:
+			return AuthenticationType.USERNAME_PASSWORD
+		case .certificate:
+			return AuthenticationType.CERTIFICATE
+		default:
+			return AuthenticationType.NONE
+		}
+	}
+	
+	private func transformAuth(_ type: Int8) -> HostAuthenticationType {
+		switch type {
+		case AuthenticationType.USERNAME_PASSWORD:
+			return HostAuthenticationType.usernamePassword
+		case AuthenticationType.CERTIFICATE:
+			return HostAuthenticationType.certificate
+		default:
+			return HostAuthenticationType.none
+		}
+	}
+	
 	private func transform(_ host: HostSetting) -> Host {
 		let result = Host()
 		result.deleted = host.isDeleted
@@ -96,7 +118,7 @@ class HostsModelPersistence {
 		result.port = host.port
 		result.topic = host.topic
 		result.qos = host.qos
-		result.auth = host.auth
+		result.auth = transformAuth(host.authType)
 		result.username = host.username
 		result.password = host.password
 		result.clientID = host.clientID
@@ -114,7 +136,7 @@ class HostsModelPersistence {
 		result.port = host.port
 		result.topic = host.topic
 		result.qos = host.qos
-		result.auth = host.auth
+		result.authType = transformAuth(host.auth)
 		result.username = host.username
 		result.password = host.password
 		result.clientID = host.clientID
