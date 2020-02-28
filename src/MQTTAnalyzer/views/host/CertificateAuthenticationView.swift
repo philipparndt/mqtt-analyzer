@@ -38,6 +38,8 @@ struct CertificateAuthenticationView: View {
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 			}
+			
+			InfoBox(text: "Certificate files are not synced. Copy them to all of your devices using Finder / iTunes.")
 		}
 	}
 }
