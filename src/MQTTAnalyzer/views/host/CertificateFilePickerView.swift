@@ -29,28 +29,70 @@ struct RadioItemView: View {
 	}
 }
 
+
+struct File: Identifiable, Comparable {
+	let name: String
+	let id = UUID.init()
+	
+	static func < (lhs: File, rhs: File) -> Bool {
+		return lhs.name < rhs.name
+    }
+}
+
 struct CertificateFilePickerView: View {
 
+	let type: String
+	
 	@Binding var fileName: String
+	
+	let files = listFiles()
 	
 	var body: some View {
 		Group {
-			InfoBox(text: """
+			if files.isEmpty {
+				InfoBox(text: """
 			Connect this device to your computer and drag files to the MQTTAnalyzer App	using Finder (Catalina+) or iTunes.
 
 			You will need distinct files for:
 			- Server CA
 			- Client Certificate
 			- Client Key
+
+			Only files *.crt and *.key files are shown.
 			""")
-				.padding()
+					.padding(.horizontal)
+			}
+			else {
+				InfoBox(text: "Add new *.crt and *.key files with Finder or iTunes.")
+					.padding(.horizontal)
+			}
 			
 			List {
-				RadioItemView(fileName: "CA.crt", selection: $fileName)
-				RadioItemView(fileName: "client.crt", selection: $fileName)
-				RadioItemView(fileName: "client.key", selection: $fileName)
+				ForEach(files) { file in
+					RadioItemView(fileName: file.name, selection: self.$fileName).font(.body)
+				}
 			}
 		}
-		.navigationBarTitle("Select file")
+		.navigationBarTitle("Select \(type)")
+	}
+	
+	static func listFiles() -> [File] {
+		// Get the document directory url
+		let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+		do {
+			// Get the directory contents urls (including subfolders urls)
+			let directoryContents = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil)
+			
+			let files = directoryContents
+				.map { $0.lastPathComponent }
+				.filter { $0.range(of: #".*\.(crt|key)"#, options: .regularExpression) != nil}
+				.map { File(name: $0) }
+				.sorted()
+
+			return files
+		} catch {
+			return [File(name: error.localizedDescription)]
+		}
 	}
 }

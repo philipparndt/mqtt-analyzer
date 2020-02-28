@@ -47,14 +47,22 @@ struct CertificateFileItemView: View {
 	@Binding var filename: String
 	
 	var body: some View {
-		NavigationLink(destination: CertificateFilePickerView(fileName: $filename)) {
+		NavigationLink(destination: CertificateFilePickerView(type: name, fileName: $filename)) {
 			HStack {
 				Text(name)
 				.font(.headline)
 				
 				Spacer()
 				
-				Text(filename.isBlank ? "select" : filename)
+				Group {
+					if filename.isBlank {
+						Text("select")
+							.foregroundColor(.gray)
+					}
+					else {
+						Text(filename)
+					}
+				}.font(.body)
 			}
 		}
 	}
