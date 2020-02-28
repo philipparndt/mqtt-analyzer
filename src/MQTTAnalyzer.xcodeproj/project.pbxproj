@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */; };
 		2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
 		223EF0062387084D002ADF3E /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
@@ -36,6 +37,10 @@
 		2291424923BF6ECE0086C251 /* KeyboardResponsiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424823BF6ECE0086C251 /* KeyboardResponsiveModifier.swift */; };
 		2291424C23BF78000086C251 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424B23BF78000086C251 /* AboutView.swift */; };
 		2291424F23C0C0370086C251 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424E23C0C0370086C251 /* MenuButton.swift */; };
+		22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */; };
+		22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */; };
+		22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */; };
+		22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FC2409440F00DF8F94 /* InfoBox.swift */; };
 		22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE62388858B001D9F87 /* NewHostFormModalView.swift */; };
 		22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */; };
 		22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
@@ -97,6 +102,7 @@
 
 /* Begin PBXFileReference section */
 		1C7F7D8A56B0E9F9E2F1B518 /* Pods-MQTTAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
+		2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTypePicker.swift; sourceTree = "<group>"; };
 		2205E5E0238A7EE2001638DF /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
 		222C9BFC6423D4AE9EA3416A /* Pods_MQTTAnalyzerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +142,10 @@
 		2291424E23C0C0370086C251 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernamePasswordAuthenticationView.swift; sourceTree = "<group>"; };
+		22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateAuthenticationView.swift; sourceTree = "<group>"; };
+		22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFilePickerView.swift; sourceTree = "<group>"; };
+		22A386FC2409440F00DF8F94 /* InfoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBox.swift; sourceTree = "<group>"; };
 		22AF3AE62388858B001D9F87 /* NewHostFormModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHostFormModalView.swift; sourceTree = "<group>"; };
 		22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostFormModalView.swift; sourceTree = "<group>"; };
 		22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSettingExamples.swift; sourceTree = "<group>"; };
@@ -381,6 +391,10 @@
 				22AF3AE62388858B001D9F87 /* NewHostFormModalView.swift */,
 				22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */,
 				2209C86B23B720E7007C1D93 /* HostValidator.swift */,
+				22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */,
+				22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */,
+				22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */,
+				2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */,
 			);
 			path = host;
 			sourceTree = "<group>";
@@ -404,6 +418,7 @@
 		2291424D23C0C0270086C251 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				22A386FC2409440F00DF8F94 /* InfoBox.swift */,
 				2291424E23C0C0370086C251 /* MenuButton.swift */,
 			);
 			path = common;
@@ -737,6 +752,7 @@
 				22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */,
 				22E469E023813BB000D72BD6 /* AttributedUILabel.swift in Sources */,
 				22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */,
+				2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */,
@@ -745,8 +761,10 @@
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
+				22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */,
 				22C9F74223BB5EF100892C4B /* TopicModel.swift in Sources */,
 				2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */,
+				22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */,
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
 				228104912381770000112F24 /* ReconnectView.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
@@ -765,7 +783,9 @@
 				22E469DE2380459700D72BD6 /* TextWithAttributedString.swift in Sources */,
 				228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
+				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
 				22F8BEE923C31C3B00422BFF /* MQTTSession.swift in Sources */,
+				22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */,
 				22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */,
 				22C386A322CB84900054C385 /* RootView.swift in Sources */,
 				228104932381773100112F24 /* TopicCellView.swift in Sources */,
