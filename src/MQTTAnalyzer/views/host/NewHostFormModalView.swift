@@ -60,13 +60,16 @@ struct NewHostFormModalView: View {
 		newHost.topic = host.topic
 		newHost.clientID = host.clientID
 		newHost.auth = self.auth
-		
+
 		if self.auth == .usernamePassword {
 			newHost.username = host.username
 			newHost.password = host.password
 		}
 		else if self.auth == .certificate {
-			// todo implment me!
+			newHost.certServerCA = host.certServerCA
+			newHost.certClient = host.certClient
+			newHost.certClientKey = host.certClientKey
+			newHost.certClientKeyPassword = host.certClientKeyPassword
 		}
 		
 		hosts.hosts.append(newHost)

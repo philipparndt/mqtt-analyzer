@@ -29,6 +29,11 @@ class HostSetting: Object {
 	@objc dynamic var authType: Int8 = AuthenticationType.NONE
 	@objc dynamic var username: String = ""
 	@objc dynamic var password: String = ""
+	
+	@objc dynamic var certServerCA: String = ""
+	@objc dynamic var certClient: String = ""
+	@objc dynamic var certClientKey: String = ""
+	@objc dynamic var certClientKeyPassword: String = ""
 
 	@objc dynamic var clientID = Host.randomClientId()
 

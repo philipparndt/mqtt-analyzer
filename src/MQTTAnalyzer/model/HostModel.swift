@@ -46,6 +46,11 @@ class Host: Identifiable, Hashable, ObservableObject {
 	var username: String = ""
 	var password: String = ""
 	
+	var certServerCA: String = ""
+	var certClient: String = ""
+	var certClientKey: String = ""
+	var certClientKeyPassword: String = ""
+	
 	@Published var usernameNonpersistent: String?
 	@Published var passwordNonpersistent: String?
 	

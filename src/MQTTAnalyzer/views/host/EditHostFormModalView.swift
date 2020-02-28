@@ -58,7 +58,10 @@ struct EditHostFormModalView: View {
 			original.password = host.password
 		}
 		else if self.auth == .certificate {
-			// todo implement me!
+			original.certServerCA = host.certServerCA
+			original.certClient = host.certClient
+			original.certClientKey = host.certClientKey
+			original.certClientKeyPassword = host.certClientKeyPassword
 		}
 		
 		root.persistence.update(original)

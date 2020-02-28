@@ -12,7 +12,7 @@ import RealmSwift
 class DataMigration {
 	class func initMigration() {
 		let configuration = Realm.Configuration(
-			schemaVersion: 5,
+			schemaVersion: 6,
 			migrationBlock: { migration, oldSchemaVersion in
 				if oldSchemaVersion < 4 {
 					migration.enumerateObjects(ofType: HostSetting.className()) { _, newObject in
