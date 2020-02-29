@@ -1,16 +1,16 @@
 PODS:
   - Highlightr (2.1.0)
-  - IceCream (1.10.0):
+  - IceCream (1.13.0):
     - RealmSwift
   - Moscapsule (0.6.4)
   - OpenSSL-Universal (1.0.2.18):
     - OpenSSL-Universal/Static (= 1.0.2.18)
   - OpenSSL-Universal/Static (1.0.2.18)
-  - Realm (4.3.0):
-    - Realm/Headers (= 4.3.0)
-  - Realm/Headers (4.3.0)
-  - RealmSwift (4.3.0):
-    - Realm (= 4.3.0)
+  - Realm (4.3.2):
+    - Realm/Headers (= 4.3.2)
+  - Realm/Headers (4.3.2)
+  - RealmSwift (4.3.2):
+    - Realm (= 4.3.2)
   - swift-petitparser (1.2.0)
   - SwiftLint (0.39.1)
   - SwiftyJSON (4.3.0)
@@ -26,14 +26,15 @@ DEPENDENCIES:
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - IceCream
+  https://github.com/CocoaPods/Specs.git:
     - OpenSSL-Universal
-    - Realm
-    - RealmSwift
     - swift-petitparser
     - SwiftLint
     - SwiftyJSON
+  trunk:
+    - IceCream
+    - Realm
+    - RealmSwift
 
 EXTERNAL SOURCES:
   Highlightr:
@@ -51,15 +52,15 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
-  IceCream: 2182e7b2fba8d80acfe5f22bbd0117b39f9a959d
+  IceCream: 48d6eda3b989c410583a8469e009f24ae9740d81
   Moscapsule: 6bb834c60e24251897dc1cb2c4552fd674f887f3
   OpenSSL-Universal: d10ab08e0b258023e5184f77660b1b9f4ec93926
-  Realm: 9357c3589555793e1860a7104a7412bca4a48d99
-  RealmSwift: 402f1e379a8ef82c635313037b043f0f06de880c
+  Realm: 5e92902e2875dff4bb0fd02f67bb737c3d5db2bc
+  RealmSwift: 9a360fc7bae04fc2e308a34fbd899d5faa2d6b22
   swift-petitparser: cf1bf3d9f9e24de982c0f83406d45b5b9f6a54c6
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
 PODFILE CHECKSUM: 1fd13166f868a3c96f3ff06772edf436f2a75f32
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.9.0
