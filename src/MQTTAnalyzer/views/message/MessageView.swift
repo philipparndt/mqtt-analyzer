@@ -12,8 +12,8 @@ struct MessageView: View {
 	@EnvironmentObject var rootModel: RootModel
 
 	@ObservedObject var messagesByTopic: MessagesByTopic
-	@State var postMessagePresented = false
-	@State var postMessageFormModel: PostMessageFormModel?
+	@State var publishMessagePresented = false
+	@State var publishMessageFormModel: PublishMessageFormModel?
 	let host: Host
 
 	var body: some View {
@@ -26,22 +26,22 @@ struct MessageView: View {
 			}
 			.onDelete(perform: messagesByTopic.delete)
 		}
-		.sheet(isPresented: $postMessagePresented, onDismiss: cancelPostMessageCreation, content: {
-			PostMessageFormModalView(closeCallback: self.cancelPostMessageCreation,
+		.sheet(isPresented: $publishMessagePresented, onDismiss: cancelPublishMessageCreation, content: {
+			PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
 								 root: self.rootModel,
 								 host: self.host,
-								 model: self.postMessageFormModel!)
+								 model: self.publishMessageFormModel!)
 		})
 	}
 	
 	func selectMessage(message: Message) {
-		self.postMessageFormModel = PostMessageFormModel.of(message: message)
-		postMessagePresented = true
+		self.publishMessageFormModel = PublishMessageFormModel.of(message: message)
+		publishMessagePresented = true
 	}
 	
-	func cancelPostMessageCreation() {
-		postMessagePresented = false
-		postMessageFormModel = nil
+	func cancelPublishMessageCreation() {
+		publishMessagePresented = false
+		publishMessageFormModel = nil
 	}
 }
 
@@ -72,12 +72,12 @@ struct MessageCellView: View {
 				MenuButton(title: "Copy message",
 						   systemImage: "doc.on.doc",
 						   action: copy)
-				MenuButton(title: "Post message again",
+				MenuButton(title: "Publish message again",
 						   systemImage: "paperplane.fill",
-						   action: post)
-				MenuButton(title: "Post new message",
+						   action: publish)
+				MenuButton(title: "Publish new message",
 						   systemImage: "paperplane.fill",
-						   action: postManually)
+						   action: publishManually)
 			}
 		}
 	}
@@ -86,11 +86,11 @@ struct MessageCellView: View {
 		UIPasteboard.general.string = message.data
 	}
 	
-	func post() {
-		model.post(message: message, on: host)
+	func publish() {
+		model.publish(message: message, on: host)
 	}
 	
-	func postManually() {
+	func publishManually() {
 		selectMessage(message)
 	}
 }

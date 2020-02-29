@@ -252,7 +252,7 @@ class MQTTSession {
 		mqtt?.subscribe(host.topic, qos: 2)
 	}
 	
-	func post(message: Message) {
+	func publish(message: Message) {
 		mqtt?.publish(string: message.data, topic: message.topic, qos: message.qos, retain: message.retain)
 	}
 }
