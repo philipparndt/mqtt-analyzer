@@ -14,11 +14,11 @@ struct TopicsView: View {
 	@ObservedObject var host: Host
 	@State private var actionSheetPresented = false
 	@State var dialogPresented: Bool
-	@State private var postMessageModel: PostMessageFormModel?
+	@State private var publishMessageModel: PublishMessageFormModel?
 	
 	var actionSheet: ActionSheet {
 		ActionSheet(title: Text("Actions"), buttons: [
-			.default(Text("Post new message"), action: createTopic),
+			.default(Text("Publish new message"), action: createTopic),
 			.default(Text(host.pause ? "Resume connection" : "Pause connection"), action: pauseConnection),
 			.cancel()
 		])
@@ -41,7 +41,7 @@ struct TopicsView: View {
 							TopicCellView(
 								messages: messages,
 								model: self.model,
-								postMessagePresented: self.$dialogPresented,
+								publishMessagePresented: self.$dialogPresented,
 								host: self.host,
 								selectMessage: self.selectMessage)
 						}
@@ -63,15 +63,15 @@ struct TopicsView: View {
 				self.rootModel.connect(to: self.host)
 			}
 		}
-		.sheet(isPresented: $dialogPresented, onDismiss: cancelPostMessageCreation, content: {
+		.sheet(isPresented: $dialogPresented, onDismiss: cancelPublishMessageCreation, content: {
 			if self.host.needsAuth {
 				LoginDialogView(loginCallback: self.login, host: self.host, data: self.createLoginDataModel())
 			}
 			else {
-				PostMessageFormModalView(closeCallback: self.cancelPostMessageCreation,
+				PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
 										 root: self.rootModel,
 										 host: self.host,
-										 model: self.postMessageModel!)
+										 model: self.publishMessageModel!)
 			}
 		})
 		.actionSheet(isPresented: self.$actionSheetPresented, content: {
@@ -88,7 +88,7 @@ struct TopicsView: View {
 	}
 	
 	func createTopic() {
-		postMessageModel = PostMessageFormModel()
+		publishMessageModel = PublishMessageFormModel()
 		dialogPresented = true
 	}
 
@@ -96,9 +96,9 @@ struct TopicsView: View {
 		host.pause.toggle()
 	}
 	
-	func cancelPostMessageCreation() {
+	func cancelPublishMessageCreation() {
 		dialogPresented = false
-		postMessageModel = nil
+		publishMessageModel = nil
 	}
 	
 	func cancelLogin() {
@@ -111,7 +111,7 @@ struct TopicsView: View {
 	}
 	
 	func selectMessage(message: Message) {
-		postMessageModel = PostMessageFormModel.of(message: message)
+		publishMessageModel = PublishMessageFormModel.of(message: message)
 	}
 
 }

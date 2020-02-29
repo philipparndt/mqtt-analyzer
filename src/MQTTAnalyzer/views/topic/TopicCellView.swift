@@ -12,7 +12,7 @@ struct TopicCellView: View {
 	@EnvironmentObject var root: RootModel
 	@ObservedObject var messages: MessagesByTopic
 	@ObservedObject var model: MessageModel
-	@Binding var postMessagePresented: Bool
+	@Binding var publishMessagePresented: Bool
 	
 	let host: Host
 	let selectMessage: (Message) -> Void
@@ -41,22 +41,22 @@ struct TopicCellView: View {
 				MenuButton(title: "Focus on", systemImage: "eye.fill", action: focus)
 				MenuButton(title: "Focus on parent", systemImage: "eye.fill", action: focusParent)
 				
-				MenuButton(title: "Post message again", systemImage: "paperplane.fill", action: post)
-				MenuButton(title: "Post new message", systemImage: "paperplane.fill", action: postManually)
+				MenuButton(title: "Publish message again", systemImage: "paperplane.fill", action: publish)
+				MenuButton(title: "Publish new message", systemImage: "paperplane.fill", action: publishManually)
 			}
 		}
 	}
 	
-	func post() {
+	func publish() {
 		if let first = messages.getRecentMessage() {
-			root.post(message: first, on: host)
+			root.publish(message: first, on: host)
 		}
 	}
 	
-	func postManually() {
+	func publishManually() {
 		if let first = messages.getRecentMessage() {
 			selectMessage(first)
-			postMessagePresented = true
+			publishMessagePresented = true
 		}
 	}
 	

@@ -82,7 +82,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		sessions.removeValue(forKey: host)
 	}
 	
-	func post(message: Message, on: Host) {
-		sessions[on]?.post(message: message)
+	func publish(message: Message, on: Host) {
+		sessions[on]?.publish(message: message)
 	}
 }

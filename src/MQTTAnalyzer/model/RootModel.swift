@@ -56,8 +56,8 @@ class RootModel: ObservableObject {
 		sessionController.disconnect(host: from)
 	}
 	
-	func post(message: Message, on: Host) {
-		sessionController.post(message: message, on: on)
+	func publish(message: Message, on: Host) {
+		sessionController.publish(message: message, on: on)
 	}
 	
 	func reconnect() {
