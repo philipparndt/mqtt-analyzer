@@ -100,8 +100,8 @@ struct ContributorsView: View {
 			Group {
 				Text("Thanks for testing, contributing features and ideas.")
 				
-				LinkButtonView(text: "Ulrich Frank",
-							   url: "https://github.com/UlrichFrank")
+				LinkButtonView(text: "Ulrich Frank", url: "https://github.com/UlrichFrank")
+				LinkButtonView(text: "Ricardo Pereira", url: "https://github.com/visnaut")
 			}
 		}
 	}
