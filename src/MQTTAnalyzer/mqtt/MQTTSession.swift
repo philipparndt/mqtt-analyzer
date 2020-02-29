@@ -194,7 +194,7 @@ class MQTTSession {
 			self.host.connected = true
 		}
 		
-		subscribeToChannel(host)
+		subscribeToTopic(host)
 	}
 	
 	func onDisconnect(_ returnCode: ReasonCode) {
@@ -248,7 +248,7 @@ class MQTTSession {
 		self.model.append(messages: mapped)
 	}
 	
-	func subscribeToChannel(_ host: Host) {
+	func subscribeToTopic(_ host: Host) {
 		mqtt?.subscribe(host.topic, qos: Int32(host.qos))
 	}
 	
