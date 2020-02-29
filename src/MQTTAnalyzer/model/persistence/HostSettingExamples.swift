@@ -14,7 +14,7 @@ class HostSettingExamples {
 		let example2 = HostSetting()
 		example2.id = "example.test.mosquitto.org.2"
 		example2.alias = "Revspace sensors"
-		example2.auth = false
+		example2.authType = AuthenticationType.NONE
 		example2.hostname = "test.mosquitto.org"
 		example2.username = ""
 		example2.password = ""
@@ -25,7 +25,7 @@ class HostSettingExamples {
 		let example3 = HostSetting()
 		example3.id = "example.test.mosquitto.org.4"
 		example3.alias = "mqtt-analyzer mosquitto example"
-		example3.auth = false
+		example3.authType = AuthenticationType.NONE
 		example3.hostname = "test.mosquitto.org"
 		example3.username = ""
 		example3.password = ""

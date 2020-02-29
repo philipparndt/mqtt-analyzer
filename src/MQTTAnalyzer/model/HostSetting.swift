@@ -12,6 +12,12 @@ import RealmSwift
 import IceCream
 import CloudKit
 
+struct AuthenticationType {
+	static let NONE: Int8 = 0
+	static let USERNAME_PASSWORD: Int8 = 1
+	static let CERTIFICATE: Int8 = 2
+}
+
 class HostSetting: Object {
 	@objc dynamic var id = NSUUID().uuidString
 	@objc dynamic var alias = ""
@@ -20,9 +26,14 @@ class HostSetting: Object {
 	@objc dynamic var topic: String = "#"
 	@objc dynamic var qos: Int = 0
 
-	@objc dynamic var auth: Bool = false
+	@objc dynamic var authType: Int8 = AuthenticationType.NONE
 	@objc dynamic var username: String = ""
 	@objc dynamic var password: String = ""
+	
+	@objc dynamic var certServerCA: String = ""
+	@objc dynamic var certClient: String = ""
+	@objc dynamic var certClientKey: String = ""
+	@objc dynamic var certClientKeyPassword: String = ""
 
 	@objc dynamic var clientID = Host.randomClientId()
 

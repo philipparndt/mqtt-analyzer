@@ -19,6 +19,11 @@ struct HostFormModel {
 	var username: String = ""
 	var password: String = ""
 	
+	var certServerCA: String = ""
+	var certClient: String = ""
+	var certClientKey: String = ""
+	var certClientKeyPassword: String = ""
+	
 	var clientID = Host.randomClientId()
 	
 	var limitTopic = "250"
@@ -27,13 +32,13 @@ struct HostFormModel {
 
 struct EditHostFormView: View {
 	@Binding var host: HostFormModel
-	@Binding var auth: Bool
+	@Binding var auth: HostAuthenticationType
 	@State var advanced = false
 	
 	var body: some View {
 		Form {
 			ServerFormView(host: $host)
-			AuthFormView(host: $host, auth: $auth)
+			AuthFormView(host: $host, type: $auth)
 			TopicFormView(host: $host)
 			
 			Toggle(isOn: $advanced) {
@@ -223,49 +228,17 @@ struct LimitsFormView: View {
 // MARK: Auth
 struct AuthFormView: View {
 	@Binding var host: HostFormModel
-	@Binding var auth: Bool
-
+	@Binding var type: HostAuthenticationType
+	
 	var body: some View {
 		return Section(header: Text("Authentication")) {
-			Toggle(isOn: $auth) {
-				Text("User/password")
-					.font(.headline)
-			}
+			AuthenticationTypePicker(type: $type)
 			
-			if self.auth {
-				HStack {
-					Text("Username")
-						.font(.headline)
-					
-					Spacer()
-				
-					TextField("username", text: $host.username)
-						.disableAutocorrection(true)
-						.autocapitalization(.none)
-						.multilineTextAlignment(.trailing)
-						.font(.body)
-				}
-				
-				HStack {
-					Text("Password")
-						.font(.headline)
-					
-						Spacer()
-					
-					SecureField("password", text: $host.password)
-						.disableAutocorrection(true)
-						.autocapitalization(.none)
-						.multilineTextAlignment(.trailing)
-						.font(.body)
-				}
-				
-				FillingText(text: "Leave username and/or password empty. In order to not persist them. You will get a login dialog.",
-							imageName: "info.circle.fill")
-				.padding()
-					.font(.body)
-					.foregroundColor(.white)
-					.background(Color.blue.opacity(0.7))
-					.cornerRadius(10)
+			if self.type == .usernamePassword {
+				UsernamePasswordAuthenticationView(host: $host)
+			}
+			else if self.type == .certificate {
+				CertificateAuthenticationView(host: $host)
 			}
 		}
 	}

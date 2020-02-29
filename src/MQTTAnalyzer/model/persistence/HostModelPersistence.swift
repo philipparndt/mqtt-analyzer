@@ -44,9 +44,13 @@ class HostsModelPersistence {
 				setting.port = host.port
 				setting.topic = host.topic
 				setting.qos = host.qos
-				setting.auth = host.auth
+				setting.authType = transformAuth(host.auth)
 				setting.username = host.username
 				setting.password = host.password
+				setting.certServerCA = host.certServerCA
+				setting.certClient = host.certClient
+				setting.certClientKey = host.certClientKey
+				setting.certClientKeyPassword = host.certClientKeyPassword
 				setting.clientID = host.clientID
 				setting.limitTopic = host.limitTopic
 				setting.limitMessagesBatch = host.limitMessagesBatch
@@ -87,6 +91,28 @@ class HostsModelPersistence {
 		}
 	}
 	
+	private func transformAuth(_ type: HostAuthenticationType) -> Int8 {
+		switch type {
+		case .usernamePassword:
+			return AuthenticationType.USERNAME_PASSWORD
+		case .certificate:
+			return AuthenticationType.CERTIFICATE
+		default:
+			return AuthenticationType.NONE
+		}
+	}
+	
+	private func transformAuth(_ type: Int8) -> HostAuthenticationType {
+		switch type {
+		case AuthenticationType.USERNAME_PASSWORD:
+			return HostAuthenticationType.usernamePassword
+		case AuthenticationType.CERTIFICATE:
+			return HostAuthenticationType.certificate
+		default:
+			return HostAuthenticationType.none
+		}
+	}
+	
 	private func transform(_ host: HostSetting) -> Host {
 		let result = Host()
 		result.deleted = host.isDeleted
@@ -96,9 +122,13 @@ class HostsModelPersistence {
 		result.port = host.port
 		result.topic = host.topic
 		result.qos = host.qos
-		result.auth = host.auth
+		result.auth = transformAuth(host.authType)
 		result.username = host.username
 		result.password = host.password
+		result.certServerCA = host.certServerCA
+		result.certClient = host.certClient
+		result.certClientKey = host.certClientKey
+		result.certClientKeyPassword = host.certClientKeyPassword
 		result.clientID = host.clientID
 		result.limitTopic = host.limitTopic
 		result.limitMessagesBatch = host.limitMessagesBatch
@@ -114,9 +144,13 @@ class HostsModelPersistence {
 		result.port = host.port
 		result.topic = host.topic
 		result.qos = host.qos
-		result.auth = host.auth
+		result.authType = transformAuth(host.auth)
 		result.username = host.username
 		result.password = host.password
+		result.certServerCA = host.certServerCA
+		result.certClient = host.certClient
+		result.certClientKey = host.certClientKey
+		result.certClientKeyPassword = host.certClientKeyPassword
 		result.clientID = host.clientID
 		result.limitTopic = host.limitTopic
 		result.limitMessagesBatch = host.limitMessagesBatch

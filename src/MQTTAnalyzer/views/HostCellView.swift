@@ -83,6 +83,10 @@ struct HostCellView: View {
 							 qos: host.qos,
 							 username: host.username,
 							 password: host.password,
+							 certServerCA: host.certServerCA,
+							 certClient: host.certClient,
+							 certClientKey: host.certClientKey,
+							 certClientKeyPassword: host.certClientKeyPassword,
 							 clientID: host.clientID,
 							 limitTopic: "\(host.limitTopic)",
 							 limitMessagesBatch: "\(host.limitMessagesBatch)")

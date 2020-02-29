@@ -9,6 +9,12 @@
 import Foundation
 import SwiftUI
 
+enum HostAuthenticationType {
+	case none
+	case usernamePassword
+	case certificate
+}
+
 class Host: Identifiable, Hashable, ObservableObject {
 	
 	var ID: String = NSUUID().uuidString
@@ -36,15 +42,20 @@ class Host: Identifiable, Hashable, ObservableObject {
 	
 	var qos: Int = 0
 	
-	var auth: Bool = false
+	var auth: HostAuthenticationType = .none
 	var username: String = ""
 	var password: String = ""
+	
+	var certServerCA: String = ""
+	var certClient: String = ""
+	var certClientKey: String = ""
+	var certClientKeyPassword: String = ""
 	
 	@Published var usernameNonpersistent: String?
 	@Published var passwordNonpersistent: String?
 	
 	var needsAuth: Bool {
-		return auth
+		return auth == .usernamePassword
 			&& (username.isBlank || password.isBlank)
 			&& (usernameNonpersistent == nil || passwordNonpersistent == nil)
 	}

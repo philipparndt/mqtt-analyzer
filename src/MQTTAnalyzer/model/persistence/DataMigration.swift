@@ -12,12 +12,25 @@ import RealmSwift
 class DataMigration {
 	class func initMigration() {
 		let configuration = Realm.Configuration(
-			schemaVersion: 4,
+			schemaVersion: 6,
 			migrationBlock: { migration, oldSchemaVersion in
 				if oldSchemaVersion < 4 {
 					migration.enumerateObjects(ofType: HostSetting.className()) { _, newObject in
 						newObject!["limitTopic"] = 250
 						newObject!["limitMessagesBatch"] = 1000
+					}
+				}
+				
+				// Add support for different auth types
+				if oldSchemaVersion < 5 {
+					migration.enumerateObjects(ofType: HostSetting.className()) { oldObject, newObject in
+						let auth = oldObject!["auth"] as! Bool
+						if auth {
+							newObject!["authType"] = AuthenticationType.USERNAME_PASSWORD
+						}
+						else {
+							newObject!["authType"] = AuthenticationType.NONE
+						}
 					}
 				}
 
