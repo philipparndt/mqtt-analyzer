@@ -41,6 +41,7 @@
 		22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */; };
 		22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */; };
 		22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FC2409440F00DF8F94 /* InfoBox.swift */; };
+		22A387052409768100DF8F94 /* HostModelPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A387042409768100DF8F94 /* HostModelPersistenceTests.swift */; };
 		22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE62388858B001D9F87 /* NewHostFormModalView.swift */; };
 		22AF3AE9238885AF001D9F87 /* EditHostFormModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */; };
 		22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
@@ -146,6 +147,7 @@
 		22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateAuthenticationView.swift; sourceTree = "<group>"; };
 		22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFilePickerView.swift; sourceTree = "<group>"; };
 		22A386FC2409440F00DF8F94 /* InfoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBox.swift; sourceTree = "<group>"; };
+		22A387042409768100DF8F94 /* HostModelPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostModelPersistenceTests.swift; sourceTree = "<group>"; };
 		22AF3AE62388858B001D9F87 /* NewHostFormModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHostFormModalView.swift; sourceTree = "<group>"; };
 		22AF3AE8238885AF001D9F87 /* EditHostFormModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostFormModalView.swift; sourceTree = "<group>"; };
 		22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSettingExamples.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				22D236F623FEFA970003D87F /* TopicModelTests.swift */,
 				22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */,
 				22D236FA23FF00E10003D87F /* StringUtilsTests.swift */,
+				22A387042409768100DF8F94 /* HostModelPersistenceTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
 			sourceTree = "<group>";
@@ -815,6 +818,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				228B069323FC318100E988D0 /* ModelTests.swift in Sources */,
+				22A387052409768100DF8F94 /* HostModelPersistenceTests.swift in Sources */,
 				22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */,
 				22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */,
 				22D236FB23FF00E10003D87F /* StringUtilsTests.swift in Sources */,

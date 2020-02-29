@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 // swiftlint:disable force_try
-class HostsModelPersistence {
+public class HostsModelPersistence {
 	let model: HostsModel
 	let realm: Realm
 	var token: NotificationToken?
@@ -113,7 +113,7 @@ class HostsModelPersistence {
 		}
 	}
 	
-	private func transform(_ host: HostSetting) -> Host {
+	func transform(_ host: HostSetting) -> Host {
 		let result = Host()
 		result.deleted = host.isDeleted
 		result.ID = host.id
@@ -135,7 +135,7 @@ class HostsModelPersistence {
 		return result
 	}
 	
-	private func transform(_ host: Host) -> HostSetting {
+	func transform(_ host: Host) -> HostSetting {
 		let result = HostSetting()
 		result.isDeleted = host.deleted
 		result.id = host.ID
