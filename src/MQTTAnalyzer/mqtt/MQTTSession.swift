@@ -249,7 +249,7 @@ class MQTTSession {
 	}
 	
 	func subscribeToChannel(_ host: Host) {
-		mqtt?.subscribe(host.topic, qos: 2)
+		mqtt?.subscribe(host.topic, qos: Int32(host.qos))
 	}
 	
 	func publish(message: Message) {
