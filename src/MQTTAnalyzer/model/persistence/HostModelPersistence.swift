@@ -27,9 +27,13 @@ public class HostsModelPersistence {
 	func create(_ host: Host) {
 		let setting = transform(host)
 		
-		let realm = try! Realm()
-		try! realm.write {
-			realm.add(setting)
+		do {
+			try realm.write {
+				realm.add(setting)
+			}
+		}
+		catch {
+			NSLog("Error creating entry in database: \(error.localizedDescription)")
 		}
 	}
 		
@@ -38,23 +42,29 @@ public class HostsModelPersistence {
 			.filter("id = %@", host.ID)
 		
 		if let setting = settings.first {
-			try! realm.write {
-				setting.alias = host.alias
-				setting.hostname = host.hostname
-				setting.port = host.port
-				setting.topic = host.topic
-				setting.qos = host.qos
-				setting.authType = transformAuth(host.auth)
-				setting.username = host.username
-				setting.password = host.password
-				setting.certServerCA = host.certServerCA
-				setting.certClient = host.certClient
-				setting.certClientKey = host.certClientKey
-				setting.certClientKeyPassword = host.certClientKeyPassword
-				setting.clientID = host.clientID
-				setting.limitTopic = host.limitTopic
-				setting.limitMessagesBatch = host.limitMessagesBatch
+			do {
+				try realm.write {
+					setting.alias = host.alias
+					setting.hostname = host.hostname
+					setting.port = host.port
+					setting.topic = host.topic
+					setting.qos = host.qos
+					setting.authType = transformAuth(host.auth)
+					setting.username = host.username
+					setting.password = host.password
+					setting.certServerCA = host.certServerCA
+					setting.certClient = host.certClient
+					setting.certClientKey = host.certClientKey
+					setting.certClientKeyPassword = host.certClientKeyPassword
+					setting.clientID = host.clientID
+					setting.limitTopic = host.limitTopic
+					setting.limitMessagesBatch = host.limitMessagesBatch
+				}
 			}
+			catch {
+				NSLog("Error updating database: \(error.localizedDescription)")
+			}
+			
 		}
 	}
 	
@@ -63,8 +73,13 @@ public class HostsModelPersistence {
 			.filter("id = %@", host.ID)
 		
 		if let setting = settings.first {
-			try! realm.write {
-				setting.isDeleted = true
+			do {
+				try realm.write {
+					setting.isDeleted = true
+				}
+			}
+			catch {
+				NSLog("Error deleting entry from database: \(error.localizedDescription)")
 			}
 		}
 	}
