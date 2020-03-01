@@ -15,7 +15,22 @@ enum HostAuthenticationType {
 	case certificate
 }
 
-class Host: Identifiable, Hashable, ObservableObject {
+extension Host: Hashable {
+	static func == (lhs: Host, rhs: Host) -> Bool {
+		return lhs.hostname == rhs.hostname
+			&& lhs.topic == rhs.topic
+			&& lhs.port == rhs.port
+			&& lhs.ID == rhs.ID
+	}
+	
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(hostname)
+		hasher.combine(port)
+		hasher.combine(topic)
+	}
+}
+
+class Host: Identifiable, ObservableObject {
 	
 	var ID: String = NSUUID().uuidString
 	
@@ -90,18 +105,7 @@ class Host: Identifiable, Hashable, ObservableObject {
 		passwordNonpersistent = nil
 		wasConnected = false
 	}
-	
-	static func == (lhs: Host, rhs: Host) -> Bool {
-		return lhs.hostname == rhs.hostname
-			&& lhs.topic == rhs.topic
-			&& lhs.port == rhs.port
-	}
-	
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(hostname)
-		hasher.combine(port)
-		hasher.combine(topic)
-	}
+
 }
 
 class HostsModel: ObservableObject {
