@@ -69,7 +69,14 @@ class MQTTSession {
 			mqttConfig.mqttAuthOpts = MQTTAuthOpts(username: username, password: password)
 		}
 		else if host.auth == .certificate {
-			initCertificates(config: mqttConfig)
+			let result = MQTTCertificateFiles.initCertificates(host: host, config: mqttConfig)
+			if !result.0 {
+				DispatchQueue.main.async {
+					self.host.connecting = false
+					self.host.connectionMessage = result.1
+				}
+				return
+			}
 		}
 		
 		// create new MQTT Connection
@@ -84,19 +91,6 @@ class MQTTSession {
 			.sink(receiveValue: {
 				self.onMessageInMain(messages: $0)
 			})
-	}
-	
-	func initCertificates(config: MQTTConfig) {
-		if let documentsPathString = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-			let certFile = documentsPathString + "/\(host.certServerCA)"
-			let usercertFile = documentsPathString + "/\(host.certClient)"
-			let userkeyFile = documentsPathString + "/\(host.certClientKey)"
-			
-			config.mqttServerCert = MQTTServerCert(cafile: certFile, capath: nil)
-			config.mqttClientCert = MQTTClientCert(certfile: usercertFile,
-												   keyfile: userkeyFile,
-												   keyfile_passwd: host.certClientKeyPassword.isBlank ? nil : host.certClientKeyPassword)
-		}
 	}
 	
 	func disconnect() {
