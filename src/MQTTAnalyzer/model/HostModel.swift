@@ -17,22 +17,17 @@ enum HostAuthenticationType {
 
 extension Host: Hashable {
 	static func == (lhs: Host, rhs: Host) -> Bool {
-		return lhs.hostname == rhs.hostname
-			&& lhs.topic == rhs.topic
-			&& lhs.port == rhs.port
-			&& lhs.ID == rhs.ID
+		return lhs.ID == rhs.ID
 	}
 	
 	func hash(into hasher: inout Hasher) {
-		hasher.combine(hostname)
-		hasher.combine(port)
-		hasher.combine(topic)
+		hasher.combine(self.ID)
 	}
 }
 
 class Host: Identifiable, ObservableObject {
 	
-	var ID: String = NSUUID().uuidString
+	let ID: String
 	
 	var deleted = false
 	
@@ -45,6 +40,10 @@ class Host: Identifiable, ObservableObject {
 	var limitMessagesBatch = 1000
 
 	var clientID = Host.randomClientId()
+	
+	init(id: String = NSUUID().uuidString) {
+		self.ID = id
+	}
 	
 	var computeClientID: String {
 		let trimmed = clientID.trimmingCharacters(in: [" "])

@@ -114,9 +114,8 @@ public class HostsModelPersistence {
 	}
 	
 	func transform(_ host: HostSetting) -> Host {
-		let result = Host()
+		let result = Host(id: host.id)
 		result.deleted = host.isDeleted
-		result.ID = host.id
 		result.alias = host.alias
 		result.hostname = host.hostname
 		result.port = host.port
