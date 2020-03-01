@@ -64,8 +64,10 @@ struct EditHostFormModalView: View {
 			original.certClientKeyPassword = host.certClientKeyPassword
 		}
 		
-		root.persistence.update(original)
-		closeHandler()
+		DispatchQueue.main.async {
+			self.root.persistence.update(self.original)
+			self.closeHandler()
+		}
 	}
 	
 	func cancel() {
