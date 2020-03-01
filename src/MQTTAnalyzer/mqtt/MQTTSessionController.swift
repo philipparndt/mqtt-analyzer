@@ -12,7 +12,7 @@ import Moscapsule
 
 class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 	var model: MessageModel?
-	var sessions: [Host: MQTTSession] = [:]
+	var sessions: [String: MQTTSession] = [:]
 	
 	private var messageSubjectCancellable: Cancellable? {
 		didSet {
@@ -26,9 +26,9 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 	}
 	
 	deinit {
-		for host in self.sessions.keys {
+		for session in self.sessions.values {
 			DispatchQueue.main.async {
-				host.connected = false
+				session.host.connected = false
 			}
 		}
 
@@ -40,7 +40,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 			host.connecting = true
 		}
 		
-		if sessions[host]?.connectionAlive ?? false {
+		if sessions[host.ID]?.connectionAlive ?? false {
 			disconnect(host: host)
 		}
 
@@ -52,7 +52,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 			NSLog("model must be set in order to connect")
 		}
 		
-		var session = sessions[host]
+		var session = sessions[host.ID]
 		
 		if session?.host !== host {
 			disconnect(host: host)
@@ -74,15 +74,15 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		host.reconnectDelegate = self
 		host.disconnectDelegate = self
 		
-		sessions[host] = current
+		sessions[host.ID] = current
 	}
 	
 	func disconnect(host: Host) {
-		sessions[host]?.disconnect()
-		sessions.removeValue(forKey: host)
+		sessions[host.ID]?.disconnect()
+		sessions.removeValue(forKey: host.ID)
 	}
 	
 	func publish(message: Message, on: Host) {
-		sessions[on]?.publish(message: message)
+		sessions[on.ID]?.publish(message: message)
 	}
 }
