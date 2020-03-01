@@ -27,9 +27,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 	
 	deinit {
 		for session in self.sessions.values {
-			DispatchQueue.main.async {
-				session.host.connected = false
-			}
+			session.host.connected = false
 		}
 
 		NSLog("MQTTController deinit")
