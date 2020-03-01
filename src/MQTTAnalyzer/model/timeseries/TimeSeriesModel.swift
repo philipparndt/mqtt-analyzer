@@ -19,29 +19,14 @@ struct MTimeSeriesMeanValue {
 
 class TimeSeriesValue: Hashable, Identifiable {
 	let value: AnyHashable
-	var valueString: String {
-		if let num = value as? NSNumber {
-			let formatter = NumberFormatter()
-			formatter.numberStyle = .decimal
-			formatter.locale = Locale(identifier: "en")
-			return formatter.string(from: num) ?? ""
-		}
-		else if let bool = value as? Bool {
-			return "\(bool)"
-		}
-		else if let s = value as? String {
-			return s
-		}
-		else {
-			return "unknown type"
-		}
-	}
-
+	let valueString: String
+	
 	let date: Date
 	let dateString: String
 	
 	init(value: AnyHashable, at date: Date, dateFormatted: String) {
 		self.value = value
+		self.valueString = TimeSeriesValueUtil.createStringValue(value: value)
 		self.date = date
 		self.dateString = dateFormatted
 	}
@@ -51,7 +36,7 @@ class TimeSeriesValue: Hashable, Identifiable {
 	}
 	
 	func hash(into hasher: inout Hasher) {
-		hasher.combine(value)
+		hasher.combine(valueString)
 	}
 }
 
