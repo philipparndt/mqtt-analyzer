@@ -39,7 +39,7 @@ class Host: Identifiable, ObservableObject {
 	var limitTopic = 250
 	var limitMessagesBatch = 1000
 
-	var clientID = Host.randomClientId()
+	var clientID = ""
 	
 	init(id: String = NSUUID().uuidString) {
 		self.ID = id

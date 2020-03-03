@@ -24,7 +24,7 @@ struct HostFormModel {
 	var certClientKey: String = ""
 	var certClientKeyPassword: String = ""
 	
-	var clientID = Host.randomClientId()
+	var clientID = ""
 	
 	var limitTopic = "250"
 	var limitMessagesBatch = "1000"
@@ -164,12 +164,12 @@ struct ClientIDFormView: View {
 	var body: some View {
 		return Section(header: Text("Client ID")) {
 			HStack {
-				Text("ID")
+				Text("Client ID")
 					.font(.headline)
 				
 				Spacer()
 			
-				TextField("Client ID", text: $host.clientID)
+				TextField("Random by default", text: $host.clientID)
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
 					.multilineTextAlignment(.trailing)
