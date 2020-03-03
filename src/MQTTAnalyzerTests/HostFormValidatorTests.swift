@@ -24,6 +24,7 @@ class HostFormValidatorTests: XCTestCase {
 	func testWithDomainName() {
 		XCTAssertEqual(HostFormValidator.validateHostname(name: "test.mosquitto.org"), "test.mosquitto.org")
 		XCTAssertEqual(HostFormValidator.validateHostname(name: "test.mosquitto.org  "), "test.mosquitto.org")
+		XCTAssertEqual(HostFormValidator.validateHostname(name: "ec2-12-345-67-890.us-east-2.compute.fooaws.com"), "ec2-12-345-67-890.us-east-2.compute.fooaws.com")
 	}
 
 	func testClientIDEmptyRandom() {
