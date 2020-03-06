@@ -20,8 +20,8 @@ extension String {
 		return (self.count > length) ? self.prefix(length) + trailing : self
 	}
 	
-	func pathUp() -> String {
-		if let range = self.range(of: "/", options: .backwards ) {
+	func pathUp(_ separator: String = "/") -> String {
+		if let range = self.range(of: separator, options: .backwards ) {
 			if range.lowerBound.utf16Offset(in: self) == 0 {
 				return self
 			}
