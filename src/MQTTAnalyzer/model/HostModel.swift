@@ -110,6 +110,17 @@ class Host: Identifiable, ObservableObject {
 class HostsModel: ObservableObject {
 	@Published var hosts: [Host]
 	
+	var hostsSorted: [Host] {
+		return self.hosts.sorted {
+			if $0.alias != $1.alias {
+				return $0.alias < $1.alias
+			}
+			else {
+				return $0.aliasOrHost < $1.aliasOrHost
+			}
+		}
+	}
+	
 	init(hosts: [Host] = []) {
 		self.hosts = hosts
 	}
