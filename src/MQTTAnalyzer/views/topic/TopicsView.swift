@@ -16,8 +16,8 @@ struct TopicsView: View {
 	@State var dialogPresented: Bool
 	@State private var publishMessageModel: PublishMessageFormModel?
 	
-	var actionSheet: ActionSheet {
-		ActionSheet(title: Text("Actions"), buttons: [
+	var popSheet: PopSheet {
+		PopSheet(title: Text("Actions"), buttons: [
 			.default(Text("Publish new message"), action: createTopic),
 			.default(Text(host.pause ? "Resume connection" : "Pause connection"), action: pauseConnection),
 			.cancel()
@@ -74,8 +74,8 @@ struct TopicsView: View {
 										 model: self.publishMessageModel!)
 			}
 		})
-		.actionSheet(isPresented: self.$actionSheetPresented, content: {
-			self.actionSheet
+		.popSheet(isPresented: self.$actionSheetPresented, content: {
+			self.popSheet
 		})
 	}
 	
@@ -88,8 +88,11 @@ struct TopicsView: View {
 	}
 	
 	func createTopic() {
-		publishMessageModel = PublishMessageFormModel()
-		dialogPresented = true
+		actionSheetPresented = false
+		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+			self.publishMessageModel = PublishMessageFormModel()
+			self.dialogPresented = true
+		}
 	}
 
 	func pauseConnection() {
