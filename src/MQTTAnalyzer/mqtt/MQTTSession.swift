@@ -130,9 +130,9 @@ class MQTTSession {
 			while self.connectionState.isConnecting && i > 0 {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
 				sleep(1)
-				DispatchQueue.main.async {
-					self.host.connectionMessage = "Connecting... \(i)"
-				}
+				
+				self.setConnectionMessage(message: "Connecting... \(i)")
+
 				i-=1
 			}
 			group.leave()
@@ -148,7 +148,15 @@ class MQTTSession {
 			if !self.host.connected {
 				self.setDisconnected()
 				
-				self.host.connectionMessage = "Connection timeout"
+				self.setConnectionMessage(message: "Connection timeout")
+			}
+		}
+	}
+	
+	func setConnectionMessage(message: String) {
+		DispatchQueue.global(qos: .userInitiated).async {
+			DispatchQueue.main.async {
+				self.host.connectionMessage = message
 			}
 		}
 	}

@@ -25,7 +25,7 @@ struct HostsView: View {
 		NavigationView {
 			VStack(alignment: .leading) {
 				List {
-					ForEach(hostsModel.hosts) { host in
+					ForEach(hostsModel.hostsSorted) { host in
 						HostCellView(host: host, messageModel: (
 							self.model.getMessageModel(host)
 						))
