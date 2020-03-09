@@ -18,4 +18,4 @@ jobs:
       with:
         additional_build_params: -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.0'
         additional_lint_params: --private
-        workspace: MQTTAnalyzer.xcworkspace
+        workspace: src/MQTTAnalyzer.xcworkspace
