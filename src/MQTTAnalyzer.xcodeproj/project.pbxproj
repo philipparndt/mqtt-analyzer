@@ -120,7 +120,6 @@
 		2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerTests.swift; sourceTree = "<group>"; };
 		2253F8F122C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2253F8FC22C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2281047423816FD800112F24 /* QuickFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickFilterView.swift; sourceTree = "<group>"; };
 		2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickFilterTextDebounce.swift; sourceTree = "<group>"; };
 		228104822381723D00112F24 /* MessageDetailsJsonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailsJsonView.swift; sourceTree = "<group>"; };
@@ -233,7 +232,6 @@
 				22C9F72E23B7486E00892C4B /* .swiftlint.yml */,
 				2253F8D422C8C007007E35A2 /* MQTTAnalyzer */,
 				2253F8EE22C8C008007E35A2 /* MQTTAnalyzerTests */,
-				2253F8F922C8C008007E35A2 /* MQTTAnalyzerUITests */,
 				2253F8D322C8C007007E35A2 /* Products */,
 				B2BAC619436C49079AC0498E /* Pods */,
 				45E8AFAA8B14B8DFB865D13B /* Frameworks */,
@@ -292,14 +290,6 @@
 				22AE643724126A7500C2C4FE /* DiagramPathTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
-			sourceTree = "<group>";
-		};
-		2253F8F922C8C008007E35A2 /* MQTTAnalyzerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				2253F8FC22C8C008007E35A2 /* Info.plist */,
-			);
-			path = MQTTAnalyzerUITests;
 			sourceTree = "<group>";
 		};
 		228104782381708E00112F24 /* views */ = {
