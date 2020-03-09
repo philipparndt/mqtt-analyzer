@@ -21,7 +21,6 @@
 		2253F8E222C8C008007E35A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E122C8C008007E35A2 /* Preview Assets.xcassets */; };
 		2253F8E522C8C008007E35A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */; };
 		2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */; };
-		2253F8FB22C8C008007E35A2 /* MQTTAnalyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */; };
 		2281047623816FD800112F24 /* QuickFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281047423816FD800112F24 /* QuickFilterView.swift */; };
 		2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */; };
 		228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104822381723D00112F24 /* MessageDetailsJsonView.swift */; };
@@ -86,19 +85,11 @@
 		22FD7D0322C8D2660078795F /* HostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFC22C8D2660078795F /* HostsView.swift */; };
 		22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */; };
 		45AEF32312488446BB9A7C50 /* Pods_MQTTAnalyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95084FE936763CB7326EC2E0 /* Pods_MQTTAnalyzer.framework */; };
-		5F1E3EF5FBA5E6B1D8743810 /* Pods_MQTTAnalyzerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222C9BFC6423D4AE9EA3416A /* Pods_MQTTAnalyzerUITests.framework */; };
 		84D8A3A0947EBE85E059ABC5 /* Pods_MQTTAnalyzerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD1959EC6B762FC604113652 /* Pods_MQTTAnalyzerTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		2253F8EC22C8C008007E35A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2253F8D122C8C007007E35A2;
-			remoteInfo = MQTTAnalyzer;
-		};
-		2253F8F722C8C008007E35A2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
 			proxyType = 1;
@@ -129,8 +120,6 @@
 		2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerTests.swift; sourceTree = "<group>"; };
 		2253F8F122C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2253F8F622C8C008007E35A2 /* MQTTAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerUITests.swift; sourceTree = "<group>"; };
 		2253F8FC22C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2281047423816FD800112F24 /* QuickFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickFilterView.swift; sourceTree = "<group>"; };
 		2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickFilterTextDebounce.swift; sourceTree = "<group>"; };
@@ -224,14 +213,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2253F8F322C8C008007E35A2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5F1E3EF5FBA5E6B1D8743810 /* Pods_MQTTAnalyzerUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -265,7 +246,6 @@
 			children = (
 				2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */,
 				2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */,
-				2253F8F622C8C008007E35A2 /* MQTTAnalyzerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -317,7 +297,6 @@
 		2253F8F922C8C008007E35A2 /* MQTTAnalyzerUITests */ = {
 			isa = PBXGroup;
 			children = (
-				2253F8FA22C8C008007E35A2 /* MQTTAnalyzerUITests.swift */,
 				2253F8FC22C8C008007E35A2 /* Info.plist */,
 			);
 			path = MQTTAnalyzerUITests;
@@ -572,25 +551,6 @@
 			productReference = 2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		2253F8F522C8C008007E35A2 /* MQTTAnalyzerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2253F90522C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerUITests" */;
-			buildPhases = (
-				81041E06DA60CBCE4B5ABA65 /* [CP] Check Pods Manifest.lock */,
-				2253F8F222C8C008007E35A2 /* Sources */,
-				2253F8F322C8C008007E35A2 /* Frameworks */,
-				2253F8F422C8C008007E35A2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2253F8F822C8C008007E35A2 /* PBXTargetDependency */,
-			);
-			name = MQTTAnalyzerUITests;
-			productName = MQTTAnalyzerUITests;
-			productReference = 2253F8F622C8C008007E35A2 /* MQTTAnalyzerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -605,10 +565,6 @@
 						CreatedOnToolsVersion = 11.0;
 					};
 					2253F8EA22C8C008007E35A2 = {
-						CreatedOnToolsVersion = 11.0;
-						TestTargetID = 2253F8D122C8C007007E35A2;
-					};
-					2253F8F522C8C008007E35A2 = {
 						CreatedOnToolsVersion = 11.0;
 						TestTargetID = 2253F8D122C8C007007E35A2;
 					};
@@ -629,7 +585,6 @@
 			targets = (
 				2253F8D122C8C007007E35A2 /* MQTTAnalyzer */,
 				2253F8EA22C8C008007E35A2 /* MQTTAnalyzerTests */,
-				2253F8F522C8C008007E35A2 /* MQTTAnalyzerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -647,13 +602,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2253F8E922C8C008007E35A2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2253F8F422C8C008007E35A2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -723,28 +671,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		81041E06DA60CBCE4B5ABA65 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MQTTAnalyzerUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		8F55D991EFBBD962437E4AFE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -852,14 +778,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2253F8F222C8C008007E35A2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2253F8FB22C8C008007E35A2 /* MQTTAnalyzerUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -867,11 +785,6 @@
 			isa = PBXTargetDependency;
 			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
 			targetProxy = 2253F8EC22C8C008007E35A2 /* PBXContainerItemProxy */;
-		};
-		2253F8F822C8C008007E35A2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
-			targetProxy = 2253F8F722C8C008007E35A2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1095,48 +1008,6 @@
 			};
 			name = Release;
 		};
-		2253F90622C8C008007E35A2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8B42B9C30600D622C153D92A /* Pods-MQTTAnalyzerUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 643R6YSRER;
-				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MQTTAnalyzer;
-			};
-			name = Debug;
-		};
-		2253F90722C8C008007E35A2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E24A1B1B076FFC9BCADD4C40 /* Pods-MQTTAnalyzerUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 643R6YSRER;
-				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MQTTAnalyzer;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1163,15 +1034,6 @@
 			buildConfigurations = (
 				2253F90322C8C008007E35A2 /* Debug */,
 				2253F90422C8C008007E35A2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2253F90522C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2253F90622C8C008007E35A2 /* Debug */,
-				2253F90722C8C008007E35A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
