@@ -26,15 +26,14 @@ DEPENDENCIES:
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
+    - IceCream
     - OpenSSL-Universal
+    - Realm
+    - RealmSwift
     - swift-petitparser
     - SwiftLint
     - SwiftyJSON
-  trunk:
-    - IceCream
-    - Realm
-    - RealmSwift
 
 EXTERNAL SOURCES:
   Highlightr:
@@ -61,6 +60,6 @@ SPEC CHECKSUMS:
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 1fd13166f868a3c96f3ff06772edf436f2a75f32
+PODFILE CHECKSUM: 33bf5e913a81eaea12234676ec5c45a32d2ce0bc
 
 COCOAPODS: 1.9.0
