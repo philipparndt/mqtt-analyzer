@@ -60,10 +60,6 @@ SPEC CHECKSUMS:
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-<<<<<<< Updated upstream
-PODFILE CHECKSUM: 33bf5e913a81eaea12234676ec5c45a32d2ce0bc
-=======
 PODFILE CHECKSUM: 6dbb0cec9570a7f7560955d1f5f8d1a3222f41ff
->>>>>>> Stashed changes
 
 COCOAPODS: 1.9.0
