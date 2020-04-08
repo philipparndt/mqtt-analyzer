@@ -12,8 +12,12 @@ import XCTest
 @testable import MQTTAnalyzer
 
 class HostFormValidatorTests: XCTestCase {
-	func testWithqHostname() {
+	func testWithHostname() {
 		XCTAssertEqual(HostFormValidator.validateHostname(name: "pisvr"), "pisvr")
+	}
+	
+	func testUnicodeHostnameDoesNotWork() {
+		XCTAssertNil(HostFormValidator.validateHostname(name: "pisvr💖"))
 	}
 	
 	func testWithIP() {
