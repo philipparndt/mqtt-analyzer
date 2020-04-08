@@ -155,6 +155,7 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
 		
 		msgbt!.newMessage(message)
 		self.messageCount = countMessages()
+		updateDisplayTopics()
 	}
 	
 	func append(messages: [Message]) {
