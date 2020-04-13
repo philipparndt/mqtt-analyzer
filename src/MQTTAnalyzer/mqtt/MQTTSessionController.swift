@@ -8,11 +8,10 @@
 
 import Foundation
 import Combine
-import Moscapsule
 
 class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 	var model: MessageModel?
-	var sessions: [String: MQTTSession] = [:]
+	var sessions: [String: MqttClient] = [:]
 	
 	private var messageSubjectCancellable: Cancellable? {
 		didSet {
@@ -21,8 +20,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 	}
 	
 	init() {
-		// Init is necessary to provide SSL/TLS functions.
-		moscapsule_init()
+		MqttClientMoscapsule.setup()
 	}
 	
 	deinit {
@@ -54,7 +52,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		
 		if session?.host !== host {
 			disconnect(host: host)
-			session = MQTTSession(host: host, model: model!)
+			session = MqttClientCocoaMQTT(host: host, model: model!)
 		}
 		else if session?.connectionAlive ?? false {
 			return

@@ -1,4 +1,12 @@
 PODS:
+  - CocoaAsyncSocket (7.6.4)
+  - CocoaMQTT (1.3.0-rc.1):
+    - CocoaMQTT/Core (= 1.3.0-rc.1)
+  - CocoaMQTT/Core (1.3.0-rc.1):
+    - CocoaAsyncSocket (~> 7.6.3)
+  - CocoaMQTT/WebSockets (1.3.0-rc.1):
+    - CocoaMQTT/Core
+    - Starscream (~> 3.0.2)
   - Highlightr (2.1.0)
   - IceCream (1.13.1):
     - RealmSwift
@@ -11,11 +19,14 @@ PODS:
   - Realm/Headers (4.4.0)
   - RealmSwift (4.4.0):
     - Realm (= 4.4.0)
+  - Starscream (3.0.6)
   - swift-petitparser (1.2.1)
   - SwiftLint (0.39.2)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
+  - CocoaMQTT (= 1.3.0-rc.1)
+  - CocoaMQTT/WebSockets (= 1.3.0-rc.1)
   - Highlightr (from `https://github.com/raspu/Highlightr.git`)
   - IceCream
   - Moscapsule (from `https://github.com/flightonary/Moscapsule.git`)
@@ -27,10 +38,13 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - CocoaAsyncSocket
+    - CocoaMQTT
     - IceCream
     - OpenSSL-Universal
     - Realm
     - RealmSwift
+    - Starscream
     - swift-petitparser
     - SwiftLint
     - SwiftyJSON
@@ -50,16 +64,19 @@ CHECKOUT OPTIONS:
     :git: https://github.com/flightonary/Moscapsule.git
 
 SPEC CHECKSUMS:
+  CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
+  CocoaMQTT: 3a24a180c2d7759465abbd96d49c655e4399ac35
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
   IceCream: 0447d87b55df85651dd60b15712cef64dbe1cb54
   Moscapsule: 6bb834c60e24251897dc1cb2c4552fd674f887f3
   OpenSSL-Universal: d10ab08e0b258023e5184f77660b1b9f4ec93926
   Realm: e125f464884cda953ebefe70c671b75b03b81b9b
   RealmSwift: 33656a42bd300959a081fc13347376bc478071af
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 6dbb0cec9570a7f7560955d1f5f8d1a3222f41ff
+PODFILE CHECKSUM: 4bd549b2ed286a81ead1136985b02a669b23fada
 
 COCOAPODS: 1.9.0

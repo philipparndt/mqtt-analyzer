@@ -42,7 +42,7 @@ struct EditHostFormModalView: View {
 		original.hostname = host.hostname
 		original.qos = host.qos
 		original.auth = self.auth
-		original.port = Int32(host.port) ?? 1883
+		original.port = UInt16(host.port) ?? 1883
 		original.topic = host.topic
 		original.clientID = host.clientID
 		original.limitTopic = Int(host.limitTopic) ?? 250

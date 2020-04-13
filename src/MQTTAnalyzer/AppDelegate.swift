@@ -9,12 +9,14 @@
 import UIKit
 import IceCream
 import CloudKit
+import CocoaMQTT
+import Starscream
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+	
 	var syncEngine: SyncEngine?
-
+	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		DataMigration.initMigration()
 		syncEngine = SyncEngine(objects: [
@@ -22,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			], databaseScope: .private)
 				
 		application.registerForRemoteNotifications()
-		
+								
 		// Override point for customization after application launch.
 		return true
 	}

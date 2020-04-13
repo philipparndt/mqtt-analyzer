@@ -56,7 +56,7 @@ struct NewHostFormModalView: View {
 		newHost.hostname = newHostname!
 		newHost.qos = host.qos
 		newHost.auth = self.auth
-		newHost.port = port!
+		newHost.port = UInt16(port!)
 		newHost.topic = host.topic
 		newHost.clientID = host.clientID
 		newHost.auth = self.auth

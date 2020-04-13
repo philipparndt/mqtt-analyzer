@@ -33,7 +33,7 @@ class Host: Identifiable, ObservableObject {
 	
 	var alias: String = ""
 	var hostname: String = ""
-	var port: Int32 = 1883
+	var port: UInt16 = 1883
 	var topic: String = "#"
 
 	var limitTopic = 250
