@@ -10,18 +10,8 @@ import Foundation
 import Combine
 import Moscapsule
 
-struct ConnectionState {
-	var connectionFailed: String?
-	var connected: Bool = false
-	var connecting: Bool = false
-
-	var isConnecting: Bool {
-		!self.connected && self.connectionFailed == nil && self.connecting
-	}
-}
-
-class MQTTSession {
-	static var sessionNum = 0
+class MqttClientMoscapsule: MqttClient {
+	
 	let sessionNum: Int
 	let model: MessageModel
 	let host: Host
@@ -33,18 +23,18 @@ class MQTTSession {
 		self.mqtt != nil || connectionState.connected
 	}
 	
-	let messageSubject = PassthroughSubject<MQTTMessage, Never>()
-	private var messageSubjectCancellable: Cancellable? {
-		didSet {
-			oldValue?.cancel()
-		}
+	let messageSubject = MsgSubject<MQTTMessage>()
+		
+	class func setup() {
+		// Init is necessary to provide SSL/TLS functions.
+		moscapsule_init()
 	}
 	
 	init(host: Host, model: MessageModel) {
-		MQTTSession.sessionNum += 1
+		ConnectionState.sessionNum += 1
 		
 		self.model = model
-		self.sessionNum = MQTTSession.sessionNum
+		self.sessionNum = ConnectionState.sessionNum
 		self.host = host
 	}
 	
@@ -58,7 +48,7 @@ class MQTTSession {
 		model.limitMessagesPerBatch = host.limitMessagesBatch
 		model.limitTopics = host.limitTopic
 		
-		let mqttConfig = MQTTConfig(clientId: host.computeClientID, host: host.hostname, port: host.port, keepAlive: 60)
+		let mqttConfig = MQTTConfig(clientId: host.computeClientID, host: host.hostname, port: Int32(host.port), keepAlive: 60)
 		mqttConfig.onConnectCallback = onConnect
 		mqttConfig.onDisconnectCallback = onDisconnect
 		mqttConfig.onMessageCallback = onMessage
@@ -85,7 +75,7 @@ class MQTTSession {
 		waitConnected()
 		
 		let queue = DispatchQueue(label: "Message dispache queue")
-		messageSubjectCancellable = messageSubject.eraseToAnyPublisher()
+		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
 			.collect(.byTime(queue, 0.5))
 			.receive(on: DispatchQueue.main)
 			.sink(receiveValue: {
@@ -96,7 +86,7 @@ class MQTTSession {
 	func disconnect() {
 		print("CONNECTION: disconnect \(sessionNum) \(host.hostname) \(host.topic)")
 		
-		messageSubjectCancellable?.cancel()
+		messageSubject.cancel()
 		
 		if let mqtt = self.mqtt {
 			mqtt.unsubscribe(host.topic)
@@ -183,7 +173,7 @@ class MQTTSession {
 		DispatchQueue.main.async {
 			self.host.connecting = false
 		}
-		messageSubjectCancellable = nil
+		messageSubject.disconnected()
 		mqtt = nil
 	}
 	

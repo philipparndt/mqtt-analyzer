@@ -46,7 +46,7 @@ public class HostsModelPersistence {
 				try realm.write {
 					setting.alias = host.alias
 					setting.hostname = host.hostname
-					setting.port = host.port
+					setting.port = Int32(host.port)
 					setting.topic = host.topic
 					setting.qos = host.qos
 					setting.authType = transformAuth(host.auth)
@@ -133,7 +133,7 @@ public class HostsModelPersistence {
 		result.deleted = host.isDeleted
 		result.alias = host.alias
 		result.hostname = host.hostname
-		result.port = host.port
+		result.port = UInt16(host.port)
 		result.topic = host.topic
 		result.qos = host.qos
 		result.auth = transformAuth(host.authType)
@@ -155,7 +155,7 @@ public class HostsModelPersistence {
 		result.id = host.ID
 		result.alias = host.alias
 		result.hostname = host.hostname
-		result.port = host.port
+		result.port = Int32(host.port)
 		result.topic = host.topic
 		result.qos = host.qos
 		result.authType = transformAuth(host.auth)
