@@ -133,8 +133,6 @@ public class HostsModelPersistence {
 	
 	private func transformConnectionMethod(_ type: HostProtocol) -> Int8 {
 		switch type {
-		case .mqtt:
-			return ConnectionMethod.MQTT
 		case .websocket:
 			return ConnectionMethod.WEBSOCKET
 		default:
@@ -155,8 +153,6 @@ public class HostsModelPersistence {
 	
 	private func transformClientImplType(_ type: HostClientImplType) -> Int8 {
 		switch type {
-		case .moscapsule:
-			return ClientImplType.MOSCAPSULE
 		case .cocoamqtt:
 			return ClientImplType.COCOAMQTT
 		default:
@@ -166,8 +162,6 @@ public class HostsModelPersistence {
 	
 	private func transformClientImplType(_ type: Int8) -> HostClientImplType {
 		switch type {
-		case ClientImplType.MOSCAPSULE:
-			return .moscapsule
 		case ClientImplType.COCOAMQTT:
 			return .cocoamqtt
 		default:
