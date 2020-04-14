@@ -8,29 +8,6 @@
 
 import SwiftUI
 
-struct HostFormModel {
-	var alias: String = ""
-	var hostname: String = ""
-	var port: String = "1883"
-	var basePath: String = ""
-	var topic: String = "#"
-	
-	var qos: Int = 0
-	
-	var username: String = ""
-	var password: String = ""
-	
-	var certServerCA: String = ""
-	var certClient: String = ""
-	var certClientKey: String = ""
-	var certClientKeyPassword: String = ""
-	
-	var clientID = ""
-	
-	var limitTopic = "250"
-	var limitMessagesBatch = "1000"
-}
-
 struct EditHostFormView: View {
 	@Binding var host: HostFormModel
 	@Binding var auth: HostAuthenticationType
