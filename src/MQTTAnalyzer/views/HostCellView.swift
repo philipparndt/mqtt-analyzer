@@ -37,6 +37,10 @@ struct HostCellView: View {
 					}
 					.font(.footnote)
 					.foregroundColor(.secondary)
+					
+//					if host.clientImpl == .moscapsule {
+//						DeprecationBox()
+//					}
 				}
 				
 				Spacer()

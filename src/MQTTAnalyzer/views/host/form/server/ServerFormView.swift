@@ -75,17 +75,7 @@ struct ServerFormView: View {
 				ProtocolPicker(type: $protocolMethod)
 			}
 			
-			if protocolMethod == .mqtt {
-				HStack {
-					Text("Client")
-						.font(.headline)
-						.frame(minWidth: 100, alignment: .leading)
-					
-					Spacer()
-					
-					ClientImplTypePicker(type: $clientImpl)
-				}
-			}
+
 				
 			if protocolMethod == .websocket {
 				HStack {

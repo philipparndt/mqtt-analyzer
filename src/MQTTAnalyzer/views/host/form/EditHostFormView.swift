@@ -21,6 +21,10 @@ struct EditHostFormView: View {
 			AuthFormView(host: $host, type: $auth, clientImpl: $clientImpl)
 			TopicFormView(host: $host)
 			
+//			if clientImpl == .moscapsule {
+//				DeprecationBox()
+//			}
+			
 			Toggle(isOn: $advanced) {
 				Text("More settings")
 					.font(.headline)
@@ -29,6 +33,10 @@ struct EditHostFormView: View {
 			if self.advanced {
 				ClientIDFormView(host: $host)
 				LimitsFormView(host: $host)
+				
+				if connectionMethod == .mqtt {
+					ClientImplFormView(clientImpl: $clientImpl)
+				}
 			}
 		}.keyboardResponsive()
 	}
