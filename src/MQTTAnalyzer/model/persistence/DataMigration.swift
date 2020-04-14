@@ -12,7 +12,7 @@ import RealmSwift
 class DataMigration {
 	class func initMigration() {
 		let configuration = Realm.Configuration(
-			schemaVersion: 6,
+			schemaVersion: 8,
 			migrationBlock: { migration, oldSchemaVersion in
 				if oldSchemaVersion < 4 {
 					migration.enumerateObjects(ofType: HostSetting.className()) { _, newObject in
@@ -33,7 +33,7 @@ class DataMigration {
 						}
 					}
 				}
-
+				
 //				Example on how to rename properties:
 //				if oldSchemaVersion < n {
 //					migration.renameProperty(onType: HostSetting.className(), from: "old", to: "new")

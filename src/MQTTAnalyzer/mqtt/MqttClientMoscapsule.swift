@@ -11,7 +11,8 @@ import Combine
 import Moscapsule
 
 class MqttClientMoscapsule: MqttClient {
-	
+	let utils = MqttClientSharedUtils()
+
 	let sessionNum: Int
 	let model: MessageModel
 	let host: Host
@@ -100,7 +101,7 @@ class MqttClientMoscapsule: MqttClient {
 	}
 	
 	func waitDisconnected() {
-		let result = waitFor(predicate: { !self.connectionState.connected })
+		let result = utils.waitFor(predicate: { !self.connectionState.connected })
 
 		if result == .success {
 			return
@@ -150,22 +151,7 @@ class MqttClientMoscapsule: MqttClient {
 			}
 		}
 	}
-	
-	func waitFor(predicate: @escaping () -> Bool) -> DispatchTimeoutResult {
-		let group = DispatchGroup()
-		group.enter()
-
-		DispatchQueue.global().async {
-			while !predicate() {
-				print("CONNECTION: waiting... \(self.sessionNum) \(self.host.hostname) \(self.host.topic)")
-				usleep(useconds_t(500))
-			}
-			group.leave()
-		}
-
-		return group.wait(timeout: .now() + 10)
-	}
-	
+		
 	func setDisconnected() {
 		connectionState.connected = false
 		connectionState.connecting = false

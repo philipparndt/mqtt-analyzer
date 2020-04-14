@@ -12,6 +12,7 @@ struct HostFormModel {
 	var alias: String = ""
 	var hostname: String = ""
 	var port: String = "1883"
+	var basePath: String = ""
 	var topic: String = "#"
 	
 	var qos: Int = 0
@@ -33,11 +34,13 @@ struct HostFormModel {
 struct EditHostFormView: View {
 	@Binding var host: HostFormModel
 	@Binding var auth: HostAuthenticationType
+	@Binding var connectionMethod: HostProtocol
+	@Binding var clientImpl: HostClientImplType
 	@State var advanced = false
 	
 	var body: some View {
 		Form {
-			ServerFormView(host: $host)
+			ServerFormView(host: $host, protocolMethod: $connectionMethod, clientImpl: $clientImpl)
 			AuthFormView(host: $host, type: $auth)
 			TopicFormView(host: $host)
 			
@@ -71,6 +74,8 @@ struct FormFieldInvalidMark: View {
 // MARK: Server
 struct ServerFormView: View {
 	@Binding var host: HostFormModel
+	@Binding var protocolMethod: HostProtocol
+	@Binding var clientImpl: HostClientImplType
 
 	var hostnameInvalid: Bool {
 		return !host.hostname.isEmpty
@@ -121,6 +126,42 @@ struct ServerFormView: View {
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
 					.font(.body)
+			}
+			
+			HStack {
+				Text("Protocol")
+					.font(.headline)
+					.frame(minWidth: 100, alignment: .leading)
+
+				Spacer()
+
+				ProtocolPicker(type: $protocolMethod)
+			}
+			
+			if protocolMethod == .mqtt {
+				HStack {
+					Text("Client")
+						.font(.headline)
+						.frame(minWidth: 100, alignment: .leading)
+					
+					Spacer()
+					
+					ClientImplTypePicker(type: $clientImpl)
+				}
+			}
+				
+			if protocolMethod == .websocket {
+				HStack {
+					Text("Basepath")
+						.font(.headline)
+					
+					Spacer()
+					
+					TextField("/", text: $host.basePath)
+					.multilineTextAlignment(.trailing)
+					.disableAutocorrection(true)
+					.font(.body)
+				}
 			}
 		}
 	}

@@ -17,7 +17,9 @@ struct EditHostFormModalView: View {
 	
 	@State var host: HostFormModel
 	@State var auth: HostAuthenticationType = .none
-	
+	@State var protocolMethod: HostProtocol = .mqtt
+	@State var clientImpl: HostClientImplType = .moscapsule
+
 	var disableSave: Bool {
 		return HostFormValidator.validateHostname(name: host.hostname) == nil
 			|| HostFormValidator.validatePort(port: host.port) == nil
@@ -27,7 +29,7 @@ struct EditHostFormModalView: View {
 
 	var body: some View {
 		NavigationView {
-			EditHostFormView(host: $host, auth: $auth)
+			EditHostFormView(host: $host, auth: $auth, connectionMethod: $protocolMethod, clientImpl: $clientImpl)
 				.font(.caption)
 				.navigationBarTitle(Text("Edit host"))
 				.navigationBarItems(
@@ -38,34 +40,13 @@ struct EditHostFormModalView: View {
 	}
 	
 	func save() {
-		original.alias = host.alias
-		original.hostname = host.hostname
-		original.qos = host.qos
-		original.auth = self.auth
-		original.port = UInt16(host.port) ?? 1883
-		original.topic = host.topic
-		original.clientID = host.clientID
-		original.limitTopic = Int(host.limitTopic) ?? 250
-		original.limitMessagesBatch = Int(host.limitMessagesBatch) ?? 1000
-		original.auth = self.auth
-		
-		if self.auth == .none {
-			original.username = ""
-			original.password = ""
-		}
-		else if self.auth == .usernamePassword {
-			original.username = host.username
-			original.password = host.password
-		}
-		else if self.auth == .certificate {
-			original.certServerCA = host.certServerCA
-			original.certClient = host.certClient
-			original.certClientKey = host.certClientKey
-			original.certClientKeyPassword = host.certClientKeyPassword
+		let updated = copyHost(target: original, source: host, auth, protocolMethod, clientImpl)
+		if updated == nil {
+			return
 		}
 		
 		DispatchQueue.main.async {
-			self.root.persistence.update(self.original)
+			self.root.persistence.update(updated!)
 			self.closeHandler()
 		}
 	}

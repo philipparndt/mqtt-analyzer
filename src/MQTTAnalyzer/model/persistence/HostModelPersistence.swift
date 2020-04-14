@@ -59,6 +59,8 @@ public class HostsModelPersistence {
 					setting.clientID = host.clientID
 					setting.limitTopic = host.limitTopic
 					setting.limitMessagesBatch = host.limitMessagesBatch
+					setting.protocolMethod = transformConnectionMethod(host.protocolMethod)
+					setting.clientImplType = transformClientImplType(host.clientImpl)
 				}
 			}
 			catch {
@@ -128,6 +130,50 @@ public class HostsModelPersistence {
 		}
 	}
 	
+	private func transformConnectionMethod(_ type: HostProtocol) -> Int8 {
+		switch type {
+		case .mqtt:
+			return ConnectionMethod.MQTT
+		case .websocket:
+			return ConnectionMethod.WEBSOCKET
+		default:
+			return ConnectionMethod.MQTT
+		}
+	}
+	
+	private func transformConnectionMethod(_ type: Int8) -> HostProtocol {
+		switch type {
+		case ConnectionMethod.MQTT:
+			return .mqtt
+		case ConnectionMethod.WEBSOCKET:
+			return .websocket
+		default:
+			return .mqtt
+		}
+	}
+	
+	private func transformClientImplType(_ type: HostClientImplType) -> Int8 {
+		switch type {
+		case .moscapsule:
+			return ClientImplType.MOSCAPSULE
+		case .cocoamqtt:
+			return ClientImplType.COCOAMQTT
+		default:
+			return ClientImplType.MOSCAPSULE
+		}
+	}
+	
+	private func transformClientImplType(_ type: Int8) -> HostClientImplType {
+		switch type {
+		case ClientImplType.MOSCAPSULE:
+			return .moscapsule
+		case ClientImplType.COCOAMQTT:
+			return .cocoamqtt
+		default:
+			return .moscapsule
+		}
+	}
+	
 	func transform(_ host: HostSetting) -> Host {
 		let result = Host(id: host.id)
 		result.deleted = host.isDeleted
@@ -146,6 +192,9 @@ public class HostsModelPersistence {
 		result.clientID = host.clientID
 		result.limitTopic = host.limitTopic
 		result.limitMessagesBatch = host.limitMessagesBatch
+		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
+		result.clientImpl = transformClientImplType(host.clientImplType)
+		result.basePath = host.basePath
 		return result
 	}
 	
@@ -168,6 +217,9 @@ public class HostsModelPersistence {
 		result.clientID = host.clientID
 		result.limitTopic = host.limitTopic
 		result.limitMessagesBatch = host.limitMessagesBatch
+		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
+		result.clientImplType = transformClientImplType(host.clientImpl)
+		result.basePath = host.basePath
 		return result
 	}
 }
