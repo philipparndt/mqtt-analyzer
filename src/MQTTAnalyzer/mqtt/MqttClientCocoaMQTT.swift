@@ -40,8 +40,8 @@ class MqttClientCocoaMQTT: MqttClient {
 		initConnect()
 		
 		let mqtt: CocoaMQTT
-		if host.port == 9001 {
-			let websocket = CocoaMQTTWebSocket(uri: "")
+		if host.protocolMethod == .websocket {
+			let websocket = CocoaMQTTWebSocket(uri: self.host.basePath)
 			mqtt = CocoaMQTT(clientID: host.computeClientID,
 								  host: host.hostname,
 								  port: host.port,
