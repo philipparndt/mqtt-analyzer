@@ -18,7 +18,7 @@ struct NewHostFormModalView: View {
 	@State private var host: HostFormModel = HostFormModel()
 	@State private var auth: HostAuthenticationType = .none
 	@State private var connectionMethod: HostProtocol = .mqtt
-	@State private var clientImpl: HostClientImplType = .moscapsule
+	@State private var clientImpl: HostClientImplType = .cocoamqtt
 	
 	var disableSave: Bool {
 		return HostFormValidator.validateHostname(name: host.hostname) == nil

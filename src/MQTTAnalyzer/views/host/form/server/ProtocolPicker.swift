@@ -24,7 +24,7 @@ struct ProtocolPicker: View {
 
 	var body: some View {
 		Picker(selection: $type, label: Text("Protocol")) {
-			Text("Mqtt").tag(HostProtocol.mqtt)
+			Text("MQTT").tag(HostProtocol.mqtt)
 			Text("Websocket").tag(HostProtocol.websocket)
 		}.pickerStyle(SegmentedPickerStyle())
 	}
