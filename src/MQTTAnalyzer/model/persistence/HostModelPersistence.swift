@@ -61,6 +61,7 @@ public class HostsModelPersistence {
 					setting.limitMessagesBatch = host.limitMessagesBatch
 					setting.protocolMethod = transformConnectionMethod(host.protocolMethod)
 					setting.clientImplType = transformClientImplType(host.clientImpl)
+					setting.basePath = host.basePath
 				}
 			}
 			catch {
