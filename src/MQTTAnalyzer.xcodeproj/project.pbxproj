@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */; };
+		2203571F2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */; };
 		2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
 		220B2AF92415214900287E30 /* Popsheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220B2AF82415214900287E30 /* Popsheet.swift */; };
@@ -22,7 +23,7 @@
 		2253F8E522C8C008007E35A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */; };
 		2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */; };
 		226A6B50244457E100ACDFC3 /* MqttClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B4F244457E100ACDFC3 /* MqttClient.swift */; };
-		226A6B5224445BA400ACDFC3 /* MqttClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5124445BA400ACDFC3 /* MqttClientCocoaMQTT.swift */; };
+		226A6B5224445BA400ACDFC3 /* CocoaMQTTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5124445BA400ACDFC3 /* CocoaMQTTClient.swift */; };
 		226A6B5424448ECB00ACDFC3 /* MqttClientSharedUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5324448ECB00ACDFC3 /* MqttClientSharedUtils.swift */; };
 		226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */; };
 		226A6B5824449F6200ACDFC3 /* ClientImplTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5724449F6200ACDFC3 /* ClientImplTypePicker.swift */; };
@@ -54,7 +55,7 @@
 		22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FC2409440F00DF8F94 /* InfoBox.swift */; };
 		22A387052409768100DF8F94 /* HostModelPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A387042409768100DF8F94 /* HostModelPersistenceTests.swift */; };
 		22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */; };
-		22A38709240BE7D100DF8F94 /* MQTTCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A38708240BE7D100DF8F94 /* MQTTCertificateFiles.swift */; };
+		22A38709240BE7D100DF8F94 /* MoscapsuleCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A38708240BE7D100DF8F94 /* MoscapsuleCertificateFiles.swift */; };
 		22AE64342412636300C2C4FE /* DiagramPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64332412636300C2C4FE /* DiagramPath.swift */; };
 		22AE64362412637A00C2C4FE /* TimeSeriesValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */; };
 		22AE643824126A7500C2C4FE /* DiagramPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE643724126A7500C2C4FE /* DiagramPathTests.swift */; };
@@ -87,7 +88,7 @@
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
 		22F6057B23D4911000E6338B /* DataMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6057A23D4911000E6338B /* DataMigration.swift */; };
 		22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE623C24A5800422BFF /* StringUtils.swift */; };
-		22F8BEE923C31C3B00422BFF /* MqttClientMoscapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE823C31C3B00422BFF /* MqttClientMoscapsule.swift */; };
+		22F8BEE923C31C3B00422BFF /* MoscapsuleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE823C31C3B00422BFF /* MoscapsuleClient.swift */; };
 		22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEEB23C7871F00422BFF /* LoginDialog.swift */; };
 		22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
 		22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF722C8D2650078795F /* MessageDetailsView.swift */; };
@@ -120,6 +121,7 @@
 /* Begin PBXFileReference section */
 		1C7F7D8A56B0E9F9E2F1B518 /* Pods-MQTTAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
 		2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTypePicker.swift; sourceTree = "<group>"; };
+		2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTCertificateFiles.swift; sourceTree = "<group>"; };
 		2205E5E0238A7EE2001638DF /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
 		220B2AF82415214900287E30 /* Popsheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popsheet.swift; sourceTree = "<group>"; };
@@ -140,7 +142,7 @@
 		2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerTests.swift; sourceTree = "<group>"; };
 		2253F8F122C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		226A6B4F244457E100ACDFC3 /* MqttClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClient.swift; sourceTree = "<group>"; };
-		226A6B5124445BA400ACDFC3 /* MqttClientCocoaMQTT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClientCocoaMQTT.swift; sourceTree = "<group>"; };
+		226A6B5124445BA400ACDFC3 /* CocoaMQTTClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTClient.swift; sourceTree = "<group>"; };
 		226A6B5324448ECB00ACDFC3 /* MqttClientSharedUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClientSharedUtils.swift; sourceTree = "<group>"; };
 		226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolPicker.swift; sourceTree = "<group>"; };
 		226A6B5724449F6200ACDFC3 /* ClientImplTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientImplTypePicker.swift; sourceTree = "<group>"; };
@@ -174,7 +176,7 @@
 		22A386FC2409440F00DF8F94 /* InfoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBox.swift; sourceTree = "<group>"; };
 		22A387042409768100DF8F94 /* HostModelPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostModelPersistenceTests.swift; sourceTree = "<group>"; };
 		22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesValueUtil.swift; sourceTree = "<group>"; };
-		22A38708240BE7D100DF8F94 /* MQTTCertificateFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTCertificateFiles.swift; sourceTree = "<group>"; };
+		22A38708240BE7D100DF8F94 /* MoscapsuleCertificateFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoscapsuleCertificateFiles.swift; sourceTree = "<group>"; };
 		22AE64332412636300C2C4FE /* DiagramPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramPath.swift; sourceTree = "<group>"; };
 		22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesValue.swift; sourceTree = "<group>"; };
 		22AE643724126A7500C2C4FE /* DiagramPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramPathTests.swift; sourceTree = "<group>"; };
@@ -209,7 +211,7 @@
 		22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesModel.swift; sourceTree = "<group>"; };
 		22F6057A23D4911000E6338B /* DataMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigration.swift; sourceTree = "<group>"; };
 		22F8BEE623C24A5800422BFF /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
-		22F8BEE823C31C3B00422BFF /* MqttClientMoscapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClientMoscapsule.swift; sourceTree = "<group>"; };
+		22F8BEE823C31C3B00422BFF /* MoscapsuleClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoscapsuleClient.swift; sourceTree = "<group>"; };
 		22F8BEEB23C7871F00422BFF /* LoginDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDialog.swift; sourceTree = "<group>"; };
 		22FD7CF622C8D2650078795F /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		22FD7CF722C8D2650078795F /* MessageDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailsView.swift; sourceTree = "<group>"; };
@@ -255,6 +257,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2203571C2445850000A98CD3 /* moscapsule */ = {
+			isa = PBXGroup;
+			children = (
+				22F8BEE823C31C3B00422BFF /* MoscapsuleClient.swift */,
+				22A38708240BE7D100DF8F94 /* MoscapsuleCertificateFiles.swift */,
+			);
+			path = moscapsule;
+			sourceTree = "<group>";
+		};
+		2203571D2445850F00A98CD3 /* cocoamqtt */ = {
+			isa = PBXGroup;
+			children = (
+				226A6B5124445BA400ACDFC3 /* CocoaMQTTClient.swift */,
+				2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */,
+			);
+			path = cocoamqtt;
+			sourceTree = "<group>";
+		};
 		223EF0042387082E002ADF3E /* persistence */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,11 +569,10 @@
 		22FD7D0622C8D3760078795F /* mqtt */ = {
 			isa = PBXGroup;
 			children = (
+				2203571D2445850F00A98CD3 /* cocoamqtt */,
+				2203571C2445850000A98CD3 /* moscapsule */,
 				22FD7CF822C8D2650078795F /* MQTTSessionController.swift */,
-				22A38708240BE7D100DF8F94 /* MQTTCertificateFiles.swift */,
 				226A6B4F244457E100ACDFC3 /* MqttClient.swift */,
-				22F8BEE823C31C3B00422BFF /* MqttClientMoscapsule.swift */,
-				226A6B5124445BA400ACDFC3 /* MqttClientCocoaMQTT.swift */,
 				226A6B5324448ECB00ACDFC3 /* MqttClientSharedUtils.swift */,
 			);
 			path = mqtt;
@@ -828,10 +847,11 @@
 				226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */,
 				22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */,
 				22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */,
+				2203571F2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift in Sources */,
 				228104982381796B00112F24 /* HostCellView.swift in Sources */,
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormDialog.swift in Sources */,
-				226A6B5224445BA400ACDFC3 /* MqttClientCocoaMQTT.swift in Sources */,
+				226A6B5224445BA400ACDFC3 /* CocoaMQTTClient.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
 				226A6B5824449F6200ACDFC3 /* ClientImplTypePicker.swift in Sources */,
 				22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */,
@@ -859,7 +879,7 @@
 				228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
 				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
-				22F8BEE923C31C3B00422BFF /* MqttClientMoscapsule.swift in Sources */,
+				22F8BEE923C31C3B00422BFF /* MoscapsuleClient.swift in Sources */,
 				22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */,
 				22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */,
 				22C386A322CB84900054C385 /* RootView.swift in Sources */,
@@ -880,7 +900,7 @@
 				226A6B612445757900ACDFC3 /* TopicFormView.swift in Sources */,
 				22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */,
 				226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */,
-				22A38709240BE7D100DF8F94 /* MQTTCertificateFiles.swift in Sources */,
+				22A38709240BE7D100DF8F94 /* MoscapsuleCertificateFiles.swift in Sources */,
 				226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */,
 				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
 				2291424C23BF78000086C251 /* AboutView.swift in Sources */,

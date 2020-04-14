@@ -18,7 +18,7 @@ struct EditHostFormView: View {
 	var body: some View {
 		Form {
 			ServerFormView(host: $host, protocolMethod: $connectionMethod, clientImpl: $clientImpl)
-			AuthFormView(host: $host, type: $auth)
+			AuthFormView(host: $host, type: $auth, clientImpl: $clientImpl)
 			TopicFormView(host: $host)
 			
 			Toggle(isOn: $advanced) {

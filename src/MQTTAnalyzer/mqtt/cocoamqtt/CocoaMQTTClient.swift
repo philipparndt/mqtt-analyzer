@@ -59,8 +59,7 @@ class MqttClientCocoaMQTT: MqttClient {
 			mqtt.password = host.passwordNonpersistent ?? host.password
 		}
 		else if host.auth == .certificate {
-			failConnection(reason: "Authentication with client certificates not supported for this client implementation.")
-			return
+			mqtt.sslSettings = createSSLSettings(host: host)
 		}
 		
 		mqtt.keepAlive = 60
@@ -91,6 +90,9 @@ class MqttClientCocoaMQTT: MqttClient {
 			})
 	}
 
+	
+
+	
 	// MARK: Should be shared
 	func waitConnected() {
 
