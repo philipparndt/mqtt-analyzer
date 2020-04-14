@@ -49,6 +49,8 @@ class Host: Identifiable, ObservableObject {
 	var protocolMethod: HostProtocol = .mqtt
 	var clientImpl: HostClientImplType = .cocoamqtt
 	var basePath: String = ""
+	var ssl: Bool = false
+	var untrustedSSL: Bool = false
 	
 	var limitTopic = 250
 	var limitMessagesBatch = 1000

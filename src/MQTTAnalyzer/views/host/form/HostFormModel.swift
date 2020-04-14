@@ -29,8 +29,10 @@ struct HostFormModel {
 	
 	var limitTopic = "250"
 	var limitMessagesBatch = "1000"
+	
+	var ssl: Bool = false
+	var untrustedSSL: Bool = false
 }
-
 
 func copyHost(target: Host, source host: HostFormModel, _ auth: HostAuthenticationType, _ connectionMethod: HostProtocol, _ clientImpl: HostClientImplType) -> Host? {
 	let newHostname = HostFormValidator.validateHostname(name: host.hostname)
@@ -50,6 +52,8 @@ func copyHost(target: Host, source host: HostFormModel, _ auth: HostAuthenticati
 	target.auth = auth
 	target.basePath = host.basePath
 	target.protocolMethod = connectionMethod
+	target.ssl = host.ssl
+	target.untrustedSSL = host.ssl && host.untrustedSSL
 	
 	if target.protocolMethod == .websocket {
 		target.clientImpl = .cocoamqtt
@@ -87,5 +91,8 @@ func transformHost(source host: Host) -> HostFormModel {
 						 certClientKeyPassword: host.certClientKeyPassword,
 						 clientID: host.clientID,
 						 limitTopic: "\(host.limitTopic)",
-						 limitMessagesBatch: "\(host.limitMessagesBatch)")
+						 limitMessagesBatch: "\(host.limitMessagesBatch)",
+						 ssl: host.ssl,
+						 untrustedSSL: host.untrustedSSL
+						)
 }
