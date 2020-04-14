@@ -64,6 +64,8 @@ class MqttClientCocoaMQTT: MqttClient {
 			print(state)
 		}
 		
+		waitConnected()
+
 		if !mqtt.connect() {
 			self.setDisconnected()
 			self.setConnectionMessage(message: "Connection to port \(host.port) failed")
@@ -71,8 +73,6 @@ class MqttClientCocoaMQTT: MqttClient {
 		}
 		
 		self.mqtt = mqtt
-		
-		waitConnected()
 
 		let queue = DispatchQueue(label: "Message dispache queue")
 		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
@@ -94,8 +94,10 @@ class MqttClientCocoaMQTT: MqttClient {
 			while self.connectionState.isConnecting && i > 0 {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
 				sleep(1)
-
-				self.setConnectionMessage(message: "Connecting... \(i)")
+				
+				if self.connectionState.isConnecting {
+					self.setConnectionMessage(message: "Connecting... \(i)")
+				}
 
 				i-=1
 			}
@@ -231,16 +233,48 @@ class MqttClientCocoaMQTT: MqttClient {
 	}
 	
 	func didConnect(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
-		print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topic)")
-		connectionState.connected = true
-		
-		NSLog("Connected. Return Code is \(ack.description)")
+		if ack == .accept {
+			print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topic)")
+			connectionState.connected = true
+			
+			NSLog("Connected. Return Code is \(ack.description)")
+			DispatchQueue.main.async {
+				self.host.connecting = false
+				self.host.connected = true
+			}
+			
+			subscribeToTopic(host)
+		}
+		else if ack == .notAuthorized {
+			failAuth(reason: "not authorized")
+		}
+		else if ack == .badUsernameOrPassword {
+			failAuth(reason: "bad username/password")
+		}
+
+//		case accept  = 0
+//		case unacceptableProtocolVersion
+//		case identifierRejected
+//		case serverUnavailable
+//		case badUsernameOrPassword
+//		case notAuthorized
+//		case reserved
+	}
+	
+	func failAuth(reason: String) {
+		NSLog("Connection refused: " + reason)
+		connectionState.connectionFailed = reason
+				
+		self.setDisconnected()
+
 		DispatchQueue.main.async {
-			self.host.connecting = false
-			self.host.connected = true
+			self.host.usernameNonpersistent = nil
+			self.host.passwordNonpersistent = nil
+			self.host.connectionMessage = reason
+			self.host.pause = false
+			self.host.connected = false
 		}
 		
-		subscribeToTopic(host)
 	}
 	
 	func didReceiveMessage(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
