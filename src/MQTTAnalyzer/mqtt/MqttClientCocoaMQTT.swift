@@ -54,6 +54,15 @@ class MqttClientCocoaMQTT: MqttClient {
 										  port: host.port)
 		}
 		
+		if host.auth == .usernamePassword {
+			mqtt.username = host.usernameNonpersistent ?? host.username
+			mqtt.password = host.passwordNonpersistent ?? host.password
+		}
+		else if host.auth == .certificate {
+			failConnection(reason: "Authentication with client certificates not supported for this client implementation.")
+			return
+		}
+		
 		mqtt.keepAlive = 60
 		mqtt.autoReconnect = false
 		
@@ -64,14 +73,13 @@ class MqttClientCocoaMQTT: MqttClient {
 			print(state)
 		}
 		
-		waitConnected()
-
 		if !mqtt.connect() {
-			self.setDisconnected()
-			self.setConnectionMessage(message: "Connection to port \(host.port) failed")
+			failConnection(reason: "Connection to port \(host.port) failed")
 			return
 		}
 		
+		waitConnected()
+
 		self.mqtt = mqtt
 
 		let queue = DispatchQueue(label: "Message dispache queue")
@@ -91,6 +99,7 @@ class MqttClientCocoaMQTT: MqttClient {
 
 		DispatchQueue.global().async {
 			var i = 10
+			
 			while self.connectionState.isConnecting && i > 0 {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
 				sleep(1)
@@ -246,30 +255,36 @@ class MqttClientCocoaMQTT: MqttClient {
 			subscribeToTopic(host)
 		}
 		else if ack == .notAuthorized {
-			failAuth(reason: "not authorized")
+			self.host.usernameNonpersistent = nil
+			self.host.passwordNonpersistent = nil
+			failConnection(reason: "Not authorized")
 		}
 		else if ack == .badUsernameOrPassword {
-			failAuth(reason: "bad username/password")
+			self.host.usernameNonpersistent = nil
+			self.host.passwordNonpersistent = nil
+			failConnection(reason: "Bad username/password")
 		}
-
-//		case accept  = 0
-//		case unacceptableProtocolVersion
-//		case identifierRejected
-//		case serverUnavailable
-//		case badUsernameOrPassword
-//		case notAuthorized
-//		case reserved
+		else if ack == .unacceptableProtocolVersion {
+			failConnection(reason: "Unacceptable protocol version")
+		}
+		else if ack == .identifierRejected {
+			failConnection(reason: "Identifier rejected")
+		}
+		else if ack == .serverUnavailable {
+			failConnection(reason: "Server unavailable")
+		}
+		else {
+			failConnection(reason: "Unknown error")
+		}
 	}
 	
-	func failAuth(reason: String) {
-		NSLog("Connection refused: " + reason)
+	func failConnection(reason: String) {
+		NSLog("Connection failed: " + reason)
 		connectionState.connectionFailed = reason
 				
 		self.setDisconnected()
 
 		DispatchQueue.main.async {
-			self.host.usernameNonpersistent = nil
-			self.host.passwordNonpersistent = nil
 			self.host.connectionMessage = reason
 			self.host.pause = false
 			self.host.connected = false
