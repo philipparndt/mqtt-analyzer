@@ -122,7 +122,15 @@ class Host: Identifiable, ObservableObject {
 }
 
 class HostsModel: ObservableObject {
-	@Published var hosts: [Host]
+	let initMethod: InitHost
+	
+	@Published var hosts: [Host] {
+		willSet {
+			for host in newValue {
+				initMethod.initHost(host: host)
+			}
+		}
+	}
 	
 	var hostsSorted: [Host] {
 		return self.hosts.sorted {
@@ -135,7 +143,8 @@ class HostsModel: ObservableObject {
 		}
 	}
 	
-	init(hosts: [Host] = []) {
+	init(hosts: [Host] = [], initMethod: InitHost) {
+		self.initMethod = initMethod
 		self.hosts = hosts
 	}
 	

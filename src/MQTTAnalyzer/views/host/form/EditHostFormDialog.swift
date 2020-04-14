@@ -12,7 +12,7 @@ import SwiftUI
 struct EditHostFormModalView: View {
 	let closeHandler: () -> Void
 	let root: RootModel
-	var hosts: HostsModel = HostsModel()
+	var hosts: HostsModel = HostsModel(initMethod: RootModel.CONTROLLER)
 	let original: Host
 	
 	@State var host: HostFormModel

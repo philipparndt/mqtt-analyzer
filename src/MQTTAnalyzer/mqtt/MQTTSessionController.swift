@@ -9,7 +9,8 @@
 import Foundation
 import Combine
 
-class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
+class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
+	
 	var model: MessageModel?
 	var sessions: [String: MqttClient] = [:]
 	
@@ -29,6 +30,15 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		}
 
 		NSLog("MQTTController deinit")
+	}
+	
+	func initHost(host: Host) {
+		if let session = sessions[host.ID] {
+			host.disconnectDelegate = self
+			host.reconnectDelegate = self
+			host.connecting = session.connectionState.connecting
+			host.connected = session.connectionState.connected
+		}
 	}
 	
 	func reconnect(host: Host) {

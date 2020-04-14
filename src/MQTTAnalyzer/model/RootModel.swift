@@ -9,6 +9,10 @@
 import SwiftUI
 import Combine
 
+protocol InitHost: class {
+	func initHost(host: Host)
+}
+
 protocol ReconnectDelegate: class {
 	func reconnect(host: Host)
 }
@@ -17,12 +21,15 @@ protocol DisconnectDelegate: class {
 	func disconnect(host: Host)
 }
 
+
 class RootModel: ObservableObject {
-	let hostsModel = HostsModel()
+	static let CONTROLLER = MQTTSessionController()
+	
+	let sessionController = CONTROLLER
+
+	let hostsModel = HostsModel(initMethod: CONTROLLER)
 	
 	var messageModelByHost: [Host: MessageModel] = [:]
-	
-	var sessionController = MQTTSessionController()
 	
 	let persistence: HostsModelPersistence
 	
