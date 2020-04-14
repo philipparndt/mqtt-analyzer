@@ -10,10 +10,13 @@ import Foundation
 import XCTest
 @testable import MQTTAnalyzer
 
-class HostModelPersistenceTests: XCTestCase {
-	
+class HostModelPersistenceTests: XCTestCase, InitHost {
+	func initHost(host: Host) {
+		
+	}
+		
 	func testTransformFromPersistenceModel() {
-		let model = HostsModel()
+		let model = HostsModel(initMethod: self)
 		
 		let setting = HostSetting()
 		setting.alias = "alias"
@@ -55,7 +58,7 @@ class HostModelPersistenceTests: XCTestCase {
 	}
 	
 	func testTransformFromPersistenceModelAuthType() {
-		let model = HostsModel()
+		let model = HostsModel(initMethod: self)
 		
 		let persistence = HostsModelPersistence(model: model)
 
@@ -74,7 +77,7 @@ class HostModelPersistenceTests: XCTestCase {
 	}
 	
 	func testTransformToPersistenceModel() {
-		let model = HostsModel()
+		let model = HostsModel(initMethod: self)
 		
 		let host = Host()
 		host.alias = "alias"
@@ -116,7 +119,7 @@ class HostModelPersistenceTests: XCTestCase {
 	}
 	
 	func testTransformToPersistenceModelAuthType() {
-		let model = HostsModel()
+		let model = HostsModel(initMethod: self)
 		
 		let persistence = HostsModelPersistence(model: model)
 
