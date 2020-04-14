@@ -12,24 +12,38 @@ import RealmSwift
 class DataMigration {
 	class func initMigration() {
 		let configuration = Realm.Configuration(
-			schemaVersion: 8,
+			schemaVersion: 9,
 			migrationBlock: { migration, oldSchemaVersion in
 				if oldSchemaVersion < 4 {
 					migration.enumerateObjects(ofType: HostSetting.className()) { _, newObject in
-						newObject!["limitTopic"] = 250
-						newObject!["limitMessagesBatch"] = 1000
+						if let no = newObject {
+							no["limitTopic"] = 250
+							no["limitMessagesBatch"] = 1000
+						}
 					}
 				}
 				
 				// Add support for different auth types
 				if oldSchemaVersion < 5 {
 					migration.enumerateObjects(ofType: HostSetting.className()) { oldObject, newObject in
-						let auth = oldObject!["auth"] as! Bool
-						if auth {
-							newObject!["authType"] = AuthenticationType.USERNAME_PASSWORD
+						if let oo = oldObject, let no = newObject {
+							let auth = oo["auth"] as? Bool
+							if auth ?? false {
+								no["authType"] = AuthenticationType.USERNAME_PASSWORD
+							}
+							else {
+								no["authType"] = AuthenticationType.NONE
+							}
 						}
-						else {
-							newObject!["authType"] = AuthenticationType.NONE
+					}
+				}
+				
+				if oldSchemaVersion < 9 {
+					migration.enumerateObjects(ofType: HostSetting.className()) { oldObject, newObject in
+						if let authType = oldObject!["authType"] as? Int8 {
+							if let no = newObject {
+								no["clientImplType"] = (authType == AuthenticationType.CERTIFICATE ? ClientImplType.MOSCAPSULE : ClientImplType.COCOAMQTT)
+							}
 						}
 					}
 				}

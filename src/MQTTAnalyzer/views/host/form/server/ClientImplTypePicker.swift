@@ -24,8 +24,8 @@ struct ClientImplTypePicker: View {
 
 	var body: some View {
 		Picker(selection: $type, label: Text("Client")) {
-			Text("Moscapsule").tag(HostClientImplType.moscapsule)
 			Text("CocoaMQTT").tag(HostClientImplType.cocoamqtt)
+			Text("Moscapsule").tag(HostClientImplType.moscapsule)
 		}.pickerStyle(SegmentedPickerStyle())
 	}
 }
