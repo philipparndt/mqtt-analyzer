@@ -38,6 +38,8 @@ class HostSetting: Object {
 
 	@objc dynamic var protocolMethod: Int8 = ConnectionMethod.MQTT
 	@objc dynamic var basePath: String = ""
+	@objc dynamic var ssl: Bool = false
+	@objc dynamic var untrustedSSL: Bool = false
 	
 	@objc dynamic var clientImplType: Int8 = ClientImplType.MOSCAPSULE
 	

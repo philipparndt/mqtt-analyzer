@@ -13,6 +13,7 @@ import Combine
 
 class MqttClientCocoaMQTT: MqttClient {
 	
+	let delgate = MQTTDelegate()
 	let utils = MqttClientSharedUtils()
 	
 	let sessionNum: Int
@@ -54,6 +55,9 @@ class MqttClientCocoaMQTT: MqttClient {
 										  port: host.port)
 		}
 		
+		mqtt.enableSSL = host.ssl
+		mqtt.allowUntrustCACertificate = host.untrustedSSL
+		
 		if host.auth == .usernamePassword {
 			mqtt.username = host.usernameNonpersistent ?? host.username
 			mqtt.password = host.passwordNonpersistent ?? host.password
@@ -65,6 +69,7 @@ class MqttClientCocoaMQTT: MqttClient {
 		mqtt.keepAlive = 60
 		mqtt.autoReconnect = false
 		
+		mqtt.delegate = self.delgate
 		mqtt.didReceiveMessage = self.didReceiveMessage
 		mqtt.didDisconnect = self.didDisconnect
 		mqtt.didConnectAck = self.didConnect
@@ -90,9 +95,6 @@ class MqttClientCocoaMQTT: MqttClient {
 			})
 	}
 
-	
-
-	
 	// MARK: Should be shared
 	func waitConnected() {
 

@@ -101,6 +101,18 @@ struct ServerFormView: View {
 					.font(.body)
 				}
 			}
+			
+			Toggle(isOn: $host.ssl) {
+				Text("SSL")
+					.font(.headline)
+			}
+
+			if host.ssl {
+				Toggle(isOn: $host.untrustedSSL) {
+					Text("Allow untrusted")
+						.font(.headline)
+				}
+			}
 		}
 	}
 }

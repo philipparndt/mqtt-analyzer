@@ -62,6 +62,8 @@ public class HostsModelPersistence {
 					setting.protocolMethod = transformConnectionMethod(host.protocolMethod)
 					setting.clientImplType = transformClientImplType(host.clientImpl)
 					setting.basePath = host.basePath
+					setting.ssl = host.ssl
+					setting.untrustedSSL = host.untrustedSSL
 				}
 			}
 			catch {
@@ -190,6 +192,8 @@ public class HostsModelPersistence {
 		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
 		result.clientImpl = transformClientImplType(host.clientImplType)
 		result.basePath = host.basePath
+		result.ssl = host.ssl
+		result.untrustedSSL = host.untrustedSSL
 		return result
 	}
 	
@@ -215,6 +219,8 @@ public class HostsModelPersistence {
 		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
 		result.clientImplType = transformClientImplType(host.clientImpl)
 		result.basePath = host.basePath
+		result.ssl = host.ssl
+		result.untrustedSSL = host.untrustedSSL
 		return result
 	}
 }
