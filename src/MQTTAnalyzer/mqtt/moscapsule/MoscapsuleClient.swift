@@ -60,7 +60,7 @@ class MqttClientMoscapsule: MqttClient {
 			mqttConfig.mqttAuthOpts = MQTTAuthOpts(username: username, password: password)
 		}
 		else if host.auth == .certificate {
-			let result = MQTTCertificateFiles.initCertificates(host: host, config: mqttConfig)
+			let result = initCertificates(host: host, config: mqttConfig)
 			if !result.0 {
 				DispatchQueue.main.async {
 					self.host.connecting = false

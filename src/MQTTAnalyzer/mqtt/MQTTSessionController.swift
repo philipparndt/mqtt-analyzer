@@ -43,6 +43,15 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		connect(host: host)
 	}
 	
+	fileprivate func createClient(_ host: Host) -> MqttClient {
+		switch host.clientImpl {
+		case .cocoamqtt:
+			return MqttClientCocoaMQTT(host: host, model: model!)
+		case .moscapsule:
+			return MqttClientMoscapsule(host: host, model: model!)
+		}
+	}
+	
 	func connect(host: Host) {
 		if model == nil {
 			NSLog("model must be set in order to connect")
@@ -52,7 +61,8 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		
 		if session?.host !== host {
 			disconnect(host: host)
-			session = MqttClientCocoaMQTT(host: host, model: model!)
+			
+			session = createClient(host)
 		}
 		else if session?.connectionAlive ?? false {
 			return

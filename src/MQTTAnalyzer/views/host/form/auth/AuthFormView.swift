@@ -12,6 +12,7 @@ import SwiftUI
 struct AuthFormView: View {
 	@Binding var host: HostFormModel
 	@Binding var type: HostAuthenticationType
+	@Binding var clientImpl: HostClientImplType
 	
 	var body: some View {
 		return Section(header: Text("Authentication")) {
@@ -21,7 +22,7 @@ struct AuthFormView: View {
 				UsernamePasswordAuthenticationView(host: $host)
 			}
 			else if self.type == .certificate {
-				CertificateAuthenticationView(host: $host)
+				CertificateAuthenticationView(host: $host, clientImpl: $clientImpl)
 			}
 		}
 	}

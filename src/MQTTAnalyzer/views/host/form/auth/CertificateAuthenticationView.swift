@@ -11,8 +11,10 @@ import Foundation
 import SwiftUI
 
 struct CertificateAuthenticationView: View {
-	@Binding var host: HostFormModel
 
+	@Binding var host: HostFormModel
+	@Binding var clientImpl: HostClientImplType
+	
 	@State var serverCA: String = ""
 	@State var clientCertificate: String = ""
 	@State var clientKey: String = ""
@@ -21,9 +23,14 @@ struct CertificateAuthenticationView: View {
 	var body: some View {
 		Group {
 			List {
-				CertificateFileItemView(name: "Server CA", filename: $host.certServerCA)
-				CertificateFileItemView(name: "Client Certificate", filename: $host.certClient)
-				CertificateFileItemView(name: "Client Key", filename: $host.certClientKey)
+				if clientImpl == .cocoamqtt {
+					CertificateFileItemView(name: "Client PKCS12", filename: $host.certClient)
+				}
+				else {
+					CertificateFileItemView(name: "Server CA", filename: $host.certServerCA)
+					CertificateFileItemView(name: "Client Certificate", filename: $host.certClient)
+					CertificateFileItemView(name: "Client Key", filename: $host.certClientKey)
+				}
 			}
 			
 			HStack {
@@ -32,7 +39,7 @@ struct CertificateAuthenticationView: View {
 				
 					Spacer()
 				
-				SecureField("optional key file password", text: $host.certClientKeyPassword)
+				SecureField(clientImpl == .cocoamqtt ? "password" : "optional key file password", text: $host.certClientKeyPassword)
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
 					.multilineTextAlignment(.trailing)
