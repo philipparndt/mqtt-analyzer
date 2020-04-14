@@ -23,6 +23,10 @@
 		2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8EF22C8C008007E35A2 /* MQTTAnalyzerTests.swift */; };
 		226A6B50244457E100ACDFC3 /* MqttClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B4F244457E100ACDFC3 /* MqttClient.swift */; };
 		226A6B5224445BA400ACDFC3 /* MqttClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5124445BA400ACDFC3 /* MqttClientCocoaMQTT.swift */; };
+		226A6B5424448ECB00ACDFC3 /* MqttClientSharedUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5324448ECB00ACDFC3 /* MqttClientSharedUtils.swift */; };
+		226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */; };
+		226A6B5824449F6200ACDFC3 /* ClientImplTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5724449F6200ACDFC3 /* ClientImplTypePicker.swift */; };
+		226A6B5A24456F8300ACDFC3 /* HostFormUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5924456F8300ACDFC3 /* HostFormUtil.swift */; };
 		2281047623816FD800112F24 /* QuickFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281047423816FD800112F24 /* QuickFilterView.swift */; };
 		2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */; };
 		228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104822381723D00112F24 /* MessageDetailsJsonView.swift */; };
@@ -132,6 +136,10 @@
 		2253F8F122C8C008007E35A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		226A6B4F244457E100ACDFC3 /* MqttClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClient.swift; sourceTree = "<group>"; };
 		226A6B5124445BA400ACDFC3 /* MqttClientCocoaMQTT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClientCocoaMQTT.swift; sourceTree = "<group>"; };
+		226A6B5324448ECB00ACDFC3 /* MqttClientSharedUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClientSharedUtils.swift; sourceTree = "<group>"; };
+		226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolPicker.swift; sourceTree = "<group>"; };
+		226A6B5724449F6200ACDFC3 /* ClientImplTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientImplTypePicker.swift; sourceTree = "<group>"; };
+		226A6B5924456F8300ACDFC3 /* HostFormUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormUtil.swift; sourceTree = "<group>"; };
 		2281047423816FD800112F24 /* QuickFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickFilterView.swift; sourceTree = "<group>"; };
 		2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickFilterTextDebounce.swift; sourceTree = "<group>"; };
 		228104822381723D00112F24 /* MessageDetailsJsonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailsJsonView.swift; sourceTree = "<group>"; };
@@ -404,6 +412,9 @@
 				22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */,
 				22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */,
 				2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */,
+				226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */,
+				226A6B5724449F6200ACDFC3 /* ClientImplTypePicker.swift */,
+				226A6B5924456F8300ACDFC3 /* HostFormUtil.swift */,
 			);
 			path = host;
 			sourceTree = "<group>";
@@ -488,6 +499,7 @@
 				226A6B4F244457E100ACDFC3 /* MqttClient.swift */,
 				22F8BEE823C31C3B00422BFF /* MqttClientMoscapsule.swift */,
 				226A6B5124445BA400ACDFC3 /* MqttClientCocoaMQTT.swift */,
+				226A6B5324448ECB00ACDFC3 /* MqttClientSharedUtils.swift */,
 			);
 			path = mqtt;
 			sourceTree = "<group>";
@@ -765,6 +777,7 @@
 				22AF3AE72388858B001D9F87 /* NewHostFormModalView.swift in Sources */,
 				226A6B5224445BA400ACDFC3 /* MqttClientCocoaMQTT.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
+				226A6B5824449F6200ACDFC3 /* ClientImplTypePicker.swift in Sources */,
 				22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */,
 				22C9F74223BB5EF100892C4B /* TopicModel.swift in Sources */,
 				2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */,
@@ -786,6 +799,7 @@
 				22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
 				22E469DE2380459700D72BD6 /* TextWithAttributedString.swift in Sources */,
+				226A6B5424448ECB00ACDFC3 /* MqttClientSharedUtils.swift in Sources */,
 				228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
 				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
@@ -799,6 +813,7 @@
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
 				223EF0062387084D002ADF3E /* HostSetting.swift in Sources */,
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
+				226A6B5A24456F8300ACDFC3 /* HostFormUtil.swift in Sources */,
 				22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */,
 				226A6B50244457E100ACDFC3 /* MqttClient.swift in Sources */,
 				22F6057B23D4911000E6338B /* DataMigration.swift in Sources */,
@@ -815,6 +830,7 @@
 				22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */,
 				22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */,
 				2291424923BF6ECE0086C251 /* KeyboardResponsiveModifier.swift in Sources */,
+				226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */,
 				22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

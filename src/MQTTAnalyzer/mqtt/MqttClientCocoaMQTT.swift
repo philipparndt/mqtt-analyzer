@@ -11,8 +11,10 @@ import CocoaMQTT
 import Starscream
 import Combine
 
-class MqttClientCocoaMQTT: MqttClient, WebSocketDelegate, CocoaMQTTDelegate {
-
+class MqttClientCocoaMQTT: MqttClient {
+	
+	let utils = MqttClientSharedUtils()
+	
 	let sessionNum: Int
 	let model: MessageModel
 	var host: Host
@@ -37,20 +39,36 @@ class MqttClientCocoaMQTT: MqttClient, WebSocketDelegate, CocoaMQTTDelegate {
 	func connect() {
 		initConnect()
 		
-//		let websocket = CocoaMQTTWebSocket(uri: "/")
-//		let mqtt = CocoaMQTT(clientID: host.computeClientID,
-//							  host: host.hostname,
-//							  port: host.port,
-//							  socket: websocket)
+		let mqtt: CocoaMQTT
+		if host.port == 9001 {
+			let websocket = CocoaMQTTWebSocket(uri: "")
+			mqtt = CocoaMQTT(clientID: host.computeClientID,
+								  host: host.hostname,
+								  port: host.port,
+								  socket: websocket)
 
-		let mqtt = CocoaMQTT(clientID: host.computeClientID,
-							  host: host.hostname,
-							  port: host.port)
+		}
+		else {
+			mqtt = CocoaMQTT(clientID: host.computeClientID,
+										  host: host.hostname,
+										  port: host.port)
+		}
 		
 		mqtt.keepAlive = 60
-		mqtt.delegate = self
-		let sockedConnected = mqtt.connect()
-		print("CONNECTION: socked \(sockedConnected)")
+		mqtt.autoReconnect = false
+		
+		mqtt.didReceiveMessage = self.didReceiveMessage
+		mqtt.didDisconnect = self.didDisconnect
+		mqtt.didConnectAck = self.didConnect
+		mqtt.didChangeState = { mqtt, state in
+			print(state)
+		}
+		
+		if !mqtt.connect() {
+			self.setDisconnected()
+			self.setConnectionMessage(message: "Connection to port \(host.port) failed")
+			return
+		}
 		
 		self.mqtt = mqtt
 		
@@ -119,60 +137,24 @@ class MqttClientCocoaMQTT: MqttClient, WebSocketDelegate, CocoaMQTTDelegate {
 		model.limitMessagesPerBatch = host.limitMessagesBatch
 		model.limitTopics = host.limitTopic
 	}
-	
-	//	func connect() {
-	//
-	//		let mqttConfig = MQTTConfig(clientId: host.computeClientID, host: host.hostname, port: host.port, keepAlive: 60)
-	//		mqttConfig.onConnectCallback = onConnect
-	//		mqttConfig.onDisconnectCallback = onDisconnect
-	//		mqttConfig.onMessageCallback = onMessage
-	//
-	//		if host.auth == .usernamePassword {
-	//			let username = host.usernameNonpersistent ?? host.username
-	//			let password = host.passwordNonpersistent ?? host.password
-	//			mqttConfig.mqttAuthOpts = MQTTAuthOpts(username: username, password: password)
-	//		}
-	//		else if host.auth == .certificate {
-	//			let result = MQTTCertificateFiles.initCertificates(host: host, config: mqttConfig)
-	//			if !result.0 {
-	//				DispatchQueue.main.async {
-	//					self.host.connecting = false
-	//					self.host.connectionMessage = result.1
-	//				}
-	//				return
-	//			}
-	//		}
-	//
-	//		// create new MQTT Connection
-	//		mqtt = MQTT.newConnection(mqttConfig)
-	//
-	//
-	//	}
-	
+		
 	func disconnect() {
 		print("CONNECTION: disconnect \(sessionNum) \(host.hostname) \(host.topic)")
 
 		messageSubject.cancel()
 
 		if let mqtt = self.mqtt {
-			mqtt.unsubscribe(host.topic)
-			mqtt.disconnect()
+			DispatchQueue.global(qos: .background).async {
+				mqtt.unsubscribe(self.host.topic)
+				mqtt.disconnect()
+				self.utils.waitDisconnected(sessionNum: self.sessionNum, state: self.connectionState)
 
-			waitDisconnected()
-
-			print("CONNECTION: disconnected \(sessionNum) \(host.hostname) \(host.topic)")
-		}
-		setDisconnected()
-	}
-	
-	func waitDisconnected() {
-		let result = waitFor(predicate: { !self.connectionState.connected })
-
-		if result == .success {
-			return
-		}
-		else {
-			print("CONNECTION: disconnected timeout \(sessionNum): \(result)")
+				DispatchQueue.main.async {
+					print("CONNECTION: disconnected \(self.sessionNum) \(self.host.hostname) \(self.host.topic)")
+					
+					self.setDisconnected()
+				}
+			}
 		}
 	}
 	
@@ -206,22 +188,6 @@ class MqttClientCocoaMQTT: MqttClient, WebSocketDelegate, CocoaMQTTDelegate {
 	}
 
 	// MARK: Should be shared
-	func waitFor(predicate: @escaping () -> Bool) -> DispatchTimeoutResult {
-		let group = DispatchGroup()
-		group.enter()
-
-		DispatchQueue.global().async {
-			while !predicate() {
-				print("CONNECTION: waiting... \(self.sessionNum) \(self.host.hostname) \(self.host.topic)")
-				usleep(useconds_t(500))
-			}
-			group.leave()
-		}
-
-		return group.wait(timeout: .now() + 10)
-	}
-	
-	// MARK: Should be shared
 	func onMessageInMain(messages: [CocoaMQTTMessage]) {
 		if host.pause {
 			return
@@ -244,43 +210,27 @@ class MqttClientCocoaMQTT: MqttClient, WebSocketDelegate, CocoaMQTTDelegate {
 		mqtt?.subscribe(host.topic, qos: convertQOS(qos: Int32(host.qos)))
 	}
 	
-	func mqttDidPing(_ mqtt: CocoaMQTT) {
-			
-	}
-	
-	func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
-		
-	}
-	
-	func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
+	func didDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topic)")
 
-//		if returnCode == .mosq_conn_refused {
-//			NSLog("Connection refused")
-//			connectionState.connectionFailed = "Connection refused"
-//			DispatchQueue.main.async {
-//				self.host.usernameNonpersistent = nil
-//				self.host.passwordNonpersistent = nil
-//				self.host.connectionMessage = "Connection refused"
-//			}
-//		}
-//		else {
-//			connectionState.connectionFailed = returnCode.description
-//			DispatchQueue.main.async {
-//				self.host.connectionMessage = returnCode.description
-//			}
-//		}
-
+		if err != nil {
+			connectionState.connectionFailed = err!.localizedDescription
+			DispatchQueue.main.async {
+				self.host.usernameNonpersistent = nil
+				self.host.passwordNonpersistent = nil
+				self.host.connectionMessage = err!.localizedDescription
+			}
+		}
+		
 		self.setDisconnected()
 
-//		NSLog("Disconnected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {
 			self.host.pause = false
 			self.host.connected = false
 		}
 	}
 	
-	func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
+	func didConnect(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
 		print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topic)")
 		connectionState.connected = true
 		
@@ -293,45 +243,10 @@ class MqttClientCocoaMQTT: MqttClient, WebSocketDelegate, CocoaMQTTDelegate {
 		subscribeToTopic(host)
 	}
 	
-	func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
-		
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
-		
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
+	func didReceiveMessage(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
 		if !host.pause {
 			messageSubject.send(message)
 		}
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopics success: NSDictionary, failed: [String]) {
-		
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopics topics: [String]) {
-		
-	}
-	
-	func websocketDidConnect(socket: WebSocketClient) {
-		print("connected")
-		
-		mqtt?.publish(CocoaMQTTMessage(topic: "test", string: "hello from websocket"))
-//		mqtt?.publish(CocoaMQTTMessage(topic: "test", string: "1234"))
-	}
-	
-	func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-		print("disconnected")
-	}
-	
-	func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-		
-	}
-	
-	func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-		
 	}
 
 }

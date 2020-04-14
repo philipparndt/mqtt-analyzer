@@ -17,6 +17,8 @@ struct NewHostFormModalView: View {
 	
 	@State private var host: HostFormModel = HostFormModel()
 	@State private var auth: HostAuthenticationType = .none
+	@State private var connectionMethod: HostProtocol = .mqtt
+	@State private var clientImpl: HostClientImplType = .moscapsule
 	
 	var disableSave: Bool {
 		return HostFormValidator.validateHostname(name: host.hostname) == nil
@@ -27,7 +29,7 @@ struct NewHostFormModalView: View {
 	
 	var body: some View {
 		NavigationView {
-			EditHostFormView(host: $host, auth: $auth)
+			EditHostFormView(host: $host, auth: $auth, connectionMethod: $connectionMethod, clientImpl: $clientImpl)
 				.font(.caption)
 				.navigationBarTitle(Text("New host"))
 				.navigationBarItems(
@@ -44,39 +46,17 @@ struct NewHostFormModalView: View {
 	}
 	
 	func save() {
-		let newHostname = HostFormValidator.validateHostname(name: host.hostname)
-		let port = HostFormValidator.validatePort(port: host.port)
-		
-		if port == nil || newHostname == nil {
+		let newHost = copyHost(target: Host(), source: host, auth, connectionMethod, clientImpl)
+		if newHost == nil {
 			return
 		}
 		
-		let newHost =  Host()
-		newHost.alias = host.alias
-		newHost.hostname = newHostname!
-		newHost.qos = host.qos
-		newHost.auth = self.auth
-		newHost.port = UInt16(port!)
-		newHost.topic = host.topic
-		newHost.clientID = host.clientID
-		newHost.auth = self.auth
-
-		if self.auth == .usernamePassword {
-			newHost.username = host.username
-			newHost.password = host.password
+		DispatchQueue.main.async {
+			self.hosts.hosts.append(newHost!)
+			self.root.persistence.create(newHost!)
+			
+			self.closeHandler()
 		}
-		else if self.auth == .certificate {
-			newHost.certServerCA = host.certServerCA
-			newHost.certClient = host.certClient
-			newHost.certClientKey = host.certClientKey
-			newHost.certClientKeyPassword = host.certClientKeyPassword
-		}
-		
-		hosts.hosts.append(newHost)
-		
-		root.persistence.create(newHost)
-		
-		closeHandler()
 	}
 	
 	func cancel() {

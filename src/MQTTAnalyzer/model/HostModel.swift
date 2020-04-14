@@ -15,6 +15,16 @@ enum HostAuthenticationType {
 	case certificate
 }
 
+enum HostProtocol {
+	case mqtt
+	case websocket
+}
+
+enum HostClientImplType {
+	case moscapsule
+	case cocoamqtt
+}
+
 extension Host: Hashable {
 	static func == (lhs: Host, rhs: Host) -> Bool {
 		return lhs.ID == rhs.ID
@@ -35,7 +45,11 @@ class Host: Identifiable, ObservableObject {
 	var hostname: String = ""
 	var port: UInt16 = 1883
 	var topic: String = "#"
-
+	
+	var protocolMethod: HostProtocol = .mqtt
+	var clientImpl: HostClientImplType = .cocoamqtt
+	var basePath: String = ""
+	
 	var limitTopic = 250
 	var limitMessagesBatch = 1000
 
