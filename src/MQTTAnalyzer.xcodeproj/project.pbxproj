@@ -27,6 +27,11 @@
 		226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */; };
 		226A6B5824449F6200ACDFC3 /* ClientImplTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5724449F6200ACDFC3 /* ClientImplTypePicker.swift */; };
 		226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5C2445748500ACDFC3 /* HostFormModel.swift */; };
+		226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */; };
+		226A6B612445757900ACDFC3 /* TopicFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B602445757900ACDFC3 /* TopicFormView.swift */; };
+		226A6B632445759600ACDFC3 /* ClientIDFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B622445759600ACDFC3 /* ClientIDFormView.swift */; };
+		226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B64244575AF00ACDFC3 /* LimitsFormView.swift */; };
+		226A6B67244575DB00ACDFC3 /* AuthFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B66244575DB00ACDFC3 /* AuthFormView.swift */; };
 		2281047623816FD800112F24 /* QuickFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281047423816FD800112F24 /* QuickFilterView.swift */; };
 		2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */; };
 		228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104822381723D00112F24 /* MessageDetailsJsonView.swift */; };
@@ -132,6 +137,11 @@
 		226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolPicker.swift; sourceTree = "<group>"; };
 		226A6B5724449F6200ACDFC3 /* ClientImplTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientImplTypePicker.swift; sourceTree = "<group>"; };
 		226A6B5C2445748500ACDFC3 /* HostFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormModel.swift; sourceTree = "<group>"; };
+		226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
+		226A6B602445757900ACDFC3 /* TopicFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicFormView.swift; sourceTree = "<group>"; };
+		226A6B622445759600ACDFC3 /* ClientIDFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientIDFormView.swift; sourceTree = "<group>"; };
+		226A6B64244575AF00ACDFC3 /* LimitsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitsFormView.swift; sourceTree = "<group>"; };
+		226A6B66244575DB00ACDFC3 /* AuthFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFormView.swift; sourceTree = "<group>"; };
 		2281047423816FD800112F24 /* QuickFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickFilterView.swift; sourceTree = "<group>"; };
 		2281047523816FD800112F24 /* QuickFilterTextDebounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickFilterTextDebounce.swift; sourceTree = "<group>"; };
 		228104822381723D00112F24 /* MessageDetailsJsonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailsJsonView.swift; sourceTree = "<group>"; };
@@ -307,19 +317,56 @@
 		226A6B5B2445740C00ACDFC3 /* form */ = {
 			isa = PBXGroup;
 			children = (
+				226A6B682445761200ACDFC3 /* server */,
+				226A6B692445763A00ACDFC3 /* auth */,
+				226A6B6A2445765C00ACDFC3 /* topic */,
+				226A6B6B2445767800ACDFC3 /* more */,
 				226A6B5C2445748500ACDFC3 /* HostFormModel.swift */,
 				22FD7CF922C8D2650078795F /* EditHostFormView.swift */,
 				22AF3AE62388858B001D9F87 /* NewHostFormDialog.swift */,
 				22AF3AE8238885AF001D9F87 /* EditHostFormDialog.swift */,
+			);
+			path = form;
+			sourceTree = "<group>";
+		};
+		226A6B682445761200ACDFC3 /* server */ = {
+			isa = PBXGroup;
+			children = (
+				2209C86B23B720E7007C1D93 /* HostValidator.swift */,
+				226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */,
 				226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */,
 				226A6B5724449F6200ACDFC3 /* ClientImplTypePicker.swift */,
+			);
+			path = server;
+			sourceTree = "<group>";
+		};
+		226A6B692445763A00ACDFC3 /* auth */ = {
+			isa = PBXGroup;
+			children = (
+				22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */,
+				226A6B66244575DB00ACDFC3 /* AuthFormView.swift */,
 				22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */,
 				22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */,
 				2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */,
-				2209C86B23B720E7007C1D93 /* HostValidator.swift */,
-				22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */,
 			);
-			path = form;
+			path = auth;
+			sourceTree = "<group>";
+		};
+		226A6B6A2445765C00ACDFC3 /* topic */ = {
+			isa = PBXGroup;
+			children = (
+				226A6B602445757900ACDFC3 /* TopicFormView.swift */,
+			);
+			path = topic;
+			sourceTree = "<group>";
+		};
+		226A6B6B2445767800ACDFC3 /* more */ = {
+			isa = PBXGroup;
+			children = (
+				226A6B64244575AF00ACDFC3 /* LimitsFormView.swift */,
+				226A6B622445759600ACDFC3 /* ClientIDFormView.swift */,
+			);
+			path = more;
 			sourceTree = "<group>";
 		};
 		228104782381708E00112F24 /* views */ = {
@@ -771,13 +818,18 @@
 				22AF3AE9238885AF001D9F87 /* EditHostFormDialog.swift in Sources */,
 				22AE64342412636300C2C4FE /* DiagramPath.swift in Sources */,
 				2281047623816FD800112F24 /* QuickFilterView.swift in Sources */,
+				226A6B612445757900ACDFC3 /* TopicFormView.swift in Sources */,
 				22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */,
+				226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */,
 				22A38709240BE7D100DF8F94 /* MQTTCertificateFiles.swift in Sources */,
+				226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */,
 				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
 				2291424C23BF78000086C251 /* AboutView.swift in Sources */,
 				22AE64362412637A00C2C4FE /* TimeSeriesValue.swift in Sources */,
 				22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */,
 				22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */,
+				226A6B632445759600ACDFC3 /* ClientIDFormView.swift in Sources */,
+				226A6B67244575DB00ACDFC3 /* AuthFormView.swift in Sources */,
 				2291424923BF6ECE0086C251 /* KeyboardResponsiveModifier.swift in Sources */,
 				226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */,
 				22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */,
