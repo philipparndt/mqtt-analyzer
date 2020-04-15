@@ -63,7 +63,17 @@ class MqttClientCocoaMQTT: MqttClient {
 			mqtt.password = host.passwordNonpersistent ?? host.password
 		}
 		else if host.auth == .certificate {
-			mqtt.sslSettings = createSSLSettings(host: host)
+			do {
+				try mqtt.sslSettings = createSSLSettings(host: host)
+			}
+			catch let error as CertificateError {
+				failConnection(reason: "\(error.rawValue)")
+				return
+			}
+			catch {
+				failConnection(reason: "\(error)")
+				return
+			}
 		}
 		
 		mqtt.keepAlive = 60

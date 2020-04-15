@@ -9,11 +9,10 @@
 import Foundation
 import CocoaMQTT
 
-
 // Create P12 File by using:
 // openssl pkcs12 -export -in user.crt -inkey user.key -out user.p12
-func createSSLSettings(host: Host) -> [String: NSObject] {
-	let clientCertArray = getClientCertFromP12File(certName: host.certClient, certPassword: host.certClientKeyPassword)
+func createSSLSettings(host: Host) throws -> [String: NSObject] {
+	let clientCertArray = try getClientCertFromP12File(certName: host.certClient, certPassword: host.certClientKeyPassword)
 	
 	var sslSettings: [String: NSObject] = [:]
 	sslSettings[kCFStreamSSLCertificates as String] = clientCertArray
@@ -21,13 +20,18 @@ func createSSLSettings(host: Host) -> [String: NSObject] {
 	return sslSettings
 }
 
-fileprivate func getClientCertFromP12File(certName: String, certPassword: String) -> CFArray? {
+enum CertificateError: String, Error {
+	case errorOpenFile = "Failed to open the certificate file"
+	case errSecAuthFailed = "Failed to open the certificate file. Wrong password?"
+	case noIdentify = "No identity"
+}
+
+private func getClientCertFromP12File(certName: String, certPassword: String) throws -> CFArray? {
 	if let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
 		let filePath = documents + "/\(certName)"
 		
 		guard let p12Data = NSData(contentsOfFile: filePath) else {
-			print("Failed to open the certificate file: \(certName).p12")
-			return nil
+			throw CertificateError.errorOpenFile
 		}
 		
 		// create key dictionary for reading p12 file
@@ -39,11 +43,10 @@ fileprivate func getClientCertFromP12File(certName: String, certPassword: String
 		
 		guard securityError == errSecSuccess else {
 			if securityError == errSecAuthFailed {
-				print("ERROR: SecPKCS12Import returned errSecAuthFailed. Incorrect password?")
+				throw CertificateError.errSecAuthFailed
 			} else {
-				print("Failed to open the certificate file: \(certName).p12")
+				throw CertificateError.errorOpenFile
 			}
-			return nil
 		}
 		
 		guard let theArray = items, CFArrayGetCount(theArray) > 0 else {
@@ -52,7 +55,7 @@ fileprivate func getClientCertFromP12File(certName: String, certPassword: String
 		
 		let dictionary = (theArray as NSArray).object(at: 0)
 		guard let identity = (dictionary as AnyObject).value(forKey: kSecImportItemIdentity as String) else {
-			return nil
+			throw CertificateError.noIdentify
 		}
 		
 		return [identity] as CFArray
