@@ -19,6 +19,19 @@ Features:
 - sync settings using private iCloud database
 - pause the connection
 
+# TestFlight
+
+You can TestFlight the latest beta version using this link:
+https://testflight.apple.com/join/dsvlFCPU
+
+Currently the verion 1.5 is in beta with:
+- changed MQTT client implemenation
+- support for websockets
+- improved SSL / TLS handling
+- improved error handling
+
+# Screenshots
+
 ![Screenshot 1](screenshot-1.png)
 ![Screenshot 2](screenshot-2.png)
 ![Screenshot 3](screenshot-3.png)
