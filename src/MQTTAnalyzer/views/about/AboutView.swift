@@ -118,6 +118,9 @@ struct DependenciesView: View {
 			Group {
 				Text("Thank you! This project would not be possible without your great work!")
 				
+				LinkButtonView(text: "CocoaMQTT", url: "https://github.com/emqx/CocoaMQTT")
+				LinkButtonView(text: "CocoaAsyncSocket", url: "https://github.com/robbiehanson/CocoaAsyncSocket")
+				LinkButtonView(text: "Starscream", url: "https://github.com/daltoniam/Starscream")
 				LinkButtonView(text: "Moscapsule", url: "https://github.com/flightonary/Moscapsule")
 				LinkButtonView(text: "OpenSSL-Universal", url: "https://github.com/krzyzanowskim/OpenSSL")
 				LinkButtonView(text: "RealmSwift", url: "https://realm.io/docs/swift/latest/")
