@@ -21,7 +21,6 @@ protocol DisconnectDelegate: class {
 	func disconnect(host: Host)
 }
 
-
 class RootModel: ObservableObject {
 	static let CONTROLLER = MQTTSessionController()
 	

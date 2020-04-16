@@ -9,7 +9,6 @@
 import Foundation
 import SwiftUI
 
-
 struct ClientImplFormView: View {
 	@Binding var clientImpl: HostClientImplType
 
