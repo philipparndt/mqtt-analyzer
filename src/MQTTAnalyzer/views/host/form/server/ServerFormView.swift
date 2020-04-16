@@ -75,8 +75,6 @@ struct ServerFormView: View {
 				ProtocolPicker(type: $protocolMethod)
 			}
 			
-
-				
 			if protocolMethod == .websocket {
 				HStack {
 					Text("Basepath")
