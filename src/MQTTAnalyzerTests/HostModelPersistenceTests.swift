@@ -76,6 +76,51 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		XCTAssertEqual(HostAuthenticationType.usernamePassword, transformed3.auth)
 	}
 	
+	func testTransformFromPersistenceModelClientImplType() {
+		let model = HostsModel(initMethod: self)
+		
+		let persistence = HostsModelPersistence(model: model)
+
+		let setting = HostSetting()
+		setting.clientImplType = ClientImplType.COCOAMQTT
+		let transformed1 = persistence.transform(setting)
+		XCTAssertEqual(HostClientImplType.cocoamqtt, transformed1.clientImpl)
+
+		setting.clientImplType = ClientImplType.MOSCAPSULE
+		let transformed2 = persistence.transform(setting)
+		XCTAssertEqual(HostClientImplType.moscapsule, transformed2.clientImpl)
+	}
+	
+	func testTransformFromPersistenceModelSSL() {
+		let model = HostsModel(initMethod: self)
+		
+		let persistence = HostsModelPersistence(model: model)
+
+		let setting = HostSetting()
+		setting.ssl = false
+		let transformed1 = persistence.transform(setting)
+		XCTAssertFalse(transformed1.ssl)
+
+		setting.ssl = true
+		let transformed2 = persistence.transform(setting)
+		XCTAssertTrue(transformed2.ssl)
+	}
+	
+	func testTransformFromPersistenceModelSSLUntrusted() {
+		let model = HostsModel(initMethod: self)
+		
+		let persistence = HostsModelPersistence(model: model)
+
+		let setting = HostSetting()
+		setting.untrustedSSL = false
+		let transformed1 = persistence.transform(setting)
+		XCTAssertFalse(transformed1.untrustedSSL)
+
+		setting.untrustedSSL = true
+		let transformed2 = persistence.transform(setting)
+		XCTAssertTrue(transformed2.untrustedSSL)
+	}
+	
 	func testTransformToPersistenceModel() {
 		let model = HostsModel(initMethod: self)
 		
@@ -135,5 +180,47 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		host.auth = .usernamePassword
 		let transformed3 = persistence.transform(host)
 		XCTAssertEqual(AuthenticationType.USERNAME_PASSWORD, transformed3.authType)
+	}
+	
+	func testTransformToPersistenceModelClientImplType() {
+		let model = HostsModel(initMethod: self)
+		let persistence = HostsModelPersistence(model: model)
+
+		let host = Host()
+		host.clientImpl = .cocoamqtt
+		let transformed1 = persistence.transform(host)
+		XCTAssertEqual(ClientImplType.COCOAMQTT, transformed1.clientImplType)
+
+		host.clientImpl = .moscapsule
+		let transformed2 = persistence.transform(host)
+		XCTAssertEqual(ClientImplType.MOSCAPSULE, transformed2.clientImplType)
+	}
+	
+	func testTransformToPersistenceModelSSL() {
+		let model = HostsModel(initMethod: self)
+		let persistence = HostsModelPersistence(model: model)
+
+		let host = Host()
+		host.ssl = false
+		let transformed1 = persistence.transform(host)
+		XCTAssertFalse(transformed1.ssl)
+
+		host.ssl = true
+		let transformed2 = persistence.transform(host)
+		XCTAssertTrue(transformed2.ssl)
+	}
+	
+	func testTransformToPersistenceModelSSLUntrusted() {
+		let model = HostsModel(initMethod: self)
+		let persistence = HostsModelPersistence(model: model)
+
+		let host = Host()
+		host.untrustedSSL = false
+		let transformed1 = persistence.transform(host)
+		XCTAssertFalse(transformed1.untrustedSSL)
+
+		host.untrustedSSL = true
+		let transformed2 = persistence.transform(host)
+		XCTAssertTrue(transformed2.untrustedSSL)
 	}
 }
