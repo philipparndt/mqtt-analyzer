@@ -16,31 +16,31 @@ class MQTTDelegate: CocoaMQTTDelegate {
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
-		
+		// currently not necessary, but required by protocol
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
-		
+		// currently not necessary, but required by protocol
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
-		
+		// currently not necessary, but required by protocol
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
-		
+		// currently not necessary, but required by protocol
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopics success: NSDictionary, failed: [String]) {
-		
+		// currently not necessary, but required by protocol
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopics topics: [String]) {
-		
+		// currently not necessary, but required by protocol
 	}
 	
 	func mqttDidPing(_ mqtt: CocoaMQTT) {
-		
+		// currently not necessary, but required by protocol
 	}
 	
 	func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
