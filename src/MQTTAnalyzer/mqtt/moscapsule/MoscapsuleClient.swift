@@ -93,24 +93,13 @@ class MqttClientMoscapsule: MqttClient {
 			mqtt.unsubscribe(host.topic)
 			mqtt.disconnect()
 			
-			waitDisconnected()
+			utils.waitDisconnected(sessionNum: sessionNum, state: self.connectionState)
 			
 			print("CONNECTION: disconnected \(sessionNum) \(host.hostname) \(host.topic)")
 		}
 		setDisconnected()
 	}
-	
-	func waitDisconnected() {
-		let result = utils.waitFor(predicate: { !self.connectionState.connected })
-
-		if result == .success {
-			return
-		}
-		else {
-			print("CONNECTION: disconnected timeout \(sessionNum): \(result)")
-		}
-	}
-	
+		
 	func waitConnected() {
 		
 		let group = DispatchGroup()
