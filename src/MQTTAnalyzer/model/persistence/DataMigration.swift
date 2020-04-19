@@ -42,10 +42,9 @@ class DataMigration {
 	private class func migrateClientImpl(_ oldSchemaVersion: UInt64, _ migration: Migration) {
 		if oldSchemaVersion < 9 {
 			migration.enumerateObjects(ofType: HostSetting.className()) { oldObject, newObject in
-				if let authType = oldObject!["authType"] as? Int8 {
-					if let no = newObject {
-						no["clientImplType"] = (authType == AuthenticationType.CERTIFICATE ? ClientImplType.MOSCAPSULE : ClientImplType.COCOAMQTT)
-					}
+				if let authType = oldObject!["authType"] as? Int8,
+				   let no = newObject {
+					no["clientImplType"] = (authType == AuthenticationType.CERTIFICATE ? ClientImplType.MOSCAPSULE : ClientImplType.COCOAMQTT)
 				}
 			}
 		}
