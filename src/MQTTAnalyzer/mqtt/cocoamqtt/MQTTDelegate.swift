@@ -44,10 +44,10 @@ class MQTTDelegate: CocoaMQTTDelegate {
 	}
 	
 	func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
-		
+		// currently not necessary, but required by protocol
 	}
 	
 	func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
-		
+		// currently not necessary, but required by protocol
 	}
 }

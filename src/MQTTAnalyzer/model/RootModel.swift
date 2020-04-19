@@ -22,11 +22,11 @@ protocol DisconnectDelegate: class {
 }
 
 class RootModel: ObservableObject {
-	static let CONTROLLER = MQTTSessionController()
+	static let controller = MQTTSessionController()
 	
-	let sessionController = CONTROLLER
+	let sessionController = controller
 
-	let hostsModel = HostsModel(initMethod: CONTROLLER)
+	let hostsModel = HostsModel(initMethod: controller)
 	
 	var messageModelByHost: [Host: MessageModel] = [:]
 	
