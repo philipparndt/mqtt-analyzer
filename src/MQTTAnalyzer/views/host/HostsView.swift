@@ -41,7 +41,7 @@ struct HostsView: View {
 					Image(systemName: "plus")
 				}
 				.font(.system(size: 22))
-				.buttonStyle(ActionStyleTrailing())
+				.buttonStyle(ActionStyleL50())
 			)
 			.navigationBarTitle(Text("Servers"), displayMode: .inline)
 		}
