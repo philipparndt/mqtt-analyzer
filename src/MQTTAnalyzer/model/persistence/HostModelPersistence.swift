@@ -114,19 +114,19 @@ public class HostsModelPersistence {
 	private func transformAuth(_ type: HostAuthenticationType) -> Int8 {
 		switch type {
 		case .usernamePassword:
-			return AuthenticationType.USERNAME_PASSWORD
+			return AuthenticationType.usernamePassword
 		case .certificate:
-			return AuthenticationType.CERTIFICATE
+			return AuthenticationType.certificate
 		default:
-			return AuthenticationType.NONE
+			return AuthenticationType.none
 		}
 	}
 	
 	private func transformAuth(_ type: Int8) -> HostAuthenticationType {
 		switch type {
-		case AuthenticationType.USERNAME_PASSWORD:
+		case AuthenticationType.usernamePassword:
 			return HostAuthenticationType.usernamePassword
-		case AuthenticationType.CERTIFICATE:
+		case AuthenticationType.certificate:
 			return HostAuthenticationType.certificate
 		default:
 			return HostAuthenticationType.none
@@ -136,17 +136,17 @@ public class HostsModelPersistence {
 	private func transformConnectionMethod(_ type: HostProtocol) -> Int8 {
 		switch type {
 		case .websocket:
-			return ConnectionMethod.WEBSOCKET
+			return ConnectionMethod.websocket
 		default:
-			return ConnectionMethod.MQTT
+			return ConnectionMethod.mqtt
 		}
 	}
 	
 	private func transformConnectionMethod(_ type: Int8) -> HostProtocol {
 		switch type {
-		case ConnectionMethod.MQTT:
+		case ConnectionMethod.mqtt:
 			return .mqtt
-		case ConnectionMethod.WEBSOCKET:
+		case ConnectionMethod.websocket:
 			return .websocket
 		default:
 			return .mqtt
@@ -156,15 +156,15 @@ public class HostsModelPersistence {
 	private func transformClientImplType(_ type: HostClientImplType) -> Int8 {
 		switch type {
 		case .cocoamqtt:
-			return ClientImplType.COCOAMQTT
+			return ClientImplType.cocoamqtt
 		default:
-			return ClientImplType.MOSCAPSULE
+			return ClientImplType.moscapsule
 		}
 	}
 	
 	private func transformClientImplType(_ type: Int8) -> HostClientImplType {
 		switch type {
-		case ClientImplType.COCOAMQTT:
+		case ClientImplType.cocoamqtt:
 			return .cocoamqtt
 		default:
 			return .moscapsule

@@ -28,10 +28,10 @@ class DataMigration {
 				if let oo = oldObject, let no = newObject {
 					let auth = oo["auth"] as? Bool
 					if auth ?? false {
-						no["authType"] = AuthenticationType.USERNAME_PASSWORD
+						no["authType"] = AuthenticationType.usernamePassword
 					}
 					else {
-						no["authType"] = AuthenticationType.NONE
+						no["authType"] = AuthenticationType.none
 					}
 				}
 			}
@@ -44,7 +44,7 @@ class DataMigration {
 			migration.enumerateObjects(ofType: HostSetting.className()) { oldObject, newObject in
 				if let authType = oldObject!["authType"] as? Int8,
 				   let no = newObject {
-					no["clientImplType"] = (authType == AuthenticationType.CERTIFICATE ? ClientImplType.MOSCAPSULE : ClientImplType.COCOAMQTT)
+					no["clientImplType"] = (authType == AuthenticationType.certificate ? ClientImplType.moscapsule : ClientImplType.cocoamqtt)
 				}
 			}
 		}
