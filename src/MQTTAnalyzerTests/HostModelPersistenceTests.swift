@@ -12,7 +12,7 @@ import XCTest
 
 class HostModelPersistenceTests: XCTestCase, InitHost {
 	func initHost(host: Host) {
-		
+		// Empty by intention
 	}
 		
 	func testTransformFromPersistenceModel() {
@@ -63,7 +63,7 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		let persistence = HostsModelPersistence(model: model)
 
 		let setting = HostSetting()
-		setting.authType = AuthenticationType.NONE
+		setting.authType = AuthenticationType.none
 		let transformed1 = persistence.transform(setting)
 		XCTAssertEqual(HostAuthenticationType.none, transformed1.auth)
 
@@ -171,7 +171,7 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		let host = Host()
 		host.auth = .none
 		let transformed1 = persistence.transform(host)
-		XCTAssertEqual(AuthenticationType.NONE, transformed1.authType)
+		XCTAssertEqual(AuthenticationType.none, transformed1.authType)
 
 		host.auth = .certificate
 		let transformed2 = persistence.transform(host)
