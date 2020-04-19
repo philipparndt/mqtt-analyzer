@@ -33,7 +33,7 @@ struct AboutView: View {
 		.navigationBarItems(
 			leading: Button(action: close) {
 				Text("Close")
-			}.buttonStyle(ActionStyleLeading())
+			}.buttonStyle(ActionStyleT50())
 		)
 	}
 	

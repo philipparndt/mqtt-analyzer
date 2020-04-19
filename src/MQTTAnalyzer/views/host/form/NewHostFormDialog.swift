@@ -36,11 +36,11 @@ struct NewHostFormModalView: View {
 					leading: Button(action: cancel) {
 						Text("Cancel")
 						
-					}.buttonStyle(ActionStyleLeading()),
+					}.buttonStyle(ActionStyleT50()),
 					
 					trailing: Button(action: save) {
 						Text("Save")
-					}.buttonStyle(ActionStyleTrailing()).disabled(disableSave)
+					}.buttonStyle(ActionStyleL50()).disabled(disableSave)
 			)
 		}
 	}

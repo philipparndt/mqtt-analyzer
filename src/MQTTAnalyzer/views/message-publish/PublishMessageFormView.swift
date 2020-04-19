@@ -181,10 +181,10 @@ struct PublishMessageFormModalView: View {
 					leading: Button(action: self.cancel) {
 						Text("Cancel")
 						
-					}.buttonStyle(ActionStyleLeading()),
+					}.buttonStyle(ActionStyleT50()),
 					trailing: Button(action: self.publish) {
 						Text("Publish")
-					}.buttonStyle(ActionStyleTrailing())
+					}.buttonStyle(ActionStyleL50())
 			)
 			.keyboardResponsive()
 		}
