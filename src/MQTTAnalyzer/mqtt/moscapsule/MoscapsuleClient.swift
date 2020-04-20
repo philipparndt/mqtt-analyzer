@@ -10,7 +10,10 @@ import Foundation
 import Combine
 import Moscapsule
 
+let connectionRefused = "Connection refused"
+
 class MqttClientMoscapsule: MqttClient {
+	
 	let utils = MqttClientSharedUtils()
 
 	let sessionNum: Int
@@ -93,24 +96,13 @@ class MqttClientMoscapsule: MqttClient {
 			mqtt.unsubscribe(host.topic)
 			mqtt.disconnect()
 			
-			waitDisconnected()
+			utils.waitDisconnected(sessionNum: sessionNum, state: self.connectionState)
 			
 			print("CONNECTION: disconnected \(sessionNum) \(host.hostname) \(host.topic)")
 		}
 		setDisconnected()
 	}
-	
-	func waitDisconnected() {
-		let result = utils.waitFor(predicate: { !self.connectionState.connected })
-
-		if result == .success {
-			return
-		}
-		else {
-			print("CONNECTION: disconnected timeout \(sessionNum): \(result)")
-		}
-	}
-	
+		
 	func waitConnected() {
 		
 		let group = DispatchGroup()
@@ -179,12 +171,12 @@ class MqttClientMoscapsule: MqttClient {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topic)")
 		
  		if returnCode == .mosq_conn_refused {
-			NSLog("Connection refused")
-			connectionState.connectionFailed = "Connection refused"
+			NSLog(connectionRefused)
+			connectionState.connectionFailed = connectionRefused
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
-				self.host.connectionMessage = "Connection refused"
+				self.host.connectionMessage = connectionRefused
 			}
 		}
 		else {

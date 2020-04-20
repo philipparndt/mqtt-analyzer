@@ -13,19 +13,19 @@ import IceCream
 import CloudKit
 
 struct AuthenticationType {
-	static let NONE: Int8 = 0
-	static let USERNAME_PASSWORD: Int8 = 1
-	static let CERTIFICATE: Int8 = 2
+	static let none: Int8 = 0
+	static let usernamePassword: Int8 = 1
+	static let certificate: Int8 = 2
 }
 
 struct ConnectionMethod {
-	static let MQTT: Int8 = 0
-	static let WEBSOCKET: Int8 = 1
+	static let mqtt: Int8 = 0
+	static let websocket: Int8 = 1
 }
 
 struct ClientImplType {
-	static let MOSCAPSULE: Int8 = 0
-	static let COCOAMQTT: Int8 = 1
+	static let moscapsule: Int8 = 0
+	static let cocoamqtt: Int8 = 1
 }
 
 class HostSetting: Object {
@@ -36,14 +36,14 @@ class HostSetting: Object {
 	@objc dynamic var topic: String = "#"
 	@objc dynamic var qos: Int = 0
 
-	@objc dynamic var protocolMethod: Int8 = ConnectionMethod.MQTT
+	@objc dynamic var protocolMethod: Int8 = ConnectionMethod.mqtt
 	@objc dynamic var basePath: String = ""
 	@objc dynamic var ssl: Bool = false
 	@objc dynamic var untrustedSSL: Bool = false
 	
-	@objc dynamic var clientImplType: Int8 = ClientImplType.MOSCAPSULE
+	@objc dynamic var clientImplType: Int8 = ClientImplType.cocoamqtt
 	
-	@objc dynamic var authType: Int8 = AuthenticationType.NONE
+	@objc dynamic var authType: Int8 = AuthenticationType.none
 	@objc dynamic var username: String = ""
 	@objc dynamic var password: String = ""
 	
