@@ -22,7 +22,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	var mqtt: CocoaMQTT?
 	
 	var connectionAlive: Bool {
-		self.mqtt != nil || connectionState.connected
+		self.mqtt != nil && connectionState.state == .connected
 	}
 	
 	var connectionState = ConnectionState()
@@ -114,11 +114,11 @@ class MqttClientCocoaMQTT: MqttClient {
 		DispatchQueue.global().async {
 			var i = 10
 			
-			while self.connectionState.isConnecting && i > 0 {
+			while self.connectionState.state == .connecting && i > 0 {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
 				sleep(1)
 				
-				if self.connectionState.isConnecting {
+				if self.connectionState.state == .connecting {
 					self.setConnectionMessage(message: "Connecting... \(i)")
 				}
 
@@ -128,7 +128,7 @@ class MqttClientCocoaMQTT: MqttClient {
 		}
 
 		group.notify(queue: .main) {
-			if let errorMessage = self.connectionState.connectionFailed {
+			if let errorMessage = self.connectionState.message {
 				self.setDisconnected()
 				self.host.connectionMessage = errorMessage
 				return
@@ -156,8 +156,8 @@ class MqttClientCocoaMQTT: MqttClient {
 		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topic)")
 		host.connectionMessage = nil
 		host.connecting = true
-		connectionState.connectionFailed = nil
-		connectionState.connecting = true
+		connectionState.message = nil
+		connectionState.state = .connecting
 		
 		model.limitMessagesPerBatch = host.limitMessagesBatch
 		model.limitTopics = host.limitTopic
@@ -203,8 +203,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	}
 	
 	func setDisconnected() {
-		connectionState.connected = false
-		connectionState.connecting = false
+		connectionState.state = .disconnected
 
 		DispatchQueue.main.async {
 			self.host.connecting = false
@@ -239,7 +238,7 @@ class MqttClientCocoaMQTT: MqttClient {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topic)")
 
 		if err != nil {
-			connectionState.connectionFailed = err!.localizedDescription
+			connectionState.message = err!.localizedDescription
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
@@ -258,7 +257,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	func didConnect(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
 		if ack == .accept {
 			print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topic)")
-			connectionState.connected = true
+			connectionState.state = .connected
 			
 			NSLog("Connected. Return Code is \(ack.description)")
 			DispatchQueue.main.async {
@@ -294,7 +293,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	
 	func failConnection(reason: String) {
 		NSLog("Connection failed: " + reason)
-		connectionState.connectionFailed = reason
+		connectionState.message = reason
 				
 		self.setDisconnected()
 

@@ -24,7 +24,7 @@ class MqttClientMoscapsule: MqttClient {
 	var connectionState = ConnectionState()
 	
 	var connectionAlive: Bool {
-		self.mqtt != nil || connectionState.connected
+		self.mqtt != nil || connectionState.state == .connected
 	}
 	
 	let messageSubject = MsgSubject<MQTTMessage>()
@@ -46,8 +46,8 @@ class MqttClientMoscapsule: MqttClient {
 		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topic)")
 		host.connectionMessage = nil
 		host.connecting = true
-		connectionState.connectionFailed = nil
-		connectionState.connecting = true
+		connectionState.message = nil
+		connectionState.state = .connecting
 		
 		model.limitMessagesPerBatch = host.limitMessagesBatch
 		model.limitTopics = host.limitTopic
@@ -110,7 +110,7 @@ class MqttClientMoscapsule: MqttClient {
 
 		DispatchQueue.global().async {
 			var i = 10
-			while self.connectionState.isConnecting && i > 0 {
+			while self.connectionState.state == .connecting && i > 0 {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
 				sleep(1)
 				
@@ -122,7 +122,7 @@ class MqttClientMoscapsule: MqttClient {
 		}
 
 		group.notify(queue: .main) {
-			if let errorMessage = self.connectionState.connectionFailed {
+			if let errorMessage = self.connectionState.message {
 				self.setDisconnected()
 				self.host.connectionMessage = errorMessage
 				return
@@ -145,8 +145,7 @@ class MqttClientMoscapsule: MqttClient {
 	}
 		
 	func setDisconnected() {
-		connectionState.connected = false
-		connectionState.connecting = false
+		connectionState.state = .disconnected
 		
 		DispatchQueue.main.async {
 			self.host.connecting = false
@@ -157,7 +156,7 @@ class MqttClientMoscapsule: MqttClient {
 	
 	func onConnect(_ returnCode: ReturnCode) {
 		print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topic)")
-		connectionState.connected = true
+		connectionState.state = .connected
 		NSLog("Connected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {
 			self.host.connecting = false
@@ -172,7 +171,7 @@ class MqttClientMoscapsule: MqttClient {
 		
  		if returnCode == .mosq_conn_refused {
 			NSLog(connectionRefused)
-			connectionState.connectionFailed = connectionRefused
+			connectionState.message = connectionRefused
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
@@ -180,7 +179,7 @@ class MqttClientMoscapsule: MqttClient {
 			}
 		}
 		else {
-			connectionState.connectionFailed = returnCode.description
+			connectionState.message = returnCode.description
 			DispatchQueue.main.async {
 				self.host.connectionMessage = returnCode.description
 			}

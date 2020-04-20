@@ -36,8 +36,8 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 		if let session = sessions[host.ID] {
 			host.disconnectDelegate = self
 			host.reconnectDelegate = self
-			host.connecting = session.connectionState.connecting
-			host.connected = session.connectionState.connected
+			host.connecting = session.connectionState.state == .connecting
+			host.connected = session.connectionState.state == .connected
 		}
 	}
 	
@@ -77,7 +77,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 		else if session?.connectionAlive ?? false {
 			return
 		}
-		else if session?.connectionState.connected ?? false {
+		else if session?.connectionState.state == .connected {
 			reconnect(host: host)
 			return
 		}
