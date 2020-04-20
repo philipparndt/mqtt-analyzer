@@ -46,7 +46,8 @@ struct CertificateAuthenticationView: View {
 					.font(.body)
 			}
 			
-			InfoBox(text: "Certificate files are not synced. Copy them to all of your devices using Finder / iTunes.")
+			InfoBox(text: "Certificate files are not synced. "
+				+ "Copy them to all of your devices using Finder / iTunes.")
 		}
 	}
 }
