@@ -41,7 +41,7 @@ class HostSetting: Object {
 	@objc dynamic var ssl: Bool = false
 	@objc dynamic var untrustedSSL: Bool = false
 	
-	@objc dynamic var clientImplType: Int8 = ClientImplType.moscapsule
+	@objc dynamic var clientImplType: Int8 = ClientImplType.cocoamqtt
 	
 	@objc dynamic var authType: Int8 = AuthenticationType.none
 	@objc dynamic var username: String = ""
