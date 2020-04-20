@@ -8,11 +8,11 @@
 
 import Foundation
 import Combine
-import Moscapsule
 
-class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
+class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
+	
 	var model: MessageModel?
-	var sessions: [String: MQTTSession] = [:]
+	var sessions: [String: MqttClient] = [:]
 	
 	private var messageSubjectCancellable: Cancellable? {
 		didSet {
@@ -21,8 +21,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 	}
 	
 	init() {
-		// Init is necessary to provide SSL/TLS functions.
-		moscapsule_init()
+		MqttClientMoscapsule.setup()
 	}
 	
 	deinit {
@@ -31,6 +30,15 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		}
 
 		NSLog("MQTTController deinit")
+	}
+	
+	func initHost(host: Host) {
+		if let session = sessions[host.ID] {
+			host.disconnectDelegate = self
+			host.reconnectDelegate = self
+			host.connecting = session.connectionState.connecting
+			host.connected = session.connectionState.connected
+		}
 	}
 	
 	func reconnect(host: Host) {
@@ -45,6 +53,15 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		connect(host: host)
 	}
 	
+	fileprivate func createClient(_ host: Host) -> MqttClient {
+		switch host.clientImpl {
+		case .cocoamqtt:
+			return MqttClientCocoaMQTT(host: host, model: model!)
+		case .moscapsule:
+			return MqttClientMoscapsule(host: host, model: model!)
+		}
+	}
+	
 	func connect(host: Host) {
 		if model == nil {
 			NSLog("model must be set in order to connect")
@@ -54,7 +71,8 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate {
 		
 		if session?.host !== host {
 			disconnect(host: host)
-			session = MQTTSession(host: host, model: model!)
+			
+			session = createClient(host)
 		}
 		else if session?.connectionAlive ?? false {
 			return

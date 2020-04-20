@@ -46,7 +46,7 @@ public class HostsModelPersistence {
 				try realm.write {
 					setting.alias = host.alias
 					setting.hostname = host.hostname
-					setting.port = host.port
+					setting.port = Int32(host.port)
 					setting.topic = host.topic
 					setting.qos = host.qos
 					setting.authType = transformAuth(host.auth)
@@ -59,6 +59,11 @@ public class HostsModelPersistence {
 					setting.clientID = host.clientID
 					setting.limitTopic = host.limitTopic
 					setting.limitMessagesBatch = host.limitMessagesBatch
+					setting.protocolMethod = transformConnectionMethod(host.protocolMethod)
+					setting.clientImplType = transformClientImplType(host.clientImpl)
+					setting.basePath = host.basePath
+					setting.ssl = host.ssl
+					setting.untrustedSSL = host.untrustedSSL
 				}
 			}
 			catch {
@@ -109,22 +114,60 @@ public class HostsModelPersistence {
 	private func transformAuth(_ type: HostAuthenticationType) -> Int8 {
 		switch type {
 		case .usernamePassword:
-			return AuthenticationType.USERNAME_PASSWORD
+			return AuthenticationType.usernamePassword
 		case .certificate:
-			return AuthenticationType.CERTIFICATE
+			return AuthenticationType.certificate
 		default:
-			return AuthenticationType.NONE
+			return AuthenticationType.none
 		}
 	}
 	
 	private func transformAuth(_ type: Int8) -> HostAuthenticationType {
 		switch type {
-		case AuthenticationType.USERNAME_PASSWORD:
+		case AuthenticationType.usernamePassword:
 			return HostAuthenticationType.usernamePassword
-		case AuthenticationType.CERTIFICATE:
+		case AuthenticationType.certificate:
 			return HostAuthenticationType.certificate
 		default:
 			return HostAuthenticationType.none
+		}
+	}
+	
+	private func transformConnectionMethod(_ type: HostProtocol) -> Int8 {
+		switch type {
+		case .websocket:
+			return ConnectionMethod.websocket
+		default:
+			return ConnectionMethod.mqtt
+		}
+	}
+	
+	private func transformConnectionMethod(_ type: Int8) -> HostProtocol {
+		switch type {
+		case ConnectionMethod.mqtt:
+			return .mqtt
+		case ConnectionMethod.websocket:
+			return .websocket
+		default:
+			return .mqtt
+		}
+	}
+	
+	private func transformClientImplType(_ type: HostClientImplType) -> Int8 {
+		switch type {
+		case .cocoamqtt:
+			return ClientImplType.cocoamqtt
+		default:
+			return ClientImplType.moscapsule
+		}
+	}
+	
+	private func transformClientImplType(_ type: Int8) -> HostClientImplType {
+		switch type {
+		case ClientImplType.cocoamqtt:
+			return .cocoamqtt
+		default:
+			return .moscapsule
 		}
 	}
 	
@@ -133,7 +176,7 @@ public class HostsModelPersistence {
 		result.deleted = host.isDeleted
 		result.alias = host.alias
 		result.hostname = host.hostname
-		result.port = host.port
+		result.port = UInt16(host.port)
 		result.topic = host.topic
 		result.qos = host.qos
 		result.auth = transformAuth(host.authType)
@@ -146,6 +189,11 @@ public class HostsModelPersistence {
 		result.clientID = host.clientID
 		result.limitTopic = host.limitTopic
 		result.limitMessagesBatch = host.limitMessagesBatch
+		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
+		result.clientImpl = transformClientImplType(host.clientImplType)
+		result.basePath = host.basePath
+		result.ssl = host.ssl
+		result.untrustedSSL = host.untrustedSSL
 		return result
 	}
 	
@@ -155,7 +203,7 @@ public class HostsModelPersistence {
 		result.id = host.ID
 		result.alias = host.alias
 		result.hostname = host.hostname
-		result.port = host.port
+		result.port = Int32(host.port)
 		result.topic = host.topic
 		result.qos = host.qos
 		result.authType = transformAuth(host.auth)
@@ -168,6 +216,11 @@ public class HostsModelPersistence {
 		result.clientID = host.clientID
 		result.limitTopic = host.limitTopic
 		result.limitMessagesBatch = host.limitMessagesBatch
+		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
+		result.clientImplType = transformClientImplType(host.clientImpl)
+		result.basePath = host.basePath
+		result.ssl = host.ssl
+		result.untrustedSSL = host.untrustedSSL
 		return result
 	}
 }

@@ -49,7 +49,7 @@ struct CertificateFilePickerView: View {
 	
 	var body: some View {
 		Group {
-			InfoBox(text: "Add new *.crt and *.key files with Finder or iTunes.")
+			InfoBox(text: "Add new *.p12 or *.crt and *.key files with Finder or iTunes.")
 			.padding(.horizontal)
 			
 			List {
@@ -69,7 +69,7 @@ struct CertificateFilePickerView: View {
 			
 			let files = directoryContents
 				.map { $0.lastPathComponent }
-				.filter { $0.range(of: #".*\.(crt|key)"#, options: .regularExpression) != nil}
+				.filter { $0.range(of: #".*\.(p12|crt|key)"#, options: .regularExpression) != nil}
 				.map { File(name: $0) }
 				.sorted()
 

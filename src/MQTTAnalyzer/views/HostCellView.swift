@@ -37,6 +37,10 @@ struct HostCellView: View {
 					}
 					.font(.footnote)
 					.foregroundColor(.secondary)
+					
+//					if host.clientImpl == .moscapsule {
+//						DeprecationBox()
+//					}
 				}
 				
 				Spacer()
@@ -69,27 +73,12 @@ struct HostCellView: View {
 					root: self.model,
 					hosts: self.model.hostsModel,
 					original: self.host,
-					host: self.transformHost(),
-					auth: self.host.auth)
+					host: transformHost(source: self.host),
+					auth: self.host.auth,
+					protocolMethod: self.host.protocolMethod,
+					clientImpl: self.host.clientImpl)
 			}
 		})
-	}
-	
-	func transformHost() -> HostFormModel {
-		return HostFormModel(alias: host.alias,
-							 hostname: host.hostname,
-							 port: "\(host.port)",
-							 topic: host.topic,
-							 qos: host.qos,
-							 username: host.username,
-							 password: host.password,
-							 certServerCA: host.certServerCA,
-							 certClient: host.certClient,
-							 certClientKey: host.certClientKey,
-							 certClientKeyPassword: host.certClientKeyPassword,
-							 clientID: host.clientID,
-							 limitTopic: "\(host.limitTopic)",
-							 limitMessagesBatch: "\(host.limitMessagesBatch)")
 	}
 	
 	func editHost() {

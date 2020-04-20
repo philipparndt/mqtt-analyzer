@@ -15,6 +15,16 @@ enum HostAuthenticationType {
 	case certificate
 }
 
+enum HostProtocol {
+	case mqtt
+	case websocket
+}
+
+enum HostClientImplType {
+	case moscapsule
+	case cocoamqtt
+}
+
 extension Host: Hashable {
 	static func == (lhs: Host, rhs: Host) -> Bool {
 		return lhs.ID == rhs.ID
@@ -33,9 +43,15 @@ class Host: Identifiable, ObservableObject {
 	
 	var alias: String = ""
 	var hostname: String = ""
-	var port: Int32 = 1883
+	var port: UInt16 = 1883
 	var topic: String = "#"
-
+	
+	var protocolMethod: HostProtocol = .mqtt
+	var clientImpl: HostClientImplType = .cocoamqtt
+	var basePath: String = ""
+	var ssl: Bool = false
+	var untrustedSSL: Bool = false
+	
 	var limitTopic = 250
 	var limitMessagesBatch = 1000
 
@@ -108,7 +124,15 @@ class Host: Identifiable, ObservableObject {
 }
 
 class HostsModel: ObservableObject {
-	@Published var hosts: [Host]
+	let initMethod: InitHost
+	
+	@Published var hosts: [Host] {
+		willSet {
+			for host in newValue {
+				initMethod.initHost(host: host)
+			}
+		}
+	}
 	
 	var hostsSorted: [Host] {
 		return self.hosts.sorted {
@@ -121,7 +145,8 @@ class HostsModel: ObservableObject {
 		}
 	}
 	
-	init(hosts: [Host] = []) {
+	init(hosts: [Host] = [], initMethod: InitHost) {
+		self.initMethod = initMethod
 		self.hosts = hosts
 	}
 	
