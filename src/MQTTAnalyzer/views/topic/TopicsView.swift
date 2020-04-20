@@ -16,14 +16,6 @@ struct TopicsView: View {
 	@State var dialogPresented: Bool
 	@State private var publishMessageModel: PublishMessageFormModel?
 	
-	var popSheet: PopSheet {
-		PopSheet(title: Text("Actions"), buttons: [
-			.default(Text("Publish new message"), action: createTopic),
-			.default(Text(host.pause ? "Resume connection" : "Pause connection"), action: pauseConnection),
-			.cancel()
-		])
-	}
-	
 	var body: some View {
 		Group {
 			ReconnectView(host: self.host, model: self.model, loginDialogPresented: self.$dialogPresented)
@@ -52,11 +44,26 @@ struct TopicsView: View {
 		.navigationBarTitle(Text(host.topic), displayMode: .inline)
 		.listStyle(GroupedListStyle())
 		.navigationBarItems(
-			trailing: Button(action: showActionSheet) {
-				Image(systemName: "line.horizontal.3")
+			trailing:
+			HStack {
+				if host.connected {
+					Spacer()
+					
+					Button(action: createTopic) {
+						Image(systemName: "paperplane.fill")
+					}
+					.font(.system(size: 22))
+					.buttonStyle(ActionStyleL25())
+					
+					Button(action: pauseConnection) {
+						Image(systemName: host.connected && host.pause ? "play.fill" : "pause.fill")
+					}
+					.frame(minWidth: 50)
+					.font(.system(size: 22))
+					.buttonStyle(ActionStyleL25())
+				
+				}
 			}
-			.font(.system(size: 22))
-			.buttonStyle(ActionStyleTrailing())
 		)
 		.onAppear {
 			if !self.host.needsAuth {
@@ -73,9 +80,6 @@ struct TopicsView: View {
 										 host: self.host,
 										 model: self.publishMessageModel!)
 			}
-		})
-		.popSheet(isPresented: self.$actionSheetPresented, content: {
-			self.popSheet
 		})
 	}
 	

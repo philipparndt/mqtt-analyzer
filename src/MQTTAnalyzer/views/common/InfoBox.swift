@@ -16,8 +16,7 @@ struct InfoBox: View {
 		imageName: "info.circle.fill")
 		.padding()
 			.font(.body)
-			.foregroundColor(.white)
-			.background(Color.blue.opacity(0.7))
+			.background(Color.blue.opacity(0.1))
 			.cornerRadius(10)
 	}
 }

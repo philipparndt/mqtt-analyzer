@@ -8,7 +8,15 @@
 
 import SwiftUI
 
-struct ActionStyleTrailing: ButtonStyle {
+struct ActionStyleL25: ButtonStyle {
+	func makeBody(configuration: Self.Configuration) -> some View {
+		configuration.label
+			.foregroundColor(.accentColor)
+			.padding(EdgeInsets(top: 10, leading: 25, bottom: 10, trailing: 0))
+	}
+}
+
+struct ActionStyleL50: ButtonStyle {
 	func makeBody(configuration: Self.Configuration) -> some View {
 		configuration.label
 			.foregroundColor(.accentColor)
@@ -16,7 +24,7 @@ struct ActionStyleTrailing: ButtonStyle {
 	}
 }
 
-struct ActionStyleLeading: ButtonStyle {
+struct ActionStyleT50: ButtonStyle {
 	func makeBody(configuration: Self.Configuration) -> some View {
 		configuration.label
 			.foregroundColor(.accentColor)

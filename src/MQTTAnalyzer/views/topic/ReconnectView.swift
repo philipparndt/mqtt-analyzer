@@ -94,8 +94,7 @@ struct ReconnectView: View {
 			else if host.connected {
 				if host.pause {
 					Button(action: pause) {
-						FillingText(text: "Connected (paused)",
-									imageName: "play.fill")
+						FillingText(text: "Connected (paused)")
 					}
 				}
 			}
