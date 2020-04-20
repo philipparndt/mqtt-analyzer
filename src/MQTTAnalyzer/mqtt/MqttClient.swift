@@ -9,16 +9,17 @@
 import Foundation
 import Combine
 
+enum MQTTConnectionState {
+	case disconnected
+	case connecting
+	case connected
+}
+
 struct ConnectionState {
 	static var sessionNum = 0
 
-	var connectionFailed: String?
-	var connected: Bool = false
-	var connecting: Bool = false
-
-	var isConnecting: Bool {
-		!self.connected && self.connectionFailed == nil && self.connecting
-	}
+	var message: String?
+	var state: MQTTConnectionState = .disconnected
 }
 
 class MsgSubject<T> {
