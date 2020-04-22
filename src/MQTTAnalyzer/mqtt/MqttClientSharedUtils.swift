@@ -29,5 +29,8 @@ class MqttClientSharedUtils {
 		if result != .success {
 			print("CONNECTION: disconnected timeout \(sessionNum): \(result)")
 		}
+		else {
+			print("Disconnected!")
+		}
 	}
 }

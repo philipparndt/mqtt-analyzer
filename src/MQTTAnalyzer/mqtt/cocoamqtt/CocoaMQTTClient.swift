@@ -91,7 +91,7 @@ class MqttClientCocoaMQTT: MqttClient {
 			failConnection(reason: "Connection to port \(host.port) failed")
 			return
 		}
-		
+
 		waitConnected()
 
 		self.mqtt = mqtt
@@ -134,7 +134,7 @@ class MqttClientCocoaMQTT: MqttClient {
 				return
 			}
 
-			if !self.host.connected {
+			if self.host.state != .connected {
 				self.setDisconnected()
 
 				self.setConnectionMessage(message: "Connection timeout")
@@ -155,9 +155,9 @@ class MqttClientCocoaMQTT: MqttClient {
 	func initConnect() {
 		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topic)")
 		host.connectionMessage = nil
-		host.connecting = true
-		connectionState.message = nil
+		host.state = .connecting
 		connectionState.state = .connecting
+		connectionState.message = nil
 		
 		model.limitMessagesPerBatch = host.limitMessagesBatch
 		model.limitTopics = host.limitTopic
@@ -167,12 +167,12 @@ class MqttClientCocoaMQTT: MqttClient {
 		print("CONNECTION: disconnect \(sessionNum) \(host.hostname) \(host.topic)")
 
 		messageSubject.cancel()
-
+		connectionState.state = .disconnected
+		
 		if let mqtt = self.mqtt {
 			DispatchQueue.global(qos: .background).async {
 				mqtt.unsubscribe(self.host.topic)
 				mqtt.disconnect()
-				self.utils.waitDisconnected(sessionNum: self.sessionNum, state: self.connectionState)
 
 				DispatchQueue.main.async {
 					print("CONNECTION: disconnected \(self.sessionNum) \(self.host.hostname) \(self.host.topic)")
@@ -206,7 +206,7 @@ class MqttClientCocoaMQTT: MqttClient {
 		connectionState.state = .disconnected
 
 		DispatchQueue.main.async {
-			self.host.connecting = false
+			self.host.state = .disconnected
 		}
 		mqtt = nil
 	}
@@ -250,7 +250,7 @@ class MqttClientCocoaMQTT: MqttClient {
 
 		DispatchQueue.main.async {
 			self.host.pause = false
-			self.host.connected = false
+			self.host.state = .disconnected
 		}
 	}
 	
@@ -261,8 +261,7 @@ class MqttClientCocoaMQTT: MqttClient {
 			
 			NSLog("Connected. Return Code is \(ack.description)")
 			DispatchQueue.main.async {
-				self.host.connecting = false
-				self.host.connected = true
+				self.host.state = .connected
 			}
 			
 			subscribeToTopic(host)
@@ -300,7 +299,7 @@ class MqttClientCocoaMQTT: MqttClient {
 		DispatchQueue.main.async {
 			self.host.connectionMessage = reason
 			self.host.pause = false
-			self.host.connected = false
+			self.host.state = .disconnected
 		}
 		
 	}
