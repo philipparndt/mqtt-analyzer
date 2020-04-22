@@ -22,7 +22,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	var mqtt: CocoaMQTT?
 	
 	var connectionAlive: Bool {
-		self.mqtt != nil || connectionState.connected
+		self.mqtt != nil && connectionState.state == .connected
 	}
 	
 	var connectionState = ConnectionState()
@@ -91,7 +91,7 @@ class MqttClientCocoaMQTT: MqttClient {
 			failConnection(reason: "Connection to port \(host.port) failed")
 			return
 		}
-		
+
 		waitConnected()
 
 		self.mqtt = mqtt
@@ -114,11 +114,11 @@ class MqttClientCocoaMQTT: MqttClient {
 		DispatchQueue.global().async {
 			var i = 10
 			
-			while self.connectionState.isConnecting && i > 0 {
+			while self.connectionState.state == .connecting && i > 0 {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
 				sleep(1)
 				
-				if self.connectionState.isConnecting {
+				if self.connectionState.state == .connecting {
 					self.setConnectionMessage(message: "Connecting... \(i)")
 				}
 
@@ -128,13 +128,13 @@ class MqttClientCocoaMQTT: MqttClient {
 		}
 
 		group.notify(queue: .main) {
-			if let errorMessage = self.connectionState.connectionFailed {
+			if let errorMessage = self.connectionState.message {
 				self.setDisconnected()
 				self.host.connectionMessage = errorMessage
 				return
 			}
 
-			if !self.host.connected {
+			if self.host.state != .connected {
 				self.setDisconnected()
 
 				self.setConnectionMessage(message: "Connection timeout")
@@ -155,9 +155,9 @@ class MqttClientCocoaMQTT: MqttClient {
 	func initConnect() {
 		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topic)")
 		host.connectionMessage = nil
-		host.connecting = true
-		connectionState.connectionFailed = nil
-		connectionState.connecting = true
+		host.state = .connecting
+		connectionState.state = .connecting
+		connectionState.message = nil
 		
 		model.limitMessagesPerBatch = host.limitMessagesBatch
 		model.limitTopics = host.limitTopic
@@ -167,12 +167,12 @@ class MqttClientCocoaMQTT: MqttClient {
 		print("CONNECTION: disconnect \(sessionNum) \(host.hostname) \(host.topic)")
 
 		messageSubject.cancel()
-
+		connectionState.state = .disconnected
+		
 		if let mqtt = self.mqtt {
 			DispatchQueue.global(qos: .background).async {
 				mqtt.unsubscribe(self.host.topic)
 				mqtt.disconnect()
-				self.utils.waitDisconnected(sessionNum: self.sessionNum, state: self.connectionState)
 
 				DispatchQueue.main.async {
 					print("CONNECTION: disconnected \(self.sessionNum) \(self.host.hostname) \(self.host.topic)")
@@ -203,11 +203,10 @@ class MqttClientCocoaMQTT: MqttClient {
 	}
 	
 	func setDisconnected() {
-		connectionState.connected = false
-		connectionState.connecting = false
+		connectionState.state = .disconnected
 
 		DispatchQueue.main.async {
-			self.host.connecting = false
+			self.host.state = .disconnected
 		}
 		mqtt = nil
 	}
@@ -239,7 +238,7 @@ class MqttClientCocoaMQTT: MqttClient {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topic)")
 
 		if err != nil {
-			connectionState.connectionFailed = err!.localizedDescription
+			connectionState.message = err!.localizedDescription
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
@@ -251,19 +250,18 @@ class MqttClientCocoaMQTT: MqttClient {
 
 		DispatchQueue.main.async {
 			self.host.pause = false
-			self.host.connected = false
+			self.host.state = .disconnected
 		}
 	}
 	
 	func didConnect(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
 		if ack == .accept {
 			print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topic)")
-			connectionState.connected = true
+			connectionState.state = .connected
 			
 			NSLog("Connected. Return Code is \(ack.description)")
 			DispatchQueue.main.async {
-				self.host.connecting = false
-				self.host.connected = true
+				self.host.state = .connected
 			}
 			
 			subscribeToTopic(host)
@@ -294,14 +292,14 @@ class MqttClientCocoaMQTT: MqttClient {
 	
 	func failConnection(reason: String) {
 		NSLog("Connection failed: " + reason)
-		connectionState.connectionFailed = reason
+		connectionState.message = reason
 				
 		self.setDisconnected()
 
 		DispatchQueue.main.async {
 			self.host.connectionMessage = reason
 			self.host.pause = false
-			self.host.connected = false
+			self.host.state = .disconnected
 		}
 		
 	}

@@ -37,7 +37,7 @@ struct ReconnectView: View {
 	var loginDialogPresented: Bool
 	
 	var foregroundColor: Color {
-		if host.connected {
+		if host.state == .connected {
 			if host.pause {
 				return .white
 			}
@@ -45,7 +45,7 @@ struct ReconnectView: View {
 				return .black
 			}
 			
-			return host.connected && !host.pause ? .gray : .white
+			return !host.pause ? .gray : .white
 		}
 		else {
 			return .white
@@ -53,7 +53,7 @@ struct ReconnectView: View {
 	}
 	
 	var backgroundColor: Color {
-		if host.connected {
+		if host.state == .connected {
 			if host.pause {
 				return .gray
 			}
@@ -63,7 +63,7 @@ struct ReconnectView: View {
 			
 			return .green
 		}
-		else if host.connecting {
+		else if host.state == .connecting {
 			return .gray
 		}
 		else {
@@ -91,18 +91,18 @@ struct ReconnectView: View {
 					imageName: "exclamationmark.octagon.fill")
 				}
 			}
-			else if host.connected {
+			else if host.state == .connected {
 				if host.pause {
 					Button(action: pause) {
 						FillingText(text: "Connected (paused)")
 					}
 				}
 			}
-			else if host.connecting {
+			else if host.state == .connecting {
 				HStack {
 					FillingText(text: host.connectionMessage ?? "Connecting...")
 				}
-			} else if !host.connected {
+			} else if host.state == .disconnected {
 				Button(action: reconnect) {
 					FillingText(text: host.connectionMessage ?? "Disconnected",
 								imageName: "xmark.octagon.fill")

@@ -52,7 +52,7 @@ class DataMigration {
 	
 	class func initMigration() {
 		let configuration = Realm.Configuration(
-			schemaVersion: 9,
+			schemaVersion: 10,
 			migrationBlock: { migration, oldSchemaVersion in
 				migrateLimits(oldSchemaVersion, migration)
 				migrateAuth(oldSchemaVersion, migration)

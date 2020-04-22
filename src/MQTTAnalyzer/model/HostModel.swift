@@ -94,16 +94,14 @@ class Host: Identifiable, ObservableObject {
 	
 	weak var reconnectDelegate: ReconnectDelegate?
 	weak var disconnectDelegate: DisconnectDelegate?
-
-	@Published var connected = false {
+	
+	@Published var state: MQTTConnectionState = .disconnected {
 		didSet {
-			if connected {
+			if state == .connected {
 				wasConnected = true
 			}
 		}
 	}
-	
-	@Published var connecting = false
 	
 	@Published var pause = false
 	
@@ -115,7 +113,8 @@ class Host: Identifiable, ObservableObject {
 	
 	func disconnect() {
 		disconnectDelegate?.disconnect(host: self)
-		connected = false
+		state = .disconnected
+		
 		usernameNonpersistent = nil
 		passwordNonpersistent = nil
 		wasConnected = false

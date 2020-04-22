@@ -26,7 +26,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 	
 	deinit {
 		for session in self.sessions.values {
-			session.host.connected = false
+			session.host.state = .disconnected
 		}
 
 		NSLog("MQTTController deinit")
@@ -36,14 +36,13 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 		if let session = sessions[host.ID] {
 			host.disconnectDelegate = self
 			host.reconnectDelegate = self
-			host.connecting = session.connectionState.connecting
-			host.connected = session.connectionState.connected
+			host.state = session.connectionState.state
 		}
 	}
 	
 	func reconnect(host: Host) {
 		DispatchQueue.main.async {
-			host.connecting = true
+			host.state = .connecting
 		}
 		
 		if sessions[host.ID]?.connectionAlive ?? false {
@@ -75,22 +74,23 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 			session = createClient(host)
 		}
 		else if session?.connectionAlive ?? false {
+			host.state = session?.connectionState.state ?? .disconnected
 			return
 		}
-		else if session?.connectionState.connected ?? false {
-			reconnect(host: host)
-			return
+		else {
+			disconnect(host: host)
 		}
 		
-		let current = session!
-		if current.connectionAlive {
-			return
+		if let current = session {
+			if current.connectionAlive {
+				return
+			}
+			current.connect()
+			host.reconnectDelegate = self
+			host.disconnectDelegate = self
+			
+			sessions[host.ID] = current
 		}
-		current.connect()
-		host.reconnectDelegate = self
-		host.disconnectDelegate = self
-		
-		sessions[host.ID] = current
 	}
 	
 	func disconnect(host: Host) {
