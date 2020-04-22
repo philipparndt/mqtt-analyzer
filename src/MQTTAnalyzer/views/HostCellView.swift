@@ -22,7 +22,7 @@ struct HostCellView: View {
 	@State var sheetType = HostCellViewSheetType.edit
 	
 	var connectionColor: Color {
-		host.connected ? .green : .gray
+		host.state == .connected ? .green : .gray
 	}
 	
 	var body: some View {
@@ -45,7 +45,7 @@ struct HostCellView: View {
 				
 				Spacer()
 				
-				if host.connected || host.connecting {
+				if host.state != .disconnected {
 					Text("\(messageModel.messageCount)")
 						.font(.system(size: 14, design: .monospaced))
 						.foregroundColor(.secondary)
@@ -57,7 +57,7 @@ struct HostCellView: View {
 			}
 			.contextMenu {
 				MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
-				if host.connected || host.connecting {
+				if host.state != .disconnected {
 					MenuButton(title: "Disconnect", systemImage: "stop.circle", action: disconnect)
 				}
 				else {

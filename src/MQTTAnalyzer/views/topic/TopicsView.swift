@@ -46,7 +46,7 @@ struct TopicsView: View {
 		.navigationBarItems(
 			trailing:
 			HStack {
-				if host.connected {
+				if host.state == .connected {
 					Spacer()
 					
 					Button(action: createTopic) {
@@ -56,7 +56,7 @@ struct TopicsView: View {
 					.buttonStyle(ActionStyleL25())
 					
 					Button(action: pauseConnection) {
-						Image(systemName: host.connected && host.pause ? "play.fill" : "pause.fill")
+						Image(systemName: host.pause ? "play.fill" : "pause.fill")
 					}
 					.frame(minWidth: 50)
 					.font(.system(size: 22))

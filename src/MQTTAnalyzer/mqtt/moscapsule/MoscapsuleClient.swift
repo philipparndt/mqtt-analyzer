@@ -45,7 +45,7 @@ class MqttClientMoscapsule: MqttClient {
 	func connect() {
 		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topic)")
 		host.connectionMessage = nil
-		host.connecting = true
+		host.state = .connecting
 		connectionState.message = nil
 		connectionState.state = .connecting
 		
@@ -66,7 +66,7 @@ class MqttClientMoscapsule: MqttClient {
 			let result = initCertificates(host: host, config: mqttConfig)
 			if !result.0 {
 				DispatchQueue.main.async {
-					self.host.connecting = false
+					self.host.state = .disconnected
 					self.host.connectionMessage = result.1
 				}
 				return
@@ -128,7 +128,7 @@ class MqttClientMoscapsule: MqttClient {
 				return
 			}
 			
-			if !self.host.connected {
+			if self.host.state == .disconnected {
 				self.setDisconnected()
 				
 				self.setConnectionMessage(message: "Connection timeout")
@@ -148,7 +148,7 @@ class MqttClientMoscapsule: MqttClient {
 		connectionState.state = .disconnected
 		
 		DispatchQueue.main.async {
-			self.host.connecting = false
+			self.host.state = .disconnected
 		}
 		messageSubject.disconnected()
 		mqtt = nil
@@ -159,8 +159,7 @@ class MqttClientMoscapsule: MqttClient {
 		connectionState.state = .connected
 		NSLog("Connected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {
-			self.host.connecting = false
-			self.host.connected = true
+			self.host.state = .connected
 		}
 		
 		subscribeToTopic(host)
@@ -190,7 +189,7 @@ class MqttClientMoscapsule: MqttClient {
 		NSLog("Disconnected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {
 			self.host.pause = false
-			self.host.connected = false
+			self.host.state = .disconnected
 		}
 	}
 	
