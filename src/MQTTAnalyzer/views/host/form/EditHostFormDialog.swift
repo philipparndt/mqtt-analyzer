@@ -36,7 +36,7 @@ struct EditHostFormModalView: View {
 					leading: Button(action: cancel) { Text("Cancel") },
 					trailing: Button(action: save) { Text("Save") }.disabled(disableSave)
 			)
-		}
+		}.navigationViewStyle(StackNavigationViewStyle())
 	}
 	
 	func save() {
