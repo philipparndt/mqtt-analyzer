@@ -99,8 +99,10 @@ struct ReconnectView: View {
 				}
 			}
 			else if host.state == .connecting {
-				HStack {
-					FillingText(text: host.connectionMessage ?? "Connecting...")
+				if host.connectionMessage != nil {
+					HStack {
+						FillingText(text: host.connectionMessage ?? "Connecting...")
+					}
 				}
 			} else if host.state == .disconnected {
 				Button(action: reconnect) {
