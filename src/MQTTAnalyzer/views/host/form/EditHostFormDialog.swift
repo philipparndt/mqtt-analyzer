@@ -31,7 +31,7 @@ struct EditHostFormModalView: View {
 		NavigationView {
 			EditHostFormView(host: $host, auth: $auth, connectionMethod: $protocolMethod, clientImpl: $clientImpl)
 				.font(.caption)
-				.navigationBarTitle(Text("Edit host"))
+				.navigationBarTitle(Text("Edit server"), displayMode: .inline)
 				.navigationBarItems(
 					leading: Button(action: cancel) { Text("Cancel") },
 					trailing: Button(action: save) { Text("Save") }.disabled(disableSave)
