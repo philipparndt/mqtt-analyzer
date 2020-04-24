@@ -11,12 +11,8 @@ import swift_petitparser
 
 public class HostFormValidator {
 	public class func validateHostname(name hostname: String) -> String? {
-		let ip = NumbersParser.int(from: 0, to: 255)
-			.seq(CharacterParser.of(".").seq(NumbersParser.int(from: 0, to: 255)).times(3))
-		
-		let host = CharacterParser.pattern("a-zA-Z0-9./-").plus()
-		let parser = ip.or(host).flatten().trim().end()
-		return parser.parse(hostname).get()
+		let trimmed = hostname.trimmingCharacters(in: .whitespacesAndNewlines)
+		return URL(string: trimmed) != nil ? trimmed : nil
 	}
 	
 	public class func validateMaxTopic(value: String) -> Int32? {
