@@ -31,7 +31,7 @@ struct NewHostFormModalView: View {
 		NavigationView {
 			EditHostFormView(host: $host, auth: $auth, connectionMethod: $connectionMethod, clientImpl: $clientImpl)
 				.font(.caption)
-				.navigationBarTitle(Text("New host"))
+				.navigationBarTitle(Text("New server"), displayMode: .inline)
 				.navigationBarItems(
 					leading: Button(action: cancel) {
 						Text("Cancel")
