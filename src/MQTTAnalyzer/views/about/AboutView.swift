@@ -13,28 +13,30 @@ struct AboutView: View {
 	@Binding var isPresented: Bool
 	
 	var body: some View {
-		VStack {
-			AboutTitleView().padding([.top, .bottom])
-			
-			ScrollView {
-				VStack(alignment: .leading) {
-					LicenseView().padding(.bottom)
-					ContributorsView().padding(.bottom)
-					DependenciesView()
+		NavigationView {
+			VStack {
+				AboutTitleView().padding([.top, .bottom])
+				
+				ScrollView {
+					VStack(alignment: .leading) {
+						LicenseView().padding(.bottom)
+						ContributorsView().padding(.bottom)
+						DependenciesView()
+					}
 				}
+				
+				Spacer()
 			}
-			
-			Spacer()
-		}
-		.padding()
-		.frame(maxWidth: .infinity, alignment: .leading)
-		.multilineTextAlignment(.leading)
-		.navigationBarTitle(Text("About"))
-		.navigationBarItems(
-			leading: Button(action: close) {
-				Text("Close")
-			}.buttonStyle(ActionStyleT50())
-		)
+			.padding()
+			.frame(maxWidth: .infinity, alignment: .leading)
+			.multilineTextAlignment(.leading)
+			.navigationBarTitle(Text("About"), displayMode: .inline)
+			.navigationBarItems(
+				leading: Button(action: close) {
+					Text("Close")
+				}.buttonStyle(ActionStyleT50())
+			)
+		}.navigationViewStyle(StackNavigationViewStyle())
 	}
 	
 	func close() {
