@@ -42,7 +42,7 @@ struct NewHostFormModalView: View {
 						Text("Save")
 					}.buttonStyle(ActionStyleL50()).disabled(disableSave)
 			)
-		}
+		}.navigationViewStyle(StackNavigationViewStyle())
 	}
 	
 	func save() {
