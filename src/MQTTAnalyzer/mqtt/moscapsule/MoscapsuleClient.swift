@@ -95,10 +95,6 @@ class MqttClientMoscapsule: MqttClient {
 		if let mqtt = self.mqtt {
 			mqtt.unsubscribe(host.topic)
 			mqtt.disconnect()
-			
-			utils.waitDisconnected(sessionNum: sessionNum, state: self.connectionState)
-			
-			print("CONNECTION: disconnected \(sessionNum) \(host.hostname) \(host.topic)")
 		}
 		setDisconnected()
 	}

@@ -23,14 +23,4 @@ class MqttClientSharedUtils {
 		return group.wait(timeout: .now() + 10)
 	}
 	
-	func waitDisconnected(sessionNum: Int, state: ConnectionState) {
-		let result = waitFor(predicate: { state.state == .disconnected })
-
-		if result != .success {
-			print("CONNECTION: disconnected timeout \(sessionNum): \(result)")
-		}
-		else {
-			print("Disconnected!")
-		}
-	}
 }
