@@ -32,33 +32,18 @@ class MQTTAnalyzerUITests: XCTestCase {
     }
 
     func testAbout() {
-//		app.launch()
-//
-//		let button = app.otherElements["about.logo"]
-//		XCTAssertFalse(button.exists)
-//
-//		app.buttons["About"].tap()
-//		XCUIApplication().navigationBars["Servers"].buttons["About"].tap()
-//
-//		XCTAssertTrue(button.exists)
-//		button.swipeDown()
-    }
-
-	func test_rec() {
-		
 		app.launch()
-		app.buttons["About"].tap()
-		print(app.accessibilityElements)
-//		app
-//			.children(matching: .window)
-//			.element(boundBy: 0)
-//			.children(matching: .other)
-//			.element.children(matching: .other)
-//			.element(boundBy: 1)
-//			.children(matching: .other).element.tap()
 		
-	}
+		app.buttons["About"].tap()
+		app.buttons["Close"].tap()
+    }
 	
+    func testAdd() {
+		app.launch()
+		
+		app.buttons["add.server"].tap()
+		app.buttons["Cancel"].tap()
+    }
 	
     func testLaunchPerformance() {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
