@@ -7,109 +7,115 @@
 //
 
 import Foundation
-import RealmSwift
 
 // swiftlint:disable force_try
 public class HostsModelPersistence {
 	let model: HostsModel
-	let realm: Realm
-	var token: NotificationToken?
+//	let realm: Realm
+//	var token: NotificationToken?
+	
+	var hosts: [Host] = []
 	
 	init(model: HostsModel) {
 		self.model = model
-		self.realm = HostsModelPersistence.initRelam()
+//		self.realm = HostsModelPersistence.initRelam()
 	}
 	
-	class func initRelam() -> Realm {
-		return try! Realm()
-	}
+//	class func initRelam() -> Realm {
+//		return try! Realm()
+//	}
 	
 	func create(_ host: Host) {
-		let setting = transform(host)
-		
-		do {
-			try realm.write {
-				realm.add(setting)
-			}
-		}
-		catch {
-			NSLog("Error creating entry in database: \(error.localizedDescription)")
-		}
+		hosts.append(host)
+//		let setting = transform(host)
+//
+//		do {
+//			try realm.write {
+//				realm.add(setting)
+//			}
+//		}
+//		catch {
+//			NSLog("Error creating entry in database: \(error.localizedDescription)")
+//		}
 	}
 		
 	func update(_ host: Host) {
-		let settings = realm.objects(HostSetting.self)
-			.filter("id = %@", host.ID)
-		
-		if let setting = settings.first {
-			do {
-				try realm.write {
-					setting.alias = host.alias
-					setting.hostname = host.hostname
-					setting.port = Int32(host.port)
-					setting.topic = host.topic
-					setting.qos = host.qos
-					setting.authType = transformAuth(host.auth)
-					setting.username = host.username
-					setting.password = host.password
-					setting.certServerCA = host.certServerCA
-					setting.certClient = host.certClient
-					setting.certClientKey = host.certClientKey
-					setting.certClientKeyPassword = host.certClientKeyPassword
-					setting.clientID = host.clientID
-					setting.limitTopic = host.limitTopic
-					setting.limitMessagesBatch = host.limitMessagesBatch
-					setting.protocolMethod = transformConnectionMethod(host.protocolMethod)
-					setting.clientImplType = transformClientImplType(host.clientImpl)
-					setting.basePath = host.basePath
-					setting.ssl = host.ssl
-					setting.untrustedSSL = host.untrustedSSL
-				}
-			}
-			catch {
-				NSLog("Error updating database: \(error.localizedDescription)")
-			}
-			
-		}
+//		let settings = realm.objects(HostSetting.self)
+//			.filter("id = %@", host.ID)
+//
+//		if let setting = settings.first {
+//			do {
+//				try realm.write {
+//					setting.alias = host.alias
+//					setting.hostname = host.hostname
+//					setting.port = Int32(host.port)
+//					setting.topic = host.topic
+//					setting.qos = host.qos
+//					setting.authType = transformAuth(host.auth)
+//					setting.username = host.username
+//					setting.password = host.password
+//					setting.certServerCA = host.certServerCA
+//					setting.certClient = host.certClient
+//					setting.certClientKey = host.certClientKey
+//					setting.certClientKeyPassword = host.certClientKeyPassword
+//					setting.clientID = host.clientID
+//					setting.limitTopic = host.limitTopic
+//					setting.limitMessagesBatch = host.limitMessagesBatch
+//					setting.protocolMethod = transformConnectionMethod(host.protocolMethod)
+//					setting.clientImplType = transformClientImplType(host.clientImpl)
+//					setting.basePath = host.basePath
+//					setting.ssl = host.ssl
+//					setting.untrustedSSL = host.untrustedSSL
+//				}
+//			}
+//			catch {
+//				NSLog("Error updating database: \(error.localizedDescription)")
+//			}
+//
+//		}
 	}
 	
 	func delete(_ host: Host) {
-		let settings = realm.objects(HostSetting.self)
-			.filter("id = %@", host.ID)
 		
-		if let setting = settings.first {
-			do {
-				try realm.write {
-					setting.isDeleted = true
-				}
-			}
-			catch {
-				NSLog("Error deleting entry from database: \(error.localizedDescription)")
-			}
-		}
+//		let settings = realm.objects(HostSetting.self)
+//			.filter("id = %@", host.ID)
+//
+//		if let setting = settings.first {
+//			do {
+//				try realm.write {
+//					setting.isDeleted = true
+//				}
+//			}
+//			catch {
+//				NSLog("Error deleting entry from database: \(error.localizedDescription)")
+//			}
+//		}
 	}
 	
 	func load() {
-		HostSettingExamples.inititalize(realm: realm)
-		
-		let settings = realm.objects(HostSetting.self)
-		
-		token?.invalidate()
-		
-		token = settings.observe { (_: RealmCollectionChange) in
-			self.pushModel(settings: settings)
+//		HostSettingExamples.inititalize(realm: realm)
+//		
+//		let settings = realm.objects(HostSetting.self)
+//		
+//		token?.invalidate()
+//		
+//		token = settings.observe { (_: RealmCollectionChange) in
+//			self.pushModel(settings: settings)
+//		}
+		DispatchQueue.main.async {
+			self.model.hosts = self.hosts
 		}
 	}
 	
-	private func pushModel(settings: Results<HostSetting>) {
-		let hosts: [Host] = settings
-		.filter { !$0.isDeleted }
-		.map { self.transform($0) }
-		
-		DispatchQueue.main.async {
-			self.model.hosts = hosts
-		}
-	}
+//	private func pushModel(settings: Results<HostSetting>) {
+//		let hosts: [Host] = settings
+//		.filter { !$0.isDeleted }
+//		.map { self.transform($0) }
+//
+//		DispatchQueue.main.async {
+//			self.model.hosts = hosts
+//		}
+//	}
 	
 	private func transformAuth(_ type: HostAuthenticationType) -> Int8 {
 		switch type {

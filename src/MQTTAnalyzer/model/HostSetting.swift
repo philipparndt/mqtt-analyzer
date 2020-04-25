@@ -8,8 +8,8 @@
 
 import Foundation
 
-import RealmSwift
-import IceCream
+//import RealmSwift
+//import IceCream
 import CloudKit
 
 struct AuthenticationType {
@@ -28,7 +28,7 @@ struct ClientImplType {
 	static let cocoamqtt: Int8 = 1
 }
 
-class HostSetting: Object {
+class HostSetting {
 	@objc dynamic var id = NSUUID().uuidString
 	@objc dynamic var alias = ""
 	@objc dynamic var hostname = ""
@@ -59,9 +59,9 @@ class HostSetting: Object {
 	
 	@objc dynamic var isDeleted = false
 	
-	override class func primaryKey() -> String? {
-		return "id"
-	}
+//	override class func primaryKey() -> String? {
+//		return "id"
+//	}
 }
 
 extension Host {
@@ -69,9 +69,9 @@ extension Host {
 		return "mqtt-analyzer-\(String.random(length: 8))"
 	}
 }
-
-extension HostSetting: CKRecordConvertible {
-}
-
-extension HostSetting: CKRecordRecoverable {
-}
+//
+//extension HostSetting: CKRecordConvertible {
+//}
+//
+//extension HostSetting: CKRecordRecoverable {
+//}

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import IceCream
+//import IceCream
 import CloudKit
 import CocoaMQTT
 import Starscream
@@ -15,13 +15,13 @@ import Starscream
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
-	var syncEngine: SyncEngine?
+//	var syncEngine: SyncEngine?
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		DataMigration.initMigration()
-		syncEngine = SyncEngine(objects: [
-				SyncObject<HostSetting>()
-			], databaseScope: .private)
+//		DataMigration.initMigration()
+//		syncEngine = SyncEngine(objects: [
+//				SyncObject<HostSetting>()
+//			], databaseScope: .private)
 				
 		application.registerForRemoteNotifications()
 								
@@ -31,11 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 		
-		// swiftlint:disable line_length
-		if let dict = userInfo as? [String: NSObject], let notification = CKNotification(fromRemoteNotificationDictionary: dict), let subscriptionID = notification.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID) {
-			NotificationCenter.default.post(name: Notifications.cloudKitDataDidChangeRemotely.name, object: nil, userInfo: userInfo)
-			completionHandler(.newData)
-		}
+//		// swiftlint:disable line_length
+//		if let dict = userInfo as? [String: NSObject], let notification = CKNotification(fromRemoteNotificationDictionary: dict), let subscriptionID = notification.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID) {
+//			NotificationCenter.default.post(name: Notifications.cloudKitDataDidChangeRemotely.name, object: nil, userInfo: userInfo)
+//			completionHandler(.newData)
+//		}
 		
 	}
 	

@@ -21,7 +21,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 	}
 	
 	init() {
-		MqttClientMoscapsule.setup()
+//		MqttClientMoscapsule.setup()
 	}
 	
 	deinit {
@@ -53,12 +53,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 	}
 	
 	fileprivate func createClient(_ host: Host) -> MqttClient {
-		switch host.clientImpl {
-		case .cocoamqtt:
-			return MqttClientCocoaMQTT(host: host, model: model!)
-		case .moscapsule:
-			return MqttClientMoscapsule(host: host, model: model!)
-		}
+		return MqttClientCocoaMQTT(host: host, model: model!)
 	}
 	
 	func connect(host: Host) {
