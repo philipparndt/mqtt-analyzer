@@ -14,11 +14,11 @@ PODS:
   - OpenSSL-Universal (1.0.2.18):
     - OpenSSL-Universal/Static (= 1.0.2.18)
   - OpenSSL-Universal/Static (1.0.2.18)
-  - Realm (4.4.0):
-    - Realm/Headers (= 4.4.0)
-  - Realm/Headers (4.4.0)
-  - RealmSwift (4.4.0):
-    - Realm (= 4.4.0)
+  - Realm (4.4.1):
+    - Realm/Headers (= 4.4.1)
+  - Realm/Headers (4.4.1)
+  - RealmSwift (4.4.1):
+    - Realm (= 4.4.1)
   - Starscream (3.0.6)
   - swift-petitparser (1.2.1)
   - SwiftLint (0.39.2)
@@ -31,7 +31,7 @@ DEPENDENCIES:
   - IceCream
   - Moscapsule (from `https://github.com/flightonary/Moscapsule.git`)
   - OpenSSL-Universal (= 1.0.2.18)
-  - RealmSwift (~> 4.0)
+  - RealmSwift (~> 4.4.1)
   - swift-petitparser
   - SwiftLint
   - SwiftyJSON (~> 4.0)
@@ -70,13 +70,13 @@ SPEC CHECKSUMS:
   IceCream: 0447d87b55df85651dd60b15712cef64dbe1cb54
   Moscapsule: 6bb834c60e24251897dc1cb2c4552fd674f887f3
   OpenSSL-Universal: d10ab08e0b258023e5184f77660b1b9f4ec93926
-  Realm: e125f464884cda953ebefe70c671b75b03b81b9b
-  RealmSwift: 33656a42bd300959a081fc13347376bc478071af
+  Realm: 4eb04d7487bd43c0581256f40b424eafb711deff
+  RealmSwift: 3eb8924ff7100df5928c7602f71d0fec51e7c9c5
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 4bd549b2ed286a81ead1136985b02a669b23fada
+PODFILE CHECKSUM: 0009c8cc32d8407d30b6b681c2308a3e1b1ca99d
 
 COCOAPODS: 1.9.0
