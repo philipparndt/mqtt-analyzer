@@ -31,12 +31,6 @@ Features:
 You can TestFlight the latest beta version using this link:
 https://testflight.apple.com/join/dsvlFCPU
 
-Currently the verion 1.5 is in beta with:
-- changed MQTT client implemenation
-- support for websockets
-- improved SSL / TLS handling
-- improved error handling
-
 # Screenshots
 
 ![Screenshot 1](screenshot-1.png)
@@ -46,3 +40,10 @@ Currently the verion 1.5 is in beta with:
 ![Screenshot 5](screenshot-5.png)
 ![Screenshot 5](screenshot-6.png)
 
+# Developer cheatsheet
+
+| Description           | Command           |
+| --------------------- | ----------------- |
+| Update pod repos      | `pod repo update` |
+| Install / update pods | `pod install`     |
+| Execute test cases    | `run-tests.sh`    |
