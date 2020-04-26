@@ -42,6 +42,7 @@ struct HostsView: View {
 				}
 				.font(.system(size: 22))
 				.buttonStyle(ActionStyleL50())
+				.accessibility(identifier: "add.server")
 			)
 			.navigationBarTitle(Text("Servers"), displayMode: .inline)
 		}

@@ -54,6 +54,7 @@ struct AboutTitleView: View {
 					.cornerRadius(10)
 					.shadow(radius: 10)
 					.padding(.trailing)
+					.accessibility(identifier: "about.logo")
 				
 				VStack(alignment: .leading) {
 					Text("MQTTAnalyzer")

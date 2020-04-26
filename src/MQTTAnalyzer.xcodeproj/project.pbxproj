@@ -65,6 +65,7 @@
 		22AF3AE9238885AF001D9F87 /* EditHostFormDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE8238885AF001D9F87 /* EditHostFormDialog.swift */; };
 		22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
+		22C7F0D32416A16600534880 /* MQTTAnalyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C7F0D22416A16600534880 /* MQTTAnalyzerUITests.swift */; };
 		22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F72E23B7486E00892C4B /* .swiftlint.yml */; };
 		22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */; };
 		22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MessageTextView.swift */; };
@@ -104,6 +105,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		2253F8EC22C8C008007E35A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2253F8D122C8C007007E35A2;
+			remoteInfo = MQTTAnalyzer;
+		};
+		22C7F0D52416A16600534880 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
 			proxyType = 1;
@@ -180,6 +188,9 @@
 		22AF3AE8238885AF001D9F87 /* EditHostFormDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostFormDialog.swift; sourceTree = "<group>"; };
 		22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSettingExamples.swift; sourceTree = "<group>"; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22C7F0D22416A16600534880 /* MQTTAnalyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerUITests.swift; sourceTree = "<group>"; };
+		22C7F0D42416A16600534880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22C9F72E23B7486E00892C4B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishMessageFormView.swift; sourceTree = "<group>"; };
 		22C9F73623B79A1300892C4B /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
@@ -240,6 +251,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22C7F0CD2416A16600534880 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -279,6 +297,7 @@
 				22C9F72E23B7486E00892C4B /* .swiftlint.yml */,
 				2253F8D422C8C007007E35A2 /* MQTTAnalyzer */,
 				2253F8EE22C8C008007E35A2 /* MQTTAnalyzerTests */,
+				22C7F0D12416A16600534880 /* MQTTAnalyzerUITests */,
 				2253F8D322C8C007007E35A2 /* Products */,
 				B2BAC619436C49079AC0498E /* Pods */,
 				45E8AFAA8B14B8DFB865D13B /* Frameworks */,
@@ -291,6 +310,7 @@
 			children = (
 				2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */,
 				2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */,
+				22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -509,6 +529,15 @@
 			path = common;
 			sourceTree = "<group>";
 		};
+		22C7F0D12416A16600534880 /* MQTTAnalyzerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				22C7F0D22416A16600534880 /* MQTTAnalyzerUITests.swift */,
+				22C7F0D42416A16600534880 /* Info.plist */,
+			);
+			path = MQTTAnalyzerUITests;
+			sourceTree = "<group>";
+		};
 		22C9F73823B79BFD00892C4B /* multiline-text */ = {
 			isa = PBXGroup;
 			children = (
@@ -639,13 +668,31 @@
 			productReference = 2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		22C7F0CF2416A16600534880 /* MQTTAnalyzerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22C7F0D72416A16600534880 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerUITests" */;
+			buildPhases = (
+				22C7F0CC2416A16600534880 /* Sources */,
+				22C7F0CD2416A16600534880 /* Frameworks */,
+				22C7F0CE2416A16600534880 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22C7F0D62416A16600534880 /* PBXTargetDependency */,
+			);
+			name = MQTTAnalyzerUITests;
+			productName = MQTTAnalyzerUITests;
+			productReference = 22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		2253F8CA22C8C007007E35A2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Philipp Arndt";
 				TargetAttributes = {
@@ -654,6 +701,10 @@
 					};
 					2253F8EA22C8C008007E35A2 = {
 						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 2253F8D122C8C007007E35A2;
+					};
+					22C7F0CF2416A16600534880 = {
+						CreatedOnToolsVersion = 11.3.1;
 						TestTargetID = 2253F8D122C8C007007E35A2;
 					};
 				};
@@ -673,6 +724,7 @@
 			targets = (
 				2253F8D122C8C007007E35A2 /* MQTTAnalyzer */,
 				2253F8EA22C8C008007E35A2 /* MQTTAnalyzerTests */,
+				22C7F0CF2416A16600534880 /* MQTTAnalyzerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -690,6 +742,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2253F8E922C8C008007E35A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22C7F0CE2416A16600534880 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -880,6 +939,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22C7F0CC2416A16600534880 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22C7F0D32416A16600534880 /* MQTTAnalyzerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -887,6 +954,11 @@
 			isa = PBXTargetDependency;
 			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
 			targetProxy = 2253F8EC22C8C008007E35A2 /* PBXContainerItemProxy */;
+		};
+		22C7F0D62416A16600534880 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
+			targetProxy = 22C7F0D52416A16600534880 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1110,6 +1182,46 @@
 			};
 			name = Release;
 		};
+		22C7F0D82416A16600534880 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MQTTAnalyzer;
+			};
+			name = Debug;
+		};
+		22C7F0D92416A16600534880 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MQTTAnalyzer;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1136,6 +1248,15 @@
 			buildConfigurations = (
 				2253F90322C8C008007E35A2 /* Debug */,
 				2253F90422C8C008007E35A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22C7F0D72416A16600534880 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22C7F0D82416A16600534880 /* Debug */,
+				22C7F0D92416A16600534880 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
