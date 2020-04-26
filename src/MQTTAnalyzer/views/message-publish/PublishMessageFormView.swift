@@ -188,6 +188,7 @@ struct PublishMessageFormModalView: View {
 			)
 			.keyboardResponsive()
 		}
+		.navigationViewStyle(StackNavigationViewStyle())
 	}
 		
 	func publish() {
