@@ -150,8 +150,8 @@ class HostsModel: ObservableObject {
 	}
 	
 	func delete(at offsets: IndexSet, persistence: HostsModelPersistence) {
-		let original = hosts
-		
+		let original = hostsSorted
+				
 		for idx in offsets {
 			persistence.delete(original[idx])
 		}
