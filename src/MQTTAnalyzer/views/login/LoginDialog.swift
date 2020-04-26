@@ -26,6 +26,7 @@ struct LoginDialogView: View {
 				.navigationBarTitle(Text("Login"))
 				.keyboardResponsive()
 		}
+		.navigationViewStyle(StackNavigationViewStyle())
 	}
 	
 	func login() {
