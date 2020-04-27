@@ -40,11 +40,12 @@ class DataMigration {
 	
 	// Added support for Cocoamqtt
 	private class func migrateClientImpl(_ oldSchemaVersion: UInt64, _ migration: Migration) {
-		if oldSchemaVersion < 9 {
+		if oldSchemaVersion < 11 {
 			migration.enumerateObjects(ofType: HostSetting.className()) { oldObject, newObject in
-				if let authType = oldObject!["authType"] as? Int8,
-				   let no = newObject {
-					no["clientImplType"] = (authType == AuthenticationType.certificate ? ClientImplType.moscapsule : ClientImplType.cocoamqtt)
+				if let oo = oldObject, let no = newObject {
+					if let authType = oo["authType"] as? Int8 {
+						no["clientImplType"] = (authType == AuthenticationType.certificate ? ClientImplType.moscapsule : ClientImplType.cocoamqtt)
+					}
 				}
 			}
 		}
@@ -52,7 +53,7 @@ class DataMigration {
 	
 	class func initMigration() {
 		let configuration = Realm.Configuration(
-			schemaVersion: 10,
+			schemaVersion: 11,
 			migrationBlock: { migration, oldSchemaVersion in
 				migrateLimits(oldSchemaVersion, migration)
 				migrateAuth(oldSchemaVersion, migration)
