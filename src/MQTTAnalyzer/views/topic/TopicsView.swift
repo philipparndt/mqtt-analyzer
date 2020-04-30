@@ -8,13 +8,11 @@
 
 import SwiftUI
 
-struct TopicsView: View {
-	@EnvironmentObject var rootModel: RootModel
-	@ObservedObject var model: MessageModel
+struct TopicsListView: View {
 	@ObservedObject var host: Host
-	@State private var actionSheetPresented = false
-	@State var dialogPresented: Bool
-	@State private var publishMessageModel: PublishMessageFormModel?
+	@ObservedObject var model: MessageModel
+	@Binding var dialogPresented: Bool
+	@Binding var publishMessageModel: PublishMessageFormModel?
 	
 	var body: some View {
 		Group {
@@ -41,6 +39,27 @@ struct TopicsView: View {
 				}
 			}
 		}
+	}
+	
+	func selectMessage(message: Message) {
+		publishMessageModel = PublishMessageFormModel.of(message: message)
+	}
+}
+
+struct TopicsView: View {
+	@EnvironmentObject var rootModel: RootModel
+	var model: MessageModel
+	@ObservedObject var host: Host
+	@State private var actionSheetPresented = false
+	@State var dialogPresented: Bool
+	@State private var publishMessageModel: PublishMessageFormModel?
+	
+	var body: some View {
+		TopicsListView(
+			host: host,
+			model: model,
+			dialogPresented: $dialogPresented,
+			publishMessageModel: $publishMessageModel)
 		.navigationBarTitle(Text(host.topic), displayMode: .inline)
 		.listStyle(GroupedListStyle())
 		.navigationBarItems(
