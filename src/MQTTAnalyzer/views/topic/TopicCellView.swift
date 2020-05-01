@@ -10,8 +10,8 @@ import SwiftUI
 
 struct TopicCellView: View {
 	@EnvironmentObject var root: RootModel
-	@ObservedObject var messages: MessagesByTopic
-	@ObservedObject var model: MessageModel
+	var messages: MessagesByTopic
+	var model: MessageModel
 	@Binding var publishMessagePresented: Bool
 	
 	let host: Host
