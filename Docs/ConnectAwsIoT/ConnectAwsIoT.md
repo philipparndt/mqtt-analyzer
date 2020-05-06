@@ -1,49 +1,35 @@
 # mqtt-analyzer
 
-<a href="https://apps.apple.com/de/app/mqttanalyzer/id1493015317?mt=8">![Download on AppStore](https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-01-07&kind=iossoftware&bubble=apple_music)</a>
+## Connecting to Amazon Webservice (AWS) IoT using  MQTT Protocol 
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=philipparndt_mqtt-analyzer&metric=alert_status)](https://sonarcloud.io/dashboard?id=philipparndt_mqtt-analyzer)
+To connect to AWS-IoT a Client Certificate has to be installed on the iOS-Device.
 
-MQTTAnalyzer is an iOS App that allows to connect to your MQTT Broker and
-subscribe to a topic. It is written in Swift using SwiftUI.
+The following instructions refer to a Windows 10 PC:
 
-This App is open source, contributions are welcome.
+Create an AWS IoT certificate as described here:
 
-Features:
-- authentication with username/password or client certificates
-- connect using MQTT or Websocket
-- support for SSL/TLS
-- support for self signed certificates
-- create multiple broker settings
-- messages are grouped by topic
-- search/filter/focus-on for topics
-- json highlighting and pretty printing
-- publish messages
-- publish json messages with a form
-- sync settings using private iCloud database
-- pause the connection
-- connect to multiple brokers at once
-- totally free and no ADs
-- open source
+https://docs.aws.amazon.com/iot/latest/developerguide/device-certs-create.html
 
-# TestFlight
+The AWS-IoT platform creates three files (Certificate like 47d5ccf612.pem.crt, public key like  47d5ccf612.public.key and a private key like 47d5ccf612.private.key ) that have to be downloaded to your PC. Additionally the Amazon Root Certificate (like ‘Amazon Root CA 1’) which is needed for the server authentication has to be downloaded.
 
-You can TestFlight the latest beta version using this link:
-https://testflight.apple.com/join/dsvlFCPU
+Then using the private key (47d5ccf612.private.key) and Certificate (47d5ccf612.cert.pem)    a Certificate in PKCS12 Format has to be created. 
+This can be done with the open source application ‘openssl’. OpenSsl must be compiled on your Computer as described in this tutorial:
 
-# Screenshots
+https://www.youtube.com/watch?v=PMHEoBkxYaQ
 
-![Screenshot 1](screenshot-1.png)
-![Screenshot 2](screenshot-2.png)
-![Screenshot 3](screenshot-3.png)
-![Screenshot 4](screenshot-4.png)
-![Screenshot 5](screenshot-5.png)
-![Screenshot 5](screenshot-6.png)
+Alternatively an installable Versions can be used, but I didn’t try this.
 
-# Developer cheatsheet
+Use the following command in an administrator command prompt:
+openssl pkcs12 -export -out YOURPFXFILE.pfx - inkey *****-private.pem.key -in *****-certificate.pem.crt'
+(for '*****-private.pem.key' and '*****-certificate.pem.crt' take the files which you got from Amazon)
 
-| Description           | Command           |
-| --------------------- | ----------------- |
-| Update pod repos      | `pod repo update` |
-| Install / update pods | `pod install`     |
-| Execute test cases    | `run-tests.sh`    |
+Now the certificate YOURPFXFILE.pfx (can be renamed) must be transferred to the iOS Device.
+
+I used the way to send the file as E-Mail attachment.
+ Open the E-mail, double tap the Certificate and install it on your iPhone.
+Then go to Settings  General  Profile  go to the Certificate and pap Install. iOS will ask for your device code and will tell that the Profile is not signed. Tap one more time on Install.
+Now you are asked for the Password of the certificate, which you entered before. Tap Ready.
+If your certificate is not properly installed follow the steps suggested in this link
+
+https://discussions.apple.com/thread/8490385
+
