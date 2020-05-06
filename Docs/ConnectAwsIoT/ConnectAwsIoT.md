@@ -23,7 +23,7 @@ Use the following command in an administrator command prompt:
 
 openssl pkcs12 -export -out YOURPFXFILE.pfx - inkey *****-private.pem.key -in *****-certificate.pem.crt'
 
-(for '*****-private.pem.key' and '*****-certificate.pem.crt' take the files which you got from Amazon)
+(for 'xxxxx-private.pem.key' and 'xxxxx-certificate.pem.crt' take the files which you got from Amazon)
 
 You are asked for a password which you want to use to open the Certificate.
 
