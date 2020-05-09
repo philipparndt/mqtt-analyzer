@@ -34,15 +34,18 @@ We decribe the way using iTunes:
 2) Connect your iPhone to your computer using a USB cable.
 3) Click your device in iTunes.
 
+
 ![Gallery](https://github.com/RoSchmi/mqtt-analyzer/blob/ConnectAwsIoT/Docs/itunesDevice.png)
 
 4) In the left sidebar, click File Sharing.
+
 
 ![Gallery](https://github.com/RoSchmi/mqtt-analyzer/blob/ConnectAwsIoT/Docs/iTunesFileSharin.png)
 
 5) Select the 'MQTT-Analyzer' app.
 
 6) Click the 'Add files' button and add the certificate aws-client.p12
+
 
 ![Gallery](https://github.com/RoSchmi/mqtt-analyzer/blob/ConnectAwsIoT/Docs/itunesAddFiles.png)
 
