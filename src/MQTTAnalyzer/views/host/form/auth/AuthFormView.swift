@@ -11,18 +11,16 @@ import SwiftUI
 
 struct AuthFormView: View {
 	@Binding var host: HostFormModel
-	@Binding var type: HostAuthenticationType
-	@Binding var clientImpl: HostClientImplType
 	
 	var body: some View {
 		return Section(header: Text("Authentication")) {
-			AuthenticationTypePicker(type: $type)
+			AuthenticationTypePicker(type: $host.authType)
 			
-			if self.type == .usernamePassword {
+			if self.host.authType == .usernamePassword {
 				UsernamePasswordAuthenticationView(host: $host)
 			}
-			else if self.type == .certificate {
-				CertificateAuthenticationView(host: $host, clientImpl: $clientImpl)
+			else if self.host.authType == .certificate {
+				CertificateAuthenticationView(host: $host, clientImpl: $host.clientImpl)
 			}
 		}
 	}

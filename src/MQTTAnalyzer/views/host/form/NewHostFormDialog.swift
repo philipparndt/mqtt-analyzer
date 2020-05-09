@@ -16,9 +16,6 @@ struct NewHostFormModalView: View {
 	var hosts: HostsModel
 	
 	@State private var host: HostFormModel = HostFormModel()
-	@State private var auth: HostAuthenticationType = .none
-	@State private var connectionMethod: HostProtocol = .mqtt
-	@State private var clientImpl: HostClientImplType = .cocoamqtt
 	
 	var disableSave: Bool {
 		return HostFormValidator.validateHostname(name: host.hostname) == nil
@@ -29,7 +26,7 @@ struct NewHostFormModalView: View {
 	
 	var body: some View {
 		NavigationView {
-			EditHostFormView(host: $host, auth: $auth, connectionMethod: $connectionMethod, clientImpl: $clientImpl)
+			EditHostFormView(host: $host)
 				.font(.caption)
 				.navigationBarTitle(Text("New server"), displayMode: .inline)
 				.navigationBarItems(
@@ -46,7 +43,7 @@ struct NewHostFormModalView: View {
 	}
 	
 	func save() {
-		let newHost = copyHost(target: Host(), source: host, auth, connectionMethod, clientImpl)
+		let newHost = copyHost(target: Host(), source: host)
 		if newHost == nil {
 			return
 		}

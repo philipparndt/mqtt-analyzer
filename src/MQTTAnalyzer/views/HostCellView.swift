@@ -73,10 +73,7 @@ struct HostCellView: View {
 					root: self.model,
 					hosts: self.model.hostsModel,
 					original: self.host,
-					host: transformHost(source: self.host),
-					auth: self.host.auth,
-					protocolMethod: self.host.protocolMethod,
-					clientImpl: self.host.clientImpl)
+					host: transformHost(source: self.host))
 			}
 		})
 	}

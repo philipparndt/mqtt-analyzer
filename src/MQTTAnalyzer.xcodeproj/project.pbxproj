@@ -14,6 +14,9 @@
 		220357252445DD6E00A98CD3 /* DeprecationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357242445DD6E00A98CD3 /* DeprecationBox.swift */; };
 		2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
+		221C571C2466847800C0DD02 /* QuestionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571B2466847800C0DD02 /* QuestionBox.swift */; };
+		221C571E2466C9CD00C0DD02 /* AWSIOTPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571D2466C9CD00C0DD02 /* AWSIOTPreset.swift */; };
+		221C57202466CC2800C0DD02 /* AWSIOTPresetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */; };
 		223EF0062387084D002ADF3E /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
 		223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
@@ -129,6 +132,9 @@
 		220357242445DD6E00A98CD3 /* DeprecationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeprecationBox.swift; sourceTree = "<group>"; };
 		2205E5E0238A7EE2001638DF /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
+		221C571B2466847800C0DD02 /* QuestionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBox.swift; sourceTree = "<group>"; };
+		221C571D2466C9CD00C0DD02 /* AWSIOTPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSIOTPreset.swift; sourceTree = "<group>"; };
+		221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSIOTPresetTests.swift; sourceTree = "<group>"; };
 		222C9BFC6423D4AE9EA3416A /* Pods_MQTTAnalyzerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzer.entitlements; sourceTree = "<group>"; };
 		223EF0052387084D002ADF3E /* HostSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostSetting.swift; path = MQTTAnalyzer/model/HostSetting.swift; sourceTree = SOURCE_ROOT; };
@@ -355,6 +361,7 @@
 				22D236FA23FF00E10003D87F /* StringUtilsTests.swift */,
 				22A387042409768100DF8F94 /* HostModelPersistenceTests.swift */,
 				22AE643724126A7500C2C4FE /* DiagramPathTests.swift */,
+				221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
 			sourceTree = "<group>";
@@ -370,6 +377,7 @@
 				22FD7CF922C8D2650078795F /* EditHostFormView.swift */,
 				22AF3AE62388858B001D9F87 /* NewHostFormDialog.swift */,
 				22AF3AE8238885AF001D9F87 /* EditHostFormDialog.swift */,
+				221C571D2466C9CD00C0DD02 /* AWSIOTPreset.swift */,
 			);
 			path = form;
 			sourceTree = "<group>";
@@ -523,6 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				22A386FC2409440F00DF8F94 /* InfoBox.swift */,
+				221C571B2466847800C0DD02 /* QuestionBox.swift */,
 				2291424E23C0C0370086C251 /* MenuButton.swift */,
 				220357242445DD6E00A98CD3 /* DeprecationBox.swift */,
 			);
@@ -882,6 +891,8 @@
 				22E469DE2380459700D72BD6 /* TextWithAttributedString.swift in Sources */,
 				226A6B5424448ECB00ACDFC3 /* MqttClientSharedUtils.swift in Sources */,
 				228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */,
+				221C571C2466847800C0DD02 /* QuestionBox.swift in Sources */,
+				221C571E2466C9CD00C0DD02 /* AWSIOTPreset.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
 				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
 				22F8BEE923C31C3B00422BFF /* MoscapsuleClient.swift in Sources */,
@@ -928,6 +939,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				228B069323FC318100E988D0 /* ModelTests.swift in Sources */,
+				221C57202466CC2800C0DD02 /* AWSIOTPresetTests.swift in Sources */,
 				22A387052409768100DF8F94 /* HostModelPersistenceTests.swift in Sources */,
 				22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */,
 				22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */,

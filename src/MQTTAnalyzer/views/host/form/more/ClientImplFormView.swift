@@ -10,11 +10,11 @@ import Foundation
 import SwiftUI
 
 struct ClientImplFormView: View {
-	@Binding var clientImpl: HostClientImplType
+	@Binding var host: HostFormModel
 
 	var body: some View {
 		return Section(header: Text("Client Implementation")) {
-			ClientImplTypePicker(type: $clientImpl)
+			ClientImplTypePicker(type: $host.clientImpl)
 		}
 	}
 }

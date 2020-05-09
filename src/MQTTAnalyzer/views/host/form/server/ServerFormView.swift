@@ -11,8 +11,6 @@ import SwiftUI
 
 struct ServerFormView: View {
 	@Binding var host: HostFormModel
-	@Binding var protocolMethod: HostProtocol
-	@Binding var clientImpl: HostClientImplType
 
 	var hostnameInvalid: Bool {
 		return !host.hostname.isEmpty
@@ -51,6 +49,16 @@ struct ServerFormView: View {
 					.autocapitalization(.none)
 					.font(.body)
 			}
+			
+			if host.suggestAWSIOTCHanges() {
+				Button(action: {
+					self.host.updateSettingsForAWSIOT()
+				})
+				{
+					QuestionBox(text: "Use default settings for AWS IoT?")
+				}
+			}
+			
 			HStack {
 				FormFieldInvalidMark(invalid: portInvalid)
 
@@ -72,10 +80,10 @@ struct ServerFormView: View {
 
 				Spacer()
 
-				ProtocolPicker(type: $protocolMethod)
+				ProtocolPicker(type: $host.protocolMethod)
 			}
 			
-			if protocolMethod == .websocket {
+			if host.protocolMethod == .websocket {
 				HStack {
 					Text("Basepath")
 						.font(.headline)

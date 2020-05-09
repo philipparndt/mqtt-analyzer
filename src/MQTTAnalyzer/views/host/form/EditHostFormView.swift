@@ -10,32 +10,29 @@ import SwiftUI
 
 struct EditHostFormView: View {
 	@Binding var host: HostFormModel
-	@Binding var auth: HostAuthenticationType
-	@Binding var connectionMethod: HostProtocol
-	@Binding var clientImpl: HostClientImplType
 	@State var advanced = false
 	
 	var body: some View {
 		Form {
-			ServerFormView(host: $host, protocolMethod: $connectionMethod, clientImpl: $clientImpl)
-			AuthFormView(host: $host, type: $auth, clientImpl: $clientImpl)
+			ServerFormView(host: $host)
+			AuthFormView(host: $host)
 			TopicFormView(host: $host)
-			
+
 //			if clientImpl == .moscapsule {
 //				DeprecationBox()
 //			}
-			
+
 			Toggle(isOn: $advanced) {
 				Text("More settings")
 					.font(.headline)
 			}
-			
+
 			if self.advanced {
 				ClientIDFormView(host: $host)
 				LimitsFormView(host: $host)
-				
-				if connectionMethod == .mqtt {
-					ClientImplFormView(clientImpl: $clientImpl)
+
+				if host.protocolMethod == .mqtt {
+					ClientImplFormView(host: $host)
 				}
 			}
 		}.keyboardResponsive()
