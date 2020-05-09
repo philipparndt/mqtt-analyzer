@@ -19,6 +19,12 @@ class HostFormValidatorTests: XCTestCase {
 	func testUnicodeHostnameDoesNotWork() {
 		XCTAssertNil(HostFormValidator.validateHostname(name: "pisvr💖"))
 	}
+
+	func testNoProtocolPrefix() {
+		XCTAssertNil(HostFormValidator.validateHostname(name: "http://pisvr"))
+		XCTAssertNil(HostFormValidator.validateHostname(name: "ssh://pisvr"))
+		XCTAssertNil(HostFormValidator.validateHostname(name: "mqtt://pisvr"))
+	}
 	
 	func testWithIP() {
 		XCTAssertEqual(HostFormValidator.validateHostname(name: "10.0.0.1")!, "10.0.0.1")
