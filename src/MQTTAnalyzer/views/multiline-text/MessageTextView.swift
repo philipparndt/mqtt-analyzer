@@ -25,6 +25,9 @@ struct MessageTextView: UIViewRepresentable {
 		label.delegate = context.coordinator
 		label.autocorrectionType = .no
 		label.autocapitalizationType = .none
+		label.smartDashesType = .no
+		label.smartQuotesType = .no
+		label.smartInsertDeleteType = .no
 		return label
 	}
 
