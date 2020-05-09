@@ -243,15 +243,24 @@ class MqttClientCocoaMQTT: MqttClient {
 		mqtt?.subscribe(host.topic, qos: convertQOS(qos: Int32(host.qos)))
 	}
 	
+	func extractErrorMessage(error: Error) -> String {
+		if (error as NSError).code == 8 {
+			return "Invalid hostname.\n\(error.localizedDescription)"
+		}
+		else {
+			return error.localizedDescription
+		}
+	}
+	
 	func didDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topic)")
 
 		if err != nil {
-			connectionState.message = err!.localizedDescription
+			connectionState.message = extractErrorMessage(error: err!)
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
-				self.host.connectionMessage = err!.localizedDescription
+				self.host.connectionMessage = self.connectionState.message
 			}
 		}
 		

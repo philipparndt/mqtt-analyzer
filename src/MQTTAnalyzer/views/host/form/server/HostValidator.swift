@@ -12,6 +12,11 @@ import swift_petitparser
 public class HostFormValidator {
 	public class func validateHostname(name hostname: String) -> String? {
 		let trimmed = hostname.trimmingCharacters(in: .whitespacesAndNewlines)
+		
+		if trimmed.contains("://") {
+			return nil
+		}
+		
 		return URL(string: trimmed) != nil ? trimmed : nil
 	}
 	
