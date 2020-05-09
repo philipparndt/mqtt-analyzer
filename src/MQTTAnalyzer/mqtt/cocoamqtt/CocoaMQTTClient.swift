@@ -37,12 +37,21 @@ class MqttClientCocoaMQTT: MqttClient {
 		self.host = host
 	}
 	
+	func sanitizeBasePath(_ basePath: String) -> String {
+		if basePath.starts(with: "/") {
+			return basePath
+		}
+		else {
+			return "/\(basePath)"
+		}
+	}
+	
 	func connect() {
 		initConnect()
 		
 		let mqtt: CocoaMQTT
 		if host.protocolMethod == .websocket {
-			let websocket = CocoaMQTTWebSocket(uri: self.host.basePath)
+			let websocket = CocoaMQTTWebSocket(uri: sanitizeBasePath(self.host.basePath))
 			mqtt = CocoaMQTT(clientID: host.computeClientID,
 								  host: host.hostname,
 								  port: host.port,
