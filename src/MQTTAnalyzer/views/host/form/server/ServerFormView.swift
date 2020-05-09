@@ -51,6 +51,16 @@ struct ServerFormView: View {
 					.autocapitalization(.none)
 					.font(.body)
 			}
+			
+			if !host.checkAWSIOTSettings() {
+				Button(action: {
+					self.host.updateSettingsForAWSIOT()
+				})
+				{
+					QuestionBox(text: "Use default settings for AWS IoT?")
+				}
+			}
+			
 			HStack {
 				FormFieldInvalidMark(invalid: portInvalid)
 

@@ -32,6 +32,26 @@ struct HostFormModel {
 	
 	var ssl: Bool = false
 	var untrustedSSL: Bool = false
+
+}
+
+extension HostFormModel {
+	func checkAWSIOTSettings() -> Bool {
+		if hostname.hasSuffix("amazonaws.com") {
+			// mqtt not ws
+			// cocoa not moscapsule
+			// auth must be cert
+			if port != "8883" || !ssl {
+				return false
+			}
+		}
+		return true
+	}
+	
+	mutating func updateSettingsForAWSIOT() {
+		self.port = "8883"
+		self.ssl = true
+	}
 }
 
 func copyHost(target: Host, source host: HostFormModel, _ auth: HostAuthenticationType, _ connectionMethod: HostProtocol, _ clientImpl: HostClientImplType) -> Host? {
