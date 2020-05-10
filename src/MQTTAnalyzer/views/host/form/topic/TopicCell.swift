@@ -13,7 +13,11 @@ struct TopicCell: View {
 
 	var body: some View {
 		return NavigationLink(destination: SubscriptionDetailsView(subscription: subscription)) {
-			Text(subscription.topic)
+			Group {
+				Text(subscription.topic)
+					.font(.body)
+					.foregroundColor(.secondary)
+			}
 		}
 	}
 }

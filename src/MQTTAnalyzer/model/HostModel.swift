@@ -50,6 +50,9 @@ class Host: Identifiable, ObservableObject {
 	var hostname: String = ""
 	var port: UInt16 = 1883
 	var subscriptions: [TopicSubscription] = [TopicSubscription(topic: "#", qos: 0)]
+	var subscriptionsReadable: String {
+		return subscriptions.map { $0.topic }.joined(separator: ", ")
+	}
 	
 	var protocolMethod: HostProtocol = .mqtt
 	var clientImpl: HostClientImplType = .cocoamqtt
