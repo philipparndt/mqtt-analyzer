@@ -8,34 +8,52 @@
 
 import Foundation
 
+class TopicSubscriptionFormModel: Identifiable, ObservableObject {
+	var id = NSUUID().uuidString
+	
+	@Published var topic: String
+	@Published var qos: Int
+	
+	init(topic: String, qos: Int) {
+		self.topic = topic
+		self.qos = qos
+	}
+}
+
 struct HostFormModel {
-	var alias: String = ""
-	var hostname: String = ""
-	var port: String = "1883"
-	var basePath: String = ""
-	var topic: String = "#"
+	var alias = ""
+	var hostname = ""
+	var port = "1883"
+	var basePath = ""
+	var subscriptions = [TopicSubscriptionFormModel(topic: "#", qos: 0)]
 	
-	var qos: Int = 0
+	var username = ""
+	var password = ""
 	
-	var username: String = ""
-	var password: String = ""
-	
-	var certServerCA: String = ""
-	var certClient: String = ""
-	var certClientKey: String = ""
-	var certClientKeyPassword: String = ""
+	var certServerCA = ""
+	var certClient = ""
+	var certClientKey = ""
+	var certClientKeyPassword = ""
 	
 	var clientID = ""
 	
 	var limitTopic = "250"
 	var limitMessagesBatch = "1000"
 	
-	var ssl: Bool = false
-	var untrustedSSL: Bool = false
+	var ssl = false
+	var untrustedSSL = false
 	
 	var protocolMethod: HostProtocol = .mqtt
 	var authType: HostAuthenticationType = .none
 	var clientImpl: HostClientImplType = .cocoamqtt
+}
+
+func transform(subscriptions: [TopicSubscription]) -> [TopicSubscriptionFormModel] {
+	return subscriptions.map { TopicSubscriptionFormModel(topic: $0.topic, qos: $0.qos)}
+}
+
+func transform(subscriptions: [TopicSubscriptionFormModel]) -> [TopicSubscription] {
+	return subscriptions.map { TopicSubscription(topic: $0.topic, qos: $0.qos)}
 }
 
 func copyHost(target: Host, source host: HostFormModel) -> Host? {
@@ -48,10 +66,9 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	
 	target.alias = host.alias
 	target.hostname = newHostname!
-	target.qos = host.qos
 	target.auth = host.authType
 	target.port = UInt16(port!)
-	target.topic = host.topic
+	target.subscriptions = transform(subscriptions: host.subscriptions)
 	target.clientID = host.clientID
 	target.basePath = host.basePath
 	target.protocolMethod = host.protocolMethod
@@ -84,8 +101,7 @@ func transformHost(source host: Host) -> HostFormModel {
 						 hostname: host.hostname,
 						 port: "\(host.port)",
 						 basePath: host.basePath,
-						 topic: host.topic,
-						 qos: host.qos,
+						 subscriptions: transform(subscriptions: host.subscriptions),
 						 username: host.username,
 						 password: host.password,
 						 certServerCA: host.certServerCA,

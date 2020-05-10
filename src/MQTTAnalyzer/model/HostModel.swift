@@ -35,6 +35,11 @@ extension Host: Hashable {
 	}
 }
 
+struct TopicSubscription: Codable {
+	var topic: String
+	var qos: Int
+}
+
 class Host: Identifiable, ObservableObject {
 	
 	let ID: String
@@ -44,7 +49,7 @@ class Host: Identifiable, ObservableObject {
 	var alias: String = ""
 	var hostname: String = ""
 	var port: UInt16 = 1883
-	var topic: String = "#"
+	var subscriptions: [TopicSubscription] = [TopicSubscription(topic: "#", qos: 0)]
 	
 	var protocolMethod: HostProtocol = .mqtt
 	var clientImpl: HostClientImplType = .cocoamqtt

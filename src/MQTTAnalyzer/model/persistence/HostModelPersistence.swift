@@ -47,8 +47,7 @@ public class HostsModelPersistence {
 					setting.alias = host.alias
 					setting.hostname = host.hostname
 					setting.port = Int32(host.port)
-					setting.topic = host.topic
-					setting.qos = host.qos
+					setting.subscriptions = HostsModelPersistence.encode(subscriptions: host.subscriptions)
 					setting.authType = transformAuth(host.auth)
 					setting.username = host.username
 					setting.password = host.password
@@ -171,14 +170,31 @@ public class HostsModelPersistence {
 		}
 	}
 	
+	class func encode(subscriptions: [TopicSubscription]) -> Data {
+		do {
+			return try JSONEncoder().encode(subscriptions)
+		} catch {
+			NSLog("Unexpected error encoding subscriptions: \(error).")
+			return Data()
+		}
+	}
+	
+	class func decode(subscriptions: Data) -> [TopicSubscription] {
+		do {
+			return try JSONDecoder().decode([TopicSubscription].self, from: subscriptions)
+		} catch {
+			NSLog("Unexpected error decoding subscriptions: \(error).")
+			return [TopicSubscription(topic: "#", qos: 0)]
+		}
+	}
+	
 	func transform(_ host: HostSetting) -> Host {
 		let result = Host(id: host.id)
 		result.deleted = host.isDeleted
 		result.alias = host.alias
 		result.hostname = host.hostname
 		result.port = UInt16(host.port)
-		result.topic = host.topic
-		result.qos = host.qos
+		result.subscriptions = HostsModelPersistence.decode(subscriptions: host.subscriptions)
 		result.auth = transformAuth(host.authType)
 		result.username = host.username
 		result.password = host.password
@@ -204,8 +220,7 @@ public class HostsModelPersistence {
 		result.alias = host.alias
 		result.hostname = host.hostname
 		result.port = Int32(host.port)
-		result.topic = host.topic
-		result.qos = host.qos
+		result.subscriptions = HostsModelPersistence.encode(subscriptions: host.subscriptions)
 		result.authType = transformAuth(host.auth)
 		result.username = host.username
 		result.password = host.password

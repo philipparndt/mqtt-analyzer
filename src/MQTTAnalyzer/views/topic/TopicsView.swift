@@ -60,7 +60,7 @@ struct TopicsView: View {
 			model: model,
 			dialogPresented: $dialogPresented,
 			publishMessageModel: $publishMessageModel)
-		.navigationBarTitle(Text(host.topic), displayMode: .inline)
+			.navigationBarTitle(Text(host.aliasOrHost), displayMode: .inline)
 		.listStyle(GroupedListStyle())
 		.navigationBarItems(
 			trailing:

@@ -8,13 +8,28 @@
 
 import Foundation
 import XCTest
+import CoreData
 @testable import MQTTAnalyzer
 
 class HostModelPersistenceTests: XCTestCase, InitHost {
 	func initHost(host: Host) {
 		// Empty by intention
 	}
-		
+	
+	func testEncodeDecodeSubscriptions() {
+		let subscriptions: [TopicSubscription] = [
+			TopicSubscription(topic: "#", qos: 0),
+			TopicSubscription(topic: "$SYS/#", qos: 1)
+		]
+		let data = HostsModelPersistence.encode(subscriptions: subscriptions)
+		let decoded = HostsModelPersistence.decode(subscriptions: data)
+		XCTAssertEqual(2, decoded.count)
+		XCTAssertEqual("#", decoded[0].topic)
+		XCTAssertEqual(0, decoded[0].qos)
+		XCTAssertEqual("$SYS/#", decoded[1].topic)
+		XCTAssertEqual(1, decoded[1].qos)
+	}
+	
 	func testTransformFromPersistenceModel() {
 		let model = HostsModel(initMethod: self)
 		
@@ -22,8 +37,9 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		setting.alias = "alias"
 		setting.hostname = "hostname"
 		setting.port = 1
-		setting.topic = "topic"
-		setting.qos = 2
+		setting.subscriptions = HostsModelPersistence.encode(subscriptions: [
+			TopicSubscription(topic: "topic", qos: 2)
+		])
 		setting.authType = AuthenticationType.certificate
 		setting.username = "username"
 		setting.password = "password"
@@ -43,8 +59,9 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		XCTAssertEqual("alias", transformed.alias)
 		XCTAssertEqual("hostname", transformed.hostname)
 		XCTAssertEqual(1, transformed.port)
-		XCTAssertEqual("topic", transformed.topic)
-		XCTAssertEqual(2, transformed.qos)
+		XCTAssertEqual(1, transformed.subscriptions.count)
+		XCTAssertEqual("topic", transformed.subscriptions[0].topic)
+		XCTAssertEqual(2, transformed.subscriptions[0].qos)
 		XCTAssertEqual("username", transformed.username)
 		XCTAssertEqual("password", transformed.password)
 		XCTAssertEqual("certServerCA", transformed.certServerCA)
@@ -128,8 +145,9 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		host.alias = "alias"
 		host.hostname = "hostname"
 		host.port = 1
-		host.topic = "topic"
-		host.qos = 2
+		host.subscriptions = [
+			TopicSubscription(topic: "topic", qos: 2)
+		]
 		host.auth = .certificate
 		host.username = "username"
 		host.password = "password"
@@ -149,8 +167,9 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		XCTAssertEqual("alias", transformed.alias)
 		XCTAssertEqual("hostname", transformed.hostname)
 		XCTAssertEqual(1, transformed.port)
-		XCTAssertEqual("topic", transformed.topic)
-		XCTAssertEqual(2, transformed.qos)
+		XCTAssertEqual("""
+		[{"topic":"topic","qos":2}]
+		""", String(decoding: transformed.subscriptions, as: UTF8.self))
 		XCTAssertEqual("username", transformed.username)
 		XCTAssertEqual("password", transformed.password)
 		XCTAssertEqual("certServerCA", transformed.certServerCA)
