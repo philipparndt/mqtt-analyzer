@@ -53,6 +53,11 @@
 		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
 		2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */; };
 		2291283E24682494006F8256 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283D24682494006F8256 /* TopicCell.swift */; };
+		229128412468590D006F8256 /* DataMigrationMultipleTopics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229128402468590D006F8256 /* DataMigrationMultipleTopics.swift */; };
+		2291284324685959006F8256 /* MigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291284224685959006F8256 /* MigrationHelper.swift */; };
+		2291284524685A13006F8256 /* DataMigrationClientImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291284424685A13006F8256 /* DataMigrationClientImpl.swift */; };
+		2291284724685A92006F8256 /* DataMigrationAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291284624685A92006F8256 /* DataMigrationAuth.swift */; };
+		2291284924685AE1006F8256 /* DataMigrationLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291284824685AE0006F8256 /* DataMigrationLimits.swift */; };
 		2291424923BF6ECE0086C251 /* KeyboardResponsiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424823BF6ECE0086C251 /* KeyboardResponsiveModifier.swift */; };
 		2291424C23BF78000086C251 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424B23BF78000086C251 /* AboutView.swift */; };
 		2291424F23C0C0370086C251 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424E23C0C0370086C251 /* MenuButton.swift */; };
@@ -179,6 +184,11 @@
 		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/model/persistence/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
 		2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDetailsView.swift; sourceTree = "<group>"; };
 		2291283D24682494006F8256 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
+		229128402468590D006F8256 /* DataMigrationMultipleTopics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationMultipleTopics.swift; sourceTree = "<group>"; };
+		2291284224685959006F8256 /* MigrationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationHelper.swift; sourceTree = "<group>"; };
+		2291284424685A13006F8256 /* DataMigrationClientImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationClientImpl.swift; sourceTree = "<group>"; };
+		2291284624685A92006F8256 /* DataMigrationAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationAuth.swift; sourceTree = "<group>"; };
+		2291284824685AE0006F8256 /* DataMigrationLimits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationLimits.swift; sourceTree = "<group>"; };
 		2291424823BF6ECE0086C251 /* KeyboardResponsiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponsiveModifier.swift; sourceTree = "<group>"; };
 		2291424B23BF78000086C251 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2291424E23C0C0370086C251 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
@@ -293,10 +303,10 @@
 		223EF0042387082E002ADF3E /* persistence */ = {
 			isa = PBXGroup;
 			children = (
+				2291283F246858FB006F8256 /* migration */,
 				223EF0052387084D002ADF3E /* HostSetting.swift */,
 				229005CE237E7A8600D5A706 /* HostModelPersistence.swift */,
 				22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */,
-				22F6057A23D4911000E6338B /* DataMigration.swift */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -523,6 +533,19 @@
 				22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */,
 			);
 			path = timeseries;
+			sourceTree = "<group>";
+		};
+		2291283F246858FB006F8256 /* migration */ = {
+			isa = PBXGroup;
+			children = (
+				22F6057A23D4911000E6338B /* DataMigration.swift */,
+				2291284224685959006F8256 /* MigrationHelper.swift */,
+				2291284824685AE0006F8256 /* DataMigrationLimits.swift */,
+				2291284624685A92006F8256 /* DataMigrationAuth.swift */,
+				2291284424685A13006F8256 /* DataMigrationClientImpl.swift */,
+				229128402468590D006F8256 /* DataMigrationMultipleTopics.swift */,
+			);
+			path = migration;
 			sourceTree = "<group>";
 		};
 		2291424A23BF77DC0086C251 /* about */ = {
@@ -865,6 +888,7 @@
 				2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
+				229128412468590D006F8256 /* DataMigrationMultipleTopics.swift in Sources */,
 				226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */,
 				22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */,
 				22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */,
@@ -904,9 +928,12 @@
 				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
 				22F8BEE923C31C3B00422BFF /* MoscapsuleClient.swift in Sources */,
 				22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */,
+				2291284324685959006F8256 /* MigrationHelper.swift in Sources */,
+				2291284724685A92006F8256 /* DataMigrationAuth.swift in Sources */,
 				22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */,
 				22C386A322CB84900054C385 /* RootView.swift in Sources */,
 				220357212445B2ED00A98CD3 /* MQTTDelegate.swift in Sources */,
+				2291284924685AE1006F8256 /* DataMigrationLimits.swift in Sources */,
 				228104932381773100112F24 /* TopicCellView.swift in Sources */,
 				228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */,
 				22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */,
@@ -917,6 +944,7 @@
 				22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */,
 				226A6B50244457E100ACDFC3 /* MqttClient.swift in Sources */,
 				22F6057B23D4911000E6338B /* DataMigration.swift in Sources */,
+				2291284524685A13006F8256 /* DataMigrationClientImpl.swift in Sources */,
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
 				2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormDialog.swift in Sources */,
@@ -1115,7 +1143,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 46;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -1140,7 +1168,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 46;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
