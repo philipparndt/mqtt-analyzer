@@ -49,7 +49,9 @@ struct CertificateFilePickerView: View {
 	
 	var body: some View {
 		Group {
-			InfoBox(text: "Add new *.p12 or *.crt and *.key files with Finder or iTunes.\n\n"
+			Spacer()
+			
+			InfoBox(text: "Add new *.p12 / *.pfx or *.crt and *.key files with Finder or iTunes.\n\n"
 			 + "Create p12 file using:\n`openssl pkcs12 -export -in user.crt -inkey user.key -out user.p12`")
 			.padding(.horizontal)
 			
@@ -70,7 +72,7 @@ struct CertificateFilePickerView: View {
 			
 			let files = directoryContents
 				.map { $0.lastPathComponent }
-				.filter { $0.range(of: #".*\.(p12|crt|key)"#, options: .regularExpression) != nil}
+				.filter { $0.lowercased().range(of: #".*\.(p12|pfx|crt|key)"#, options: .regularExpression) != nil}
 				.map { File(name: $0) }
 				.sorted()
 
