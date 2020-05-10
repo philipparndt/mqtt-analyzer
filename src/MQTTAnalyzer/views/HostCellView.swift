@@ -33,7 +33,7 @@ struct HostCellView: View {
 					Spacer()
 					Group {
 						Text(host.hostname)
-						Text(host.topics.joined(separator: ", "))
+//						Text(host.topics.joined(separator: ", "))
 					}
 					.font(.footnote)
 					.foregroundColor(.secondary)

@@ -32,7 +32,7 @@ struct TopicFormView: View {
 				
 				Spacer()
 				
-				QOSPicker(qos: $host.qos)
+//				QOSPicker(qos: $host.qos)
 			}
 		}
 	}

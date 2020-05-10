@@ -9,29 +9,27 @@
 import Foundation
 
 struct HostFormModel {
-	var alias: String = ""
-	var hostname: String = ""
-	var port: String = "1883"
-	var basePath: String = ""
-	var topics: [String] = ["#"]
+	var alias = ""
+	var hostname = ""
+	var port = "1883"
+	var basePath = ""
+	var subscriptions = [TopicSubscription(topic: "#", qos: 0)]
 	
-	var qos: Int = 0
+	var username = ""
+	var password = ""
 	
-	var username: String = ""
-	var password: String = ""
-	
-	var certServerCA: String = ""
-	var certClient: String = ""
-	var certClientKey: String = ""
-	var certClientKeyPassword: String = ""
+	var certServerCA = ""
+	var certClient = ""
+	var certClientKey = ""
+	var certClientKeyPassword = ""
 	
 	var clientID = ""
 	
 	var limitTopic = "250"
 	var limitMessagesBatch = "1000"
 	
-	var ssl: Bool = false
-	var untrustedSSL: Bool = false
+	var ssl = false
+	var untrustedSSL = false
 	
 	var protocolMethod: HostProtocol = .mqtt
 	var authType: HostAuthenticationType = .none
@@ -48,10 +46,9 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	
 	target.alias = host.alias
 	target.hostname = newHostname!
-	target.qos = host.qos
 	target.auth = host.authType
 	target.port = UInt16(port!)
-	target.topics = host.topics
+	target.subscriptions = host.subscriptions
 	target.clientID = host.clientID
 	target.basePath = host.basePath
 	target.protocolMethod = host.protocolMethod
@@ -84,8 +81,7 @@ func transformHost(source host: Host) -> HostFormModel {
 						 hostname: host.hostname,
 						 port: "\(host.port)",
 						 basePath: host.basePath,
-						 topics: host.topics,
-						 qos: host.qos,
+						 subscriptions: host.subscriptions,
 						 username: host.username,
 						 password: host.password,
 						 certServerCA: host.certServerCA,

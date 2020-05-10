@@ -49,7 +49,6 @@ class Host: Identifiable, ObservableObject {
 	var alias: String = ""
 	var hostname: String = ""
 	var port: UInt16 = 1883
-	var topics: [String] = ["#"]
 	var subscriptions: [TopicSubscription] = [TopicSubscription(topic: "#", qos: 0)]
 	
 	var protocolMethod: HostProtocol = .mqtt
