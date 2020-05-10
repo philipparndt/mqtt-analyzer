@@ -82,7 +82,7 @@ class DataMigration {
 						if let qos = oo.value(forKey: "qos") as? Int,
 							let topic = oo.value(forKey: "topic") as? String {
 							no["subscriptions"] = HostsModelPersistence.encode(subscriptions: [
-								TopicSubscription(topic: topic, qos: Int8(qos))
+								TopicSubscription(topic: topic, qos: qos)
 							])
 							
 							done = true

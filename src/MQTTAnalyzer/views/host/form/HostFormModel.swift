@@ -8,12 +8,24 @@
 
 import Foundation
 
+class TopicSubscriptionFormModel: Identifiable, ObservableObject {
+	var id = NSUUID().uuidString
+	
+	@Published var topic: String
+	@Published var qos: Int
+	
+	init(topic: String, qos: Int) {
+		self.topic = topic
+		self.qos = qos
+	}
+}
+
 struct HostFormModel {
 	var alias = ""
 	var hostname = ""
 	var port = "1883"
 	var basePath = ""
-	var subscriptions = [TopicSubscription(topic: "#", qos: 0)]
+	var subscriptions = [TopicSubscriptionFormModel(topic: "#", qos: 0)]
 	
 	var username = ""
 	var password = ""
@@ -36,6 +48,14 @@ struct HostFormModel {
 	var clientImpl: HostClientImplType = .cocoamqtt
 }
 
+func transform(subscriptions: [TopicSubscription]) -> [TopicSubscriptionFormModel] {
+	return subscriptions.map { TopicSubscriptionFormModel(topic: $0.topic, qos: $0.qos)}
+}
+
+func transform(subscriptions: [TopicSubscriptionFormModel]) -> [TopicSubscription] {
+	return subscriptions.map { TopicSubscription(topic: $0.topic, qos: $0.qos)}
+}
+
 func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	let newHostname = HostFormValidator.validateHostname(name: host.hostname)
 	let port = HostFormValidator.validatePort(port: host.port)
@@ -48,7 +68,7 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	target.hostname = newHostname!
 	target.auth = host.authType
 	target.port = UInt16(port!)
-	target.subscriptions = host.subscriptions
+	target.subscriptions = transform(subscriptions: host.subscriptions)
 	target.clientID = host.clientID
 	target.basePath = host.basePath
 	target.protocolMethod = host.protocolMethod
@@ -81,7 +101,7 @@ func transformHost(source host: Host) -> HostFormModel {
 						 hostname: host.hostname,
 						 port: "\(host.port)",
 						 basePath: host.basePath,
-						 subscriptions: host.subscriptions,
+						 subscriptions: transform(subscriptions: host.subscriptions),
 						 username: host.username,
 						 password: host.password,
 						 certServerCA: host.certServerCA,

@@ -34,7 +34,7 @@
 		226A6B5824449F6200ACDFC3 /* ClientImplTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5724449F6200ACDFC3 /* ClientImplTypePicker.swift */; };
 		226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5C2445748500ACDFC3 /* HostFormModel.swift */; };
 		226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */; };
-		226A6B612445757900ACDFC3 /* TopicFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B602445757900ACDFC3 /* TopicFormView.swift */; };
+		226A6B612445757900ACDFC3 /* TopicsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B602445757900ACDFC3 /* TopicsFormView.swift */; };
 		226A6B632445759600ACDFC3 /* ClientIDFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B622445759600ACDFC3 /* ClientIDFormView.swift */; };
 		226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B64244575AF00ACDFC3 /* LimitsFormView.swift */; };
 		226A6B67244575DB00ACDFC3 /* AuthFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B66244575DB00ACDFC3 /* AuthFormView.swift */; };
@@ -51,6 +51,8 @@
 		228104982381796B00112F24 /* HostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104972381796B00112F24 /* HostCellView.swift */; };
 		228B069323FC318100E988D0 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228B069223FC318100E988D0 /* ModelTests.swift */; };
 		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
+		2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */; };
+		2291283E24682494006F8256 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283D24682494006F8256 /* TopicCell.swift */; };
 		2291424923BF6ECE0086C251 /* KeyboardResponsiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424823BF6ECE0086C251 /* KeyboardResponsiveModifier.swift */; };
 		2291424C23BF78000086C251 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424B23BF78000086C251 /* AboutView.swift */; };
 		2291424F23C0C0370086C251 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424E23C0C0370086C251 /* MenuButton.swift */; };
@@ -158,7 +160,7 @@
 		226A6B5724449F6200ACDFC3 /* ClientImplTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientImplTypePicker.swift; sourceTree = "<group>"; };
 		226A6B5C2445748500ACDFC3 /* HostFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormModel.swift; sourceTree = "<group>"; };
 		226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
-		226A6B602445757900ACDFC3 /* TopicFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicFormView.swift; sourceTree = "<group>"; };
+		226A6B602445757900ACDFC3 /* TopicsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsFormView.swift; sourceTree = "<group>"; };
 		226A6B622445759600ACDFC3 /* ClientIDFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientIDFormView.swift; sourceTree = "<group>"; };
 		226A6B64244575AF00ACDFC3 /* LimitsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitsFormView.swift; sourceTree = "<group>"; };
 		226A6B66244575DB00ACDFC3 /* AuthFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFormView.swift; sourceTree = "<group>"; };
@@ -175,6 +177,8 @@
 		228104972381796B00112F24 /* HostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostCellView.swift; path = MQTTAnalyzer/views/HostCellView.swift; sourceTree = SOURCE_ROOT; };
 		228B069223FC318100E988D0 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/model/persistence/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
+		2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDetailsView.swift; sourceTree = "<group>"; };
+		2291283D24682494006F8256 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
 		2291424823BF6ECE0086C251 /* KeyboardResponsiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponsiveModifier.swift; sourceTree = "<group>"; };
 		2291424B23BF78000086C251 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2291424E23C0C0370086C251 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
@@ -407,7 +411,9 @@
 		226A6B6A2445765C00ACDFC3 /* topic */ = {
 			isa = PBXGroup;
 			children = (
-				226A6B602445757900ACDFC3 /* TopicFormView.swift */,
+				226A6B602445757900ACDFC3 /* TopicsFormView.swift */,
+				2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */,
+				2291283D24682494006F8256 /* TopicCell.swift */,
 			);
 			path = topic;
 			sourceTree = "<group>";
@@ -882,6 +888,7 @@
 				22C9F73C23BB5E1300892C4B /* MessagesByTopic.swift in Sources */,
 				22C9F74023BB5EA700892C4B /* MessageModel.swift in Sources */,
 				22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */,
+				2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */,
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
 				2291424F23C0C0370086C251 /* MenuButton.swift in Sources */,
 				22C9F73E23BB5E5C00892C4B /* HostModel.swift in Sources */,
@@ -903,6 +910,7 @@
 				228104932381773100112F24 /* TopicCellView.swift in Sources */,
 				228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */,
 				22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */,
+				2291283E24682494006F8256 /* TopicCell.swift in Sources */,
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
 				223EF0062387084D002ADF3E /* HostSetting.swift in Sources */,
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
@@ -915,7 +923,7 @@
 				22AE64342412636300C2C4FE /* DiagramPath.swift in Sources */,
 				220357232445D6F200A98CD3 /* ClientImplFormView.swift in Sources */,
 				2281047623816FD800112F24 /* QuickFilterView.swift in Sources */,
-				226A6B612445757900ACDFC3 /* TopicFormView.swift in Sources */,
+				226A6B612445757900ACDFC3 /* TopicsFormView.swift in Sources */,
 				22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */,
 				226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */,
 				22A38709240BE7D100DF8F94 /* MoscapsuleCertificateFiles.swift in Sources */,

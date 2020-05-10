@@ -16,7 +16,7 @@ struct EditHostFormView: View {
 		Form {
 			ServerFormView(host: $host)
 			AuthFormView(host: $host)
-			TopicFormView(host: $host)
+			TopicsFormView(host: $host)
 
 //			if clientImpl == .moscapsule {
 //				DeprecationBox()

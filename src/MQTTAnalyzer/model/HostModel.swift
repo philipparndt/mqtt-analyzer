@@ -37,7 +37,7 @@ extension Host: Hashable {
 
 struct TopicSubscription: Codable {
 	var topic: String
-	var qos: Int8
+	var qos: Int
 }
 
 class Host: Identifiable, ObservableObject {
