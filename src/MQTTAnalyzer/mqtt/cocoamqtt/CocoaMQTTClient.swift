@@ -124,7 +124,7 @@ class MqttClientCocoaMQTT: MqttClient {
 			var i = 10
 			
 			while self.connectionState.state == .connecting && i > 0 {
-				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
+				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topics)")
 				sleep(1)
 				
 				if self.connectionState.state == .connecting {
@@ -162,7 +162,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	
 	// MARK: Should be shared
 	func initConnect() {
-		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topic)")
+		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topics)")
 		host.connectionMessage = nil
 		host.state = .connecting
 		connectionState.state = .connecting
@@ -173,18 +173,18 @@ class MqttClientCocoaMQTT: MqttClient {
 	}
 		
 	func disconnect() {
-		print("CONNECTION: disconnect \(sessionNum) \(host.hostname) \(host.topic)")
+		print("CONNECTION: disconnect \(sessionNum) \(host.hostname) \(host.topics)")
 
 		messageSubject.cancel()
 		connectionState.state = .disconnected
 		
 		if let mqtt = self.mqtt {
 			DispatchQueue.global(qos: .background).async {
-				mqtt.unsubscribe(self.host.topic)
+				self.host.topics.forEach { mqtt.unsubscribe($0)}
 				mqtt.disconnect()
 
 				DispatchQueue.main.async {
-					print("CONNECTION: disconnected \(self.sessionNum) \(self.host.hostname) \(self.host.topic)")
+					print("CONNECTION: disconnected \(self.sessionNum) \(self.host.hostname) \(self.host.topics)")
 					
 					self.setDisconnected()
 				}
@@ -240,7 +240,9 @@ class MqttClientCocoaMQTT: MqttClient {
 	
 	// MARK: Should be shared
 	func subscribeToTopic(_ host: Host) {
-		mqtt?.subscribe(host.topic, qos: convertQOS(qos: Int32(host.qos)))
+		host.topics.forEach {
+			mqtt?.subscribe($0, qos: convertQOS(qos: Int32(host.qos)))
+		}
 	}
 	
 	func extractErrorMessage(error: Error) -> String {
@@ -253,7 +255,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	}
 	
 	func didDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
-		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topic)")
+		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topics)")
 
 		if err != nil {
 			connectionState.message = extractErrorMessage(error: err!)
@@ -274,7 +276,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	
 	func didConnect(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
 		if ack == .accept {
-			print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topic)")
+			print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topics)")
 			connectionState.state = .connected
 			
 			NSLog("Connected. Return Code is \(ack.description)")

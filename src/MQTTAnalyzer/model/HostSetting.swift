@@ -33,8 +33,8 @@ class HostSetting: Object {
 	@objc dynamic var alias = ""
 	@objc dynamic var hostname = ""
 	@objc dynamic var port: Int32 = 1883
-	@objc dynamic var topic: String = "#"
-	@objc dynamic var qos: Int = 0
+
+	@objc dynamic var subscriptions: Data = Data()
 
 	@objc dynamic var protocolMethod: Int8 = ConnectionMethod.mqtt
 	@objc dynamic var basePath: String = ""

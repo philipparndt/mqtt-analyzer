@@ -13,7 +13,7 @@ struct HostFormModel {
 	var hostname: String = ""
 	var port: String = "1883"
 	var basePath: String = ""
-	var topic: String = "#"
+	var topics: [String] = ["#"]
 	
 	var qos: Int = 0
 	
@@ -51,7 +51,7 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	target.qos = host.qos
 	target.auth = host.authType
 	target.port = UInt16(port!)
-	target.topic = host.topic
+	target.topics = host.topics
 	target.clientID = host.clientID
 	target.basePath = host.basePath
 	target.protocolMethod = host.protocolMethod
@@ -84,7 +84,7 @@ func transformHost(source host: Host) -> HostFormModel {
 						 hostname: host.hostname,
 						 port: "\(host.port)",
 						 basePath: host.basePath,
-						 topic: host.topic,
+						 topics: host.topics,
 						 qos: host.qos,
 						 username: host.username,
 						 password: host.password,

@@ -19,12 +19,11 @@ struct TopicFormView: View {
 					.font(.headline)
 				
 				Spacer()
-				
-				TextField("#", text: $host.topic)
-					.multilineTextAlignment(.trailing)
-					.disableAutocorrection(true)
-					.autocapitalization(.none)
-					.font(.body)
+//				TextField("#", text: $host.topics)
+//					.multilineTextAlignment(.trailing)
+//					.disableAutocorrection(true)
+//					.autocapitalization(.none)
+//					.font(.body)
 			}
 			
 			HStack {

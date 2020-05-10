@@ -43,7 +43,7 @@ class MqttClientMoscapsule: MqttClient {
 	}
 	
 	func connect() {
-		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topic)")
+		print("CONNECTION: connect \(sessionNum) \(host.hostname) \(host.topics)")
 		host.connectionMessage = nil
 		host.state = .connecting
 		connectionState.message = nil
@@ -88,12 +88,12 @@ class MqttClientMoscapsule: MqttClient {
 	}
 	
 	func disconnect() {
-		print("CONNECTION: disconnect \(sessionNum) \(host.hostname) \(host.topic)")
+		print("CONNECTION: disconnect \(sessionNum) \(host.hostname) \(host.topics)")
 		
 		messageSubject.cancel()
 		
 		if let mqtt = self.mqtt {
-			mqtt.unsubscribe(host.topic)
+			host.topics.forEach { mqtt.unsubscribe($0) }
 			mqtt.disconnect()
 		}
 		setDisconnected()
@@ -107,7 +107,7 @@ class MqttClientMoscapsule: MqttClient {
 		DispatchQueue.global().async {
 			var i = 10
 			while self.connectionState.state == .connecting && i > 0 {
-				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topic)")
+				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname) \(self.host.topics)")
 				sleep(1)
 				
 				self.setConnectionMessage(message: "Connecting... \(i)")
@@ -151,7 +151,7 @@ class MqttClientMoscapsule: MqttClient {
 	}
 	
 	func onConnect(_ returnCode: ReturnCode) {
-		print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topic)")
+		print("CONNECTION: onConnect \(sessionNum) \(host.hostname) \(host.topics)")
 		connectionState.state = .connected
 		NSLog("Connected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {
@@ -162,7 +162,7 @@ class MqttClientMoscapsule: MqttClient {
 	}
 	
 	func onDisconnect(_ returnCode: ReasonCode) {
-		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topic)")
+		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname) \(host.topics)")
 		
  		if returnCode == .mosq_conn_refused {
 			NSLog(connectionRefused)
@@ -213,7 +213,7 @@ class MqttClientMoscapsule: MqttClient {
 	}
 	
 	func subscribeToTopic(_ host: Host) {
-		mqtt?.subscribe(host.topic, qos: Int32(host.qos))
+		host.topics.forEach { mqtt?.subscribe($0, qos: Int32(host.qos)) }
 	}
 	
 	func publish(message: Message) {
