@@ -23,8 +23,9 @@ class HostSettingExamples {
 		example2.id = "example.test.mosquitto.org.4"
 		example2.alias = "mqtt-analyzer mosquitto example"
 		example2.hostname = "test.mosquitto.org"
-		example1.subscriptions = HostsModelPersistence.encode(subscriptions: [
-			TopicSubscription(topic: "de/rnd7/mqtt-analyzer/#", qos: 0)
+		example2.subscriptions = HostsModelPersistence.encode(subscriptions: [
+			TopicSubscription(topic: "de/rnd7/mqtt-analyzer/#", qos: 0),
+			TopicSubscription(topic: "$SYS/#", qos: 0)
 		])
 		
 		createIfNotPresent(setting: example1, realm: realm)
