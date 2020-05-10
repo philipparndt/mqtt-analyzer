@@ -15,7 +15,7 @@ class DataMigration {
 		let configuration = Realm.Configuration(
 			schemaVersion: 14,
 			migrationBlock: { migration, oldSchemaVersion in
-				DataMigrationLimits.migrateLimits(oldSchemaVersion, migration)
+				DataMigrationLimits.migrate(oldSchemaVersion, migration)
 				DataMigrationAuth.migrate(oldSchemaVersion, migration)
 				DataMigrationClientImpl.migrate(oldSchemaVersion, migration)
 				DataMigrationMultipleTopics.migrate(oldSchemaVersion, migration)
