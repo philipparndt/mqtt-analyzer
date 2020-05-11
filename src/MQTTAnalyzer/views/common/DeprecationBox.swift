@@ -12,8 +12,8 @@ struct DeprecationBox: View {
 	var body: some View {
 		FillingText(text: "Deprecated setting please migrate to CocoaMQTT client implementation",
 		imageName: "exclamationmark.triangle.fill")
+		.font(.footnote)
 		.padding()
-		.font(.body)
 		.foregroundColor(.black)
 		.background(Color.yellow)
 		.cornerRadius(10)
