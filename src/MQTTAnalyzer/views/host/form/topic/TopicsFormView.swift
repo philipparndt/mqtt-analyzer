@@ -16,7 +16,7 @@ struct TopicsFormView: View {
 		return Section(header: Text("Subscribe to")) {
 			List {
 				ForEach(host.subscriptions) { subscription in
-					TopicCell(subscription: subscription)
+					TopicCell(subscription: subscription, deletionHandler: self.deleteSubscription)
 				}
 				.onDelete(perform: self.delete)
 				
@@ -25,6 +25,10 @@ struct TopicsFormView: View {
 				}.font(.body)
 			}
 		}
+	}
+	
+	func deleteSubscription(subscription: TopicSubscriptionFormModel) {
+		host.subscriptions = host.subscriptions.filter { $0.id != subscription.id}
 	}
 	
 	func delete(at offsets: IndexSet) {
