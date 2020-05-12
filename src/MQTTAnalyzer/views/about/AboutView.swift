@@ -14,15 +14,22 @@ struct AboutView: View {
 	
 	var body: some View {
 		NavigationView {
-			VStack {
+			VStack(alignment: .leading) {
 				AboutTitleView().padding([.top, .bottom])
 				
-				ScrollView {
-					VStack(alignment: .leading) {
-						LicenseView().padding(.bottom)
-						ContributorsView().padding(.bottom)
-						DependenciesView()
-					}
+				Text("This project is open source. Contributions are welcome. Feel free to open an issue ticket and discuss new features.")
+					.foregroundColor(.secondary)
+					.font(.footnote)
+				
+				LicenseView().padding(.bottom)
+				
+				Text("Thank you! This project would not be possible without your great work! Thanks for testing, contributing dependencies, features and ideas.")
+					.foregroundColor(.secondary)
+					.font(.footnote)
+				
+				List {
+					ContributorsView()
+					DependenciesView()
 				}
 				
 				Spacer()
@@ -62,7 +69,7 @@ struct AboutTitleView: View {
 
 					LinkButtonView(text: "© 2020 Philipp Arndt", url: "https://github.com/philipparndt")
 						.font(.caption)
-						.foregroundColor(.secondary)
+						.foregroundColor(.blue)
 				}
 			}
 			
@@ -76,36 +83,25 @@ struct AboutTitleView: View {
 struct LicenseView: View {
 	var body: some View {
 		Group {
-			Text("Open source:")
-				.font(.headline)
-				.padding(.bottom)
-			
-			Group {
-				Text("This project is open source. Contributions are welcome. Feel free to open an issue ticket and discuss new features:")
-				
-				LinkButtonView(text: "https://github.com/philipparndt/mqtt-analyzer",
+			HStack {
+				LinkButtonView(text: "Source code, ",
 							   url: "https://github.com/philipparndt/mqtt-analyzer")
 				
 				LinkButtonView(text: "License",
-							   url: "https://github.com/philipparndt/mqtt-analyzer/blob/master/LICENSE")
-			}
+						   url: "https://github.com/philipparndt/mqtt-analyzer/blob/master/LICENSE")
+
+			}.font(.footnote)
 		}
 	}
 }
 
 struct DependenciesView: View {
 	var body: some View {
-		Group {
-			Text("Dependencies:")
-				.font(.headline)
-				.padding(.bottom)
-		
-			Group {
-				Text("Thank you! This project would not be possible without your great work!")
-				
-				ForEach(dependencies) { dependency in
-					LinkButtonView(text: dependency.name, url: dependency.link)
-				}
+		Section(header: Text("Dependencies")) {
+			ForEach(dependencies) { dependency in
+				LinkButtonView(text: dependency.name, url: dependency.link)
+					.font(.footnote)
+					.foregroundColor(.blue)
 			}
 		}
 	}

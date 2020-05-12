@@ -10,17 +10,11 @@ import SwiftUI
 
 struct ContributorsView: View {
 	var body: some View {
-		Group {
-			Text("Contributors:")
-				.font(.headline)
-				.padding(.bottom)
-			
-			Group {
-				Text("Thanks for testing, contributing features and ideas.")
-				
-				ForEach(contributors) { contributor in
-					LinkButtonView(text: contributor.name, url: contributor.link)
-				}
+		Section(header: Text("Contributors")) {
+			ForEach(contributors) { contributor in
+				LinkButtonView(text: contributor.name, url: contributor.link)
+					.font(.footnote)
+					.foregroundColor(.blue)
 			}
 		}
 	}
