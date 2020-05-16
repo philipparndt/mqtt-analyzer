@@ -184,6 +184,7 @@ public class HostsModelPersistence {
 			return try JSONDecoder().decode([TopicSubscription].self, from: subscriptions)
 		} catch {
 			NSLog("Unexpected error decoding subscriptions: \(error).")
+			NSLog("`\(String(data: subscriptions, encoding: .utf8)!)`")
 			return [TopicSubscription(topic: "#", qos: 0)]
 		}
 	}

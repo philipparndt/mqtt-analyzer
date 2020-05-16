@@ -8,17 +8,23 @@
 
 import Foundation
 import RealmSwift
+import IceCream
 
 class DataMigration {
 	
-	class func initMigration() {
+	class func initMigration(syncEngine: SyncEngine?) {
 		let configuration = Realm.Configuration(
-			schemaVersion: 14,
+			schemaVersion: 20,
 			migrationBlock: { migration, oldSchemaVersion in
 				DataMigrationLimits.migrate(oldSchemaVersion, migration)
 				DataMigrationAuth.migrate(oldSchemaVersion, migration)
 				DataMigrationClientImpl.migrate(oldSchemaVersion, migration)
 				DataMigrationMultipleTopics.migrate(oldSchemaVersion, migration)
+				DataMigrationEmptyTopic.migrate(oldSchemaVersion, migration)
+				
+				DispatchQueue.global(qos: .background).async {
+					syncEngine?.pushAll()
+				}
 				
 //				Example on how to rename properties:
 //				if oldSchemaVersion < n {

@@ -18,13 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var syncEngine: SyncEngine?
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		DataMigration.initMigration()
 		syncEngine = SyncEngine(objects: [
 				SyncObject<HostSetting>()
 			], databaseScope: .private)
-				
+
+		DataMigration.initMigration(syncEngine: syncEngine)
+	
 		application.registerForRemoteNotifications()
-								
+
 		// Override point for customization after application launch.
 		return true
 	}
