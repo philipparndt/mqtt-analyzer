@@ -27,40 +27,36 @@ enum CertificateError: String, Error {
 }
 
 private func getClientCertFromP12File(certName: String, certPassword: String) throws -> CFArray? {
-	if let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-		let filePath = documents + "/\(certName)"
-		
-		guard let p12Data = NSData(contentsOfFile: filePath) else {
-			throw CertificateError.errorOpenFile
-		}
-		
-		// create key dictionary for reading p12 file
-		let key = kSecImportExportPassphrase as String
-		let options: NSDictionary = [key: certPassword]
-		
-		var items: CFArray?
-		let securityError = SecPKCS12Import(p12Data, options, &items)
-		
-		guard securityError == errSecSuccess else {
-			if securityError == errSecAuthFailed {
-				throw CertificateError.errSecAuthFailed
-			} else {
-				throw CertificateError.errorOpenFile
-			}
-		}
-		
-		guard let theArray = items, CFArrayGetCount(theArray) > 0 else {
-			return nil
-		}
-		
-		let dictionary = (theArray as NSArray).object(at: 0)
-		guard let identity = (dictionary as AnyObject).value(forKey: kSecImportItemIdentity as String) else {
-			throw CertificateError.noIdentify
-		}
-		
-		return [identity] as CFArray
-		
+	var url = CloudDataManager.sharedInstance.getDocumentDiretoryURL()
+	url.appendPathComponent(certName)
+	
+	guard let p12Data = NSData(contentsOf: url) else {
+		throw CertificateError.errorOpenFile
 	}
 	
-	return nil
+	// create key dictionary for reading p12 file
+	let key = kSecImportExportPassphrase as String
+	let options: NSDictionary = [key: certPassword]
+	
+	var items: CFArray?
+	let securityError = SecPKCS12Import(p12Data, options, &items)
+	
+	guard securityError == errSecSuccess else {
+		if securityError == errSecAuthFailed {
+			throw CertificateError.errSecAuthFailed
+		} else {
+			throw CertificateError.errorOpenFile
+		}
+	}
+	
+	guard let theArray = items, CFArrayGetCount(theArray) > 0 else {
+		return nil
+	}
+	
+	let dictionary = (theArray as NSArray).object(at: 0)
+	guard let identity = (dictionary as AnyObject).value(forKey: kSecImportItemIdentity as String) else {
+		throw CertificateError.noIdentify
+	}
+	
+	return [identity] as CFArray
 }

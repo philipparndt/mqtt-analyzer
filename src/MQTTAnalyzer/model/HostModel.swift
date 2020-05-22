@@ -9,6 +9,11 @@
 import Foundation
 import SwiftUI
 
+enum CertificateLocation {
+	case cloud
+	case local
+}
+
 enum HostAuthenticationType {
 	case none
 	case usernamePassword

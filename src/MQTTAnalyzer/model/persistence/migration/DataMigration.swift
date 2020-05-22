@@ -12,7 +12,7 @@ import IceCream
 
 class DataMigration {
 	
-	class func initMigration(syncEngine: SyncEngine?) {
+	class func initMigration(afterMigration: @escaping () -> Void) {
 		let configuration = Realm.Configuration(
 			schemaVersion: 20,
 			migrationBlock: { migration, oldSchemaVersion in
@@ -23,7 +23,7 @@ class DataMigration {
 				DataMigrationEmptyTopic.migrate(oldSchemaVersion, migration)
 				
 				DispatchQueue.global(qos: .background).async {
-					syncEngine?.pushAll()
+					afterMigration()
 				}
 				
 //				Example on how to rename properties:

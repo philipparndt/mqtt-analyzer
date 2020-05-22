@@ -18,16 +18,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var syncEngine: SyncEngine?
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+		DataMigration.initMigration(afterMigration: self.afterMigration)
+
 		syncEngine = SyncEngine(objects: [
 				SyncObject<HostSetting>()
 			], databaseScope: .private)
 
-		DataMigration.initMigration(syncEngine: syncEngine)
-	
+		syncEngine?.pull()
+		
 		application.registerForRemoteNotifications()
-
+		
+		CloudDataManager.sharedInstance.initDocumentsDirectory()
+		
 		// Override point for customization after application launch.
 		return true
+	}
+	
+	func afterMigration() {
+		syncEngine?.pushAll()
 	}
 	
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
