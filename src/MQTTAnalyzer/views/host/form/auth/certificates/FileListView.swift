@@ -11,8 +11,9 @@ import SwiftUI
 
 struct FileListView: View {
 	var refreshHandler: () -> Void
-	var files: [CertificateFile]
-	@Binding var fileName: String
+	let type: CertificateFileType
+	var files: [CertificateFileModel]
+	@Binding var file: CertificateFile?
 	@Binding var certificateLocation: CertificateLocation
 	
 	var body: some View {
@@ -23,7 +24,7 @@ struct FileListView: View {
 			}
 			
 			ForEach(files) { file in
-				FileItemView(fileName: file.name, selection: self.$fileName).font(.body)
+				FileItemView(fileName: file, type: self.type, selection: self.$file).font(.body)
 			}
 			
 			Button(action: refreshHandler) {

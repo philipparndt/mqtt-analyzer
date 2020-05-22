@@ -12,9 +12,9 @@ import SwiftUI
 import Combine
 
 struct CertificateFilePickerView: View {
-	let type: String
+	let type: CertificateFileType
 	
-	@Binding var fileName: String
+	@Binding var file: CertificateFile?
 	@ObservedObject var fileLister = FileLister()
 		
 	var body: some View {
@@ -31,8 +31,9 @@ struct CertificateFilePickerView: View {
 				}
 				
 				FileListView(refreshHandler: fileLister.refresh,
+							 type: self.type,
 							 files: fileLister.files,
-							 fileName: $fileName,
+							 file: $file,
 							 certificateLocation: Binding(
 				get: {
 					return self.fileLister.certificateLocation
@@ -44,6 +45,6 @@ struct CertificateFilePickerView: View {
 				PKCS12HelpView()
 			}
 		}
-		.navigationBarTitle("Select \(type)")
+		.navigationBarTitle("Select \(type.getName())")
 	}
 }

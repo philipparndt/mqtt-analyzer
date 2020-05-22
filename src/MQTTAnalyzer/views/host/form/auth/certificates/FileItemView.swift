@@ -9,23 +9,35 @@
 import SwiftUI
 
 struct FileItemView: View {
-	let fileName: String
-	@Binding var selection: String
+	let fileName: CertificateFileModel
+	let type: CertificateFileType
+	@Binding var selection: CertificateFile?
 	
 	var body: some View {
 		HStack {
-			Image(systemName: self.selection == fileName ? "largecircle.fill.circle" : "circle")
+			Image(systemName: isSelected() ? "largecircle.fill.circle" : "circle")
 				.foregroundColor(.blue)
 			
 			Image(systemName: "doc.text.fill")
 				.foregroundColor(.secondary)
 			
-			Text(fileName)
-			
+			Text(fileName.name)
 			Spacer()
 		}
 		.onTapGesture {
-			self.selection = self.fileName
+			self.selection = CertificateFile(name: self.fileName.name,
+											 location: self.fileName.location,
+											 type: self.type
+			)
 		}
+	}
+	
+	func isSelected() -> Bool {
+		if let sel = selection {
+			return sel.name == fileName.name
+				&& sel.location == fileName.location
+		}
+		
+		return false
 	}
 }

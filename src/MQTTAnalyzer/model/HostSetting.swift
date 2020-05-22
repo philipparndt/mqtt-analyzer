@@ -47,9 +47,7 @@ class HostSetting: Object {
 	@objc dynamic var username: String = ""
 	@objc dynamic var password: String = ""
 	
-	@objc dynamic var certServerCA: String = ""
-	@objc dynamic var certClient: String = ""
-	@objc dynamic var certClientKey: String = ""
+	@objc dynamic var certificates: Data = Data()
 	@objc dynamic var certClientKeyPassword: String = ""
 
 	@objc dynamic var clientID = Host.randomClientId()

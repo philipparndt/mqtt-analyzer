@@ -11,9 +11,9 @@ import Moscapsule
 
 func initCertificates(host: Host, config: MQTTConfig) -> (Bool, String?) {
 	if let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-		let certFile = documents + "/\(host.certServerCA)"
-		let usercertFile = documents + "/\(host.certClient)"
-		let userkeyFile = documents + "/\(host.certClientKey)"
+		let certFile = documents + "/\(getCertificate(host, type: .serverCA)?.name ?? "")"
+		let usercertFile = documents + "/\(getCertificate(host, type: .client)?.name ?? "")"
+		let userkeyFile = documents + "/\(getCertificate(host, type: .clientKey)?.name ?? "")"
 		let fm = FileManager.default
 		
 		for file in [certFile, usercertFile, userkeyFile] {

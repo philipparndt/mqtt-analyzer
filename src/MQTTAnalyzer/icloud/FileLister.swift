@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 class FileLister: ObservableObject {
-	@Published var files: [CertificateFile] = FileLister.listFiles(on: getDefaultLocation())
+	@Published var files: [CertificateFileModel] = FileLister.listFiles(on: getDefaultLocation())
 	
 	@Published var certificateLocation = getDefaultLocation() {
         didSet {
@@ -36,7 +36,7 @@ class FileLister: ObservableObject {
 		return CloudDataManager.sharedInstance.getLocalDocumentDiretoryURL()
 	}
 	
-	class func listFiles(on location: CertificateLocation) -> [CertificateFile] {
+	class func listFiles(on location: CertificateLocation) -> [CertificateFileModel] {
 		do {
 			let url = FileLister.getUrl(on: location)
 			
@@ -48,12 +48,12 @@ class FileLister: ObservableObject {
 			let files = directoryContents
 				.map { $0.lastPathComponent }
 				.filter { $0.lowercased().range(of: #".*\.(p12|pfx|crt|key)$"#, options: .regularExpression) != nil}
-				.map { CertificateFile(name: $0, location: location) }
+				.map { CertificateFileModel(name: $0, location: location) }
 				.sorted()
 
 			return files
 		} catch {
-			return [CertificateFile(name: error.localizedDescription, location: location)]
+			return [CertificateFileModel(name: error.localizedDescription, location: location)]
 		}
 	}
 }

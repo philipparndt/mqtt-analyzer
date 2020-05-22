@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct CertificateFile: Identifiable, Comparable {
+struct CertificateFileModel: Identifiable, Comparable {
 	let name: String
 	let id = UUID.init()
 	let location: CertificateLocation
 	
-	static func < (lhs: CertificateFile, rhs: CertificateFile) -> Bool {
+	static func < (lhs: CertificateFileModel, rhs: CertificateFileModel) -> Bool {
 		return lhs.name < rhs.name
     }
 }

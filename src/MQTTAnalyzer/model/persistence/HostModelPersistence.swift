@@ -51,9 +51,7 @@ public class HostsModelPersistence {
 					setting.authType = transformAuth(host.auth)
 					setting.username = host.username
 					setting.password = host.password
-					setting.certServerCA = host.certServerCA
-					setting.certClient = host.certClient
-					setting.certClientKey = host.certClientKey
+					setting.certificates = HostsModelPersistence.encode(certificates: host.certificates)
 					setting.certClientKeyPassword = host.certClientKeyPassword
 					setting.clientID = host.clientID
 					setting.limitTopic = host.limitTopic
@@ -181,11 +179,37 @@ public class HostsModelPersistence {
 	
 	class func decode(subscriptions: Data) -> [TopicSubscription] {
 		do {
+			if subscriptions.isEmpty {
+				return []
+			}
+			
 			return try JSONDecoder().decode([TopicSubscription].self, from: subscriptions)
 		} catch {
 			NSLog("Unexpected error decoding subscriptions: \(error).")
 			NSLog("`\(String(data: subscriptions, encoding: .utf8)!)`")
 			return [TopicSubscription(topic: "#", qos: 0)]
+		}
+	}
+	
+	class func encode(certificates: [CertificateFile]) -> Data {
+		do {
+			return try JSONEncoder().encode(certificates)
+		} catch {
+			NSLog("Unexpected error encoding certificate files: \(error).")
+			return Data()
+		}
+	}
+	
+	class func decode(certificates: Data) -> [CertificateFile] {
+		do {
+			if certificates.isEmpty {
+				return []
+			}
+			
+			return try JSONDecoder().decode([CertificateFile].self, from: certificates)
+		} catch {
+			NSLog("Unexpected error decoding certificate files: \(error).")
+			return []
 		}
 	}
 	
@@ -199,9 +223,7 @@ public class HostsModelPersistence {
 		result.auth = transformAuth(host.authType)
 		result.username = host.username
 		result.password = host.password
-		result.certServerCA = host.certServerCA
-		result.certClient = host.certClient
-		result.certClientKey = host.certClientKey
+		result.certificates = HostsModelPersistence.decode(certificates: host.certificates)
 		result.certClientKeyPassword = host.certClientKeyPassword
 		result.clientID = host.clientID
 		result.limitTopic = host.limitTopic
@@ -225,9 +247,7 @@ public class HostsModelPersistence {
 		result.authType = transformAuth(host.auth)
 		result.username = host.username
 		result.password = host.password
-		result.certServerCA = host.certServerCA
-		result.certClient = host.certClient
-		result.certClientKey = host.certClientKey
+		result.certificates = HostsModelPersistence.encode(certificates: host.certificates)
 		result.certClientKeyPassword = host.certClientKeyPassword
 		result.clientID = host.clientID
 		result.limitTopic = host.limitTopic

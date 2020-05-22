@@ -14,6 +14,7 @@
 		220357252445DD6E00A98CD3 /* DeprecationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357242445DD6E00A98CD3 /* DeprecationBox.swift */; };
 		2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
+		220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */; };
 		221C571C2466847800C0DD02 /* QuestionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571B2466847800C0DD02 /* QuestionBox.swift */; };
 		221C571E2466C9CD00C0DD02 /* AWSIOTPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571D2466C9CD00C0DD02 /* AWSIOTPreset.swift */; };
 		221C57202466CC2800C0DD02 /* AWSIOTPresetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */; };
@@ -22,7 +23,7 @@
 		223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D42477D5F5009810E6 /* FileItemView.swift */; };
 		223AF5D72477D60A009810E6 /* PKCS12HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */; };
 		223AF5D92477D620009810E6 /* NoFilesHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D82477D620009810E6 /* NoFilesHelpView.swift */; };
-		223AF5DB2477D64B009810E6 /* CertificateFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5DA2477D64B009810E6 /* CertificateFile.swift */; };
+		223AF5DB2477D64B009810E6 /* CertificateFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */; };
 		223EF0062387084D002ADF3E /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
 		223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
@@ -152,6 +153,7 @@
 		220357242445DD6E00A98CD3 /* DeprecationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeprecationBox.swift; sourceTree = "<group>"; };
 		2205E5E0238A7EE2001638DF /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
+		220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMigrationCertificateFiles.swift; sourceTree = "<group>"; };
 		221C571B2466847800C0DD02 /* QuestionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBox.swift; sourceTree = "<group>"; };
 		221C571D2466C9CD00C0DD02 /* AWSIOTPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSIOTPreset.swift; sourceTree = "<group>"; };
 		221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSIOTPresetTests.swift; sourceTree = "<group>"; };
@@ -161,7 +163,7 @@
 		223AF5D42477D5F5009810E6 /* FileItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItemView.swift; sourceTree = "<group>"; };
 		223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCS12HelpView.swift; sourceTree = "<group>"; };
 		223AF5D82477D620009810E6 /* NoFilesHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFilesHelpView.swift; sourceTree = "<group>"; };
-		223AF5DA2477D64B009810E6 /* CertificateFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFile.swift; sourceTree = "<group>"; };
+		223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFileModel.swift; sourceTree = "<group>"; };
 		223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzer.entitlements; sourceTree = "<group>"; };
 		223EF0052387084D002ADF3E /* HostSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostSetting.swift; path = MQTTAnalyzer/model/HostSetting.swift; sourceTree = SOURCE_ROOT; };
 		223EF00723870AA5002ADF3E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -345,7 +347,7 @@
 			children = (
 				22F67AE024716ED50082C79F /* CloudDataManager.swift */,
 				223AF5D02477D575009810E6 /* FileLister.swift */,
-				223AF5DA2477D64B009810E6 /* CertificateFile.swift */,
+				223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */,
 			);
 			path = icloud;
 			sourceTree = "<group>";
@@ -595,6 +597,7 @@
 				2291284424685A13006F8256 /* DataMigrationClientImpl.swift */,
 				229128402468590D006F8256 /* DataMigrationMultipleTopics.swift */,
 				2256BDA9246FBE5100F92EFE /* DataMigrationEmptyTopic.swift */,
+				220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */,
 			);
 			path = migration;
 			sourceTree = "<group>";
@@ -964,6 +967,7 @@
 				228104912381770000112F24 /* ReconnectView.swift in Sources */,
 				223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
+				220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */,
 				22810488238173BB00112F24 /* DataSeriesView.swift in Sources */,
 				223AF5D72477D60A009810E6 /* PKCS12HelpView.swift in Sources */,
 				2281048A2381740000112F24 /* MessageView.swift in Sources */,
@@ -1033,7 +1037,7 @@
 				226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */,
 				220357252445DD6E00A98CD3 /* DeprecationBox.swift in Sources */,
 				223AF5D12477D575009810E6 /* FileLister.swift in Sources */,
-				223AF5DB2477D64B009810E6 /* CertificateFile.swift in Sources */,
+				223AF5DB2477D64B009810E6 /* CertificateFileModel.swift in Sources */,
 				22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

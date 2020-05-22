@@ -15,21 +15,16 @@ struct CertificateAuthenticationView: View {
 	@Binding var host: HostFormModel
 	@Binding var clientImpl: HostClientImplType
 	
-	@State var serverCA: String = ""
-	@State var clientCertificate: String = ""
-	@State var clientKey: String = ""
-	@State var clientKeyPassword: String = ""
-	
 	var body: some View {
 		Group {
 			List {
 				if clientImpl == .cocoamqtt {
-					CertificateFileItemView(name: "Client PKCS#12", filename: $host.certClient)
+					CertificateFileItemView(type: .p12, file: $host.certP12)
 				}
 				else {
-					CertificateFileItemView(name: "Server CA", filename: $host.certServerCA)
-					CertificateFileItemView(name: "Client Certificate", filename: $host.certClient)
-					CertificateFileItemView(name: "Client Key", filename: $host.certClientKey)
+					CertificateFileItemView(type: .serverCA, file: $host.certServerCA)
+					CertificateFileItemView(type: .client, file: $host.certClient)
+					CertificateFileItemView(type: .clientKey, file: $host.certClientKey)
 				}
 			}
 			
@@ -50,27 +45,35 @@ struct CertificateAuthenticationView: View {
 }
 
 struct CertificateFileItemView: View {
-	let name: String
-	@Binding var filename: String
+	let type: CertificateFileType
+	@Binding var file: CertificateFile?
 	
 	var body: some View {
-		NavigationLink(destination: CertificateFilePickerView(type: name, fileName: $filename)) {
+		NavigationLink(destination: CertificateFilePickerView(type: type, file: $file)) {
 			HStack {
-				Text(name)
+				Text("\(type.getName())")
 				.font(.headline)
 				
 				Spacer()
 				
 				Group {
-					if filename.isBlank {
+					if !isSelected() {
 						Text("select")
 							.foregroundColor(.gray)
 					}
 					else {
-						Text(filename)
+						Text(getFilename())
 					}
 				}.font(.body)
 			}
 		}
+	}
+	
+	func isSelected() -> Bool {
+		return file != nil
+	}
+	
+	func getFilename() -> String {
+		return file?.name ?? ""
 	}
 }
