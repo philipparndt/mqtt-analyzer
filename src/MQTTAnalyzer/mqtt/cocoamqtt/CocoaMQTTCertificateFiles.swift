@@ -28,10 +28,11 @@ enum CertificateError: String, Error {
 	case errSecAuthFailed = "Failed to open the certificate file. Wrong password?"
 	case noIdentify = "No identity"
 	case certificateFileUndefined = "Certificate file is undefined. Review the settings."
+	case noClound = "iCloud is disabled but certificate was persisted in iCloud."
 }
 
 private func getClientCertFromP12File(certificate: CertificateFile, certPassword: String) throws -> CFArray? {
-	var url = CloudDataManager.sharedInstance.getDocumentDiretoryURL()
+	var url = try certificate.getBaseUrl(certificate: certificate)
 	url.appendPathComponent(certificate.name)
 	
 	guard let p12Data = NSData(contentsOf: url) else {

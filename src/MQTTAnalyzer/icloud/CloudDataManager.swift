@@ -60,8 +60,23 @@ class CloudDataManager {
 		return DocumentsDirectory.iCloudDocumentsURL
     }
 
-
 	func getLocalDocumentDiretoryURL() -> URL {
 		return DocumentsDirectory.localDocumentsURL
     }
+}
+
+extension CertificateFile {
+	func getBaseUrl(certificate: CertificateFile) throws -> URL {
+		if certificate.location == .cloud {
+			if let url = CloudDataManager.sharedInstance.getiCloudDocumentDiretoryURL() {
+				return url
+			}
+			else {
+				throw CertificateError.noClound
+			}
+		}
+		else {
+			return CloudDataManager.sharedInstance.getLocalDocumentDiretoryURL()
+		}
+	}
 }
