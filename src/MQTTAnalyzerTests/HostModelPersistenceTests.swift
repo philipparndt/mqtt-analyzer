@@ -43,10 +43,11 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		setting.authType = AuthenticationType.certificate
 		setting.username = "username"
 		setting.password = "password"
-		
-		setting.certServerCA = "certServerCA"
-		setting.certClient = "certClient"
-		setting.certClientKey = "certClientKey"
+		setting.certificates = HostsModelPersistence.encode(certificates: [
+			CertificateFile(name: "certServerCA", location: .local, type: .serverCA),
+			CertificateFile(name: "certClient", location: .local, type: .client),
+			CertificateFile(name: "certClientKey", location: .local, type: .clientKey)
+		])
 		setting.certClientKeyPassword = "certClientKeyPassword"
 
 		setting.clientID = "clientID"
@@ -64,9 +65,9 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		XCTAssertEqual(2, transformed.subscriptions[0].qos)
 		XCTAssertEqual("username", transformed.username)
 		XCTAssertEqual("password", transformed.password)
-		XCTAssertEqual("certServerCA", transformed.certServerCA)
-		XCTAssertEqual("certClient", transformed.certClient)
-		XCTAssertEqual("certClientKey", transformed.certClientKey)
+		XCTAssertEqual("certServerCA", getCertificate(transformed, type: .serverCA)!.name)
+		XCTAssertEqual("certClient", getCertificate(transformed, type: .client)!.name)
+		XCTAssertEqual("certClientKey", getCertificate(transformed, type: .clientKey)!.name)
 		XCTAssertEqual("certClientKeyPassword", transformed.certClientKeyPassword)
 		XCTAssertEqual("clientID", transformed.clientID)
 		XCTAssertEqual(4, transformed.limitTopic)
@@ -152,9 +153,11 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		host.username = "username"
 		host.password = "password"
 		
-		host.certServerCA = "certServerCA"
-		host.certClient = "certClient"
-		host.certClientKey = "certClientKey"
+		host.certificates = [
+			CertificateFile(name: "certServerCA", location: .local, type: .serverCA),
+			CertificateFile(name: "certClient", location: .local, type: .client),
+			CertificateFile(name: "certClientKey", location: .local, type: .clientKey)
+		]
 		host.certClientKeyPassword = "certClientKeyPassword"
 
 		host.clientID = "clientID"
@@ -172,9 +175,19 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		""", String(decoding: transformed.subscriptions, as: UTF8.self))
 		XCTAssertEqual("username", transformed.username)
 		XCTAssertEqual("password", transformed.password)
-		XCTAssertEqual("certServerCA", transformed.certServerCA)
-		XCTAssertEqual("certClient", transformed.certClient)
-		XCTAssertEqual("certClientKey", transformed.certClientKey)
+		
+		let expectedCerts =
+			 	"""
+				[{"name":"certServerCA","location":1,"type":1},
+				"""
+			+ 	"""
+				{"name":"certClient","location":1,"type":2},
+				"""
+			+ 	"""
+				{"name":"certClientKey","location":1,"type":3}]
+				"""
+		
+		XCTAssertEqual(expectedCerts, String(decoding: transformed.certificates, as: UTF8.self))
 		XCTAssertEqual("certClientKeyPassword", transformed.certClientKeyPassword)
 		XCTAssertEqual("clientID", transformed.clientID)
 		XCTAssertEqual(4, transformed.limitTopic)
