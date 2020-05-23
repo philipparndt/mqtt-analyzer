@@ -21,6 +21,8 @@ struct HostCellView: View {
 	@State var sheetPresented = false
 	@State var sheetType = HostCellViewSheetType.edit
 	
+	var cloneHostDelegate: (Host) -> Void
+	
 	var connectionColor: Color {
 		host.state == .connected ? .green : .gray
 	}
@@ -59,6 +61,7 @@ struct HostCellView: View {
 			}
 			.contextMenu {
 				MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
+				MenuButton(title: "Create new based on this", systemImage: "pencil.circle", action: cloneHost)
 				if host.state != .disconnected {
 					MenuButton(title: "Disconnect", systemImage: "stop.circle", action: disconnect)
 				}
@@ -78,6 +81,10 @@ struct HostCellView: View {
 					host: transformHost(source: self.host))
 			}
 		})
+	}
+	
+	func cloneHost() {
+		cloneHostDelegate(host)
 	}
 	
 	func editHost() {

@@ -15,7 +15,7 @@ struct NewHostFormModalView: View {
 	let root: RootModel
 	var hosts: HostsModel
 	
-	@State private var host: HostFormModel = HostFormModel()
+	@State var host: HostFormModel
 	
 	var disableSave: Bool {
 		return HostFormValidator.validateHostname(name: host.hostname) == nil
