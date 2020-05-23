@@ -29,7 +29,13 @@ struct HostCellView: View {
 		NavigationLink(destination: TopicsView(model: messageModel, host: host, dialogPresented: host.needsAuth)) {
 			HStack {
 				VStack(alignment: .leading) {
-					Text(host.aliasOrHost)
+					HStack {
+						if host.clientImpl == .moscapsule {
+							Image(systemName: "exclamationmark.triangle.fill")
+						}
+						Text(host.aliasOrHost)
+					}
+					
 					Spacer()
 					Group {
 						Text(host.hostname)
@@ -37,10 +43,6 @@ struct HostCellView: View {
 					}
 					.font(.footnote)
 					.foregroundColor(.secondary)
-					
-//					if host.clientImpl == .moscapsule {
-//						DeprecationBox()
-//					}
 				}
 				
 				Spacer()
