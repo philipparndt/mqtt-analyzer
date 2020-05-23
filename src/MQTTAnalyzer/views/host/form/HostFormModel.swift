@@ -30,9 +30,10 @@ struct HostFormModel {
 	var username = ""
 	var password = ""
 	
-	var certServerCA = ""
-	var certClient = ""
-	var certClientKey = ""
+	var certServerCA: CertificateFile?
+	var certClient: CertificateFile?
+	var certClientKey: CertificateFile?
+	var certP12: CertificateFile?
 	var certClientKeyPassword = ""
 	
 	var clientID = ""
@@ -87,13 +88,30 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 		target.password = host.password
 	}
 	else if host.authType == .certificate {
-		target.certServerCA = host.certServerCA
-		target.certClient = host.certClient
-		target.certClientKey = host.certClientKey
+		var certificates: [CertificateFile] = []
+		
+		if let cert = host.certServerCA {
+			certificates.append(cert)
+		}
+		if let cert = host.certClient {
+			certificates.append(cert)
+		}
+		if let cert = host.certClientKey {
+			certificates.append(cert)
+		}
+		if let cert = host.certP12 {
+			certificates.append(cert)
+		}
+
+		target.certificates = certificates
 		target.certClientKeyPassword = host.certClientKeyPassword
 	}
 	
 	return target
+}
+
+func getCertificate(_ host: Host, type: CertificateFileType) -> CertificateFile? {
+	return host.certificates.filter { $0.type == type }.first
 }
 
 func transformHost(source host: Host) -> HostFormModel {
@@ -104,9 +122,10 @@ func transformHost(source host: Host) -> HostFormModel {
 						 subscriptions: transform(subscriptions: host.subscriptions),
 						 username: host.username,
 						 password: host.password,
-						 certServerCA: host.certServerCA,
-						 certClient: host.certClient,
-						 certClientKey: host.certClientKey,
+						 certServerCA: getCertificate(host, type: .serverCA),
+						 certClient: getCertificate(host, type: .client),
+						 certClientKey: getCertificate(host, type: .clientKey),
+						 certP12: getCertificate(host, type: .p12),
 						 certClientKeyPassword: host.certClientKeyPassword,
 						 clientID: host.clientID,
 						 limitTopic: "\(host.limitTopic)",

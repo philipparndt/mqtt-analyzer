@@ -9,6 +9,36 @@
 import Foundation
 import SwiftUI
 
+enum CertificateLocation: Int, Codable {
+	case cloud = 0
+	case local = 1
+}
+
+enum CertificateFileType: Int, Codable {
+	case p12 = 0
+	case serverCA = 1
+	case client = 2
+	case clientKey = 3
+	case undefined = 4
+}
+
+extension CertificateFileType {
+	func getName() -> String{
+		switch self {
+		case .p12:
+			return "Client PKCS#12"
+		case .serverCA:
+			return "Server CA"
+		case .client:
+			return "Client Certificate"
+		case .clientKey:
+			return "Client Key"
+		case .undefined:
+			return "Undefined"
+		}
+	}
+}
+
 enum HostAuthenticationType {
 	case none
 	case usernamePassword
@@ -38,6 +68,12 @@ extension Host: Hashable {
 struct TopicSubscription: Codable {
 	var topic: String
 	var qos: Int
+}
+
+struct CertificateFile: Codable {
+	let name: String
+	let location: CertificateLocation
+	var type = CertificateFileType.undefined
 }
 
 class Host: Identifiable, ObservableObject {
@@ -84,9 +120,7 @@ class Host: Identifiable, ObservableObject {
 	var username: String = ""
 	var password: String = ""
 	
-	var certServerCA: String = ""
-	var certClient: String = ""
-	var certClientKey: String = ""
+	var certificates: [CertificateFile] = []
 	var certClientKeyPassword: String = ""
 	
 	@Published var usernameNonpersistent: String?

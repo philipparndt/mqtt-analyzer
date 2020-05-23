@@ -14,9 +14,16 @@
 		220357252445DD6E00A98CD3 /* DeprecationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357242445DD6E00A98CD3 /* DeprecationBox.swift */; };
 		2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
+		220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */; };
 		221C571C2466847800C0DD02 /* QuestionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571B2466847800C0DD02 /* QuestionBox.swift */; };
 		221C571E2466C9CD00C0DD02 /* AWSIOTPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571D2466C9CD00C0DD02 /* AWSIOTPreset.swift */; };
 		221C57202466CC2800C0DD02 /* AWSIOTPresetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */; };
+		223AF5D12477D575009810E6 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
+		223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D22477D5CA009810E6 /* FileListView.swift */; };
+		223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D42477D5F5009810E6 /* FileItemView.swift */; };
+		223AF5D72477D60A009810E6 /* PKCS12HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */; };
+		223AF5D92477D620009810E6 /* NoFilesHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D82477D620009810E6 /* NoFilesHelpView.swift */; };
+		223AF5DB2477D64B009810E6 /* CertificateFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */; };
 		223EF0062387084D002ADF3E /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
 		223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
@@ -75,6 +82,7 @@
 		22AF3AE72388858B001D9F87 /* NewHostFormDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE62388858B001D9F87 /* NewHostFormDialog.swift */; };
 		22AF3AE9238885AF001D9F87 /* EditHostFormDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE8238885AF001D9F87 /* EditHostFormDialog.swift */; };
 		22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
+		22C2856224759FD40000C1E8 /* CertificateLocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2856124759FD40000C1E8 /* CertificateLocationPicker.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22C7F0D32416A16600534880 /* MQTTAnalyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C7F0D22416A16600534880 /* MQTTAnalyzerUITests.swift */; };
 		22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F72E23B7486E00892C4B /* .swiftlint.yml */; };
@@ -104,6 +112,7 @@
 		22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E323814CEF00D72BD6 /* JsonFormatString.swift */; };
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
 		22F6057B23D4911000E6338B /* DataMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6057A23D4911000E6338B /* DataMigration.swift */; };
+		22F67AE124716ED50082C79F /* CloudDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F67AE024716ED50082C79F /* CloudDataManager.swift */; };
 		22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE623C24A5800422BFF /* StringUtils.swift */; };
 		22F8BEE923C31C3B00422BFF /* MoscapsuleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE823C31C3B00422BFF /* MoscapsuleClient.swift */; };
 		22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEEB23C7871F00422BFF /* LoginDialog.swift */; };
@@ -144,10 +153,17 @@
 		220357242445DD6E00A98CD3 /* DeprecationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeprecationBox.swift; sourceTree = "<group>"; };
 		2205E5E0238A7EE2001638DF /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
+		220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMigrationCertificateFiles.swift; sourceTree = "<group>"; };
 		221C571B2466847800C0DD02 /* QuestionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBox.swift; sourceTree = "<group>"; };
 		221C571D2466C9CD00C0DD02 /* AWSIOTPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSIOTPreset.swift; sourceTree = "<group>"; };
 		221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSIOTPresetTests.swift; sourceTree = "<group>"; };
 		222C9BFC6423D4AE9EA3416A /* Pods_MQTTAnalyzerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		223AF5D02477D575009810E6 /* FileLister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLister.swift; sourceTree = "<group>"; };
+		223AF5D22477D5CA009810E6 /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
+		223AF5D42477D5F5009810E6 /* FileItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItemView.swift; sourceTree = "<group>"; };
+		223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCS12HelpView.swift; sourceTree = "<group>"; };
+		223AF5D82477D620009810E6 /* NoFilesHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFilesHelpView.swift; sourceTree = "<group>"; };
+		223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFileModel.swift; sourceTree = "<group>"; };
 		223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzer.entitlements; sourceTree = "<group>"; };
 		223EF0052387084D002ADF3E /* HostSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostSetting.swift; path = MQTTAnalyzer/model/HostSetting.swift; sourceTree = SOURCE_ROOT; };
 		223EF00723870AA5002ADF3E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -213,6 +229,7 @@
 		22AF3AE62388858B001D9F87 /* NewHostFormDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHostFormDialog.swift; sourceTree = "<group>"; };
 		22AF3AE8238885AF001D9F87 /* EditHostFormDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostFormDialog.swift; sourceTree = "<group>"; };
 		22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSettingExamples.swift; sourceTree = "<group>"; };
+		22C2856124759FD40000C1E8 /* CertificateLocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateLocationPicker.swift; sourceTree = "<group>"; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C7F0D22416A16600534880 /* MQTTAnalyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerUITests.swift; sourceTree = "<group>"; };
@@ -244,6 +261,7 @@
 		22E469E323814CEF00D72BD6 /* JsonFormatString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonFormatString.swift; sourceTree = "<group>"; };
 		22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesModel.swift; sourceTree = "<group>"; };
 		22F6057A23D4911000E6338B /* DataMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigration.swift; sourceTree = "<group>"; };
+		22F67AE024716ED50082C79F /* CloudDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudDataManager.swift; sourceTree = "<group>"; };
 		22F8BEE623C24A5800422BFF /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		22F8BEE823C31C3B00422BFF /* MoscapsuleClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoscapsuleClient.swift; sourceTree = "<group>"; };
 		22F8BEEB23C7871F00422BFF /* LoginDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDialog.swift; sourceTree = "<group>"; };
@@ -310,6 +328,30 @@
 			path = cocoamqtt;
 			sourceTree = "<group>";
 		};
+		223AF5CE2477D521009810E6 /* certificates */ = {
+			isa = PBXGroup;
+			children = (
+				22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */,
+				22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */,
+				22C2856124759FD40000C1E8 /* CertificateLocationPicker.swift */,
+				223AF5D22477D5CA009810E6 /* FileListView.swift */,
+				223AF5D42477D5F5009810E6 /* FileItemView.swift */,
+				223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */,
+				223AF5D82477D620009810E6 /* NoFilesHelpView.swift */,
+			);
+			path = certificates;
+			sourceTree = "<group>";
+		};
+		223AF5CF2477D55C009810E6 /* icloud */ = {
+			isa = PBXGroup;
+			children = (
+				22F67AE024716ED50082C79F /* CloudDataManager.swift */,
+				223AF5D02477D575009810E6 /* FileLister.swift */,
+				223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */,
+			);
+			path = icloud;
+			sourceTree = "<group>";
+		};
 		223EF0042387082E002ADF3E /* persistence */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +395,7 @@
 				228104782381708E00112F24 /* views */,
 				22810479238170A200112F24 /* extensions */,
 				22FD7D0622C8D3760078795F /* mqtt */,
+				223AF5CF2477D55C009810E6 /* icloud */,
 				2253F8D722C8C007007E35A2 /* SceneDelegate.swift */,
 				2253F8D522C8C007007E35A2 /* AppDelegate.swift */,
 				2253F8DE22C8C008007E35A2 /* Assets.xcassets */,
@@ -419,10 +462,9 @@
 		226A6B692445763A00ACDFC3 /* auth */ = {
 			isa = PBXGroup;
 			children = (
+				223AF5CE2477D521009810E6 /* certificates */,
 				22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */,
 				226A6B66244575DB00ACDFC3 /* AuthFormView.swift */,
-				22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */,
-				22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */,
 				2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */,
 			);
 			path = auth;
@@ -555,6 +597,7 @@
 				2291284424685A13006F8256 /* DataMigrationClientImpl.swift */,
 				229128402468590D006F8256 /* DataMigrationMultipleTopics.swift */,
 				2256BDA9246FBE5100F92EFE /* DataMigrationEmptyTopic.swift */,
+				220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */,
 			);
 			path = migration;
 			sourceTree = "<group>";
@@ -920,9 +963,13 @@
 				2281047723816FD800112F24 /* QuickFilterTextDebounce.swift in Sources */,
 				22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */,
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
+				22C2856224759FD40000C1E8 /* CertificateLocationPicker.swift in Sources */,
 				228104912381770000112F24 /* ReconnectView.swift in Sources */,
+				223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
+				220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */,
 				22810488238173BB00112F24 /* DataSeriesView.swift in Sources */,
+				223AF5D72477D60A009810E6 /* PKCS12HelpView.swift in Sources */,
 				2281048A2381740000112F24 /* MessageView.swift in Sources */,
 				2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */,
 				22C9F73C23BB5E1300892C4B /* MessagesByTopic.swift in Sources */,
@@ -969,6 +1016,7 @@
 				22AE64342412636300C2C4FE /* DiagramPath.swift in Sources */,
 				220357232445D6F200A98CD3 /* ClientImplFormView.swift in Sources */,
 				2281047623816FD800112F24 /* QuickFilterView.swift in Sources */,
+				22F67AE124716ED50082C79F /* CloudDataManager.swift in Sources */,
 				226A6B612445757900ACDFC3 /* TopicsFormView.swift in Sources */,
 				22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */,
 				226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */,
@@ -980,12 +1028,16 @@
 				22AE64362412637A00C2C4FE /* TimeSeriesValue.swift in Sources */,
 				22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */,
 				22DF52AE246AE8E000A24EDD /* NamedLink.swift in Sources */,
+				223AF5D92477D620009810E6 /* NoFilesHelpView.swift in Sources */,
+				223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */,
 				22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */,
 				226A6B632445759600ACDFC3 /* ClientIDFormView.swift in Sources */,
 				226A6B67244575DB00ACDFC3 /* AuthFormView.swift in Sources */,
 				2291424923BF6ECE0086C251 /* KeyboardResponsiveModifier.swift in Sources */,
 				226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */,
 				220357252445DD6E00A98CD3 /* DeprecationBox.swift in Sources */,
+				223AF5D12477D575009810E6 /* FileLister.swift in Sources */,
+				223AF5DB2477D64B009810E6 /* CertificateFileModel.swift in Sources */,
 				22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1163,7 +1215,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 52;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -1173,7 +1225,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1188,7 +1240,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 52;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -1198,7 +1250,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
