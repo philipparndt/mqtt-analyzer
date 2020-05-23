@@ -76,6 +76,22 @@ struct CertificateFile: Codable {
 	var type = CertificateFileType.undefined
 }
 
+struct MessageTemplateMessage {
+	var topic: String
+	var message: String
+}
+
+class MessageTemplate: Identifiable {
+	let id = UUID.init()
+	var name: String
+	var messages: [MessageTemplateMessage]
+	
+	init(name: String, messages: [MessageTemplateMessage]) {
+		self.name = name
+		self.messages = messages
+	}
+}
+
 class Host: Identifiable, ObservableObject {
 	
 	let ID: String
@@ -100,6 +116,29 @@ class Host: Identifiable, ObservableObject {
 	var limitMessagesBatch = 1000
 
 	var clientID = ""
+	
+	var templates: [MessageTemplate] = [
+		MessageTemplate(name: "tpl-a", messages: [
+			MessageTemplateMessage(topic: "tpl-a/a1", message: "test-a1"),
+			MessageTemplateMessage(topic: "tpl-a/a2", message: "test-a2"),
+			MessageTemplateMessage(topic: "tpl-a/a3", message: "test-a3"),
+			MessageTemplateMessage(topic: "tpl-a/a4", message: "test-a4"),
+			MessageTemplateMessage(topic: "tpl-a/a5", message: "test-a5"),
+			MessageTemplateMessage(topic: "tpl-a/a6", message: "test-a6"),
+			MessageTemplateMessage(topic: "tpl-a/a7", message: "test-a7"),
+			MessageTemplateMessage(topic: "tpl-a/a8", message: "test-a8"),
+			MessageTemplateMessage(topic: "tpl-a/a9", message: "test-a9"),
+			MessageTemplateMessage(topic: "tpl-a/a10", message: "test-a10"),
+			MessageTemplateMessage(topic: "tpl-a/a11", message: "test-a11"),
+			MessageTemplateMessage(topic: "tpl-a/a12", message: "test-a12"),
+			MessageTemplateMessage(topic: "tpl-a/a13", message: "test-a13"),
+			MessageTemplateMessage(topic: "tpl-a/a14", message: "test-a14")
+		]),
+		MessageTemplate(name: "tpl-b", messages: [
+		]),
+		MessageTemplate(name: "tpl-c", messages: [
+		])
+	]
 	
 	init(id: String = NSUUID().uuidString) {
 		self.ID = id

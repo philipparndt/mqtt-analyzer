@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct TopicsListView: View {
+	@EnvironmentObject var rootModel: RootModel
 	@ObservedObject var host: Host
 	@ObservedObject var model: MessageModel
 	@Binding var dialogPresented: Bool
@@ -21,6 +22,28 @@ struct TopicsListView: View {
 			List {
 				TopicsToolsView(model: self.model)
 
+				Section(header: Text("Templates")) {
+					if host.templates.isEmpty {
+						Text("no templates available")
+							.foregroundColor(.secondary)
+					}
+					else {
+						ForEach(host.templates) { template in
+							NavigationLink(destination: Text("Details page")) {
+								HStack {
+									Text(template.name)
+									
+									Spacer()
+									
+									Button(action: { self.apply(template: template) }) {
+										Text("Publish")
+									}.font(.body)
+								}
+							}
+						}
+					}
+				}
+				
 				Section(header: Text("Topics")) {
 					if model.displayTopics.isEmpty {
 						Text("no topics available")
@@ -38,6 +61,16 @@ struct TopicsListView: View {
 					}
 				}
 			}
+		}
+	}
+	
+	func apply(template: MessageTemplate) {
+		for message in template.messages {
+			rootModel.publish(message: Message(data: message.message,
+											   date: Date(),
+											   qos: 0,
+											   retain: false,
+											   topic: message.topic), on: host)
 		}
 	}
 	
