@@ -10,15 +10,13 @@ import Foundation
 import Combine
 
 class FileLister: ObservableObject {
-	@Published var files: [CertificateFileModel] = FileLister.listFiles(on: getDefaultLocation())
+	@Published var files: [CertificateFileModel]
 	
-	@Published var certificateLocation = getDefaultLocation() {
-        didSet {
-			refresh()
-        }
-    }
+	init(location: CertificateLocation) {
+		self.files = FileLister.listFiles(on: location)
+	}
 	
-	func refresh() {
+	func refresh(on certificateLocation: CertificateLocation) {
 		files = FileLister.listFiles(on: certificateLocation)
 	}
 	

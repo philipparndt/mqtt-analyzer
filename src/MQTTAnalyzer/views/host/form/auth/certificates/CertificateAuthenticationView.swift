@@ -49,7 +49,10 @@ struct CertificateFileItemView: View {
 	@Binding var file: CertificateFile?
 	
 	var body: some View {
-		NavigationLink(destination: CertificateFilePickerView(type: type, file: $file)) {
+		NavigationLink(destination: CertificateFilePickerView(type: type,
+															  file: $file,
+															  fileLister: createFileLister(),
+															  location: getSelectedLocation())) {
 			HStack {
 				Text("\(type.getName())")
 				.font(.headline)
@@ -67,6 +70,14 @@ struct CertificateFileItemView: View {
 				}.font(.body)
 			}
 		}
+	}
+	
+	func createFileLister() -> FileLister {
+		return FileLister(location: getSelectedLocation())
+	}
+	
+	func getSelectedLocation() -> CertificateLocation {
+		return file?.location ?? FileLister.getDefaultLocation()
 	}
 	
 	func isSelected() -> Bool {
