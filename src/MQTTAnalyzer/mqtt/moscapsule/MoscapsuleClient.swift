@@ -93,7 +93,7 @@ class MqttClientMoscapsule: MqttClient {
 		messageSubject.cancel()
 		
 		if let mqtt = self.mqtt {
-			host.subscriptions.forEach{ mqtt.unsubscribe($0.topic) }
+			host.subscriptions.forEach { mqtt.unsubscribe($0.topic) }
 			mqtt.disconnect()
 		}
 		setDisconnected()
@@ -213,7 +213,7 @@ class MqttClientMoscapsule: MqttClient {
 	}
 	
 	func subscribeToTopic(_ host: Host) {
-		host.subscriptions.forEach{ mqtt?.subscribe($0.topic, qos: Int32($0.qos)) }
+		host.subscriptions.forEach { mqtt?.subscribe($0.topic, qos: Int32($0.qos)) }
 	}
 	
 	func publish(message: Message) {

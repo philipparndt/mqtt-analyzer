@@ -23,7 +23,7 @@ enum CertificateFileType: Int, Codable {
 }
 
 extension CertificateFileType {
-	func getName() -> String{
+	func getName() -> String {
 		switch self {
 		case .p12:
 			return "Client PKCS#12"

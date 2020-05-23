@@ -51,10 +51,7 @@ struct ServerFormView: View {
 			}
 			
 			if host.suggestAWSIOTCHanges() {
-				Button(action: {
-					self.host.updateSettingsForAWSIOT()
-				})
-				{
+				Button(action: self.updateSettingsForAWSIOT) {
 					QuestionBox(text: "Use default settings for AWS IoT?")
 				}
 			}
@@ -110,5 +107,9 @@ struct ServerFormView: View {
 				}
 			}
 		}
+	}
+	
+	func updateSettingsForAWSIOT() {
+		self.host.updateSettingsForAWSIOT()
 	}
 }
