@@ -16,9 +16,7 @@ class DataMigrationCertificateFiles {
 		if oldSchemaVersion < 21 {
 			migration.enumerateObjects(ofType: HostSetting.className()) { oldObject, newObject in
 				if let oo = oldObject, let no = newObject {
-					if !migrateCertificates(oldObject, oo, no) {
-						initDefault(no)
-					}
+					_ = migrateCertificates(oldObject, oo, no)
 				}
 			}
 		}
