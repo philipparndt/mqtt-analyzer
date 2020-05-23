@@ -26,7 +26,7 @@ class FileLister: ObservableObject {
 	
 	class func getUrl(on location: CertificateLocation) -> URL {
 		if location == .cloud {
-			if let url = CloudDataManager.sharedInstance.getiCloudDocumentDiretoryURL() {
+			if let url = CloudDataManager.sharedInstance.getCloudDocumentDiretoryURL() {
 				return url
 			}
 		}

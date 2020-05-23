@@ -12,6 +12,12 @@ import IceCream
 
 class DataMigration {
 	
+	/// **Rename properties**
+	/// migration.renameProperty(onType: HostSetting.className(), from: "old", to: "new")
+	///
+	/// **Add and delete properties**
+	/// realm will add new properties and delete old
+	///
 	class func initMigration(afterMigration: @escaping () -> Void) {
 		let configuration = Realm.Configuration(
 			schemaVersion: 21,
@@ -26,16 +32,6 @@ class DataMigration {
 				DispatchQueue.global(qos: .background).async {
 					afterMigration()
 				}
-				
-//				Example on how to rename properties:
-//				if oldSchemaVersion < n {
-//					migration.renameProperty(onType: HostSetting.className(), from: "old", to: "new")
-//				}
-				
-//				Example on how to delete old properties:
-//				if oldSchemaVersion < n {
-//					// nothing to do (realm will add new properties and delete old)
-//				}
 			}
 		)
 		Realm.Configuration.defaultConfiguration = configuration

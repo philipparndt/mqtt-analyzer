@@ -68,7 +68,4 @@ class DataMigrationCertificateFiles {
 		return ClientImplType.moscapsule
 	}
 	
-	private class func initDefault(_ no: MigrationObject) {
-	}
-	
 }

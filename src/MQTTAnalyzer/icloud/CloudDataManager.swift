@@ -5,15 +5,22 @@
 //  Created by Philipp Arndt on 2020-05-17.
 //  Copyright © 2020 Philipp Arndt. All rights reserved.
 //
+// with parts from:
+// https://stackoverflow.com/questions/33886846/best-way-to-use-icloud-documents-storage
 
 import Foundation
+
 class CloudDataManager {
 
     static let sharedInstance = CloudDataManager() // Singleton
 
     struct DocumentsDirectory {
-        static let localDocumentsURL = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: .userDomainMask).last!
-        static let iCloudDocumentsURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
+        static let localDocumentsURL = FileManager.default
+			.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: .userDomainMask)
+			.last!
+		
+        static let iCloudDocumentsURL = FileManager.default
+			.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
     }
 
 	func initDocumentsDirectory() {
@@ -39,24 +46,13 @@ class CloudDataManager {
 			}
 		}
 	}
-	
-    // Return the Document directory (Cloud OR Local)
-    // To do in a background thread
-    func getDocumentDiretoryURL() -> URL {
-        if isCloudEnabled() {
-            return DocumentsDirectory.iCloudDocumentsURL!
-        } else {
-            return DocumentsDirectory.localDocumentsURL
-        }
-    }
 
     // Return true if iCloud is enabled
     func isCloudEnabled() -> Bool {
-        if DocumentsDirectory.iCloudDocumentsURL != nil { return true }
-        else { return false }
+        return DocumentsDirectory.iCloudDocumentsURL != nil
     }
 	
-	func getiCloudDocumentDiretoryURL() -> URL? {
+	func getCloudDocumentDiretoryURL() -> URL? {
 		return DocumentsDirectory.iCloudDocumentsURL
     }
 
@@ -68,7 +64,7 @@ class CloudDataManager {
 extension CertificateFile {
 	func getBaseUrl(certificate: CertificateFile) throws -> URL {
 		if certificate.location == .cloud {
-			if let url = CloudDataManager.sharedInstance.getiCloudDocumentDiretoryURL() {
+			if let url = CloudDataManager.sharedInstance.getCloudDocumentDiretoryURL() {
 				return url
 			}
 			else {
