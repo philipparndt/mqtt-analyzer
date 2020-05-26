@@ -21,15 +21,21 @@ struct CertificateFilePickerView: View {
 	var body: some View {
 		Group {
 			List {
-				if CloudDataManager.sharedInstance.isCloudEnabled() {
-					CertificateLocationSectionView(type: Binding(
-					get: {
-						return self.location
-					},
-					set: { (newValue) in
-						self.location = newValue
-						self.refresh()
-					}))
+				Section(header: Text("Location")) {
+					if CloudDataManager.sharedInstance.isCloudEnabled() {
+						CertificateLocationPicker(type: Binding(
+						get: {
+							return self.location
+						},
+						set: { (newValue) in
+							self.location = newValue
+							self.refresh()
+						}))
+					}
+					
+					if location == .local {
+						ImportCertificatePickerView(refreshDelegate: refresh)
+					}
 				}
 				
 				FileListView(refreshHandler: refresh,

@@ -11,7 +11,7 @@ import SwiftUI
 
 struct CertificateLocationSectionView: View {
 	@Binding var type: CertificateLocation
-
+	
 	var body: some View {
 		Section(header: Text("Location")) {
 			CertificateLocationPicker(type: $type)
@@ -24,8 +24,8 @@ struct CertificateLocationPicker: View {
 
 	var body: some View {
 		Picker(selection: $type, label: Text("Location")) {
-			Text("iCloud").tag(CertificateLocation.cloud)
 			Text("Local").tag(CertificateLocation.local)
+			Text("iCloud").tag(CertificateLocation.cloud)
 		}.pickerStyle(SegmentedPickerStyle())
 	}
 }

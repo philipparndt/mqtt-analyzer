@@ -36,17 +36,29 @@ class CloudDataManager {
 				catch {
 					print(error.localizedDescription)
 				}
-			}
-			
-			do {
-				try FileManager.default.startDownloadingUbiquitousItem(at: url)
-			}
-			catch {
-				print(error.localizedDescription)
+				
+				initDescriptionFile(url: url)
 			}
 		}
 	}
 
+	func initDescriptionFile(url: URL) {
+		do {
+			let fileURL = url.appendingPathComponent("README.txt")
+			let text = "# PKCS#12 Certificates\n"
+			+ "Place your .p12 or .pfx files here.\n\n"
+			+ "# OpenSSL\n"
+			+ "Use openssl to create this files:\n"
+			+ "`pkcs12 -export -in user.crt -inkey user.key -out user.p12`"
+			try text.write(to: fileURL, atomically: false, encoding: .utf8)
+			
+			try FileManager.default.startDownloadingUbiquitousItem(at: url)
+		}
+		catch {
+			print(error.localizedDescription)
+		}
+	}
+	
     // Return true if iCloud is enabled
     func isCloudEnabled() -> Bool {
         return DocumentsDirectory.iCloudDocumentsURL != nil
@@ -59,6 +71,27 @@ class CloudDataManager {
 	func getLocalDocumentDiretoryURL() -> URL {
 		return DocumentsDirectory.localDocumentsURL
     }
+	
+	func copyFileToLocal(file: URL) {
+		let fileManager = FileManager.default
+		do {
+			try fileManager.copyItem(at: file,
+									 to: DocumentsDirectory.localDocumentsURL.appendingPathComponent(file.lastPathComponent))
+			print("Copied to local dir")
+		} catch let error as NSError {
+			print("Failed to copy file to local directory: \(error)")
+		}
+	}
+	
+	func deleteLocalFile(fileName: String) {
+		let fileManager = FileManager.default
+		do {
+			try fileManager.removeItem(at: DocumentsDirectory.localDocumentsURL.appendingPathComponent(fileName))
+			print("Deleted file \(fileName)")
+		} catch let error as NSError {
+			print("Failed to delete file: \(error)")
+		}
+	}
 }
 
 extension CertificateFile {

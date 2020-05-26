@@ -21,7 +21,7 @@ class FileLister: ObservableObject {
 	}
 	
 	class func getDefaultLocation() -> CertificateLocation {
-		return CloudDataManager.sharedInstance.isCloudEnabled() ? CertificateLocation.cloud : .local
+		return .local
 	}
 	
 	class func getUrl(on location: CertificateLocation) -> URL {

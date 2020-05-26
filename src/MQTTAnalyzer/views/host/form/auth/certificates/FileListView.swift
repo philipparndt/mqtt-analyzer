@@ -26,6 +26,7 @@ struct FileListView: View {
 			ForEach(files) { file in
 				FileItemView(fileName: file, type: self.type, selection: self.$file).font(.body)
 			}
+			.onDelete(perform: self.delete)
 			
 			Button(action: refreshHandler) {
 				HStack {
@@ -33,6 +34,22 @@ struct FileListView: View {
 					Text("Refresh")
 				}
 			}.font(.body)
+		}
+	}
+	
+	func delete(at offsets: IndexSet) {
+		DispatchQueue.global(qos: .userInitiated).async {
+			
+			offsets.forEach {
+				let toBeDeleted = self.files[$0]
+				if toBeDeleted.name == self.file?.name && toBeDeleted.location == self.file?.location {
+					self.file = nil
+				}
+				
+				CloudDataManager.sharedInstance.deleteLocalFile(fileName: self.files[$0].name)
+			}
+			
+//			self.files.remove(atOffsets: offsets)
 		}
 	}
 }

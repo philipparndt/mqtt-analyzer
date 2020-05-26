@@ -69,6 +69,8 @@
 		2291424923BF6ECE0086C251 /* KeyboardResponsiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424823BF6ECE0086C251 /* KeyboardResponsiveModifier.swift */; };
 		2291424C23BF78000086C251 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424B23BF78000086C251 /* AboutView.swift */; };
 		2291424F23C0C0370086C251 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424E23C0C0370086C251 /* MenuButton.swift */; };
+		229FCAED247D67BC00490628 /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FCAEC247D67BC00490628 /* DocumentPickerView.swift */; };
+		229FCAEF247D6E2700490628 /* ImportCertificatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FCAEE247D6E2700490628 /* ImportCertificatePicker.swift */; };
 		22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */; };
 		22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */; };
 		22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */; };
@@ -216,6 +218,8 @@
 		2291424E23C0C0370086C251 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		229FCAEC247D67BC00490628 /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
+		229FCAEE247D6E2700490628 /* ImportCertificatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCertificatePicker.swift; sourceTree = "<group>"; };
 		22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernamePasswordAuthenticationView.swift; sourceTree = "<group>"; };
 		22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateAuthenticationView.swift; sourceTree = "<group>"; };
 		22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFilePickerView.swift; sourceTree = "<group>"; };
@@ -338,6 +342,8 @@
 				223AF5D42477D5F5009810E6 /* FileItemView.swift */,
 				223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */,
 				223AF5D82477D620009810E6 /* NoFilesHelpView.swift */,
+				229FCAEC247D67BC00490628 /* DocumentPickerView.swift */,
+				229FCAEE247D6E2700490628 /* ImportCertificatePicker.swift */,
 			);
 			path = certificates;
 			sourceTree = "<group>";
@@ -953,6 +959,7 @@
 				22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */,
 				2203571F2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift in Sources */,
 				228104982381796B00112F24 /* HostCellView.swift in Sources */,
+				229FCAEF247D6E2700490628 /* ImportCertificatePicker.swift in Sources */,
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormDialog.swift in Sources */,
 				226A6B5224445BA400ACDFC3 /* CocoaMQTTClient.swift in Sources */,
@@ -987,6 +994,7 @@
 				226A6B5424448ECB00ACDFC3 /* MqttClientSharedUtils.swift in Sources */,
 				228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */,
 				221C571C2466847800C0DD02 /* QuestionBox.swift in Sources */,
+				229FCAED247D67BC00490628 /* DocumentPickerView.swift in Sources */,
 				221C571E2466C9CD00C0DD02 /* AWSIOTPreset.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
 				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
@@ -1225,7 +1233,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1250,7 +1258,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
