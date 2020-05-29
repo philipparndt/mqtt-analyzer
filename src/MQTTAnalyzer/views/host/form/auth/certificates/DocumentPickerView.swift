@@ -10,28 +10,28 @@ import Foundation
 import SwiftUI
 
 struct DocumentPickerView: UIViewControllerRepresentable {
-	var refreshDelegate: () -> Void
+	var refresh: CertificateFilesRefresh
 	
     class Coordinator: NSObject, UINavigationControllerDelegate, UIDocumentPickerDelegate {
-		var refreshDelegate: () -> Void
+		var refresh: CertificateFilesRefresh
         var parent: DocumentPickerView
 
-		init(_ parent: DocumentPickerView, refreshDelegate: @escaping () -> Void) {
+		init(_ parent: DocumentPickerView, refresh: CertificateFilesRefresh) {
             self.parent = parent
-			self.refreshDelegate = refreshDelegate
+			self.refresh = refresh
         }
 		
 		func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
 			for url in urls {
-				CloudDataManager.sharedInstance.copyFileToLocal(file: url)
+				CloudDataManager.instance.copyFileToLocal(file: url)
 			}
 			
-			self.refreshDelegate()
+			self.refresh.refresh()
 		}
     }
 	
 	func makeCoordinator() -> Coordinator {
-		Coordinator(self, refreshDelegate: self.refreshDelegate)
+		Coordinator(self, refresh: self.refresh)
 	}
 	
 	func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentPickerView>) -> UIDocumentPickerViewController {

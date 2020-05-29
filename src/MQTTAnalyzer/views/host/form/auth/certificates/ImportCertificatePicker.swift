@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ImportCertificatePickerView: View {
-	var refreshDelegate: () -> Void
+	var refreshHandler: CertificateFilesRefresh
 	@State var shows = false
 	
 	var body: some View {
@@ -20,7 +20,7 @@ struct ImportCertificatePickerView: View {
 			}
 		}
 		.sheet(isPresented: self.$shows) {
-			DocumentPickerView(refreshDelegate: self.refreshDelegate)
+			DocumentPickerView(refresh: self.refreshHandler)
 		}
 	}
 	

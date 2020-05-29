@@ -21,7 +21,7 @@ struct HostCellView: View {
 	@State var sheetPresented = false
 	@State var sheetType = HostCellViewSheetType.edit
 	
-	var cloneHostDelegate: (Host) -> Void
+	var cloneHostHandler: (Host) -> Void
 	
 	var connectionColor: Color {
 		host.state == .connected ? .green : .gray
@@ -84,7 +84,7 @@ struct HostCellView: View {
 	}
 	
 	func cloneHost() {
-		cloneHostDelegate(host)
+		cloneHostHandler(host)
 	}
 	
 	func editHost() {

@@ -12,18 +12,18 @@ import SwiftUI
 struct FileListView: View {
 	var refreshHandler: () -> Void
 	let type: CertificateFileType
-	var files: [CertificateFileModel]
+	@ObservedObject var model: CertificateFilesModel
 	@Binding var file: CertificateFile?
 	@Binding var certificateLocation: CertificateLocation
 	
 	var body: some View {
 		Section(header: Text("Files")) {
-			if files.isEmpty {
+			if model.getFiles(of: certificateLocation).isEmpty {
 				NoFilesHelpView(certificateLocation: $certificateLocation)
 				.foregroundColor(.secondary)
 			}
 			
-			ForEach(files) { file in
+			ForEach(model.getFiles(of: certificateLocation)) { file in
 				FileItemView(fileName: file, type: self.type, selection: self.$file).font(.body)
 			}
 			.onDelete(perform: self.delete)
@@ -38,18 +38,12 @@ struct FileListView: View {
 	}
 	
 	func delete(at offsets: IndexSet) {
-		DispatchQueue.global(qos: .userInitiated).async {
-			
-			offsets.forEach {
-				let toBeDeleted = self.files[$0]
-				if toBeDeleted.name == self.file?.name && toBeDeleted.location == self.file?.location {
-					self.file = nil
-				}
-				
-				CloudDataManager.sharedInstance.deleteLocalFile(fileName: self.files[$0].name)
+		let deleted = self.model.delete(at: offsets, on: self.certificateLocation)
+		
+		for toBeDeleted in deleted {
+			if toBeDeleted.name == self.file?.name && toBeDeleted.location == self.file?.location {
+				self.file = nil
 			}
-			
-//			self.files.remove(atOffsets: offsets)
 		}
 	}
 }

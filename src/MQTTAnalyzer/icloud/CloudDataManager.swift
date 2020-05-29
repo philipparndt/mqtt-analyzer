@@ -12,7 +12,7 @@ import Foundation
 
 class CloudDataManager {
 
-    static let sharedInstance = CloudDataManager() // Singleton
+    static let instance = CloudDataManager()
 
     struct DocumentsDirectory {
         static let localDocumentsURL = FileManager.default
@@ -97,7 +97,7 @@ class CloudDataManager {
 extension CertificateFile {
 	func getBaseUrl(certificate: CertificateFile) throws -> URL {
 		if certificate.location == .cloud {
-			if let url = CloudDataManager.sharedInstance.getCloudDocumentDiretoryURL() {
+			if let url = CloudDataManager.instance.getCloudDocumentDiretoryURL() {
 				return url
 			}
 			else {
@@ -105,7 +105,7 @@ extension CertificateFile {
 			}
 		}
 		else {
-			return CloudDataManager.sharedInstance.getLocalDocumentDiretoryURL()
+			return CloudDataManager.instance.getLocalDocumentDiretoryURL()
 		}
 	}
 }
