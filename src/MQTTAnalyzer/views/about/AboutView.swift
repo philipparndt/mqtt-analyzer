@@ -8,6 +8,16 @@
 
 import SwiftUI
 
+func getVersion() -> String {
+	if let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String,
+		let marketingVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+		return "\(marketingVersion).\(buildNumber)"
+	}
+	else {
+		return "no bundle version"
+	}
+}
+
 // MARK: Create Host
 struct AboutView: View {
 	@Binding var isPresented: Bool
@@ -70,6 +80,10 @@ struct AboutTitleView: View {
 					LinkButtonView(text: "© 2020 Philipp Arndt", url: "https://github.com/philipparndt")
 						.font(.caption)
 						.foregroundColor(.blue)
+					
+					Text(getVersion())
+						.font(.caption)
+						.foregroundColor(.secondary)
 				}
 			}
 			
