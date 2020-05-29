@@ -15,26 +15,32 @@ struct CertificateFilePickerView: View {
 	let type: CertificateFileType
 	
 	@Binding var file: CertificateFile?
-	@ObservedObject var fileLister: FileLister
+	let model = CertificateFilesModel.instance
 	@State var location: CertificateLocation
 	
 	var body: some View {
 		Group {
 			List {
-				if CloudDataManager.sharedInstance.isCloudEnabled() {
-					CertificateLocationSectionView(type: Binding(
-					get: {
-						return self.location
-					},
-					set: { (newValue) in
-						self.location = newValue
-						self.refresh()
-					}))
+				Section(header: Text("Location")) {
+					if CloudDataManager.instance.isCloudEnabled() {
+						CertificateLocationPicker(type: Binding(
+						get: {
+							return self.location
+						},
+						set: { (newValue) in
+							self.location = newValue
+							self.model.refresh()
+						}))
+					}
+					
+					if location == .local {
+						ImportCertificatePickerView(refreshHandler: model)
+					}
 				}
 				
-				FileListView(refreshHandler: refresh,
+				FileListView(refreshHandler: model.refresh,
 							 type: self.type,
-							 files: fileLister.files,
+							 model: model,
 							 file: $file,
 							 certificateLocation: $location)
 	
@@ -44,7 +50,4 @@ struct CertificateFilePickerView: View {
 		.navigationBarTitle("Select \(type.getName())")
 	}
 	
-	private func refresh() {
-		fileLister.refresh(on: location)
-	}
 }

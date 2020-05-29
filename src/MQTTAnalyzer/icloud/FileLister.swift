@@ -9,36 +9,22 @@
 import Foundation
 import Combine
 
-class FileLister: ObservableObject {
-	@Published var files: [CertificateFileModel]
-	
-	init(location: CertificateLocation) {
-		self.files = FileLister.listFiles(on: location)
-	}
-	
-	func refresh(on certificateLocation: CertificateLocation) {
-		files = FileLister.listFiles(on: certificateLocation)
-	}
-	
-	class func getDefaultLocation() -> CertificateLocation {
-		return CloudDataManager.sharedInstance.isCloudEnabled() ? CertificateLocation.cloud : .local
-	}
-	
+class FileLister {
 	class func getUrl(on location: CertificateLocation) -> URL {
 		if location == .cloud {
-			if let url = CloudDataManager.sharedInstance.getCloudDocumentDiretoryURL() {
+			if let url = CloudDataManager.instance.getCloudDocumentDiretoryURL() {
 				return url
 			}
 		}
 
-		return CloudDataManager.sharedInstance.getLocalDocumentDiretoryURL()
+		return CloudDataManager.instance.getLocalDocumentDiretoryURL()
 	}
 	
 	class func listFiles(on location: CertificateLocation) -> [CertificateFileModel] {
 		do {
 			let url = FileLister.getUrl(on: location)
 			
-			CloudDataManager.sharedInstance.initDocumentsDirectory()
+			CloudDataManager.instance.initDocumentsDirectory()
 			
 			let directoryContents = try FileManager.default
 				.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)

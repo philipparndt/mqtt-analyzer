@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		application.registerForRemoteNotifications()
 		
-		CloudDataManager.sharedInstance.initDocumentsDirectory()
+		CloudDataManager.instance.initDocumentsDirectory()
 		
 		// Override point for customization after application launch.
 		return true

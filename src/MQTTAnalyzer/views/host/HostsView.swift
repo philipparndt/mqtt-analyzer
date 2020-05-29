@@ -30,7 +30,7 @@ struct HostsView: View {
 					ForEach(hostsModel.hostsSorted) { host in
 						HostCellView(host: host, messageModel: (
 							self.model.getMessageModel(host)
-							), cloneHostDelegate: self.cloneHost)
+							), cloneHostHandler: self.cloneHost)
 					}
 					.onDelete(perform: self.delete)
 					
