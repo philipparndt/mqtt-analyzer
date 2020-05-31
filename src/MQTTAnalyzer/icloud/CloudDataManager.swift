@@ -75,9 +75,15 @@ class CloudDataManager {
 	func copyFileToLocal(file: URL) {
 		let fileManager = FileManager.default
 		do {
+			let target = DocumentsDirectory.localDocumentsURL.appendingPathComponent(file.lastPathComponent)
+			
+			if fileManager.fileExists(atPath: target.path) {
+				try fileManager.removeItem(at: target)
+			}
+			
 			try fileManager.copyItem(at: file,
 									 to: DocumentsDirectory.localDocumentsURL.appendingPathComponent(file.lastPathComponent))
-			print("Copied to local dir")
+			print("Copied \(file) to local dir")
 		} catch let error as NSError {
 			print("Failed to copy file to local directory: \(error)")
 		}
