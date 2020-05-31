@@ -11,6 +11,7 @@ import SwiftUI
 
 struct DocumentPickerView: UIViewControllerRepresentable {
 	var refresh: CertificateFilesRefresh
+	let documentTypes: [String]
 	
     class Coordinator: NSObject, UINavigationControllerDelegate, UIDocumentPickerDelegate {
 		var refresh: CertificateFilesRefresh
@@ -36,8 +37,8 @@ struct DocumentPickerView: UIViewControllerRepresentable {
 	
 	func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentPickerView>) -> UIDocumentPickerViewController {
 		let picker = UIDocumentPickerViewController(
-			documentTypes: ["public.item"], in: .import)
-		
+			documentTypes: self.documentTypes, in: .import)
+
 		picker.shouldShowFileExtensions = true
 		picker.delegate = context.coordinator
 		
