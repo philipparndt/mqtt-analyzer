@@ -17,7 +17,7 @@ struct TopicsListView: View {
 	var body: some View {
 		Group {
 			ReconnectView(host: self.host, model: self.model, loginDialogPresented: self.$dialogPresented)
-
+			
 			List {
 				TopicsToolsView(model: self.model)
 
@@ -94,10 +94,12 @@ struct TopicsView: View {
 				LoginDialogView(loginCallback: self.login, host: self.host, data: self.createLoginDataModel())
 			}
 			else {
-				PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
-										 root: self.rootModel,
-										 host: self.host,
-										 model: self.publishMessageModel!)
+				if let selected = self.publishMessageModel {
+					PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
+												root: self.rootModel,
+												host: self.host,
+												model: selected)
+				}
 			}
 		})
 	}
