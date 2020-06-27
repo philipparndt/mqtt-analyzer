@@ -47,7 +47,7 @@ struct TopicsView: View {
 				PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
 											root: self.rootModel,
 											host: self.host,
-											model: $publishMessageModel)
+											model: self.$publishMessageModel)
 			})
 		}
 		.navigationBarTitle(Text(host.aliasOrHost), displayMode: .inline)
@@ -75,17 +75,14 @@ struct TopicsView: View {
 			}
 		)
 		.onAppear {
-			print(host.aliasOrHost)
-			print(host.username)
-			print(host.password)
 			
-			if host.needsAuth {
-				loginData.username = host.username
-				loginData.password = host.password
-				loginData.isPresented = true
+			if self.host.needsAuth {
+				self.loginData.username = self.host.username
+				self.loginData.password = self.host.password
+				self.loginData.isPresented = true
 			}
 			else {
-				rootModel.connect(to: host)
+				self.rootModel.connect(to: self.host)
 			}
 		}
 		

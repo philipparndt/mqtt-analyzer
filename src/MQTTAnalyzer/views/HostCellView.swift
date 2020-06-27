@@ -85,7 +85,7 @@ struct HostCellView: View {
 				}
 			}
 		}.sheet(isPresented: $sheetState.isPresented, onDismiss: cancelEditCreation, content: {
-			if sheetState.type == .edit {
+			if self.sheetState.type == .edit {
 				EditHostFormModalView(closeHandler: self.cancelEditCreation,
 									  root: self.model,
 									  hosts: self.model.hostsModel,
@@ -93,13 +93,13 @@ struct HostCellView: View {
 									  host: transformHost(source: self.host))
 			}
 			else {
-				LoginDialogView(loginCallback: self.login, host: self.host, data: $loginData)
+				LoginDialogView(loginCallback: self.login, host: self.host, data: self.$loginData)
 			}
 		})
 		.onAppear {
-			if host.needsAuth {
-				loginData.username = host.username
-				loginData.password = host.password
+			if self.host.needsAuth {
+				self.loginData.username = self.host.username
+				self.loginData.password = self.host.password
 			}
 		}
 	}

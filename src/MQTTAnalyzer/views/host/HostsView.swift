@@ -31,7 +31,7 @@ struct HostsView: View {
 					ForEach(hostsModel.hostsSorted) { host in
 						HostCellView(host: host, messageModel: (
 							self.model.getMessageModel(host)
-						), sheetState: $sheetState, cloneHostHandler: self.cloneHost)
+							), sheetState: self.$sheetState, cloneHostHandler: self.cloneHost)
 					}
 					.onDelete(perform: self.delete)
 					
