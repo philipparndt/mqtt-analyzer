@@ -12,8 +12,8 @@ struct MessageView: View {
 	@EnvironmentObject var rootModel: RootModel
 
 	@ObservedObject var messagesByTopic: MessagesByTopic
-	@State var publishMessagePresented = false
-	@State var publishMessageFormModel: PublishMessageFormModel?
+	@State var publishMessageFormModel = PublishMessageFormModel()
+
 	let host: Host
 
 	var body: some View {
@@ -26,22 +26,21 @@ struct MessageView: View {
 			}
 			.onDelete(perform: messagesByTopic.delete)
 		}
-		.sheet(isPresented: $publishMessagePresented, onDismiss: cancelPublishMessageCreation, content: {
+		.sheet(isPresented: $publishMessageFormModel.isPresented, onDismiss: cancelPublishMessageCreation, content: {
 			PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
 								 root: self.rootModel,
 								 host: self.host,
-								 model: self.publishMessageFormModel!)
+								 model: self.$publishMessageFormModel)
 		})
 	}
 	
 	func selectMessage(message: Message) {
-		self.publishMessageFormModel = PublishMessageFormModel.of(message: message)
-		publishMessagePresented = true
+		self.publishMessageFormModel = of(message: message)
+		self.publishMessageFormModel.isPresented = true
 	}
 	
 	func cancelPublishMessageCreation() {
-		publishMessagePresented = false
-		publishMessageFormModel = nil
+		self.publishMessageFormModel.isPresented = false
 	}
 }
 

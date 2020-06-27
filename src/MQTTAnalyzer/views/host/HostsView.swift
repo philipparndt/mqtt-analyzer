@@ -22,6 +22,7 @@ struct HostsView: View {
 	@State var sheetType: HostsSheetType = .none
 
 	@State var selectedHost: Host?
+	@State var sheetState = ServerPageSheetState()
 	
 	var body: some View {
 		NavigationView {
@@ -30,7 +31,7 @@ struct HostsView: View {
 					ForEach(hostsModel.hostsSorted) { host in
 						HostCellView(host: host, messageModel: (
 							self.model.getMessageModel(host)
-							), cloneHostHandler: self.cloneHost)
+						), sheetState: $sheetState, cloneHostHandler: self.cloneHost)
 					}
 					.onDelete(perform: self.delete)
 					

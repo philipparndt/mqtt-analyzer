@@ -13,13 +13,28 @@ enum HostCellViewSheetType {
 	case login
 }
 
+struct ServerPageSheetState {
+	var isPresented = false
+	var type = HostCellViewSheetType.edit
+	
+	init() {
+		print("init sheet state")
+	}
+	
+	mutating func present(type: HostCellViewSheetType) {
+		self.type = type
+		self.isPresented = true
+	}
+}
+
 struct HostCellView: View {
 	@EnvironmentObject var model: RootModel
 	@ObservedObject var host: Host
 	@ObservedObject var messageModel: MessageModel
 	
-	@State var sheetPresented = false
-	@State var sheetType = HostCellViewSheetType.edit
+	@Binding var sheetState: ServerPageSheetState
+	
+	@State private var loginData = LoginData()
 	
 	var cloneHostHandler: (Host) -> Void
 	
@@ -28,7 +43,7 @@ struct HostCellView: View {
 	}
 	
 	var body: some View {
-		NavigationLink(destination: TopicsView(model: messageModel, host: host, dialogPresented: host.needsAuth)) {
+		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
 			HStack {
 				VStack(alignment: .leading) {
 					HStack {
@@ -69,27 +84,32 @@ struct HostCellView: View {
 					MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
 				}
 			}
-		}.sheet(isPresented: $sheetPresented, onDismiss: cancelEditCreation, content: {
-			if self.sheetType == .login {
-				LoginDialogView(loginCallback: self.login, host: self.host, data: self.createLoginDataModel())
+		}.sheet(isPresented: $sheetState.isPresented, onDismiss: cancelEditCreation, content: {
+			if sheetState.type == .edit {
+				EditHostFormModalView(closeHandler: self.cancelEditCreation,
+									  root: self.model,
+									  hosts: self.model.hostsModel,
+									  original: self.host,
+									  host: transformHost(source: self.host))
 			}
 			else {
-				EditHostFormModalView(closeHandler: self.cancelEditCreation,
-					root: self.model,
-					hosts: self.model.hostsModel,
-					original: self.host,
-					host: transformHost(source: self.host))
+				LoginDialogView(loginCallback: self.login, host: self.host, data: $loginData)
 			}
 		})
+		.onAppear {
+			if host.needsAuth {
+				loginData.username = host.username
+				loginData.password = host.password
+			}
+		}
 	}
-	
+		
 	func cloneHost() {
 		cloneHostHandler(host)
 	}
 	
 	func editHost() {
-		sheetType = .edit
-		sheetPresented = true
+		sheetState.present(type: .edit)
 	}
 	
 	func disconnect() {
@@ -98,8 +118,7 @@ struct HostCellView: View {
 	
 	func connect() {
 		if self.host.needsAuth {
-			sheetType = .login
-			sheetPresented = true
+			sheetState.present(type: .login)
 		}
 		else {
 			model.connect(to: host)
@@ -107,16 +126,10 @@ struct HostCellView: View {
 	}
 	
 	func login() {
-		sheetType = .login
-		sheetPresented = false
 		model.connect(to: self.host)
 	}
 	
-	func createLoginDataModel() -> LoginData {
-		return LoginData(username: host.username, password: host.password)
-	}
-	
 	func cancelEditCreation() {
-		sheetPresented = false
+		sheetState.isPresented = false
 	}
 }

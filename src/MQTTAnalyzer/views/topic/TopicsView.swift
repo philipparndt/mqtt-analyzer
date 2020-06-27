@@ -8,16 +8,21 @@
 
 import SwiftUI
 
-struct TopicsListView: View {
-	@ObservedObject var host: Host
+struct TopicsView: View {
+	@EnvironmentObject var rootModel: RootModel
 	@ObservedObject var model: MessageModel
-	@Binding var dialogPresented: Bool
-	@Binding var publishMessageModel: PublishMessageFormModel?
+	@ObservedObject var host: Host
+	
+	@State private var publishMessageModel = PublishMessageFormModel()
+	@State private var loginData = LoginData()
 	
 	var body: some View {
 		Group {
-			ReconnectView(host: self.host, model: self.model, loginDialogPresented: self.$dialogPresented)
-
+			ReconnectView(host: self.host, model: self.model, loginDialogPresented: self.$loginData.isPresented)
+			.sheet(isPresented: $loginData.isPresented, onDismiss: cancelPublishMessageCreation, content: {
+				LoginDialogView(loginCallback: self.login, host: self.host, data: self.$loginData)
+			})
+			
 			List {
 				TopicsToolsView(model: self.model)
 
@@ -31,36 +36,21 @@ struct TopicsListView: View {
 							TopicCellView(
 								messages: messages,
 								model: self.model,
-								publishMessagePresented: self.$dialogPresented,
+								publishMessagePresented: self.$publishMessageModel.isPresented,
 								host: self.host,
 								selectMessage: self.selectMessage)
 						}
 					}
 				}
 			}
+			.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelPublishMessageCreation, content: {
+				PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
+											root: self.rootModel,
+											host: self.host,
+											model: $publishMessageModel)
+			})
 		}
-	}
-	
-	func selectMessage(message: Message) {
-		publishMessageModel = PublishMessageFormModel.of(message: message)
-	}
-}
-
-struct TopicsView: View {
-	@EnvironmentObject var rootModel: RootModel
-	var model: MessageModel
-	@ObservedObject var host: Host
-	@State private var actionSheetPresented = false
-	@State var dialogPresented: Bool
-	@State private var publishMessageModel: PublishMessageFormModel?
-	
-	var body: some View {
-		TopicsListView(
-			host: host,
-			model: model,
-			dialogPresented: $dialogPresented,
-			publishMessageModel: $publishMessageModel)
-			.navigationBarTitle(Text(host.aliasOrHost), displayMode: .inline)
+		.navigationBarTitle(Text(host.aliasOrHost), displayMode: .inline)
 		.listStyle(GroupedListStyle())
 		.navigationBarItems(
 			trailing:
@@ -85,37 +75,25 @@ struct TopicsView: View {
 			}
 		)
 		.onAppear {
-			if !self.host.needsAuth {
-				self.rootModel.connect(to: self.host)
-			}
-		}
-		.sheet(isPresented: $dialogPresented, onDismiss: cancelPublishMessageCreation, content: {
-			if self.host.needsAuth {
-				LoginDialogView(loginCallback: self.login, host: self.host, data: self.createLoginDataModel())
+			print(host.aliasOrHost)
+			print(host.username)
+			print(host.password)
+			
+			if host.needsAuth {
+				loginData.username = host.username
+				loginData.password = host.password
+				loginData.isPresented = true
 			}
 			else {
-				PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
-										 root: self.rootModel,
-										 host: self.host,
-										 model: self.publishMessageModel!)
+				rootModel.connect(to: host)
 			}
-		})
-	}
-	
-	func createLoginDataModel() -> LoginData {
-		return LoginData(username: host.username, password: host.password)
-	}
-	
-	func showActionSheet() {
-		actionSheetPresented = true
+		}
+		
 	}
 	
 	func createTopic() {
-		actionSheetPresented = false
-		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
-			self.publishMessageModel = PublishMessageFormModel()
-			self.dialogPresented = true
-		}
+		self.publishMessageModel = PublishMessageFormModel()
+		self.publishMessageModel.isPresented = true
 	}
 
 	func pauseConnection() {
@@ -123,21 +101,15 @@ struct TopicsView: View {
 	}
 	
 	func cancelPublishMessageCreation() {
-		dialogPresented = false
-		publishMessageModel = nil
+		self.publishMessageModel.isPresented = false
 	}
-	
-	func cancelLogin() {
-		dialogPresented = false
-	}
-	
+		
 	func login() {
-		dialogPresented = false
 		rootModel.connect(to: self.host)
 	}
 	
 	func selectMessage(message: Message) {
-		publishMessageModel = PublishMessageFormModel.of(message: message)
+		publishMessageModel = of(message: message)
 	}
 
 }

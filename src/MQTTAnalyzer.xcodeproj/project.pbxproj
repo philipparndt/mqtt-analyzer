@@ -72,6 +72,7 @@
 		2291424F23C0C0370086C251 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424E23C0C0370086C251 /* MenuButton.swift */; };
 		229FCAED247D67BC00490628 /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FCAEC247D67BC00490628 /* DocumentPickerView.swift */; };
 		229FCAEF247D6E2700490628 /* ImportCertificatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FCAEE247D6E2700490628 /* ImportCertificatePicker.swift */; };
+		22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A351DD24A76463001B8AEE /* PublishMessageModel.swift */; };
 		22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */; };
 		22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */; };
 		22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */; };
@@ -222,6 +223,7 @@
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229FCAEC247D67BC00490628 /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
 		229FCAEE247D6E2700490628 /* ImportCertificatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCertificatePicker.swift; sourceTree = "<group>"; };
+		22A351DD24A76463001B8AEE /* PublishMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishMessageModel.swift; sourceTree = "<group>"; };
 		22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernamePasswordAuthenticationView.swift; sourceTree = "<group>"; };
 		22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateAuthenticationView.swift; sourceTree = "<group>"; };
 		22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFilePickerView.swift; sourceTree = "<group>"; };
@@ -655,6 +657,7 @@
 			isa = PBXGroup;
 			children = (
 				22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */,
+				22A351DD24A76463001B8AEE /* PublishMessageModel.swift */,
 			);
 			path = "message-publish";
 			sourceTree = "<group>";
@@ -949,6 +952,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */,
+				22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */,
 				22E469E023813BB000D72BD6 /* AttributedUILabel.swift in Sources */,
 				22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */,
 				22DF52AA246AE84B00A24EDD /* ContributorsView.swift in Sources */,

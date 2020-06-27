@@ -11,13 +11,14 @@ import SwiftUI
 struct LoginData {
 	var username: String = ""
 	var password: String = ""
+	var isPresented = false
 }
 
 struct LoginDialogView: View {
 	let loginCallback: () -> Void
 	
 	@ObservedObject var host: Host
-	@State var data: LoginData
+	@Binding var data: LoginData
 
 	var body: some View {
 		NavigationView {
@@ -35,9 +36,6 @@ struct LoginDialogView: View {
 		loginCallback()
 	}
 	
-	func cancel() {
-//		closeCallback()
-	}
 }
 
 struct LoginFormView: View {
