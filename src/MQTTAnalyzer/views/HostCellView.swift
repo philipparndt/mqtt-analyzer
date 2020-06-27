@@ -21,6 +21,8 @@ struct HostCellView: View {
 	@State var sheetPresented = false
 	@State var sheetType = HostCellViewSheetType.edit
 	
+	@State private var loginData = LoginData()
+	
 	var cloneHostHandler: (Host) -> Void
 	
 	var connectionColor: Color {
@@ -28,7 +30,7 @@ struct HostCellView: View {
 	}
 	
 	var body: some View {
-		NavigationLink(destination: TopicsView(model: messageModel, host: host, dialogPresented: host.needsAuth)) {
+		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
 			HStack {
 				VStack(alignment: .leading) {
 					HStack {
@@ -71,7 +73,7 @@ struct HostCellView: View {
 			}
 		}.sheet(isPresented: $sheetPresented, onDismiss: cancelEditCreation, content: {
 			if self.sheetType == .login {
-				LoginDialogView(loginCallback: self.login, host: self.host, data: self.createLoginDataModel())
+				LoginDialogView(loginCallback: self.login, host: self.host, data: $loginData)
 			}
 			else {
 				EditHostFormModalView(closeHandler: self.cancelEditCreation,
@@ -81,8 +83,14 @@ struct HostCellView: View {
 					host: transformHost(source: self.host))
 			}
 		})
+		.onAppear {
+			if host.needsAuth {
+				loginData.username = host.username
+				loginData.password = host.password
+			}
+		}
 	}
-	
+		
 	func cloneHost() {
 		cloneHostHandler(host)
 	}
@@ -110,10 +118,6 @@ struct HostCellView: View {
 		sheetType = .login
 		sheetPresented = false
 		model.connect(to: self.host)
-	}
-	
-	func createLoginDataModel() -> LoginData {
-		return LoginData(username: host.username, password: host.password)
 	}
 	
 	func cancelEditCreation() {

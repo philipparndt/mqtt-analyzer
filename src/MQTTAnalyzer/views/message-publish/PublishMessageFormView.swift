@@ -76,105 +76,15 @@ struct PublishMessageProperty: Identifiable {
 	var value: PublishMessagePropertyValue
 }
 
-class PublishMessageFormModel: ObservableObject {
-	var topic: String = ""
-	var message: String = ""
-	var qos: Int = 0
-	var retain: Bool = false
-	var jsonData: JSON?
-	var properties: [PublishMessageProperty] = []
-	
-	@Published var messageType: PublishMessageType = .plain
-	
-	class func of(message: Message) -> PublishMessageFormModel {
-		let model = PublishMessageFormModel()
-		model.message = message.data
-		model.topic = message.topic
-		model.qos = Int(message.qos)
-		model.retain = message.retain
-		model.messageType = message.isJson() ? .json : .plain
-		
-		if let json = message.jsonData {
-			model.jsonData = json
-			
-			PublishMessageFormModel.createJsonProperties(json: json, path: [])
-				.sorted(by: { $0.pathName < $1.pathName })
-				.forEach { model.properties.append($0) }
-		}
-		
-		return model
-	}
-	
-	func updateMessageFromJsonData() {
-		if var json = jsonData {
-			for property in properties {
-				json[property.path] = JSON(property.value.getTypedValue())
-			}
-			
-			if let message = json.rawString(options: []) {
-				self.message = message
-			}
-		}
-	}
-	
-	class func createJsonProperties(json: JSON, path: [String]) -> [PublishMessageProperty] {
-		var result: [PublishMessageProperty] = []
-		json.dictionaryValue
-		.forEach {
-			let child = $0.value
-			result += createJsonProperties(json: child, path: path + [$0.key])
-		}
-		
-		if let property = createProperty(json: json, path: path) {
-			result += [property]
-		}
-		
-		return result
-	}
-	
-	class func createProperty(json: JSON, path: [String]) -> PublishMessageProperty? {
-		if path.isEmpty {
-			return nil
-		}
-		
-		let name = path[path.count - 1]
-		let pathName = path.joined(separator: ".")
-		
-		let raw = json.rawString() ?? ""
-		let isInt = NumbersParser.int().trim().end().accept(raw)
-		
-		if let value = json.bool {
-			return PublishMessageProperty(name: name, pathName: pathName,
-									   path: path,
-									   value: PublishMessagePropertyValueBoolean(value: value))
-		}
-		else if isInt {
-			return PublishMessageProperty(name: name, pathName: pathName,
-									   path: path, value: PublishMessagePropertyValueNumber(value: "\(json.intValue)"))
-		}
-		else if let value = json.double {
-			return PublishMessageProperty(name: name, pathName: pathName,
-									   path: path, value: PublishMessagePropertyValueNumber(value: "\(value)"))
-		}
-		else if let value = json.string {
-			return PublishMessageProperty(name: name, pathName: pathName,
-									   path: path, value: PublishMessagePropertyValueText(value: value))
-		}
-		else {
-			return nil
-		}
-	}
-}
-
 struct PublishMessageFormModalView: View {
 	let closeCallback: () -> Void
 	let root: RootModel
 	let host: Host
-	@ObservedObject var model: PublishMessageFormModel
+	@Binding var model: PublishMessageFormModel
 
 	var body: some View {
 		NavigationView {
-			PublishMessageFormView(message: self.model, type: self.$model.messageType)
+			PublishMessageFormView(message: self.$model, type: self.$model.messageType)
 				.font(.caption)
 				.navigationBarTitle(Text("Publish message"))
 				.navigationBarItems(
@@ -211,7 +121,7 @@ struct PublishMessageFormModalView: View {
 }
 
 struct PublishMessageFormView: View {
-	@ObservedObject var message: PublishMessageFormModel
+	@Binding var message: PublishMessageFormModel
 	@Binding var type: PublishMessageType
 
 	var body: some View {
@@ -239,7 +149,7 @@ struct PublishMessageFormView: View {
 				PublishMessageTypeView(type: self.$type)
 				
 				if type == .json {
-					PublishMessageFormJSONView(message: message)
+					PublishMessageFormJSONView(message: $message)
 				}
 				else {
 					PublishMessageFormPlainTextView(message: $message.message)
@@ -279,7 +189,7 @@ struct PublishMessageFormPlainTextView: View {
 }
 
 struct PublishMessageFormJSONView: View {
-	@ObservedObject var message: PublishMessageFormModel
+	@Binding var message: PublishMessageFormModel
 	
 	var body: some View {
 		Group {
