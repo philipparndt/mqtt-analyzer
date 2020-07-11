@@ -20,7 +20,7 @@ class DataMigration {
 	///
 	class func initMigration(afterMigration: @escaping () -> Void) {
 		let configuration = Realm.Configuration(
-			schemaVersion: 21,
+			schemaVersion: 24,
 			migrationBlock: { migration, oldSchemaVersion in
 				DataMigrationLimits.migrate(oldSchemaVersion, migration)
 				DataMigrationAuth.migrate(oldSchemaVersion, migration)
@@ -28,6 +28,7 @@ class DataMigration {
 				DataMigrationMultipleTopics.migrate(oldSchemaVersion, migration)
 				DataMigrationEmptyTopic.migrate(oldSchemaVersion, migration)
 				DataMigrationCertificateFiles.migrate(oldSchemaVersion, migration)
+				DataMigrationMoscapsuleDeprecation.migrate(oldSchemaVersion, migration)
 				
 				DispatchQueue.global(qos: .background).async {
 					afterMigration()
