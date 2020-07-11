@@ -40,6 +40,10 @@ https://testflight.apple.com/join/dsvlFCPU
 ![Screenshot 5](screenshot-5.png)
 ![Screenshot 5](screenshot-6.png)
 
+# AWS Iot
+
+see [Create a certificate for AWS IoT](AWS-IoT.md)
+
 # Developer cheatsheet
 
 | Description           | Command           |
