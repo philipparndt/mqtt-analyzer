@@ -23,15 +23,16 @@ struct MessageView: View {
 								topic: self.messagesByTopic.topic,
 								selectMessage: self.selectMessage,
 								host: self.host)
+					.sheet(isPresented: $publishMessageFormModel.isPresented, onDismiss: cancelPublishMessageCreation, content: {
+						PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
+											 root: self.rootModel,
+											 host: self.host,
+											 model: self.$publishMessageFormModel)
+					})
 			}
 			.onDelete(perform: messagesByTopic.delete)
 		}
-		.sheet(isPresented: $publishMessageFormModel.isPresented, onDismiss: cancelPublishMessageCreation, content: {
-			PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
-								 root: self.rootModel,
-								 host: self.host,
-								 model: self.$publishMessageFormModel)
-		})
+
 	}
 	
 	func selectMessage(message: Message) {
