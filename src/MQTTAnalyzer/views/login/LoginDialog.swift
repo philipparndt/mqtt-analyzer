@@ -25,7 +25,6 @@ struct LoginDialogView: View {
 			LoginFormView(data: self.$data, loginCallback: login)
 				.font(.caption)
 				.navigationBarTitle(Text("Login"))
-				.keyboardResponsive()
 		}
 		.navigationViewStyle(StackNavigationViewStyle())
 	}
