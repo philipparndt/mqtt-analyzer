@@ -32,7 +32,7 @@ struct HostCellView: View {
 	@ObservedObject var host: Host
 	@ObservedObject var messageModel: MessageModel
 	
-	@Binding var sheetState: ServerPageSheetState
+	@State private var sheetState = ServerPageSheetState()
 	
 	@State private var loginData = LoginData()
 	
