@@ -75,6 +75,8 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	target.protocolMethod = host.protocolMethod
 	target.ssl = host.ssl
 	target.untrustedSSL = host.ssl && host.untrustedSSL
+	target.limitTopic = Int(host.limitTopic) ?? 250
+	target.limitMessagesBatch = Int(host.limitMessagesBatch) ?? 1000
 	
 	if target.protocolMethod == .websocket {
 		target.clientImpl = .cocoamqtt
