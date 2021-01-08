@@ -93,7 +93,7 @@ struct HostCellView: View {
 									  host: transformHost(source: self.host))
 			}
 			else {
-				LoginDialogView(loginCallback: self.login, host: self.host, data: self.$loginData)
+				LoginDialogView(loginCallback: self.login, host: self.host)
 			}
 		})
 		.onAppear {
@@ -126,6 +126,7 @@ struct HostCellView: View {
 	}
 	
 	func login() {
+		sheetState.isPresented = false
 		model.connect(to: self.host)
 	}
 	
