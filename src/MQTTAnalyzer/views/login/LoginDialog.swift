@@ -18,29 +18,28 @@ struct LoginDialogView: View {
 	let loginCallback: () -> Void
 	
 	@ObservedObject var host: Host
-	@Binding var data: LoginData
 
 	var body: some View {
 		NavigationView {
-			LoginFormView(data: self.$data, loginCallback: login)
+			LoginFormView(username: host.username, password: host.password,loginCallback: login)
 				.font(.caption)
 				.navigationBarTitle(Text("Login"))
-				.keyboardResponsive()
 		}
 		.navigationViewStyle(StackNavigationViewStyle())
 	}
 	
-	func login() {
-		host.usernameNonpersistent = data.username
-		host.passwordNonpersistent = data.password
+	func login(username: String, password: String) {
+		host.usernameNonpersistent = username
+		host.passwordNonpersistent = password
 		loginCallback()
 	}
 	
 }
 
 struct LoginFormView: View {
-	@Binding var data: LoginData
-	let loginCallback: () -> Void
+	@State var username: String
+	@State var password: String
+	let loginCallback: (String, String) -> Void
 	
 	var body: some View {
 		Group {
@@ -52,7 +51,7 @@ struct LoginFormView: View {
 						
 						Spacer()
 					
-						TextField("username", text: $data.username)
+						TextField("username", text: $username)
 							.disableAutocorrection(true)
 							.autocapitalization(.none)
 							.multilineTextAlignment(.trailing)
@@ -65,7 +64,7 @@ struct LoginFormView: View {
 						
 							Spacer()
 						
-						SecureField("password", text: $data.password)
+						SecureField("password", text: $password)
 							.disableAutocorrection(true)
 							.autocapitalization(.none)
 							.multilineTextAlignment(.trailing)
@@ -74,7 +73,7 @@ struct LoginFormView: View {
 				}
 				
 				Section {
-					Button(action: loginCallback) {
+					Button(action: self.login) {
 						Text("Login")
 						.padding()
 						.font(.headline)
@@ -86,5 +85,9 @@ struct LoginFormView: View {
 				}
 			}
 		}
+	}
+	
+	func login() {
+		self.loginCallback(self.username, self.password)
 	}
 }

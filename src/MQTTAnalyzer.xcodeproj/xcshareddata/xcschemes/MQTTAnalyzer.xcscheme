@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1130"
+   LastUpgradeVersion = "1230"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -57,7 +57,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2253F8F522C8C008007E35A2"
+               BlueprintIdentifier = "22C7F0CF2416A16600534880"
                BuildableName = "MQTTAnalyzerUITests.xctest"
                BlueprintName = "MQTTAnalyzerUITests"
                ReferencedContainer = "container:MQTTAnalyzer.xcodeproj">

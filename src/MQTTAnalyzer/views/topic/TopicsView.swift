@@ -20,7 +20,7 @@ struct TopicsView: View {
 		Group {
 			ReconnectView(host: self.host, model: self.model, loginDialogPresented: self.$loginData.isPresented)
 			.sheet(isPresented: $loginData.isPresented, onDismiss: cancelPublishMessageCreation, content: {
-				LoginDialogView(loginCallback: self.login, host: self.host, data: self.$loginData)
+				LoginDialogView(loginCallback: self.login, host: self.host)
 			})
 			
 			List {
@@ -102,6 +102,7 @@ struct TopicsView: View {
 	}
 		
 	func login() {
+		self.loginData.isPresented = false
 		rootModel.connect(to: self.host)
 	}
 	

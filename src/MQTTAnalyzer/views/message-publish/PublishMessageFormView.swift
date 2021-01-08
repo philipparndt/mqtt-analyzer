@@ -96,7 +96,6 @@ struct PublishMessageFormModalView: View {
 						Text("Publish")
 					}.buttonStyle(ActionStyleL50())
 			)
-			.keyboardResponsive()
 		}
 		.navigationViewStyle(StackNavigationViewStyle())
 	}

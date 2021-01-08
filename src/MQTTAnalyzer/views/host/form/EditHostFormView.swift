@@ -35,7 +35,7 @@ struct EditHostFormView: View {
 					ClientImplFormView(host: $host)
 				}
 			}
-		}.keyboardResponsive()
+		}
 	}
 }
 

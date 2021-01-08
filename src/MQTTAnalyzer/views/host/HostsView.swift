@@ -29,9 +29,11 @@ struct HostsView: View {
 			VStack(alignment: .leading) {
 				List {
 					ForEach(hostsModel.hostsSorted) { host in
-						HostCellView(host: host, messageModel: (
-							self.model.getMessageModel(host)
-							), sheetState: self.$sheetState, cloneHostHandler: self.cloneHost)
+						HostCellView(host: host,
+									 messageModel: (
+										self.model.getMessageModel(host)
+									 ),
+									 cloneHostHandler: self.cloneHost)
 					}
 					.onDelete(perform: self.delete)
 					
