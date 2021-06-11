@@ -15,7 +15,7 @@ struct TopicsView: View {
 	
 	@State private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
-	
+
 	var body: some View {
 		Group {
 			ReconnectView(host: self.host, model: self.model, loginDialogPresented: self.$loginData.isPresented)
@@ -43,6 +43,8 @@ struct TopicsView: View {
 					}
 				}
 			}
+			.searchable(text: $model.filterText)
+
 			.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelPublishMessageCreation, content: {
 				PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
 											root: self.rootModel,
@@ -87,7 +89,7 @@ struct TopicsView: View {
 		}
 		
 	}
-	
+
 	func createTopic() {
 		self.publishMessageModel = PublishMessageFormModel()
 		self.publishMessageModel.isPresented = true

@@ -23,12 +23,13 @@ struct HostsView: View {
 
 	@State var selectedHost: Host?
 	@State var sheetState = ServerPageSheetState()
+	@State var searchText: String = ""
 	
 	var body: some View {
 		NavigationView {
 			VStack(alignment: .leading) {
 				List {
-					ForEach(hostsModel.hostsSorted) { host in
+					ForEach(searchHosts) { host in
 						HostCellView(host: host,
 									 messageModel: (
 										self.model.getMessageModel(host)
@@ -37,7 +38,8 @@ struct HostsView: View {
 					}
 					.onDelete(perform: self.delete)
 					
-				}
+				}.searchable(text: $searchText)
+				
 				if hostsModel.hasDeprecated {
 					HStack {
 						Image(systemName: "exclamationmark.triangle.fill")
@@ -71,6 +73,15 @@ struct HostsView: View {
 								   selectedHost: self.selectedHost)
 		})
 		
+	}
+	
+	var searchHosts: [Host] {
+		if searchText.isEmpty {
+			return hostsModel.hostsSorted
+		} else {
+			let searchFor = searchText.lowercased()
+			return hostsModel.hostsSorted.filter { $0.aliasOrHost.lowercased().contains(searchFor) }
+		}
 	}
 	
 	func delete(at indexSet: IndexSet) {

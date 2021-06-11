@@ -9,15 +9,15 @@
 import SwiftUI
 import Combine
 
-protocol InitHost: class {
+protocol InitHost: AnyObject {
 	func initHost(host: Host)
 }
 
-protocol ReconnectDelegate: class {
+protocol ReconnectDelegate: AnyObject {
 	func reconnect(host: Host)
 }
 
-protocol DisconnectDelegate: class {
+protocol DisconnectDelegate: AnyObject {
 	func disconnect(host: Host)
 }
 
