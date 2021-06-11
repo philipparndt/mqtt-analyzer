@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		DataMigration.initMigration(afterMigration: self.afterMigration)
 
 		syncEngine = SyncEngine(objects: [
-				SyncObject<HostSetting>()
+				SyncObject(type: HostSetting.self)
 			], databaseScope: .private)
 
 		syncEngine?.pull()
