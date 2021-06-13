@@ -45,12 +45,19 @@ Thank you! This project would not be possible without your great work! Thanks fo
 			.padding()
 			.frame(maxWidth: .infinity, alignment: .leading)
 			.multilineTextAlignment(.leading)
-			.navigationBarTitle(Text("About"), displayMode: .inline)
-			.navigationBarItems(
-				leading: Button(action: close) {
-					Text("Close")
-				}.buttonStyle(ActionStyleT50())
-			)
+			.navigationBarTitleDisplayMode(.inline)
+			.toolbar {
+				 ToolbarItem(placement: .principal, content: {
+					 Text("About").bold()
+					}
+				 )
+				
+				ToolbarItemGroup(placement: .navigationBarLeading) {
+					Button(action: close) {
+						Text("Close")
+					}
+				}
+			}
 		}.navigationViewStyle(StackNavigationViewStyle())
 	}
 	

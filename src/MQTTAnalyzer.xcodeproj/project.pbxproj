@@ -100,10 +100,6 @@
 		22D236F923FEFBA10003D87F /* HostFormValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */; };
 		22D236FB23FF00E10003D87F /* StringUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236FA23FF00E10003D87F /* StringUtilsTests.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
-		22DF52AA246AE84B00A24EDD /* ContributorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DF52A9246AE84B00A24EDD /* ContributorsView.swift */; };
-		22DF52AC246AE86900A24EDD /* Contributors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DF52AB246AE86900A24EDD /* Contributors.swift */; };
-		22DF52AE246AE8E000A24EDD /* NamedLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DF52AD246AE8E000A24EDD /* NamedLink.swift */; };
-		22DF52B0246AE90D00A24EDD /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DF52AF246AE90D00A24EDD /* Dependencies.swift */; };
 		22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */; };
 		22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D6237FC03500D72BD6 /* Readstate.swift */; };
 		22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469DA23801CA000D72BD6 /* ArrayUtils.swift */; };
@@ -252,10 +248,6 @@
 		22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormValidatorTests.swift; sourceTree = "<group>"; };
 		22D236FA23FF00E10003D87F /* StringUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtilsTests.swift; sourceTree = "<group>"; };
 		22D50F9622CE4C4300F37EAF /* Multimap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multimap.swift; sourceTree = "<group>"; };
-		22DF52A9246AE84B00A24EDD /* ContributorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributorsView.swift; sourceTree = "<group>"; };
-		22DF52AB246AE86900A24EDD /* Contributors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contributors.swift; sourceTree = "<group>"; };
-		22DF52AD246AE8E000A24EDD /* NamedLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedLink.swift; sourceTree = "<group>"; };
-		22DF52AF246AE90D00A24EDD /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMarkerView.swift; sourceTree = "<group>"; };
 		22E469D6237FC03500D72BD6 /* Readstate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Readstate.swift; sourceTree = "<group>"; };
 		22E469DA23801CA000D72BD6 /* ArrayUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtils.swift; sourceTree = "<group>"; };
@@ -605,11 +597,7 @@
 		2291424A23BF77DC0086C251 /* about */ = {
 			isa = PBXGroup;
 			children = (
-				22DF52AD246AE8E000A24EDD /* NamedLink.swift */,
-				22DF52AB246AE86900A24EDD /* Contributors.swift */,
-				22DF52AF246AE90D00A24EDD /* Dependencies.swift */,
 				2291424B23BF78000086C251 /* AboutView.swift */,
-				22DF52A9246AE84B00A24EDD /* ContributorsView.swift */,
 			);
 			path = about;
 			sourceTree = "<group>";
@@ -944,7 +932,6 @@
 				22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */,
 				22E469E023813BB000D72BD6 /* AttributedUILabel.swift in Sources */,
 				22E469E2238149FD00D72BD6 /* StringSizeExtension.swift in Sources */,
-				22DF52AA246AE84B00A24EDD /* ContributorsView.swift in Sources */,
 				22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */,
 				2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
@@ -996,7 +983,6 @@
 				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
 				22F8BEE923C31C3B00422BFF /* MoscapsuleClient.swift in Sources */,
 				22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */,
-				22DF52B0246AE90D00A24EDD /* Dependencies.swift in Sources */,
 				2291284324685959006F8256 /* MigrationHelper.swift in Sources */,
 				2291284724685A92006F8256 /* DataMigrationAuth.swift in Sources */,
 				2263C1D924813B0C00FF14E8 /* CertificateFilesModel.swift in Sources */,
@@ -1025,13 +1011,11 @@
 				22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */,
 				226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */,
 				22A38709240BE7D100DF8F94 /* MoscapsuleCertificateFiles.swift in Sources */,
-				22DF52AC246AE86900A24EDD /* Contributors.swift in Sources */,
 				226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */,
 				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
 				2291424C23BF78000086C251 /* AboutView.swift in Sources */,
 				22AE64362412637A00C2C4FE /* TimeSeriesValue.swift in Sources */,
 				22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */,
-				22DF52AE246AE8E000A24EDD /* NamedLink.swift in Sources */,
 				223AF5D92477D620009810E6 /* NoFilesHelpView.swift in Sources */,
 				223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */,
 				22E469DB23801CA000D72BD6 /* ArrayUtils.swift in Sources */,

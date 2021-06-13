@@ -51,18 +51,25 @@ struct HostsView: View {
 					.font(.footnote)
 				}
 			}
-			.navigationBarItems(
-				leading: Button(action: showAbout) {
-					Text("About")
-				},
-				trailing: Button(action: createHost) {
-					Image(systemName: "plus")
+			.navigationBarTitleDisplayMode(.inline)
+			.toolbar {
+				 ToolbarItem(placement: .principal, content: {
+					 Text("Brokers").bold()
+					}
+				 )
+				
+				ToolbarItemGroup(placement: .navigationBarLeading) {
+					Button(action: showAbout) {
+						Text("About")
+					}
 				}
-				.font(.system(size: 22))
-				.buttonStyle(ActionStyleL50())
-				.accessibility(identifier: "add.server")
-			)
-			.navigationBarTitle(Text("Servers"), displayMode: .inline)
+				
+				ToolbarItemGroup(placement: .navigationBarTrailing) {
+					Button(action: createHost) {
+						Image(systemName: "plus")
+					}
+				}
+			}
 		}
 		.navigationViewStyle(StackNavigationViewStyle())
 		.sheet(isPresented: $presented, onDismiss: { self.presented=false}, content: {
