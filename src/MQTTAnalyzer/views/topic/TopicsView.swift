@@ -16,6 +16,14 @@ struct TopicsView: View {
 	@State private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
 
+	var emptyTopicText: String {
+		if model.filterText.isEmpty {
+			return "no topics available"
+		} else {
+			return "no topics available using the current filter"
+		}
+	}
+	
 	var body: some View {
 		Group {
 			ReconnectView(host: self.host, model: self.model, loginDialogPresented: self.$loginData.isPresented)
@@ -28,7 +36,7 @@ struct TopicsView: View {
 
 				Section(header: Text("Topics")) {
 					if model.displayTopics.isEmpty {
-						Text("no topics available")
+						Text(emptyTopicText)
 							.foregroundColor(.secondary)
 					}
 					else {
@@ -77,7 +85,6 @@ struct TopicsView: View {
 			}
 		)
 		.onAppear {
-			
 			if self.host.needsAuth {
 				self.loginData.username = self.host.username
 				self.loginData.password = self.host.password
