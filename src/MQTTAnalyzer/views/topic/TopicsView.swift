@@ -15,6 +15,14 @@ struct TopicsView: View {
 	
 	@State private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
+
+	var emptyTopicText: String {
+		if model.filterText.isEmpty {
+			return "no topics available"
+		} else {
+			return "no topics available using the current filter"
+		}
+	}
 	
 	var body: some View {
 		Group {
@@ -28,7 +36,7 @@ struct TopicsView: View {
 
 				Section(header: Text("Topics")) {
 					if model.displayTopics.isEmpty {
-						Text("no topics available")
+						Text(emptyTopicText)
 							.foregroundColor(.secondary)
 					}
 					else {
@@ -43,6 +51,8 @@ struct TopicsView: View {
 					}
 				}
 			}
+			.searchable(text: $model.filterText)
+
 			.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelPublishMessageCreation, content: {
 				PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
 											root: self.rootModel,
@@ -50,32 +60,51 @@ struct TopicsView: View {
 											model: self.$publishMessageModel)
 			})
 		}
-		.navigationBarTitle(Text(host.aliasOrHost), displayMode: .inline)
 		.listStyle(GroupedListStyle())
+//		TODO: Use this code for the toolbar. Currently not possible as the title is initially not shown
+//		and we have stange behavor when pressing pause
+//		.navigationBarTitleDisplayMode(.inline)
+//		.toolbar {
+//			 ToolbarItem(placement: .principal, content: {
+//				 Text(host.aliasOrHost).bold()
+//				}
+//			 )
+//			ToolbarItemGroup(placement: .navigationBarLeading) {
+//			   Button(action: {}) {
+//				   Image(systemName: "plus")
+//			   }
+//			}
+//			 ToolbarItemGroup(placement: .navigationBarTrailing) {
+//				Button(action: {}) {
+//					Image(systemName: "plus")
+//				}
+//			 }
+//		}
+		
+		.navigationBarTitle(Text(host.aliasOrHost), displayMode: .inline)
 		.navigationBarItems(
 			trailing:
 			HStack {
 				if host.state == .connected {
 					Spacer()
-					
+
 					Button(action: createTopic) {
 						Image(systemName: "paperplane.fill")
 					}
 					.font(.system(size: 22))
 					.buttonStyle(ActionStyleL25())
-					
+
 					Button(action: pauseConnection) {
 						Image(systemName: host.pause ? "play.fill" : "pause.fill")
 					}
 					.frame(minWidth: 50)
 					.font(.system(size: 22))
 					.buttonStyle(ActionStyleL25())
-				
+
 				}
 			}
 		)
 		.onAppear {
-			
 			if self.host.needsAuth {
 				self.loginData.username = self.host.username
 				self.loginData.password = self.host.password
@@ -87,7 +116,7 @@ struct TopicsView: View {
 		}
 		
 	}
-	
+
 	func createTopic() {
 		self.publishMessageModel = PublishMessageFormModel()
 		self.publishMessageModel.isPresented = true

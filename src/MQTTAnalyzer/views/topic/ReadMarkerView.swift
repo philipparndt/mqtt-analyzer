@@ -13,19 +13,10 @@ struct ReadMarkerView: View {
 	var read: Readstate
 	
 	var body: some View {
-		Group {
-			if read.read {
-				Spacer()
-					.fixedSize()
-					.frame(width: 23, height: 23)
-			}
-			else {
-				Image(systemName: "circle.fill")
-				.font(.subheadline)
-				.foregroundColor(.blue)
-			}
-		}
-		.scaleEffect(read.read ? 0 : 1)
-		.animation(.easeInOut)
+		Image(systemName: "circle.fill")
+		.font(.subheadline)
+		.foregroundColor(.blue)
+		.opacity(read.read ? 0 : 1)
+		.animation(.easeInOut, value: read.read)
 	}
 }

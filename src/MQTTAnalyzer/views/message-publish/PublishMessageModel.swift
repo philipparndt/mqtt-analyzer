@@ -35,7 +35,6 @@ struct PublishMessageFormModel {
 	}
 }
 
-
 func of(message: Message) -> PublishMessageFormModel {
 	var model = PublishMessageFormModel()
 	model.message = message.data
@@ -54,7 +53,6 @@ func of(message: Message) -> PublishMessageFormModel {
 	
 	return model
 }
-
 
 func createJsonProperties(json: JSON, path: [String]) -> [PublishMessageProperty] {
 	var result: [PublishMessageProperty] = []

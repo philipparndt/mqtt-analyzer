@@ -36,8 +36,6 @@ struct TopicsToolsView: View {
 					}
 				}
 			}
-		 
-			QuickFilterView(model: self.model)
 		}
 	}
 	
