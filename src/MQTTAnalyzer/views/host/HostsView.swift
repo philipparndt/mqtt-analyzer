@@ -52,12 +52,8 @@ struct HostsView: View {
 				}
 			}
 			.navigationBarTitleDisplayMode(.inline)
+			.navigationTitle("Brokers")
 			.toolbar {
-				 ToolbarItem(placement: .principal, content: {
-					 Text("Brokers").bold()
-					}
-				 )
-				
 				ToolbarItemGroup(placement: .navigationBarLeading) {
 					Button(action: showAbout) {
 						Text("About")

@@ -22,7 +22,8 @@ struct MessagesView: View {
 				MessageView(messagesByTopic: messagesByTopic, host: host)
 			}
 		}
-		.navigationBarTitle(Text(messagesByTopic.topic.lastSegment))
+		.navigationBarTitleDisplayMode(.inline)
+		.navigationTitle(messagesByTopic.topic.lastSegment)
 		.listStyle(GroupedListStyle())
 		.onAppear {
 			self.messagesByTopic.read.markRead()

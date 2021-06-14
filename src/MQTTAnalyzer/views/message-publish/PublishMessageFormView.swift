@@ -87,12 +87,8 @@ struct PublishMessageFormModalView: View {
 			PublishMessageFormView(message: self.$model, type: self.$model.messageType)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
+				.navigationTitle("Publish message")
 				.toolbar {
-					 ToolbarItem(placement: .principal, content: {
-						 Text("Publish message").bold()
-						}
-					 )
-					
 					ToolbarItemGroup(placement: .navigationBarLeading) {
 						Button(action: cancel) {
 							Text("Cancel")

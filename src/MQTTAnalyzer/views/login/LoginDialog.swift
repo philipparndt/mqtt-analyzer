@@ -23,7 +23,8 @@ struct LoginDialogView: View {
 		NavigationView {
 			LoginFormView(username: host.username, password: host.password, loginCallback: login)
 				.font(.caption)
-				.navigationBarTitle(Text("Login"))
+				.navigationBarTitleDisplayMode(.inline)
+				.navigationTitle("Login")
 		}
 		.navigationViewStyle(StackNavigationViewStyle())
 	}

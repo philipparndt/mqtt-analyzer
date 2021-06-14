@@ -61,49 +61,20 @@ struct TopicsView: View {
 			})
 		}
 		.listStyle(GroupedListStyle())
-//		TODO: Use this code for the toolbar. Currently not possible as the title is initially not shown
-//		and we have stange behavor when pressing pause
-//		.navigationBarTitleDisplayMode(.inline)
-//		.toolbar {
-//			 ToolbarItem(placement: .principal, content: {
-//				 Text(host.aliasOrHost).bold()
-//				}
-//			 )
-//			ToolbarItemGroup(placement: .navigationBarLeading) {
-//			   Button(action: {}) {
-//				   Image(systemName: "plus")
-//			   }
-//			}
-//			 ToolbarItemGroup(placement: .navigationBarTrailing) {
-//				Button(action: {}) {
-//					Image(systemName: "plus")
-//				}
-//			 }
-//		}
-		
-		.navigationBarTitle(Text(host.aliasOrHost), displayMode: .inline)
-		.navigationBarItems(
-			trailing:
-			HStack {
-				if host.state == .connected {
-					Spacer()
+		.navigationTitle(host.aliasOrHost)
+		.toolbar {
+			ToolbarItemGroup(placement: .navigationBarTrailing) {
+				Button(action: createTopic) {
+					Image(systemName: "paperplane.fill")
+				}
 
-					Button(action: createTopic) {
-						Image(systemName: "paperplane.fill")
-					}
-					.font(.system(size: 22))
-					.buttonStyle(ActionStyleL25())
-
-					Button(action: pauseConnection) {
-						Image(systemName: host.pause ? "play.fill" : "pause.fill")
-					}
-					.frame(minWidth: 50)
-					.font(.system(size: 22))
-					.buttonStyle(ActionStyleL25())
-
+				Button(action: pauseConnection) {
+					Image(systemName: host.pause ? "play.fill" : "pause.fill")
 				}
 			}
-		)
+			
+		}
+		.navigationBarTitleDisplayMode(.inline)
 		.onAppear {
 			if self.host.needsAuth {
 				self.loginData.username = self.host.username

@@ -29,12 +29,8 @@ struct EditHostFormModalView: View {
 			EditHostFormView(host: $host)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
+				.navigationTitle("Edit broker")
 				.toolbar {
-					ToolbarItem(placement: .principal, content: {
-						Text("Edit server").bold()
-					   }
-					)
-				   
 				   ToolbarItemGroup(placement: .navigationBarLeading) {
 					   Button(action: cancel) {
 						   Text("Cancel")

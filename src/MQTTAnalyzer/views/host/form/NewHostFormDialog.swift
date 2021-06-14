@@ -29,12 +29,8 @@ struct NewHostFormModalView: View {
 			EditHostFormView(host: $host)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
+				.navigationTitle("New broker")
 				.toolbar {
-					 ToolbarItem(placement: .principal, content: {
-						 Text("New server").bold()
-						}
-					 )
-					
 					ToolbarItemGroup(placement: .navigationBarLeading) {
 						Button(action: cancel) {
 							Text("Cancel")
