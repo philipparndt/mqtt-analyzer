@@ -15,7 +15,7 @@ target 'MQTTAnalyzer' do
 	pod 'CocoaMQTT/WebSockets', '1.3.0-rc.1'
 	
   pod 'RealmSwift', '~> 4.4.1'
-  pod 'IceCream', '1.13.2'
+  pod 'IceCream', '2.0.4'
 
   pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git'
   
