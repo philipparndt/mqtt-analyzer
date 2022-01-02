@@ -1,5 +1,5 @@
 PODS:
-  - CocoaAsyncSocket (7.6.4)
+  - CocoaAsyncSocket (7.6.5)
   - CocoaMQTT (1.3.0-rc.1):
     - CocoaMQTT/Core (= 1.3.0-rc.1)
   - CocoaMQTT/Core (1.3.0-rc.1):
@@ -21,13 +21,13 @@ PODS:
     - Realm (= 10.7.7)
   - Starscream (3.0.6)
   - swift-petitparser (1.2.1)
-  - SwiftLint (0.39.2)
-  - SwiftyJSON (5.0.0)
+  - SwiftLint (0.45.1)
+  - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
   - CocoaMQTT (= 1.3.0-rc.1)
   - CocoaMQTT/WebSockets (= 1.3.0-rc.1)
-  - Highlightr (from `https://github.com/raspu/Highlightr.git`)
+  - Highlightr (from `https://github.com/raspu/Highlightr.git`, tag `2.1.2`)
   - IceCream (= 2.0.2)
   - Moscapsule (from `https://github.com/flightonary/Moscapsule.git`)
   - OpenSSL-Universal (= 1.0.2.20)
@@ -52,19 +52,20 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Highlightr:
     :git: https://github.com/raspu/Highlightr.git
+    :tag: 2.1.2
   Moscapsule:
     :git: https://github.com/flightonary/Moscapsule.git
 
 CHECKOUT OPTIONS:
   Highlightr:
-    :commit: 87465e7ac116a4c8672fa29aae840e9c9e68bedb
     :git: https://github.com/raspu/Highlightr.git
+    :tag: 2.1.2
   Moscapsule:
-    :commit: dac89a1b5ad1163e88aaad2c2627dee4eea6e572
+    :commit: 76f5d85f81c2841f8a110a7a3e7e5089beb47aed
     :git: https://github.com/flightonary/Moscapsule.git
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
+  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CocoaMQTT: 3a24a180c2d7759465abbd96d49c655e4399ac35
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
   IceCream: 2772755afb39f79597e5dc250f4d3f891a65f870
@@ -74,9 +75,9 @@ SPEC CHECKSUMS:
   RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
-  SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
-  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 848ca801fa74b2a1111e40cba2172b2a9f499f3e
+PODFILE CHECKSUM: 7743e283e85d67f64a74b8735b1aa50936d98380
 
 COCOAPODS: 1.10.1
