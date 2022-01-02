@@ -92,7 +92,7 @@ class MqttClientCocoaMQTT: MqttClient {
 		mqtt.didReceiveMessage = self.didReceiveMessage
 		mqtt.didDisconnect = self.didDisconnect
 		mqtt.didConnectAck = self.didConnect
-		mqtt.didChangeState = { mqtt, state in
+		mqtt.didChangeState = { _, state in
 			print(state)
 		}
 		

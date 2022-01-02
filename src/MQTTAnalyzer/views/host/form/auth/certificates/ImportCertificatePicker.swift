@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreServices
+import UniformTypeIdentifiers
 
 struct ImportCertificatePickerView: View {
 	var refreshHandler: CertificateFilesRefresh
@@ -22,7 +23,7 @@ struct ImportCertificatePickerView: View {
 		}
 		.sheet(isPresented: self.$shows) {
 			DocumentPickerView(refresh: self.refreshHandler,
-							   documentTypes: [String(kUTTypePKCS12), String(kUTTypeX509Certificate)])
+							   documentTypes: [UTType.pkcs12.identifier, UTType.x509Certificate.identifier])
 		}
 	}
 	

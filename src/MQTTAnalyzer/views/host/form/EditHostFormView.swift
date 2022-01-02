@@ -52,13 +52,3 @@ struct FormFieldInvalidMark: View {
 		}
 	}
 }
-
-#if DEBUG
-//struct NewHostFormView_Previews : PreviewProvider {
-//	static var previews: some View {
-//		NavigationView {
-//			NewHostFormView(host: Host())
-//		}
-//	}
-//}
-#endif
