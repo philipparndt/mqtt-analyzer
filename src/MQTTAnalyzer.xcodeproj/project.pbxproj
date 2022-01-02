@@ -24,9 +24,6 @@
 		223AF5D72477D60A009810E6 /* PKCS12HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */; };
 		223AF5D92477D620009810E6 /* NoFilesHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D82477D620009810E6 /* NoFilesHelpView.swift */; };
 		223AF5DB2477D64B009810E6 /* CertificateFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */; };
-		223E975E2677AF2F00EB34DC /* ResumeConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223E975D2677AF2F00EB34DC /* ResumeConnectionView.swift */; };
-		223E97602677B25500EB34DC /* TopicLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223E975F2677B25500EB34DC /* TopicLimitReachedView.swift */; };
-		223E9762267DE9E500EB34DC /* MessageLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223E9761267DE9E500EB34DC /* MessageLimitReachedView.swift */; };
 		223EF0062387084D002ADF3E /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
 		223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
@@ -166,9 +163,6 @@
 		223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCS12HelpView.swift; sourceTree = "<group>"; };
 		223AF5D82477D620009810E6 /* NoFilesHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFilesHelpView.swift; sourceTree = "<group>"; };
 		223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFileModel.swift; sourceTree = "<group>"; };
-		223E975D2677AF2F00EB34DC /* ResumeConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeConnectionView.swift; sourceTree = "<group>"; };
-		223E975F2677B25500EB34DC /* TopicLimitReachedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicLimitReachedView.swift; sourceTree = "<group>"; };
-		223E9761267DE9E500EB34DC /* MessageLimitReachedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLimitReachedView.swift; sourceTree = "<group>"; };
 		223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzer.entitlements; sourceTree = "<group>"; };
 		223EF0052387084D002ADF3E /* HostSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostSetting.swift; path = MQTTAnalyzer/model/HostSetting.swift; sourceTree = SOURCE_ROOT; };
 		223EF00723870AA5002ADF3E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -357,16 +351,6 @@
 				223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */,
 			);
 			path = icloud;
-			sourceTree = "<group>";
-		};
-		223E975B2677AF1600EB34DC /* connection */ = {
-			isa = PBXGroup;
-			children = (
-				223E975F2677B25500EB34DC /* TopicLimitReachedView.swift */,
-				223E9761267DE9E500EB34DC /* MessageLimitReachedView.swift */,
-				223E975D2677AF2F00EB34DC /* ResumeConnectionView.swift */,
-			);
-			path = connection;
 			sourceTree = "<group>";
 		};
 		223EF0042387082E002ADF3E /* persistence */ = {
@@ -563,7 +547,6 @@
 		2281048E2381769700112F24 /* topic */ = {
 			isa = PBXGroup;
 			children = (
-				223E975B2677AF1600EB34DC /* connection */,
 				2253F8DC22C8C007007E35A2 /* TopicsView.swift */,
 				228104922381773100112F24 /* TopicCellView.swift */,
 				228104902381770000112F24 /* ReconnectView.swift */,
@@ -962,7 +945,6 @@
 				229FCAEF247D6E2700490628 /* ImportCertificatePicker.swift in Sources */,
 				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormDialog.swift in Sources */,
-				223E97602677B25500EB34DC /* TopicLimitReachedView.swift in Sources */,
 				226A6B5224445BA400ACDFC3 /* CocoaMQTTClient.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
 				226A6B5824449F6200ACDFC3 /* ClientImplTypePicker.swift in Sources */,
@@ -981,7 +963,6 @@
 				2281048A2381740000112F24 /* MessageView.swift in Sources */,
 				2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */,
 				22C9F73C23BB5E1300892C4B /* MessagesByTopic.swift in Sources */,
-				223E9762267DE9E500EB34DC /* MessageLimitReachedView.swift in Sources */,
 				22C9F74023BB5EA700892C4B /* MessageModel.swift in Sources */,
 				2256BDAA246FBE5100F92EFE /* DataMigrationEmptyTopic.swift in Sources */,
 				22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */,
@@ -1023,7 +1004,6 @@
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
 				2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormDialog.swift in Sources */,
-				223E975E2677AF2F00EB34DC /* ResumeConnectionView.swift in Sources */,
 				22AE64342412636300C2C4FE /* DiagramPath.swift in Sources */,
 				220357232445D6F200A98CD3 /* ClientImplFormView.swift in Sources */,
 				22F67AE124716ED50082C79F /* CloudDataManager.swift in Sources */,
