@@ -63,7 +63,7 @@ struct HostsView: View {
 				ToolbarItemGroup(placement: .navigationBarTrailing) {
 					Button(action: createHost) {
 						Image(systemName: "plus")
-					}
+					}.accessibility(label: Text("Add Broker"))
 				}
 			}
 		}
