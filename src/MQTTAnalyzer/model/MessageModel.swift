@@ -58,7 +58,13 @@ class Message: Identifiable {
 	}
 }
 
-class MessageModel: QuickFilterTextDebounce, ObservableObject {
+class MessageModel: ObservableObject {
+	@Published var filterText = "" {
+		didSet {
+			updateDisplayTopicsAsync()
+		}
+	}
+	
 	@Published var messagesByTopic: [String: MessagesByTopic] {
 		didSet {
 			updateDisplayTopics()
@@ -66,19 +72,7 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
 	}
 
 	@Published var messageCount: Int = 0
-	
-	@Published var filter: String = "" {
-		didSet {
-			updateDisplayTopicsAsync()
-		}
-	}
-	
-	override func onChange(text: String) {
-		if self.filter != text {
-			self.filter = text
-		}
-	}
-	
+		
 	@Published var displayTopics: [MessagesByTopic] = []
 	
 	@Published var topicLimit = false
@@ -92,22 +86,16 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
 	}
 	
 	func setFilterImmediatelly(_ filter: String) {
-		self.filter = filter
 		self.filterText = filter
 	}
 	
 	private func updateDisplayTopics() {
 		self.messageCount = countMessages()
-		self.displayTopics = self.sortedTopicsByFilter(filter: self.filter)
+		self.displayTopics = self.sortedTopicsByFilter(filter: self.filterText)
 	}
 	
 	private func updateDisplayTopicsAsync() {
-		// MARK: done this due to performance reasons
-		// otherwise SwiftUI will trigger a repaint for each changed element
-		self.displayTopics = []
-		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
-			self.updateDisplayTopics()
-		}
+		self.updateDisplayTopics()
 	}
 	
 	func sortedTopics() -> [MessagesByTopic] {
@@ -120,11 +108,17 @@ class MessageModel: QuickFilterTextDebounce, ObservableObject {
 		values.sort {
 			$0.topic.name < $1.topic.name
 		}
-			   
+		
+		let trimmedFilter = filter?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+		
+		if trimmedFilter.isBlank {
+			return values
+		}
+		
 		return values.filter {
-			let trimmed = filter?.trimmingCharacters(in: .whitespacesAndNewlines)
-			
-			return trimmed == nil || trimmed!.isBlank || $0.topic.name.localizedCaseInsensitiveContains(trimmed!)
+			let data = $0.getRecentMessage()?.data ?? ""
+			return $0.topic.name.localizedCaseInsensitiveContains(trimmedFilter)
+			|| data.localizedCaseInsensitiveContains(trimmedFilter)
 		}
 	}
 	

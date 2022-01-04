@@ -15,67 +15,66 @@ struct TopicsView: View {
 	
 	@State private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
+
+	var emptyTopicText: String {
+		if model.filterText.isEmpty {
+			return "no topics available"
+		} else {
+			return "no topics available using the current filter"
+		}
+	}
 	
 	var body: some View {
-		Group {
-			ReconnectView(host: self.host, model: self.model, loginDialogPresented: self.$loginData.isPresented)
-			.sheet(isPresented: $loginData.isPresented, onDismiss: cancelPublishMessageCreation, content: {
-				LoginDialogView(loginCallback: self.login, host: self.host)
-			})
-			
-			List {
-				TopicsToolsView(model: self.model)
+		List {
+			TopicsToolsView(model: self.model)
 
-				Section(header: Text("Topics")) {
-					if model.displayTopics.isEmpty {
-						Text("no topics available")
-							.foregroundColor(.secondary)
-					}
-					else {
-						ForEach(model.displayTopics) { messages in
-							TopicCellView(
-								messages: messages,
-								model: self.model,
-								publishMessagePresented: self.$publishMessageModel.isPresented,
-								host: self.host,
-								selectMessage: self.selectMessage)
-						}
+			Section(header: Text("Topics")) {
+				if model.displayTopics.isEmpty {
+					Text(emptyTopicText)
+						.foregroundColor(.secondary)
+				}
+				else {
+					ForEach(model.displayTopics) { messages in
+						TopicCellView(
+							messages: messages,
+							model: self.model,
+							publishMessagePresented: self.$publishMessageModel.isPresented,
+							host: self.host,
+							selectMessage: self.selectMessage)
 					}
 				}
 			}
-			.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelPublishMessageCreation, content: {
-				PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
-											root: self.rootModel,
-											host: self.host,
-											model: self.$publishMessageModel)
-			})
 		}
-		.navigationBarTitle(Text(host.aliasOrHost), displayMode: .inline)
+		.searchable(text: $model.filterText)
+
+		.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
+			PublishMessageFormModalView(closeCallback: self.cancelDialog,
+										root: self.rootModel,
+										host: self.host,
+										model: self.$publishMessageModel)
+		})
 		.listStyle(GroupedListStyle())
-		.navigationBarItems(
-			trailing:
-			HStack {
-				if host.state == .connected {
-					Spacer()
-					
-					Button(action: createTopic) {
-						Image(systemName: "paperplane.fill")
-					}
-					.font(.system(size: 22))
-					.buttonStyle(ActionStyleL25())
-					
-					Button(action: pauseConnection) {
-						Image(systemName: host.pause ? "play.fill" : "pause.fill")
-					}
-					.frame(minWidth: 50)
-					.font(.system(size: 22))
-					.buttonStyle(ActionStyleL25())
-				
+		.navigationTitle(host.aliasOrHost)
+		.toolbar {
+			ToolbarItemGroup(placement: .navigationBarTrailing) {
+				Button(action: createTopic) {
+					Image(systemName: "paperplane.fill")
+				}
+
+				Button(action: pauseConnection) {
+					Image(systemName: host.pause ? "play.fill" : "pause.fill")
 				}
 			}
-		)
-		.onAppear {
 			
+		}
+		.navigationBarTitleDisplayMode(.inline)
+		.safeAreaInset(edge: .bottom) {
+			createToolInset()
+		}
+		.sheet(isPresented: $loginData.isPresented, onDismiss: cancelDialog, content: {
+			LoginDialogView(loginCallback: self.login, host: self.host)
+		})
+		.onAppear {
 			if self.host.needsAuth {
 				self.loginData.username = self.host.username
 				self.loginData.password = self.host.password
@@ -85,7 +84,31 @@ struct TopicsView: View {
 				self.rootModel.connect(to: self.host)
 			}
 		}
-		
+	}
+
+	func createToolInset() -> some View {
+		return VStack(spacing: 0) {
+			if host.needsAuth {
+				LoginView(loginDialogPresented: self.$loginData.isPresented, host: host)
+			}
+			else if model.topicLimit && !host.pause {
+				TopicLimitReachedView()
+			}
+			else if model.messageLimit && !host.pause {
+				MessageLimitReachedView()
+			}
+			else if host.state == .connected && host.pause {
+				ResumeConnectionView(host: host)
+			}
+			else if host.state == .connecting {
+				ConnectingView(host: host)
+			}
+			else if host.state == .disconnected {
+				DisconnectedView(host: host)
+			}
+		}
+		.background(.ultraThinMaterial)
+		.controlSize(.large)
 	}
 	
 	func createTopic() {
@@ -97,8 +120,9 @@ struct TopicsView: View {
 		host.pause.toggle()
 	}
 	
-	func cancelPublishMessageCreation() {
+	func cancelDialog() {
 		self.publishMessageModel.isPresented = false
+		self.loginData.isPresented = false
 	}
 		
 	func login() {
@@ -111,11 +135,3 @@ struct TopicsView: View {
 	}
 
 }
-
-#if DEBUG
-//struct ContentView_Previews : PreviewProvider {
-//	static var previews: some View {
-//		ContentView()
-//	}
-//}
-#endif

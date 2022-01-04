@@ -49,7 +49,8 @@ struct SubscriptionDetailsView: View {
 				}
 			}
 		}
-		.navigationBarTitle("Update subscription")
+		.navigationBarTitleDisplayMode(.inline)
+		.navigationTitle("Update subscription")
 	}
 	
 	func close() {

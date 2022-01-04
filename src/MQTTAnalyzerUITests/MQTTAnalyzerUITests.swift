@@ -41,7 +41,7 @@ class MQTTAnalyzerUITests: XCTestCase {
     func testAdd() {
 		app.launch()
 		
-		app.buttons["add.server"].tap()
+		app.buttons["Add Broker"].tap()
 		app.buttons["Cancel"].tap()
     }
 	

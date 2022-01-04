@@ -26,33 +26,34 @@ struct AboutView: View {
 		NavigationView {
 			VStack(alignment: .leading) {
 				AboutTitleView().padding([.top, .bottom])
-				
-				Text("This project is open source. Contributions are welcome. Feel free to open an issue ticket and discuss new features.")
-					.foregroundColor(.secondary)
+				Text("""
+This project is open source. Contributions are welcome. Feel free to open an issue ticket and discuss new features.
+[Source Code](https://github.com/philipparndt/mqtt-analyzer), [License](https://github.com/philipparndt/mqtt-analyzer/blob/master/LICENSE), [Issue tracker](https://github.com/philipparndt/mqtt-analyzer/issues)
+
+Thank you! This project would not be possible without your great work! Thanks for testing, contributing dependencies, features and ideas.
+
+**Contributors**
+[Ulrich Frank](https://github.com/UlrichFrank), [Ricardo Pereira](https://github.com/visnaut), [AndreCouture](https://github.com/AndreCouture), [RoSchmi](https://github.com/RoSchmi)
+
+**Dependencies**
+[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [CocoaAsyncSocket](https://github.com/robbiehanson/CocoaAsyncSocket), [Starscream](https://github.com/daltoniam/Starscream), [Moscapsule](https://github.com/flightonary/Moscapsule), [OpenSSL-Universal](https://github.com/krzyzanowskim/OpenSSL), [RealmSwift](https://realm.io/docs/swift/latest/), [IceCream](https://github.com/caiyue1993/IceCream), [Highlightr](https://github.com/raspu/Highlightr), [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), [swift-petitparser](https://github.com/philipparndt/swift-petitparser)
+
+""").foregroundColor(.secondary)
 					.font(.footnote)
-				
-				LicenseView().padding(.bottom)
-				
-				Text("Thank you! This project would not be possible without your great work! Thanks for testing, contributing dependencies, features and ideas.")
-					.foregroundColor(.secondary)
-					.font(.footnote)
-				
-				List {
-					ContributorsView()
-					DependenciesView()
-				}
-				
 				Spacer()
 			}
 			.padding()
 			.frame(maxWidth: .infinity, alignment: .leading)
 			.multilineTextAlignment(.leading)
-			.navigationBarTitle(Text("About"), displayMode: .inline)
-			.navigationBarItems(
-				leading: Button(action: close) {
-					Text("Close")
-				}.buttonStyle(ActionStyleT50())
-			)
+			.navigationBarTitleDisplayMode(.inline)
+			.navigationTitle("About")
+			.toolbar {
+				ToolbarItemGroup(placement: .navigationBarLeading) {
+					Button(action: close) {
+						Text("Close")
+					}
+				}
+			}
 		}.navigationViewStyle(StackNavigationViewStyle())
 	}
 	
@@ -77,7 +78,7 @@ struct AboutTitleView: View {
 					Text("MQTTAnalyzer")
 						.font(.title)
 
-					LinkButtonView(text: "© 2020 Philipp Arndt", url: "https://github.com/philipparndt")
+					Text("[© 2021 Philipp Arndt](https://github.com/philipparndt)")
 						.font(.caption)
 						.foregroundColor(.blue)
 					
@@ -91,48 +92,5 @@ struct AboutTitleView: View {
 		.frame(maxWidth: .infinity, alignment: .center)
 		.multilineTextAlignment(.center)
 		.padding([.top, .bottom])
-	}
-}
-
-struct LicenseView: View {
-	var body: some View {
-		Group {
-			HStack {
-				LinkButtonView(text: "Source code, ",
-							   url: "https://github.com/philipparndt/mqtt-analyzer")
-				
-				LinkButtonView(text: "License",
-						   url: "https://github.com/philipparndt/mqtt-analyzer/blob/master/LICENSE")
-
-			}.font(.footnote)
-		}
-	}
-}
-
-struct DependenciesView: View {
-	var body: some View {
-		Section(header: Text("Dependencies")) {
-			ForEach(dependencies) { dependency in
-				LinkButtonView(text: dependency.name, url: dependency.link)
-					.font(.footnote)
-					.foregroundColor(.blue)
-			}
-		}
-	}
-}
-
-struct LinkButtonView: View {
-	let text: String
-	let url: String
-
-	var body: some View {
-		Button(action: open) {
-			Text(text)
-		}
-	}
-	
-	func open() {
-		let url: NSURL = URL(string: self.url)! as NSURL
-		UIApplication.shared.open(url as URL)
 	}
 }

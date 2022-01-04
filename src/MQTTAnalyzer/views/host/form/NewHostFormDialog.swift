@@ -28,17 +28,20 @@ struct NewHostFormModalView: View {
 		NavigationView {
 			EditHostFormView(host: $host)
 				.font(.caption)
-				.navigationBarTitle(Text("New server"), displayMode: .inline)
-				.navigationBarItems(
-					leading: Button(action: cancel) {
-						Text("Cancel")
-						
-					}.buttonStyle(ActionStyleT50()),
-					
-					trailing: Button(action: save) {
-						Text("Save")
-					}.buttonStyle(ActionStyleL50()).disabled(disableSave)
-			)
+				.navigationBarTitleDisplayMode(.inline)
+				.navigationTitle("New broker")
+				.toolbar {
+					ToolbarItemGroup(placement: .navigationBarLeading) {
+						Button(action: cancel) {
+							Text("Cancel")
+						}
+					}
+					ToolbarItemGroup(placement: .navigationBarTrailing) {
+						Button(action: save) {
+							Text("Save")
+						}.disabled(disableSave)
+					}
+				}
 		}.navigationViewStyle(StackNavigationViewStyle())
 	}
 	

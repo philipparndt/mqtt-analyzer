@@ -86,16 +86,21 @@ struct PublishMessageFormModalView: View {
 		NavigationView {
 			PublishMessageFormView(message: self.$model, type: self.$model.messageType)
 				.font(.caption)
-				.navigationBarTitle(Text("Publish message"))
-				.navigationBarItems(
-					leading: Button(action: self.cancel) {
-						Text("Cancel")
-						
-					}.buttonStyle(ActionStyleT50()),
-					trailing: Button(action: self.publish) {
-						Text("Publish")
-					}.buttonStyle(ActionStyleL50())
-			)
+				.navigationBarTitleDisplayMode(.inline)
+				.navigationTitle("Publish message")
+				.toolbar {
+					ToolbarItemGroup(placement: .navigationBarLeading) {
+						Button(action: cancel) {
+							Text("Cancel")
+						}
+					}
+					
+					ToolbarItemGroup(placement: .navigationBarTrailing) {
+						Button(action: publish) {
+							Text("Publish")
+						}
+					}
+				}
 		}
 		.navigationViewStyle(StackNavigationViewStyle())
 	}

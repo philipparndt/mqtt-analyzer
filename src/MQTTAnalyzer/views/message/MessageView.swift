@@ -32,7 +32,6 @@ struct MessageView: View {
 			}
 			.onDelete(perform: messagesByTopic.delete)
 		}
-
 	}
 	
 	func selectMessage(message: Message) {

@@ -18,10 +18,6 @@ struct EditHostFormView: View {
 			AuthFormView(host: $host)
 			TopicsFormView(host: $host)
 
-//			if clientImpl == .moscapsule {
-//				DeprecationBox()
-//			}
-
 			Toggle(isOn: $advanced) {
 				Text("More settings")
 					.font(.headline)
@@ -52,13 +48,3 @@ struct FormFieldInvalidMark: View {
 		}
 	}
 }
-
-#if DEBUG
-//struct NewHostFormView_Previews : PreviewProvider {
-//	static var previews: some View {
-//		NavigationView {
-//			NewHostFormView(host: Host())
-//		}
-//	}
-//}
-#endif
