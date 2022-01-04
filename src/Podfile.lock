@@ -7,6 +7,8 @@ PODS:
   - CocoaMQTT/WebSockets (2.0.2-beta4):
     - CocoaMQTT/Core
     - Starscream (~> 3.1.1)
+  - CodeEditor (1.2.0):
+    - Highlightr
   - Highlightr (2.1.0)
   - IceCream (2.0.2):
     - RealmSwift
@@ -27,6 +29,7 @@ PODS:
 DEPENDENCIES:
   - CocoaMQTT (= 2.0.2-beta4)
   - CocoaMQTT/WebSockets (= 2.0.2-beta4)
+  - CodeEditor (from `https://github.com/ZeeZide/CodeEditor.git`)
   - Highlightr (from `https://github.com/raspu/Highlightr.git`, tag `2.1.2`)
   - IceCream (= 2.0.2)
   - Moscapsule (from `https://github.com/flightonary/Moscapsule.git`)
@@ -50,6 +53,8 @@ SPEC REPOS:
     - SwiftyJSON
 
 EXTERNAL SOURCES:
+  CodeEditor:
+    :git: https://github.com/ZeeZide/CodeEditor.git
   Highlightr:
     :git: https://github.com/raspu/Highlightr.git
     :tag: 2.1.2
@@ -57,6 +62,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/flightonary/Moscapsule.git
 
 CHECKOUT OPTIONS:
+  CodeEditor:
+    :commit: 1789640c6c8d0bec8cf84eb2b93b7e8ac3055c7e
+    :git: https://github.com/ZeeZide/CodeEditor.git
   Highlightr:
     :git: https://github.com/raspu/Highlightr.git
     :tag: 2.1.2
@@ -67,6 +75,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CocoaMQTT: b2993f74f16aabf46391d40b1f6cf23b3419236d
+  CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
   IceCream: 2772755afb39f79597e5dc250f4d3f891a65f870
   Moscapsule: 6bb834c60e24251897dc1cb2c4552fd674f887f3
@@ -78,6 +87,6 @@ SPEC CHECKSUMS:
   SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: ff389a6bf09e30cd4a7ca148220d40a4073a8691
+PODFILE CHECKSUM: 513c7e2992a731a5ed80b0afbb91c19b4763d022
 
 COCOAPODS: 1.10.1
