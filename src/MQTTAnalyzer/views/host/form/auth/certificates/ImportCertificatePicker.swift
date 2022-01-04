@@ -23,7 +23,7 @@ struct ImportCertificatePickerView: View {
 		}
 		.sheet(isPresented: self.$shows) {
 			DocumentPickerView(refresh: self.refreshHandler,
-							   documentTypes: [UTType.pkcs12.identifier, UTType.x509Certificate.identifier])
+							   documentTypes: [UTType.pkcs12, UTType.x509Certificate])
 		}
 	}
 	

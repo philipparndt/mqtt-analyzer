@@ -8,10 +8,11 @@
 
 import Foundation
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct DocumentPickerView: UIViewControllerRepresentable {
 	var refresh: CertificateFilesRefresh
-	let documentTypes: [String]
+	let documentTypes: [UTType]
 	
     class Coordinator: NSObject, UINavigationControllerDelegate, UIDocumentPickerDelegate {
 		var refresh: CertificateFilesRefresh
@@ -36,9 +37,8 @@ struct DocumentPickerView: UIViewControllerRepresentable {
 	}
 	
 	func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentPickerView>) -> UIDocumentPickerViewController {
-		let picker = UIDocumentPickerViewController(
-			documentTypes: self.documentTypes, in: .import)
-
+		let picker = UIDocumentPickerViewController(forOpeningContentTypes: self.documentTypes)
+		
 		picker.shouldShowFileExtensions = true
 		picker.delegate = context.coordinator
 		
