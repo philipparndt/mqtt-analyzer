@@ -7,17 +7,20 @@
 //
 
 import SwiftUI
+import CodeEditor
 
 struct MessageDetailsJsonView: View {
-	let message: JsonFormatString
-	
-	// Workaround: update triggered due to change on this state
-	@State var workaroundUpdate = false
-	
+	@Environment(\.colorScheme) var colorScheme
+	@State var source: String
+	@State private var language = CodeEditor.Language.json
+
 	var body: some View {
 		VStack {
-			AttributedUILabel(attributedString: message.getAttributed(), workaroundUpdate: self.$workaroundUpdate)
+			CodeEditor(source: $source,
+					   language: language,
+					   theme: colorScheme == .light ? CodeEditor.ThemeName.atelierSavannaLight : CodeEditor.ThemeName.atelierSavannaDark,
+					   flags: CodeEditor.Flags.selectable)
+				.frame(minHeight: 100, alignment: Alignment.leading)
 		}
-		.frame(height: message.getAttributed().height(withConstrainedWidth: 500), alignment: .top)
 	}
 }

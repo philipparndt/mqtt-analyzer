@@ -8,20 +8,6 @@
 
 import SwiftUI
 
-struct MetadataTextView: View {
-	let key: String
-	let value: String
-	
-	var body: some View {
-		HStack {
-			Text(key)
-				.foregroundColor(.secondary)
-			Spacer()
-			Text(value)
-		}
-	}
-}
-
 struct MessageDetailsView: View {
 	let message: Message
 	let topic: Topic
@@ -29,23 +15,14 @@ struct MessageDetailsView: View {
 	var body: some View {
 		VStack {
 			VStack {
-				List {
-					Section(header: Text("Metadata")) {
-						MetadataTextView(key: "Topic", value: topic.name)
-						MetadataTextView(key: "Timestamp", value: message.localDate)
-						MetadataTextView(key: "QoS", value: "\(message.qos)")
-					}
-					
-					Section(header: Text("Message")) {
-						if message.isJson() {
-							MessageDetailsJsonView(message: JsonFormatString(json: message.prettyJson()))
-						}
-						else {
-							MessageDetailsPlainTextView(message: message)
-						}
-					}
+				MetadataView(message: message, topic: topic)
+
+				if message.isJson() {
+					MessageDetailsJsonView(source: message.prettyJson())
 				}
-				
+				else {
+					MessageDetailsPlainTextView(message: message)
+				}
 			}
 		}
 	}
