@@ -18,10 +18,6 @@ struct EditHostFormView: View {
 			AuthFormView(host: $host)
 			TopicsFormView(host: $host)
 
-//			if clientImpl == .moscapsule {
-//				DeprecationBox()
-//			}
-
 			Toggle(isOn: $advanced) {
 				Text("More settings")
 					.font(.headline)
