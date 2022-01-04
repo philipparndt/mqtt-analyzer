@@ -151,21 +151,11 @@ public class HostsModelPersistence {
 	}
 	
 	private func transformClientImplType(_ type: HostClientImplType) -> Int8 {
-		switch type {
-		case .cocoamqtt:
-			return ClientImplType.cocoamqtt
-		default:
-			return ClientImplType.moscapsule
-		}
+		return ClientImplType.cocoamqtt
 	}
 	
 	private func transformClientImplType(_ type: Int8) -> HostClientImplType {
-		switch type {
-		case ClientImplType.cocoamqtt:
-			return .cocoamqtt
-		default:
-			return .moscapsule
-		}
+		return .cocoamqtt
 	}
 	
 	class func encode(subscriptions: [TopicSubscription]) -> Data {

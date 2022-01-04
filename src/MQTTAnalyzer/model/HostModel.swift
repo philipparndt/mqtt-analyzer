@@ -185,11 +185,7 @@ class HostsModel: ObservableObject {
 			}
 		}
 	}
-	
-	var hasDeprecated: Bool {
-		return self.hosts.filter { $0.clientImpl == .moscapsule }.first != nil
-	}
-	
+		
 	init(hosts: [Host] = [], initMethod: InitHost) {
 		self.initMethod = initMethod
 		self.hosts = hosts

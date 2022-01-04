@@ -63,7 +63,7 @@ class DataMigrationCertificateFiles {
 				return type
 			}
 		}
-		return ClientImplType.moscapsule
+		return ClientImplType.cocoamqtt
 	}
 	
 }
