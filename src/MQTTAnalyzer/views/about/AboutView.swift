@@ -36,7 +36,7 @@ Thank you! This project would not be possible without your great work! Thanks fo
 [Ulrich Frank](https://github.com/UlrichFrank), [Ricardo Pereira](https://github.com/visnaut), [AndreCouture](https://github.com/AndreCouture), [RoSchmi](https://github.com/RoSchmi)
 
 **Dependencies**
-[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [CocoaAsyncSocket](https://github.com/robbiehanson/CocoaAsyncSocket), [Starscream](https://github.com/daltoniam/Starscream), [Moscapsule](https://github.com/flightonary/Moscapsule), [OpenSSL-Universal](https://github.com/krzyzanowskim/OpenSSL), [RealmSwift](https://realm.io/docs/swift/latest/), [IceCream](https://github.com/caiyue1993/IceCream), [Highlightr](https://github.com/raspu/Highlightr), [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), [swift-petitparser](https://github.com/philipparndt/swift-petitparser)
+[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [CocoaAsyncSocket](https://github.com/robbiehanson/CocoaAsyncSocket), [Starscream](https://github.com/daltoniam/Starscream), [RealmSwift](https://realm.io/docs/swift/latest/), [IceCream](https://github.com/caiyue1993/IceCream), [Highlightr](https://github.com/raspu/Highlightr), [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), [swift-petitparser](https://github.com/philipparndt/swift-petitparser)
 
 """).foregroundColor(.secondary)
 					.font(.footnote)
