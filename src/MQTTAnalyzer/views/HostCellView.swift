@@ -43,9 +43,6 @@ struct HostCellView: View {
 			HStack {
 				VStack(alignment: .leading) {
 					HStack {
-						if host.clientImpl == .moscapsule {
-							Image(systemName: "exclamationmark.triangle.fill")
-						}
 						Text(host.aliasOrHost)
 					}
 					

@@ -106,7 +106,7 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 
 		setting.clientImplType = ClientImplType.moscapsule
 		let transformed2 = persistence.transform(setting)
-		XCTAssertEqual(HostClientImplType.moscapsule, transformed2.clientImpl)
+		XCTAssertEqual(HostClientImplType.cocoamqtt, transformed2.clientImpl)
 	}
 	
 	func testTransformFromPersistenceModelSSL() {
@@ -225,7 +225,7 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 
 		host.clientImpl = .moscapsule
 		let transformed2 = persistence.transform(host)
-		XCTAssertEqual(ClientImplType.moscapsule, transformed2.clientImplType)
+		XCTAssertEqual(ClientImplType.cocoamqtt, transformed2.clientImplType)
 	}
 	
 	func testTransformToPersistenceModelSSL() {

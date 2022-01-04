@@ -26,10 +26,6 @@ struct EditHostFormView: View {
 			if self.advanced {
 				ClientIDFormView(host: $host)
 				LimitsFormView(host: $host)
-
-				if host.protocolMethod == .mqtt {
-					ClientImplFormView(host: $host)
-				}
 			}
 		}
 	}

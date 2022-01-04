@@ -39,17 +39,6 @@ struct HostsView: View {
 					.onDelete(perform: self.delete)
 					
 				}.searchable(text: $searchText)
-				
-				if hostsModel.hasDeprecated {
-					HStack {
-						Image(systemName: "exclamationmark.triangle.fill")
-						
-						Text("Some of your settings are deprecated and cannot be migrated automatically. Please migrate them from Moscapsule to CocoaMQTT")
-					}
-					.padding()
-					.foregroundColor(.secondary)
-					.font(.footnote)
-				}
 			}
 			.navigationBarTitleDisplayMode(.inline)
 			.navigationTitle("Brokers")
