@@ -63,26 +63,18 @@ struct HostCellView: View {
 				}
 				
 				Spacer()
-				
+
 				if host.state != .disconnected {
 					Text("\(messageModel.messageCount)")
 						.font(.system(size: 14, design: .monospaced))
 						.foregroundColor(.secondary)
-					
+
 					Image(systemName: "circle.fill")
 						.font(.subheadline)
 						.foregroundColor(connectionColor)
 				}
-			}
-			.contextMenu {
-				MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
-				MenuButton(title: "Create new based on this", systemImage: "pencil.circle", action: cloneHost)
-				if host.state != .disconnected {
-					MenuButton(title: "Disconnect", systemImage: "stop.circle", action: disconnect)
-				}
-				else {
-					MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
-				}
+				
+				contextMenu()
 			}
 		}.sheet(isPresented: $sheetState.isPresented, onDismiss: cancelEditCreation, content: {
 			if self.sheetState.type == .edit {
@@ -103,7 +95,23 @@ struct HostCellView: View {
 			}
 		}
 	}
-		
+
+	func contextMenu() -> some View {
+		return Text("").contextMenu {
+			MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
+			MenuButton(title: "Create new based on this", systemImage: "pencil.circle", action: cloneHost)
+			if host.state != .disconnected {
+				MenuButton(title: "Disconnect", systemImage: "stop.circle", action: disconnect)
+			}
+			else {
+				MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
+			}
+		}
+		// WORKAROUND: random UUID identifier to force re-creation of the context menu.
+		// Otherwise, it will not toggle between connect and disconnect.
+		.id(UUID().uuidString)
+	}
+	
 	func cloneHost() {
 		cloneHostHandler(host)
 	}
