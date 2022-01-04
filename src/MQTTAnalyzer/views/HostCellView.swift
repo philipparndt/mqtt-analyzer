@@ -17,10 +17,6 @@ struct ServerPageSheetState {
 	var isPresented = false
 	var type = HostCellViewSheetType.edit
 	
-	init() {
-		print("init sheet state")
-	}
-	
 	mutating func present(type: HostCellViewSheetType) {
 		self.type = type
 		self.isPresented = true

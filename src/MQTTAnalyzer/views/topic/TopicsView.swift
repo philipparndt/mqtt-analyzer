@@ -25,41 +25,34 @@ struct TopicsView: View {
 	}
 	
 	var body: some View {
-		Group {
-			ReconnectView(host: self.host, model: self.model, loginDialogPresented: self.$loginData.isPresented)
-			.sheet(isPresented: $loginData.isPresented, onDismiss: cancelPublishMessageCreation, content: {
-				LoginDialogView(loginCallback: self.login, host: self.host)
-			})
-			
-			List {
-				TopicsToolsView(model: self.model)
+		List {
+			TopicsToolsView(model: self.model)
 
-				Section(header: Text("Topics")) {
-					if model.displayTopics.isEmpty {
-						Text(emptyTopicText)
-							.foregroundColor(.secondary)
-					}
-					else {
-						ForEach(model.displayTopics) { messages in
-							TopicCellView(
-								messages: messages,
-								model: self.model,
-								publishMessagePresented: self.$publishMessageModel.isPresented,
-								host: self.host,
-								selectMessage: self.selectMessage)
-						}
+			Section(header: Text("Topics")) {
+				if model.displayTopics.isEmpty {
+					Text(emptyTopicText)
+						.foregroundColor(.secondary)
+				}
+				else {
+					ForEach(model.displayTopics) { messages in
+						TopicCellView(
+							messages: messages,
+							model: self.model,
+							publishMessagePresented: self.$publishMessageModel.isPresented,
+							host: self.host,
+							selectMessage: self.selectMessage)
 					}
 				}
 			}
-			.searchable(text: $model.filterText)
-
-			.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelPublishMessageCreation, content: {
-				PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
-											root: self.rootModel,
-											host: self.host,
-											model: self.$publishMessageModel)
-			})
 		}
+		.searchable(text: $model.filterText)
+
+		.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
+			PublishMessageFormModalView(closeCallback: self.cancelDialog,
+										root: self.rootModel,
+										host: self.host,
+										model: self.$publishMessageModel)
+		})
 		.listStyle(GroupedListStyle())
 		.navigationTitle(host.aliasOrHost)
 		.toolbar {
@@ -75,6 +68,12 @@ struct TopicsView: View {
 			
 		}
 		.navigationBarTitleDisplayMode(.inline)
+		.safeAreaInset(edge: .bottom) {
+			createToolInset()
+		}
+		.sheet(isPresented: $loginData.isPresented, onDismiss: cancelDialog, content: {
+			LoginDialogView(loginCallback: self.login, host: self.host)
+		})
 		.onAppear {
 			if self.host.needsAuth {
 				self.loginData.username = self.host.username
@@ -85,9 +84,33 @@ struct TopicsView: View {
 				self.rootModel.connect(to: self.host)
 			}
 		}
-		
 	}
 
+	func createToolInset() -> some View {
+		return VStack(spacing: 0) {
+			if host.needsAuth {
+				LoginView(loginDialogPresented: self.$loginData.isPresented, host: host)
+			}
+			else if model.topicLimit && !host.pause {
+				TopicLimitReachedView()
+			}
+			else if model.messageLimit && !host.pause {
+				MessageLimitReachedView()
+			}
+			else if host.state == .connected && host.pause {
+				ResumeConnectionView(host: host)
+			}
+			else if host.state == .connecting {
+				ConnectingView(host: host)
+			}
+			else if host.state == .disconnected {
+				DisconnectedView(host: host)
+			}
+		}
+		.background(.ultraThinMaterial)
+		.controlSize(.large)
+	}
+	
 	func createTopic() {
 		self.publishMessageModel = PublishMessageFormModel()
 		self.publishMessageModel.isPresented = true
@@ -97,8 +120,9 @@ struct TopicsView: View {
 		host.pause.toggle()
 	}
 	
-	func cancelPublishMessageCreation() {
+	func cancelDialog() {
 		self.publishMessageModel.isPresented = false
+		self.loginData.isPresented = false
 	}
 		
 	func login() {
