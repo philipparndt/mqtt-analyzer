@@ -10,8 +10,8 @@ PODS:
   - CodeEditor (1.2.0):
     - Highlightr
   - Highlightr (2.1.0)
-  - IceCream (2.0.2):
-    - RealmSwift
+  - IceCream (2.0.4):
+    - RealmSwift (< 10.8.0)
   - Moscapsule (0.6.4)
   - OpenSSL-Universal (1.0.2.20):
     - OpenSSL-Universal/Static (= 1.0.2.20)
@@ -31,7 +31,7 @@ DEPENDENCIES:
   - CocoaMQTT/WebSockets (= 2.0.2-beta4)
   - CodeEditor (from `https://github.com/ZeeZide/CodeEditor.git`)
   - Highlightr (from `https://github.com/raspu/Highlightr.git`, tag `2.1.2`)
-  - IceCream (= 2.0.2)
+  - IceCream (= 2.0.4)
   - Moscapsule (from `https://github.com/flightonary/Moscapsule.git`)
   - OpenSSL-Universal (= 1.0.2.20)
   - RealmSwift (~> 10.7.0)
@@ -77,7 +77,7 @@ SPEC CHECKSUMS:
   CocoaMQTT: b2993f74f16aabf46391d40b1f6cf23b3419236d
   CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
-  IceCream: 2772755afb39f79597e5dc250f4d3f891a65f870
+  IceCream: 717d516a1c634eba8eaa8ce7d3d7bc5f7e40c2fa
   Moscapsule: 6bb834c60e24251897dc1cb2c4552fd674f887f3
   OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
   Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
@@ -87,6 +87,6 @@ SPEC CHECKSUMS:
   SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 513c7e2992a731a5ed80b0afbb91c19b4763d022
+PODFILE CHECKSUM: 2391a570b41e54cb17a881630c2c25910dc9117f
 
 COCOAPODS: 1.10.1
