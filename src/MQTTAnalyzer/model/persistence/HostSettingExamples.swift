@@ -11,6 +11,16 @@ import RealmSwift
 
 class HostSettingExamples {
 	class func inititalize(realm: Realm) {
+		if isWritten() {
+			return
+		}
+		
+		if !realm.objects(HostSetting.self).isEmpty {
+			// the user defaults store was introduced in a later version
+			setWritten()
+			return
+		}
+
 		let example1 = HostSetting()
 		example1.id = "example.test.mosquitto.org.2"
 		example1.alias = "Revspace sensors"
@@ -30,17 +40,28 @@ class HostSettingExamples {
 		
 		createIfNotPresent(setting: example1, realm: realm)
 		createIfNotPresent(setting: example2, realm: realm)
+		
+		setWritten()
 	}
 	
 	private class func createIfNotPresent(setting: HostSetting, realm: Realm) {
-		let settings = realm.objects(HostSetting.self)
-			 .filter("id = %@", setting.id)
-		
-		if settings.isEmpty {
-			// swiftlint:disable force_try
-			try! realm.write {
+		do {
+			try realm.write {
 				realm.add(setting)
 			}
 		}
+		catch {
+			NSLog("Error writing example data: \(error.localizedDescription)")
+		}
+	}
+	
+	private class func isWritten() -> Bool {
+		let defaults = UserDefaults.standard
+		return defaults.bool(forKey: "HostSettingExamplesWritten")
+	}
+	
+	private class func setWritten() {
+		let defaults = UserDefaults.standard
+		defaults.set(true, forKey: "HostSettingExamplesWritten")
 	}
 }
