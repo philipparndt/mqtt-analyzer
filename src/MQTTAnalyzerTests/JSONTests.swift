@@ -34,21 +34,6 @@ class MyJSONParser {
 import JavaScriptCore
 
 class JSONTests: XCTestCase {
-//	func formatJSON(json: String) -> String {
-//		let jsSource = "var formatJSON = function(jsonStr) { return JSON.stringify(JSON.parse(jsonStr.trim()), null, 2)}"
-//
-//		let context = JSContext()
-//		context?.evaluateScript(jsSource)
-//
-//		let testFunction = context?.objectForKeyedSubscript("formatJSON")
-//		if let result = testFunction?.call(withArguments: [json]) {
-//			return result.description
-//		}
-//		else {
-//			return json
-//		}
-//	}
-	
 	func testWebKit() {
 		let json = JSONUtils.format(json: "{\"hello\": 0.6}")
 		print(json)
