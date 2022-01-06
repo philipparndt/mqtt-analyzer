@@ -60,6 +60,8 @@
 		2285C81827842115008DA37D /* ConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81727842115008DA37D /* ConnectingView.swift */; };
 		2285C81A27842176008DA37D /* DisconnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81927842176008DA37D /* DisconnectedView.swift */; };
 		2285C81C27847786008DA37D /* MetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81B27847786008DA37D /* MetadataView.swift */; };
+		2285C81E2785CA2D008DA37D /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81D2785CA2D008DA37D /* JSONTests.swift */; };
+		2285C82127872D46008DA37D /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82027872D46008DA37D /* JSONUtils.swift */; };
 		228B069323FC318100E988D0 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228B069223FC318100E988D0 /* ModelTests.swift */; };
 		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
 		2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */; };
@@ -203,6 +205,8 @@
 		2285C81727842115008DA37D /* ConnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingView.swift; sourceTree = "<group>"; };
 		2285C81927842176008DA37D /* DisconnectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectedView.swift; sourceTree = "<group>"; };
 		2285C81B27847786008DA37D /* MetadataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataView.swift; sourceTree = "<group>"; };
+		2285C81D2785CA2D008DA37D /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
+		2285C82027872D46008DA37D /* JSONUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
 		228B069223FC318100E988D0 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/model/persistence/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
 		2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDetailsView.swift; sourceTree = "<group>"; };
@@ -380,6 +384,7 @@
 		2253F8D422C8C007007E35A2 /* MQTTAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
+				2285C81F27872D2A008DA37D /* json */,
 				223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */,
 				22FD7D0722C8D39D0078795F /* model */,
 				228104782381708E00112F24 /* views */,
@@ -420,6 +425,7 @@
 				22AE643724126A7500C2C4FE /* DiagramPathTests.swift */,
 				221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */,
 				22E914DE25A8420700BEC599 /* HostFormModelTests.swift */,
+				2285C81D2785CA2D008DA37D /* JSONTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
 			sourceTree = "<group>";
@@ -557,6 +563,14 @@
 				228104972381796B00112F24 /* HostCellView.swift */,
 			);
 			path = host;
+			sourceTree = "<group>";
+		};
+		2285C81F27872D2A008DA37D /* json */ = {
+			isa = PBXGroup;
+			children = (
+				2285C82027872D46008DA37D /* JSONUtils.swift */,
+			);
+			path = json;
 			sourceTree = "<group>";
 		};
 		228911CF22CF86B20095301F /* timeseries */ = {
@@ -930,6 +944,7 @@
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
 				22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */,
 				22C9F74223BB5EF100892C4B /* TopicModel.swift in Sources */,
+				2285C82127872D46008DA37D /* JSONUtils.swift in Sources */,
 				22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */,
 				22F3AB1324A77B6600B2CF92 /* DataMigrationMoscapsuleDeprecation.swift in Sources */,
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
@@ -1020,6 +1035,7 @@
 				22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */,
 				22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */,
 				22D236FB23FF00E10003D87F /* StringUtilsTests.swift in Sources */,
+				2285C81E2785CA2D008DA37D /* JSONTests.swift in Sources */,
 				22D236F923FEFBA10003D87F /* HostFormValidatorTests.swift in Sources */,
 				22AE643824126A7500C2C4FE /* DiagramPathTests.swift in Sources */,
 				2253F8F022C8C008007E35A2 /* MQTTAnalyzerTests.swift in Sources */,
@@ -1185,7 +1201,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 57;
+				CURRENT_PROJECT_VERSION = 58;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -1211,7 +1227,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 57;
+				CURRENT_PROJECT_VERSION = 58;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
