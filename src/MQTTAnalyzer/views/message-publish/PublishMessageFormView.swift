@@ -13,6 +13,7 @@ import swift_petitparser
 
 enum PublishMessagePropertyType {
 	case boolean
+	case onoff
 	case number
 	case text
 }
@@ -52,6 +53,16 @@ class PublishMessagePropertyValueBoolean: PublishMessagePropertyValue {
 	
 	override func getTypedValue() -> Any {
 		return valueBool
+	}
+}
+
+class PublishMessagePropertyValueOnOff: PublishMessagePropertyValue {
+	override func type() -> PublishMessagePropertyType {
+		return .onoff
+	}
+	
+	override func getTypedValue() -> Any {
+		return valueBool ? "ON" : "OFF"
 	}
 }
 
@@ -135,6 +146,8 @@ struct PublishMessageFormView: View {
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
 					.font(.body)
+				
+				TopicSuffixPickerView(suffix: $message.topicSuffix)
 			}
 
 			Section(header: Text("Settings")) {
@@ -216,6 +229,9 @@ struct MessageProperyView: View {
 		HStack {
 			if property.value.type() == .boolean {
 				Toggle("", isOn: self.$property.value.valueBool)
+			}
+			else if property.value.type() == .onoff {
+				Toggle("ON/OFF", isOn: self.$property.value.valueBool)
 			}
 			else if property.value.type() == .text {
 				TextField("", text: self.$property.value.valueText)

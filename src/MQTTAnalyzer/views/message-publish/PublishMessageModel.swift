@@ -9,11 +9,53 @@
 import Foundation
 import SwiftyJSON
 import swift_petitparser
+import SwiftUI
+
+enum TopicSuffix: String, CaseIterable {
+	case none = ""
+	case sset = "/set"
+	case sget = "/get"
+	case sstate = "/state"
+}
 
 struct PublishMessageFormModel {
 	var isPresented = false
 	
-	var topic: String = ""
+	var _topicSuffix: TopicSuffix = .none
+	var topicSuffix: TopicSuffix {
+		get {
+			return _topicSuffix
+		}
+
+		set {
+			var newTopic = topic
+			for suffix in TopicSuffix.allCases {
+				if newTopic.hasSuffix(suffix.rawValue) {
+					newTopic = String(newTopic.dropLast(suffix.rawValue.count))
+				}
+			}
+			
+			newTopic = String(newTopic + newValue.rawValue)
+			
+			_topicSuffix = newValue
+			_topic = newTopic
+		}
+	}
+	var _topic: String = ""
+	var topic: String {
+		get {
+			return _topic
+		}
+
+		set {
+			for suffix in TopicSuffix.allCases {
+				if newValue.hasSuffix(suffix.rawValue) {
+					_topicSuffix = suffix
+				}
+			}
+			_topic = newValue
+		}
+	}
 	var message: String = ""
 	var qos: Int = 0
 	var retain: Bool = false
@@ -79,11 +121,17 @@ func createProperty(json: JSON, path: [String]) -> PublishMessageProperty? {
 	
 	let raw = json.rawString() ?? ""
 	let isInt = NumbersParser.int().trim().end().accept(raw)
+	let isOnOff = raw.lowercased() == "on" || raw.lowercased() == "off"
 	
 	if let value = json.bool {
 		return PublishMessageProperty(name: name, pathName: pathName,
 								   path: path,
 								   value: PublishMessagePropertyValueBoolean(value: value))
+	}
+	else if isOnOff {
+		return PublishMessageProperty(name: name, pathName: pathName,
+								   path: path,
+								   value: PublishMessagePropertyValueOnOff(value: raw.lowercased() == "on"))
 	}
 	else if isInt {
 		return PublishMessageProperty(name: name, pathName: pathName,
