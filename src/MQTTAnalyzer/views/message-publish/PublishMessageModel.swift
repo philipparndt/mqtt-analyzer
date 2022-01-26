@@ -79,7 +79,7 @@ struct PublishMessageFormModel {
 
 func of(message: Message) -> PublishMessageFormModel {
 	var model = PublishMessageFormModel()
-	model.message = message.data
+	model.message = message.dataString
 	model.topic = message.topic
 	model.qos = Int(message.qos)
 	model.retain = message.retain

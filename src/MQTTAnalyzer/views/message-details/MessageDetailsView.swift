@@ -17,11 +17,14 @@ struct MessageDetailsView: View {
 			VStack {
 				MetadataView(message: message, topic: topic)
 
-				if message.isJson() {
+				if message.isBinary() {
+					MessageDetailsJsonView(source: self.message.payload.hexBlockEncoded(len: 12))
+				}
+				else if message.isJson() {
 					MessageDetailsJsonView(source: message.prettyJson())
 				}
 				else {
-					MessageDetailsPlainTextView(message: message)
+					MessageDetailsJsonView(source: message.dataString)
 				}
 			}
 		}
@@ -31,8 +34,10 @@ struct MessageDetailsView: View {
 #if DEBUG
 struct MessageDetailsView_Previews: PreviewProvider {
 	static var previews: some View {
+		let msg = "{\"temperature\": 56.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }"
 		MessageDetailsView(message: Message(
-			data: "{\"temperature\": 56.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }",
+			data: msg,
+			payload: Array(msg.utf8),
 			date: Date(),
 			qos: 0,
 			retain: false, topic: "some topic"), topic: Topic("some topic"))

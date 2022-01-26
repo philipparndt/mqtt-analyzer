@@ -31,6 +31,7 @@ class ModelTests: XCTestCase {
 
 		for data in messageData {
 			messageModel.append(message: Message(data: data,
+												 payload: Array(data.utf8),
 												 date: Date(),
 												 qos: 0,
 												 retain: false,
@@ -53,6 +54,7 @@ class ModelTests: XCTestCase {
 
 		XCTAssertEqual(0, messageModel.countMessages())
 		messageModel.append(message: Message(data: "text message",
+											 payload: Array("text message".utf8),
 											 date: Date(),
 											 qos: 0,
 											 retain: false,
@@ -70,6 +72,7 @@ class ModelTests: XCTestCase {
 		
 		for i in 0...15 {
 			messageModel.append(message: Message(data: "text message",
+												 payload: Array("text message".utf8),
 												 date: Date(),
 												 qos: 0,
 												 retain: false,
@@ -86,6 +89,7 @@ class ModelTests: XCTestCase {
 		
 		for _ in 0..<15 {
 			messageModel.append(message: Message(data: "text message",
+												 payload: Array("text message".utf8),
 												 date: Date(),
 												 qos: 0,
 												 retain: false,
@@ -100,9 +104,11 @@ class ModelTests: XCTestCase {
 		let messageModel = model.getMessageModel(host)
 
 		XCTAssertEqual(0, messageModel.countMessages())
-		messageModel.append(message: Message(data: """
-												{"toggle": true}
-												""",
+		let msg = """
+{"toggle": true}
+"""
+		messageModel.append(message: Message(data: msg,
+											 payload: Array(msg.utf8),
 											 date: Date(),
 											 qos: 0,
 											 retain: false,

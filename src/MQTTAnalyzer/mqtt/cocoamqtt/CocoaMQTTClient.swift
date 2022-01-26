@@ -195,7 +195,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	func publish(message: Message) {
 		mqtt?.publish(CocoaMQTTMessage(
 			topic: message.topic,
-			string: message.data,
+			string: message.dataString,
 			qos: convertQOS(qos: message.qos),
 			retained: message.retain))
 	}
@@ -227,12 +227,12 @@ class MqttClientCocoaMQTT: MqttClient {
 		}
 		let date = Date()
 		let mapped = messages.map({ (message: CocoaMQTTMessage) -> Message in
-			let messageString = message.string ?? ""
-			return Message(data: messageString,
-							  date: date,
-							  qos: Int32(message.qos.rawValue),
-							  retain: message.retained,
-							  topic: message.topic
+			return Message(data: message.string,
+						   payload: message.payload,
+						   date: date,
+						   qos: Int32(message.qos.rawValue),
+						   retain: message.retained,
+						   topic: message.topic
 			)
 		})
 		self.model.append(messages: mapped)

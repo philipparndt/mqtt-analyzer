@@ -60,7 +60,7 @@ struct MessageCellView: View {
 					.foregroundColor(message.isJson() ? .green : .gray)
 				
 				VStack(alignment: .leading) {
-					Text(message.data)
+					Text(message.dataString)
 						.lineLimit(8)
 					Text(message.localDate)
 						.font(.subheadline)

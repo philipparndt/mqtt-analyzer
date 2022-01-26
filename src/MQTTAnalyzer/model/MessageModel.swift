@@ -13,18 +13,26 @@ import SwiftyJSON
 class Message: Identifiable {
 	var jsonData: JSON?
 	
-	let data: String
+	let data: String?
+	var dataString: String {
+		return data ?? "[\(payload.count) bytes]"
+	}
+	
+	let payload: [UInt8]
 	let date: Date
 	let localDate: String
 	let qos: Int32
 	let retain: Bool
 	let topic: String
 	
-	init(data: String, date: Date, qos: Int32, retain: Bool, topic: String) {
+	init(data: String?, payload: [UInt8], date: Date, qos: Int32, retain: Bool, topic: String) {
 		self.data = data
+		self.payload = payload
 		self.date = date
 		self.qos = qos
-		self.jsonData = Message.toJson(messageData: data)
+		if data != nil {
+			self.jsonData = Message.toJson(messageData: data!)
+		}
 		self.retain = retain
 		self.topic = topic
 		
@@ -33,12 +41,20 @@ class Message: Identifiable {
 		self.localDate = dateFormatter.string(from: date)
 	}
 	
+	func checkBinary(value: UInt8) -> Bool {
+		return value < 32
+	}
+	
+	func isBinary() -> Bool {
+		return self.data == nil
+	}
+	
 	func isJson() -> Bool {
 		return jsonData != nil
 	}
 	
 	func prettyJson() -> String {
-		return JSONUtils.format(json: data)
+		return data != nil ? JSONUtils.format(json: data!) : ""
 	}
 	
 	class func toJson(messageData: String) -> JSON? {
