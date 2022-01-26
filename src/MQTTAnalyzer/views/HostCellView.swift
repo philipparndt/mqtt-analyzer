@@ -40,34 +40,44 @@ struct HostCellView: View {
 	
 	var body: some View {
 		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
-			HStack {
-				VStack(alignment: .leading) {
-					HStack {
-						Text(host.aliasOrHost)
+			VStack {
+				#if targetEnvironment(macCatalyst)
+				Spacer()
+				#endif
+				HStack {
+					VStack(alignment: .leading) {
+						HStack {
+							Text(host.aliasOrHost)
+						}
+						
+						Spacer()
+						Group {
+							Text(host.hostname)
+							Text(host.subscriptionsReadable)
+						}
+						.font(.footnote)
+						.foregroundColor(.secondary)
 					}
 					
 					Spacer()
-					Group {
-						Text(host.hostname)
-						Text(host.subscriptionsReadable)
+
+					if host.state != .disconnected {
+						Text("\(messageModel.messageCount)")
+							.font(.system(size: 14, design: .monospaced))
+							.foregroundColor(.secondary)
+
+						Image(systemName: "circle.fill")
+							.font(.subheadline)
+							.foregroundColor(connectionColor)
 					}
-					.font(.footnote)
-					.foregroundColor(.secondary)
+
+					contextMenu()
 				}
 				
+				#if targetEnvironment(macCatalyst)
 				Spacer()
-
-				if host.state != .disconnected {
-					Text("\(messageModel.messageCount)")
-						.font(.system(size: 14, design: .monospaced))
-						.foregroundColor(.secondary)
-
-					Image(systemName: "circle.fill")
-						.font(.subheadline)
-						.foregroundColor(connectionColor)
-				}
-				
-				contextMenu()
+				Divider()
+				#endif
 			}
 		}.sheet(isPresented: $sheetState.isPresented, onDismiss: cancelEditCreation, content: {
 			if self.sheetState.type == .edit {

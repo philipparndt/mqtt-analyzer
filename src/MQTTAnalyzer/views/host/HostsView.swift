@@ -26,7 +26,11 @@ struct HostsView: View {
 	@State var searchText: String = ""
 	
 	var body: some View {
-		NavigationView {
+		buildView()
+	}
+	
+	func buildView() -> some View {
+		let view = NavigationView {
 			VStack(alignment: .leading) {
 				List {
 					ForEach(searchHosts) { host in
@@ -56,7 +60,6 @@ struct HostsView: View {
 				}
 			}
 		}
-		.navigationViewStyle(StackNavigationViewStyle())
 		.sheet(isPresented: $presented, onDismiss: { self.presented=false}, content: {
 			HostsViewSheetDelegate(model: self.model,
 								   hostsModel: self.hostsModel,
@@ -65,6 +68,11 @@ struct HostsView: View {
 								   selectedHost: self.selectedHost)
 		})
 		
+		#if targetEnvironment(macCatalyst)
+		return view
+		#else
+		return view.navigationViewStyle(StackNavigationViewStyle())
+		#endif
 	}
 	
 	var searchHosts: [Host] {
