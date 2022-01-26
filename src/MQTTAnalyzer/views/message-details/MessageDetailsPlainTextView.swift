@@ -12,9 +12,13 @@ struct MessageDetailsPlainTextView: View {
 	let message: Message
 	
 	var body: some View {
-		Text(message.data)
-			.lineLimit(nil)
-			.padding(10)
-			.font(.system(.body, design: .monospaced))
+		VStack {
+			Text(message.data)
+				.lineLimit(nil)
+				.padding(10)
+				.font(.system(.body, design: .monospaced))
+			
+			Spacer()
+		}
 	}
 }
