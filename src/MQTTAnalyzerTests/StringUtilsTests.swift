@@ -13,7 +13,7 @@ import XCTest
 
 class StringUtilsTests: XCTestCase {
 	func testHexString() {
-		XCTAssertEqual("01 02", Data([1, 2]).hexStringEncoded())
+		XCTAssertEqual("0102", Data([1, 2]).hexStringEncoded())
 	}
 	
 	func testHexBlockString() {
