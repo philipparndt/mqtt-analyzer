@@ -122,6 +122,7 @@ struct PublishMessageFormModalView: View {
 		}
 		
 		let msg = Message(data: model.message,
+						  payload: Array(model.message.utf8),
 						  date: Date.init(),
 						  qos: Int32(model.qos), retain: model.retain, topic: model.topic)
 		
