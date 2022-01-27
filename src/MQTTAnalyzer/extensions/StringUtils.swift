@@ -28,7 +28,7 @@ extension DataProtocol {
 		let array = Array(self)
 		
 		for i in stride(from: 0, to: self.count, by: n) {
-			result += String(format: "%02X", i)
+			result += String(format: "%04X", i)
 			result += ": "
 			let x = Swift.min(i + n, self.count)
 			let sub = array[i..<x]
