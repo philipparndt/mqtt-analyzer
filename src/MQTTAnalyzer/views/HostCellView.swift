@@ -39,7 +39,7 @@ struct HostCellView: View {
 	}
 	
 	var body: some View {
-		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
+		NavigationLink(destination: TopicsView(model: messageModel, host: host, path: Topic(""))) {
 			VStack {
 				#if targetEnvironment(macCatalyst)
 				Spacer()

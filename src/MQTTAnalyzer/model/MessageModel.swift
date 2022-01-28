@@ -101,6 +101,30 @@ class MessageModel: ObservableObject {
 		self.messagesByTopic = messagesByTopic
 	}
 	
+	func topicByPath(_ path: Topic) -> [Topic] {
+		let nextLevels = displayTopics.map {
+			$0.topic.nextLevel(hierarchy: path)
+		}
+		.filter { $0 != nil }
+		.map { $0! }
+		
+		return Array(Set(nextLevels)).sorted { $0.name < $1.name }
+	}
+	
+	func displayTopicsByPath(_ path: Topic) -> [MessagesByTopic] {
+		let result = displayTopics
+			.filter {
+				$0.topic.name.starts(with: path.name)
+			}
+		
+		if result.count > 10 {
+			return result.filter { $0.topic.name == path.name }
+		}
+		else {
+			return result
+		}
+	}
+	
 	func setFilterImmediatelly(_ filter: String) {
 		self.filterText = filter
 	}

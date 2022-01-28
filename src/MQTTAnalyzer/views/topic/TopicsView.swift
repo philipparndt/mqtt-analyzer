@@ -15,6 +15,8 @@ struct TopicsView: View {
 	
 	@State private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
+	
+	var path: Topic
 
 	var emptyTopicText: String {
 		if model.filterText.isEmpty {
@@ -39,7 +41,16 @@ struct TopicsView: View {
 								.foregroundColor(.secondary)
 						}
 						else {
-							ForEach(model.displayTopics) { messages in
+							ForEach(model.topicByPath(path)) { subPath in
+								NavigationLink(destination: TopicsView(model: self.model, host: self.host, path: subPath)) {
+									HStack {
+										Image(systemName: "folder").foregroundColor(.yellow)
+										Text(subPath.lastSegment)
+									}
+								}
+							}
+							
+							ForEach(model.displayTopicsByPath(path)) { messages in
 								TopicCellView(
 									messages: messages,
 									model: self.model,
@@ -61,7 +72,7 @@ struct TopicsView: View {
 			}
 
 		}
-		.navigationTitle(host.aliasOrHost)
+		.navigationTitle(title())
 		.toolbar {
 			ToolbarItemGroup(placement: .navigationBarTrailing) {
 
@@ -115,6 +126,15 @@ struct TopicsView: View {
 		}
 	}
 
+	func title() -> String {
+		if path.name.isEmpty {
+			return host.aliasOrHost
+		}
+		else {
+			return path.lastSegment
+		}
+	}
+	
 	func connect() {
 		self.rootModel.connect(to: self.host)
 	}
