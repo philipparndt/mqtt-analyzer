@@ -33,6 +33,7 @@ https://testflight.apple.com/join/dsvlFCPU
 
 # Screenshots
 
+## iOS
 ![Screenshot 1](screenshot-1.png)
 ![Screenshot 2](screenshot-2.png)
 ![Screenshot 3](screenshot-3.png)
@@ -40,14 +41,27 @@ https://testflight.apple.com/join/dsvlFCPU
 ![Screenshot 5](screenshot-5.png)
 ![Screenshot 5](screenshot-6.png)
 
+## macOS
+![macOS Screenshot 1](macos-screenshot-1.png)
+![macOS Screenshot 2](macos-screenshot-2.png)
+
 # AWS Iot
 
 see [Create a certificate for AWS IoT](AWS-IoT.md)
 
-# Developer cheatsheet
+# Developer notes
 
 | Description           | Command           |
 | --------------------- | ----------------- |
 | Update pod repos      | `pod repo update` |
 | Install / update pods | `pod install`     |
 | Execute test cases    | `run-tests.sh`    |
+
+## Realm on macOS
+In case you get the error `Umbrella header 'Realm.h' not found` when creating an archive see:
+https://github.com/realm/realm-swift/issues/3556#issuecomment-218990100
+
+- Right click on `Pods/Realm/Headers/Realm` / Show file inspector
+- Set target member to `Public`
+- Do this for all header files (multi selection is possible)
+

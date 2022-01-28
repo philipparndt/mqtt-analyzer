@@ -25,47 +25,74 @@ struct TopicsView: View {
 	}
 	
 	var body: some View {
-		List {
-			TopicsToolsView(model: self.model)
+		VStack {
+			if model.messageCount == 0 {
+				AwaitMessagesView(model: model, host: host)
+			}
+			else {
+				List {
+					TopicsToolsView(model: self.model)
 
-			Section(header: Text("Topics")) {
-				if model.displayTopics.isEmpty {
-					Text(emptyTopicText)
-						.foregroundColor(.secondary)
-				}
-				else {
-					ForEach(model.displayTopics) { messages in
-						TopicCellView(
-							messages: messages,
-							model: self.model,
-							publishMessagePresented: self.$publishMessageModel.isPresented,
-							host: self.host,
-							selectMessage: self.selectMessage)
+					Section(header: Text("Topics")) {
+						if model.displayTopics.isEmpty {
+							Text(emptyTopicText)
+								.foregroundColor(.secondary)
+						}
+						else {
+							ForEach(model.displayTopics) { messages in
+								TopicCellView(
+									messages: messages,
+									model: self.model,
+									publishMessagePresented: self.$publishMessageModel.isPresented,
+									host: self.host,
+									selectMessage: self.selectMessage)
+							}
+						}
 					}
 				}
+				.searchable(text: $model.filterText)
+				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
+					PublishMessageFormModalView(closeCallback: self.cancelDialog,
+												root: self.rootModel,
+												host: self.host,
+												model: self.$publishMessageModel)
+				})
+				.listStyle(GroupedListStyle())
 			}
-		}
-		.searchable(text: $model.filterText)
 
-		.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
-			PublishMessageFormModalView(closeCallback: self.cancelDialog,
-										root: self.rootModel,
-										host: self.host,
-										model: self.$publishMessageModel)
-		})
-		.listStyle(GroupedListStyle())
+		}
 		.navigationTitle(host.aliasOrHost)
 		.toolbar {
 			ToolbarItemGroup(placement: .navigationBarTrailing) {
+
 				Button(action: createTopic) {
 					Image(systemName: "paperplane.fill")
 				}
-
+				#if !targetEnvironment(macCatalyst)
+				Button(action: model.readall) {
+					Image(systemName: "circle")
+					.font(.subheadline)
+					.foregroundColor(.blue)
+				}
+				#endif
 				Button(action: pauseConnection) {
 					Image(systemName: host.pause ? "play.fill" : "pause.fill")
+				}.frame(width: 25, alignment: .leading)
+			}
+			#if targetEnvironment(macCatalyst)
+			ToolbarItemGroup(placement: .navigationBarLeading) {
+				Button(action: model.readall) {
+					Image(systemName: "circle")
+					.font(.subheadline)
+					.foregroundColor(.blue)
+				}
+				Button(action: model.clear) {
+					Image(systemName: "clear")
+					.font(.subheadline)
+					.foregroundColor(.red)
 				}
 			}
-			
+			#endif
 		}
 		.navigationBarTitleDisplayMode(.inline)
 		.safeAreaInset(edge: .bottom) {
@@ -75,6 +102,7 @@ struct TopicsView: View {
 			LoginDialogView(loginCallback: self.login, host: self.host)
 		})
 		.onAppear {
+			#if !targetEnvironment(macCatalyst)
 			if self.host.needsAuth {
 				self.loginData.username = self.host.username
 				self.loginData.password = self.host.password
@@ -83,9 +111,14 @@ struct TopicsView: View {
 			else {
 				self.rootModel.connect(to: self.host)
 			}
+			#endif
 		}
 	}
 
+	func connect() {
+		self.rootModel.connect(to: self.host)
+	}
+	
 	func createToolInset() -> some View {
 		return VStack(spacing: 0) {
 			if host.needsAuth {
@@ -104,7 +137,12 @@ struct TopicsView: View {
 				ConnectingView(host: host)
 			}
 			else if host.state == .disconnected {
-				DisconnectedView(host: host)
+				if host.reconnectDelegate != nil {
+					DisconnectedView(host: host)
+				}
+				else {
+					ConnectBrokerView(connect: connect)
+				}
 			}
 		}
 		.background(.ultraThinMaterial)
