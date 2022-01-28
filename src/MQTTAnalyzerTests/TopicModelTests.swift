@@ -25,10 +25,12 @@ class TopicModelTests: XCTestCase {
 	func testNextLevel() {
 		let topic = Topic("some/sensor/topic/A")
 		XCTAssertEqual("some", topic.nextLevel(hierarchy: Topic(""))?.name)
+		XCTAssertEqual("some", topic.nextLevel(hierarchy: Topic(""))?.segments.joined(separator: "/"))
 		XCTAssertEqual("some/sensor/topic/A", topic.nextLevel(hierarchy: Topic(""))?.fullTopic)
 
-		XCTAssertEqual("some/sensor", topic.nextLevel(hierarchy: Topic("some"))?.name)
-		XCTAssertEqual("some/sensor/topic", topic.nextLevel(hierarchy: Topic("some/sensor"))?.name)
+		XCTAssertEqual("sensor", topic.nextLevel(hierarchy: Topic("some"))?.name)
+		XCTAssertEqual("some/sensor/topic", topic.nextLevel(hierarchy: Topic("some/sensor"))?.segments.joined(separator: "/"))
+		XCTAssertEqual("topic", topic.nextLevel(hierarchy: Topic("some/sensor"))?.name)
 		XCTAssertEqual("some/sensor/topic/A", topic.nextLevel(hierarchy: Topic("some/sensor"))?.fullTopic)
 		
 		XCTAssertNil(topic.nextLevel(hierarchy: Topic("some/sensor/topic/A")))
@@ -42,6 +44,11 @@ class TopicModelTests: XCTestCase {
 	
 	func testLastSubTopic() {
 		let topic = Topic("hue/zgp_connectivity/buero")
-		XCTAssertEqual("hue/zgp_connectivity/buero", topic.nextLevel(hierarchy: Topic("hue/zgp_connectivity"))?.name)
+		XCTAssertEqual("buero", topic.nextLevel(hierarchy: Topic("hue/zgp_connectivity"))?.name)
+	}
+	
+	func testSamePrefix() {
+		let topic = Topic("hue/button/buero-hue-smart-button")
+		XCTAssertNil(topic.nextLevel(hierarchy: Topic("hue/button/buero")))
 	}
 }

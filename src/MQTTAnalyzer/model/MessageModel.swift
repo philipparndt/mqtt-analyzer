@@ -114,18 +114,22 @@ class MessageModel: ObservableObject {
 		return Array(Set(nextLevels)).sorted { $0.name < $1.name }
 	}
 	
-	func displayTopicsByPath(_ path: Topic, maxBeforeCollapse: Int = 10) -> [MessagesByTopic] {
+	func displayTopics(by path: Topic, maxBeforeCollapse: Int? = 10) -> [MessagesByTopic] {
 		let result = displayTopics
 			.filter {
-				$0.topic.name.starts(with: path.name)
+				$0.topic.segments.starts(with: path.segments)
 			}
 		
-		if result.count > maxBeforeCollapse {
+		if maxBeforeCollapse != nil && result.count > maxBeforeCollapse! {
 			return result.filter { $0.topic.name == path.name }
 		}
 		else {
 			return result
 		}
+	}
+	
+	func countDisplayTopics(by path: Topic) -> Int {
+		return displayTopics(by: path, maxBeforeCollapse: nil).count
 	}
 	
 	func setFilterImmediatelly(_ filter: String) {

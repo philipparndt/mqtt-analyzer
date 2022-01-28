@@ -35,6 +35,13 @@ struct TopicsView: View {
 				List {
 					TopicsToolsView(model: self.model)
 
+					HStack {
+						Text("Path")
+						Spacer()
+						Text(path.segments.joined(separator: "/"))
+							.textSelection(.enabled)
+					}
+					
 					Section(header: Text("Topics")) {
 						if model.displayTopics.isEmpty {
 							Text(emptyTopicText)
@@ -45,12 +52,16 @@ struct TopicsView: View {
 								NavigationLink(destination: TopicsView(model: self.model, host: self.host, path: subPath)) {
 									HStack {
 										Image(systemName: "folder").foregroundColor(.yellow)
-										Text(subPath.lastSegment)
+										Text(subPath.name)
+										
+										Spacer()
+										
+										Text("\(model.countDisplayTopics(by: subPath))")
 									}
 								}
 							}
 							
-							ForEach(model.displayTopicsByPath(path)) { messages in
+							ForEach(model.displayTopics(by: path)) { messages in
 								TopicCellView(
 									messages: messages,
 									model: self.model,
