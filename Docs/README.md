@@ -44,10 +44,19 @@ https://testflight.apple.com/join/dsvlFCPU
 
 see [Create a certificate for AWS IoT](AWS-IoT.md)
 
-# Developer cheatsheet
+# Developer notes
 
 | Description           | Command           |
 | --------------------- | ----------------- |
 | Update pod repos      | `pod repo update` |
 | Install / update pods | `pod install`     |
 | Execute test cases    | `run-tests.sh`    |
+
+## Realm on macOS
+In case you get the error `Umbrella header 'Realm.h' not found` when creating an archive see:
+https://github.com/realm/realm-swift/issues/3556#issuecomment-218990100
+
+- Right click on `Pods/Realm/Headers/Realm` / Show file inspector
+- Set target member to `Public`
+- Do this for all header files (multi selection is possible)
+
