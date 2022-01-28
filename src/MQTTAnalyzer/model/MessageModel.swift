@@ -121,7 +121,7 @@ class MessageModel: ObservableObject {
 			}
 		
 		if maxBeforeCollapse != nil && result.count > maxBeforeCollapse! {
-			return result.filter { $0.topic.name == path.name }
+			return result.filter { $0.topic.fullTopic == path.fullTopic }
 		}
 		else {
 			return result

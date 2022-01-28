@@ -24,6 +24,7 @@
 		222EAAB727A3CDEB000E37AF /* ConnectBrokerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB627A3CDEB000E37AF /* ConnectBrokerView.swift */; };
 		2230FEF427A4340400D4327F /* NavigationModeFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEF327A4340400D4327F /* NavigationModeFormView.swift */; };
 		2230FEF627A435A000D4327F /* NavigationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEF527A435A000D4327F /* NavigationPicker.swift */; };
+		2230FEF827A4434800D4327F /* DataMigrationNavigationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEF727A4434800D4327F /* DataMigrationNavigationMode.swift */; };
 		223AF5D12477D575009810E6 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
 		223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D22477D5CA009810E6 /* FileListView.swift */; };
 		223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D42477D5F5009810E6 /* FileItemView.swift */; };
@@ -171,6 +172,7 @@
 		222EAAB627A3CDEB000E37AF /* ConnectBrokerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectBrokerView.swift; sourceTree = "<group>"; };
 		2230FEF327A4340400D4327F /* NavigationModeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModeFormView.swift; sourceTree = "<group>"; };
 		2230FEF527A435A000D4327F /* NavigationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPicker.swift; sourceTree = "<group>"; };
+		2230FEF727A4434800D4327F /* DataMigrationNavigationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationNavigationMode.swift; sourceTree = "<group>"; };
 		223AF5D02477D575009810E6 /* FileLister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLister.swift; sourceTree = "<group>"; };
 		223AF5D22477D5CA009810E6 /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
 		223AF5D42477D5F5009810E6 /* FileItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItemView.swift; sourceTree = "<group>"; };
@@ -621,6 +623,7 @@
 				22F6057A23D4911000E6338B /* DataMigration.swift */,
 				2291284224685959006F8256 /* MigrationHelper.swift */,
 				2291284824685AE0006F8256 /* DataMigrationLimits.swift */,
+				2230FEF727A4434800D4327F /* DataMigrationNavigationMode.swift */,
 				2291284624685A92006F8256 /* DataMigrationAuth.swift */,
 				2291284424685A13006F8256 /* DataMigrationClientImpl.swift */,
 				229128402468590D006F8256 /* DataMigrationMultipleTopics.swift */,
@@ -992,6 +995,7 @@
 				22C9F74023BB5EA700892C4B /* MessageModel.swift in Sources */,
 				2256BDAA246FBE5100F92EFE /* DataMigrationEmptyTopic.swift in Sources */,
 				2230FEF627A435A000D4327F /* NavigationPicker.swift in Sources */,
+				2230FEF827A4434800D4327F /* DataMigrationNavigationMode.swift in Sources */,
 				22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */,
 				2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */,
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,

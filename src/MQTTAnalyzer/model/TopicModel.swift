@@ -30,9 +30,10 @@ class Topic: Hashable, Identifiable {
 		
 		if self.segments.starts(with: hierarchy.segments) {
 			let label = self.segments[hierarchy.segments.count]
+			let subSegments = Array(segments[0...hierarchy.segments.count])
 			return Topic(label,
-						 segments: Array(segments[0...hierarchy.segments.count]),
-						 fullTopic: segments.joined(separator: "/"))
+						 segments: subSegments,
+						 fullTopic: subSegments.joined(separator: "/"))
 		}
 		
 		return nil
