@@ -28,6 +28,12 @@ struct ClientImplType {
 	static let cocoamqtt: Int8 = 1
 }
 
+struct NavigationModeType {
+	static let folders: Int8 = 0
+	static let classic: Int8 = 1
+}
+
+
 class HostSetting: Object {
 	@objc dynamic var id = NSUUID().uuidString
 	@objc dynamic var alias = ""
@@ -54,6 +60,9 @@ class HostSetting: Object {
 
 	@objc dynamic var limitTopic = 250
 	@objc dynamic var limitMessagesBatch = 1000
+
+	@objc dynamic var navigationMode: Int8 = NavigationModeType.folders
+	@objc dynamic var maxMessagesOfSubFolders = 10
 	
 	@objc dynamic var isDeleted = false
 	

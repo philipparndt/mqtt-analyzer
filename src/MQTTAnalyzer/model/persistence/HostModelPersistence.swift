@@ -61,6 +61,8 @@ public class HostsModelPersistence {
 					setting.basePath = host.basePath
 					setting.ssl = host.ssl
 					setting.untrustedSSL = host.untrustedSSL
+					setting.navigationMode = transformNavigationMode(host.navigationMode)
+					setting.maxMessagesOfSubFolders = host.maxMessagesOfSubFolders
 				}
 			}
 			catch {
@@ -150,6 +152,27 @@ public class HostsModelPersistence {
 		}
 	}
 	
+	
+	private func transformNavigationMode(_ type: NavigationMode) -> Int8 {
+		switch type {
+		case .folders:
+			return NavigationModeType.folders
+		default:
+			return NavigationModeType.classic
+		}
+	}
+	
+	private func transformNavigationMode(_ type: Int8) -> NavigationMode {
+		switch type {
+		case NavigationModeType.folders:
+			return .folders
+		case NavigationModeType.classic:
+			return .classic
+		default:
+			return .folders
+		}
+	}
+	
 	private func transformClientImplType(_ type: HostClientImplType) -> Int8 {
 		return ClientImplType.cocoamqtt
 	}
@@ -223,6 +246,8 @@ public class HostsModelPersistence {
 		result.basePath = host.basePath
 		result.ssl = host.ssl
 		result.untrustedSSL = host.untrustedSSL
+		result.navigationMode = transformNavigationMode(host.navigationMode)
+		result.maxMessagesOfSubFolders = host.maxMessagesOfSubFolders
 		return result
 	}
 	
@@ -247,6 +272,8 @@ public class HostsModelPersistence {
 		result.basePath = host.basePath
 		result.ssl = host.ssl
 		result.untrustedSSL = host.untrustedSSL
+		result.navigationMode = transformNavigationMode(host.navigationMode)
+		result.maxMessagesOfSubFolders = host.maxMessagesOfSubFolders
 		return result
 	}
 }

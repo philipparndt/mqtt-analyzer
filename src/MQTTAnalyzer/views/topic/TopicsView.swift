@@ -35,11 +35,13 @@ struct TopicsView: View {
 				List {
 					TopicsToolsView(model: self.model)
 
-					HStack {
-						Text("Path")
-						Spacer()
-						Text(path.segments.joined(separator: "/"))
-							.textSelection(.enabled)
+					if !path.segments.isEmpty && host.navigationMode == .folders {
+						HStack {
+							Text("Path")
+							Spacer()
+							Text(path.segments.joined(separator: "/"))
+								.textSelection(.enabled)
+						}
 					}
 					
 					Section(header: Text("Topics")) {
@@ -48,21 +50,23 @@ struct TopicsView: View {
 								.foregroundColor(.secondary)
 						}
 						else {
-							ForEach(model.topicByPath(path)) { subPath in
-								NavigationLink(destination: TopicsView(model: self.model, host: self.host, path: subPath)) {
-									HStack {
-										Image(systemName: "folder.fill")
-											.foregroundColor(.blue)
-										Text(subPath.name)
-										
-										Spacer()
-										
-										Text("\(model.countDisplayTopics(by: subPath))")
+							if host.navigationMode == .folders {
+								ForEach(model.topicByPath(path)) { subPath in
+									NavigationLink(destination: TopicsView(model: self.model, host: self.host, path: subPath)) {
+										HStack {
+											Image(systemName: "folder.fill")
+												.foregroundColor(.blue)
+											Text(subPath.name)
+											
+											Spacer()
+											
+											Text("\(model.countDisplayTopics(by: subPath))")
+										}
 									}
 								}
 							}
 							
-							ForEach(model.displayTopics(by: path)) { messages in
+							ForEach(model.displayTopics(by: path, maxBeforeCollapse: getMaxMessagesOfSubFolders())) { messages in
 								TopicCellView(
 									messages: messages,
 									model: self.model,
@@ -136,6 +140,13 @@ struct TopicsView: View {
 			}
 			#endif
 		}
+	}
+	
+	func getMaxMessagesOfSubFolders() -> Int? {
+		if host.navigationMode == .folders {
+			return host.maxMessagesOfSubFolders
+		}
+		return nil
 	}
 
 	func title() -> String {
