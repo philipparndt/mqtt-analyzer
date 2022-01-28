@@ -33,12 +33,17 @@ https://testflight.apple.com/join/dsvlFCPU
 
 # Screenshots
 
+## iOS
 ![Screenshot 1](screenshot-1.png)
 ![Screenshot 2](screenshot-2.png)
 ![Screenshot 3](screenshot-3.png)
 ![Screenshot 4](screenshot-4.png)
 ![Screenshot 5](screenshot-5.png)
 ![Screenshot 5](screenshot-6.png)
+
+## macOS
+![macOS Screenshot 1](macos-screenshot-1.png)
+![macOS Screenshot 2](macos-screenshot-2.png)
 
 # AWS Iot
 
