@@ -152,7 +152,6 @@ public class HostsModelPersistence {
 		}
 	}
 	
-	
 	private func transformNavigationMode(_ type: NavigationMode) -> Int8 {
 		switch type {
 		case .folders:

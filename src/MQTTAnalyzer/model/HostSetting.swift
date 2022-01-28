@@ -33,7 +33,6 @@ struct NavigationModeType {
 	static let classic: Int8 = 1
 }
 
-
 class HostSetting: Object {
 	@objc dynamic var id = NSUUID().uuidString
 	@objc dynamic var alias = ""
