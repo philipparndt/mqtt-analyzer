@@ -51,7 +51,8 @@ struct TopicsView: View {
 							ForEach(model.topicByPath(path)) { subPath in
 								NavigationLink(destination: TopicsView(model: self.model, host: self.host, path: subPath)) {
 									HStack {
-										Image(systemName: "folder").foregroundColor(.yellow)
+										Image(systemName: "folder.fill")
+											.foregroundColor(.blue)
 										Text(subPath.name)
 										
 										Spacer()
