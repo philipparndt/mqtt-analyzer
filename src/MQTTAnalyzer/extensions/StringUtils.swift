@@ -75,4 +75,15 @@ extension String {
 		let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 		return String((0..<length).map { _ in letters.randomElement()! })
 	}
+	
+	func splitCamelCase() -> String {
+		return unicodeScalars.reduce("") {
+			if CharacterSet.uppercaseLetters.contains($1) {
+				if !$0.isEmpty {
+					return ($0 + " " + String($1))
+				}
+			}
+			return $0 + String($1)
+		}
+	}
 }
