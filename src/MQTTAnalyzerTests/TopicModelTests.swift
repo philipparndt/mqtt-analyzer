@@ -25,8 +25,12 @@ class TopicModelTests: XCTestCase {
 	func testNextLevel() {
 		let topic = Topic("some/sensor/topic/A")
 		XCTAssertEqual("some", topic.nextLevel(hierarchy: Topic(""))?.name)
+		XCTAssertEqual("some/sensor/topic/A", topic.nextLevel(hierarchy: Topic(""))?.fullTopic)
+
 		XCTAssertEqual("some/sensor", topic.nextLevel(hierarchy: Topic("some"))?.name)
 		XCTAssertEqual("some/sensor/topic", topic.nextLevel(hierarchy: Topic("some/sensor"))?.name)
+		XCTAssertEqual("some/sensor/topic/A", topic.nextLevel(hierarchy: Topic("some/sensor"))?.fullTopic)
+		
 		XCTAssertNil(topic.nextLevel(hierarchy: Topic("some/sensor/topic/A")))
 		XCTAssertNil(topic.nextLevel(hierarchy: Topic("B")))
 	}

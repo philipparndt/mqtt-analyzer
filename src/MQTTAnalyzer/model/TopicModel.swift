@@ -12,9 +12,11 @@ class Topic: Hashable, Identifiable {
 	let id: String
 	let name: String
 	let lastSegment: String
+	let fullTopic: String
 
-	init(_ name: String) {
+	init(_ name: String, fullTopic: String? = nil) {
 		self.name = name
+		self.fullTopic = fullTopic ?? name
 		self.id = name
 		self.lastSegment = Topic.lastSegment(of: name)
 	}
@@ -36,7 +38,7 @@ class Topic: Hashable, Identifiable {
 			}
 			
 			let endIndex = name.index(startIndex, offsetBy: index!)
-			return Topic(String(name[...endIndex]))
+			return Topic(String(name[...endIndex]), fullTopic: name)
 		}
 		
 		return nil

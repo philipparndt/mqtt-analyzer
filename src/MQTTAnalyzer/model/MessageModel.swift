@@ -107,17 +107,20 @@ class MessageModel: ObservableObject {
 		}
 		.filter { $0 != nil }
 		.map { $0! }
+		.filter {
+			filterText.isEmpty || $0.fullTopic.lowercased().contains(filterText.lowercased())
+		}
 		
 		return Array(Set(nextLevels)).sorted { $0.name < $1.name }
 	}
 	
-	func displayTopicsByPath(_ path: Topic) -> [MessagesByTopic] {
+	func displayTopicsByPath(_ path: Topic, maxBeforeCollapse: Int = 10) -> [MessagesByTopic] {
 		let result = displayTopics
 			.filter {
 				$0.topic.name.starts(with: path.name)
 			}
 		
-		if result.count > 10 {
+		if result.count > maxBeforeCollapse {
 			return result.filter { $0.topic.name == path.name }
 		}
 		else {
