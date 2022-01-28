@@ -31,9 +31,13 @@ struct DataSeriesCellView: View {
 	var body: some View {
 		NavigationLink(destination: DataSeriesDetailsView(path: path, messagesByTopic: messagesByTopic)) {
 			HStack {
-				Image(systemName: "chart.bar")
-					.font(.subheadline)
-					.foregroundColor(.blue)
+				VStack {
+					Image(systemName: PropertyImageProvider.byName(property: path.lastSegment))
+						.font(.subheadline)
+						.foregroundColor(.blue)
+						
+				}
+				.frame(minWidth: 30, alignment: Alignment.center)
 				
 				VStack {
 					HStack {
