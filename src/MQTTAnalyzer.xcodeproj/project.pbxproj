@@ -13,12 +13,14 @@
 		2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
 		220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */; };
+		2217BA3C27A3D2F900699428 /* AwaitMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2217BA3B27A3D2F900699428 /* AwaitMessagesView.swift */; };
 		221C571C2466847800C0DD02 /* QuestionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571B2466847800C0DD02 /* QuestionBox.swift */; };
 		221C571E2466C9CD00C0DD02 /* AWSIOTPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571D2466C9CD00C0DD02 /* AWSIOTPreset.swift */; };
 		221C57202466CC2800C0DD02 /* AWSIOTPresetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */; };
 		222EAAB1279FC289000E37AF /* CocoaMQTTRegression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB0279FC289000E37AF /* CocoaMQTTRegression.swift */; };
 		222EAAB327A31849000E37AF /* PropertyImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB227A31849000E37AF /* PropertyImageProvider.swift */; };
 		222EAAB527A31CCB000E37AF /* PropertyImageProviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB427A31CCB000E37AF /* PropertyImageProviderTest.swift */; };
+		222EAAB727A3CDEB000E37AF /* ConnectBrokerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB627A3CDEB000E37AF /* ConnectBrokerView.swift */; };
 		223AF5D12477D575009810E6 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
 		223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D22477D5CA009810E6 /* FileListView.swift */; };
 		223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D42477D5F5009810E6 /* FileItemView.swift */; };
@@ -157,6 +159,7 @@
 		2205E5E0238A7EE2001638DF /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
 		220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMigrationCertificateFiles.swift; sourceTree = "<group>"; };
+		2217BA3B27A3D2F900699428 /* AwaitMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwaitMessagesView.swift; sourceTree = "<group>"; };
 		221C571B2466847800C0DD02 /* QuestionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBox.swift; sourceTree = "<group>"; };
 		221C571D2466C9CD00C0DD02 /* AWSIOTPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSIOTPreset.swift; sourceTree = "<group>"; };
 		221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSIOTPresetTests.swift; sourceTree = "<group>"; };
@@ -164,6 +167,7 @@
 		222EAAB0279FC289000E37AF /* CocoaMQTTRegression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTRegression.swift; sourceTree = "<group>"; };
 		222EAAB227A31849000E37AF /* PropertyImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyImageProvider.swift; sourceTree = "<group>"; };
 		222EAAB427A31CCB000E37AF /* PropertyImageProviderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyImageProviderTest.swift; sourceTree = "<group>"; };
+		222EAAB627A3CDEB000E37AF /* ConnectBrokerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectBrokerView.swift; sourceTree = "<group>"; };
 		223AF5D02477D575009810E6 /* FileLister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLister.swift; sourceTree = "<group>"; };
 		223AF5D22477D5CA009810E6 /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
 		223AF5D42477D5F5009810E6 /* FileItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItemView.swift; sourceTree = "<group>"; };
@@ -447,6 +451,7 @@
 			isa = PBXGroup;
 			children = (
 				2285C81927842176008DA37D /* DisconnectedView.swift */,
+				222EAAB627A3CDEB000E37AF /* ConnectBrokerView.swift */,
 				2285C81727842115008DA37D /* ConnectingView.swift */,
 				2285C81327841CA1008DA37D /* LoginView.swift */,
 				2285C81127841C72008DA37D /* ResumeConnectionView.swift */,
@@ -564,6 +569,7 @@
 				228104922381773100112F24 /* TopicCellView.swift */,
 				228104942381779000112F24 /* TopicToolsView.swift */,
 				22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */,
+				2217BA3B27A3D2F900699428 /* AwaitMessagesView.swift */,
 			);
 			path = topic;
 			sourceTree = "<group>";
@@ -949,6 +955,7 @@
 				226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */,
 				22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */,
 				22F8BEE723C24A5800422BFF /* StringUtils.swift in Sources */,
+				2217BA3C27A3D2F900699428 /* AwaitMessagesView.swift in Sources */,
 				2203571F2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift in Sources */,
 				228104982381796B00112F24 /* HostCellView.swift in Sources */,
 				229FCAEF247D6E2700490628 /* ImportCertificatePicker.swift in Sources */,
@@ -980,6 +987,7 @@
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
 				2291424F23C0C0370086C251 /* MenuButton.swift in Sources */,
 				22C9F73E23BB5E5C00892C4B /* HostModel.swift in Sources */,
+				222EAAB727A3CDEB000E37AF /* ConnectBrokerView.swift in Sources */,
 				2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */,
 				22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
