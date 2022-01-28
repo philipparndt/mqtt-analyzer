@@ -18,6 +18,7 @@ struct MetadataTextView: View {
 				.foregroundColor(.secondary)
 			Spacer()
 			Text(value).padding(.trailing)
+				.textSelection(.enabled)
 		}
 	}
 }
@@ -35,15 +36,19 @@ struct MetadataView: View {
 	let topic: Topic
 
 	var body: some View {
-		VStack {
-			MetadataTextView(key: "Topic", value: topic.name)
-			Divider()
-			MetadataTextView(key: "Timestamp", value: message.localDate)
-			Divider()
-			MetadataTextView(key: "QoS", value: "\(message.qos)")
-		}
-		.padding([.leading, .top, .bottom])
-		.background(.ultraThinMaterial)
-		.cornerRadius(10)
+		HStack {
+			VStack {
+				MetadataTextView(key: "Topic", value: topic.name)
+				Divider()
+				MetadataTextView(key: "Timestamp", value: message.localDate)
+				Divider()
+				MetadataTextView(key: "QoS", value: "\(message.qos)")
+				Divider()
+				MetadataTextView(key: "Retain", value: "\(message.retain ? "Yes" : "No")")
+			}
+			.padding([.leading, .top, .bottom])
+			.background(.ultraThinMaterial)
+			.cornerRadius(10)
+		}.padding()
     }
 }
