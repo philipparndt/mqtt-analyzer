@@ -57,12 +57,12 @@ struct MessageCellView: View {
 			HStack {
 				Image(systemName: "radiowaves.right")
 					.font(.subheadline)
-					.foregroundColor(message.isJson() ? .green : .gray)
+					.foregroundColor(message.payload.isJSON ? .green : .gray)
 				
 				VStack(alignment: .leading) {
-					Text(message.dataString)
+					Text(message.payload.dataString)
 						.lineLimit(8)
-					Text(message.localDate)
+					Text(message.metadata.localDate)
 						.font(.subheadline)
 						.foregroundColor(.secondary)
 				}
@@ -82,7 +82,7 @@ struct MessageCellView: View {
 	}
 	
 	func copy() {
-		UIPasteboard.general.string = message.data
+		UIPasteboard.general.string = message.payload.dataString
 	}
 	
 	func publish() {

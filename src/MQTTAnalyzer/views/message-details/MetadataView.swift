@@ -40,11 +40,11 @@ struct MetadataView: View {
 			VStack {
 				MetadataTextView(key: "Topic", value: topic.name)
 				Divider()
-				MetadataTextView(key: "Timestamp", value: message.localDate)
+				MetadataTextView(key: "Timestamp", value: message.metadata.localDate)
 				Divider()
-				MetadataTextView(key: "QoS", value: "\(message.qos)")
+				MetadataTextView(key: "QoS", value: "\(message.metadata.qos)")
 				Divider()
-				MetadataTextView(key: "Retain", value: "\(message.retain ? "Yes" : "No")")
+				MetadataTextView(key: "Retain", value: "\(message.metadata.retain ? "Yes" : "No")")
 			}
 			.padding([.leading, .top, .bottom])
 			.background(.ultraThinMaterial)

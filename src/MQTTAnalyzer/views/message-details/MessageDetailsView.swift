@@ -17,30 +17,16 @@ struct MessageDetailsView: View {
 			VStack {
 				MetadataView(message: message, topic: topic)
 
-				if message.isBinary() {
-					MessageDetailsJsonView(source: self.message.payload.hexBlockEncoded(len: 12))
+				if message.payload.isBinary {
+					MessageDetailsJsonView(source: self.message.payload.data.hexBlockEncoded(len: 12))
 				}
-				else if message.isJson() {
-					MessageDetailsJsonView(source: message.prettyJson())
+				else if message.payload.isJSON {
+					MessageDetailsJsonView(source: message.payload.prettyJSON)
 				}
 				else {
-					MessageDetailsJsonView(source: message.dataString)
+					MessageDetailsJsonView(source: message.payload.dataString)
 				}
 			}
 		}
 	}
 }
-
-#if DEBUG
-struct MessageDetailsView_Previews: PreviewProvider {
-	static var previews: some View {
-		let msg = "{\"temperature\": 56.125, \"longProp\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\" }"
-		MessageDetailsView(message: Message(
-			data: msg,
-			payload: Array(msg.utf8),
-			date: Date(),
-			qos: 0,
-			retain: false, topic: "some topic"), topic: Topic("some topic"))
-	}
-}
-#endif

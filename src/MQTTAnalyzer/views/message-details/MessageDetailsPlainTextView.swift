@@ -13,7 +13,7 @@ struct MessageDetailsPlainTextView: View {
 	
 	var body: some View {
 		VStack {
-			Text(message.dataString)
+			Text(message.payload.dataString)
 				.lineLimit(nil)
 				.padding(10)
 				.font(.system(.body, design: .monospaced))

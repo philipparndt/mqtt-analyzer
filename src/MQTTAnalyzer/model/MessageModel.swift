@@ -11,57 +11,14 @@ import Combine
 import SwiftyJSON
 
 class Message: Identifiable {
-	var jsonData: JSON?
-	
-	let data: String?
-	var dataString: String {
-		return data ?? "[\(payload.count) bytes]"
-	}
-	
-	let payload: [UInt8]
-	let date: Date
-	let localDate: String
-	let qos: Int32
-	let retain: Bool
 	let topic: String
+	let payload: MsgPayload
+	let metadata: MsgMetadata
 	
-	init(data: String?, payload: [UInt8], date: Date, qos: Int32, retain: Bool, topic: String) {
-		self.data = data
-		self.payload = payload
-		self.date = date
-		self.qos = qos
-		if data != nil {
-			self.jsonData = Message.toJson(messageData: data!)
-		}
-		self.retain = retain
+	init(topic: String, payload: MsgPayload, metadata: MsgMetadata) {
 		self.topic = topic
-		self.localDate = DateFormatter.iso.string(from: date)
-	}
-	
-	func checkBinary(value: UInt8) -> Bool {
-		return value < 32
-	}
-	
-	func isBinary() -> Bool {
-		return self.data == nil
-	}
-	
-	func isJson() -> Bool {
-		return jsonData != nil
-	}
-	
-	func prettyJson() -> String {
-		return data != nil ? JSONUtils.format(json: data!) : ""
-	}
-	
-	class func toJson(messageData: String) -> JSON? {
-		let json = JSON(parseJSON: messageData)
-		if json.isEmpty {
-			return nil
-		}
-		else {
-			return json
-		}
+		self.payload = payload
+		self.metadata = metadata
 	}
 }
 
@@ -160,7 +117,7 @@ class MessageModel: ObservableObject {
 		}
 		
 		return values.filter {
-			let data = $0.getRecentMessage()?.data ?? ""
+			let data = $0.getRecentMessage()?.payload.dataString ?? ""
 			return $0.topic.name.localizedCaseInsensitiveContains(trimmedFilter)
 			|| data.localizedCaseInsensitiveContains(trimmedFilter)
 		}

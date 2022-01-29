@@ -79,13 +79,13 @@ struct PublishMessageFormModel {
 
 func of(message: Message) -> PublishMessageFormModel {
 	var model = PublishMessageFormModel()
-	model.message = message.dataString
+	model.message = message.payload.dataString
 	model.topic = message.topic
-	model.qos = Int(message.qos)
-	model.retain = message.retain
-	model.messageType = message.isJson() ? .json : .plain
+	model.qos = Int(message.metadata.qos)
+	model.retain = message.metadata.retain
+	model.messageType = message.payload.isJSON ? .json : .plain
 	
-	if let json = message.jsonData {
+	if let json = message.payload.jsonData {
 		model.jsonData = json
 		
 		createJsonProperties(json: json, path: [])

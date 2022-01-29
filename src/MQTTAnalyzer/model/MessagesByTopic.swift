@@ -35,8 +35,8 @@ class MessagesByTopic: Identifiable, ObservableObject {
 	func newMessage(_ message: Message) {
 		read.markUnread()
 		
-		if let json = message.jsonData {
-			collectValues(date: message.date, json: json, path: [], dateFormatted: message.localDate)
+		if let json = message.payload.jsonData {
+			collectValues(date: message.metadata.date, json: json, path: [], dateFormatted: message.metadata.localDate)
 		}
 		
 		messages.insert(message, at: 0)
@@ -69,7 +69,7 @@ class MessagesByTopic: Identifiable, ObservableObject {
 	}
 	
 	func getRecent() -> String {
-		return messages.isEmpty ? "<undef>" : messages[0].dataString
+		return messages.isEmpty ? "<undef>" : messages[0].payload.dataString
 	}
 	
 	func getRecentMessage() -> Message? {
