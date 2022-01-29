@@ -25,7 +25,9 @@
 		2230FEF427A4340400D4327F /* NavigationModeFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEF327A4340400D4327F /* NavigationModeFormView.swift */; };
 		2230FEF627A435A000D4327F /* NavigationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEF527A435A000D4327F /* NavigationPicker.swift */; };
 		2230FEF827A4434800D4327F /* DataMigrationNavigationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEF727A4434800D4327F /* DataMigrationNavigationMode.swift */; };
+		2230FEFA27A50C8000D4327F /* TreeModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEF927A50C8000D4327F /* TreeModelTests.swift */; };
 		2230FEFE27A50E9000D4327F /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEFD27A50E9000D4327F /* DateUtils.swift */; };
+		2230FEFF27A5206100D4327F /* TreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEFB27A50C9700D4327F /* TreeModel.swift */; };
 		223AF5D12477D575009810E6 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
 		223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D22477D5CA009810E6 /* FileListView.swift */; };
 		223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D42477D5F5009810E6 /* FileItemView.swift */; };
@@ -174,6 +176,8 @@
 		2230FEF327A4340400D4327F /* NavigationModeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModeFormView.swift; sourceTree = "<group>"; };
 		2230FEF527A435A000D4327F /* NavigationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPicker.swift; sourceTree = "<group>"; };
 		2230FEF727A4434800D4327F /* DataMigrationNavigationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationNavigationMode.swift; sourceTree = "<group>"; };
+		2230FEF927A50C8000D4327F /* TreeModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeModelTests.swift; sourceTree = "<group>"; };
+		2230FEFB27A50C9700D4327F /* TreeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeModel.swift; sourceTree = "<group>"; };
 		2230FEFD27A50E9000D4327F /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		223AF5D02477D575009810E6 /* FileLister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLister.swift; sourceTree = "<group>"; };
 		223AF5D22477D5CA009810E6 /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
@@ -347,6 +351,14 @@
 			path = navigation;
 			sourceTree = "<group>";
 		};
+		2230FF0027A5206400D4327F /* v2 */ = {
+			isa = PBXGroup;
+			children = (
+				2230FEFB27A50C9700D4327F /* TreeModel.swift */,
+			);
+			path = v2;
+			sourceTree = "<group>";
+		};
 		223AF5CE2477D521009810E6 /* certificates */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +469,7 @@
 				2285C81D2785CA2D008DA37D /* JSONTests.swift */,
 				2285C82227887CDC008DA37D /* PublishMessageFormModelTests.swift */,
 				222EAAB0279FC289000E37AF /* CocoaMQTTRegression.swift */,
+				2230FEF927A50C8000D4327F /* TreeModelTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
 			sourceTree = "<group>";
@@ -705,6 +718,7 @@
 		22FD7D0722C8D39D0078795F /* model */ = {
 			isa = PBXGroup;
 			children = (
+				2230FF0027A5206400D4327F /* v2 */,
 				223EF0042387082E002ADF3E /* persistence */,
 				228911CF22CF86B20095301F /* timeseries */,
 				22FD7CFB22C8D2650078795F /* RootModel.swift */,
@@ -1006,6 +1020,7 @@
 				22C9F73E23BB5E5C00892C4B /* HostModel.swift in Sources */,
 				222EAAB727A3CDEB000E37AF /* ConnectBrokerView.swift in Sources */,
 				2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */,
+				2230FEFF27A5206100D4327F /* TreeModel.swift in Sources */,
 				22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
 				226A6B5424448ECB00ACDFC3 /* MqttClientSharedUtils.swift in Sources */,
@@ -1074,6 +1089,7 @@
 				228B069323FC318100E988D0 /* ModelTests.swift in Sources */,
 				221C57202466CC2800C0DD02 /* AWSIOTPresetTests.swift in Sources */,
 				22A387052409768100DF8F94 /* HostModelPersistenceTests.swift in Sources */,
+				2230FEFA27A50C8000D4327F /* TreeModelTests.swift in Sources */,
 				22E914DF25A8420700BEC599 /* HostFormModelTests.swift in Sources */,
 				22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */,
 				222EAAB527A31CCB000E37AF /* PropertyImageProviderTest.swift in Sources */,

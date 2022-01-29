@@ -63,12 +63,6 @@ class Message: Identifiable {
 			return json
 		}
 	}
-	
-	class func cleanEscapedNumbers(_ messageData: String) -> String {
-		return messageData.replacingOccurrences(of: "[\"'](-?[1-9]+\\d*)[\"']",
-		with: "$1",
-		options: .regularExpression)
-	}
 }
 
 class MessageModel: ObservableObject {
