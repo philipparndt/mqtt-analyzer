@@ -30,12 +30,11 @@ class ModelTests: XCTestCase {
 		let messageModel = model.getMessageModel(host)
 
 		for data in messageData {
-			messageModel.append(message: Message(data: data,
-												 payload: Array(data.utf8),
-												 date: Date(),
-												 qos: 0,
-												 retain: false,
-												 topic: "topic"))
+			messageModel.append(message: Message(
+				topic: "topic",
+				payload: MsgPayload(data: Array(data.utf8)),
+				metadata: MsgMetadata(qos: 0, retain: false)
+			))
 		}
 		return (model, messageModel.messagesByTopic["topic"]!)
 	}
@@ -53,16 +52,15 @@ class ModelTests: XCTestCase {
 		let messageModel = model.getMessageModel(host)
 
 		XCTAssertEqual(0, messageModel.countMessages())
-		messageModel.append(message: Message(data: "text message",
-											 payload: Array("text message".utf8),
-											 date: Date(),
-											 qos: 0,
-											 retain: false,
-											 topic: "topic"))
+		messageModel.append(message: Message(
+			topic: "topic",
+			payload: MsgPayload(data: Array("text message".utf8)),
+			metadata: MsgMetadata(qos: 0, retain: false)
+		))
 
 		XCTAssertEqual(1, messageModel.countMessages())
 		let message = messageModel.messagesByTopic["topic"]!.messages[0]
-		XCTAssertFalse(message.isJson())
+		XCTAssertFalse(message.payload.isJSON)
 	}
 	
 	func testLimitTopics() {
@@ -71,12 +69,11 @@ class ModelTests: XCTestCase {
 		messageModel.limitTopics = 10
 		
 		for i in 0...15 {
-			messageModel.append(message: Message(data: "text message",
-												 payload: Array("text message".utf8),
-												 date: Date(),
-												 qos: 0,
-												 retain: false,
-												 topic: "topic/\(i)"))
+			messageModel.append(message: Message(
+				topic: "topic/\(i)",
+				payload: MsgPayload(data: Array("text message".utf8)),
+				metadata: MsgMetadata(qos: 0, retain: false)
+			))
 		}
 		
 		XCTAssertEqual(10, messageModel.countMessages())
@@ -88,12 +85,11 @@ class ModelTests: XCTestCase {
 		messageModel.limitTopics = 10
 		
 		for _ in 0..<15 {
-			messageModel.append(message: Message(data: "text message",
-												 payload: Array("text message".utf8),
-												 date: Date(),
-												 qos: 0,
-												 retain: false,
-												 topic: "topic"))
+			messageModel.append(message: Message(
+				topic: "topic",
+				payload: MsgPayload(data: Array("text message".utf8)),
+				metadata: MsgMetadata(qos: 0, retain: false)
+			))
 		}
 		
 		XCTAssertEqual(15, messageModel.countMessages())
@@ -107,16 +103,16 @@ class ModelTests: XCTestCase {
 		let msg = """
 {"toggle": true}
 """
-		messageModel.append(message: Message(data: msg,
-											 payload: Array(msg.utf8),
-											 date: Date(),
-											 qos: 0,
-											 retain: false,
-											 topic: "topic"))
+		
+		messageModel.append(message: Message(
+			topic: "topic",
+			payload: MsgPayload(data: Array(msg.utf8)),
+			metadata: MsgMetadata(qos: 0, retain: false)
+		))
 
 		XCTAssertEqual(1, messageModel.countMessages())
 		let message = messageModel.messagesByTopic["topic"]!.messages[0]
-		XCTAssertTrue(message.isJson())
+		XCTAssertTrue(message.payload.isJSON)
 	}
 
 	func testBooleanTruePropInJSON() {
