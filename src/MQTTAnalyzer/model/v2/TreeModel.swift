@@ -100,17 +100,10 @@ class TopicTree: Identifiable, ObservableObject {
 	}
 
 	@Published var messageCountDisplay: Int = 0
-	
 	@Published var topicCountDisplay: Int = 0
-
 	@Published var childrenDisplay: [TopicTree] = []
-		
-	@Published var messages: [MsgMessage] = [] {
-		didSet {
-			childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
-			updateMessageCount()
-		}
-	}
+	@Published var messages: [MsgMessage] = []
+	@Published var timeSeries = TimeSeriesModel()
 	
 	init() {
 		self.name = "root"
@@ -121,6 +114,22 @@ class TopicTree: Identifiable, ObservableObject {
 		self.name = name
 		self.parent = parent
 		self.parent?.children[name] = self
+	}
+	
+	private func addMessage(message: MsgMessage) {
+		messages.insert(message, at: 0)
+		
+		childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
+		updateMessageCount()
+		 
+		if let json = message.payload.jsonData {
+			timeSeries.collect(
+				date: message.metadata.date,
+				json: json,
+				path: [],
+				dateFormatted: message.metadata.localDate
+			)
+		}
 	}
 	
 	private func updateMessageCount() {
@@ -164,7 +173,7 @@ extension TopicTree {
 	func addMessage(metadata: MsgMetadata, payload: MsgPayload, to topic: String) -> MsgMessage {
 		let node = addTopic(topic: topic)
 		let message = MsgMessage(topic: node, payload: payload, metadata: metadata)
-		node.messages.append(message)
+		node.addMessage(message: message)
 		return message
 	}
 }

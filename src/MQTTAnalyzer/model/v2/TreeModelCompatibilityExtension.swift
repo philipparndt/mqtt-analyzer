@@ -57,7 +57,4 @@ extension TopicTree {
 		
 	}
 	
-	func hasDiagrams() -> Bool {
-		return false
-	}
 }

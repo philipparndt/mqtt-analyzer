@@ -11,7 +11,7 @@ import SwiftUI
 struct DataSeriesDetailsView: View {
 	
 	let path: DiagramPath
-	@ObservedObject var messagesByTopic: MessagesByTopic
+	@ObservedObject var node: TopicTree
 
 	@State var range: Int = 60
 	
@@ -21,13 +21,13 @@ struct DataSeriesDetailsView: View {
 			VStack(alignment: .leading) {
 				List {
 					Section(header: Text("Topic")) {
-						Text(messagesByTopic.topic.name)
+						Text(node.nameQualified)
 					}
 					Section(header: Text("Value path")) {
 						Text(path.path)
 					}
 					Section(header: Text("Values")) {
-						ForEach(messagesByTopic.getTimeSeriesId(path).reversed()) {
+						ForEach(node.timeSeries.getId(path).reversed()) {
 							DataSeriesCell(path: $0)
 						}
 					}

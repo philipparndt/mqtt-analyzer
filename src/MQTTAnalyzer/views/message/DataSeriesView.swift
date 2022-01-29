@@ -9,28 +9,32 @@
 import SwiftUI
 
 struct DataSeriesView: View {
-	@ObservedObject var leaf: TopicTree
+	@ObservedObject var node: TopicTree
 
 	var body: some View {
 		Group {
-			if leaf.hasDiagrams() {
-				Text("Data series")
-//				Section(header: Text("Data series")) {
-//					ForEach(leaf.getDiagrams()) {
-//						DataSeriesCellView(path: $0, messagesByTopic: self.messagesByTopic)
-//					}
-//				}
-			}
+			//if leaf.timeSeries.hasTimeseries {
+				Section(header: Text("Data series")) {
+					ForEach(node.timeSeries.getDiagrams()) {
+						DataSeriesCellView(
+							path: $0,
+							node: self.node,
+							series: self.node.timeSeries
+						)
+					}
+				}
+			//}
 		}
 	}
 }
 
 struct DataSeriesCellView: View {
 	let path: DiagramPath
-	@ObservedObject var messagesByTopic: MessagesByTopic
-
+	@ObservedObject var node: TopicTree
+	@ObservedObject var series: TimeSeriesModel
+	
 	var body: some View {
-		NavigationLink(destination: DataSeriesDetailsView(path: path, messagesByTopic: messagesByTopic)) {
+		NavigationLink(destination: DataSeriesDetailsView(path: path, node: node)) {
 			HStack {
 				VStack {
 					Image(systemName: PropertyImageProvider.byName(property: path.lastSegment))
@@ -66,7 +70,7 @@ struct DataSeriesCellView: View {
 	}
 	
 	func lastValue() -> String {
-		return messagesByTopic.getTimeSeriesLastValue(path)
+		return series.getLastValue(path)
 			.map { $0.valueString } ?? "<no value>"
 	}
 }

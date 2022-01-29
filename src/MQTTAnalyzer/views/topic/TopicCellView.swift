@@ -18,7 +18,7 @@ struct TopicCellView: View {
 	let selectMessage: (Message) -> Void
 	
 	var body: some View {
-		NavigationLink(destination: MessagesView(leaf: messages, host: host)) {
+		NavigationLink(destination: MessagesView(node: messages, host: host)) {
 			HStack {
 				ReadMarkerView(read: messages.read)
 				
@@ -48,14 +48,14 @@ struct TopicCellView: View {
 	}
 	
 	func publish() {
-		if let first = messages.messages.last {
+		if let first = messages.messages.first {
 			// FIXME: implement
 			//root.publish(message: first, on: host)
 		}
 	}
 	
 	func publishManually() {
-		if let first = messages.messages.last {
+		if let first = messages.messages.first {
 			// FIXME: implement
 //			selectMessage(first)
 //			publishMessagePresented = true
@@ -63,7 +63,7 @@ struct TopicCellView: View {
 	}
 	
 	func messagePreview() -> String {
-		return messages.messages.last?.payload.dataString ?? "<no message>"
+		return messages.messages.first?.payload.dataString ?? "<no message>"
 	}
 	
 	func copyTopic() {
@@ -71,7 +71,7 @@ struct TopicCellView: View {
 	}
 	
 	func copyMessage() {
-		UIPasteboard.general.string = messages.messages.last?.payload.dataString ?? ""
+		UIPasteboard.general.string = messages.messages.first?.payload.dataString ?? ""
 	}
 	
 	func focus() {

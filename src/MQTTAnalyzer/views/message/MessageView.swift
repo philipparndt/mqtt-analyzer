@@ -11,14 +11,14 @@ import SwiftUI
 struct MessageView: View {
 	@EnvironmentObject var rootModel: RootModel
 
-	@ObservedObject var leaf: TopicTree
+	@ObservedObject var node: TopicTree
 	@State var publishMessageFormModel = PublishMessageFormModel()
 
 	let host: Host
 
 	var body: some View {
 		Section(header: Text("Messages")) {
-			ForEach(leaf.messages) {
+			ForEach(node.messages) {
 				MessageCellView(message: $0,
 								selectMessage: self.selectMessage,
 								host: self.host)
@@ -29,7 +29,7 @@ struct MessageView: View {
 											 model: self.$publishMessageFormModel)
 					})
 			}
-			.onDelete(perform: leaf.delete)
+			.onDelete(perform: node.delete)
 		}
 	}
 	
