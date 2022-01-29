@@ -94,7 +94,7 @@ class TopicTree: Identifiable {
 	var children: [String: TopicTree] = [:]
 	
 	var messages: [MsgMessage] = []
-		
+	
 	init() {
 		self.name = "root"
 		self.parent = nil

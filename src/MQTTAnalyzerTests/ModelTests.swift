@@ -33,7 +33,7 @@ class ModelTests: XCTestCase {
 			messageModel.append(message: Message(
 				topic: "topic",
 				payload: MsgPayload(data: Array(data.utf8)),
-				metadata: MsgMetadata(qos: 0, retain: false)
+				metadata: MsgMetadata.stub()
 			))
 		}
 		return (model, messageModel.messagesByTopic["topic"]!)
@@ -55,7 +55,7 @@ class ModelTests: XCTestCase {
 		messageModel.append(message: Message(
 			topic: "topic",
 			payload: MsgPayload(data: Array("text message".utf8)),
-			metadata: MsgMetadata(qos: 0, retain: false)
+			metadata: MsgMetadata.stub()
 		))
 
 		XCTAssertEqual(1, messageModel.countMessages())
@@ -72,7 +72,7 @@ class ModelTests: XCTestCase {
 			messageModel.append(message: Message(
 				topic: "topic/\(i)",
 				payload: MsgPayload(data: Array("text message".utf8)),
-				metadata: MsgMetadata(qos: 0, retain: false)
+				metadata: MsgMetadata.stub()
 			))
 		}
 		
@@ -88,7 +88,7 @@ class ModelTests: XCTestCase {
 			messageModel.append(message: Message(
 				topic: "topic",
 				payload: MsgPayload(data: Array("text message".utf8)),
-				metadata: MsgMetadata(qos: 0, retain: false)
+				metadata: MsgMetadata.stub()
 			))
 		}
 		
@@ -107,7 +107,7 @@ class ModelTests: XCTestCase {
 		messageModel.append(message: Message(
 			topic: "topic",
 			payload: MsgPayload(data: Array(msg.utf8)),
-			metadata: MsgMetadata(qos: 0, retain: false)
+			metadata: MsgMetadata.stub()
 		))
 
 		XCTAssertEqual(1, messageModel.countMessages())
