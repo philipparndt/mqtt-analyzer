@@ -62,7 +62,7 @@ struct HostCellView: View {
 					Spacer()
 
 					if host.state != .disconnected {
-						Text("\(messageModel.messageCount)")
+						Text("\(messageModel.messageCountDisplay)")
 							.font(.system(size: 14, design: .monospaced))
 							.foregroundColor(.secondary)
 

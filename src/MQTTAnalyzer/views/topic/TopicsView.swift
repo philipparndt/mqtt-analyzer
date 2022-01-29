@@ -16,14 +16,6 @@ struct TopicsView: View {
 	@State private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
 	
-	var emptyTopicText: String {
-		if model.filterText.isEmpty {
-			return "no topics available"
-		} else {
-			return "no topics available using the current filter"
-		}
-	}
-	
 	var body: some View {
 		VStack {
 			if model.messageCount == 0 {
@@ -42,31 +34,8 @@ struct TopicsView: View {
 						}
 					}
 					
-					Section(header: Text("Topics")) {
-						if model.childrenDisplay.isEmpty {
-							Text(emptyTopicText)
-								.foregroundColor(.secondary)
-						}
-						else {
-							if host.navigationMode == .folders {
-								ForEach(model.childrenDisplay) { child in
-									NavigationLink(destination: TopicsView(model: child, host: self.host)) {
-										HStack {
-											Image(systemName: "folder.fill")
-												.foregroundColor(.blue)
-											Text(child.name)
-											
-											Spacer()
-
-											Text("\(child.topicCountDisplay)/\(child.messageCountDisplay)")
-												.font(.system(size: 12, design: .monospaced))
-												.foregroundColor(.secondary)
-												.opacity(0.5)
-										}
-									}
-								}
-							}
-						}
+					if host.navigationMode == .folders {
+						FolderNavigationView(host: host, model: model)
 					}
 					
 					if !model.messages.isEmpty {

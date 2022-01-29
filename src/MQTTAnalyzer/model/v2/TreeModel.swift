@@ -95,8 +95,7 @@ class TopicTree: Identifiable, ObservableObject {
 	var children: [String: TopicTree] = [:] {
 		didSet {
 			childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
-			messageCountDisplay = messageCount
-			topicCountDisplay = topicCount
+			updateMessageCount()
 		}
 	}
 
@@ -109,7 +108,7 @@ class TopicTree: Identifiable, ObservableObject {
 	@Published var messages: [MsgMessage] = [] {
 		didSet {
 			childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
-			messageCountDisplay = messageCount
+			updateMessageCount()
 		}
 	}
 	
@@ -122,6 +121,14 @@ class TopicTree: Identifiable, ObservableObject {
 		self.name = name
 		self.parent = parent
 		self.parent?.children[name] = self
+	}
+	
+	private func updateMessageCount() {
+		messageCountDisplay = messageCount
+		topicCountDisplay = topicCount
+		
+		// Propagate new message counter
+		parent?.updateMessageCount()
 	}
 }
 
