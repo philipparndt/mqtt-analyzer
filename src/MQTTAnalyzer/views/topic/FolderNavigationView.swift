@@ -21,7 +21,7 @@ struct FolderNavigationView: View {
 	}
 	
     var body: some View {
-		Section(header: Text("Topics")) {
+		Section(header: Text("Topic Children")) {
 			if model.childrenDisplay.isEmpty {
 				Text(emptyTopicText)
 					.foregroundColor(.secondary)
@@ -29,21 +29,38 @@ struct FolderNavigationView: View {
 			else {
 				ForEach(model.childrenDisplay) { child in
 					NavigationLink(destination: TopicsView(model: child, host: self.host)) {
-						HStack {
-							Image(systemName: "folder.fill")
-								.foregroundColor(.blue)
-							Text(child.name)
-							
-							Spacer()
-
-							Text("\(child.topicCountDisplay)/\(child.messageCountDisplay)")
-								.font(.system(size: 12, design: .monospaced))
-								.foregroundColor(.secondary)
-								.opacity(0.5)
-						}
+						FolderCellView(model: child)
 					}
 				}
 			}
 		}
     }
+}
+
+struct FolderCellView: View {
+	@ObservedObject var model: TopicTree
+
+	var body: some View {
+		HStack {
+			Image(systemName: "folder.fill")
+				.foregroundColor(.blue)
+			
+			Text(model.name)
+			
+			Spacer()
+
+			CounterCellView(model: model)
+		}
+	}
+}
+
+struct CounterCellView: View {
+	@ObservedObject var model: TopicTree
+
+	var body: some View {
+		Text("\(model.topicCountDisplay)/\(model.messageCountDisplay)")
+			.font(.system(size: 12, design: .monospaced))
+			.foregroundColor(.secondary)
+			.opacity(0.5)
+	}
 }
