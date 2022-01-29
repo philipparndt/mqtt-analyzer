@@ -96,4 +96,18 @@ class TreeModelTests: XCTestCase {
 						payload: MsgPayload.from(text: "val2"), to: topic)
 		XCTAssertIdentical(msg2, node.messages.last)
 	}
+	
+	func testMessageCount() throws {
+		let root = TopicTree()
+		let topic = "home/hue/button/office"
+		_ = root.addMessage(metadata: MsgMetadata.stub(),
+						payload: MsgPayload.from(text: "val1"), to: topic)
+		
+		XCTAssertEqual(1, root.messageCount)
+
+		_ = root.addMessage(metadata: MsgMetadata.stub(),
+						payload: MsgPayload.from(text: "val2"), to: topic)
+		
+		XCTAssertEqual(2, root.messageCount)
+	}
 }

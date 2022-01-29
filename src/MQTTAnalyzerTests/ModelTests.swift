@@ -182,9 +182,9 @@ class ModelTests: XCTestCase {
 		let (root, _) = modelWithMessages(messageData: "a", "b")
 		let host = root.messageModelByHost.keys.first!
 		let messageModel = root.getMessageModel(host)
-		XCTAssertEqual(2, messageModel.countMessages())
+		XCTAssertEqual(2, messageModel.messageCount)
 		messageModel.clear()
-		XCTAssertEqual(0, messageModel.countMessages())
+		XCTAssertEqual(0, messageModel.messageCount)
 	}
 	
 	func testClearMessagesFromTopic() {

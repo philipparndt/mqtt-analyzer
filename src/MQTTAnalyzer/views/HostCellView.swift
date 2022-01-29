@@ -26,7 +26,7 @@ struct ServerPageSheetState {
 struct HostCellView: View {
 	@EnvironmentObject var model: RootModel
 	@ObservedObject var host: Host
-	@ObservedObject var messageModel: MessageModel
+	@ObservedObject var messageModel: TopicTree
 	
 	@State private var sheetState = ServerPageSheetState()
 	
@@ -39,7 +39,7 @@ struct HostCellView: View {
 	}
 	
 	var body: some View {
-		NavigationLink(destination: TopicsView(model: messageModel, host: host, path: Topic(""))) {
+		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
 			VStack {
 				#if targetEnvironment(macCatalyst)
 				Spacer()

@@ -10,14 +10,12 @@ import SwiftUI
 
 struct TopicsView: View {
 	@EnvironmentObject var rootModel: RootModel
-	@ObservedObject var model: MessageModel
+	@ObservedObject var model: TopicTree
 	@ObservedObject var host: Host
 	
 	@State private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
 	
-	var path: Topic
-
 	var emptyTopicText: String {
 		if model.filterText.isEmpty {
 			return "no topics available"
@@ -35,24 +33,24 @@ struct TopicsView: View {
 				List {
 					TopicsToolsView(model: self.model)
 
-					if !path.segments.isEmpty && host.navigationMode == .folders {
-						HStack {
-							Text("Path")
-							Spacer()
-							Text(path.segments.joined(separator: "/"))
-								.textSelection(.enabled)
-						}
-					}
+//					if !path.segments.isEmpty && host.navigationMode == .folders {
+//						HStack {
+//							Text("Path")
+//							Spacer()
+//							Text(path.segments.joined(separator: "/"))
+//								.textSelection(.enabled)
+//						}
+//					}
 					
 					Section(header: Text("Topics")) {
-						if model.displayTopics.isEmpty {
-							Text(emptyTopicText)
-								.foregroundColor(.secondary)
-						}
-						else {
+//						if model.displayTopics.isEmpty {
+//							Text(emptyTopicText)
+//								.foregroundColor(.secondary)
+//						}
+//						else {
 							if host.navigationMode == .folders {
-								ForEach(model.topicByPath(path)) { subPath in
-									NavigationLink(destination: TopicsView(model: self.model, host: self.host, path: subPath)) {
+								ForEach(model.childrenList) { subPath in
+									NavigationLink(destination: TopicsView(model: subPath, host: self.host)) {
 										HStack {
 											Image(systemName: "folder.fill")
 												.foregroundColor(.blue)
@@ -60,24 +58,24 @@ struct TopicsView: View {
 											
 											Spacer()
 											
-											Text("\(model.countDisplayTopics(by: subPath))/\(model.countDisplayMessages(by: subPath))")
-												.font(.system(size: 12, design: .monospaced))
-												.foregroundColor(.secondary)
-												.opacity(0.5)
+//											Text("\(model.countDisplayTopics(by: subPath))/\(model.countDisplayMessages(by: subPath))")
+//												.font(.system(size: 12, design: .monospaced))
+//												.foregroundColor(.secondary)
+//												.opacity(0.5)
 										}
 									}
 								}
 							}
 							
-							ForEach(model.displayTopics(by: path, maxBeforeCollapse: getMaxMessagesOfSubFolders())) { messages in
-								TopicCellView(
-									messages: messages,
-									model: self.model,
-									publishMessagePresented: self.$publishMessageModel.isPresented,
-									host: self.host,
-									selectMessage: self.selectMessage)
-							}
-						}
+//							ForEach(model.messages) { messages in
+//								TopicCellView(
+//									messages: messages,
+//									model: self.model,
+//									publishMessagePresented: self.$publishMessageModel.isPresented,
+//									host: self.host,
+//									selectMessage: self.selectMessage)
+//							}
+//						}
 					}
 				}
 				.searchable(text: $model.filterText)
@@ -153,12 +151,13 @@ struct TopicsView: View {
 	}
 
 	func title() -> String {
-		if path.name.isEmpty {
-			return host.aliasOrHost
-		}
-		else {
-			return path.lastSegment
-		}
+		return host.aliasOrHost
+//		if path.name.isEmpty {
+//			return host.aliasOrHost
+//		}
+//		else {
+//			return path.lastSegment
+//		}
 	}
 	
 	func connect() {

@@ -83,7 +83,7 @@ class MsgMessage: Identifiable {
 	}
 }
 
-class TopicTree: Identifiable {
+class TopicTree: Identifiable, ObservableObject {
 	let id = UUID()
 	let name: String
 	var nameQualified: String {
@@ -91,9 +91,10 @@ class TopicTree: Identifiable {
 	}
 
 	let parent: TopicTree?
-	var children: [String: TopicTree] = [:]
 	
-	var messages: [MsgMessage] = []
+	@Published var children: [String: TopicTree] = [:]
+
+	@Published var messages: [MsgMessage] = []
 	
 	init() {
 		self.name = "root"
@@ -137,7 +138,6 @@ extension TopicTree {
 	}
 	
 	func addMessage(metadata: MsgMetadata, payload: MsgPayload, to topic: String) -> MsgMessage {
-		
 		let node = addTopic(topic: topic)
 		let message = MsgMessage(topic: node, payload: payload, metadata: metadata)
 		node.messages.append(message)

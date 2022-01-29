@@ -17,7 +17,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	let utils = MqttClientSharedUtils()
 	
 	let sessionNum: Int
-	let model: MessageModel
+	let model: TopicTree
 	var host: Host
 	var mqtt: CocoaMQTT?
 	
@@ -29,7 +29,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	
 	let messageSubject = MsgSubject<CocoaMQTTMessage>()
 		
-	init(host: Host, model: MessageModel) {
+	init(host: Host, model: TopicTree) {
 		ConnectionState.sessionNum += 1
 
 		self.model = model
@@ -168,8 +168,8 @@ class MqttClientCocoaMQTT: MqttClient {
 		connectionState.state = .connecting
 		connectionState.message = nil
 		
-		model.limitMessagesPerBatch = host.limitMessagesBatch
-		model.limitTopics = host.limitTopic
+//		model.limitMessagesPerBatch = host.limitMessagesBatch
+//		model.limitTopics = host.limitTopic
 	}
 		
 	func disconnect() {
@@ -225,13 +225,14 @@ class MqttClientCocoaMQTT: MqttClient {
 		if host.pause {
 			return
 		}
-		let mapped = messages.map({ (message: CocoaMQTTMessage) -> Message in
-			return Message(topic: message.topic,
-						   payload: MsgPayload(data: message.payload),
-						   metadata: MsgMetadata(qos: Int32(message.qos.rawValue), retain: message.retained)
+		
+		for message in messages {
+			_ = self.model.addMessage(
+				metadata: MsgMetadata(qos: Int32(message.qos.rawValue), retain: message.retained),
+				payload: MsgPayload(data: message.payload),
+				to: message.topic
 			)
-		})
-		self.model.append(messages: mapped)
+		}
 	}
 	
 	// MARK: Should be shared

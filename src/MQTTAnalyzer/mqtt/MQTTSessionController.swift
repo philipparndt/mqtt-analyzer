@@ -11,7 +11,7 @@ import Combine
 
 class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 	
-	var model: MessageModel?
+	var model: TopicTree?
 	var sessions: [String: MqttClient] = [:]
 	
 	private var messageSubjectCancellable: Cancellable? {

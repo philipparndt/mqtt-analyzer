@@ -1,0 +1,57 @@
+//
+//  TreeModelCompatibilityExtension.swift
+//  MQTTAnalyzer
+//
+//  Created by Philipp Arndt on 2022-01-29.
+//  Copyright © 2022 Philipp Arndt. All rights reserved.
+//
+
+import Foundation
+
+extension TopicTree {
+	var childrenList: [TopicTree] {
+		return Array(children.values)
+	}
+	
+	var filterText: String {
+		get {
+			return ""
+		}
+		
+		set {
+			
+		}
+	}
+	
+	var topicLimit: Bool {
+		return false
+	}
+
+	var messageLimit: Bool {
+		return false
+	}
+	
+	var topicCount: Int {
+		return children.count + childrenList
+			.map { $0.messages.isEmpty ? 0 : $0.topicCount }
+			.reduce(0, +)
+	}
+		
+	var messageCount: Int {
+		return messages.count + childrenList
+			.map { $0.messageCount }
+			.reduce(0, +)
+	}
+	
+	var displayTopics: String {
+		return ""
+	}
+	
+	func readall() {
+		
+	}
+	
+	func clear() {
+		
+	}
+}

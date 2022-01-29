@@ -28,7 +28,7 @@ class RootModel: ObservableObject {
 
 	let hostsModel = HostsModel(initMethod: controller)
 	
-	var messageModelByHost: [Host: MessageModel] = [:]
+	var messageModelByHost: [Host: TopicTree] = [:]
 	
 	let persistence: HostsModelPersistence
 	
@@ -37,15 +37,15 @@ class RootModel: ObservableObject {
 		self.persistence.load()
 		
 		for host in hostsModel.hosts {
-			messageModelByHost[host] = MessageModel()
+			messageModelByHost[host] = TopicTree()
 		}
 	}
  
-	func getMessageModel(_ host: Host) -> MessageModel {
+	func getMessageModel(_ host: Host) -> TopicTree {
 		var model = messageModelByHost[host]
 		
 		if model == nil {
-			model = MessageModel()
+			model = TopicTree()
 			messageModelByHost[host] = model
 		}
 		
