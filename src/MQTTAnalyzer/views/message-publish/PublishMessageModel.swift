@@ -77,10 +77,10 @@ struct PublishMessageFormModel {
 	}
 }
 
-func of(message: Message) -> PublishMessageFormModel {
+func of(message: MsgMessage) -> PublishMessageFormModel {
 	var model = PublishMessageFormModel()
 	model.message = message.payload.dataString
-	model.topic = message.topic
+	model.topic = message.topic.nameQualified
 	model.qos = Int(message.metadata.qos)
 	model.retain = message.metadata.retain
 	model.messageType = message.payload.isJSON ? .json : .plain

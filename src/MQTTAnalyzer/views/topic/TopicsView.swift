@@ -138,12 +138,6 @@ struct TopicsView: View {
 
 	func title() -> String {
 		return host.aliasOrHost
-//		if path.name.isEmpty {
-//			return host.aliasOrHost
-//		}
-//		else {
-//			return path.lastSegment
-//		}
 	}
 	
 	func connect() {
@@ -199,7 +193,7 @@ struct TopicsView: View {
 		rootModel.connect(to: self.host)
 	}
 	
-	func selectMessage(message: Message) {
+	func selectMessage(message: MsgMessage) {
 		publishMessageModel = of(message: message)
 	}
 

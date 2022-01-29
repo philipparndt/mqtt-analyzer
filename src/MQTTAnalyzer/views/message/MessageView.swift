@@ -33,7 +33,7 @@ struct MessageView: View {
 		}
 	}
 	
-	func selectMessage(message: Message) {
+	func selectMessage(message: MsgMessage) {
 		self.publishMessageFormModel = of(message: message)
 		self.publishMessageFormModel.isPresented = true
 	}
@@ -47,7 +47,7 @@ struct MessageCellView: View {
 	@EnvironmentObject var model: RootModel
 	
 	let message: MsgMessage
-	let selectMessage: (Message) -> Void
+	let selectMessage: (MsgMessage) -> Void
 	let host: Host
 	
 	var body: some View {
@@ -84,12 +84,10 @@ struct MessageCellView: View {
 	}
 	
 	func publish() {
-		// FIXME
-		//model.publish(message: message, on: host)
+		model.publish(message: message, on: host)
 	}
 	
 	func publishManually() {
-		// FIXME
-		//selectMessage(message)
+		selectMessage(message)
 	}
 }

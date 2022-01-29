@@ -192,9 +192,9 @@ class MqttClientCocoaMQTT: MqttClient {
 		}
 	}
 	
-	func publish(message: Message) {
+	func publish(message: MsgMessage) {
 		mqtt?.publish(CocoaMQTTMessage(
-			topic: message.topic,
+			topic: message.topic.nameQualified,
 			string: message.payload.dataString,
 			qos: convertQOS(qos: message.metadata.qos),
 			retained: message.metadata.retain))

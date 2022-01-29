@@ -54,5 +54,5 @@ protocol MqttClient {
 	
 	func disconnect()
 	
-	func publish(message: Message)
+	func publish(message: MsgMessage)
 }

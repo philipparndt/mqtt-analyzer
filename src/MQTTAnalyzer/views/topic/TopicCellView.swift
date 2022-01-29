@@ -15,7 +15,7 @@ struct TopicCellView: View {
 	@Binding var publishMessagePresented: Bool
 	
 	let host: Host
-	let selectMessage: (Message) -> Void
+	let selectMessage: (MsgMessage) -> Void
 	
 	var body: some View {
 		NavigationLink(destination: MessagesView(node: messages, host: host)) {
@@ -49,16 +49,14 @@ struct TopicCellView: View {
 	
 	func publish() {
 		if let first = messages.messages.first {
-			// FIXME: implement
-			//root.publish(message: first, on: host)
+			root.publish(message: first, on: host)
 		}
 	}
 	
 	func publishManually() {
 		if let first = messages.messages.first {
-			// FIXME: implement
-//			selectMessage(first)
-//			publishMessagePresented = true
+			selectMessage(first)
+			publishMessagePresented = true
 		}
 	}
 	

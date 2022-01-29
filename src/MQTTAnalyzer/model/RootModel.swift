@@ -62,7 +62,7 @@ class RootModel: ObservableObject {
 		sessionController.disconnect(host: from)
 	}
 	
-	func publish(message: Message, on: Host) {
+	func publish(message: MsgMessage, on: Host) {
 		sessionController.publish(message: message, on: on)
 	}
 	
