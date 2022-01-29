@@ -12,8 +12,8 @@ struct DataSeriesView: View {
 	@ObservedObject var node: TopicTree
 
 	var body: some View {
-		Group {
-			//if leaf.timeSeries.hasTimeseries {
+		AnyView {
+			if node.timeSeries.hasTimeseries {
 				Section(header: Text("Data series")) {
 					ForEach(node.timeSeries.getDiagrams()) {
 						DataSeriesCellView(
@@ -23,7 +23,7 @@ struct DataSeriesView: View {
 						)
 					}
 				}
-			//}
+			}
 		}
 	}
 }
