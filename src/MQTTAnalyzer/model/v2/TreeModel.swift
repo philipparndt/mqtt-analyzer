@@ -95,12 +95,23 @@ class TopicTree: Identifiable, ObservableObject {
 	var children: [String: TopicTree] = [:] {
 		didSet {
 			childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
+			messageCountDisplay = messageCount
+			topicCountDisplay = topicCount
 		}
 	}
 
+	@Published var messageCountDisplay: Int = 0
+	
+	@Published var topicCountDisplay: Int = 0
+
 	@Published var childrenDisplay: [TopicTree] = []
 		
-	@Published var messages: [MsgMessage] = []
+	@Published var messages: [MsgMessage] = [] {
+		didSet {
+			childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
+			messageCountDisplay = messageCount
+		}
+	}
 	
 	init() {
 		self.name = "root"

@@ -110,4 +110,22 @@ class TreeModelTests: XCTestCase {
 		
 		XCTAssertEqual(2, root.messageCount)
 	}
+	
+	func testTopicCount() throws {
+		let root = TopicTree()
+		XCTAssertEqual(0, root.topicCount)
+
+		_ = root.addMessage(metadata: MsgMetadata.stub(),
+						payload: MsgPayload.from(text: "val1"), to: "home/hue/button/office")
+		XCTAssertEqual(1, root.topicCount)
+
+		_ = root.addMessage(metadata: MsgMetadata.stub(),
+						payload: MsgPayload.from(text: "val2"), to: "home/hue/button/office")
+		XCTAssertEqual(1, root.topicCount)
+
+		_ = root.addMessage(metadata: MsgMetadata.stub(),
+						payload: MsgPayload.from(text: "val3"), to: "home/hue/light/office")
+		XCTAssertEqual(2, root.topicCount)
+
+	}
 }

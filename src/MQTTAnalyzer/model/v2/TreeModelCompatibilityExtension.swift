@@ -41,18 +41,6 @@ extension TopicTree {
 		return Readstate()
 	}
 	
-	var topicCount: Int {
-		return children.count + childrenList
-			.map { $0.messages.isEmpty ? 0 : $0.topicCount }
-			.reduce(0, +)
-	}
-		
-	var messageCount: Int {
-		return messages.count + childrenList
-			.map { $0.messageCount }
-			.reduce(0, +)
-	}
-	
 	var displayTopics: String {
 		return ""
 	}

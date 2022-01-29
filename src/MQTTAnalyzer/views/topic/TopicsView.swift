@@ -33,49 +33,66 @@ struct TopicsView: View {
 				List {
 					TopicsToolsView(model: self.model)
 
-//					if !path.segments.isEmpty && host.navigationMode == .folders {
-//						HStack {
-//							Text("Path")
-//							Spacer()
-//							Text(path.segments.joined(separator: "/"))
-//								.textSelection(.enabled)
-//						}
-//					}
+					if model.parent != nil {
+						HStack {
+							Text("Path")
+							Spacer()
+							Text(model.nameQualified)
+								.textSelection(.enabled)
+						}
+					}
 					
 					Section(header: Text("Topics")) {
-//						if model.displayTopics.isEmpty {
-//							Text(emptyTopicText)
-//								.foregroundColor(.secondary)
-//						}
-//						else {
+						if model.childrenDisplay.isEmpty {
+							Text(emptyTopicText)
+								.foregroundColor(.secondary)
+						}
+						else {
 							if host.navigationMode == .folders {
-								ForEach(model.childrenDisplay) { subPath in
-									NavigationLink(destination: TopicsView(model: subPath, host: self.host)) {
+								ForEach(model.childrenDisplay) { child in
+									NavigationLink(destination: TopicsView(model: child, host: self.host)) {
 										HStack {
 											Image(systemName: "folder.fill")
 												.foregroundColor(.blue)
-											Text(subPath.name)
+											Text(child.name)
 											
 											Spacer()
-											
-//											Text("\(model.countDisplayTopics(by: subPath))/\(model.countDisplayMessages(by: subPath))")
-//												.font(.system(size: 12, design: .monospaced))
-//												.foregroundColor(.secondary)
-//												.opacity(0.5)
+
+											Text("\(child.topicCountDisplay)/\(child.messageCountDisplay)")
+												.font(.system(size: 12, design: .monospaced))
+												.foregroundColor(.secondary)
+												.opacity(0.5)
 										}
 									}
 								}
 							}
-							
+						}
+					}
+					
+					if !model.messages.isEmpty {
+						Section(header: Text("Messages")) {
+							TopicCellView(
+								messages: self.model,
+								model: self.model,
+								publishMessagePresented: self.$publishMessageModel.isPresented,
+								host: self.host,
+								selectMessage: self.selectMessage
+							)
+						}
+					}
+					
+					if !model.childrenWithMessages.isEmpty {
+						Section(header: Text("Inhertited Messages")) {
 							ForEach(model.childrenWithMessages) { messages in
 								TopicCellView(
 									messages: messages,
 									model: self.model,
 									publishMessagePresented: self.$publishMessageModel.isPresented,
 									host: self.host,
-									selectMessage: self.selectMessage)
+									selectMessage: self.selectMessage
+								)
 							}
-//						}
+						}
 					}
 				}
 				.searchable(text: $model.filterText)
