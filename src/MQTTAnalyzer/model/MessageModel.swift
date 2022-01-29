@@ -132,6 +132,13 @@ class MessageModel: ObservableObject {
 		return displayTopics(by: path, maxBeforeCollapse: nil).count
 	}
 	
+	func countDisplayMessages(by path: Topic) -> Int {
+		return displayTopics(by: path, maxBeforeCollapse: nil)
+			.map { $0.messages.count }
+			.reduce(0, +)
+	}
+	
+	
 	func setFilterImmediatelly(_ filter: String) {
 		self.filterText = filter
 	}

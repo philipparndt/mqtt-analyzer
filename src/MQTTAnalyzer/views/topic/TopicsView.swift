@@ -60,7 +60,10 @@ struct TopicsView: View {
 											
 											Spacer()
 											
-											Text("\(model.countDisplayTopics(by: subPath))")
+											Text("\(model.countDisplayTopics(by: subPath))/\(model.countDisplayMessages(by: subPath))")
+												.font(.system(size: 12, design: .monospaced))
+												.foregroundColor(.secondary)
+												.opacity(0.5)
 										}
 									}
 								}
