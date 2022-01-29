@@ -32,6 +32,7 @@
 		2230FF0427A541A600D4327F /* TreeModelCompatibilityExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0327A541A600D4327F /* TreeModelCompatibilityExtension.swift */; };
 		2230FF0627A5668200D4327F /* MessageCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0527A5668200D4327F /* MessageCounter.swift */; };
 		2230FF0827A56BDE00D4327F /* FolderNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0727A56BDE00D4327F /* FolderNavigationView.swift */; };
+		2230FF0C27A57DF500D4327F /* TreeModelReadStateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0B27A57DF400D4327F /* TreeModelReadStateExtension.swift */; };
 		223AF5D12477D575009810E6 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
 		223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D22477D5CA009810E6 /* FileListView.swift */; };
 		223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D42477D5F5009810E6 /* FileItemView.swift */; };
@@ -186,6 +187,7 @@
 		2230FF0327A541A600D4327F /* TreeModelCompatibilityExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeModelCompatibilityExtension.swift; sourceTree = "<group>"; };
 		2230FF0527A5668200D4327F /* MessageCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCounter.swift; sourceTree = "<group>"; };
 		2230FF0727A56BDE00D4327F /* FolderNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderNavigationView.swift; sourceTree = "<group>"; };
+		2230FF0B27A57DF400D4327F /* TreeModelReadStateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeModelReadStateExtension.swift; sourceTree = "<group>"; };
 		223AF5D02477D575009810E6 /* FileLister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLister.swift; sourceTree = "<group>"; };
 		223AF5D22477D5CA009810E6 /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
 		223AF5D42477D5F5009810E6 /* FileItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItemView.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				2230FEFB27A50C9700D4327F /* TreeModel.swift */,
+				2230FF0B27A57DF400D4327F /* TreeModelReadStateExtension.swift */,
 				2230FF0327A541A600D4327F /* TreeModelCompatibilityExtension.swift */,
 				2230FF0527A5668200D4327F /* MessageCounter.swift */,
 			);
@@ -1049,6 +1052,7 @@
 				22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */,
 				22C386A322CB84900054C385 /* RootView.swift in Sources */,
 				220357212445B2ED00A98CD3 /* MQTTDelegate.swift in Sources */,
+				2230FF0C27A57DF500D4327F /* TreeModelReadStateExtension.swift in Sources */,
 				2291284924685AE1006F8256 /* DataMigrationLimits.swift in Sources */,
 				228104932381773100112F24 /* TopicCellView.swift in Sources */,
 				228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */,

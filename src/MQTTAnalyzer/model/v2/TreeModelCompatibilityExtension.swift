@@ -37,16 +37,12 @@ extension TopicTree {
 		return false
 	}
 	
-	var read: Readstate {
-		return Readstate()
-	}
-	
 	var displayTopics: String {
 		return ""
 	}
 	
 	func readall() {
-		
+		markRead()
 	}
 	
 	func clear() {

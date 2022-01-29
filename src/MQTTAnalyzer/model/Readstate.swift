@@ -9,7 +9,7 @@
 import Foundation
 
 class Readstate: ObservableObject {
-	@Published var read: Bool = false
+	@Published var read: Bool = true
 
 	func markRead() {
 		read = true

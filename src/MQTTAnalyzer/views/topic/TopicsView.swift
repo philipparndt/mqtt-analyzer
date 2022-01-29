@@ -83,7 +83,7 @@ struct TopicsView: View {
 					Image(systemName: "paperplane.fill")
 				}
 				#if !targetEnvironment(macCatalyst)
-				Button(action: model.readall) {
+				Button(action: model.markRead) {
 					Image(systemName: "circle")
 					.font(.subheadline)
 					.foregroundColor(.blue)

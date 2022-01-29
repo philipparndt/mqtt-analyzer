@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct ReadMarkerView: View {
-	@ObservedObject
-	var read: Readstate
+	@ObservedObject var read: Readstate
 	
 	var body: some View {
 		Image(systemName: "circle.fill")

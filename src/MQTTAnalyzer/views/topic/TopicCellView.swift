@@ -20,7 +20,7 @@ struct TopicCellView: View {
 	var body: some View {
 		NavigationLink(destination: MessagesView(node: messages, host: host)) {
 			HStack {
-				ReadMarkerView(read: messages.read)
+				ReadMarkerView(read: messages.readState)
 				
 				VStack(alignment: .leading) {
 					Text(messages.nameQualified)

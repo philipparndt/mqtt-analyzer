@@ -126,6 +126,16 @@ class TreeModelTests: XCTestCase {
 		_ = root.addMessage(metadata: MsgMetadata.stub(),
 						payload: MsgPayload.from(text: "val3"), to: "home/hue/light/office")
 		XCTAssertEqual(2, root.topicCount)
+	}
+	
+	func testReadState() throws {
+		let root = TopicTree()
+		root.readState.markRead()
+		
+		let msg = root.addMessage(metadata: MsgMetadata.stub(),
+						payload: MsgPayload.from(text: "val1"), to: "home/hue/button/office")
 
+		XCTAssertFalse(msg.topic.readStateCombined)
+		XCTAssertFalse(root.readStateCombined)
 	}
 }

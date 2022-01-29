@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct TopicsToolsView: View {
-	@ObservedObject
-	var model: TopicTree
+	@ObservedObject var model: TopicTree
 		
 	var body: some View {
 		Group {

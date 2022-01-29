@@ -26,7 +26,7 @@ struct MessagesView: View {
 		.navigationTitle(node.name)
 		.listStyle(GroupedListStyle())
 		.onAppear {
-			self.node.read.markRead()
+			self.node.markRead()
 		}
 	}
 	

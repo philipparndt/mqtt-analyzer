@@ -104,6 +104,7 @@ class TopicTree: Identifiable, ObservableObject {
 	@Published var childrenDisplay: [TopicTree] = []
 	@Published var messages: [MsgMessage] = []
 	@Published var timeSeries = TimeSeriesModel()
+	@Published var readState = Readstate()
 	
 	init() {
 		self.name = "root"
@@ -118,6 +119,7 @@ class TopicTree: Identifiable, ObservableObject {
 	
 	private func addMessage(message: MsgMessage) {
 		messages.insert(message, at: 0)
+		markUnread()
 		
 		childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
 		updateMessageCount()
