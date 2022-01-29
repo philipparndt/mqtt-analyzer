@@ -35,10 +35,7 @@ class Message: Identifiable {
 		}
 		self.retain = retain
 		self.topic = topic
-		
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-		self.localDate = dateFormatter.string(from: date)
+		self.localDate = DateFormatter.iso.string(from: date)
 	}
 	
 	func checkBinary(value: UInt8) -> Bool {
@@ -137,7 +134,6 @@ class MessageModel: ObservableObject {
 			.map { $0.messages.count }
 			.reduce(0, +)
 	}
-	
 	
 	func setFilterImmediatelly(_ filter: String) {
 		self.filterText = filter
