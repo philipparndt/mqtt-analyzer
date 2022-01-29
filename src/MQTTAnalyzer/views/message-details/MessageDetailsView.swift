@@ -9,13 +9,12 @@
 import SwiftUI
 
 struct MessageDetailsView: View {
-	let message: Message
-	let topic: Topic
+	let message: MsgMessage
 	
 	var body: some View {
 		VStack {
 			VStack {
-				MetadataView(message: message, topic: topic)
+				MetadataView(message: message)
 
 				if message.payload.isBinary {
 					MessageDetailsJsonView(source: self.message.payload.data.hexBlockEncoded(len: 12))

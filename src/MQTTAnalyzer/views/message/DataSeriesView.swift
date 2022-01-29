@@ -9,16 +9,17 @@
 import SwiftUI
 
 struct DataSeriesView: View {
-	@ObservedObject var messagesByTopic: MessagesByTopic
+	@ObservedObject var leaf: TopicTree
 
 	var body: some View {
 		Group {
-			if messagesByTopic.hasDiagrams() {
-				Section(header: Text("Data series")) {
-					ForEach(messagesByTopic.getDiagrams()) {
-						DataSeriesCellView(path: $0, messagesByTopic: self.messagesByTopic)
-					}
-				}
+			if leaf.hasDiagrams() {
+				Text("Data series")
+//				Section(header: Text("Data series")) {
+//					ForEach(leaf.getDiagrams()) {
+//						DataSeriesCellView(path: $0, messagesByTopic: self.messagesByTopic)
+//					}
+//				}
 			}
 		}
 	}

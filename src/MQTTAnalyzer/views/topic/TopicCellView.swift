@@ -10,20 +10,20 @@ import SwiftUI
 
 struct TopicCellView: View {
 	@EnvironmentObject var root: RootModel
-	var messages: MessagesByTopic
-	var model: MessageModel
+	var messages: TopicTree
+	var model: TopicTree
 	@Binding var publishMessagePresented: Bool
 	
 	let host: Host
 	let selectMessage: (Message) -> Void
 	
 	var body: some View {
-		NavigationLink(destination: MessagesView(messagesByTopic: messages, host: host)) {
+		NavigationLink(destination: MessagesView(leaf: messages, host: host)) {
 			HStack {
 				ReadMarkerView(read: messages.read)
 				
 				VStack(alignment: .leading) {
-					Text(messages.topic.name)
+					Text(messages.nameQualified)
 					Text(messagePreview())
 						.font(.subheadline)
 						.foregroundColor(.secondary)
@@ -48,35 +48,39 @@ struct TopicCellView: View {
 	}
 	
 	func publish() {
-		if let first = messages.getRecentMessage() {
-			root.publish(message: first, on: host)
+		if let first = messages.messages.last {
+			// FIXME: implement
+			//root.publish(message: first, on: host)
 		}
 	}
 	
 	func publishManually() {
-		if let first = messages.getRecentMessage() {
-			selectMessage(first)
-			publishMessagePresented = true
+		if let first = messages.messages.last {
+			// FIXME: implement
+//			selectMessage(first)
+//			publishMessagePresented = true
 		}
 	}
 	
 	func messagePreview() -> String {
-		return messages.getRecent()
+		return messages.messages.last?.payload.dataString ?? "<no message>"
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = messages.topic.name
+		UIPasteboard.general.string = messages.nameQualified
 	}
 	
 	func copyMessage() {
-		UIPasteboard.general.string = messages.getRecent()
+		UIPasteboard.general.string = messages.messages.last?.payload.dataString ?? ""
 	}
 	
 	func focus() {
-		model.setFilterImmediatelly(messages.topic.name)
+		// FIXME Implement this
+		// model.setFilterImmediatelly(messages.topic.name)
 	}
 	
 	func focusParent() {
-		model.setFilterImmediatelly(messages.topic.name.pathUp())
+		// FIXME: implement
+		// model.setFilterImmediatelly(messages.topic.name.pathUp())
 	}
 }

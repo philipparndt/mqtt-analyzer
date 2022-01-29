@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct MessageTopicView: View {
-	@ObservedObject var messagesByTopic: MessagesByTopic
+	@ObservedObject var leaf: TopicTree
 
 	var body: some View {
 		Section(header: Text("Topic")) {
-			Text(messagesByTopic.topic.name)
+			Text(leaf.nameQualified)
 				.font(.subheadline)
 				.foregroundColor(.gray).contextMenu {
 					Button(action: copyTopic) {
@@ -25,6 +25,6 @@ struct MessageTopicView: View {
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = messagesByTopic.topic.name
+		UIPasteboard.general.string = leaf.nameQualified
 	}
 }

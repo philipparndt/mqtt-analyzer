@@ -49,7 +49,7 @@ struct TopicsView: View {
 //						}
 //						else {
 							if host.navigationMode == .folders {
-								ForEach(model.childrenList) { subPath in
+								ForEach(model.childrenDisplay) { subPath in
 									NavigationLink(destination: TopicsView(model: subPath, host: self.host)) {
 										HStack {
 											Image(systemName: "folder.fill")
@@ -67,14 +67,14 @@ struct TopicsView: View {
 								}
 							}
 							
-//							ForEach(model.messages) { messages in
-//								TopicCellView(
-//									messages: messages,
-//									model: self.model,
-//									publishMessagePresented: self.$publishMessageModel.isPresented,
-//									host: self.host,
-//									selectMessage: self.selectMessage)
-//							}
+							ForEach(model.childrenWithMessages) { messages in
+								TopicCellView(
+									messages: messages,
+									model: self.model,
+									publishMessagePresented: self.$publishMessageModel.isPresented,
+									host: self.host,
+									selectMessage: self.selectMessage)
+							}
 //						}
 					}
 				}

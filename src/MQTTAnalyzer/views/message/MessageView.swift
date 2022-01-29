@@ -11,16 +11,15 @@ import SwiftUI
 struct MessageView: View {
 	@EnvironmentObject var rootModel: RootModel
 
-	@ObservedObject var messagesByTopic: MessagesByTopic
+	@ObservedObject var leaf: TopicTree
 	@State var publishMessageFormModel = PublishMessageFormModel()
 
 	let host: Host
 
 	var body: some View {
 		Section(header: Text("Messages")) {
-			ForEach(messagesByTopic.messages) {
+			ForEach(leaf.messages) {
 				MessageCellView(message: $0,
-								topic: self.messagesByTopic.topic,
 								selectMessage: self.selectMessage,
 								host: self.host)
 					.sheet(isPresented: $publishMessageFormModel.isPresented, onDismiss: cancelPublishMessageCreation, content: {
@@ -30,7 +29,7 @@ struct MessageView: View {
 											 model: self.$publishMessageFormModel)
 					})
 			}
-			.onDelete(perform: messagesByTopic.delete)
+			.onDelete(perform: leaf.delete)
 		}
 	}
 	
@@ -47,13 +46,12 @@ struct MessageView: View {
 struct MessageCellView: View {
 	@EnvironmentObject var model: RootModel
 	
-	let message: Message
-	let topic: Topic
+	let message: MsgMessage
 	let selectMessage: (Message) -> Void
 	let host: Host
 	
 	var body: some View {
-		NavigationLink(destination: MessageDetailsView(message: message, topic: topic)) {
+		NavigationLink(destination: MessageDetailsView(message: message)) {
 			HStack {
 				Image(systemName: "radiowaves.right")
 					.font(.subheadline)
@@ -86,10 +84,12 @@ struct MessageCellView: View {
 	}
 	
 	func publish() {
-		model.publish(message: message, on: host)
+		// FIXME
+		//model.publish(message: message, on: host)
 	}
 	
 	func publishManually() {
-		selectMessage(message)
+		// FIXME
+		//selectMessage(message)
 	}
 }

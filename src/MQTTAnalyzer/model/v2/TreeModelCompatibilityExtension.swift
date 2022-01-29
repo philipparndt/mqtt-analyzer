@@ -13,6 +13,12 @@ extension TopicTree {
 		return Array(children.values)
 	}
 	
+	var childrenWithMessages: [TopicTree] {
+		return Array(children.values.filter {
+			!$0.messages.isEmpty
+		})
+	}
+	
 	var filterText: String {
 		get {
 			return ""
@@ -29,6 +35,10 @@ extension TopicTree {
 
 	var messageLimit: Bool {
 		return false
+	}
+	
+	var read: Readstate {
+		return Readstate()
 	}
 	
 	var topicCount: Int {
@@ -53,5 +63,13 @@ extension TopicTree {
 	
 	func clear() {
 		
+	}
+	
+	func delete(at offsets: IndexSet) {
+		
+	}
+	
+	func hasDiagrams() -> Bool {
+		return false
 	}
 }

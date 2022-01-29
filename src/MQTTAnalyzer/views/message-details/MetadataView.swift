@@ -32,13 +32,12 @@ extension View {
 }
 
 struct MetadataView: View {
-	let message: Message
-	let topic: Topic
+	let message: MsgMessage
 
 	var body: some View {
 		HStack {
 			VStack {
-				MetadataTextView(key: "Topic", value: topic.name)
+				MetadataTextView(key: "Topic", value: message.topic.nameQualified)
 				Divider()
 				MetadataTextView(key: "Timestamp", value: message.metadata.localDate)
 				Divider()

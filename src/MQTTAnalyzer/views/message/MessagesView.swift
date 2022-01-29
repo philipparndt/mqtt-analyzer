@@ -9,28 +9,28 @@
 import SwiftUI
 
 struct MessagesView: View {
-	@ObservedObject var messagesByTopic: MessagesByTopic
+	@ObservedObject var leaf: TopicTree
 	let host: Host
 	
 	var body: some View {
 		VStack(alignment: .leading) {
 			List {
-				MessageTopicView(messagesByTopic: messagesByTopic)
+				MessageTopicView(leaf: leaf)
 
-				DataSeriesView(messagesByTopic: messagesByTopic)
-				
-				MessageView(messagesByTopic: messagesByTopic, host: host)
+				DataSeriesView(leaf: leaf)
+
+				MessageView(leaf: leaf, host: host)
 			}
 		}
 		.navigationBarTitleDisplayMode(.inline)
-		.navigationTitle(messagesByTopic.topic.lastSegment)
+		.navigationTitle(leaf.name)
 		.listStyle(GroupedListStyle())
 		.onAppear {
-			self.messagesByTopic.read.markRead()
+			self.leaf.read.markRead()
 		}
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = messagesByTopic.topic.name
+		UIPasteboard.general.string = leaf.nameQualified
 	}
 }

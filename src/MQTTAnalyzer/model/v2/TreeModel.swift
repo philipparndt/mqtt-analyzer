@@ -92,8 +92,14 @@ class TopicTree: Identifiable, ObservableObject {
 
 	let parent: TopicTree?
 	
-	@Published var children: [String: TopicTree] = [:]
+	var children: [String: TopicTree] = [:] {
+		didSet {
+			childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
+		}
+	}
 
+	@Published var childrenDisplay: [TopicTree] = []
+		
 	@Published var messages: [MsgMessage] = []
 	
 	init() {
