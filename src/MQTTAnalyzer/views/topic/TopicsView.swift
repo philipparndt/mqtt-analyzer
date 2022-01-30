@@ -128,7 +128,12 @@ struct TopicsView: View {
 	}
 
 	func title() -> String {
-		return host.aliasOrHost
+		if model.parent != nil {
+			return model.name
+		}
+		else {
+			return host.aliasOrHost
+		}
 	}
 	
 	func connect() {
