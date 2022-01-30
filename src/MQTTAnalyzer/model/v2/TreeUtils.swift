@@ -20,7 +20,7 @@ class TreeUtils {
 	
 	private class func commonPath(_ left: [String], _ right: [String]) -> [String] {
 		var result: [String] = []
-		for i in 0...min(left.count, right.count)-1 {
+		for i in 0 ..< min(left.count, right.count) {
 			if left[i] != right[i] {
 				return result
 			}

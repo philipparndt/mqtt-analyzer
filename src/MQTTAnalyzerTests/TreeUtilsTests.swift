@@ -34,6 +34,13 @@ class TreeUtilsTests: XCTestCase {
 			"some/topic/c/#"
 		]))
 	}
-
 	
+	func testDifferentPaths() {
+		XCTAssertEqual("", TreeUtils.commomPrefix(subscriptions: [
+			"sonos/#",
+			"hue/button/kueche-mitte/#",
+			"hue/light/kueche/kueche-1/#"
+		]))
+	}
+
 }
