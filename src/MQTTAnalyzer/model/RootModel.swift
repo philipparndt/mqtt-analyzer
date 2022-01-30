@@ -41,11 +41,21 @@ class RootModel: ObservableObject {
 		}
 	}
  
+	func createModel(for subscriptions: [TopicSubscription]) -> TopicTree {
+		let prefix = TreeUtils.commomPrefix(subscriptions: subscriptions.map { $0.topic })
+		var model = TopicTree()
+		if !prefix.isEmpty {
+			model = model.addTopic(topic: prefix)
+		}
+		
+		return model
+	}
+	
 	func getMessageModel(_ host: Host) -> TopicTree {
 		var model = messageModelByHost[host]
 		
 		if model == nil {
-			model = TopicTree()
+			model = createModel(for: host.subscriptions)
 			messageModelByHost[host] = model
 		}
 		

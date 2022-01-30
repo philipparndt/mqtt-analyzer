@@ -156,10 +156,18 @@ extension TopicTree {
 		return result
 	}
 	
+	func findRoot() -> TopicTree {
+		var result = self
+		while result.parent != nil {
+			result = result.parent!
+		}
+		return result
+	}
+	
 	func addTopic(topic: String) -> TopicTree {
 		let segments = topic.split(separator: "/").map { String($0) }
 		
-		var current = self
+		var current = findRoot()
 		for pos in 0..<segments.count {
 			let name = segments[pos]
 			var next = current.children[name]
