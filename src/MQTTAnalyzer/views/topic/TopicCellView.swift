@@ -37,10 +37,7 @@ struct TopicCellView: View {
 			.contextMenu {
 				MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
 				MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
-				
-				MenuButton(title: "Focus on", systemImage: "eye.fill", action: focus)
-				MenuButton(title: "Focus on parent", systemImage: "eye.fill", action: focusParent)
-				
+								
 				MenuButton(title: "Publish message again", systemImage: "paperplane.fill", action: publish)
 				MenuButton(title: "Publish new message", systemImage: "paperplane.fill", action: publishManually)
 			}
@@ -72,13 +69,4 @@ struct TopicCellView: View {
 		UIPasteboard.general.string = messages.messages.first?.payload.dataString ?? ""
 	}
 	
-	func focus() {
-		// FIXME Implement this
-		// model.setFilterImmediatelly(messages.topic.name)
-	}
-	
-	func focusParent() {
-		// FIXME: implement
-		// model.setFilterImmediatelly(messages.topic.name.pathUp())
-	}
 }
