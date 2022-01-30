@@ -21,7 +21,7 @@ struct FolderNavigationView: View {
 	}
 	
     var body: some View {
-		Section(header: Text("Topic Children")) {
+		Section(header: Text("Children")) {
 			if model.childrenDisplay.isEmpty {
 				Text(emptyTopicText)
 					.foregroundColor(.secondary)
