@@ -43,6 +43,10 @@
 		2230FF1E27A6981900D4327F /* MessageLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1D27A6981900D4327F /* MessageLimitReachedView.swift */; };
 		2230FF2227A6AEC800D4327F /* TopicTreeFlatExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2127A6AEC800D4327F /* TopicTreeFlatExt.swift */; };
 		2230FF2427A6B80900D4327F /* TopicLimitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2327A6B80900D4327F /* TopicLimitTests.swift */; };
+		2230FF2727A6BB7C00D4327F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2627A6BB7C00D4327F /* WelcomeView.swift */; };
+		2230FF2927A6BBB800D4327F /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2827A6BBB800D4327F /* TitleView.swift */; };
+		2230FF2B27A6BC1C00D4327F /* InformationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2A27A6BC1C00D4327F /* InformationDetailView.swift */; };
+		2230FF2D27A6BC8900D4327F /* InformationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2C27A6BC8900D4327F /* InformationContainerView.swift */; };
 		223AF5D12477D575009810E6 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
 		223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D22477D5CA009810E6 /* FileListView.swift */; };
 		223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D42477D5F5009810E6 /* FileItemView.swift */; };
@@ -204,6 +208,10 @@
 		2230FF1D27A6981900D4327F /* MessageLimitReachedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLimitReachedView.swift; sourceTree = "<group>"; };
 		2230FF2127A6AEC800D4327F /* TopicTreeFlatExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTreeFlatExt.swift; sourceTree = "<group>"; };
 		2230FF2327A6B80900D4327F /* TopicLimitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicLimitTests.swift; sourceTree = "<group>"; };
+		2230FF2627A6BB7C00D4327F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		2230FF2827A6BBB800D4327F /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		2230FF2A27A6BC1C00D4327F /* InformationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationDetailView.swift; sourceTree = "<group>"; };
+		2230FF2C27A6BC8900D4327F /* InformationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationContainerView.swift; sourceTree = "<group>"; };
 		223AF5D02477D575009810E6 /* FileLister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLister.swift; sourceTree = "<group>"; };
 		223AF5D22477D5CA009810E6 /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
 		223AF5D42477D5F5009810E6 /* FileItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItemView.swift; sourceTree = "<group>"; };
@@ -386,6 +394,17 @@
 				2230FF1727A666C600D4327F /* MsgMessage.swift */,
 			);
 			path = v2;
+			sourceTree = "<group>";
+		};
+		2230FF2527A6BAD800D4327F /* news */ = {
+			isa = PBXGroup;
+			children = (
+				2230FF2627A6BB7C00D4327F /* WelcomeView.swift */,
+				2230FF2827A6BBB800D4327F /* TitleView.swift */,
+				2230FF2A27A6BC1C00D4327F /* InformationDetailView.swift */,
+				2230FF2C27A6BC8900D4327F /* InformationContainerView.swift */,
+			);
+			path = news;
 			sourceTree = "<group>";
 		};
 		223AF5CE2477D521009810E6 /* certificates */ = {
@@ -573,6 +592,7 @@
 		228104782381708E00112F24 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				2230FF2527A6BAD800D4327F /* news */,
 				22F8BEEA23C7870C00422BFF /* login */,
 				2291424D23C0C0270086C251 /* common */,
 				2291424A23BF77DC0086C251 /* about */,
@@ -1052,10 +1072,12 @@
 				222EAAB727A3CDEB000E37AF /* ConnectBrokerView.swift in Sources */,
 				2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */,
 				2230FEFF27A5206100D4327F /* TopicTree.swift in Sources */,
+				2230FF2927A6BBB800D4327F /* TitleView.swift in Sources */,
 				22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
 				226A6B5424448ECB00ACDFC3 /* MqttClientSharedUtils.swift in Sources */,
 				228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */,
+				2230FF2D27A6BC8900D4327F /* InformationContainerView.swift in Sources */,
 				2285C82527887F79008DA37D /* TopicSuffixPickerView.swift in Sources */,
 				221C571C2466847800C0DD02 /* QuestionBox.swift in Sources */,
 				229FCAED247D67BC00490628 /* DocumentPickerView.swift in Sources */,
@@ -1098,6 +1120,7 @@
 				2230FF0E27A650CE00D4327F /* TreeUtils.swift in Sources */,
 				226A6B612445757900ACDFC3 /* TopicsFormView.swift in Sources */,
 				22F8BEEC23C7871F00422BFF /* LoginDialog.swift in Sources */,
+				2230FF2727A6BB7C00D4327F /* WelcomeView.swift in Sources */,
 				226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */,
 				226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */,
 				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
@@ -1112,6 +1135,7 @@
 				226A6B67244575DB00ACDFC3 /* AuthFormView.swift in Sources */,
 				2230FEFE27A50E9000D4327F /* DateUtils.swift in Sources */,
 				2230FF1227A65EE100D4327F /* TopicTreeDeletionExt.swift in Sources */,
+				2230FF2B27A6BC1C00D4327F /* InformationDetailView.swift in Sources */,
 				226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */,
 				2230FF0627A5668200D4327F /* TopicTreeCounterExt.swift in Sources */,
 				223AF5D12477D575009810E6 /* FileLister.swift in Sources */,
@@ -1303,7 +1327,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 63;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -1314,7 +1338,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -1330,7 +1354,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 63;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -1341,7 +1365,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
