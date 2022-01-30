@@ -105,6 +105,8 @@ class TopicTree: Identifiable, ObservableObject {
 	@Published var messages: [MsgMessage] = []
 	@Published var timeSeries = TimeSeriesModel()
 	@Published var readState = Readstate()
+
+	@Published var filterText = ""
 	
 	init() {
 		self.name = "root"

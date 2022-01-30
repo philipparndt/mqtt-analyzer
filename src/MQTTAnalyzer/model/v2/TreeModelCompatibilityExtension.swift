@@ -15,16 +15,6 @@ extension TopicTree {
 		})
 	}
 	
-	var filterText: String {
-		get {
-			return ""
-		}
-		
-		set {
-			
-		}
-	}
-	
 	var topicLimit: Bool {
 		return false
 	}
