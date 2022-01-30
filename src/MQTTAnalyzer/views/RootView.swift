@@ -12,8 +12,8 @@ import Highlightr
 struct RootView: View {
 	@EnvironmentObject var model: RootModel
 
-	@AppStorage("welcome-2.0.0-b63") var welcome: Bool = true
-	
+	@AppStorage(Welcome.key) var welcome: Bool = true
+
 	var body: some View {
 		VStack {
 			HostsView(hostsModel: model.hostsModel)

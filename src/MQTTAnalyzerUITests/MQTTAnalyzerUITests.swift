@@ -23,6 +23,7 @@ class MQTTAnalyzerUITests: XCTestCase {
 		// We send a command line argument to our app,
         // to enable it to reset its state
         app.launchArguments.append("--uitesting")
+		app.launchArguments.append("--no-welcome")
         
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
