@@ -31,16 +31,16 @@ class TreeModelTests: XCTestCase {
 	
 	func testAddTopic() throws {
 		let root = TopicTree()
-		let node = root.addTopic(topic: "home/hue/button/office")
+		let node = root.addTopic(topic: "home/hue/button/office")!
 		XCTAssertEqual("home/hue/button/office", node.nameQualified)
 		XCTAssertIdentical(node, root.addTopic(topic: "home/hue/button/office"))
 	}
 	
 	func testAddAnotherTopic() throws {
 		let root = TopicTree()
-		let button = root.addTopic(topic: "home/hue/button/office")
-		let light = root.addTopic(topic: "home/hue/light/office")
-		let hue = root.addTopic(topic: "home/hue")
+		let button = root.addTopic(topic: "home/hue/button/office")!
+		let light = root.addTopic(topic: "home/hue/light/office")!
+		let hue = root.addTopic(topic: "home/hue")!
 		XCTAssertEqual("home/hue", hue.nameQualified)
 		XCTAssertEqual("home/hue/button/office", button.nameQualified)
 		XCTAssertEqual("home/hue/light/office", light.nameQualified)
@@ -50,8 +50,8 @@ class TreeModelTests: XCTestCase {
 	func testAddSubTopic() throws {
 		let root = TopicTree()
 		
-		let entryTopic = root.addTopic(topic: "home/hue/light/office")
-		let topic = entryTopic.addTopic(topic: "home/hue/light/office/some")
+		let entryTopic = root.addTopic(topic: "home/hue/light/office")!
+		let topic = entryTopic.addTopic(topic: "home/hue/light/office/some")!
 		
 		XCTAssertEqual("home/hue/light/office/some", topic.nameQualified)
 	}
@@ -59,10 +59,10 @@ class TreeModelTests: XCTestCase {
 	func testAddMessage() throws {
 		let root = TopicTree()
 		let payload = MsgPayload(data: Array("Hello".utf8))
-		let message = root.addMessage(metadata: MsgMetadata.stub(), payload: payload, to: "home/hue/button/office")
+		let message = root.addMessage(metadata: MsgMetadata.stub(), payload: payload, to: "home/hue/button/office")!
 		XCTAssertEqual("Hello", message.payload.dataString)
 		
-		let button = root.addTopic(topic: "home/hue/button/office")
+		let button = root.addTopic(topic: "home/hue/button/office")!
 		XCTAssertEqual(1, button.messages.count)
 	}
 	
@@ -95,7 +95,7 @@ class TreeModelTests: XCTestCase {
 	func testGetLatestMessage() throws {
 		let root = TopicTree()
 		let topic = "home/hue/button/office"
-		let node = root.addTopic(topic: topic)
+		let node = root.addTopic(topic: topic)!
 
 		let msg1 = root.addMessage(metadata: MsgMetadata.stub(),
 						payload: MsgPayload.from(text: "val1"), to: topic)
@@ -142,7 +142,7 @@ class TreeModelTests: XCTestCase {
 		root.readState.markRead()
 		
 		let msg = root.addMessage(metadata: MsgMetadata.stub(),
-						payload: MsgPayload.from(text: "val1"), to: "home/hue/button/office")
+						payload: MsgPayload.from(text: "val1"), to: "home/hue/button/office")!
 
 		XCTAssertFalse(msg.topic.readStateCombined)
 		XCTAssertFalse(root.readStateCombined)

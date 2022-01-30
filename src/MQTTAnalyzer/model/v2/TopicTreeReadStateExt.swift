@@ -32,10 +32,6 @@ extension TopicTree {
 	func markUnread() {
 		readState.markUnread()
 		
-//		DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//			self.markRead()
-//		}
-		
 		var current: TopicTree? = parent
 		while current != nil {
 			current?.readState.markUnread()

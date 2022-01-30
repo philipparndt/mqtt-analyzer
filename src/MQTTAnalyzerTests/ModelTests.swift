@@ -41,65 +41,6 @@ class ModelTests: XCTestCase {
 		return (model, messageModel.addTopic(topic: "topic")!)
 	}
 
-// FIXME
-//
-//	func topicOfMessages(messageData: String...) -> MessagesByTopic {
-//		let (root, _) = modelWithMessages(messageData: "a", "b")
-//		let host = root.messageModelByHost.keys.first!
-//		let messageModel = root.getMessageModel(host)
-//		let topicEntry = messageModel.messagesByTopic.first!
-//		return topicEntry.value
-//	}
-//
-//	func testAppendMessage() {
-//		let (model, host) = rootWithLocalhost()
-//		let messageModel = model.getMessageModel(host)
-//
-//		XCTAssertEqual(0, messageModel.countMessages())
-//		messageModel.append(message: Message(
-//			topic: "topic",
-//			payload: MsgPayload(data: Array("text message".utf8)),
-//			metadata: MsgMetadata.stub()
-//		))
-//
-//		XCTAssertEqual(1, messageModel.countMessages())
-//		let message = messageModel.messagesByTopic["topic"]!.messages[0]
-//		XCTAssertFalse(message.payload.isJSON)
-//	}
-//
-//	func testLimitTopics() {
-//		let (model, host) = rootWithLocalhost()
-//		let messageModel = model.getMessageModel(host)
-//		messageModel.limitTopics = 10
-//
-//		for i in 0...15 {
-//			messageModel.append(message: Message(
-//				topic: "topic/\(i)",
-//				payload: MsgPayload(data: Array("text message".utf8)),
-//				metadata: MsgMetadata.stub()
-//			))
-//		}
-//
-//		XCTAssertEqual(10, messageModel.countMessages())
-//	}
-//
-//	func testMessagesNotAffectedByTopicLimit() {
-//		let (model, host) = rootWithLocalhost()
-//		let messageModel = model.getMessageModel(host)
-//		messageModel.limitTopics = 10
-//
-//		for _ in 0..<15 {
-//			messageModel.append(message: Message(
-//				topic: "topic",
-//				payload: MsgPayload(data: Array("text message".utf8)),
-//				metadata: MsgMetadata.stub()
-//			))
-//		}
-//
-//		XCTAssertEqual(15, messageModel.countMessages())
-//	}
-//
-
 	func testBooleanTruePropInJSON() {
 		let (_, messages) = modelWithOneMessage(messageData: """
 	{"toggle": true}
