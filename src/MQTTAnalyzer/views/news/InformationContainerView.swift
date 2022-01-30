@@ -20,7 +20,7 @@ struct InformationContainerView: View {
 
 			InformationDetailView(
 				title: "Mac application",
-				subTitle: "MQTTAnalyzer is now available in the App Store on your Mac for free an open source.",
+				subTitle: "MQTTAnalyzer is now available in the App Store on your Mac for free and open source.",
 				imageName: "desktopcomputer",
 				color: .secondary
 			)
