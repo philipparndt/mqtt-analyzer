@@ -17,7 +17,7 @@ struct MessagesView: View {
 			List {
 				MessageTopicView(node: node)
 
-				DataSeriesView(node: node)
+				DataSeriesView(topic: node.nameQualified, series: node.timeSeries)
 
 				MessageView(node: node, host: host)
 			}

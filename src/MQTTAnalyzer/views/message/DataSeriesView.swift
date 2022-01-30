@@ -9,17 +9,18 @@
 import SwiftUI
 
 struct DataSeriesView: View {
-	@ObservedObject var node: TopicTree
+	let topic: String
+	@ObservedObject var series: TimeSeriesModel
 
 	var body: some View {
-		AnyView {
-			if node.timeSeries.hasTimeseries {
+		Group {
+			if series.hasTimeseries {
 				Section(header: Text("Data series")) {
-					ForEach(node.timeSeries.getDiagrams()) {
+					ForEach(series.getDiagrams()) {
 						DataSeriesCellView(
 							path: $0,
-							node: self.node,
-							series: self.node.timeSeries
+							topic: self.topic,
+							series: self.series
 						)
 					}
 				}
@@ -30,11 +31,11 @@ struct DataSeriesView: View {
 
 struct DataSeriesCellView: View {
 	let path: DiagramPath
-	@ObservedObject var node: TopicTree
+	let topic: String
 	@ObservedObject var series: TimeSeriesModel
 	
 	var body: some View {
-		NavigationLink(destination: DataSeriesDetailsView(path: path, node: node)) {
+		NavigationLink(destination: DataSeriesDetailsView(path: path, topic: topic, series: series)) {
 			HStack {
 				VStack {
 					Image(systemName: PropertyImageProvider.byName(property: path.lastSegment))
