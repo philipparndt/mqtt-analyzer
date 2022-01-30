@@ -17,7 +17,6 @@ struct EditHostFormView: View {
 			ServerFormView(host: $host)
 			AuthFormView(host: $host)
 			TopicsFormView(host: $host)
-			NavigationModeFormView(host: $host)
 			
 			Toggle(isOn: $advanced) {
 				Text("More settings")
