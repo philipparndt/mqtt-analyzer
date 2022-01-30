@@ -51,7 +51,7 @@ struct TopicsView: View {
 					}
 					
 					if !model.childrenWithMessages.isEmpty {
-						Section(header: Text("Inhertited Messages Groups")) {
+						Section(header: Text("Inherited Message Groups")) {
 							ForEach(model.childrenWithMessages) { messages in
 								TopicCellView(
 									messages: messages,
