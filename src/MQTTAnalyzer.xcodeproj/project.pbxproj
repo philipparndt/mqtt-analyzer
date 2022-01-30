@@ -36,6 +36,9 @@
 		2230FF0E27A650CE00D4327F /* TreeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0D27A650CE00D4327F /* TreeUtils.swift */; };
 		2230FF1027A6511F00D4327F /* TreeUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0F27A6511F00D4327F /* TreeUtilsTests.swift */; };
 		2230FF1227A65EE100D4327F /* TreeModelDeleteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1127A65EE100D4327F /* TreeModelDeleteExtension.swift */; };
+		2230FF1427A6667000D4327F /* MsgPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1327A6667000D4327F /* MsgPayload.swift */; };
+		2230FF1627A6669C00D4327F /* MsgMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1527A6669C00D4327F /* MsgMetadata.swift */; };
+		2230FF1827A666C600D4327F /* MsgMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1727A666C600D4327F /* MsgMessage.swift */; };
 		223AF5D12477D575009810E6 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
 		223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D22477D5CA009810E6 /* FileListView.swift */; };
 		223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D42477D5F5009810E6 /* FileItemView.swift */; };
@@ -194,6 +197,9 @@
 		2230FF0D27A650CE00D4327F /* TreeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeUtils.swift; sourceTree = "<group>"; };
 		2230FF0F27A6511F00D4327F /* TreeUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeUtilsTests.swift; sourceTree = "<group>"; };
 		2230FF1127A65EE100D4327F /* TreeModelDeleteExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeModelDeleteExtension.swift; sourceTree = "<group>"; };
+		2230FF1327A6667000D4327F /* MsgPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgPayload.swift; sourceTree = "<group>"; };
+		2230FF1527A6669C00D4327F /* MsgMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgMetadata.swift; sourceTree = "<group>"; };
+		2230FF1727A666C600D4327F /* MsgMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgMessage.swift; sourceTree = "<group>"; };
 		223AF5D02477D575009810E6 /* FileLister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLister.swift; sourceTree = "<group>"; };
 		223AF5D22477D5CA009810E6 /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
 		223AF5D42477D5F5009810E6 /* FileItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItemView.swift; sourceTree = "<group>"; };
@@ -374,6 +380,9 @@
 				2230FF1127A65EE100D4327F /* TreeModelDeleteExtension.swift */,
 				2230FF0527A5668200D4327F /* MessageCounter.swift */,
 				2230FF0D27A650CE00D4327F /* TreeUtils.swift */,
+				2230FF1327A6667000D4327F /* MsgPayload.swift */,
+				2230FF1527A6669C00D4327F /* MsgMetadata.swift */,
+				2230FF1727A666C600D4327F /* MsgMessage.swift */,
 			);
 			path = v2;
 			sourceTree = "<group>";
@@ -999,6 +1008,7 @@
 				22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */,
 				2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
+				2230FF1427A6667000D4327F /* MsgPayload.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				229128412468590D006F8256 /* DataMigrationMultipleTopics.swift in Sources */,
 				226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */,
@@ -1023,6 +1033,7 @@
 				22C2856224759FD40000C1E8 /* CertificateLocationPicker.swift in Sources */,
 				228104912381770000112F24 /* FillingText.swift in Sources */,
 				223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */,
+				2230FF1827A666C600D4327F /* MsgMessage.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
 				220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */,
 				22810488238173BB00112F24 /* DataSeriesView.swift in Sources */,
@@ -1059,6 +1070,7 @@
 				2291284724685A92006F8256 /* DataMigrationAuth.swift in Sources */,
 				2263C1D924813B0C00FF14E8 /* CertificateFilesModel.swift in Sources */,
 				22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */,
+				2230FF1627A6669C00D4327F /* MsgMetadata.swift in Sources */,
 				22C386A322CB84900054C385 /* RootView.swift in Sources */,
 				220357212445B2ED00A98CD3 /* MQTTDelegate.swift in Sources */,
 				2230FF0C27A57DF500D4327F /* TreeModelReadStateExtension.swift in Sources */,
