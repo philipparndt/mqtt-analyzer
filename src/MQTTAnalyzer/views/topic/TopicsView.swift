@@ -27,7 +27,7 @@ struct TopicsView: View {
 
 					if model.parent != nil {
 						HStack {
-							Text("Path")
+							Text("Topic")
 							Spacer()
 							Text(model.nameQualified)
 								.textSelection(.enabled)
