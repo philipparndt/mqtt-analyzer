@@ -22,5 +22,4 @@ extension TopicTree {
 	func delete(at offsets: IndexSet) {
 		
 	}
-	
 }

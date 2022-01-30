@@ -19,7 +19,7 @@ class TopicTree: Identifiable, ObservableObject {
 	
 	var children: [String: TopicTree] = [:] {
 		didSet {
-			childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
+			updateChildrenToDisplay()
 			updateMessageCount()
 		}
 	}
@@ -31,7 +31,13 @@ class TopicTree: Identifiable, ObservableObject {
 	@Published var timeSeries = TimeSeriesModel()
 	@Published var readState = Readstate()
 
-	@Published var filterText = ""
+	var filterTextCleaned = ""
+	@Published var filterText = "" {
+		didSet {
+			filterTextCleaned = filterText.trimmingCharacters(in: [" "]).lowercased()
+			updateChildrenToDisplay()
+		}
+	}
 	
 	init() {
 		self.name = "root"
