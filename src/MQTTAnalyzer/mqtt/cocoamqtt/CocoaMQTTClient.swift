@@ -17,7 +17,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	let utils = MqttClientSharedUtils()
 	
 	let sessionNum: Int
-	let model: MessageModel
+	let model: TopicTree
 	var host: Host
 	var mqtt: CocoaMQTT?
 	
@@ -29,7 +29,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	
 	let messageSubject = MsgSubject<CocoaMQTTMessage>()
 		
-	init(host: Host, model: MessageModel) {
+	init(host: Host, model: TopicTree) {
 		ConnectionState.sessionNum += 1
 
 		self.model = model
@@ -167,9 +167,8 @@ class MqttClientCocoaMQTT: MqttClient {
 		host.state = .connecting
 		connectionState.state = .connecting
 		connectionState.message = nil
-		
-		model.limitMessagesPerBatch = host.limitMessagesBatch
-		model.limitTopics = host.limitTopic
+		model.messageLimitExceeded = false
+		model.topicLimitExceeded = false
 	}
 		
 	func disconnect() {
@@ -192,12 +191,12 @@ class MqttClientCocoaMQTT: MqttClient {
 		}
 	}
 	
-	func publish(message: Message) {
+	func publish(message: MsgMessage) {
 		mqtt?.publish(CocoaMQTTMessage(
-			topic: message.topic,
-			string: message.dataString,
-			qos: convertQOS(qos: message.qos),
-			retained: message.retain))
+			topic: message.topic.nameQualified,
+			string: message.payload.dataString,
+			qos: convertQOS(qos: message.metadata.qos),
+			retained: message.metadata.retain))
 	}
 
 	func convertQOS(qos: Int32) -> CocoaMQTTQoS {
@@ -225,17 +224,27 @@ class MqttClientCocoaMQTT: MqttClient {
 		if host.pause {
 			return
 		}
-		let date = Date()
-		let mapped = messages.map({ (message: CocoaMQTTMessage) -> Message in
-			return Message(data: message.string,
-						   payload: message.payload,
-						   date: date,
-						   qos: Int32(message.qos.rawValue),
-						   retain: message.retained,
-						   topic: message.topic
+		
+		//		model.limitMessagesPerBatch = host.limitMessagesBatch
+		//		model.limitTopics = host.limitTopic
+		if messages.count > host.limitMessagesBatch {
+			// Limit exceeded
+			self.model.messageLimitExceeded = true
+			return
+		}
+		
+		for message in messages {
+			if self.model.totalTopicCounter >= host.limitTopic {
+				// Limit exceeded
+				self.model.topicLimitExceeded = true
+			}
+			
+			_ = self.model.addMessage(
+				metadata: MsgMetadata(qos: Int32(message.qos.rawValue), retain: message.retained),
+				payload: MsgPayload(data: message.payload),
+				to: message.topic
 			)
-		})
-		self.model.append(messages: mapped)
+		}
 	}
 	
 	// MARK: Should be shared

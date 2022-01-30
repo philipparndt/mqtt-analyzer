@@ -28,7 +28,7 @@ class RootModel: ObservableObject {
 
 	let hostsModel = HostsModel(initMethod: controller)
 	
-	var messageModelByHost: [Host: MessageModel] = [:]
+	var messageModelByHost: [Host: TopicTree] = [:]
 	
 	let persistence: HostsModelPersistence
 	
@@ -37,15 +37,25 @@ class RootModel: ObservableObject {
 		self.persistence.load()
 		
 		for host in hostsModel.hosts {
-			messageModelByHost[host] = MessageModel()
+			messageModelByHost[host] = TopicTree()
 		}
 	}
  
-	func getMessageModel(_ host: Host) -> MessageModel {
+	func createModel(for subscriptions: [TopicSubscription]) -> TopicTree {
+		let prefix = TreeUtils.commomPrefix(subscriptions: subscriptions.map { $0.topic })
+		var model = TopicTree()
+		if !prefix.isEmpty {
+			model = model.addTopic(topic: prefix) ?? model
+		}
+		
+		return model
+	}
+	
+	func getMessageModel(_ host: Host) -> TopicTree {
 		var model = messageModelByHost[host]
 		
 		if model == nil {
-			model = MessageModel()
+			model = createModel(for: host.subscriptions)
 			messageModelByHost[host] = model
 		}
 		
@@ -62,7 +72,7 @@ class RootModel: ObservableObject {
 		sessionController.disconnect(host: from)
 	}
 	
-	func publish(message: Message, on: Host) {
+	func publish(message: MsgMessage, on: Host) {
 		sessionController.publish(message: message, on: on)
 	}
 	

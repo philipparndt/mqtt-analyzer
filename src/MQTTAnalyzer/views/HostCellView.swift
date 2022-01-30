@@ -26,7 +26,7 @@ struct ServerPageSheetState {
 struct HostCellView: View {
 	@EnvironmentObject var model: RootModel
 	@ObservedObject var host: Host
-	@ObservedObject var messageModel: MessageModel
+	@ObservedObject var messageModel: TopicTree
 	
 	@State private var sheetState = ServerPageSheetState()
 	
@@ -62,7 +62,7 @@ struct HostCellView: View {
 					Spacer()
 
 					if host.state != .disconnected {
-						Text("\(messageModel.messageCount)")
+						Text("\(messageModel.messageCountDisplay)")
 							.font(.system(size: 14, design: .monospaced))
 							.foregroundColor(.secondary)
 

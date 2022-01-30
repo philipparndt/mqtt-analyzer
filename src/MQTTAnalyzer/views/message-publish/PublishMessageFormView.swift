@@ -121,12 +121,12 @@ struct PublishMessageFormModalView: View {
 			model.updateMessageFromJsonData()
 		}
 		
-		let msg = Message(data: model.message,
-						  payload: Array(model.message.utf8),
-						  date: Date.init(),
-						  qos: Int32(model.qos), retain: model.retain, topic: model.topic)
-		
-		root.publish(message: msg, on: self.host)
+		if let topic = TopicTree().addTopic(topic: model.topic) {
+			let msg = MsgMessage(topic: topic,
+							  payload: MsgPayload(data: Array(model.message.utf8)),
+							  metadata: MsgMetadata(qos: Int32(model.qos), retain: model.retain))
+			root.publish(message: msg, on: self.host)
+		}
 		
 		closeCallback()
 	}

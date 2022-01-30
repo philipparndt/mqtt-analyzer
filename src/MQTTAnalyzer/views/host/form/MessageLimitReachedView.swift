@@ -11,14 +11,7 @@ import SwiftUI
 struct MessageLimitReachedView: View {
 	
 	var body: some View {
-		HStack {
-			Image(systemName: "exclamationmark.octagon.fill")
-
-			Text("Message limit exceeded.\nReduce the subscription topic!")
-
-			Spacer()
-		}
-		.padding()
+		LimitReachedView(message: "Messages per batch limit exceeded.")
 	}
 	
 }

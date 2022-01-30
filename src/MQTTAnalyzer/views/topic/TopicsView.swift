@@ -10,19 +10,12 @@ import SwiftUI
 
 struct TopicsView: View {
 	@EnvironmentObject var rootModel: RootModel
-	@ObservedObject var model: MessageModel
+	@ObservedObject var model: TopicTree
 	@ObservedObject var host: Host
 	
 	@State private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
-
-	var emptyTopicText: String {
-		if model.filterText.isEmpty {
-			return "no topics available"
-		} else {
-			return "no topics available using the current filter"
-		}
-	}
+	@State private var flat = false
 	
 	var body: some View {
 		VStack {
@@ -32,20 +25,48 @@ struct TopicsView: View {
 			else {
 				List {
 					TopicsToolsView(model: self.model)
-
-					Section(header: Text("Topics")) {
-						if model.displayTopics.isEmpty {
-							Text(emptyTopicText)
-								.foregroundColor(.secondary)
-						}
-						else {
-							ForEach(model.displayTopics) { messages in
+					
+					Toggle("Flat", isOn: $flat)
+					
+					if !flat {
+						FolderNavigationView(host: host, model: model)
+					}
+					
+					if flat {
+						Section(header: Text("Messages (flat)")) {
+							ForEach(model.recusiveAllMessages) { messages in
 								TopicCellView(
 									messages: messages,
 									model: self.model,
 									publishMessagePresented: self.$publishMessageModel.isPresented,
 									host: self.host,
-									selectMessage: self.selectMessage)
+									selectMessage: self.selectMessage
+								)
+							}
+						}
+					}
+					else if !model.messages.isEmpty {
+						Section(header: Text("Message")) {
+							TopicCellView(
+								messages: self.model,
+								model: self.model,
+								publishMessagePresented: self.$publishMessageModel.isPresented,
+								host: self.host,
+								selectMessage: self.selectMessage
+							)
+						}
+					}
+					
+					if !flat && !model.childrenWithMessages.isEmpty {
+						Section(header: Text("Inherited Message Groups")) {
+							ForEach(model.childrenWithMessages) { messages in
+								TopicCellView(
+									messages: messages,
+									model: self.model,
+									publishMessagePresented: self.$publishMessageModel.isPresented,
+									host: self.host,
+									selectMessage: self.selectMessage
+								)
 							}
 						}
 					}
@@ -61,7 +82,7 @@ struct TopicsView: View {
 			}
 
 		}
-		.navigationTitle(host.aliasOrHost)
+		.navigationTitle(title())
 		.toolbar {
 			ToolbarItemGroup(placement: .navigationBarTrailing) {
 
@@ -69,7 +90,7 @@ struct TopicsView: View {
 					Image(systemName: "paperplane.fill")
 				}
 				#if !targetEnvironment(macCatalyst)
-				Button(action: model.readall) {
+				Button(action: model.markRead) {
 					Image(systemName: "circle")
 					.font(.subheadline)
 					.foregroundColor(.blue)
@@ -81,7 +102,7 @@ struct TopicsView: View {
 			}
 			#if targetEnvironment(macCatalyst)
 			ToolbarItemGroup(placement: .navigationBarLeading) {
-				Button(action: model.readall) {
+				Button(action: model.markRead) {
 					Image(systemName: "circle")
 					.font(.subheadline)
 					.foregroundColor(.blue)
@@ -114,7 +135,23 @@ struct TopicsView: View {
 			#endif
 		}
 	}
+	
+	func getMaxMessagesOfSubFolders() -> Int? {
+		if host.navigationMode == .folders {
+			return host.maxMessagesOfSubFolders
+		}
+		return nil
+	}
 
+	func title() -> String {
+		if model.parent != nil {
+			return model.name
+		}
+		else {
+			return host.aliasOrHost
+		}
+	}
+	
 	func connect() {
 		self.rootModel.connect(to: self.host)
 	}
@@ -124,10 +161,10 @@ struct TopicsView: View {
 			if host.needsAuth {
 				LoginView(loginDialogPresented: self.$loginData.isPresented, host: host)
 			}
-			else if model.topicLimit && !host.pause {
+			else if model.topicLimitExceeded && !host.pause {
 				TopicLimitReachedView()
 			}
-			else if model.messageLimit && !host.pause {
+			else if model.messageLimitExceeded && !host.pause {
 				MessageLimitReachedView()
 			}
 			else if host.state == .connected && host.pause {
@@ -168,7 +205,7 @@ struct TopicsView: View {
 		rootModel.connect(to: self.host)
 	}
 	
-	func selectMessage(message: Message) {
+	func selectMessage(message: MsgMessage) {
 		publishMessageModel = of(message: message)
 	}
 

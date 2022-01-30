@@ -10,20 +10,20 @@ import SwiftUI
 
 struct TopicCellView: View {
 	@EnvironmentObject var root: RootModel
-	var messages: MessagesByTopic
-	var model: MessageModel
+	var messages: TopicTree
+	var model: TopicTree
 	@Binding var publishMessagePresented: Bool
 	
 	let host: Host
-	let selectMessage: (Message) -> Void
+	let selectMessage: (MsgMessage) -> Void
 	
 	var body: some View {
-		NavigationLink(destination: MessagesView(messagesByTopic: messages, host: host)) {
+		NavigationLink(destination: MessagesView(node: messages, host: host)) {
 			HStack {
-				ReadMarkerView(read: messages.read)
+				ReadMarkerView(read: messages.readState)
 				
 				VStack(alignment: .leading) {
-					Text(messages.topic.name)
+					Text(messages.nameQualified)
 					Text(messagePreview())
 						.font(.subheadline)
 						.foregroundColor(.secondary)
@@ -37,10 +37,7 @@ struct TopicCellView: View {
 			.contextMenu {
 				MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
 				MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
-				
-				MenuButton(title: "Focus on", systemImage: "eye.fill", action: focus)
-				MenuButton(title: "Focus on parent", systemImage: "eye.fill", action: focusParent)
-				
+								
 				MenuButton(title: "Publish message again", systemImage: "paperplane.fill", action: publish)
 				MenuButton(title: "Publish new message", systemImage: "paperplane.fill", action: publishManually)
 			}
@@ -48,35 +45,28 @@ struct TopicCellView: View {
 	}
 	
 	func publish() {
-		if let first = messages.getRecentMessage() {
+		if let first = messages.messages.first {
 			root.publish(message: first, on: host)
 		}
 	}
 	
 	func publishManually() {
-		if let first = messages.getRecentMessage() {
+		if let first = messages.messages.first {
 			selectMessage(first)
 			publishMessagePresented = true
 		}
 	}
 	
 	func messagePreview() -> String {
-		return messages.getRecent()
+		return messages.messages.first?.payload.dataString ?? "<no message>"
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = messages.topic.name
+		UIPasteboard.general.string = messages.nameQualified
 	}
 	
 	func copyMessage() {
-		UIPasteboard.general.string = messages.getRecent()
+		UIPasteboard.general.string = messages.messages.first?.payload.dataString ?? ""
 	}
 	
-	func focus() {
-		model.setFilterImmediatelly(messages.topic.name)
-	}
-	
-	func focusParent() {
-		model.setFilterImmediatelly(messages.topic.name.pathUp())
-	}
 }

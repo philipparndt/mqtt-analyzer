@@ -9,14 +9,19 @@
 import SwiftUI
 
 struct DataSeriesView: View {
-	@ObservedObject var messagesByTopic: MessagesByTopic
+	let topic: String
+	@ObservedObject var series: TimeSeriesModel
 
 	var body: some View {
 		Group {
-			if messagesByTopic.hasDiagrams() {
+			if series.hasTimeseries {
 				Section(header: Text("Data series")) {
-					ForEach(messagesByTopic.getDiagrams()) {
-						DataSeriesCellView(path: $0, messagesByTopic: self.messagesByTopic)
+					ForEach(series.getDiagrams()) {
+						DataSeriesCellView(
+							path: $0,
+							topic: self.topic,
+							series: self.series
+						)
 					}
 				}
 			}
@@ -26,10 +31,11 @@ struct DataSeriesView: View {
 
 struct DataSeriesCellView: View {
 	let path: DiagramPath
-	@ObservedObject var messagesByTopic: MessagesByTopic
-
+	let topic: String
+	@ObservedObject var series: TimeSeriesModel
+	
 	var body: some View {
-		NavigationLink(destination: DataSeriesDetailsView(path: path, messagesByTopic: messagesByTopic)) {
+		NavigationLink(destination: DataSeriesDetailsView(path: path, topic: topic, series: series)) {
 			HStack {
 				VStack {
 					Image(systemName: PropertyImageProvider.byName(property: path.lastSegment))
@@ -65,7 +71,7 @@ struct DataSeriesCellView: View {
 	}
 	
 	func lastValue() -> String {
-		return messagesByTopic.getTimeSeriesLastValue(path)
+		return series.getLastValue(path)
 			.map { $0.valueString } ?? "<no value>"
 	}
 }

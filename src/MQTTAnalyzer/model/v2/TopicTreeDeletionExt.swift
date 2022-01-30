@@ -1,0 +1,25 @@
+//
+//  TreeModelDeleteExtension.swift
+//  MQTTAnalyzer
+//
+//  Created by Philipp Arndt on 2022-01-30.
+//  Copyright © 2022 Philipp Arndt. All rights reserved.
+//
+
+import Foundation
+
+extension TopicTree {
+	func clear() {
+		children = [:]
+		messageCountDisplay = 0
+		topicCountDisplay = 0
+		childrenDisplay = []
+		messages = []
+		timeSeries = TimeSeriesModel()
+		readState = Readstate()
+	}
+	
+	func delete(at offsets: IndexSet) {
+		
+	}
+}

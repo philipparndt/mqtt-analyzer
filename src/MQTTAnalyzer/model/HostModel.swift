@@ -76,6 +76,11 @@ struct CertificateFile: Codable {
 	var type = CertificateFileType.undefined
 }
 
+enum NavigationMode {
+	case classic
+	case folders
+}
+
 class Host: Identifiable, ObservableObject {
 	
 	let ID: String
@@ -122,6 +127,9 @@ class Host: Identifiable, ObservableObject {
 	
 	var certificates: [CertificateFile] = []
 	var certClientKeyPassword: String = ""
+	
+	var navigationMode: NavigationMode = .folders
+	var maxMessagesOfSubFolders = 10
 	
 	@Published var usernameNonpersistent: String?
 	@Published var passwordNonpersistent: String?

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AwaitMessagesView: View {
-	@ObservedObject var model: MessageModel
+	@ObservedObject var model: TopicTree
 	@ObservedObject var host: Host
 	
     var body: some View {

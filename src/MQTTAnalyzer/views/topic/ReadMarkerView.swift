@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct ReadMarkerView: View {
-	@ObservedObject
-	var read: Readstate
+	@ObservedObject var read: Readstate
 	
 	var body: some View {
 		Image(systemName: "circle.fill")
@@ -18,5 +17,18 @@ struct ReadMarkerView: View {
 		.foregroundColor(.blue)
 		.opacity(read.read ? 0 : 1)
 		.animation(.easeInOut, value: read.read)
+	}
+}
+
+struct FolderReadMarkerView: View {
+	@ObservedObject var read: Readstate
+	
+	var body: some View {
+		Image(systemName: read.read ? "folder.fill" : "circle.fill")
+		.font(.subheadline)
+		.foregroundColor(read.read ? .primary : .blue)
+		.opacity(read.read ? 0.5 : 1)
+		.frame(width: 25, alignment: .center)
+		.animation(Animation.easeInOut(duration: 0.5), value: read.read)
 	}
 }

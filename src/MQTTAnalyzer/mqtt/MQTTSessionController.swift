@@ -11,7 +11,7 @@ import Combine
 
 class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 	
-	var model: MessageModel?
+	var model: TopicTree?
 	var sessions: [String: MqttClient] = [:]
 	
 	private var messageSubjectCancellable: Cancellable? {
@@ -89,7 +89,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 		sessions.removeValue(forKey: host.ID)
 	}
 	
-	func publish(message: Message, on: Host) {
+	func publish(message: MsgMessage, on: Host) {
 		sessions[on.ID]?.publish(message: message)
 	}
 }

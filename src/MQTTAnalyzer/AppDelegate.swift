@@ -20,6 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		DataMigration.initMigration(afterMigration: self.afterMigration)
 
+		if CommandLine.arguments.contains("--no-welcome") {
+			let defaults = UserDefaults.standard
+			defaults.set(false, forKey: Welcome.key)
+		}
+
 		syncEngine = SyncEngine(objects: [
 				SyncObject(type: HostSetting.self)
 			], databaseScope: .private)

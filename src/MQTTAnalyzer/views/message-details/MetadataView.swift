@@ -32,19 +32,18 @@ extension View {
 }
 
 struct MetadataView: View {
-	let message: Message
-	let topic: Topic
+	let message: MsgMessage
 
 	var body: some View {
 		HStack {
 			VStack {
-				MetadataTextView(key: "Topic", value: topic.name)
+				MetadataTextView(key: "Topic", value: message.topic.nameQualified)
 				Divider()
-				MetadataTextView(key: "Timestamp", value: message.localDate)
+				MetadataTextView(key: "Timestamp", value: message.metadata.localDate)
 				Divider()
-				MetadataTextView(key: "QoS", value: "\(message.qos)")
+				MetadataTextView(key: "QoS", value: "\(message.metadata.qos)")
 				Divider()
-				MetadataTextView(key: "Retain", value: "\(message.retain ? "Yes" : "No")")
+				MetadataTextView(key: "Retain", value: "\(message.metadata.retain ? "Yes" : "No")")
 			}
 			.padding([.leading, .top, .bottom])
 			.background(.ultraThinMaterial)
