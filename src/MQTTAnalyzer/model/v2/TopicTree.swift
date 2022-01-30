@@ -24,12 +24,17 @@ class TopicTree: Identifiable, ObservableObject {
 		}
 	}
 
+	var totalTopicCounter = 0
+	
 	@Published var messageCountDisplay: Int = 0
 	@Published var topicCountDisplay: Int = 0
 	@Published var childrenDisplay: [TopicTree] = []
 	@Published var messages: [MsgMessage] = []
 	@Published var timeSeries = TimeSeriesModel()
 	@Published var readState = Readstate()
+	
+	@Published var topicLimitExceeded = false
+	@Published var messageLimitExceeded = false
 
 	var filterTextCleaned = ""
 	@Published var filterText = "" {
@@ -97,15 +102,22 @@ extension TopicTree {
 		return result
 	}
 	
-	func addTopic(topic: String) -> TopicTree {
+	func addTopic(topic: String) -> TopicTree? {
 		let segments = topic.split(separator: "/").map { String($0) }
 		
 		var current = findRoot()
+				
 		for pos in 0..<segments.count {
 			let name = segments[pos]
 			var next = current.children[name]
 			if next == nil {
+				if topicLimitExceeded {
+					return nil
+				}
+				
 				next = TopicTree(name: name, parent: current)
+				
+				totalTopicCounter += 1
 			}
 			current = next!
 		}
@@ -113,10 +125,14 @@ extension TopicTree {
 		return current
 	}
 	
-	func addMessage(metadata: MsgMetadata, payload: MsgPayload, to topic: String) -> MsgMessage {
-		let node = addTopic(topic: topic)
-		let message = MsgMessage(topic: node, payload: payload, metadata: metadata)
-		node.addMessage(message: message)
-		return message
+	func addMessage(metadata: MsgMetadata, payload: MsgPayload, to topic: String) -> MsgMessage? {
+		if let node = addTopic(topic: topic) {
+			let message = MsgMessage(topic: node, payload: payload, metadata: metadata)
+			node.addMessage(message: message)
+			return message
+		}
+		else {
+			return nil
+		}
 	}
 }

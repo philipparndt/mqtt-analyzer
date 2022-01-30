@@ -12,9 +12,11 @@ struct MessageLimitReachedView: View {
 	
 	var body: some View {
 		HStack {
-			Image(systemName: "exclamationmark.octagon.fill")
+			Image(systemName: "exclamationmark.triangle.fill")
+				.foregroundColor(.yellow)
 
-			Text("Message limit exceeded.\nReduce the subscription topic!")
+			Text("Messages per batch limit exceeded.\nReduce the subscription topic!")
+				.font(.subheadline)
 
 			Spacer()
 		}

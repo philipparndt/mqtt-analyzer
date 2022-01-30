@@ -145,10 +145,10 @@ struct TopicsView: View {
 			if host.needsAuth {
 				LoginView(loginDialogPresented: self.$loginData.isPresented, host: host)
 			}
-			else if model.topicLimit && !host.pause {
+			else if model.topicLimitExceeded && !host.pause {
 				TopicLimitReachedView()
 			}
-			else if model.messageLimit && !host.pause {
+			else if model.messageLimitExceeded && !host.pause {
 				MessageLimitReachedView()
 			}
 			else if host.state == .connected && host.pause {

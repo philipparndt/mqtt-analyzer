@@ -45,7 +45,7 @@ class RootModel: ObservableObject {
 		let prefix = TreeUtils.commomPrefix(subscriptions: subscriptions.map { $0.topic })
 		var model = TopicTree()
 		if !prefix.isEmpty {
-			model = model.addTopic(topic: prefix)
+			model = model.addTopic(topic: prefix) ?? model
 		}
 		
 		return model

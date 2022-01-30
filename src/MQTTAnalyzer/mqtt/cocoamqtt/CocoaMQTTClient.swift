@@ -167,9 +167,8 @@ class MqttClientCocoaMQTT: MqttClient {
 		host.state = .connecting
 		connectionState.state = .connecting
 		connectionState.message = nil
-		
-//		model.limitMessagesPerBatch = host.limitMessagesBatch
-//		model.limitTopics = host.limitTopic
+		model.messageLimitExceeded = false
+		model.topicLimitExceeded = false
 	}
 		
 	func disconnect() {
@@ -226,7 +225,20 @@ class MqttClientCocoaMQTT: MqttClient {
 			return
 		}
 		
+		//		model.limitMessagesPerBatch = host.limitMessagesBatch
+		//		model.limitTopics = host.limitTopic
+		if messages.count > host.limitMessagesBatch {
+			// Limit exceeded
+			self.model.messageLimitExceeded = true
+			return
+		}
+		
 		for message in messages {
+			if self.model.totalTopicCounter >= host.limitTopic {
+				// Limit exceeded
+				self.model.topicLimitExceeded = true
+			}
+			
 			_ = self.model.addMessage(
 				metadata: MsgMetadata(qos: Int32(message.qos.rawValue), retain: message.retained),
 				payload: MsgPayload(data: message.payload),

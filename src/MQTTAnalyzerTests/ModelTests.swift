@@ -38,8 +38,7 @@ class ModelTests: XCTestCase {
 		}
 		
 		// addTopic will actually get the topic here, as it is already created
-		let topic = messageModel.addTopic(topic: "topic")
-		return (model, topic)
+		return (model, messageModel.addTopic(topic: "topic")!)
 	}
 
 // FIXME

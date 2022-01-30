@@ -15,14 +15,6 @@ extension TopicTree {
 		})
 	}
 	
-	var topicLimit: Bool {
-		return false
-	}
-
-	var messageLimit: Bool {
-		return false
-	}
-	
 	var displayTopics: String {
 		return ""
 	}
