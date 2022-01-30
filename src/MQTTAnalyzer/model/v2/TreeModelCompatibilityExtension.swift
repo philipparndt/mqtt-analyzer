@@ -37,8 +37,4 @@ extension TopicTree {
 		return ""
 	}
 	
-	func readall() {
-		markRead()
-	}
-	
 }

@@ -86,7 +86,7 @@ struct TopicsView: View {
 			}
 			#if targetEnvironment(macCatalyst)
 			ToolbarItemGroup(placement: .navigationBarLeading) {
-				Button(action: model.readall) {
+				Button(action: model.markRead) {
 					Image(systemName: "circle")
 					.font(.subheadline)
 					.foregroundColor(.blue)

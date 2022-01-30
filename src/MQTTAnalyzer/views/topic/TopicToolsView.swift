@@ -18,7 +18,7 @@ struct TopicsToolsView: View {
 				Spacer()
 				Text("\(model.topicCount)/\(model.messageCount)")
 				
-				Button(action: model.readall) {
+				Button(action: model.markRead) {
 					Button(action: noAction) {
 						Image(systemName: "line.horizontal.3.decrease.circle")
 							.foregroundColor(.gray)
@@ -28,7 +28,7 @@ struct TopicsToolsView: View {
 							Text("Clear")
 							Image(systemName: "bin.xmark")
 						}
-						Button(action: model.readall) {
+						Button(action: model.markRead) {
 							Text("Mark all as read")
 							Image(systemName: "eye.fill")
 						}
