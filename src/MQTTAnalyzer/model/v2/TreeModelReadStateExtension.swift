@@ -14,7 +14,7 @@ extension TopicTree {
 			return false
 		}
 		
-		let result = childrenList
+		let result = children.values
 			.map { $0.readStateCombined }
 			.contains { !$0 }
 		
@@ -24,7 +24,7 @@ extension TopicTree {
 	func markRead() {
 		readState.markRead()
 		
-		for child in childrenList {
+		for child in children.values {
 			child.markRead()
 		}
 	}

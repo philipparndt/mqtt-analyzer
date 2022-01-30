@@ -9,10 +9,6 @@
 import Foundation
 
 extension TopicTree {
-	var childrenList: [TopicTree] {
-		return Array(children.values)
-	}
-	
 	var childrenWithMessages: [TopicTree] {
 		return Array(children.values.filter {
 			!$0.messages.isEmpty
