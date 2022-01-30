@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct MessageDetailsPlainTextView: View {
-	let message: Message
+	let message: MsgMessage
 	
 	var body: some View {
 		VStack {
