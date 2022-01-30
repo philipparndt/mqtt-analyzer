@@ -25,6 +25,7 @@ class HostSettingExamples {
 		example1.id = "example.test.mosquitto.org.2"
 		example1.alias = "Revspace sensors"
 		example1.hostname = "test.mosquitto.org"
+		example1.limitTopic = 400
 		example1.subscriptions = HostsModelPersistence.encode(subscriptions: [
 			TopicSubscription(topic: "revspace/sensors/#", qos: 0)
 		])
