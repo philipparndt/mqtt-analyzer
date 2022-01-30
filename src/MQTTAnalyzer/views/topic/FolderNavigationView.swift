@@ -42,10 +42,7 @@ struct FolderCellView: View {
 
 	var body: some View {
 		HStack {
-			ReadMarkerView(read: model.readState)
-
-			Image(systemName: "folder.fill")
-				.foregroundColor(.blue)
+			FolderReadMarkerView(read: model.readState)
 			
 			Text(model.name)
 			
