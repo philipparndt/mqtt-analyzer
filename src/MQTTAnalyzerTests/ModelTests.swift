@@ -30,7 +30,7 @@ class ModelTests: XCTestCase {
 		let messageModel = model.getMessageModel(host)
 
 		for data in messageData {
-			_ = modelmessageModel.addMessage(
+			_ = messageModel.addMessage(
 				metadata: MsgMetadata.stub(),
 				payload: MsgPayload(data: Array(data.utf8)),
 				to: "topic"
