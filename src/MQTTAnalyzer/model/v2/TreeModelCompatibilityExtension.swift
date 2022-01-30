@@ -45,12 +45,4 @@ extension TopicTree {
 		markRead()
 	}
 	
-	func clear() {
-		
-	}
-	
-	func delete(at offsets: IndexSet) {
-		
-	}
-	
 }

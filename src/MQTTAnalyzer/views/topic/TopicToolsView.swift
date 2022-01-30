@@ -35,6 +35,15 @@ struct TopicsToolsView: View {
 					}
 				}
 			}
+			
+			if model.parent != nil {
+				HStack {
+					Text("Topic")
+					Spacer()
+					Text(model.nameQualified)
+						.textSelection(.enabled)
+				}
+			}
 		}
 	}
 	

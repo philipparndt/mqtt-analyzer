@@ -35,6 +35,7 @@
 		2230FF0C27A57DF500D4327F /* TreeModelReadStateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0B27A57DF400D4327F /* TreeModelReadStateExtension.swift */; };
 		2230FF0E27A650CE00D4327F /* TreeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0D27A650CE00D4327F /* TreeUtils.swift */; };
 		2230FF1027A6511F00D4327F /* TreeUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0F27A6511F00D4327F /* TreeUtilsTests.swift */; };
+		2230FF1227A65EE100D4327F /* TreeModelDeleteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1127A65EE100D4327F /* TreeModelDeleteExtension.swift */; };
 		223AF5D12477D575009810E6 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
 		223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D22477D5CA009810E6 /* FileListView.swift */; };
 		223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D42477D5F5009810E6 /* FileItemView.swift */; };
@@ -192,6 +193,7 @@
 		2230FF0B27A57DF400D4327F /* TreeModelReadStateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeModelReadStateExtension.swift; sourceTree = "<group>"; };
 		2230FF0D27A650CE00D4327F /* TreeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeUtils.swift; sourceTree = "<group>"; };
 		2230FF0F27A6511F00D4327F /* TreeUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeUtilsTests.swift; sourceTree = "<group>"; };
+		2230FF1127A65EE100D4327F /* TreeModelDeleteExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeModelDeleteExtension.swift; sourceTree = "<group>"; };
 		223AF5D02477D575009810E6 /* FileLister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLister.swift; sourceTree = "<group>"; };
 		223AF5D22477D5CA009810E6 /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
 		223AF5D42477D5F5009810E6 /* FileItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItemView.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 				2230FEFB27A50C9700D4327F /* TreeModel.swift */,
 				2230FF0B27A57DF400D4327F /* TreeModelReadStateExtension.swift */,
 				2230FF0327A541A600D4327F /* TreeModelCompatibilityExtension.swift */,
+				2230FF1127A65EE100D4327F /* TreeModelDeleteExtension.swift */,
 				2230FF0527A5668200D4327F /* MessageCounter.swift */,
 				2230FF0D27A650CE00D4327F /* TreeUtils.swift */,
 			);
@@ -1097,6 +1100,7 @@
 				226A6B632445759600ACDFC3 /* ClientIDFormView.swift in Sources */,
 				226A6B67244575DB00ACDFC3 /* AuthFormView.swift in Sources */,
 				2230FEFE27A50E9000D4327F /* DateUtils.swift in Sources */,
+				2230FF1227A65EE100D4327F /* TreeModelDeleteExtension.swift in Sources */,
 				226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */,
 				2230FF0627A5668200D4327F /* MessageCounter.swift in Sources */,
 				223AF5D12477D575009810E6 /* FileLister.swift in Sources */,

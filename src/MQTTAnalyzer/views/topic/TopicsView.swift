@@ -24,15 +24,6 @@ struct TopicsView: View {
 			else {
 				List {
 					TopicsToolsView(model: self.model)
-
-					if model.parent != nil {
-						HStack {
-							Text("Topic")
-							Spacer()
-							Text(model.nameQualified)
-								.textSelection(.enabled)
-						}
-					}
 					
 					if host.navigationMode == .folders {
 						FolderNavigationView(host: host, model: model)
