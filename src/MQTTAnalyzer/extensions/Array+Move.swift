@@ -9,13 +9,6 @@
 import Foundation
 
 extension Array {
-	mutating func remove(atOffsets offsets: IndexSet) {
-		let suffixStart = halfStablePartition { index, _ in
-			return offsets.contains(index)
-		}
-		removeSubrange(suffixStart...)
-	}
-
 	mutating func move(fromOffsets source: IndexSet, toOffset destination: Int) {
 		let suffixStart = halfStablePartition { index, _ in
 			return source.contains(index)
