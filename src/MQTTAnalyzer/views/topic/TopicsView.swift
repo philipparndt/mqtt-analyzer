@@ -15,7 +15,6 @@ struct TopicsView: View {
 	
 	@State private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
-	@State private var flat = false
 	
 	var body: some View {
 		VStack {
@@ -26,13 +25,13 @@ struct TopicsView: View {
 				List {
 					TopicsToolsView(model: self.model)
 					
-					Toggle("Flat", isOn: $flat)
+					Toggle("Flat", isOn: self.$model.flatView)
 					
-					if !flat {
+					if !self.model.flatView {
 						FolderNavigationView(host: host, model: model)
 					}
 					
-					if flat {
+					if self.model.flatView {
 						Section(header: Text("Messages (flat)")) {
 							ForEach(model.recusiveAllMessages) { messages in
 								TopicCellView(
@@ -57,7 +56,7 @@ struct TopicsView: View {
 						}
 					}
 					
-					if !flat && !model.childrenWithMessages.isEmpty {
+					if !self.model.flatView && !model.childrenWithMessages.isEmpty {
 						Section(header: Text("Inherited Message Groups")) {
 							ForEach(model.childrenWithMessages) { messages in
 								TopicCellView(

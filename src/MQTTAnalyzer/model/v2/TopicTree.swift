@@ -36,6 +36,8 @@ class TopicTree: Identifiable, ObservableObject {
 	@Published var topicLimitExceeded = false
 	@Published var messageLimitExceeded = false
 
+	@Published var flatView = false
+	
 	var filterTextCleaned = ""
 	@Published var filterText = "" {
 		didSet {
