@@ -139,7 +139,6 @@
 		22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */; };
 		22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D6237FC03500D72BD6 /* Readstate.swift */; };
 		22E469DB23801CA000D72BD6 /* Array+Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469DA23801CA000D72BD6 /* Array+Move.swift */; };
-		22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469E323814CEF00D72BD6 /* JsonFormatString.swift */; };
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
 		22E914DF25A8420700BEC599 /* HostFormModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E914DE25A8420700BEC599 /* HostFormModelTests.swift */; };
 		22F3AB1324A77B6600B2CF92 /* DataMigrationMoscapsuleDeprecation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F3AB1224A77B6600B2CF92 /* DataMigrationMoscapsuleDeprecation.swift */; };
@@ -316,7 +315,6 @@
 		22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMarkerView.swift; sourceTree = "<group>"; };
 		22E469D6237FC03500D72BD6 /* Readstate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Readstate.swift; sourceTree = "<group>"; };
 		22E469DA23801CA000D72BD6 /* Array+Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Move.swift"; sourceTree = "<group>"; };
-		22E469E323814CEF00D72BD6 /* JsonFormatString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonFormatString.swift; sourceTree = "<group>"; };
 		22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesModel.swift; sourceTree = "<group>"; };
 		22E914DE25A8420700BEC599 /* HostFormModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormModelTests.swift; sourceTree = "<group>"; };
 		22F3AB1224A77B6600B2CF92 /* DataMigrationMoscapsuleDeprecation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationMoscapsuleDeprecation.swift; sourceTree = "<group>"; };
@@ -620,7 +618,6 @@
 				22E469DA23801CA000D72BD6 /* Array+Move.swift */,
 				2230FF3027A8304E00D4327F /* Array+Remove.swift */,
 				2230FF3227A830C900D4327F /* DataProtocol+Hex.swift */,
-				22E469E323814CEF00D72BD6 /* JsonFormatString.swift */,
 				22F8BEE623C24A5800422BFF /* String+Utils.swift */,
 				2230FEFD27A50E9000D4327F /* Date+Iso.swift */,
 			);
@@ -1134,7 +1131,6 @@
 				2230FF2727A6BB7C00D4327F /* WelcomeView.swift in Sources */,
 				226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */,
 				226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */,
-				22E469E423814CEF00D72BD6 /* JsonFormatString.swift in Sources */,
 				2291424C23BF78000086C251 /* AboutView.swift in Sources */,
 				22AE64362412637A00C2C4FE /* TimeSeriesValue.swift in Sources */,
 				22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */,

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 extension String {
 	/*
 	 Truncates the string to the specified length number of characters and appends an optional trailing string if longer.
