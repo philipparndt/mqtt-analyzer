@@ -40,8 +40,13 @@ struct TopicsToolsView: View {
 				HStack {
 					Text("Topic")
 					Spacer()
-					Text(model.nameQualified)
-						.textSelection(.enabled)
+					if #available(macCatalyst 15.0, *) {
+						Text(model.nameQualified)
+							.textSelection(.enabled)
+					} else {
+						// Fallback on earlier versions
+						Text(model.nameQualified)
+					}
 				}
 			}
 		}

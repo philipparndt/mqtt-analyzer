@@ -15,7 +15,12 @@ class MsgMetadata {
 	let retain: Bool
 	
 	init(qos: Int32, retain: Bool) {
-		self.date = Date.now
+		if #available(macCatalyst 15, *) {
+			self.date = Date.now
+		} else {
+			// Fallback on earlier versions
+			self.date = Date()
+		}
 		self.localDate = DateFormatter.iso.string(from: self.date)
 		self.qos = qos
 		self.retain = retain

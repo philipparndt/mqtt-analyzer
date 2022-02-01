@@ -71,7 +71,7 @@ struct TopicsView: View {
 						}
 					}
 				}
-				.searchable(text: $model.filterText)
+				// .searchable(text: $model.filterText)
 				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
 					PublishMessageFormModalView(closeCallback: self.cancelDialog,
 												root: self.rootModel,
@@ -116,9 +116,9 @@ struct TopicsView: View {
 			#endif
 		}
 		.navigationBarTitleDisplayMode(.inline)
-		.safeAreaInset(edge: .bottom) {
-			createToolInset()
-		}
+//		.safeAreaInset(edge: .bottom) {
+//			createToolInset()
+//		}
 		.sheet(isPresented: $loginData.isPresented, onDismiss: cancelDialog, content: {
 			LoginDialogView(loginCallback: self.login, host: self.host)
 		})
@@ -182,8 +182,6 @@ struct TopicsView: View {
 				}
 			}
 		}
-		.background(.ultraThinMaterial)
-		.controlSize(.large)
 	}
 	
 	func createTopic() {

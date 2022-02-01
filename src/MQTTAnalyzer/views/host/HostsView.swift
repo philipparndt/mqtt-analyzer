@@ -42,7 +42,8 @@ struct HostsView: View {
 					}
 					.onDelete(perform: self.delete)
 					
-				}.searchable(text: $searchText)
+				}
+				//.searchable(text: $searchText)
 			}
 			.navigationBarTitleDisplayMode(.inline)
 			.navigationTitle("Brokers")
