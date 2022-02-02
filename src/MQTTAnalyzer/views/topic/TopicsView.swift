@@ -187,6 +187,7 @@ struct TopicsView: View {
 	
 	func createTopic() {
 		self.publishMessageModel = PublishMessageFormModel()
+		self.publishMessageModel.topic = model.nameQualified
 		self.publishMessageModel.isPresented = true
 	}
 
