@@ -50,6 +50,18 @@ struct FolderCellView: View {
 
 			CounterCellView(model: model)
 		}
+		.contextMenu {
+			MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
+			MenuButton(title: "Copy name", systemImage: "doc.on.doc", action: copyName)
+	    }
+	}
+	
+	func copyTopic() {
+		UIPasteboard.general.string = model.nameQualified
+	}
+
+	func copyName() {
+		UIPasteboard.general.string = model.name
 	}
 }
 
