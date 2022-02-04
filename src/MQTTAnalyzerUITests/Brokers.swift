@@ -32,11 +32,11 @@ class Brokers {
 		
 		let aliasField = app.textFields["alias"]
 		aliasField.tap()
-		aliasField.typeText(alias)
+		aliasField.typeText("\(alias)\n")
 		
 		let hostField = app.textFields["hostname"]
 		hostField.tap()
-		hostField.typeText(hostname)
+		hostField.typeText("\(hostname)\n")
 		
 		snapshot("0 Config")
 		app.buttons["Save"].tap()

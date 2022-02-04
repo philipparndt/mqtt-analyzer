@@ -14,9 +14,13 @@ struct TopicSuffixPickerView: View {
     var body: some View {
 	  Picker(selection: $suffix, label: Text("Suffix")) {
 		  Text("none").tag(TopicSuffix.none)
+			  .accessibilityLabel("none")
 		  Text("set").tag(TopicSuffix.sset)
+			  .accessibilityLabel("set")
 		  Text("get").tag(TopicSuffix.sget)
+			  .accessibilityLabel("get")
 		  Text("state").tag(TopicSuffix.sstate)
+			  .accessibilityLabel("state")
 	  }.pickerStyle(SegmentedPickerStyle())
     }
 }

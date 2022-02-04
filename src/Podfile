@@ -9,6 +9,24 @@ post_install do |installer|
  end
 end
 
+def shared_pods
+	pod 'CocoaMQTT', :git => 'https://github.com/philipparndt/CocoaMQTT.git', :tag => '2.0.3-beta2'
+	pod 'CocoaMQTT/WebSockets', :git => 'https://github.com/philipparndt/CocoaMQTT.git', :tag => '2.0.3-beta2'
+	
+	pod 'RealmSwift', '~> 10.7.0'
+	pod 'IceCream', '2.0.4'
+
+	pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git', :tag => '2.1.2'
+	
+	pod 'CodeEditor', :git => 'https://github.com/ZeeZide/CodeEditor.git'
+	
+	pod 'swift-petitparser'
+	
+	pod 'SwiftyJSON'
+
+	pod 'SwiftLint'
+end
+
 target 'MQTTAnalyzer' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
@@ -16,30 +34,16 @@ target 'MQTTAnalyzer' do
   # Pods for MQTTAnalyzer
   use_frameworks! # Add this if you are targeting iOS 8+ or using Swift
   
-	pod 'CocoaMQTT', :git => 'https://github.com/philipparndt/CocoaMQTT.git', :tag => '2.0.3-beta2'
-	pod 'CocoaMQTT/WebSockets', :git => 'https://github.com/philipparndt/CocoaMQTT.git', :tag => '2.0.3-beta2'
+	shared_pods
 	
-  pod 'RealmSwift', '~> 10.7.0'
-  pod 'IceCream', '2.0.4'
-
-  pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git', :tag => '2.1.2'
-  
-	pod 'CodeEditor', :git => 'https://github.com/ZeeZide/CodeEditor.git'
-	
-  pod 'swift-petitparser'
-  
-  pod 'SwiftyJSON'
-
-  pod 'SwiftLint'
   
   target 'MQTTAnalyzerTests' do
 	inherit! :search_paths
 	# Pods for testing
   end
 
-#  target 'MQTTAnalyzerUITests' do
-#	inherit! :search_paths
-#	# Pods for testing
-#  end
-
+  target 'MQTTAnalyzerUITests' do
+	inherit! :search_paths
+	shared_pods
+  end
 end

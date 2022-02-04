@@ -49,19 +49,30 @@ class MQTTAnalyzerUITests: XCTestCase {
 	}
 	
     func testAdd() {
-		let brokers = Brokers(app: app)
-		
 		let hostname = "192.168.3.50"
 		let alias = "Example"
+
+		let examples = ExampleMessages(hostname: hostname)
+		let brokers = Brokers(app: app)
 		
 		app.launch()
+		examples.publish()
+		
 		brokers.delete(alias: alias)
 		brokers.create(alias: alias, hostname: hostname)
 		brokers.start(alias: alias)
 		
 		let folders = TopicFolders(app: app)
-		folders.navigate(to: "hue/light")
+		folders.navigate(to: "hue")
+		
+		folders.flatView()
+		snapshot("1 Flat View")
+		folders.flatView()
+
+		folders.navigate(to: "hue/light/kitchen")
 		snapshot("1 Lights")
+		
+		folders.publishNew(topic: "hue/light/kitchen/coffee-spot")
     }
 	
 //    func testLaunchPerformance() {
