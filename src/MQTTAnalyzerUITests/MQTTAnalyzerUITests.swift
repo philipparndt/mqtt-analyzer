@@ -19,6 +19,7 @@ class MQTTAnalyzerUITests: XCTestCase {
 
         // UI tests must launch the application that they test.
 		app = XCUIApplication()
+		setupSnapshot(app)
 		
 		// We send a command line argument to our app,
         // to enable it to reset its state
@@ -43,6 +44,7 @@ class MQTTAnalyzerUITests: XCTestCase {
 		app.launch()
 		
 		app.buttons["Add Broker"].tap()
+		snapshot("0Broker")
 		app.buttons["Cancel"].tap()
     }
 	
