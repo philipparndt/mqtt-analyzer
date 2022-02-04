@@ -40,20 +40,36 @@ class MQTTAnalyzerUITests: XCTestCase {
 		app.buttons["Close"].tap()
     }
 	
+	func deleteBroker(_ alias: String) {
+		let broker = app.cells["broker: \(alias)"]
+		if broker.exists {
+			broker.swipeLeft()
+			app.buttons["Delete"].tap()
+		}
+	}
+	
     func testAdd() {
-		app.launch()
+		let brokers = Brokers(app: app)
 		
-		app.buttons["Add Broker"].tap()
-		snapshot("0Broker")
-		app.buttons["Cancel"].tap()
+		let hostname = "192.168.3.50"
+		let alias = "Example"
+		
+		app.launch()
+		brokers.delete(alias: alias)
+		brokers.create(alias: alias, hostname: hostname)
+		brokers.start(alias: alias)
+		
+		let folders = TopicFolders(app: app)
+		folders.navigate(to: "hue/light")
+		snapshot("1 Lights")
     }
 	
-    func testLaunchPerformance() {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
-    }
+//    func testLaunchPerformance() {
+//        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
+//            // This measures how long it takes to launch your application.
+//            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
+//                XCUIApplication().launch()
+//            }
+//        }
+//    }
 }

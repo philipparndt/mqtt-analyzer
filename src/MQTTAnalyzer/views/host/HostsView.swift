@@ -39,6 +39,7 @@ struct HostsView: View {
 										self.model.getMessageModel(host)
 									 ),
 									 cloneHostHandler: self.cloneHost)
+							.accessibilityLabel("broker: \(host.aliasOrHost)")
 					}
 					.onDelete(perform: self.delete)
 					

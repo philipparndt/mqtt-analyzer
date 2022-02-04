@@ -31,6 +31,7 @@ struct FolderNavigationView: View {
 					NavigationLink(destination: TopicsView(model: child, host: self.host)) {
 						FolderCellView(model: child)
 					}
+					.accessibilityLabel("folder: \(child.nameQualified)")
 				}
 			}
 		}
