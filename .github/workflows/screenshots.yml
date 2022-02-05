@@ -28,10 +28,15 @@ jobs:
         pod install
       shell: bash
     
-    - name: Create screenshots
+    - name: Install Imagemagick
+      working-directory: src
       run: |
         brew update 
         brew install imagemagick
+      shell: bash
+
+    - name: Create screenshots
+      run: |
         bash create-screenshots.sh
 
     - name: Stop ActiveMQ
