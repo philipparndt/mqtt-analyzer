@@ -11,7 +11,6 @@ import SwiftUI
 struct TopicCellView: View {
 	@EnvironmentObject var root: RootModel
 	var messages: TopicTree
-	var model: TopicTree
 	@Binding var publishMessagePresented: Bool
 	
 	let host: Host
@@ -40,8 +39,10 @@ struct TopicCellView: View {
 								
 				MenuButton(title: "Publish message again", systemImage: "paperplane.fill", action: publish)
 				MenuButton(title: "Publish new message", systemImage: "paperplane.fill", action: publishManually)
+					.accessibilityLabel("publish new")
 			}
 		}
+		.accessibilityLabel("group: \(messages.nameQualified)")
 	}
 	
 	func publish() {

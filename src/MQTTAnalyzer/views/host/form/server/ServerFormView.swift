@@ -33,6 +33,7 @@ struct ServerFormView: View {
 				TextField("optional", text: $host.alias)
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
+					.accessibilityLabel("alias")
 					.font(.body)
 			}
 			HStack {
@@ -47,6 +48,7 @@ struct ServerFormView: View {
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
+					.accessibilityLabel("hostname")
 					.font(.body)
 			}
 			

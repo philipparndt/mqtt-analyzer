@@ -26,6 +26,7 @@ struct TopicsView: View {
 					TopicsToolsView(model: self.model)
 					
 					Toggle("Flat", isOn: self.$model.flatView)
+						.accessibilityLabel("flatview")
 					
 					if !self.model.flatView {
 						FolderNavigationView(host: host, model: model)
@@ -36,7 +37,6 @@ struct TopicsView: View {
 							ForEach(model.recusiveAllMessages) { messages in
 								TopicCellView(
 									messages: messages,
-									model: self.model,
 									publishMessagePresented: self.$publishMessageModel.isPresented,
 									host: self.host,
 									selectMessage: self.selectMessage
@@ -48,7 +48,6 @@ struct TopicsView: View {
 						Section(header: Text("Message")) {
 							TopicCellView(
 								messages: self.model,
-								model: self.model,
 								publishMessagePresented: self.$publishMessageModel.isPresented,
 								host: self.host,
 								selectMessage: self.selectMessage
@@ -61,7 +60,6 @@ struct TopicsView: View {
 							ForEach(model.childrenWithMessages) { messages in
 								TopicCellView(
 									messages: messages,
-									model: self.model,
 									publishMessagePresented: self.$publishMessageModel.isPresented,
 									host: self.host,
 									selectMessage: self.selectMessage
