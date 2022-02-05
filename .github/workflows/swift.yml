@@ -1,4 +1,5 @@
 on: 
+  workflow_dispatch:
   push:
     paths:
       - 'src/**'
@@ -34,5 +35,6 @@ jobs:
         -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
 
     - name: Stop ActiveMQ
+      if: always()
       run: |
         /usr/local/opt/activemq/bin/activemq stop
