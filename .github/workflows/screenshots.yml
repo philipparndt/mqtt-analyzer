@@ -30,7 +30,7 @@ jobs:
     
     - name: Create screenshots
       run: |
-        create-screenshots.sh
+        bash create-screenshots.sh
 
     - name: Stop ActiveMQ
       if: always()
