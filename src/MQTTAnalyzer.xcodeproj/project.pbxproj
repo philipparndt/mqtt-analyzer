@@ -60,10 +60,11 @@
 		223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
 		2240834927AC533A00AA4A42 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240834827AC533A00AA4A42 /* SnapshotHelper.swift */; };
 		2240834B27AD68CE00AA4A42 /* Brokers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240834A27AD68CE00AA4A42 /* Brokers.swift */; };
-		2240834D27AD6AB500AA4A42 /* TopicFolders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240834C27AD6AB500AA4A42 /* TopicFolders.swift */; };
+		2240834D27AD6AB500AA4A42 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240834C27AD6AB500AA4A42 /* Navigation.swift */; };
 		2240834F27AD6F1800AA4A42 /* ExampleMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240834E27AD6F1800AA4A42 /* ExampleMessages.swift */; };
 		2240835327AD715900AA4A42 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240835227AD715900AA4A42 /* String+Random.swift */; };
 		224AFEA727AE88DC00DFD09F /* Color+SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEA627AE88DC00DFD09F /* Color+SystemColors.swift */; };
+		224AFEA927AEA2AF00DFD09F /* ScreenshotIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEA827AEA2AF00DFD09F /* ScreenshotIds.swift */; };
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
 		2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D722C8C007007E35A2 /* SceneDelegate.swift */; };
 		2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */; };
@@ -235,11 +236,12 @@
 		223EF00723870AA5002ADF3E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		2240834827AC533A00AA4A42 /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
 		2240834A27AD68CE00AA4A42 /* Brokers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brokers.swift; sourceTree = "<group>"; };
-		2240834C27AD6AB500AA4A42 /* TopicFolders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicFolders.swift; sourceTree = "<group>"; };
+		2240834C27AD6AB500AA4A42 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		2240834E27AD6F1800AA4A42 /* ExampleMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleMessages.swift; sourceTree = "<group>"; };
 		2240835027AD701000AA4A42 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2240835227AD715900AA4A42 /* String+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		224AFEA627AE88DC00DFD09F /* Color+SystemColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+SystemColors.swift"; sourceTree = "<group>"; };
+		224AFEA827AEA2AF00DFD09F /* ScreenshotIds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotIds.swift; sourceTree = "<group>"; };
 		2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2253F8D522C8C007007E35A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2253F8D722C8C007007E35A2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -753,9 +755,10 @@
 				22C7F0D22416A16600534880 /* MQTTAnalyzerUITests.swift */,
 				2240835227AD715900AA4A42 /* String+Random.swift */,
 				22C7F0D42416A16600534880 /* Info.plist */,
-				2240834C27AD6AB500AA4A42 /* TopicFolders.swift */,
+				2240834C27AD6AB500AA4A42 /* Navigation.swift */,
 				2240834A27AD68CE00AA4A42 /* Brokers.swift */,
 				2240834E27AD6F1800AA4A42 /* ExampleMessages.swift */,
+				224AFEA827AEA2AF00DFD09F /* ScreenshotIds.swift */,
 			);
 			path = MQTTAnalyzerUITests;
 			sourceTree = "<group>";
@@ -1251,10 +1254,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2240834D27AD6AB500AA4A42 /* TopicFolders.swift in Sources */,
+				2240834D27AD6AB500AA4A42 /* Navigation.swift in Sources */,
 				2240834927AC533A00AA4A42 /* SnapshotHelper.swift in Sources */,
 				2240835327AD715900AA4A42 /* String+Random.swift in Sources */,
 				2240834B27AD68CE00AA4A42 /* Brokers.swift in Sources */,
+				224AFEA927AEA2AF00DFD09F /* ScreenshotIds.swift in Sources */,
 				22C7F0D32416A16600534880 /* MQTTAnalyzerUITests.swift in Sources */,
 				2240834F27AD6F1800AA4A42 /* ExampleMessages.swift in Sources */,
 			);

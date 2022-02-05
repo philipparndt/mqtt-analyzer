@@ -28,6 +28,7 @@ struct MessageView: View {
 											 host: self.host,
 											 model: self.$publishMessageFormModel)
 					})
+					.accessibilityLabel("message")
 			}
 			.onDelete(perform: node.delete)
 		}
