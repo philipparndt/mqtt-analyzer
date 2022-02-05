@@ -6,7 +6,9 @@ const devices = [
     "iPad Pro (11-inch) (3rd generation)",
     "iPad Air (4th generation)"
 ]
-const appearance="dark" //  'dark' or 'light'
+const papp = process.env["APPEARENCE"]
+const appearance=papp ?? "dark" //  'dark' or 'light'
+fastlane frameit download_frames
 
 for (let name of devices) {
     try {
