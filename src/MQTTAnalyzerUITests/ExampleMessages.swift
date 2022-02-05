@@ -52,7 +52,9 @@ class ExampleMessages {
 	}
 	
 	func publish(_ topic: String, _ payload: String) {
-		client.publish(topic, payload)
+		client.publish(topic, payload
+						.replacingOccurrences(of: "\t", with: "")
+						.replacingOccurrences(of: "\n", with: ""))
 	}
 	
 	func publish() {
@@ -83,6 +85,167 @@ class ExampleMessages {
 		publish("home/sensors/air/out",
 				"{\"temperature\":23.1875}")
 		publish("home/sensors/bathroom/temperature",
-				"{\"battery\":97,\"voltage\":2995,\"temperature\":22.58,\"humidity\":37.17,\"pressure\":962,\"linkquality\":31}")
+"""
+{
+	"battery": 97,
+	"humidity": 37.17,
+	"linkquality": 31,
+	"pressure": 962,
+	"temperature": 22.58,
+	"voltage": 2995
+}
+""")
+		
+		publish("home/contacts/frontdoor",
+"""
+{
+	"battery": 91,
+	"contact": true,
+	"linkquality": 65,
+	"voltage": 2985
+}
+""")
+
+		publish("home/dishwasher/000123456789",
+"""
+{
+	"phase": "DRYING",
+	"phaseId": 1799,
+	"remainingDuration": "0:38",
+	"remainingDurationMinutes": 38,
+	"state": "RUNNING",
+	"timeCompleted": "10:20"
+}
+""")
+		
+		publish("home/dishwasher/000123456789/full",
+"""
+{
+	"ident": {
+		"deviceIdentLabel": {
+			"fabIndex": "64",
+			"fabNumber": "000123456789",
+			"matNumber": "10999999",
+			"swids": [
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11"
+			],
+			"techType": "G7560"
+		},
+		"deviceName": "",
+		"type": {
+			"key_localized": "Devicetype",
+			"value_localized": "Dishwasher",
+			"value_raw": 7
+		},
+		"xkmIdentLabel": {
+			"releaseVersion": "03.59",
+			"techType": "EK037"
+		}
+	},
+	"state": {
+		"ProgramID": {
+			"key_localized": "Program Id",
+			"value_localized": "",
+			"value_raw": 6
+		},
+		"dryingStep": {
+			"key_localized": "Drying level",
+			"value_localized": "",
+			"value_raw": null
+		},
+		"elapsedTime": [
+			0,
+			0
+		],
+		"light": 2,
+		"plateStep": [],
+		"programPhase": {
+			"key_localized": "Phase",
+			"value_localized": "Drying",
+			"value_raw": 1799
+		},
+		"programType": {
+			"key_localized": "Program type",
+			"value_localized": "Operation mode",
+			"value_raw": 0
+		},
+		"remainingTime": [
+			0,
+			38
+		],
+		"remoteEnable": {
+			"fullRemoteControl": true,
+			"smartGrid": false
+		},
+		"signalDoor": false,
+		"signalFailure": false,
+		"signalInfo": false,
+		"spinningSpeed": {
+			"key_localized": "Spinning Speed",
+			"unit": "rpm",
+			"value_localized": null,
+			"value_raw": null
+		},
+		"startTime": [
+			0,
+			0
+		],
+		"status": {
+			"key_localized": "State",
+			"value_localized": "In use",
+			"value_raw": 5
+		},
+		"targetTemperature": [
+			{
+				"unit": "Celsius",
+				"value_localized": null,
+				"value_raw": -32768
+			},
+			{
+				"unit": "Celsius",
+				"value_localized": null,
+				"value_raw": -32768
+			},
+			{
+				"unit": "Celsius",
+				"value_localized": null,
+				"value_raw": -32768
+			}
+		],
+		"temperature": [
+			{
+				"unit": "Celsius",
+				"value_localized": null,
+				"value_raw": -32768
+			},
+			{
+				"unit": "Celsius",
+				"value_localized": null,
+				"value_raw": -32768
+			},
+			{
+				"unit": "Celsius",
+				"value_localized": null,
+				"value_raw": -32768
+			}
+		],
+		"ventilationStep": {
+			"key_localized": "Power Level",
+			"value_localized": "",
+			"value_raw": null
+		}
+	}
+}
+""")
 	}
 }

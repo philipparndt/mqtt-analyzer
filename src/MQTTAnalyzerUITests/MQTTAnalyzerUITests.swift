@@ -46,7 +46,7 @@ class MQTTAnalyzerUITests: XCTestCase {
 		}
 	}
 	
-    func testAdd() {
+    func testFullRoundtrip() {
 		let hostname = "localhost"
 		let alias = "Example"
 
@@ -56,21 +56,30 @@ class MQTTAnalyzerUITests: XCTestCase {
 		app.launch()
 		examples.publish()
 		
+		let nav = Navigation(app: app, alias: alias)
+		
 		brokers.delete(alias: alias)
 		brokers.create(alias: alias, hostname: hostname)
 		brokers.start(alias: alias)
 		
-		let folders = TopicFolders(app: app, alias: alias)
-		folders.navigate(to: "hue")
-
-		folders.flatView()
-		snapshot("1 Flat View")
-		folders.flatView()
-
-		folders.navigate(to: "hue/light/kitchen")
-		snapshot("1 Lights")
+		nav.navigate(to: "home/dishwasher/000123456789")
+		nav.openMessageGroup()
+		snapshot(ScreenshotIds.JSON_DATA)
 		
-		folders.publishNew(topic: "hue/light/kitchen/coffee-spot")
+		nav.navigate(to: "home/dishwasher/000123456789/full")
+		nav.openMessageGroup()
+		nav.openMessage()
+		snapshot(ScreenshotIds.JSON_DETAILS)
+		
+		nav.navigate(to: "hue")
+		nav.flatView()
+		snapshot(ScreenshotIds.FLAT_VIEW)
+		nav.flatView()
+
+		nav.navigate(to: "hue/light/kitchen")
+		snapshot(ScreenshotIds.LIGHTS)
+		
+		nav.publishNew(topic: "hue/light/kitchen/coffee-spot")
     }
 	
 //    func testLaunchPerformance() {

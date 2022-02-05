@@ -15,22 +15,21 @@ jobs:
     
     - name: Install ActiveMQ
       run: |
-        brew install apache-activemq
-        /usr/local/opt/activemq/bin/activemq start
+        ci/start-active-mq.mjs
 
     - name: Set XCode Version
       run: sudo xcode-select -s /Applications/Xcode_13.2.app
     
     - name: Install Dependences
+      path: src
       run: |
-        cd src
         pod repo update
         pod install
       shell: bash
     
     - name: Test
+      path: src
       run: |
-        cd src
         xcodebuild test -enableCodeCoverage YES \
         -workspace MQTTAnalyzer.xcworkspace \
         -scheme MQTTAnalyzer \
@@ -39,4 +38,4 @@ jobs:
     - name: Stop ActiveMQ
       if: always()
       run: |
-        /usr/local/opt/activemq/bin/activemq stop
+        ci/stop-active-mq.mjs

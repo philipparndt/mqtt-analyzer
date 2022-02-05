@@ -9,7 +9,7 @@
 import Foundation
 import XCTest
 
-class TopicFolders {
+class Navigation {
 	let app: XCUIApplication
 	let alias: String
 	var currentFolder: [String] = []
@@ -23,6 +23,17 @@ class TopicFolders {
 		navigate(to: "")
 		
 		navigateUp()
+	}
+	
+	func openMessageGroup() {
+		let groupName = "group: \(currentFolder.joined(separator: "/"))"
+		app.cells[groupName].tap()
+		currentFolder.append(currentFolder[currentFolder.count - 1])
+	}
+	
+	func openMessage() {
+		app.cells["message"].tap()
+		currentFolder.append("message")
 	}
 	
 	func navigate(to topic: String) {
@@ -63,11 +74,11 @@ class TopicFolders {
 	
 	func publishNew(topic: String) {
 		app.cells["group: \(topic)"].press(forDuration: 1)
-		snapshot("2 Context Menu")
+		snapshot(ScreenshotIds.CONTEXT_MENU)
 		
 		app.buttons["publish new"].tap()
 		app.buttons["set"].tap()
-		snapshot("3 Publish")
+		snapshot(ScreenshotIds.PUBLISH)
 		
 		app.buttons["Publish"].tap()
 	}

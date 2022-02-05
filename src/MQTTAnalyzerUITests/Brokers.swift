@@ -38,7 +38,7 @@ class Brokers {
 		hostField.tap()
 		hostField.typeText("\(hostname)\n")
 		
-		snapshot("0 Config")
+		snapshot(ScreenshotIds.CONFIG)
 		app.buttons["Save"].tap()
 	}
 	
