@@ -13,6 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@master
     
+    - name: Install ZX
+      run: |
+        npm install -g zx
+
     - name: Install ActiveMQ
       run: |
         ci/start-active-mq.mjs
