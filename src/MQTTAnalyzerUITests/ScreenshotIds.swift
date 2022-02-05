@@ -10,6 +10,7 @@ import Foundation
 
 struct ScreenshotIds {
 	static let CONFIG = "Config"
+	static let BROKERS = "Brokers"
 	static let FLAT_VIEW = "Flat View"
 	static let LIGHTS = "Lights"
 	static let CONTEXT_MENU = "Context Menu"
