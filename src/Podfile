@@ -13,7 +13,7 @@ def shared_pods
 	pod 'CocoaMQTT', :git => 'https://github.com/philipparndt/CocoaMQTT.git', :tag => '2.0.3-beta2'
 	pod 'CocoaMQTT/WebSockets', :git => 'https://github.com/philipparndt/CocoaMQTT.git', :tag => '2.0.3-beta2'
 	
-	pod 'RealmSwift', '~> 10.7.0'
+	pod 'RealmSwift', '~> 10.22.0'
 	pod 'IceCream', '2.0.4'
 
 	pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git', :tag => '2.1.2'
