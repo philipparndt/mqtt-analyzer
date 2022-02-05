@@ -15,15 +15,26 @@ for (let name of devices) {
     catch (e) {
         // already booted?
     }
-    await $`xcrun simctl ui ${name} appearance ${appearance}`
-    await $`xcrun simctl status_bar ${name} override \
-    --time 9:41 \
-    --dataNetwork wifi \
-    --wifiMode active \
-    --wifiBars 3 \
-    --cellularMode active \
-    --cellularBars 4 \
-    --batteryState charged \
-    --batteryLevel 100`
+    try {
+        await $`xcrun simctl ui ${name} appearance ${appearance}`
+    }
+    catch (e) {
+        console.error(`Error setting dark mode of ${name}`, e)
+    }
+
+    try {
+        await $`xcrun simctl status_bar ${name} override \
+        --time 9:41 \
+        --dataNetwork wifi \
+        --wifiMode active \
+        --wifiBars 3 \
+        --cellularMode active \
+        --cellularBars 4 \
+        --batteryState charged \
+        --batteryLevel 100`
+    }
+    catch (e) {
+        console.error(`Error apply settings for ${name}`, e)
+    }
 }
 
