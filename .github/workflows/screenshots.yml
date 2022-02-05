@@ -30,6 +30,8 @@ jobs:
     
     - name: Create screenshots
       run: |
+        brew update 
+        brew install imagemagick
         bash create-screenshots.sh
 
     - name: Stop ActiveMQ

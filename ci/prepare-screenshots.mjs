@@ -8,7 +8,6 @@ const devices = [
 ]
 const papp = process.env["APPEARENCE"]
 const appearance=papp ?? "dark" //  'dark' or 'light'
-fastlane frameit download_frames
 
 for (let name of devices) {
     try {
