@@ -9,17 +9,23 @@
 import SwiftUI
 
 struct MetadataTextView: View {
-	let key: String
+	let key: String?
 	let value: String
 	
 	var body: some View {
 		HStack {
-			Text(key)
-				.foregroundColor(.secondary)
-			Spacer()
+			if key != nil {
+				Text(key!)
+					.foregroundColor(.secondary)
+				Spacer()
+			}
 			Text(value).padding(.trailing)
 				.textSelection(.enabled)
-		}
+			
+			if key == nil {
+				Spacer()
+			}
+		}.font(.subheadline)
 	}
 }
 
@@ -37,7 +43,7 @@ struct MetadataView: View {
 	var body: some View {
 		HStack {
 			VStack {
-				MetadataTextView(key: "Topic", value: message.topic.nameQualified)
+				MetadataTextView(key: nil, value: message.topic.nameQualified)
 				Divider()
 				MetadataTextView(key: "Timestamp", value: message.metadata.localDate)
 				Divider()
