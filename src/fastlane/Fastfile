@@ -18,7 +18,6 @@ default_platform(:ios)
 platform :ios do
   desc "Generate new localized screenshots"
   lane :screenshots do
-    reset_simulator_contents
     capture_screenshots(workspace: "MQTTAnalyzer.xcworkspace", scheme: "MQTTAnalyzer")
   end
 end

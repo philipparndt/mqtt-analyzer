@@ -9,13 +9,23 @@ const devices = [
 const papp = process.env["APPEARENCE"]
 const appearance=papp ?? "dark" //  'dark' or 'light'
 
+console.log(`---- Setting appearance to ${papp} ----`)
+
 for (let name of devices) {
+    try {
+        await $`xcrun simctl erase ${name}`
+    }
+    catch (e) {
+        // already booted?
+    }
+
     try {
         await $`xcrun simctl boot ${name}`
     }
     catch (e) {
         // already booted?
     }
+    
     try {
         await $`xcrun simctl ui ${name} appearance ${appearance}`
     }
