@@ -1,5 +1,5 @@
 on: 
-  workflow-dispatch:
+  workflow_dispatch:
 
 jobs:
   screenshots:
