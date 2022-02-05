@@ -32,3 +32,7 @@ jobs:
         -workspace MQTTAnalyzer.xcworkspace \
         -scheme MQTTAnalyzer \
         -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
+
+    - name: Stop ActiveMQ
+      run: |
+        /usr/local/opt/activemq/bin/activemq stop

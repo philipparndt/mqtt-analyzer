@@ -28,6 +28,11 @@ jobs:
         cd src
         fastlane screenshots
 
+    - name: Stop ActiveMQ
+      if: always()
+      run: |
+        /usr/local/opt/activemq/bin/activemq stop
+        
     - uses: actions/upload-artifact@v2
       with:
         name: screenshots
