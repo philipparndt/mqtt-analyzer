@@ -1,0 +1,6 @@
+version: '3'
+services:
+  mosquitto:
+    image: rmohr/activemq:5.15.9-alpine
+    ports:
+      - "1883:1883"

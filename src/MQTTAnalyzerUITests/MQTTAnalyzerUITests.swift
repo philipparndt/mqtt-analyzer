@@ -21,11 +21,9 @@ class MQTTAnalyzerUITests: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		
-		// We send a command line argument to our app,
-        // to enable it to reset its state
-        app.launchArguments.append("--uitesting")
+        app.launchArguments.append("--ui-testing")
 		app.launchArguments.append("--no-welcome")
-        
+		app.launch()
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
@@ -49,7 +47,7 @@ class MQTTAnalyzerUITests: XCTestCase {
 	}
 	
     func testAdd() {
-		let hostname = "192.168.3.50"
+		let hostname = "localhost"
 		let alias = "Example"
 
 		let examples = ExampleMessages(hostname: hostname)
@@ -62,9 +60,9 @@ class MQTTAnalyzerUITests: XCTestCase {
 		brokers.create(alias: alias, hostname: hostname)
 		brokers.start(alias: alias)
 		
-		let folders = TopicFolders(app: app)
+		let folders = TopicFolders(app: app, alias: alias)
 		folders.navigate(to: "hue")
-		
+
 		folders.flatView()
 		snapshot("1 Flat View")
 		folders.flatView()

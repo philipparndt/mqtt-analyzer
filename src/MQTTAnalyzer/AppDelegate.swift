@@ -20,6 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		DataMigration.initMigration(afterMigration: self.afterMigration)
 
+		#if DEBUG
+		if CommandLine.arguments.contains("--ui-testing") {
+			UIView.setAnimationsEnabled(false)
+		}
+		#endif
+	
 		if CommandLine.arguments.contains("--no-welcome") {
 			let defaults = UserDefaults.standard
 			defaults.set(false, forKey: Welcome.key)
