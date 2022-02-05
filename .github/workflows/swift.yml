@@ -1,4 +1,7 @@
 on: push
+  paths:
+    - 'src/**'
+
 jobs:
   test:
     runs-on: macOS-latest
