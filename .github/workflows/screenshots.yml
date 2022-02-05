@@ -1,0 +1,35 @@
+on: 
+  workflow-dispatch:
+
+jobs:
+  screenshots:
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@master
+    
+    - name: Install ActiveMQ
+      run: |
+        brew install apache-activemq
+        /usr/local/opt/activemq/bin/activemq start
+
+    - name: Set XCode Version
+      run: sudo xcode-select -s /Applications/Xcode_13.2.app
+    
+    - name: Install Dependences
+      run: |
+        cd src
+        pod repo update
+        pod install
+      shell: bash
+    
+    - name: Create screenshots
+      run: |
+        cd src
+        fastlane screenshots
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: screenshots
+        path: src/fastlane/screenshots/**/*.png
+        retention-days: 5
