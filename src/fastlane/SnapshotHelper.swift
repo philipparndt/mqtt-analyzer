@@ -139,6 +139,14 @@ open class Snapshot: NSObject {
         }
     }
 
+	class func simulatorName() -> String? {
+		#if targetEnvironment(macCatalyst)
+			return "macCatalyst"
+		#else
+			return ProcessInfo().environment["SIMULATOR_DEVICE_NAME"]
+		#endif
+	}
+	
     open class func snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20) {
         if timeout > 0 {
             waitForLoadingIndicatorToDisappear(within: timeout)
@@ -171,7 +179,7 @@ open class Snapshot: NSObject {
             let image = screenshot.image
             #endif
 
-            guard var simulator = ProcessInfo().environment["SIMULATOR_DEVICE_NAME"], let screenshotsDir = screenshotsDirectory else { return }
+			guard var simulator = simulatorName(), let screenshotsDir = screenshotsDirectory else { return }
 
             do {
                 // The simulator name contains "Clone X of " inside the screenshot file when running parallelized UI Tests on concurrent devices

@@ -21,6 +21,9 @@ class MQTTAnalyzerUITests: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		
+		#if targetEnvironment(macCatalyst)
+		Snapshot.cacheDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+		#endif
         app.launchArguments.append("--ui-testing")
 		app.launchArguments.append("--no-welcome")
 		app.launch()
