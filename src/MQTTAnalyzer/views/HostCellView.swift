@@ -26,6 +26,7 @@ struct ServerPageSheetState {
 struct HostCellView: View {
 	@EnvironmentObject var model: RootModel
 	@ObservedObject var host: Host
+	@ObservedObject var hostsModel: HostsModel
 	@ObservedObject var messageModel: TopicTree
 	
 	@State private var sheetState = ServerPageSheetState()
@@ -109,6 +110,12 @@ struct HostCellView: View {
 			else {
 				MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
 			}
+			
+			#if targetEnvironment(macCatalyst)
+			Divider()
+			MenuButton(title: "Delete broker", systemImage: "trash.fill", action: deleteHost)
+			#endif
+
 		}
 		// WORKAROUND: random UUID identifier to force re-creation of the context menu.
 		// Otherwise, it will not toggle between connect and disconnect.
@@ -121,6 +128,10 @@ struct HostCellView: View {
 	
 	func editHost() {
 		sheetState.present(type: .edit)
+	}
+	
+	func deleteHost() {
+		hostsModel.delete(host, persistence: model.persistence)
 	}
 	
 	func disconnect() {

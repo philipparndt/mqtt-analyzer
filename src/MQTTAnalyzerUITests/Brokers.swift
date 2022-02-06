@@ -22,8 +22,12 @@ class Brokers {
 		
 		let broker = app.cells["broker: \(alias)"]
 		if broker.exists {
+			#if targetEnvironment(macCatalyst)
+			broker.rightClick()
+			#else
 			broker.swipeLeft()
-			app.buttons["Delete"].tap()
+			#endif
+			app.menuItems["Delete broker"].tap()
 		}
 	}
 	
@@ -44,5 +48,9 @@ class Brokers {
 	
 	func start(alias: String) {
 		app.cells["broker: \(alias)"].tap()
+		
+		#if targetEnvironment(macCatalyst)
+		app.buttons["Play"].tap()
+		#endif
 	}
 }
