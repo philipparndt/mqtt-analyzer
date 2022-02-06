@@ -41,19 +41,11 @@ struct MetadataView: View {
 	let message: MsgMessage
 
 	var body: some View {
-		HStack {
-			VStack {
-				MetadataTextView(key: nil, value: message.topic.nameQualified)
-				Divider()
-				MetadataTextView(key: "Timestamp", value: message.metadata.localDate)
-				Divider()
-				MetadataTextView(key: "QoS", value: "\(message.metadata.qos)")
-				Divider()
-				MetadataTextView(key: "Retain", value: "\(message.metadata.retain ? "Yes" : "No")")
-			}
-			.padding([.leading, .top, .bottom])
-			.background(.ultraThinMaterial)
-			.cornerRadius(10)
-		}.padding()
+		CustomList {
+			MetadataTextView(key: nil, value: message.topic.nameQualified)
+			MetadataTextView(key: "Timestamp", value: message.metadata.localDate)
+			MetadataTextView(key: "QoS", value: "\(message.metadata.qos)")
+			MetadataTextView(key: "Retain", value: "\(message.metadata.retain ? "Yes" : "No")")
+		}
     }
 }

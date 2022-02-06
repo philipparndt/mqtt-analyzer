@@ -65,6 +65,8 @@
 		2240835327AD715900AA4A42 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240835227AD715900AA4A42 /* String+Random.swift */; };
 		224AFEA727AE88DC00DFD09F /* Color+SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEA627AE88DC00DFD09F /* Color+SystemColors.swift */; };
 		224AFEA927AEA2AF00DFD09F /* ScreenshotIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEA827AEA2AF00DFD09F /* ScreenshotIds.swift */; };
+		224AFEAB27AEF98700DFD09F /* CustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAA27AEF98700DFD09F /* CustomListView.swift */; };
+		224AFEAD27AEF9BB00DFD09F /* TupleView+GetChildren.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAC27AEF9BB00DFD09F /* TupleView+GetChildren.swift */; };
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
 		2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D722C8C007007E35A2 /* SceneDelegate.swift */; };
 		2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */; };
@@ -242,6 +244,8 @@
 		2240835227AD715900AA4A42 /* String+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		224AFEA627AE88DC00DFD09F /* Color+SystemColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+SystemColors.swift"; sourceTree = "<group>"; };
 		224AFEA827AEA2AF00DFD09F /* ScreenshotIds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotIds.swift; sourceTree = "<group>"; };
+		224AFEAA27AEF98700DFD09F /* CustomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListView.swift; sourceTree = "<group>"; };
+		224AFEAC27AEF9BB00DFD09F /* TupleView+GetChildren.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TupleView+GetChildren.swift"; sourceTree = "<group>"; };
 		2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2253F8D522C8C007007E35A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2253F8D722C8C007007E35A2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -745,6 +749,8 @@
 				22A386FC2409440F00DF8F94 /* InfoBox.swift */,
 				221C571B2466847800C0DD02 /* QuestionBox.swift */,
 				2291424E23C0C0370086C251 /* MenuButton.swift */,
+				224AFEAA27AEF98700DFD09F /* CustomListView.swift */,
+				224AFEAC27AEF9BB00DFD09F /* TupleView+GetChildren.swift */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -1101,6 +1107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2285C81827842115008DA37D /* ConnectingView.swift in Sources */,
+				224AFEAB27AEF98700DFD09F /* CustomListView.swift in Sources */,
 				22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */,
 				22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */,
 				22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */,
@@ -1222,6 +1229,7 @@
 				223AF5D12477D575009810E6 /* FileLister.swift in Sources */,
 				223AF5DB2477D64B009810E6 /* CertificateFileModel.swift in Sources */,
 				22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */,
+				224AFEAD27AEF9BB00DFD09F /* TupleView+GetChildren.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
