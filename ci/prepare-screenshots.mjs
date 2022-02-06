@@ -3,18 +3,29 @@
 const devices = [
     "iPhone 13 Pro", 
     "iPhone SE (2nd generation)", 
-    "iPad Pro (11-inch) (3rd generation)",
-    "iPad Air (4th generation)"
+    "iPad Pro (11-inch) (3rd generation)"
+    //, "iPad Air (3rd generation)"
 ]
-const appearance="dark" //  'dark' or 'light'
+const papp = process.env["APPEARENCE"]
+const appearance=papp ?? "dark" //  'dark' or 'light'
+
+console.log(`---- Setting appearance to ${papp} ----`)
 
 for (let name of devices) {
+    try {
+        await $`xcrun simctl erase ${name}`
+    }
+    catch (e) {
+        // already booted?
+    }
+
     try {
         await $`xcrun simctl boot ${name}`
     }
     catch (e) {
         // already booted?
     }
+
     try {
         await $`xcrun simctl ui ${name} appearance ${appearance}`
     }

@@ -28,6 +28,13 @@ jobs:
         pod install
       shell: bash
     
+    - name: Install Imagemagick
+      working-directory: src
+      run: |
+        brew update 
+        brew install imagemagick
+      shell: bash
+
     - name: Create screenshots
       run: |
         bash create-screenshots.sh
@@ -40,5 +47,5 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: screenshots
-        path: src/fastlane/screenshots/**/*.png
+        path: screenshots/**/*.png
         retention-days: 5

@@ -60,6 +60,7 @@ class MQTTAnalyzerUITests: XCTestCase {
 		
 		brokers.delete(alias: alias)
 		brokers.create(alias: alias, hostname: hostname)
+		snapshot(ScreenshotIds.BROKERS)
 		brokers.start(alias: alias)
 		
 		nav.navigate(to: "home/dishwasher/000123456789")
