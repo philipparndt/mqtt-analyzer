@@ -18,8 +18,8 @@ class DataMigrationEmptyTopic {
 				if let oo = oldObject, let no = newObject {
 					if hasProperties(oldObject, properties: "subscriptions") {
 						if let data = oo.value(forKey: "subscriptions") as? Data {
-							let subscriptions = HostsModelPersistence.decode(subscriptions: data)
-							no["subscriptions"] = HostsModelPersistence.encode(subscriptions: subscriptions)
+							let subscriptions = PersistenceEncoder.decode(subscriptions: data)
+							no["subscriptions"] = PersistenceEncoder.encode(subscriptions: subscriptions)
 						}
 					}
 				}

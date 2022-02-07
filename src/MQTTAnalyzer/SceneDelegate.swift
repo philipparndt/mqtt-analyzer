@@ -23,6 +23,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		
 		// Use a UIHostingController as window root view controller
 		if let windowScene = scene as? UIWindowScene {
+			#if targetEnvironment(macCatalyst)
+			if CommandLine.arguments.contains("--ui-testing") {
+			// Screenshot resolutions: 1280x800 1440x900 2560x1600 2880x1800
+				let width = 1280 - 50
+				let height = 800 - 50
+				windowScene.sizeRestrictions?.minimumSize = CGSize(width: width, height: height)
+				windowScene.sizeRestrictions?.maximumSize = CGSize(width: width, height: height)
+			}
+			#endif
+			
 			let window = UIWindow(windowScene: windowScene)
 			window.rootViewController = UIHostingController(rootView: RootView()
 				.environmentObject(rootModel!))

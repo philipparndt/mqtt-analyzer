@@ -39,13 +39,13 @@ class DataMigrationCertificateFiles {
 					files.append(CertificateFile(name: name, location: .local, type: .clientKey))
 				}
 				
-				no["certificates"] = HostsModelPersistence.encode(certificates: files)
+				no["certificates"] = PersistenceEncoder.encode(certificates: files)
 				return true
 			}
 			else {
 				if let name = oo.value(forKey: "certClient") as? String {
 					if !name.isEmpty {
-						no["certificates"] = HostsModelPersistence.encode(certificates: [
+						no["certificates"] = PersistenceEncoder.encode(certificates: [
 							CertificateFile(name: name, location: .local, type: .p12)
 						])
 					}

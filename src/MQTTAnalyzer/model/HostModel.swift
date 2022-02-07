@@ -199,7 +199,7 @@ class HostsModel: ObservableObject {
 		self.hosts = hosts
 	}
 	
-	func delete(at offsets: IndexSet, persistence: HostsModelPersistence) {
+	func delete(at offsets: IndexSet, persistence: Persistence) {
 		let original = hostsSorted
 				
 		for idx in offsets {
@@ -211,7 +211,7 @@ class HostsModel: ObservableObject {
 		self.hosts = copy
 	}
 	
-	func delete(_ host: Host, persistence: HostsModelPersistence) {
+	func delete(_ host: Host, persistence: Persistence) {
 		persistence.delete(host)
 		self.hosts = self.hosts.filter { $0 != host }
 	}
