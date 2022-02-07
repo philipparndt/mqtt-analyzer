@@ -28,7 +28,7 @@ class DataMigrationMultipleTopics {
 		if hasProperties(oldObject, properties: "qos", "topic") {
 			if let qos = oo.value(forKey: "qos") as? Int,
 				let topic = oo.value(forKey: "topic") as? String {
-				no["subscriptions"] = HostsModelPersistence.encode(subscriptions: [
+				no["subscriptions"] = PersistenceEncoder.encode(subscriptions: [
 					TopicSubscription(topic: topic, qos: qos)
 				])
 				
@@ -40,7 +40,7 @@ class DataMigrationMultipleTopics {
 	}
 	
 	private class func initDefault(_ no: MigrationObject) {
-		no["subscriptions"] = HostsModelPersistence.encode(subscriptions: [
+		no["subscriptions"] = PersistenceEncoder.encode(subscriptions: [
 			TopicSubscription(topic: "#", qos: 0)
 		])
 	}

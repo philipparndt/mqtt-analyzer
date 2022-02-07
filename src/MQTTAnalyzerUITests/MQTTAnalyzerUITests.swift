@@ -21,9 +21,13 @@ class MQTTAnalyzerUITests: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		
+		#if targetEnvironment(macCatalyst)
+		Snapshot.cacheDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+		#endif
         app.launchArguments.append("--ui-testing")
 		app.launchArguments.append("--no-welcome")
 		app.launch()
+		
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
@@ -46,6 +50,7 @@ class MQTTAnalyzerUITests: XCTestCase {
 		}
 	}
 	
+	//  ~/Library/Containers/de.rnd7.MQTTAnalyzerUITests.xctrunner/Data/screenshots
     func testFullRoundtrip() {
 		let hostname = "localhost"
 		let alias = "Example"
@@ -55,6 +60,7 @@ class MQTTAnalyzerUITests: XCTestCase {
 		
 		app.launch()
 		examples.publish()
+		snapshot(ScreenshotIds.BROKERS)
 		
 		let nav = Navigation(app: app, alias: alias)
 		

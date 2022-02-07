@@ -67,6 +67,8 @@
 		224AFEA927AEA2AF00DFD09F /* ScreenshotIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEA827AEA2AF00DFD09F /* ScreenshotIds.swift */; };
 		224AFEAB27AEF98700DFD09F /* CustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAA27AEF98700DFD09F /* CustomListView.swift */; };
 		224AFEAD27AEF9BB00DFD09F /* TupleView+GetChildren.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAC27AEF9BB00DFD09F /* TupleView+GetChildren.swift */; };
+		224AFEAF27B0600D00DFD09F /* StubPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAE27B0600D00DFD09F /* StubPersistence.swift */; };
+		224AFEB127B0602000DFD09F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* Persistence.swift */; };
 		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
 		2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D722C8C007007E35A2 /* SceneDelegate.swift */; };
 		2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */; };
@@ -107,7 +109,7 @@
 		2285C82327887CDC008DA37D /* PublishMessageFormModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82227887CDC008DA37D /* PublishMessageFormModelTests.swift */; };
 		2285C82527887F79008DA37D /* TopicSuffixPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82427887F79008DA37D /* TopicSuffixPickerView.swift */; };
 		228B069323FC318100E988D0 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228B069223FC318100E988D0 /* ModelTests.swift */; };
-		229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* HostModelPersistence.swift */; };
+		229005CF237E7A8600D5A706 /* RealmPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* RealmPersistence.swift */; };
 		2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */; };
 		2291283E24682494006F8256 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283D24682494006F8256 /* TopicCell.swift */; };
 		229128412468590D006F8256 /* DataMigrationMultipleTopics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229128402468590D006F8256 /* DataMigrationMultipleTopics.swift */; };
@@ -246,6 +248,8 @@
 		224AFEA827AEA2AF00DFD09F /* ScreenshotIds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotIds.swift; sourceTree = "<group>"; };
 		224AFEAA27AEF98700DFD09F /* CustomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListView.swift; sourceTree = "<group>"; };
 		224AFEAC27AEF9BB00DFD09F /* TupleView+GetChildren.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TupleView+GetChildren.swift"; sourceTree = "<group>"; };
+		224AFEAE27B0600D00DFD09F /* StubPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubPersistence.swift; sourceTree = "<group>"; };
+		224AFEB027B0602000DFD09F /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2253F8D522C8C007007E35A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2253F8D722C8C007007E35A2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -290,7 +294,7 @@
 		2285C82227887CDC008DA37D /* PublishMessageFormModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishMessageFormModelTests.swift; sourceTree = "<group>"; };
 		2285C82427887F79008DA37D /* TopicSuffixPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSuffixPickerView.swift; sourceTree = "<group>"; };
 		228B069223FC318100E988D0 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
-		229005CE237E7A8600D5A706 /* HostModelPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostModelPersistence.swift; path = MQTTAnalyzer/model/persistence/HostModelPersistence.swift; sourceTree = SOURCE_ROOT; };
+		229005CE237E7A8600D5A706 /* RealmPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RealmPersistence.swift; path = MQTTAnalyzer/model/persistence/RealmPersistence.swift; sourceTree = SOURCE_ROOT; };
 		2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDetailsView.swift; sourceTree = "<group>"; };
 		2291283D24682494006F8256 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
 		229128402468590D006F8256 /* DataMigrationMultipleTopics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationMultipleTopics.swift; sourceTree = "<group>"; };
@@ -467,8 +471,10 @@
 			children = (
 				2291283F246858FB006F8256 /* migration */,
 				223EF0052387084D002ADF3E /* HostSetting.swift */,
-				229005CE237E7A8600D5A706 /* HostModelPersistence.swift */,
 				22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */,
+				224AFEB027B0602000DFD09F /* Persistence.swift */,
+				229005CE237E7A8600D5A706 /* RealmPersistence.swift */,
+				224AFEAE27B0600D00DFD09F /* StubPersistence.swift */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -1124,7 +1130,7 @@
 				228104982381796B00112F24 /* HostCellView.swift in Sources */,
 				229FCAEF247D6E2700490628 /* ImportCertificatePicker.swift in Sources */,
 				2285C80D2781E89B008DA37D /* TopicLimitReachedView.swift in Sources */,
-				229005CF237E7A8600D5A706 /* HostModelPersistence.swift in Sources */,
+				229005CF237E7A8600D5A706 /* RealmPersistence.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormDialog.swift in Sources */,
 				226A6B5224445BA400ACDFC3 /* CocoaMQTTClient.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
@@ -1135,6 +1141,7 @@
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
 				2230FEF427A4340400D4327F /* NavigationModeFormView.swift in Sources */,
 				2230FF1E27A6981900D4327F /* MessageLimitReachedView.swift in Sources */,
+				224AFEAF27B0600D00DFD09F /* StubPersistence.swift in Sources */,
 				22C2856224759FD40000C1E8 /* CertificateLocationPicker.swift in Sources */,
 				228104912381770000112F24 /* FillingText.swift in Sources */,
 				223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */,
@@ -1150,6 +1157,7 @@
 				2230FEF827A4434800D4327F /* DataMigrationNavigationMode.swift in Sources */,
 				22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */,
 				2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */,
+				224AFEB127B0602000DFD09F /* Persistence.swift in Sources */,
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
 				2230FF2227A6AEC800D4327F /* TopicTree+Flatten.swift in Sources */,
 				2291424F23C0C0370086C251 /* MenuButton.swift in Sources */,

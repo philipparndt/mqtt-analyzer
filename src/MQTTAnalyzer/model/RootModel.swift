@@ -30,12 +30,19 @@ class RootModel: ObservableObject {
 	
 	var messageModelByHost: [Host: TopicTree] = [:]
 	
-	let persistence: HostsModelPersistence
+	let persistence: Persistence
 	
 	init() {
-		self.persistence = HostsModelPersistence(model: hostsModel)
+		if CommandLine.arguments.contains("--ui-testing") {
+			self.persistence = StubPersistence(model: hostsModel)
+			return
+		}
+		else {
+			self.persistence = RealmPersistence(model: hostsModel)
+		}
+
 		self.persistence.load()
-		
+
 		for host in hostsModel.hosts {
 			messageModelByHost[host] = TopicTree()
 		}

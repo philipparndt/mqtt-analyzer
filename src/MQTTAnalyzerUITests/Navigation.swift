@@ -69,14 +69,27 @@ class Navigation {
 	}
 	
 	func flatView() {
+		#if targetEnvironment(macCatalyst)
+		app.checkBoxes["flatview"].click()
+		#else
 		app.switches["flatview"].tap()
+		#endif
 	}
 	
 	func publishNew(topic: String) {
+		#if targetEnvironment(macCatalyst)
+		app.cells["group: \(topic)"].rightClick()
+		#else
 		app.cells["group: \(topic)"].press(forDuration: 1)
+		#endif
+		
 		snapshot(ScreenshotIds.CONTEXT_MENU)
 		
+		#if targetEnvironment(macCatalyst)
+		app.menuItems["Publish new message"].tap()
+		#else
 		app.buttons["publish new"].tap()
+		#endif
 		app.buttons["set"].tap()
 		snapshot(ScreenshotIds.PUBLISH)
 		
