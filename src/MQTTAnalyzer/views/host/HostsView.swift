@@ -35,6 +35,7 @@ struct HostsView: View {
 				List {
 					ForEach(searchHosts) { host in
 						HostCellView(host: host,
+									 hostsModel: hostsModel,
 									 messageModel: (
 										self.model.getMessageModel(host)
 									 ),

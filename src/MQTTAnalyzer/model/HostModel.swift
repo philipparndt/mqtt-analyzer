@@ -211,7 +211,8 @@ class HostsModel: ObservableObject {
 		self.hosts = copy
 	}
 	
-	func delete(_ host: Host) {
+	func delete(_ host: Host, persistence: HostsModelPersistence) {
+		persistence.delete(host)
 		self.hosts = self.hosts.filter { $0 != host }
 	}
 }
