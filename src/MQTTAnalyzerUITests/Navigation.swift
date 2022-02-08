@@ -77,11 +77,8 @@ class Navigation {
 	}
 	
 	func publishNew(topic: String) {
-		#if targetEnvironment(macCatalyst)
-		app.cells["group: \(topic)"].rightClick()
-		#else
-		app.cells["group: \(topic)"].press(forDuration: 1)
-		#endif
+		let groupCell = app.cells["group: \(topic)"]
+		app.openMenu(on: groupCell)
 		
 		snapshot(ScreenshotIds.CONTEXT_MENU)
 		

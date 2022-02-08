@@ -47,6 +47,15 @@ class HostSettingExamples {
 		return result
 	}
 	
+	class func exampleLocalhost() -> Host {
+		let result = Host()
+		result.alias = "Example"
+		result.hostname = "localhost"
+		result.limitTopic = 400
+		result.subscriptions = [TopicSubscription(topic: "#", qos: 0)]
+		return result
+	}
+	
 	private class func createIfNotPresent(setting: HostSetting, realm: Realm) {
 		do {
 			try realm.write {
