@@ -39,16 +39,10 @@ class MQTTAnalyzerUITests: XCTestCase {
 		app.launch()
 		
 		app.buttons["About"].tap()
+		awaitAppear(element: app.staticTexts["MQTTAnalyzer"])
 		app.buttons["Close"].tap()
+		awaitDisappear(element: app.staticTexts["MQTTAnalyzer"])
     }
-	
-	func deleteBroker(_ alias: String) {
-		let broker = app.cells["broker: \(alias)"]
-		if broker.exists {
-			broker.swipeLeft()
-			app.buttons["Delete"].tap()
-		}
-	}
 	
 	func testDeleteBroker() {
 		let alias = "Example"
