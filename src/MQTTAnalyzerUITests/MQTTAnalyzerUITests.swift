@@ -86,7 +86,10 @@ class MQTTAnalyzerUITests: XCTestCase {
 		
 		app.launch()
 		
-		brokers.createBasedOn(alias: alias, broker: Broker(alias: newAlias, hostname: nil))
+		brokers.createBasedOn(alias: alias, broker: Broker(alias: newAlias, hostname: "other-hostname"))
+		awaitAppear(element: app.staticTexts["Example"])
+		awaitAppear(element: app.staticTexts["Example-Derived"])
+		awaitAppear(element: app.staticTexts["other-hostname"])
 	}
 	
 	//  ~/Library/Containers/de.rnd7.MQTTAnalyzerUITests.xctrunner/Data/screenshots
