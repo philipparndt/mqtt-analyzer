@@ -17,7 +17,6 @@ struct TopicsToolsView: View {
 				Text("Topics/Messages")
 				Spacer()
 				Text("\(model.topicCount)/\(model.messageCount)")
-				
 				Button(action: model.markRead) {
 					Button(action: noAction) {
 						Image(systemName: "line.horizontal.3.decrease.circle")

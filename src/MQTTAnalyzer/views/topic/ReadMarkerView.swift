@@ -7,9 +7,10 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ReadMarkerView: View {
-	@ObservedObject var read: Readstate
+	@State var read: Readstate
 	
 	var body: some View {
 		Image(systemName: "circle.fill")
@@ -21,7 +22,7 @@ struct ReadMarkerView: View {
 }
 
 struct FolderReadMarkerView: View {
-	@ObservedObject var read: Readstate
+	@State var read: Readstate
 	
 	var body: some View {
 		Image(systemName: read.read ? "folder.fill" : "circle.fill")

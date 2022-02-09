@@ -28,8 +28,20 @@ class TopicTree: Identifiable, ObservableObject {
 	
 	@Published var messageCountDisplay: Int = 0
 	@Published var topicCountDisplay: Int = 0
-	@Published var childrenDisplay: [TopicTree] = []
-	@Published var messages: [MsgMessage] = []
+	@Published var childrenDisplay: [TopicTree] = [] {
+		didSet {
+			if childrenDisplay.isEmpty && messages.isEmpty {
+				readState.markRead()
+			}
+		}
+	}
+	@Published var messages: [MsgMessage] = [] {
+		didSet {
+			if childrenDisplay.isEmpty && messages.isEmpty {
+				readState.markRead()
+			}
+		}
+	}
 	@Published var timeSeries = TimeSeriesModel()
 	@Published var readState = Readstate()
 	

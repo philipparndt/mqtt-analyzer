@@ -25,9 +25,13 @@ class Navigation {
 		navigateUp()
 	}
 	
+	func groupCell(topic: String) -> XCUIElement {
+		let groupName = "group: \(topic)"
+		return app.cells[groupName]
+	}
+	
 	func openMessageGroup() {
-		let groupName = "group: \(currentFolder.joined(separator: "/"))"
-		app.cells[groupName].tap()
+		groupCell(topic: currentFolder.joined(separator: "/")).tap()
 		currentFolder.append(currentFolder[currentFolder.count - 1])
 	}
 	
@@ -65,7 +69,11 @@ class Navigation {
 	}
 	
 	private func open(topic: String) {
-		app.cells["folder: \(topic)"].tap()
+		folderCell(topic: topic).tap()
+	}
+	
+	func folderCell(topic: String) -> XCUIElement {
+		return app.cells["folder: \(topic)"]
 	}
 	
 	func flatView() {

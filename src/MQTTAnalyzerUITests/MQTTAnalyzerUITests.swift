@@ -86,6 +86,80 @@ class MQTTAnalyzerUITests: XCTestCase {
 		awaitAppear(element: app.staticTexts["other-hostname"])
 	}
 	
+	func testFlatView() {
+		let brokers = Brokers(app: app)
+		
+		let hostname = "localhost"
+		let alias = "Example"
+
+		let examples = ExampleMessages(hostname: hostname)
+		app.launch()
+		examples.publish()
+		brokers.start(alias: alias)
+		let nav = Navigation(app: app, alias: alias)
+		nav.navigate(to: "home")
+		
+		let cell = nav.groupCell(topic: "home/contacts/frontdoor")
+		
+		awaitDisappear(element: cell)
+		nav.flatView()
+		awaitAppear(element: cell)
+	}
+	
+	func testMarkRead() {
+		let brokers = Brokers(app: app)
+		
+		let hostname = "localhost"
+		let alias = "Example"
+
+		let examples = ExampleMessages(hostname: hostname)
+		app.launch()
+		examples.publish()
+		brokers.start(alias: alias)
+		
+		let nav = Navigation(app: app, alias: alias)
+		let home = nav.getReadMarker(topic: "home")
+		let hue = nav.getReadMarker(topic: "hue")
+		awaitAppear(element: home)
+		awaitAppear(element: hue)
+
+		nav.navigate(to: "home")
+		let cell = app.buttons["Filter"]
+		let circles = nav.getReadMarker(of: app)
+		XCTAssertTrue(circles.firstMatch.exists)
+		app.launchMenuAction(on: cell, label: "Mark all as read")
+		awaitDisappear(element: circles)
+		
+		nav.navigate(to: "")
+		XCTAssertFalse(home.exists)
+		XCTAssertTrue(hue.exists)
+	}
+	
+	func testClear() {
+		let brokers = Brokers(app: app)
+		
+		let hostname = "localhost"
+		let alias = "Example"
+
+		let examples = ExampleMessages(hostname: hostname)
+		app.launch()
+		examples.publish()
+		brokers.start(alias: alias)
+		
+		let nav = Navigation(app: app, alias: alias)
+		let homeFolder = nav.folderCell(topic: "home")
+		awaitAppear(element: homeFolder.staticTexts["7/7"])
+
+		nav.navigate(to: "home")
+		let cell = app.buttons["Filter"]
+		app.launchMenuAction(on: cell, label: "Clear")
+		
+		nav.navigate(to: "")
+		let home = nav.getReadMarker(topic: "home")
+		XCTAssertTrue(homeFolder.staticTexts["0/0"].exists)
+		XCTAssertFalse(home.exists)
+	}
+	
 	//  ~/Library/Containers/de.rnd7.MQTTAnalyzerUITests.xctrunner/Data/screenshots
     func testFullRoundtrip() {
 		let hostname = "localhost"
