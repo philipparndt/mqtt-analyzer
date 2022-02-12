@@ -139,7 +139,7 @@ class TreeModelTests: XCTestCase {
 	
 	func testReadState() throws {
 		let root = TopicTree()
-		root.readState.markRead()
+		root.markRead()
 		
 		let msg = root.addMessage(metadata: MsgMetadata.stub(),
 						payload: MsgPayload.from(text: "val1"), to: "home/hue/button/office")!

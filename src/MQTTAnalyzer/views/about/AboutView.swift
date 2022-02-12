@@ -78,6 +78,7 @@ struct AboutTitleView: View {
 				VStack(alignment: .leading) {
 					Text("MQTTAnalyzer")
 						.font(.title)
+						.accessibilityLabel("about-label")
 
 					Text("[© 2021 Philipp Arndt](https://github.com/philipparndt)")
 						.font(.caption)

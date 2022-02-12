@@ -31,19 +31,23 @@ class TopicTree: Identifiable, ObservableObject {
 	@Published var childrenDisplay: [TopicTree] = [] {
 		didSet {
 			if childrenDisplay.isEmpty && messages.isEmpty {
-				readState.markRead()
+				readState = Readstate(read: true)
 			}
 		}
 	}
 	@Published var messages: [MsgMessage] = [] {
 		didSet {
-			if childrenDisplay.isEmpty && messages.isEmpty {
-				readState.markRead()
-			}
+			parent?.recomputeReadState()
 		}
 	}
 	@Published var timeSeries = TimeSeriesModel()
-	@Published var readState = Readstate()
+	@Published var readState = Readstate(read: false) {
+		didSet {
+			if readState.read {
+				parent?.recomputeReadState()
+			}
+		}
+	}
 	
 	@Published var topicLimitExceeded = false
 	@Published var messageLimitExceeded = false

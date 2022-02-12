@@ -16,7 +16,7 @@ extension TopicTree {
 		childrenDisplay = []
 		messages = []
 		timeSeries = TimeSeriesModel()
-		readState = Readstate()
+		readState = Readstate(read: true)
 	}
 	
 	func delete(at offsets: IndexSet) {

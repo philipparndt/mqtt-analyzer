@@ -22,7 +22,7 @@ extension TopicTree {
 	}
 	
 	func markRead() {
-		readState.markRead()
+		readState = Readstate(read: true)
 		
 		for child in children.values {
 			child.markRead()
@@ -30,12 +30,25 @@ extension TopicTree {
 	}
 	
 	func markUnread() {
-		readState.markUnread()
+		// readState.markUnread()
+		readState = Readstate(read: false)
 		
 		var current: TopicTree? = parent
 		while current != nil {
-			current?.readState.markUnread()
+			current?.readState = Readstate(read: false)
 			current = current?.parent
+		}
+	}
+	
+	func recomputeReadState() {
+		if messages.isEmpty && childrenRead() {
+			readState = Readstate(read: true)
+		}
+	}
+	
+	func childrenRead() -> Bool {
+		return !children.values.contains { node in
+			return !node.readState.read
 		}
 	}
 }

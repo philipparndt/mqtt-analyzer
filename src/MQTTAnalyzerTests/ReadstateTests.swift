@@ -13,20 +13,12 @@ import XCTest
 
 class ReadstateTests: XCTestCase {
 	func testInitialUnread() {
-		let state = Readstate()
+		let state = Readstate(read: false)
 		XCTAssertFalse(state.read)
 	}
 
 	func testMarkRead() {
-		let state = Readstate()
-		state.markRead()
+		let state = Readstate(read: true)
 		XCTAssertTrue(state.read)
-	}
-	
-	func testMarkUnread() {
-		let state = Readstate()
-		state.markRead()
-		state.markUnread()
-		XCTAssertFalse(state.read)
 	}
 }

@@ -7,15 +7,8 @@
 //
 
 import Foundation
+import UIKit
 
-class Readstate: ObservableObject {
-	@Published var read: Bool = false
-
-	func markRead() {
-		read = true
-	}
-	
-	func markUnread() {
-		read = false
-	}
+struct Readstate {
+	var read: Bool
 }

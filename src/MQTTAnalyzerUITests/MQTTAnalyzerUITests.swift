@@ -39,9 +39,9 @@ class MQTTAnalyzerUITests: XCTestCase {
 		app.launch()
 		
 		app.buttons["About"].tap()
-		awaitAppear(element: app.staticTexts["MQTTAnalyzer"])
+		awaitAppear(element: app.staticTexts["about-label"])
 		app.buttons["Close"].tap()
-		awaitDisappear(element: app.staticTexts["MQTTAnalyzer"])
+		awaitDisappear(element: app.staticTexts["about-label"])
     }
 	
 	func testDeleteBroker() {
@@ -123,16 +123,20 @@ class MQTTAnalyzerUITests: XCTestCase {
 		awaitAppear(element: home)
 		awaitAppear(element: hue)
 
-		nav.navigate(to: "home")
+		nav.navigate(to: "hue/light")
 		let cell = app.buttons["Filter"]
 		let circles = nav.getReadMarker(of: app)
 		XCTAssertTrue(circles.firstMatch.exists)
 		app.launchMenuAction(on: cell, label: "Mark all as read")
 		awaitDisappear(element: circles)
 		
+		nav.navigate(to: "hue")
+		let light = nav.getReadMarker(topic: "hue/light")
+		XCTAssertFalse(light.exists)
+		
 		nav.navigate(to: "")
-		XCTAssertFalse(home.exists)
-		XCTAssertTrue(hue.exists)
+		XCTAssertTrue(home.exists)
+		XCTAssertFalse(hue.exists)
 	}
 	
 	func testClear() {
