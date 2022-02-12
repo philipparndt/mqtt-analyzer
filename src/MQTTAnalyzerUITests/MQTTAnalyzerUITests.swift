@@ -124,12 +124,22 @@ class MQTTAnalyzerUITests: XCTestCase {
 		awaitAppear(element: hue)
 
 		nav.navigate(to: "hue/light")
-		let cell = app.buttons["Filter"]
-		let circles = nav.getReadMarker(of: app)
-		XCTAssertTrue(circles.firstMatch.exists)
-		app.launchMenuAction(on: cell, label: "Mark all as read")
-		awaitDisappear(element: circles)
+		let office = nav.getReadMarker(topic: "hue/light/office")
+		let kitchen = nav.getReadMarker(topic: "hue/light/office")
 		
+		XCTAssertTrue(office.firstMatch.exists)
+		XCTAssertTrue(kitchen.firstMatch.exists)
+		
+		#if targetEnvironment(macCatalyst)
+		app.buttons["Mark all as read"].tap()
+		#else
+		let cell = app.buttons["Filter"]
+		app.launchMenuAction(on: cell, label: "Mark all as read")
+		#endif
+
+		awaitDisappear(element: office)
+		awaitDisappear(element: kitchen)
+
 		nav.navigate(to: "hue")
 		let light = nav.getReadMarker(topic: "hue/light")
 		XCTAssertFalse(light.exists)
@@ -155,13 +165,17 @@ class MQTTAnalyzerUITests: XCTestCase {
 		awaitAppear(element: homeFolder.staticTexts["7/7"])
 
 		nav.navigate(to: "home")
+		#if targetEnvironment(macCatalyst)
+		app.buttons["Clear"].tap()
+		#else
 		let cell = app.buttons["Filter"]
 		app.launchMenuAction(on: cell, label: "Clear")
+		#endif
 		
 		nav.navigate(to: "")
 		let home = nav.getReadMarker(topic: "home")
 		XCTAssertTrue(homeFolder.staticTexts["0/0"].exists)
-		XCTAssertFalse(home.exists)
+			XCTAssertFalse(home.exists)
 	}
 	
 	//  ~/Library/Containers/de.rnd7.MQTTAnalyzerUITests.xctrunner/Data/screenshots

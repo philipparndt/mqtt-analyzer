@@ -104,11 +104,14 @@ struct TopicsView: View {
 					.font(.subheadline)
 					.foregroundColor(.blue)
 				}
+				.accessibilityLabel("Mark all as read")
+				
 				Button(action: model.clear) {
 					Image(systemName: "clear")
 					.font(.subheadline)
 					.foregroundColor(.red)
 				}
+				.accessibilityLabel("Clear")
 			}
 			#endif
 		}
