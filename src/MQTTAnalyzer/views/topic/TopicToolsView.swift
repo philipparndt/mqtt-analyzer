@@ -18,6 +18,7 @@ struct TopicsToolsView: View {
 				Spacer()
 				Text("\(model.topicCount)/\(model.messageCount)")
 				
+				#if !targetEnvironment(macCatalyst)
 				Button(action: model.markRead) {
 					Button(action: noAction) {
 						Image(systemName: "line.horizontal.3.decrease.circle")
@@ -34,6 +35,7 @@ struct TopicsToolsView: View {
 						}
 					}
 				}
+				#endif
 			}
 			
 			if model.parent != nil {

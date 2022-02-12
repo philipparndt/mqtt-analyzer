@@ -206,13 +206,11 @@ class HostsModel: ObservableObject {
 			persistence.delete(original[idx])
 		}
 		
-		var copy = hosts
-		copy.remove(atOffsets: offsets)
-		self.hosts = copy
+		persistence.load()
 	}
 	
 	func delete(_ host: Host, persistence: Persistence) {
 		persistence.delete(host)
-		self.hosts = self.hosts.filter { $0 != host }
+		persistence.load()
 	}
 }

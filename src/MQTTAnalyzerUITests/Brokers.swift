@@ -20,37 +20,92 @@ class Brokers {
 			XCTFail("Expected to be on the broker page")
 		}
 		
-		let broker = app.cells["broker: \(alias)"]
+		let broker = borkerCell(of: alias)
 		if broker.exists {
 			#if targetEnvironment(macCatalyst)
-			broker.rightClick()
+			app.launchMenuAction(
+				on: broker,
+				label: "Delete broker"
+			)
 			#else
 			broker.swipeLeft()
+			app.buttons["Delete"].tap()
 			#endif
-			app.menuItems["Delete broker"].tap()
 		}
 	}
 	
-	func create(alias: String, hostname: String) {
+	func create(broker: Broker) {
 		app.buttons["Add Broker"].tap()
 		
-		let aliasField = app.textFields["alias"]
-		aliasField.tap()
-		aliasField.typeText("\(alias)\n")
+		if let alias = broker.alias {
+			let aliasField = app.textFields["alias"]
+			aliasField.tap()
+			aliasField.typeText("\(alias)\n")
+		}
 		
-		let hostField = app.textFields["hostname"]
-		hostField.tap()
-		hostField.typeText("\(hostname)\n")
+		if let hostname = broker.hostname {
+			let hostField = app.textFields["hostname"]
+			hostField.tap()
+			hostField.typeText("\(hostname)\n")
+		}
 		
 		snapshot(ScreenshotIds.CONFIG)
 		app.buttons["Save"].tap()
 	}
 	
+	func edit(alias oldName: String, broker: Broker) {
+		app.launchMenuAction(
+			on: borkerCell(of: oldName),
+			label: "Edit"
+		)
+		
+		if let alias = broker.alias {
+			let aliasField = app.textFields["alias"]
+			aliasField.clearAndEnterText(text: "\(alias)\n")
+		}
+		
+		if let hostname = broker.hostname {
+			let hostField = app.textFields["hostname"]
+			hostField.clearAndEnterText(text: "\(hostname)\n")
+		}
+		
+		app.buttons["Save"].tap()
+	}
+	
+	func createBasedOn(alias oldName: String, broker: Broker) {
+		app.launchMenuAction(
+			on: borkerCell(of: oldName),
+			label: "Create new based on this"
+		)
+		
+		if let alias = broker.alias {
+			let aliasField = app.textFields["alias"]
+			guard let stringValue = aliasField.value as? String else {
+				XCTFail("No string vlaue found")
+				return
+			}
+			
+			XCTAssertEqual(oldName, stringValue)
+			aliasField.clearAndEnterText(text: "\(alias)\n")
+		}
+		
+		if let hostname = broker.hostname {
+			let hostField = app.textFields["hostname"]
+			hostField.clearAndEnterText(text: "\(hostname)\n")
+		}
+		
+		app.buttons["Save"].tap()
+	}
+	
 	func start(alias: String) {
-		app.cells["broker: \(alias)"].tap()
+		borkerCell(of: alias).tap()
 		
 		#if targetEnvironment(macCatalyst)
 		app.buttons["Play"].tap()
 		#endif
+	}
+	
+	func borkerCell(of alias: String) -> XCUIElement {
+		return app.cells["broker: \(alias)"]
 	}
 }

@@ -35,17 +35,12 @@ class RootModel: ObservableObject {
 	init() {
 		if CommandLine.arguments.contains("--ui-testing") {
 			self.persistence = StubPersistence(model: hostsModel)
-			return
 		}
 		else {
 			self.persistence = RealmPersistence(model: hostsModel)
 		}
 
 		self.persistence.load()
-
-		for host in hostsModel.hosts {
-			messageModelByHost[host] = TopicTree()
-		}
 	}
  
 	func createModel(for subscriptions: [TopicSubscription]) -> TopicTree {

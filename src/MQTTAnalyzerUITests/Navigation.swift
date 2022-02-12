@@ -25,9 +25,13 @@ class Navigation {
 		navigateUp()
 	}
 	
+	func groupCell(topic: String) -> XCUIElement {
+		let groupName = "group: \(topic)"
+		return app.cells[groupName]
+	}
+	
 	func openMessageGroup() {
-		let groupName = "group: \(currentFolder.joined(separator: "/"))"
-		app.cells[groupName].tap()
+		groupCell(topic: currentFolder.joined(separator: "/")).tap()
 		currentFolder.append(currentFolder[currentFolder.count - 1])
 	}
 	
@@ -65,7 +69,11 @@ class Navigation {
 	}
 	
 	private func open(topic: String) {
-		app.cells["folder: \(topic)"].tap()
+		folderCell(topic: topic).tap()
+	}
+	
+	func folderCell(topic: String) -> XCUIElement {
+		return app.cells["folder: \(topic)"]
 	}
 	
 	func flatView() {
@@ -77,11 +85,8 @@ class Navigation {
 	}
 	
 	func publishNew(topic: String) {
-		#if targetEnvironment(macCatalyst)
-		app.cells["group: \(topic)"].rightClick()
-		#else
-		app.cells["group: \(topic)"].press(forDuration: 1)
-		#endif
+		let groupCell = app.cells["group: \(topic)"]
+		app.openMenu(on: groupCell)
 		
 		snapshot(ScreenshotIds.CONTEXT_MENU)
 		

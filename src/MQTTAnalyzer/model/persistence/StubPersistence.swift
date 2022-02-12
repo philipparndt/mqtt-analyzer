@@ -19,11 +19,15 @@ public class StubPersistence: Persistence {
 	}
 	
 	func delete(_ host: Host) {
-		hosts = hosts.filter { $0.hostname != host.hostname }
+		hosts = hosts.filter { $0.ID != host.ID }
 	}
 	
 	func initExamples() {
-		hosts = [HostSettingExamples.example1(), HostSettingExamples.example2()]
+		hosts = [
+			HostSettingExamples.example1(),
+			HostSettingExamples.example2(),
+			HostSettingExamples.exampleLocalhost()
+		]
 	}
 	
 	func load() {

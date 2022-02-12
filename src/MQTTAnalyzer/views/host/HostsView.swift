@@ -67,7 +67,7 @@ struct HostsView: View {
 								   hostsModel: self.hostsModel,
 								   presented: self.$presented,
 								   sheetType: self.$sheetType,
-								   selectedHost: self.selectedHost)
+								   selectedHost: self.$selectedHost)
 		})
 		
 		#if targetEnvironment(macCatalyst)
@@ -115,7 +115,7 @@ struct HostsViewSheetDelegate: View {
 	@Binding var presented: Bool
 	@Binding var sheetType: HostsSheetType
 	
-	var selectedHost: Host?
+	@Binding var selectedHost: Host?
 	
 	var body: some View {
 		Group {
