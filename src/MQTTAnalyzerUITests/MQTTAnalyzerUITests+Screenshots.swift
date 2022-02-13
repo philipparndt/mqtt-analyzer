@@ -25,7 +25,6 @@ extension MQTTAnalyzerUITests {
 		
 		brokers.delete(alias: alias)
 		brokers.create(broker: Broker(alias: alias, hostname: hostname))
-		snapshot(ScreenshotIds.BROKERS)
 		brokers.start(alias: alias)
 		
 		nav.navigate(to: "home/dishwasher/000123456789")
