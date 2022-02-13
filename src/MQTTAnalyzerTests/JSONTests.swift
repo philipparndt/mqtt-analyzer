@@ -12,33 +12,17 @@ import swift_petitparser
 
 @testable import MQTTAnalyzer
 
-extension Data {
-	var prettyPrintedJSONString: NSString? {
-		guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
-			  let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
-			  let prettyPrintedString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else { return nil }
-
-		return prettyPrintedString
-	}
-}
-
-import WebKit
-class MyJSONParser {
-	private static let webView = WKWebView()
-
-	class func parse(jsonString: String, completionHandler: @escaping (Any?, Error?) -> Void) {
-		self.webView.evaluateJavaScript(jsonString, completionHandler: completionHandler)
-	}
-}
-
-import JavaScriptCore
-
 class JSONTests: XCTestCase {
 	func testWebKit() {
 		let json = JSONUtils.format(json: "{\"hello\": 0.6}")
-		print(json)
+		XCTAssertEqual(json,
+  """
+  {
+    "hello": 0.6
+  }
+  """)
 	}
-	
+
 	func testJSONFormat() {
 		let content = """
 		  {

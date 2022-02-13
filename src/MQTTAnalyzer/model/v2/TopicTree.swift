@@ -124,6 +124,7 @@ extension TopicTree {
 		let segments = topic.split(separator: "/").map { String($0) }
 		
 		var current = findRoot()
+		var created = false
 				
 		for pos in 0..<segments.count {
 			let name = segments[pos]
@@ -135,9 +136,13 @@ extension TopicTree {
 				
 				next = TopicTree(name: name, parent: current)
 				
-				totalTopicCounter += 1
+				created = true
 			}
 			current = next!
+		}
+
+		if created {
+			totalTopicCounter += 1
 		}
 		
 		return current
