@@ -30,7 +30,6 @@ extension TopicTree {
 	}
 	
 	func markUnread() {
-		// readState.markUnread()
 		readState = Readstate(read: false)
 		
 		var current: TopicTree? = parent
