@@ -54,4 +54,23 @@ class TopicLimitTests: XCTestCase {
 				to: "\(i)"))
 		}
 	}
+	
+	func testTotalTopicCounter() throws {
+		let root = TopicTree()
+		_ = root.addMessage(
+			metadata: MsgMetadata.stub(),
+			payload: MsgPayload.from(text: "msg1"),
+			to: "some/topic")
+		
+		XCTAssertEqual(1, root.topicCount)
+		XCTAssertEqual(1, root.totalTopicCounter)
+		
+		_ = root.addMessage(
+			metadata: MsgMetadata.stub(),
+			payload: MsgPayload.from(text: "msg1"),
+			to: "another/topic")
+
+		XCTAssertEqual(2, root.topicCount)
+		XCTAssertEqual(2, root.totalTopicCounter)
+	}
 }
