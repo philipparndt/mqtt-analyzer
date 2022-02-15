@@ -1,10 +1,10 @@
 PODS:
   - CocoaAsyncSocket (7.6.5)
-  - CocoaMQTT (2.0.3-beta2):
-    - CocoaMQTT/Core (= 2.0.3-beta2)
-  - CocoaMQTT/Core (2.0.3-beta2):
+  - CocoaMQTT (2.0.3-beta3):
+    - CocoaMQTT/Core (= 2.0.3-beta3)
+  - CocoaMQTT/Core (2.0.3-beta3):
     - CocoaAsyncSocket (~> 7.6.5)
-  - CocoaMQTT/WebSockets (2.0.3-beta2):
+  - CocoaMQTT/WebSockets (2.0.3-beta3):
     - CocoaMQTT/Core
     - Starscream (~> 3.1.1)
   - CodeEditor (1.2.0):
@@ -23,8 +23,8 @@ PODS:
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
-  - CocoaMQTT (from `https://github.com/philipparndt/CocoaMQTT.git`, tag `2.0.3-beta2`)
-  - CocoaMQTT/WebSockets (from `https://github.com/philipparndt/CocoaMQTT.git`, tag `2.0.3-beta2`)
+  - CocoaMQTT (from `https://github.com/emqx/CocoaMQTT.git`, tag `2.0.3-beta3`)
+  - CocoaMQTT/WebSockets (from `https://github.com/emqx/CocoaMQTT.git`, tag `2.0.3-beta3`)
   - CodeEditor (from `https://github.com/ZeeZide/CodeEditor.git`)
   - Highlightr (from `https://github.com/raspu/Highlightr.git`, tag `2.1.2`)
   - IceCream (= 2.0.4)
@@ -46,8 +46,8 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   CocoaMQTT:
-    :git: https://github.com/philipparndt/CocoaMQTT.git
-    :tag: 2.0.3-beta2
+    :git: https://github.com/emqx/CocoaMQTT.git
+    :tag: 2.0.3-beta3
   CodeEditor:
     :git: https://github.com/ZeeZide/CodeEditor.git
   Highlightr:
@@ -56,8 +56,8 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CocoaMQTT:
-    :git: https://github.com/philipparndt/CocoaMQTT.git
-    :tag: 2.0.3-beta2
+    :git: https://github.com/emqx/CocoaMQTT.git
+    :tag: 2.0.3-beta3
   CodeEditor:
     :commit: 1789640c6c8d0bec8cf84eb2b93b7e8ac3055c7e
     :git: https://github.com/ZeeZide/CodeEditor.git
@@ -67,7 +67,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  CocoaMQTT: 3c6dd36cecaa3e5c81e37a9b497f5dfe8f332e48
+  CocoaMQTT: e9cecd5fb62a87bce99620aa5ef977762afa016a
   CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
   IceCream: 717d516a1c634eba8eaa8ce7d3d7bc5f7e40c2fa
@@ -78,6 +78,6 @@ SPEC CHECKSUMS:
   SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 6a967ad16082907612ee5b3e411e8e9a7c1805af
+PODFILE CHECKSUM: 51fb93c350d8c520b5ffd18a3458ea532c0370c3
 
 COCOAPODS: 1.10.1

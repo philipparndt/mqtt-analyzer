@@ -10,8 +10,11 @@ post_install do |installer|
 end
 
 def shared_pods
-	pod 'CocoaMQTT', :git => 'https://github.com/philipparndt/CocoaMQTT.git', :tag => '2.0.3-beta2'
-	pod 'CocoaMQTT/WebSockets', :git => 'https://github.com/philipparndt/CocoaMQTT.git', :tag => '2.0.3-beta2'
+	$cocoaMQTTVersion = '2.0.3-beta3'
+	$cocoaMQTTURL = 'https://github.com/emqx/CocoaMQTT.git'
+	
+	pod 'CocoaMQTT', :git => $cocoaMQTTURL, :tag => $cocoaMQTTVersion
+	pod 'CocoaMQTT/WebSockets', :git => $cocoaMQTTURL, :tag => $cocoaMQTTVersion
 	
 	pod 'RealmSwift', '~> 10.7.0'
 	pod 'IceCream', '2.0.4'
