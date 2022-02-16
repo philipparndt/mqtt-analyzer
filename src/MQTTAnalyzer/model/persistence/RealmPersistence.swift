@@ -202,7 +202,6 @@ class RealmPresistenceTransformer {
 	
 	class func copy(from host: Host, to result: HostSetting) {
 		result.isDeleted = host.deleted
-		result.id = host.ID
 		result.alias = host.alias
 		result.hostname = host.hostname
 		result.port = Int32(host.port)

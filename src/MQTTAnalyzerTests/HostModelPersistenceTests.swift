@@ -16,6 +16,18 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		// Empty by intention
 	}
 	
+	func testRegressionPrimaryKey() {
+		let setting = HostSetting()
+		let id = setting.id
+		
+		let host = Host(id: "some-id")
+		
+		RealmPresistenceTransformer.copy(from: host, to: setting)
+		
+		// ID is a primary key and must not be overwritten
+		XCTAssertEqual(setting.id, id)
+	}
+	
 	func testEncodeDecodeSubscriptions() {
 		let subscriptions: [TopicSubscription] = [
 			TopicSubscription(topic: "#", qos: 0),
