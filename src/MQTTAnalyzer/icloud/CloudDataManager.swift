@@ -11,9 +11,7 @@
 import Foundation
 
 class CloudDataManager {
-	class func noop(message: String) {}
-	
-	static var logger: (String) -> Void = noop
+	static var logger = Logger(level: .none)
 
     static let instance = CloudDataManager()
 
@@ -23,24 +21,24 @@ class CloudDataManager {
 			.last!
 		
         static let iCloudDocumentsURL = FileManager.default
-			.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
+			.url(forUbiquityContainerIdentifier: nil)?
+			.appendingPathComponent("Documents")
     }
 
 	func initDocumentsDirectory() {
 		if !isCloudEnabled() {
-			CloudDataManager.logger("WARN initDocumentsDirectory - Cloud disabled")
+			CloudDataManager.logger.info("Cloud disabled")
 			return
 		}
 		
 		if let url = DocumentsDirectory.iCloudDocumentsURL {
 			if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
-				CloudDataManager.logger("INFO initDocumentsDirectory")
+				CloudDataManager.logger.trace("initDocumentsDirectory")
 				do {
 					try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
 				}
 				catch {
-					CloudDataManager.logger("ERROR initDocumentsDirectory: \(error.localizedDescription)")
-					print(error.localizedDescription)
+					CloudDataManager.logger.error("initDocumentsDirectory: \(error.localizedDescription)")
 				}
 				
 				initDescriptionFile(url: url)
@@ -61,7 +59,7 @@ class CloudDataManager {
 			try FileManager.default.startDownloadingUbiquitousItem(at: url)
 		}
 		catch {
-			print(error.localizedDescription)
+			CloudDataManager.logger.error(error.localizedDescription)
 		}
 	}
 	
@@ -89,9 +87,9 @@ class CloudDataManager {
 			
 			try fileManager.copyItem(at: file,
 									 to: DocumentsDirectory.localDocumentsURL.appendingPathComponent(file.lastPathComponent))
-			CloudDataManager.logger("DEBUG Copied \(file) to local dir")
+			CloudDataManager.logger.debug("Copied \(file) to local dir")
 		} catch let error as NSError {
-			CloudDataManager.logger("ERROR Failed to copy file to local directory: \(error)")
+			CloudDataManager.logger.error("Failed to copy file to local directory: \(error)")
 		}
 	}
 	
@@ -99,9 +97,9 @@ class CloudDataManager {
 		let fileManager = FileManager.default
 		do {
 			try fileManager.removeItem(at: DocumentsDirectory.localDocumentsURL.appendingPathComponent(fileName))
-			CloudDataManager.logger("DEBUG Deleted file \(fileName)")
+			CloudDataManager.logger.debug("Deleted file \(fileName)")
 		} catch let error as NSError {
-			CloudDataManager.logger("ERROR Failed to delete file: \(error)")
+			CloudDataManager.logger.error("Failed to delete file: \(error)")
 		}
 	}
 }
@@ -113,6 +111,7 @@ extension CertificateFile {
 				return url
 			}
 			else {
+				CloudDataManager.logger.error("No cloud URL found (Cloud disbled?)")
 				throw CertificateError.noClound
 			}
 		}

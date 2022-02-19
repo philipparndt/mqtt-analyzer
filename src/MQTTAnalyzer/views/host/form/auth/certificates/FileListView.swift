@@ -13,6 +13,8 @@ struct FileListView: View {
 	var refreshHandler: () -> Void
 	let type: CertificateFileType
 	@ObservedObject var model: CertificateFilesModel
+	@ObservedObject var logger: Logger
+	
 	@Binding var file: CertificateFile?
 	@Binding var certificateLocation: CertificateLocation
 	
@@ -36,27 +38,31 @@ struct FileListView: View {
 			}.font(.body)
 		}
 		
-		Section(header: Text("Log")) {
-			Button(action: clearLog) {
-				Text("Clear")
-			}
-			Button(action: copyLog) {
-				Text("Cut")
-			}
-			ForEach(model.log) { log in
-				Text(log.message)
+		if !logger.messages.isEmpty {
+			Section(header: Text("Log")) {
+				Button(action: cutLog) {
+					Text("Cut")
+				}
+				ForEach(logger.messages) { log in
+					HStack {
+						Text("\(log.level.description):")
+							.foregroundColor(.secondary)
+						Text(log.message)
+					}
 					.font(.footnote)
+				}
 			}
 		}
 	}
 	
-	func clearLog() {
-		model.log = []
-	}
-	
-	func copyLog() {
-		UIPasteboard.general.string = model.log.map { $0.message }.joined(separator: "\n")
-		clearLog()
+	func cutLog() {
+		UIPasteboard.general.string = model
+			.logger
+			.messages
+			.map { $0.message }
+			.joined(separator: "\n")
+		
+		model.logger.messages = []
 	}
 	
 	func delete(at offsets: IndexSet) {

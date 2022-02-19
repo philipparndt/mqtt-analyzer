@@ -41,6 +41,7 @@ struct CertificateFilePickerView: View {
 				FileListView(refreshHandler: model.refresh,
 							 type: self.type,
 							 model: model,
+							 logger: model.logger,
 							 file: $file,
 							 certificateLocation: $location)
 	
