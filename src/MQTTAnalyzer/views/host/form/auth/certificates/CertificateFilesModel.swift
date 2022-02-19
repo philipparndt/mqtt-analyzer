@@ -13,11 +13,18 @@ protocol CertificateFilesRefresh {
 	func refresh()
 }
 
+struct LogMessage: Identifiable, Hashable {
+	let message: String
+	let id = UUID()
+}
+
 class CertificateFilesModel: ObservableObject, CertificateFilesRefresh {
     static let instance = CertificateFilesModel()
 	
 	@Published var cloudFiles: [CertificateFileModel] = []
 	@Published var localFiles: [CertificateFileModel] = []
+	
+	@Published var log: [LogMessage] = []
 	
 	init() {
 		refresh()
@@ -47,11 +54,22 @@ class CertificateFilesModel: ObservableObject, CertificateFilesRefresh {
 		}
 	}
 	
+	func log(message: String) {
+		log.append(LogMessage(message: message))
+	}
+	
 	func refresh() {
+		FileLister.logger = log
+		CloudDataManager.logger = log
+		
+		log.append(LogMessage(message: "DEBUG: Refreshing files"))
 		localFiles = FileLister.listFiles(on: .local)
 		
 		if CloudDataManager.instance.isCloudEnabled() {
 			cloudFiles = FileLister.listFiles(on: .cloud)
+		}
+		else {
+			log.append(LogMessage(message: "WARN: Cloud disabled"))
 		}
 	}
 }

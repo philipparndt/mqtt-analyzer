@@ -11,6 +11,9 @@
 import Foundation
 
 class CloudDataManager {
+	class func noop(message: String) {}
+	
+	static var logger: (String) -> Void = noop
 
     static let instance = CloudDataManager()
 
@@ -25,15 +28,18 @@ class CloudDataManager {
 
 	func initDocumentsDirectory() {
 		if !isCloudEnabled() {
+			CloudDataManager.logger("WARN initDocumentsDirectory - Cloud disabled")
 			return
 		}
 		
 		if let url = DocumentsDirectory.iCloudDocumentsURL {
 			if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
+				CloudDataManager.logger("INFO initDocumentsDirectory")
 				do {
 					try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
 				}
 				catch {
+					CloudDataManager.logger("ERROR initDocumentsDirectory: \(error.localizedDescription)")
 					print(error.localizedDescription)
 				}
 				
@@ -83,9 +89,9 @@ class CloudDataManager {
 			
 			try fileManager.copyItem(at: file,
 									 to: DocumentsDirectory.localDocumentsURL.appendingPathComponent(file.lastPathComponent))
-			print("Copied \(file) to local dir")
+			CloudDataManager.logger("DEBUG Copied \(file) to local dir")
 		} catch let error as NSError {
-			print("Failed to copy file to local directory: \(error)")
+			CloudDataManager.logger("ERROR Failed to copy file to local directory: \(error)")
 		}
 	}
 	
@@ -93,9 +99,9 @@ class CloudDataManager {
 		let fileManager = FileManager.default
 		do {
 			try fileManager.removeItem(at: DocumentsDirectory.localDocumentsURL.appendingPathComponent(fileName))
-			print("Deleted file \(fileName)")
+			CloudDataManager.logger("DEBUG Deleted file \(fileName)")
 		} catch let error as NSError {
-			print("Failed to delete file: \(error)")
+			CloudDataManager.logger("ERROR Failed to delete file: \(error)")
 		}
 	}
 }

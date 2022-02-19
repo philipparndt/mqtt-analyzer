@@ -35,6 +35,28 @@ struct FileListView: View {
 				}
 			}.font(.body)
 		}
+		
+		Section(header: Text("Log")) {
+			Button(action: clearLog) {
+				Text("Clear")
+			}
+			Button(action: copyLog) {
+				Text("Cut")
+			}
+			ForEach(model.log) { log in
+				Text(log.message)
+					.font(.footnote)
+			}
+		}
+	}
+	
+	func clearLog() {
+		model.log = []
+	}
+	
+	func copyLog() {
+		UIPasteboard.general.string = model.log.map { $0.message }.joined(separator: "\n")
+		clearLog()
 	}
 	
 	func delete(at offsets: IndexSet) {
