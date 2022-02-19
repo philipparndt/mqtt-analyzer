@@ -102,7 +102,7 @@ class TopicTree: Identifiable, ObservableObject {
 extension TopicTree {
 	class func toQualifiedName(node: TopicTree) -> String {
 		var next = node.parent
-		var result = node.name
+		var result = next != nil ? node.name : ""
 		while next != nil && next?.parent != nil {
 			result = next!.name
 				.appending("/")

@@ -16,19 +16,20 @@ struct MessageTextView: UIViewRepresentable {
 	}
 
 	func makeUIView(context: Context) -> UITextView {
-		let label = UITextView(frame: CGRect.zero)
-		label.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
-		label.isScrollEnabled = true
-		label.isEditable = true
-		label.isUserInteractionEnabled = true
-		label.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
-		label.delegate = context.coordinator
-		label.autocorrectionType = .no
-		label.autocapitalizationType = .none
-		label.smartDashesType = .no
-		label.smartQuotesType = .no
-		label.smartInsertDeleteType = .no
-		return label
+		let text = UITextView(frame: CGRect.zero)
+		text.accessibilityLabel = "textbox"
+		text.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
+		text.isScrollEnabled = true
+		text.isEditable = true
+		text.isUserInteractionEnabled = true
+		text.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
+		text.delegate = context.coordinator
+		text.autocorrectionType = .no
+		text.autocapitalizationType = .none
+		text.smartDashesType = .no
+		text.smartQuotesType = .no
+		text.smartInsertDeleteType = .no
+		return text
 	}
 
 	func updateUIView(_ uiView: UITextView, context: Context) {

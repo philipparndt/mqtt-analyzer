@@ -20,6 +20,18 @@ class FileLister {
 		return CloudDataManager.instance.getLocalDocumentDiretoryURL()
 	}
 	
+	class func downloadUbiquitousItems(folder url: URL, contents: [URL]) throws {
+		try contents
+			.filter { $0.lastPathComponent.lowercased()
+				.range(of: #"^\..*\.p12.icloud$"#, options: .regularExpression) != nil }
+			.forEach {
+				if FileManager.default.isUbiquitousItem(at: $0) {
+					NSLog("Downloading ubiquitous item \($0)")
+					try FileManager.default.startDownloadingUbiquitousItem(at: $0)
+				}
+			}
+	}
+	
 	class func listFiles(on location: CertificateLocation) -> [CertificateFileModel] {
 		do {
 			let url = FileLister.getUrl(on: location)
@@ -29,9 +41,11 @@ class FileLister {
 			let directoryContents = try FileManager.default
 				.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
 			
+			try downloadUbiquitousItems(folder: url, contents: directoryContents)
+						
 			let files = directoryContents
 				.map { $0.lastPathComponent }
-				.filter { $0.lowercased().range(of: #".*\.(p12|pfx|crt|key)$"#, options: .regularExpression) != nil}
+				.filter { $0.lowercased().range(of: #".*\.p12$"#, options: .regularExpression) != nil}
 				.map { CertificateFileModel(name: $0, location: location) }
 				.sorted()
 
