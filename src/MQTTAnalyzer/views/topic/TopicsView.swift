@@ -20,6 +20,12 @@ struct TopicsView: View {
 		VStack {
 			if model.messageCount == 0 {
 				AwaitMessagesView(model: model, host: host)
+				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
+					PublishMessageFormModalView(closeCallback: self.cancelDialog,
+												root: self.rootModel,
+												host: self.host,
+												model: self.$publishMessageModel)
+				})
 			}
 			else {
 				List {

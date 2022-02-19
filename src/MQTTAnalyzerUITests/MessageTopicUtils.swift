@@ -14,6 +14,7 @@ class MessageTopicUtils {
 		app.buttons["Mark all as read"].tap()
 		#else
 		let cell = app.buttons["Filter"]
+		XCTAssertTrue(cell.waitForExistence(timeout: 4))
 		app.launchMenuAction(on: cell, label: "Mark all as read")
 		#endif
 	}
@@ -22,7 +23,9 @@ class MessageTopicUtils {
 		#if targetEnvironment(macCatalyst)
 		app.buttons["Clear"].tap()
 		#else
+		
 		let cell = app.buttons["Filter"]
+		XCTAssertTrue(cell.waitForExistence(timeout: 4))
 		app.launchMenuAction(on: cell, label: "Clear")
 		#endif
 	}

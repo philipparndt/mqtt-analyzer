@@ -147,6 +147,7 @@ struct PublishMessageFormView: View {
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
 					.font(.body)
+					.accessibilityLabel("topic")
 				
 				TopicSuffixPickerView(suffix: $message.topicSuffix)
 			}

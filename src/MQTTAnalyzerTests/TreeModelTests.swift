@@ -14,7 +14,9 @@ class TreeModelTests: XCTestCase {
     func testTreeRoot() throws {
 		let root = TopicTree()
 		XCTAssertEqual("root", root.name)
-		XCTAssertEqual("root", root.nameQualified)
+		
+		// Qualified name should be empty for the root element (used in publish message dialog)
+		XCTAssertEqual("", root.nameQualified)
 		XCTAssertEqual(0, root.messages.count)
     }
 	
