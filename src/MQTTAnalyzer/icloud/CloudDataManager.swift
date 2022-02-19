@@ -11,30 +11,34 @@
 import Foundation
 
 class CloudDataManager {
+	static var logger = Logger(level: .none)
 
     static let instance = CloudDataManager()
 
     struct DocumentsDirectory {
         static let localDocumentsURL = FileManager.default
 			.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: .userDomainMask)
-			.last!
+			.last
 		
         static let iCloudDocumentsURL = FileManager.default
-			.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
+			.url(forUbiquityContainerIdentifier: nil)?
+			.appendingPathComponent("Documents")
     }
 
 	func initDocumentsDirectory() {
 		if !isCloudEnabled() {
+			CloudDataManager.logger.info("Cloud disabled")
 			return
 		}
 		
 		if let url = DocumentsDirectory.iCloudDocumentsURL {
 			if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
+				CloudDataManager.logger.trace("initDocumentsDirectory")
 				do {
 					try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
 				}
 				catch {
-					print(error.localizedDescription)
+					CloudDataManager.logger.error("initDocumentsDirectory: \(error.localizedDescription)")
 				}
 				
 				initDescriptionFile(url: url)
@@ -55,7 +59,7 @@ class CloudDataManager {
 			try FileManager.default.startDownloadingUbiquitousItem(at: url)
 		}
 		catch {
-			print(error.localizedDescription)
+			CloudDataManager.logger.error(error.localizedDescription)
 		}
 	}
 	
@@ -68,34 +72,45 @@ class CloudDataManager {
 		return DocumentsDirectory.iCloudDocumentsURL
     }
 
-	func getLocalDocumentDiretoryURL() -> URL {
+	func getLocalDocumentDiretoryURL() -> URL? {
 		return DocumentsDirectory.localDocumentsURL
     }
 	
 	func copyFileToLocal(file: URL) {
 		let fileManager = FileManager.default
 		do {
-			let target = DocumentsDirectory.localDocumentsURL.appendingPathComponent(file.lastPathComponent)
-			
-			if fileManager.fileExists(atPath: target.path) {
-				try fileManager.removeItem(at: target)
+			if let url = DocumentsDirectory.localDocumentsURL {
+				let target = url.appendingPathComponent(file.lastPathComponent)
+				
+				if fileManager.fileExists(atPath: target.path) {
+					try fileManager.removeItem(at: target)
+				}
+				
+				try fileManager.copyItem(at: file,
+										 to: url.appendingPathComponent(file.lastPathComponent))
+				CloudDataManager.logger.debug("Copied \(file) to local dir")
 			}
-			
-			try fileManager.copyItem(at: file,
-									 to: DocumentsDirectory.localDocumentsURL.appendingPathComponent(file.lastPathComponent))
-			print("Copied \(file) to local dir")
+			else {
+				CloudDataManager.logger.error("Local URL not found")
+			}
 		} catch let error as NSError {
-			print("Failed to copy file to local directory: \(error)")
+			CloudDataManager.logger.error("Failed to copy file to local directory: \(error)")
 		}
 	}
 	
 	func deleteLocalFile(fileName: String) {
 		let fileManager = FileManager.default
 		do {
-			try fileManager.removeItem(at: DocumentsDirectory.localDocumentsURL.appendingPathComponent(fileName))
-			print("Deleted file \(fileName)")
+			if let url = DocumentsDirectory.localDocumentsURL {
+				try fileManager.removeItem(at: url.appendingPathComponent(fileName))
+				CloudDataManager.logger.debug("Deleted file \(fileName)")
+			}
+			else {
+				CloudDataManager.logger.error("Local URL not found")
+			}
+			
 		} catch let error as NSError {
-			print("Failed to delete file: \(error)")
+			CloudDataManager.logger.error("Failed to delete file: \(error)")
 		}
 	}
 }
@@ -107,11 +122,18 @@ extension CertificateFile {
 				return url
 			}
 			else {
-				throw CertificateError.noClound
+				CloudDataManager.logger.error("No cloud URL found (Cloud disbled?)")
+				throw CertificateError.noCloud
 			}
 		}
 		else {
-			return CloudDataManager.instance.getLocalDocumentDiretoryURL()
+			if let url = CloudDataManager.instance.getLocalDocumentDiretoryURL() {
+				return url
+			}
+			else {
+				CloudDataManager.logger.error("No local URL found")
+				throw CertificateError.noLocalURL
+			}
 		}
 	}
 }

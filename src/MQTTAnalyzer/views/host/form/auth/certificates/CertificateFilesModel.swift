@@ -19,6 +19,8 @@ class CertificateFilesModel: ObservableObject, CertificateFilesRefresh {
 	@Published var cloudFiles: [CertificateFileModel] = []
 	@Published var localFiles: [CertificateFileModel] = []
 	
+	let logger = Logger(level: .warning)
+	
 	init() {
 		refresh()
 	}
@@ -48,10 +50,18 @@ class CertificateFilesModel: ObservableObject, CertificateFilesRefresh {
 	}
 	
 	func refresh() {
+		logger.messages = []
+		FileLister.logger = logger
+		CloudDataManager.logger = logger
+		
+		logger.debug("Refreshing files")
 		localFiles = FileLister.listFiles(on: .local)
 		
 		if CloudDataManager.instance.isCloudEnabled() {
 			cloudFiles = FileLister.listFiles(on: .cloud)
+		}
+		else {
+			logger.info("Cloud disabled")
 		}
 	}
 }

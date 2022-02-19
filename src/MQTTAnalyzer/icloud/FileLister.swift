@@ -10,11 +10,11 @@ import Foundation
 import Combine
 
 class FileLister {
-	class func getUrl(on location: CertificateLocation) -> URL {
+	static var logger = Logger(level: .none)
+	
+	class func getUrl(on location: CertificateLocation) -> URL? {
 		if location == .cloud {
-			if let url = CloudDataManager.instance.getCloudDocumentDiretoryURL() {
-				return url
-			}
+			CloudDataManager.instance.getCloudDocumentDiretoryURL()
 		}
 
 		return CloudDataManager.instance.getLocalDocumentDiretoryURL()
@@ -26,31 +26,47 @@ class FileLister {
 				.range(of: #"^\..*\.p12.icloud$"#, options: .regularExpression) != nil }
 			.forEach {
 				if FileManager.default.isUbiquitousItem(at: $0) {
-					NSLog("Downloading ubiquitous item \($0)")
+					FileLister.logger.debug("Downloading ubiquitous item <\($0)>")
+					
 					try FileManager.default.startDownloadingUbiquitousItem(at: $0)
+				}
+				else {
+					FileLister.logger.debug("None ubiquitous item <\($0)>")
 				}
 			}
 	}
 	
 	class func listFiles(on location: CertificateLocation) -> [CertificateFileModel] {
 		do {
-			let url = FileLister.getUrl(on: location)
-			
-			CloudDataManager.instance.initDocumentsDirectory()
-			
-			let directoryContents = try FileManager.default
-				.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
-			
-			try downloadUbiquitousItems(folder: url, contents: directoryContents)
-						
-			let files = directoryContents
-				.map { $0.lastPathComponent }
-				.filter { $0.lowercased().range(of: #".*\.p12$"#, options: .regularExpression) != nil}
-				.map { CertificateFileModel(name: $0, location: location) }
-				.sorted()
+			if let url = FileLister.getUrl(on: location) {
+				FileLister.logger.debug("Get from location <\(location)>")
+				FileLister.logger.debug(url.absoluteString)
 
-			return files
+				CloudDataManager.instance.initDocumentsDirectory()
+				
+				let directoryContents = try FileManager.default
+					.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
+				
+				try downloadUbiquitousItems(folder: url, contents: directoryContents)
+							
+				let files = directoryContents
+					.map {
+						FileLister.logger.trace("Element <\($0.lastPathComponent)>")
+						return $0.lastPathComponent
+					}
+					.filter { $0.lowercased().range(of: #".*\.p12$"#, options: .regularExpression) != nil}
+					.map { CertificateFileModel(name: $0, location: location) }
+					.sorted()
+
+				return files
+			}
+			else {
+				FileLister.logger.error("URL not found for location \(location)")
+				return []
+			}
 		} catch {
+			FileLister.logger.error("<\(error.localizedDescription)>")
+			
 			return [CertificateFileModel(name: error.localizedDescription, location: location)]
 		}
 	}

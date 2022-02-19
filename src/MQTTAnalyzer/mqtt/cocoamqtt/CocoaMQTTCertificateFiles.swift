@@ -28,7 +28,8 @@ enum CertificateError: String, Error {
 	case errSecAuthFailed = "Failed to open the certificate file. Wrong password?"
 	case noIdentify = "No identity"
 	case certificateFileUndefined = "Certificate file is undefined. Review the settings."
-	case noClound = "iCloud is disabled but certificate was persisted in iCloud."
+	case noCloud = "iCloud is disabled but certificate was persisted in iCloud."
+	case noLocalURL = "Local URL not found. MQTTAnalyzer folder does not exist."
 }
 
 private func getClientCertFromP12File(certificate: CertificateFile, certPassword: String) throws -> CFArray? {
