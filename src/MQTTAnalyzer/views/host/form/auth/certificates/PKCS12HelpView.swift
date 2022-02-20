@@ -16,12 +16,12 @@ struct PKCS12HelpView: View {
 					Text("openssl pkcs12 -export -in user.crt -inkey user.key -out user.p12")
 						.font(.system(size: 14, design: .monospaced))
 						.foregroundColor(.secondary)
-	
+						.textSelection(.enabled)
+					
 					Spacer()
 				}
 			}
 			.padding(5)
-			.background(Color.gray.opacity(0.2))
 		}
 	}
 }
