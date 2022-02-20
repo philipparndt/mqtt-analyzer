@@ -34,6 +34,18 @@ class Brokers {
 		}
 	}
 	
+	func confirmDelete() {
+		app.buttons["Delete"].tap()
+	}
+	
+	func cancelDelete(alias: String) {
+		#if targetEnvironment(macCatalyst)
+		app.typeKey("\u{1B}", modifierFlags: [])
+		#else
+		app.buttons["Cancel"].tap()
+		#endif
+	}
+	
 	func create(broker: Broker) {
 		app.buttons["Add Broker"].tap()
 		

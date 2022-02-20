@@ -23,6 +23,11 @@ struct ServerPageSheetState {
 	}
 }
 
+struct ConfirmDeleteBroker {
+	var isPresented = false
+	var broker: Host?
+}
+
 struct HostCellView: View {
 	@EnvironmentObject var model: RootModel
 	@ObservedObject var host: Host
@@ -30,6 +35,8 @@ struct HostCellView: View {
 	@ObservedObject var messageModel: TopicTree
 	
 	@State private var sheetState = ServerPageSheetState()
+	
+	@State private var confirmDelete = ConfirmDeleteBroker()
 	
 	@State private var loginData = LoginData()
 	
@@ -80,7 +87,13 @@ struct HostCellView: View {
 				Divider()
 				#endif
 			}
-		}.sheet(isPresented: $sheetState.isPresented, onDismiss: cancelEditCreation, content: {
+		}
+		.confirmationDialog("Are you shure you want to delete the broker setting?", isPresented: $confirmDelete.isPresented, actions: {
+			Button("Delete", role: .destructive) {
+				deleteBroker()
+			}
+		})
+		.sheet(isPresented: $sheetState.isPresented, onDismiss: cancelEditCreation, content: {
 			if self.sheetState.type == .edit {
 				EditHostFormModalView(closeHandler: self.cancelEditCreation,
 									  root: self.model,
@@ -113,7 +126,7 @@ struct HostCellView: View {
 			
 			#if targetEnvironment(macCatalyst)
 			Divider()
-			MenuButton(title: "Delete broker", systemImage: "trash.fill", action: deleteHost)
+			MenuButton(title: "Delete broker", systemImage: "trash.fill", action: confirmDeleteBroker)
 			#endif
 
 		}
@@ -130,8 +143,15 @@ struct HostCellView: View {
 		sheetState.present(type: .edit)
 	}
 	
-	func deleteHost() {
-		hostsModel.delete(host, persistence: model.persistence)
+	func confirmDeleteBroker() {
+		confirmDelete.broker = host
+		confirmDelete.isPresented = true
+	}
+	
+	func deleteBroker() {
+		if let broker = confirmDelete.broker {
+			hostsModel.delete(broker, persistence: model.persistence)
+		}
 	}
 	
 	func disconnect() {

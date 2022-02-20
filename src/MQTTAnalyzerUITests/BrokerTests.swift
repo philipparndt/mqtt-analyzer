@@ -8,7 +8,7 @@
 
 import XCTest
 
-extension MQTTAnalyzerUITests {
+class BrokerTests: AbstractUITests {
 	func testDeleteBroker() {
 		let alias = "Example"
 
@@ -19,7 +19,24 @@ extension MQTTAnalyzerUITests {
 		let example = brokers.borkerCell(of: alias)
 		awaitAppear(element: example)
 		brokers.delete(alias: alias)
+		brokers.confirmDelete()
+		
 		awaitDisappear(element: example)
+	}
+	
+	func testCancelDeleteBroker() {
+		let alias = "Example"
+
+		let brokers = Brokers(app: app)
+		
+		app.launch()
+		
+		let example = brokers.borkerCell(of: alias)
+		awaitAppear(element: example)
+		brokers.delete(alias: alias)
+		brokers.cancelDelete(alias: alias)
+		XCTAssertFalse(app.buttons["Delete"].exists)
+		XCTAssertTrue(example.exists)
 	}
 	
 	func testRenameBroker() {

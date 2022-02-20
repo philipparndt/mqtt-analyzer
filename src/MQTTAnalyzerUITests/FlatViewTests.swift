@@ -8,7 +8,7 @@
 
 import XCTest
 
-extension MQTTAnalyzerUITests {
+class FlatViewTests: AbstractUITests {
 	func testFlatView() {
 		let brokers = Brokers(app: app)
 		

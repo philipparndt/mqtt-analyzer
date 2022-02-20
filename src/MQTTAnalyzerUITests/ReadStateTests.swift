@@ -8,7 +8,7 @@
 
 import XCTest
 
-extension MQTTAnalyzerUITests {
+class ReadStateTests: AbstractUITests {
 	
 	func testMarkRead() {
 		let brokers = Brokers(app: app)

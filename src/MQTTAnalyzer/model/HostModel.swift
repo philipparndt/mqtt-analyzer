@@ -209,6 +209,13 @@ class HostsModel: ObservableObject {
 		persistence.load()
 	}
 	
+	func getBroker(at offsets: IndexSet) -> Host? {
+		for idx in offsets {
+			return hostsSorted[idx]
+		}
+		return nil
+	}
+	
 	func delete(_ host: Host, persistence: Persistence) {
 		persistence.delete(host)
 		persistence.load()

@@ -8,7 +8,7 @@
 
 import XCTest
 
-extension MQTTAnalyzerUITests {
+class ScreenshotTests: AbstractUITests {
 	//  ~/Library/Containers/de.rnd7.MQTTAnalyzerUITests.xctrunner/Data/screenshots
 	func testFullRoundtripScreenshots() {
 		let hostname = "localhost"
@@ -24,6 +24,8 @@ extension MQTTAnalyzerUITests {
 		let nav = Navigation(app: app, alias: alias)
 		
 		brokers.delete(alias: alias)
+		brokers.confirmDelete()
+		
 		brokers.create(broker: Broker(alias: alias, hostname: hostname))
 		brokers.start(alias: alias)
 		

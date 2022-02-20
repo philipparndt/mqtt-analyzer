@@ -8,7 +8,7 @@
 
 import XCTest
 
-extension MQTTAnalyzerUITests {
+class AboutDialogTests: AbstractUITests {
 	func testAbout() {
 		app.launch()
 		
