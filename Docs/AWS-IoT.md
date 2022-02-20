@@ -43,11 +43,12 @@ Without this, you will get a "Socket closed by remote peer" error after connecti
 Create a new policy:
 https://eu-central-1.console.aws.amazon.com/iot/home?region=eu-central-1#/create/policy
 
+| Setting         | Value |
 | --------------- | ----- |
-| Policy name | All |
-| Policy effect | Allow |
-| Policy action | * |
-| Policy resource | * |
+| Policy name     | All   |
+| Policy effect   | Allow |
+| Policy action   | *     |
+| Policy resource | *     |
 
 Select `create` to create the policy.
 
