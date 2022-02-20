@@ -52,10 +52,8 @@ struct ServerFormView: View {
 					.font(.body)
 			}
 			
-			if host.suggestAWSIOTCHanges() {
-				Button(action: self.updateSettingsForAWSIOT) {
-					QuestionBox(text: "Use default settings for AWS IoT?")
-				}
+			if host.isAWS() {
+				AWSIoTHelpView(host: $host)
 			}
 			
 			HStack {
@@ -111,7 +109,4 @@ struct ServerFormView: View {
 		}
 	}
 	
-	func updateSettingsForAWSIOT() {
-		self.host.updateSettingsForAWSIOT()
-	}
 }
