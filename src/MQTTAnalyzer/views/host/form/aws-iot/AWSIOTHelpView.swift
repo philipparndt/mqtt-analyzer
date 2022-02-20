@@ -41,7 +41,6 @@ struct AWSIoTHelpView: View {
 		.cornerRadius(10)
     }
 	
-	
 	func updateSettingsForAWSIOT() {
 		self.host.updateSettingsForAWSIOT()
 	}

@@ -14,7 +14,7 @@ class FileLister {
 	
 	class func getUrl(on location: CertificateLocation) -> URL? {
 		if location == .cloud {
-			CloudDataManager.instance.getCloudDocumentDiretoryURL()
+			return CloudDataManager.instance.getCloudDocumentDiretoryURL()
 		}
 
 		return CloudDataManager.instance.getLocalDocumentDiretoryURL()
