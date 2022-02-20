@@ -24,7 +24,7 @@ you do not need `2740d89289-public.pem.key` for this example.
 ```
 
 - Go to a thing and open the `Interact` page.
-- Copy the `Reast API Endpoint` url (example `abcdefghijklmn-ats.iot.eu-west-1.amazonaws.com`)
+- Copy the `Rest API Endpoint` url (example `abcdefghijklmn-ats.iot.eu-west-1.amazonaws.com`)
 
 ## In your terminal
 
