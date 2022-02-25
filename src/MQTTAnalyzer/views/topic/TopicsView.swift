@@ -34,42 +34,78 @@ struct TopicsView: View {
 					Toggle("Flat", isOn: self.$model.flatView)
 						.accessibilityLabel("flatview")
 					
-					if !self.model.flatView {
-						FolderNavigationView(host: host, model: model)
+					if !self.model.filterText.isBlank {
+						Section(header: Text("Search result")) {
+							if model.searchResultDisplay.isEmpty {
+								HStack(alignment: .top) {
+									Image(systemName: "magnifyingglass")
+										.font(.largeTitle)
+										.foregroundColor(.secondary)
+									
+									VStack(alignment: .leading) {
+										Text("No matches with the current filter")
+										Text("")
+										
+										VStack(alignment: .leading) {
+											Text("Did you know, that by default only full words are matching?" +
+												 "Use * as wildcard. With this, it is possible to distinct between 'on' and 'online'.")
+												.multilineTextAlignment(.leading)
+										}
+										.font(.subheadline)
+										.foregroundColor(.secondary)
+									}
+								}
+							}
+							else {
+								ForEach(model.searchResultDisplay) { result in
+									TopicCellView(
+										messages: result,
+										publishMessagePresented: self.$publishMessageModel.isPresented,
+										host: self.host,
+										selectMessage: self.selectMessage
+									)
+								}
+							}
+						}
 					}
-					
-					if self.model.flatView {
-						Section(header: Text("Messages (flat)")) {
-							ForEach(model.recusiveAllMessages) { messages in
+					else {
+						if !self.model.flatView {
+							FolderNavigationView(host: host, model: model)
+						}
+						
+						if self.model.flatView {
+							Section(header: Text("Messages (flat)")) {
+								ForEach(model.recusiveAllMessages) { messages in
+									TopicCellView(
+										messages: messages,
+										publishMessagePresented: self.$publishMessageModel.isPresented,
+										host: self.host,
+										selectMessage: self.selectMessage
+									)
+								}
+							}
+						}
+						else if !model.messages.isEmpty {
+							Section(header: Text("Message")) {
 								TopicCellView(
-									messages: messages,
+									messages: self.model,
 									publishMessagePresented: self.$publishMessageModel.isPresented,
 									host: self.host,
 									selectMessage: self.selectMessage
 								)
 							}
 						}
-					}
-					else if !model.messages.isEmpty {
-						Section(header: Text("Message")) {
-							TopicCellView(
-								messages: self.model,
-								publishMessagePresented: self.$publishMessageModel.isPresented,
-								host: self.host,
-								selectMessage: self.selectMessage
-							)
-						}
-					}
-					
-					if !self.model.flatView && !model.childrenWithMessages.isEmpty {
-						Section(header: Text("Inherited Message Groups")) {
-							ForEach(model.childrenWithMessages) { messages in
-								TopicCellView(
-									messages: messages,
-									publishMessagePresented: self.$publishMessageModel.isPresented,
-									host: self.host,
-									selectMessage: self.selectMessage
-								)
+						
+						if !self.model.flatView && !model.childrenWithMessages.isEmpty {
+							Section(header: Text("Inherited Message Groups")) {
+								ForEach(model.childrenWithMessages) { messages in
+									TopicCellView(
+										messages: messages,
+										publishMessagePresented: self.$publishMessageModel.isPresented,
+										host: self.host,
+										selectMessage: self.selectMessage
+									)
+								}
 							}
 						}
 					}
