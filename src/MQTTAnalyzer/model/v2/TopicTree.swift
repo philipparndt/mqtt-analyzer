@@ -63,6 +63,12 @@ class TopicTree: Identifiable, ObservableObject {
 
 	@Published var flatView = false
 	
+	@Published var filterWholeWord = true {
+		didSet {
+			updateSearchResult()
+		}
+	}
+	
 	var filterTextCleaned = ""
 	@Published var filterText = "" {
 		didSet {

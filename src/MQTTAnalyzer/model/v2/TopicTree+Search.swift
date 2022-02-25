@@ -31,11 +31,16 @@ extension TopicTree {
 	func search(text: String) -> [String] {
 		if let idx = getIndex() {
 			let topic = nameQualified
+			var searchText = text
+			if !filterWholeWord && !searchText.contains("*") {
+				searchText += "*"
+			}
 			
-			return idx.search(text: text)
+			return idx.search(text: searchText)
 				.filter {
 					$0.starts(with: topic)
 				}
+				.sorted { $0 < $1 }
 		}
 		
 		return []

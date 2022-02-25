@@ -29,12 +29,16 @@ struct TopicsView: View {
 			}
 			else {
 				List {
-					TopicsToolsView(model: self.model)
-					
-					Toggle("Flat", isOn: self.$model.flatView)
-						.accessibilityLabel("flatview")
-					
 					if !self.model.filterText.isBlank {
+						HStack {
+							Text("Matches")
+							Spacer()
+							Text("\(model.searchResultDisplay.count)")
+						}
+						
+						Toggle("Whole word", isOn: self.$model.filterWholeWord)
+							.accessibilityLabel("whole-word")
+
 						Section(header: Text("Search result")) {
 							if model.searchResultDisplay.isEmpty {
 								HStack(alignment: .top) {
@@ -47,8 +51,8 @@ struct TopicsView: View {
 										Text("")
 										
 										VStack(alignment: .leading) {
-											Text("Did you know, that by default only full words are matching?" +
-												 "Use * as wildcard. With this, it is possible to distinct between 'on' and 'online'.")
+											Text("Did you know, that by default only whole words are matching?" +
+												 "You can turn this off or use * as wildcard. With this, it is possible to distinct between 'on' and 'online'.")
 												.multilineTextAlignment(.leading)
 										}
 										.font(.subheadline)
@@ -69,6 +73,11 @@ struct TopicsView: View {
 						}
 					}
 					else {
+						TopicsToolsView(model: self.model)
+
+						Toggle("Flat", isOn: self.$model.flatView)
+							.accessibilityLabel("flatview")
+
 						if !self.model.flatView {
 							FolderNavigationView(host: host, model: model)
 						}
