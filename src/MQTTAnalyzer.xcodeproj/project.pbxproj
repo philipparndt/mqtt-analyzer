@@ -20,6 +20,8 @@
 		2203571F2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */; };
 		220357212445B2ED00A98CD3 /* MQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357202445B2ED00A98CD3 /* MQTTDelegate.swift */; };
 		2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
+		22061AC127CA682F00FFF915 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC027CA682F00FFF915 /* Search.swift */; };
+		22061AC327CA6BD300FFF915 /* XCUIElement+Checked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC227CA6BD300FFF915 /* XCUIElement+Checked.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
 		220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */; };
 		2215118D27C923EB0000E385 /* TopicTree+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2215118C27C923EB0000E385 /* TopicTree+Search.swift */; };
@@ -154,6 +156,7 @@
 		22B46BD827CA652B0077FB83 /* MessageTopicUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BD127CA652B0077FB83 /* MessageTopicUtils.swift */; };
 		22B46BD927CA652B0077FB83 /* Broker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BD227CA652B0077FB83 /* Broker.swift */; };
 		22B46BDA27CA652B0077FB83 /* Brokers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BD327CA652B0077FB83 /* Brokers.swift */; };
+		22B46BDF27CA65750077FB83 /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BDE27CA65750077FB83 /* SearchTests.swift */; };
 		22C2856224759FD40000C1E8 /* CertificateLocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2856124759FD40000C1E8 /* CertificateLocationPicker.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F72E23B7486E00892C4B /* .swiftlint.yml */; };
@@ -218,6 +221,8 @@
 		2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTCertificateFiles.swift; sourceTree = "<group>"; };
 		220357202445B2ED00A98CD3 /* MQTTDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTDelegate.swift; sourceTree = "<group>"; };
 		2205E5E0238A7EE2001638DF /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
+		22061AC027CA682F00FFF915 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		22061AC227CA6BD300FFF915 /* XCUIElement+Checked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Checked.swift"; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
 		220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMigrationCertificateFiles.swift; sourceTree = "<group>"; };
 		2215118C27C923EB0000E385 /* TopicTree+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicTree+Search.swift"; sourceTree = "<group>"; };
@@ -364,6 +369,7 @@
 		22B46BD127CA652B0077FB83 /* MessageTopicUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTopicUtils.swift; sourceTree = "<group>"; };
 		22B46BD227CA652B0077FB83 /* Broker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Broker.swift; sourceTree = "<group>"; };
 		22B46BD327CA652B0077FB83 /* Brokers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brokers.swift; sourceTree = "<group>"; };
+		22B46BDE27CA65750077FB83 /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
 		22C2856124759FD40000C1E8 /* CertificateLocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateLocationPicker.swift; sourceTree = "<group>"; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -552,6 +558,7 @@
 		224AFEB827B2CE7F00DFD09F /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				22061AC227CA6BD300FFF915 /* XCUIElement+Checked.swift */,
 				2240835227AD715900AA4A42 /* String+Random.swift */,
 				224AFEB227B2C07A00DFD09F /* XCTestCase+Disappear.swift */,
 				224AFEB927B2CE8F00DFD09F /* XCUIElement+Menu.swift */,
@@ -868,6 +875,7 @@
 				22B46BCD27CA652B0077FB83 /* Navigation.swift */,
 				22B46BCE27CA652B0077FB83 /* PublishDialog.swift */,
 				22B46BD027CA652B0077FB83 /* ScreenshotIds.swift */,
+				22061AC027CA682F00FFF915 /* Search.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -880,6 +888,7 @@
 				2200D97A27C2675300E63E89 /* AbstractUITests.swift */,
 				227D987627B79FE100E45C4C /* BrokerTests.swift */,
 				227D987C27B7A0D100E45C4C /* FlatViewTests.swift */,
+				22B46BDE27CA65750077FB83 /* SearchTests.swift */,
 				227D987E27B7A0EB00E45C4C /* AboutDialogTests.swift */,
 				227D987827B7A01300E45C4C /* ReadStateTests.swift */,
 				2200D96527C0C3BF00E63E89 /* PublishTests.swift */,
@@ -1398,13 +1407,16 @@
 				22B46BDA27CA652B0077FB83 /* Brokers.swift in Sources */,
 				224AFEB327B2C07A00DFD09F /* XCTestCase+Disappear.swift in Sources */,
 				2240834927AC533A00AA4A42 /* SnapshotHelper.swift in Sources */,
+				22061AC327CA6BD300FFF915 /* XCUIElement+Checked.swift in Sources */,
 				227D987927B7A01300E45C4C /* ReadStateTests.swift in Sources */,
 				2240835327AD715900AA4A42 /* String+Random.swift in Sources */,
+				22B46BDF27CA65750077FB83 /* SearchTests.swift in Sources */,
 				22B46BD627CA652B0077FB83 /* ExampleMessages.swift in Sources */,
 				227D987B27B7A05C00E45C4C /* ScreenshotTests.swift in Sources */,
 				2200D96627C0C3BF00E63E89 /* PublishTests.swift in Sources */,
 				2200D97B27C2675300E63E89 /* AbstractUITests.swift in Sources */,
 				22B46BD527CA652B0077FB83 /* PublishDialog.swift in Sources */,
+				22061AC127CA682F00FFF915 /* Search.swift in Sources */,
 				224AFEB727B2C67900DFD09F /* XCUIElement+ClearText.swift in Sources */,
 				22B46BD727CA652B0077FB83 /* ScreenshotIds.swift in Sources */,
 				22B46BD827CA652B0077FB83 /* MessageTopicUtils.swift in Sources */,
