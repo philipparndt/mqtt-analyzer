@@ -120,6 +120,7 @@ struct TopicsView: View {
 					}
 				}
 				.searchable(text: $model.filterText)
+				.disableAutocorrection(true)
 				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
 					PublishMessageFormModalView(closeCallback: self.cancelDialog,
 												root: self.rootModel,
