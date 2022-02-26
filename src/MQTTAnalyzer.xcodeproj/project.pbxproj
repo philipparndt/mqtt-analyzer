@@ -12,7 +12,7 @@
 		2200D96827C0CA0100E63E89 /* PublishDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96727C0CA0100E63E89 /* PublishDialog.swift */; };
 		2200D96B27C1123000E63E89 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96A27C1123000E63E89 /* Logger.swift */; };
 		2200D96D27C1149300E63E89 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96C27C1149300E63E89 /* LoggerTests.swift */; };
-		2200D97027C124FD00E63E89 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2200D96F27C124FD00E63E89 /* SwiftPackageProductDependency */; };
+		2200D97027C124FD00E63E89 /* Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2200D96F27C124FD00E63E89 /* Dynamic */; };
 		2200D97827C237EF00E63E89 /* AWSIOTHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97727C237EF00E63E89 /* AWSIOTHelpView.swift */; };
 		2200D97B27C2675300E63E89 /* AbstractUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97A27C2675300E63E89 /* AbstractUITests.swift */; };
 		2200D97E27C91B5300E63E89 /* SearchIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97D27C91B5300E63E89 /* SearchIndexTests.swift */; };
@@ -49,7 +49,6 @@
 		2230FF1627A6669C00D4327F /* MsgMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1527A6669C00D4327F /* MsgMetadata.swift */; };
 		2230FF1827A666C600D4327F /* MsgMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1727A666C600D4327F /* MsgMessage.swift */; };
 		2230FF1A27A6678B00D4327F /* TopicTree+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1927A6678B00D4327F /* TopicTree+Filter.swift */; };
-		2230FF1C27A66AB400D4327F /* TopicTreeFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1B27A66AB400D4327F /* TopicTreeFilterTests.swift */; };
 		2230FF1E27A6981900D4327F /* MessageLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1D27A6981900D4327F /* MessageLimitReachedView.swift */; };
 		2230FF2227A6AEC800D4327F /* TopicTree+Flatten.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2127A6AEC800D4327F /* TopicTree+Flatten.swift */; };
 		2230FF2427A6B80900D4327F /* TopicLimitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2327A6B80900D4327F /* TopicLimitTests.swift */; };
@@ -247,7 +246,6 @@
 		2230FF1527A6669C00D4327F /* MsgMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgMetadata.swift; sourceTree = "<group>"; };
 		2230FF1727A666C600D4327F /* MsgMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgMessage.swift; sourceTree = "<group>"; };
 		2230FF1927A6678B00D4327F /* TopicTree+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicTree+Filter.swift"; sourceTree = "<group>"; };
-		2230FF1B27A66AB400D4327F /* TopicTreeFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTreeFilterTests.swift; sourceTree = "<group>"; };
 		2230FF1D27A6981900D4327F /* MessageLimitReachedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLimitReachedView.swift; sourceTree = "<group>"; };
 		2230FF2127A6AEC800D4327F /* TopicTree+Flatten.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicTree+Flatten.swift"; sourceTree = "<group>"; };
 		2230FF2327A6B80900D4327F /* TopicLimitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicLimitTests.swift; sourceTree = "<group>"; };
@@ -407,7 +405,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2200D97027C124FD00E63E89 /* BuildFile in Frameworks */,
+				2200D97027C124FD00E63E89 /* Dynamic in Frameworks */,
 				223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */,
 				B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */,
 			);
@@ -569,6 +567,7 @@
 				2253F8D322C8C007007E35A2 /* Products */,
 				B2BAC619436C49079AC0498E /* Pods */,
 				45E8AFAA8B14B8DFB865D13B /* Frameworks */,
+				22F5147B27CA591A00918DC6 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -634,7 +633,6 @@
 				2230FEF927A50C8000D4327F /* TreeModelTests.swift */,
 				2230FF0127A53EA700D4327F /* ModelTestExtensions.swift */,
 				2230FF0F27A6511F00D4327F /* TreeUtilsTests.swift */,
-				2230FF1B27A66AB400D4327F /* TopicTreeFilterTests.swift */,
 				2230FF2327A6B80900D4327F /* TopicLimitTests.swift */,
 				2200D97D27C91B5300E63E89 /* SearchIndexTests.swift */,
 			);
@@ -877,6 +875,20 @@
 			path = "message-publish";
 			sourceTree = "<group>";
 		};
+		22F5147B27CA591A00918DC6 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				2200D96727C0CA0100E63E89 /* PublishDialog.swift */,
+				2240834C27AD6AB500AA4A42 /* Navigation.swift */,
+				227D987427B79EB400E45C4C /* MessageTopicUtils.swift */,
+				2240834A27AD68CE00AA4A42 /* Brokers.swift */,
+				224AFEA827AEA2AF00DFD09F /* ScreenshotIds.swift */,
+				224AFEB427B2C3FA00DFD09F /* Broker.swift */,
+				2240834E27AD6F1800AA4A42 /* ExampleMessages.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		22F8BEEA23C7870C00422BFF /* login */ = {
 			isa = PBXGroup;
 			children = (
@@ -958,7 +970,7 @@
 			);
 			name = MQTTAnalyzer;
 			packageProductDependencies = (
-				2200D96F27C124FD00E63E89 /* SwiftPackageProductDependency */,
+				2200D96F27C124FD00E63E89 /* Dynamic */,
 			);
 			productName = MQTTAnalyzer;
 			productReference = 2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */;
@@ -1036,7 +1048,7 @@
 			);
 			mainGroup = 2253F8C922C8C007007E35A2;
 			packageReferences = (
-				2200D96E27C124FD00E63E89 /* RemoteSwiftPackageReference */,
+				2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */,
 			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
 			projectDirPath = "";
@@ -1358,7 +1370,6 @@
 				22D236F923FEFBA10003D87F /* HostFormValidatorTests.swift in Sources */,
 				2285C82327887CDC008DA37D /* PublishMessageFormModelTests.swift in Sources */,
 				22AE643824126A7500C2C4FE /* DiagramPathTests.swift in Sources */,
-				2230FF1C27A66AB400D4327F /* TopicTreeFilterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1714,7 +1725,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2200D96E27C124FD00E63E89 /* RemoteSwiftPackageReference */ = {
+		2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mhdhejazi/Dynamic.git";
 			requirement = {
@@ -1725,9 +1736,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2200D96F27C124FD00E63E89 /* SwiftPackageProductDependency */ = {
+		2200D96F27C124FD00E63E89 /* Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2200D96E27C124FD00E63E89 /* RemoteSwiftPackageReference */;
+			package = 2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */;
 			productName = Dynamic;
 		};
 /* End XCSwiftPackageProductDependency section */

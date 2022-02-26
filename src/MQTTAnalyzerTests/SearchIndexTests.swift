@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import DSFFullTextSearchIndex
 @testable import MQTTAnalyzer
 
 class SearchIndexTests: XCTestCase {
