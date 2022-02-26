@@ -7,11 +7,11 @@
 //
 
 import Foundation
-
-import Foundation
 import XCTest
 
 class Search {
+	let WHOLE_WORD = "whole-word"
+	
 	let app: XCUIApplication
 	init(app: XCUIApplication) {
 		self.app = app
@@ -32,12 +32,12 @@ class Search {
 	
 	func disableWholeWord() {
 		#if targetEnvironment(macCatalyst)
-		let whole = app.checkBoxes["whole-word"]
+		let whole = app.checkBoxes[WHOLE_WORD]
 		if whole.isChecked() {
 			whole.click()
 		}
 		#else
-		let whole = app.switches["whole-word"]
+		let whole = app.switches[WHOLE_WORD]
 		if whole.isChecked() {
 			whole.tap()
 		}
@@ -46,12 +46,12 @@ class Search {
 	
 	func enableWholeWord() {
 		#if targetEnvironment(macCatalyst)
-		let whole = app.checkBoxes["whole-word"]
+		let whole = app.checkBoxes[WHOLE_WORD]
 		if !whole.isChecked() {
 			whole.click()
 		}
 		#else
-		let whole = app.switches["whole-word"]
+		let whole = app.switches[WHOLE_WORD]
 		if !whole.isChecked() {
 			whole.tap()
 		}
