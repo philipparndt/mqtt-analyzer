@@ -22,6 +22,7 @@
 		2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
 		22061AC127CA682F00FFF915 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC027CA682F00FFF915 /* Search.swift */; };
 		22061AC327CA6BD300FFF915 /* XCUIElement+Checked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC227CA6BD300FFF915 /* XCUIElement+Checked.swift */; };
+		22061AC527CA79FE00FFF915 /* DispatchQueue+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
 		220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */; };
 		2215118D27C923EB0000E385 /* TopicTree+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2215118C27C923EB0000E385 /* TopicTree+Search.swift */; };
@@ -223,6 +224,7 @@
 		2205E5E0238A7EE2001638DF /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		22061AC027CA682F00FFF915 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		22061AC227CA6BD300FFF915 /* XCUIElement+Checked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Checked.swift"; sourceTree = "<group>"; };
+		22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Background.swift"; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
 		220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMigrationCertificateFiles.swift; sourceTree = "<group>"; };
 		2215118C27C923EB0000E385 /* TopicTree+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicTree+Search.swift"; sourceTree = "<group>"; };
@@ -744,6 +746,7 @@
 				22F8BEE623C24A5800422BFF /* String+Utils.swift */,
 				2230FEFD27A50E9000D4327F /* Date+Iso.swift */,
 				224AFEA627AE88DC00DFD09F /* Color+SystemColors.swift */,
+				22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1247,6 +1250,7 @@
 				22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */,
 				22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */,
 				2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */,
+				22061AC527CA79FE00FFF915 /* DispatchQueue+Background.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
 				2230FF1427A6667000D4327F /* MsgPayload.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
