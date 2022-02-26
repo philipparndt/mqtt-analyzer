@@ -13,8 +13,10 @@ const fix =  "settings = {ATTRIBUTES = (Public, ); }; }; /*RLMFIX*/"
 
 const result = []
 let ctr = 0
+let expression = /.*(RLM|Realm)[a-zA-Z+_0-9]*\.h.*isa = PBXBuildFile.*};$/g // NOSONAR
+
 for (let line of lines) {
-    if (apply && line.match(/.*(RLM|Realm)[a-zA-Z+_0-9]*\.h.*isa = PBXBuildFile.*};$/g)) {
+    if (apply && line.match(expression)) {
         const replaced = line.replace(/};$/g, fix)
         result.push(replaced)
         ctr++
