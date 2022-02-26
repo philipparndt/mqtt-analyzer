@@ -19,6 +19,11 @@ extension TopicTree {
 	}
 	
 	func updateSearchResult() {
+		if filterTextCleaned.isBlank {
+			searchResultDisplay = []
+			return
+		}
+		
 		searchResultDisplay = search(text: filterTextCleaned)
 			.map {
 				if let topic = addTopic(topic: $0) {

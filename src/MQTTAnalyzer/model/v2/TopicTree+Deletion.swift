@@ -17,6 +17,7 @@ extension TopicTree {
 		messages = []
 		timeSeries = TimeSeriesModel()
 		readState = Readstate(read: true)
+		index?.clear(topicStartsWith: nameQualified)
 	}
 	
 	func delete(at offsets: IndexSet) {

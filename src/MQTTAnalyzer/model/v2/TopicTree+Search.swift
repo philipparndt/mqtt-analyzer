@@ -36,11 +36,7 @@ extension TopicTree {
 				searchText += "*"
 			}
 			
-			return idx.search(text: searchText)
-				.filter {
-					$0.starts(with: topic)
-				}
-				.sorted { $0 < $1 }
+			return idx.search(text: searchText, topic: topic)
 		}
 		
 		return []

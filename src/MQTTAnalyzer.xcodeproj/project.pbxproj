@@ -12,7 +12,7 @@
 		2200D96827C0CA0100E63E89 /* PublishDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96727C0CA0100E63E89 /* PublishDialog.swift */; };
 		2200D96B27C1123000E63E89 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96A27C1123000E63E89 /* Logger.swift */; };
 		2200D96D27C1149300E63E89 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96C27C1149300E63E89 /* LoggerTests.swift */; };
-		2200D97027C124FD00E63E89 /* Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2200D96F27C124FD00E63E89 /* Dynamic */; };
+		2200D97027C124FD00E63E89 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2200D96F27C124FD00E63E89 /* SwiftPackageProductDependency */; };
 		2200D97827C237EF00E63E89 /* AWSIOTHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97727C237EF00E63E89 /* AWSIOTHelpView.swift */; };
 		2200D97B27C2675300E63E89 /* AbstractUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97A27C2675300E63E89 /* AbstractUITests.swift */; };
 		2200D97E27C91B5300E63E89 /* SearchIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97D27C91B5300E63E89 /* SearchIndexTests.swift */; };
@@ -212,9 +212,9 @@
 		2200D96A27C1123000E63E89 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		2200D96C27C1149300E63E89 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		2200D97727C237EF00E63E89 /* AWSIOTHelpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSIOTHelpView.swift; sourceTree = "<group>"; };
+		2200D97A27C2675300E63E89 /* AbstractUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractUITests.swift; sourceTree = "<group>"; };
 		2200D97D27C91B5300E63E89 /* SearchIndexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIndexTests.swift; sourceTree = "<group>"; };
 		2200D98027C91DCA00E63E89 /* SearchIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIndex.swift; sourceTree = "<group>"; };
-		2200D97A27C2675300E63E89 /* AbstractUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractUITests.swift; sourceTree = "<group>"; };
 		2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTypePicker.swift; sourceTree = "<group>"; };
 		2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTCertificateFiles.swift; sourceTree = "<group>"; };
 		220357202445B2ED00A98CD3 /* MQTTDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTDelegate.swift; sourceTree = "<group>"; };
@@ -407,7 +407,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2200D97027C124FD00E63E89 /* Dynamic in Frameworks */,
+				2200D97027C124FD00E63E89 /* BuildFile in Frameworks */,
 				223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */,
 				B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */,
 			);
@@ -846,7 +846,6 @@
 		22C7F0D12416A16600534880 /* MQTTAnalyzerUITests */ = {
 			isa = PBXGroup;
 			children = (
-				2200D97C27C26A4200E63E89 /* app */,
 				224AFEB827B2CE7F00DFD09F /* extensions */,
 				2200D97A27C2675300E63E89 /* AbstractUITests.swift */,
 				227D987627B79FE100E45C4C /* BrokerTests.swift */,
@@ -951,7 +950,7 @@
 				2253F8CF22C8C007007E35A2 /* Frameworks */,
 				2253F8D022C8C007007E35A2 /* Resources */,
 				22C9F72D23B747E800892C4B /* ShellScript */,
-				404B39AD7B52428F2B0A48BF /* [CP] Embed Pods Frameworks */,
+				E5E6333FBC9D713242D1C693 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -959,7 +958,7 @@
 			);
 			name = MQTTAnalyzer;
 			packageProductDependencies = (
-				2200D96F27C124FD00E63E89 /* Dynamic */,
+				2200D96F27C124FD00E63E89 /* SwiftPackageProductDependency */,
 			);
 			productName = MQTTAnalyzer;
 			productReference = 2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */;
@@ -992,7 +991,7 @@
 				22C7F0CC2416A16600534880 /* Sources */,
 				22C7F0CD2416A16600534880 /* Frameworks */,
 				22C7F0CE2416A16600534880 /* Resources */,
-				47D836C4BA91802E21D84C6B /* [CP] Embed Pods Frameworks */,
+				A135683D35F54EB2DBA70F65 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1037,7 +1036,7 @@
 			);
 			mainGroup = 2253F8C922C8C007007E35A2;
 			packageReferences = (
-				2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */,
+				2200D96E27C124FD00E63E89 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
 			projectDirPath = "";
@@ -1096,40 +1095,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
-		404B39AD7B52428F2B0A48BF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		47D836C4BA91802E21D84C6B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6A9287672066301386910718 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1150,6 +1115,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A135683D35F54EB2DBA70F65 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A3F8F84469AB1B4601D0C5D3 /* [CP] Check Pods Manifest.lock */ = {
@@ -1194,6 +1176,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5E6333FBC9D713242D1C693 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1715,7 +1714,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */ = {
+		2200D96E27C124FD00E63E89 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mhdhejazi/Dynamic.git";
 			requirement = {
@@ -1726,9 +1725,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2200D96F27C124FD00E63E89 /* Dynamic */ = {
+		2200D96F27C124FD00E63E89 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */;
+			package = 2200D96E27C124FD00E63E89 /* RemoteSwiftPackageReference */;
 			productName = Dynamic;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -29,7 +29,7 @@ def shared_pods
 
 	pod 'SwiftLint'
 	
-	pod 'DSFFullTextSearchIndex', :git => 'https://github.com/dagronf/DSFFullTextSearchIndex', :tag => '1.1.0'
+	pod 'GRDB.swift', '5.21.0'
 end
 
 target 'MQTTAnalyzer' do

@@ -26,10 +26,25 @@ class SearchIndexTests: XCTestCase {
 
 		XCTAssertEqual(root.search(text: "some"), ["home/example/a"])
 		XCTAssertEqual(root.search(text: "another"), ["home/example/b"])
-		XCTAssertEqual(root.search(text: "message").sorted { $0 < $1 }, [
+		XCTAssertEqual(root.search(text: "message"), [
 			"home/example/a",
 			"home/example/b"
 		])
+	}
+	
+	func testClear() {
+		let root = TopicTree()
+		message(to: root, topic: "home/example/a", payload: "some message")
+		message(to: root, topic: "home/example/b", payload: "another message")
+
+		root.clear()
+		XCTAssertEqual(0, root.children.count)
+		
+		XCTAssertEqual(root.search(text: "some"), [])
+		XCTAssertEqual(root.search(text: "another"), [])
+		XCTAssertEqual(root.search(text: "message"), [])
+		
+		XCTAssertEqual(0, root.children.count)
 	}
 	
 	func testCaseInsensitive() {
@@ -79,5 +94,4 @@ class SearchIndexTests: XCTestCase {
 		let fans = root.addTopic(topic: "home/fans")!
 		XCTAssertEqual(fans.search(text: "ON").sorted { $0 < $1 }, ["home/fans/a"])
 	}
-	
 }
