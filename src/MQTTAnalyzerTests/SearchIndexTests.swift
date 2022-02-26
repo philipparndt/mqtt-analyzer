@@ -11,6 +11,7 @@ import XCTest
 
 class SearchIndexTests: XCTestCase {
 	func message(to: TopicTree, topic: String, payload: String) {
+		to.getIndex()?.execSync = true
 		XCTAssertNotNil(to.addMessage(
 			metadata: MsgMetadata.stub(),
 			payload: MsgPayload.from(text: payload),

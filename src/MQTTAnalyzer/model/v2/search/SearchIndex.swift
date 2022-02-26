@@ -35,26 +35,39 @@ class SearchIndex {
 		}
 	}
 	
+	// Not thread safe - just for unit testing
+	var execSync = false
+	
 	func add(message: MsgMessage) {
 		if !message.payload.isBinary {
-			DispatchQueue.background(background: {
-				let topic = message.topic.nameQualified
-				let payload = topic + " " + message.payload.dataString
-				
-				do {
-					try self.inMemoryDBQueue.write { db in
-						try db.execute(sql: "DELETE FROM message WHERE topic = :topic",
-									   arguments: ["topic": topic])
-					}
-					
-					try self.inMemoryDBQueue.write { db in
-						try Message(topic: topic, payload: payload).insert(db)
-					}
-				}
-				catch {
-					NSLog("Error adding message to index \(error)")
-				}
-			})
+			if execSync {
+				self.addToIndexNow(message: message)
+			}
+			else {
+				DispatchQueue.background(background: {
+					self.addToIndexNow(message: message)
+				})
+			}
+			
+		}
+	}
+	
+	func addToIndexNow(message: MsgMessage) {
+		let topic = message.topic.nameQualified
+		let payload = topic + " " + message.payload.dataString
+		
+		do {
+			try self.inMemoryDBQueue.write { db in
+				try db.execute(sql: "DELETE FROM message WHERE topic = :topic",
+							   arguments: ["topic": topic])
+			}
+			
+			try self.inMemoryDBQueue.write { db in
+				try Message(topic: topic, payload: payload).insert(db)
+			}
+		}
+		catch {
+			NSLog("Error adding message to index \(error)")
 		}
 	}
 	
