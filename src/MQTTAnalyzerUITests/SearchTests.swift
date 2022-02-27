@@ -74,7 +74,6 @@ class SearchTests: AbstractUITests {
 		let search = Search(app: app)
 		search.searchFor(text: "On")
 
-		
 		let center = nav.groupCell(topic: "hue/light/office/center")
 		let left = nav.groupCell(topic: "hue/light/office/left")
 		let right = nav.groupCell(topic: "hue/light/office/right")
