@@ -38,6 +38,13 @@ class TreeModelTests: XCTestCase {
 		XCTAssertIdentical(node, root.addTopic(topic: "home/hue/button/office"))
 	}
 	
+	func testGetTopic() throws {
+		let root = TopicTree()
+		let node = root.addTopic(topic: "home/hue/button/office")!
+		XCTAssertIdentical(node, root.getTopic(topic: "home/hue/button/office"))
+		XCTAssertNil(root.getTopic(topic: "home/hue/button/dining"))
+	}
+	
 	func testAddAnotherTopic() throws {
 		let root = TopicTree()
 		let button = root.addTopic(topic: "home/hue/button/office")!

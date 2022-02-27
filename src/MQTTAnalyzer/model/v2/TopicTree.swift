@@ -139,6 +139,10 @@ extension TopicTree {
 		return result
 	}
 	
+	func getTopic(topic: String) -> TopicTree? {
+		return addTopic(topic: topic, create: false)
+	}
+	
 	func addTopic(topic: String, create: Bool = true) -> TopicTree? {
 		let segments = topic.split(separator: "/").map { String($0) }
 		
