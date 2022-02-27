@@ -88,7 +88,7 @@ class SearchIndex {
 		do {
 			try inMemoryDBQueue.read { db in
 				let topics = try String.fetchAll(db,
-					  sql: "SELECT topic FROM message WHERE topic like ? AND payload MATCH ? ORDER by topic",
+					  sql: "SELECT DISTINCT topic FROM message WHERE topic like ? AND payload MATCH ? ORDER by topic",
 					  arguments: [
 						"\(topic)%",
 						text
