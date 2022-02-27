@@ -24,7 +24,9 @@ extension TopicTree {
 	
 	func addToIndex(message: MsgMessage) {
 		if let idx = getIndex() {
-			_ = idx.add(message: message)
+			idx.add(message: message, completion: {
+				message.topic.parent?.updateSearchResult()
+			})
 		}
 	}
 	

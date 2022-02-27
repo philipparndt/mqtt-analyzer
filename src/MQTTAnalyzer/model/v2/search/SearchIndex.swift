@@ -38,7 +38,7 @@ class SearchIndex {
 	// Not thread safe - just for unit testing
 	var execSync = false
 	
-	func add(message: MsgMessage) {
+	func add(message: MsgMessage, completion: @escaping (() -> Void)) {
 		if !message.payload.isBinary {
 			if execSync {
 				self.addToIndexNow(message: message)
@@ -46,6 +46,8 @@ class SearchIndex {
 			else {
 				DispatchQueue.background(background: {
 					self.addToIndexNow(message: message)
+				}, completion: {
+					completion()
 				})
 			}
 			
