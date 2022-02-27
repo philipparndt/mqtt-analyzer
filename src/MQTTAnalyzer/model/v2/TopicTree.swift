@@ -139,7 +139,7 @@ extension TopicTree {
 		return result
 	}
 	
-	func addTopic(topic: String) -> TopicTree? {
+	func addTopic(topic: String, create: Bool = true) -> TopicTree? {
 		let segments = topic.split(separator: "/").map { String($0) }
 		
 		var current = findRoot()
@@ -149,7 +149,7 @@ extension TopicTree {
 			let name = segments[pos]
 			var next = current.children[name]
 			if next == nil {
-				if topicLimitExceeded {
+				if topicLimitExceeded || !create {
 					return nil
 				}
 				

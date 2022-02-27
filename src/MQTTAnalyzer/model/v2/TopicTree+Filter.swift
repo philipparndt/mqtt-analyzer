@@ -26,7 +26,7 @@ extension TopicTree {
 		
 		searchResultDisplay = search(text: filterTextCleaned)
 			.map {
-				if let topic = addTopic(topic: $0) {
+				if let topic = addTopic(topic: $0, create: false) {
 					return topic
 				}
 				return nil
