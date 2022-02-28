@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: macos-12
+    runs-on: macOS-latest
 
     steps:
     - uses: actions/checkout@master
@@ -36,10 +36,11 @@ jobs:
       run: |
         fastlane ios tests
 
-    - name: macOS Tests
-      working-directory: src
-      run: |
-        fastlane mac tests
+    # no public macOS 12 runner available
+    #- name: macOS Tests
+    #  working-directory: src
+    #  run: |
+    #    fastlane mac tests
 
     - name: Stop ActiveMQ
       if: always()
