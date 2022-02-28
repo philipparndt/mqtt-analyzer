@@ -23,18 +23,28 @@ platform :ios do
     )
   end
 
+  lane :tests do
+    run_tests(scheme: "MQTTAnalyzer")
+  end
+
   lane :archive do
     gym()
-    #build_app(
-    #  workspace: "MQTTAnalyzer.xcworkspace", 
-    #  scheme: "MQTTAnalyzer"
-    #)
+  end
+
+  lane :upload do
     upload_to_app_store(
-      #username: "#{ENV['FASTLANE_USER']}",
+      username: "#{ENV['FASTLANE_USER']}",
       platform: "ios", 
       ipa: "MQTTAnalyzer.ipa",
+      force: true,
       skip_screenshots: true
     )
+  end
+
+  lane :publish do
+    tests()
+    archive()
+    upload()
   end
 
   lane :screenshots do
@@ -44,17 +54,35 @@ end
 
 platform :mac do
   desc "Build macOS"
+
+  lane :tests do
+    run_tests(
+      scheme: "MQTTAnalyzer",
+      destination: "platform=macOS,arch=x86_64,variant=Mac Catalyst"
+    )
+  end
+  
   lane :archive do
     gym(
       catalyst_platform: "macos",
       destination: "generic/platform=macOS,variant=Mac Catalyst",
     )
+  end
+
+  lane :upload do
     upload_to_app_store(
-      #username: "#{ENV['FASTLANE_USER']}",
+      username: "#{ENV['FASTLANE_USER']}",
       platform: "osx", 
       pkg: "MQTTAnalyzer.pkg",
+      force: true,
       skip_screenshots: true
     )
+  end
+
+  lane :publish do
+    # tests() # TODO: tests are not possible here, due to realm header issues. Tests have to run separately (done by the publish script).
+    archive()
+    upload()
   end
 
   lane :screenshots do

@@ -23,10 +23,34 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Build iOS
 
+### ios tests
+
+```sh
+[bundle exec] fastlane ios tests
+```
+
+
+
 ### ios archive
 
 ```sh
 [bundle exec] fastlane ios archive
+```
+
+
+
+### ios upload
+
+```sh
+[bundle exec] fastlane ios upload
+```
+
+
+
+### ios publish
+
+```sh
+[bundle exec] fastlane ios publish
 ```
 
 
@@ -44,13 +68,37 @@ Build iOS
 
 ## Mac
 
+### mac tests
+
+```sh
+[bundle exec] fastlane mac tests
+```
+
+Build macOS
+
 ### mac archive
 
 ```sh
 [bundle exec] fastlane mac archive
 ```
 
-Build macOS
+
+
+### mac upload
+
+```sh
+[bundle exec] fastlane mac upload
+```
+
+
+
+### mac publish
+
+```sh
+[bundle exec] fastlane mac publish
+```
+
+
 
 ### mac screenshots
 
