@@ -21,6 +21,6 @@ extension TopicTree {
 	}
 	
 	func delete(at offsets: IndexSet) {
-		
+		messages.remove(atOffsets: offsets)
 	}
 }
