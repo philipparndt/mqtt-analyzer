@@ -210,8 +210,8 @@ class HostsModel: ObservableObject {
 	}
 	
 	func getBroker(at offsets: IndexSet) -> Host? {
-		for idx in offsets {
-			return hostsSorted[idx]
+		if let first = offsets.first {
+			return hostsSorted[first]
 		}
 		return nil
 	}
