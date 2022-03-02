@@ -39,6 +39,7 @@ public class StubPersistence: Persistence {
 	}
 		
 	func update(_ host: Host) {
+		// Not supported for the stub model
 	}
 
 }
