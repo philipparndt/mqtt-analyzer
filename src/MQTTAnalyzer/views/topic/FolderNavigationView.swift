@@ -27,7 +27,7 @@ struct FolderNavigationView: View {
 					.foregroundColor(.secondary)
 			}
 			else {
-				ForEach(model.childrenDisplay) { child in
+				ForEach(model.childrenDisplay.sorted { $0.name < $1.name }) { child in
 					NavigationLink(destination: TopicsView(model: child, host: self.host)) {
 						FolderCellView(model: child)
 					}
