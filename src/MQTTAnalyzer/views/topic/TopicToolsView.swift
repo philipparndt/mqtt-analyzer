@@ -50,6 +50,6 @@ struct TopicsToolsView: View {
 	}
 	
 	private func noAction() {
-		
+		// this function should not execute anything
 	}
 }
