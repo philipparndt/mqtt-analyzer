@@ -29,52 +29,98 @@ struct TopicsView: View {
 			}
 			else {
 				List {
-					TopicsToolsView(model: self.model)
-					
-					Toggle("Flat", isOn: self.$model.flatView)
-						.accessibilityLabel("flatview")
-					
-					if !self.model.flatView {
-						FolderNavigationView(host: host, model: model)
+					if !self.model.filterText.isBlank {
+						HStack {
+							Text("Matches")
+							Spacer()
+							Text("\(model.searchResultDisplay.count)")
+						}
+						
+						Toggle("Whole word", isOn: self.$model.filterWholeWord)
+							.accessibilityLabel("whole-word")
+
+						Section(header: Text("Search result")) {
+							if model.searchResultDisplay.isEmpty {
+								HStack(alignment: .top) {
+									Image(systemName: "magnifyingglass")
+										.font(.largeTitle)
+										.foregroundColor(.secondary)
+									
+									VStack(alignment: .leading) {
+										Text("No matches with the current filter")
+										Text("")
+										
+										VStack(alignment: .leading) {
+											Text("Did you know, that by default only whole words are matching?" +
+												 "You can turn this off or use * as wildcard. With this, it is possible to distinct between 'on' and 'online'.")
+												.multilineTextAlignment(.leading)
+										}
+										.font(.subheadline)
+										.foregroundColor(.secondary)
+									}
+								}
+							}
+							else {
+								ForEach(model.searchResultDisplay) { result in
+									TopicCellView(
+										messages: result,
+										publishMessagePresented: self.$publishMessageModel.isPresented,
+										host: self.host,
+										selectMessage: self.selectMessage
+									)
+								}
+							}
+						}
 					}
-					
-					if self.model.flatView {
-						Section(header: Text("Messages (flat)")) {
-							ForEach(model.recusiveAllMessages) { messages in
+					else {
+						TopicsToolsView(model: self.model)
+
+						Toggle("Flat", isOn: self.$model.flatView)
+							.accessibilityLabel("flatview")
+
+						if !self.model.flatView {
+							FolderNavigationView(host: host, model: model)
+						}
+						
+						if self.model.flatView {
+							Section(header: Text("Messages (flat)")) {
+								ForEach(model.recusiveAllMessages) { messages in
+									TopicCellView(
+										messages: messages,
+										publishMessagePresented: self.$publishMessageModel.isPresented,
+										host: self.host,
+										selectMessage: self.selectMessage
+									)
+								}
+							}
+						}
+						else if !model.messages.isEmpty {
+							Section(header: Text("Message")) {
 								TopicCellView(
-									messages: messages,
+									messages: self.model,
 									publishMessagePresented: self.$publishMessageModel.isPresented,
 									host: self.host,
 									selectMessage: self.selectMessage
 								)
 							}
 						}
-					}
-					else if !model.messages.isEmpty {
-						Section(header: Text("Message")) {
-							TopicCellView(
-								messages: self.model,
-								publishMessagePresented: self.$publishMessageModel.isPresented,
-								host: self.host,
-								selectMessage: self.selectMessage
-							)
-						}
-					}
-					
-					if !self.model.flatView && !model.childrenWithMessages.isEmpty {
-						Section(header: Text("Inherited Message Groups")) {
-							ForEach(model.childrenWithMessages) { messages in
-								TopicCellView(
-									messages: messages,
-									publishMessagePresented: self.$publishMessageModel.isPresented,
-									host: self.host,
-									selectMessage: self.selectMessage
-								)
+						
+						if !self.model.flatView && !model.childrenWithMessages.isEmpty {
+							Section(header: Text("Inherited Message Groups")) {
+								ForEach(model.childrenWithMessages) { messages in
+									TopicCellView(
+										messages: messages,
+										publishMessagePresented: self.$publishMessageModel.isPresented,
+										host: self.host,
+										selectMessage: self.selectMessage
+									)
+								}
 							}
 						}
 					}
 				}
 				.searchable(text: $model.filterText)
+				.disableAutocorrection(true)
 				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
 					PublishMessageFormModalView(closeCallback: self.cancelDialog,
 												root: self.rootModel,

@@ -31,13 +31,16 @@ jobs:
         pod install
       shell: bash
     
-    - name: Test
+    - name: iOS Tests
       working-directory: src
       run: |
-        xcodebuild test -enableCodeCoverage YES \
-        -workspace MQTTAnalyzer.xcworkspace \
-        -scheme MQTTAnalyzer \
-        -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
+        fastlane ios tests
+
+    # no public macOS 12 runner available
+    #- name: macOS Tests
+    #  working-directory: src
+    #  run: |
+    #    fastlane mac tests
 
     - name: Stop ActiveMQ
       if: always()

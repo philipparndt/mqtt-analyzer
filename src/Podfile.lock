@@ -9,6 +9,9 @@ PODS:
     - Starscream (~> 3.1.1)
   - CodeEditor (1.2.0):
     - Highlightr
+  - GRDB.swift (5.21.0):
+    - GRDB.swift/standard (= 5.21.0)
+  - GRDB.swift/standard (5.21.0)
   - Highlightr (2.1.0)
   - IceCream (2.0.4):
     - RealmSwift (< 10.8.0)
@@ -26,6 +29,7 @@ DEPENDENCIES:
   - CocoaMQTT (from `https://github.com/emqx/CocoaMQTT.git`, tag `2.0.3-beta3`)
   - CocoaMQTT/WebSockets (from `https://github.com/emqx/CocoaMQTT.git`, tag `2.0.3-beta3`)
   - CodeEditor (from `https://github.com/ZeeZide/CodeEditor.git`)
+  - GRDB.swift (= 5.21.0)
   - Highlightr (from `https://github.com/raspu/Highlightr.git`, tag `2.1.2`)
   - IceCream (= 2.0.4)
   - RealmSwift (~> 10.7.0)
@@ -36,6 +40,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - CocoaAsyncSocket
+    - GRDB.swift
     - IceCream
     - Realm
     - RealmSwift
@@ -69,6 +74,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CocoaMQTT: e9cecd5fb62a87bce99620aa5ef977762afa016a
   CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
+  GRDB.swift: 09b2c81379f8949e1f6e2696f620bf15b7b9a051
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
   IceCream: 717d516a1c634eba8eaa8ce7d3d7bc5f7e40c2fa
   Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
@@ -78,6 +84,6 @@ SPEC CHECKSUMS:
   SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 51fb93c350d8c520b5ffd18a3458ea532c0370c3
+PODFILE CHECKSUM: 1d8798ed531dadfdd8a4394082aa4fb7e68c137a
 
 COCOAPODS: 1.10.1

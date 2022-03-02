@@ -16,9 +16,11 @@ class TopicTree: Identifiable, ObservableObject {
 	}
 
 	let parent: TopicTree?
+	let index: SearchIndex?
 	
 	var children: [String: TopicTree] = [:] {
 		didSet {
+			updateSearchResult()
 			updateChildrenToDisplay()
 			updateMessageCount()
 		}
@@ -29,6 +31,13 @@ class TopicTree: Identifiable, ObservableObject {
 	@Published var messageCountDisplay: Int = 0
 	@Published var topicCountDisplay: Int = 0
 	@Published var childrenDisplay: [TopicTree] = [] {
+		didSet {
+			if childrenDisplay.isEmpty && messages.isEmpty {
+				readState = Readstate(read: true)
+			}
+		}
+	}
+	@Published var searchResultDisplay: [TopicTree] = [] {
 		didSet {
 			if childrenDisplay.isEmpty && messages.isEmpty {
 				readState = Readstate(read: true)
@@ -54,22 +63,32 @@ class TopicTree: Identifiable, ObservableObject {
 
 	@Published var flatView = false
 	
+	@Published var filterWholeWord = true {
+		didSet {
+			updateSearchResult()
+		}
+	}
+	
 	var filterTextCleaned = ""
 	@Published var filterText = "" {
 		didSet {
 			filterTextCleaned = filterText.trimmingCharacters(in: [" "]).lowercased()
 			updateChildrenToDisplay()
+			updateSearchResult()
 		}
 	}
 	
 	init() {
 		self.name = "root"
 		self.parent = nil
+		self.index = SearchIndex()
 	}
 	
 	init(name: String, parent: TopicTree? = nil) {
 		self.name = name
 		self.parent = parent
+		self.index = nil
+		
 		self.parent?.children[name] = self
 	}
 	
@@ -120,7 +139,11 @@ extension TopicTree {
 		return result
 	}
 	
-	func addTopic(topic: String) -> TopicTree? {
+	func getTopic(topic: String) -> TopicTree? {
+		return addTopic(topic: topic, create: false)
+	}
+	
+	func addTopic(topic: String, create: Bool = true) -> TopicTree? {
 		let segments = topic.split(separator: "/").map { String($0) }
 		
 		var current = findRoot()
@@ -130,7 +153,7 @@ extension TopicTree {
 			let name = segments[pos]
 			var next = current.children[name]
 			if next == nil {
-				if topicLimitExceeded {
+				if topicLimitExceeded || !create {
 					return nil
 				}
 				
@@ -152,6 +175,8 @@ extension TopicTree {
 		if let node = addTopic(topic: topic) {
 			let message = MsgMessage(topic: node, payload: payload, metadata: metadata)
 			node.addMessage(message: message)
+			
+			addToIndex(message: message)
 			return message
 		}
 		else {

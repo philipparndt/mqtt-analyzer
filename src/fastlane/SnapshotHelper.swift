@@ -172,11 +172,11 @@ open class Snapshot: NSObject {
                 return
             }
 
+            var screenshot = XCUIScreen.main.screenshot()
             #if os(iOS) && !targetEnvironment(macCatalyst)
-			let screenshot = XCUIScreen.main.screenshot()
             let image = XCUIDevice.shared.orientation.isLandscape ?  fixLandscapeOrientation(image: screenshot.image) : screenshot.image
             #else
-			let screenshot = XCUIScreen.screens[1].screenshot()
+			screenshot = XCUIScreen.screens[1].screenshot()
             let image = screenshot.image
             #endif
 
@@ -229,8 +229,8 @@ open class Snapshot: NSObject {
         }
 
         let networkLoadingIndicator = app.otherElements.deviceStatusBars.networkLoadingIndicators.element
-        let networkLoadingIndicatorDisappeared =
-		XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: networkLoadingIndicator)
+        let networkLoadingIndicatorDisappeared = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"),
+																		   object: networkLoadingIndicator)
         _ = XCTWaiter.wait(for: [networkLoadingIndicatorDisappeared], timeout: timeout)
     }
 

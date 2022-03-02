@@ -8,29 +8,31 @@
 
 import Foundation
 
+struct SearchResult: Identifiable {
+	let id = UUID()
+	let topic: String
+}
+
 extension TopicTree {
 	func updateChildrenToDisplay() {
-		return childrenDisplay = Array(children.values
-			.filter { $0.matches(filter: filterTextCleaned) }
-			.sorted { $0.name < $1.name }
-		)
+		return childrenDisplay = Array(children.values)
 	}
 	
-	func matches(filter: String) -> Bool {
-		if filter.isEmpty {
-			return true
+	func updateSearchResult() {
+		if filterTextCleaned.isBlank {
+			searchResultDisplay = []
+			return
 		}
 		
-		if nameQualified.lowercased().contains(filter) {
-			return true
-		}
-		
-		for child in children.values {
-			if child.matches(filter: filter) {
-				return true
+		searchResultDisplay = search(text: filterTextCleaned)
+			.map {
+				if let topic = getTopic(topic: $0) {
+					return topic
+				}
+				return nil
 			}
-		}
-		
-		return false
+			.filter { $0 != nil }
+			.map { $0! }
 	}
+	
 }

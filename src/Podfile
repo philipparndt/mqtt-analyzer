@@ -28,6 +28,8 @@ def shared_pods
 	pod 'SwiftyJSON'
 
 	pod 'SwiftLint'
+	
+	pod 'GRDB.swift', '5.21.0'
 end
 
 target 'MQTTAnalyzer' do

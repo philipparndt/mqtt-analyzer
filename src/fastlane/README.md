@@ -15,13 +15,98 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
+### ios incbuild
+
+```sh
+[bundle exec] fastlane ios incbuild
+```
+
+Build iOS
+
+### ios tests
+
+```sh
+[bundle exec] fastlane ios tests
+```
+
+
+
+### ios archive
+
+```sh
+[bundle exec] fastlane ios archive
+```
+
+
+
+### ios upload
+
+```sh
+[bundle exec] fastlane ios upload
+```
+
+
+
+### ios publish
+
+```sh
+[bundle exec] fastlane ios publish
+```
+
+
+
 ### ios screenshots
 
 ```sh
 [bundle exec] fastlane ios screenshots
 ```
 
-Generate new localized screenshots
+
+
+----
+
+
+## Mac
+
+### mac tests
+
+```sh
+[bundle exec] fastlane mac tests
+```
+
+Build macOS
+
+### mac archive
+
+```sh
+[bundle exec] fastlane mac archive
+```
+
+
+
+### mac upload
+
+```sh
+[bundle exec] fastlane mac upload
+```
+
+
+
+### mac publish
+
+```sh
+[bundle exec] fastlane mac publish
+```
+
+
+
+### mac screenshots
+
+```sh
+[bundle exec] fastlane mac screenshots
+```
+
+
 
 ----
 

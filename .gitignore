@@ -6,8 +6,9 @@ build
 !*.xcodeproj/project.pbxproj
 !*.xcworkspace/contents.xcworkspacedata
 
-
+# Fastlane
 screenshots/
+test_output/
 
 ### Objective-C ###
 # OS X
