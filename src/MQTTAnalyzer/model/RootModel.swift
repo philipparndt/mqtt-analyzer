@@ -37,7 +37,12 @@ class RootModel: ObservableObject {
 			self.persistence = StubPersistence(model: hostsModel)
 		}
 		else {
-			self.persistence = RealmPersistence(model: hostsModel)
+			if let persistence = RealmPersistence(model: hostsModel) {
+				self.persistence = persistence
+			}
+			else {
+				self.persistence = StubPersistence(model: hostsModel)
+			}
 		}
 
 		self.persistence.load()

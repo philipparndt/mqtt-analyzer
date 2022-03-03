@@ -15,13 +15,26 @@ public class RealmPersistence: Persistence {
 	let realm: Realm
 	var token: NotificationToken?
 	
-	init(model: HostsModel) {
+	init?(model: HostsModel) {
 		self.model = model
-		self.realm = RealmPersistence.initRelam()
+		
+		if let realm = RealmPersistence.initRelam() {
+			self.realm = realm
+		}
+		else {
+			return nil
+		}
 	}
 	
-	class func initRelam() -> Realm {
-		return try! Realm()
+	class func initRelam() -> Realm? {
+		do {
+			return try Realm()
+		}
+		catch {
+			NSLog("Unable to initialize persistence, using stub persistence.")
+			return nil
+		}
+		
 	}
 	
 	func create(_ host: Host) {
