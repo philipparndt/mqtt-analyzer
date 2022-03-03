@@ -9,7 +9,6 @@
 import Foundation
 import RealmSwift
 
-// swiftlint:disable force_try
 public class RealmPersistence: Persistence {
 	let model: HostsModel
 	let realm: Realm
