@@ -44,7 +44,7 @@ jobs:
       run: |
         ci/stop-active-mq.mjs
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: screenshots
         path: screenshots/**/*.png
