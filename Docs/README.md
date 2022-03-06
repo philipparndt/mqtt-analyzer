@@ -45,9 +45,15 @@ https://testflight.apple.com/join/dsvlFCPU
 ![macOS Screenshot 1](macos-screenshot-1.png)
 ![macOS Screenshot 2](macos-screenshot-2.png)
 
-# AWS Iot
+# Examples
 
-see [Create a certificate for AWS IoT](AWS-IoT.md)
+## AWS Iot
+
+see [Create a certificate for AWS IoT](examples/aws/README)
+
+## Traefik + Mosquitto + Let's Encrypt
+
+see [Traefik + Mosquitto + Let's Encrypt](examples/traefik-tls/README)
 
 # Developer notes
 

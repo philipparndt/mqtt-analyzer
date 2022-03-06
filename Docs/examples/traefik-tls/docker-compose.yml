@@ -1,0 +1,57 @@
+version: "3.3"
+
+services:
+
+  traefik:
+    image: "traefik:v2.4"
+    container_name: "traefik"
+    command:
+      - "--log.level=DEBUG"
+      - "--api=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+
+        # Entrypoints
+      - "--entrypoints.websocket.address=:443"
+      - "--entrypoints.mqtt.address=:1883"
+
+        # Let's encrypt configuration
+      - "--certificatesresolvers.myresolver.acme.dnsChallenge=true"
+      - "--certificatesresolvers.myresolver.acme.dnsChallenge.provider=ionos"
+      - "--certificatesresolvers.myresolver.acme.email=mail@example.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.myresolver.acme.caServer=https://acme-v02.api.letsencrypt.org/directory"
+      
+      # Use staging server for test only (API rate limit not affected, but will not return vaild certificates)
+      #- "--certificatesresolvers.myresolver.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory"
+
+    environment:
+      - IONOS_API_KEY=prefix.api_key
+    ports:
+      - "443:443"
+      - "1883:1883"
+
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  mqtt:
+    image: "eclipse-mosquitto"
+    container_name: "mosquitto"
+    expose:
+      - "1883"
+      - "9001"
+    volumes:
+      - ./config/mosquitto:/mosquitto/config/
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mqtt_websocket.rule=Host(`mqtt.example.com`)"
+      - "traefik.http.routers.mqtt_websocket.entrypoints=websocket"
+      - "traefik.http.routers.mqtt_websocket.tls.certresolver=myresolver"
+      - "traefik.http.services.mqtt_websocket.loadbalancer.server.port=9001"
+      
+      - "traefik.tcp.services.mqtt.loadbalancer.server.port=1883"
+      - "traefik.tcp.routers.mqtt.entrypoints=mqtt"
+      - "traefik.tcp.routers.mqtt.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.mqtt.service=mqtt"
+ 
