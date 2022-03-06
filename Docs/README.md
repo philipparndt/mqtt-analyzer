@@ -49,11 +49,11 @@ https://testflight.apple.com/join/dsvlFCPU
 
 ## AWS Iot
 
-see [Create a certificate for AWS IoT](./Docs/examples/aws)
+see [Create a certificate for AWS IoT](./examples/aws)
 
 ## Traefik + Mosquitto + Let's Encrypt
 
-see [Traefik + Mosquitto + Let's Encrypt](./Docs/examples/traefik-tls)
+see [Traefik + Mosquitto + Let's Encrypt](./examples/traefik-tls)
 
 # Developer notes
 
