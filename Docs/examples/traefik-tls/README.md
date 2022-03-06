@@ -33,7 +33,8 @@ see [providers](https://doc.traefik.io/traefik/https/acme/#providers)
 ### Username/password
 
 This example uses `admin` / `password` as credentials for the login. 
-You should change this when using it in production. 
+You should change this when using it in production.
+
 The password file is `./config/mosquitto/mosquitto.password`.
 
 ## Settings in MQTTAnalyzer
