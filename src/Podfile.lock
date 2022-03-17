@@ -22,7 +22,7 @@ PODS:
     - Realm (= 10.7.7)
   - Starscream (3.1.1)
   - swift-petitparser (1.2.1)
-  - SwiftLint (0.45.1)
+  - SwiftLint (0.46.5)
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
@@ -64,7 +64,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/emqx/CocoaMQTT.git
     :tag: 2.0.3-beta3
   CodeEditor:
-    :commit: 1789640c6c8d0bec8cf84eb2b93b7e8ac3055c7e
+    :commit: 39f457f9ddeb5ee27a7dc035e9c9c8c40be25c37
     :git: https://github.com/ZeeZide/CodeEditor.git
   Highlightr:
     :git: https://github.com/raspu/Highlightr.git
@@ -81,7 +81,7 @@ SPEC CHECKSUMS:
   RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
-  SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
+  SwiftLint: 2c16e8fa99dac2e440dc0c70ea74d2532048f6cf
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
 PODFILE CHECKSUM: 1d8798ed531dadfdd8a4394082aa4fb7e68c137a
