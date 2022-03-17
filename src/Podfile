@@ -18,10 +18,9 @@ def shared_pods
 	
 	#pod 'CocoaMQTT', :path => '~/dev/oss/CocoaMQTT'
 	#pod 'CocoaMQTT/WebSockets', :path => '~/dev/oss/CocoaMQTT'
-	
 
-	pod 'RealmSwift', '~> 10.7.0'
-	pod 'IceCream', '2.0.4'
+	pod 'RealmSwift', '~> 10.24.0'
+	pod 'IceCream', :git => 'https://github.com/philipparndt/IceCream.git', :tag => '2.1.0-realm10.24'
 
 	pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git', :tag => '2.1.2'
 	

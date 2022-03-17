@@ -10,13 +10,13 @@ PODS:
     - GRDB.swift/standard (= 5.22.2)
   - GRDB.swift/standard (5.22.2)
   - Highlightr (2.1.0)
-  - IceCream (2.0.4):
-    - RealmSwift (< 10.8.0)
-  - Realm (10.7.7):
-    - Realm/Headers (= 10.7.7)
-  - Realm/Headers (10.7.7)
-  - RealmSwift (10.7.7):
-    - Realm (= 10.7.7)
+  - IceCream (2.1.0):
+    - RealmSwift (~> 10.24)
+  - Realm (10.24.2):
+    - Realm/Headers (= 10.24.2)
+  - Realm/Headers (10.24.2)
+  - RealmSwift (10.24.2):
+    - Realm (= 10.24.2)
   - swift-petitparser (1.2.1)
   - SwiftLint (0.47.0)
   - SwiftyJSON (5.0.1)
@@ -27,8 +27,8 @@ DEPENDENCIES:
   - CodeEditor (from `https://github.com/ZeeZide/CodeEditor.git`)
   - GRDB.swift (= 5.22.2)
   - Highlightr (from `https://github.com/raspu/Highlightr.git`, tag `2.1.2`)
-  - IceCream (= 2.0.4)
-  - RealmSwift (~> 10.7.0)
+  - IceCream (from `https://github.com/philipparndt/IceCream.git`, tag `2.1.0-realm10.24`)
+  - RealmSwift (~> 10.24.0)
   - swift-petitparser
   - SwiftLint
   - SwiftyJSON
@@ -36,7 +36,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - GRDB.swift
-    - IceCream
     - Realm
     - RealmSwift
     - swift-petitparser
@@ -52,6 +51,9 @@ EXTERNAL SOURCES:
   Highlightr:
     :git: https://github.com/raspu/Highlightr.git
     :tag: 2.1.2
+  IceCream:
+    :git: https://github.com/philipparndt/IceCream.git
+    :tag: 2.1.0-realm10.24
 
 CHECKOUT OPTIONS:
   CocoaMQTT:
@@ -63,19 +65,22 @@ CHECKOUT OPTIONS:
   Highlightr:
     :git: https://github.com/raspu/Highlightr.git
     :tag: 2.1.2
+  IceCream:
+    :git: https://github.com/philipparndt/IceCream.git
+    :tag: 2.1.0-realm10.24
 
 SPEC CHECKSUMS:
   CocoaMQTT: 81138efdeb80613387a26bb4809e36c4d7d4b074
   CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
   GRDB.swift: aa11d3b2fc6243ce8b5573d7bfa75a89093d1ee0
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
-  IceCream: 717d516a1c634eba8eaa8ce7d3d7bc5f7e40c2fa
-  Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
-  RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
+  IceCream: 89ad67d52db2b266eb22e054708f6d6ea2f06234
+  Realm: c8421eee9ff92b16b4f91a313b5cc695c37c1921
+  RealmSwift: 10ed6fa09c36aaaff55e12afdc71802ec3ddb1c0
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 6f9396ab7323e4e6381886ede5adde1db5edecef
+PODFILE CHECKSUM: 84d580013f554c183358f639d1a693693b9e3449
 
 COCOAPODS: 1.11.3

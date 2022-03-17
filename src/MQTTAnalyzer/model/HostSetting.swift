@@ -34,40 +34,36 @@ struct NavigationModeType {
 }
 
 class HostSetting: Object {
-	@objc dynamic var id = NSUUID().uuidString
-	@objc dynamic var alias = ""
-	@objc dynamic var hostname = ""
-	@objc dynamic var port: Int32 = 1883
+	@Persisted(primaryKey: true) var id = NSUUID().uuidString
+	@Persisted var alias = ""
+	@Persisted var hostname = ""
+	@Persisted var port: Int32 = 1883
 
-	@objc dynamic var subscriptions: Data = Data()
+	@Persisted var subscriptions: Data = Data()
 
-	@objc dynamic var protocolMethod: Int8 = ConnectionMethod.mqtt
-	@objc dynamic var basePath: String = ""
-	@objc dynamic var ssl: Bool = false
-	@objc dynamic var untrustedSSL: Bool = false
+	@Persisted var protocolMethod: Int8 = ConnectionMethod.mqtt
+	@Persisted var basePath: String = ""
+	@Persisted var ssl: Bool = false
+	@Persisted var untrustedSSL: Bool = false
 	
-	@objc dynamic var clientImplType: Int8 = ClientImplType.cocoamqtt
+	@Persisted var clientImplType: Int8 = ClientImplType.cocoamqtt
 	
-	@objc dynamic var authType: Int8 = AuthenticationType.none
-	@objc dynamic var username: String = ""
-	@objc dynamic var password: String = ""
+	@Persisted var authType: Int8 = AuthenticationType.none
+	@Persisted var username: String = ""
+	@Persisted var password: String = ""
 	
-	@objc dynamic var certificates: Data = Data()
-	@objc dynamic var certClientKeyPassword: String = ""
+	@Persisted var certificates: Data = Data()
+	@Persisted var certClientKeyPassword: String = ""
 
-	@objc dynamic var clientID = Host.randomClientId()
+	@Persisted var clientID = Host.randomClientId()
 
-	@objc dynamic var limitTopic = 250
-	@objc dynamic var limitMessagesBatch = 1000
+	@Persisted var limitTopic = 250
+	@Persisted var limitMessagesBatch = 1000
 
-	@objc dynamic var navigationMode: Int8 = NavigationModeType.folders
-	@objc dynamic var maxMessagesOfSubFolders = 10
+	@Persisted var navigationMode: Int8 = NavigationModeType.folders
+	@Persisted var maxMessagesOfSubFolders = 10
 	
-	@objc dynamic var isDeleted = false
-	
-	override class func primaryKey() -> String? {
-		return "id"
-	}
+	@Persisted var isDeleted = false
 }
 
 extension Host {
