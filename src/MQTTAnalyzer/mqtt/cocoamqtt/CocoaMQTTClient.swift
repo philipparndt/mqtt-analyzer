@@ -255,19 +255,30 @@ class MqttClientCocoaMQTT: MqttClient {
 	}
 	
 	func extractErrorMessage(error: Error) -> String {
-		if (error as NSError).code == 8 {
+		let code = (error as NSError).code
+		
+		switch code {
+		case 8:
 			return "Invalid hostname.\n\(error.localizedDescription)"
-		}
-		else {
+		case -9807:
+			if host.protocolMethod == .mqtt {
+				return "Invalid certificate chain.\nTry to switch to WebSockets (with better SSL support) or check your certificates."
+			}
+			else {
+				return "Invalid certificate chain"
+			}
+		default:
 			return error.localizedDescription
 		}
 	}
-	
+
 	func didDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname)")
 
 		if err != nil {
-			connectionState.message = extractErrorMessage(error: err!)
+			let messgae = extractErrorMessage(error: err!)
+			
+			connectionState.message = messgae
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
