@@ -11,15 +11,23 @@ import SwiftUI
 
 struct TopicsFormView: View {
 	@Binding var host: HostFormModel
-	@State var lastCreated: TopicSubscriptionFormModel?
-	
+
+	@State private var selection: String? = nil
+
 	var body: some View {
 		return Section(header: Text("Subscribe to")) {
 			List {
 				ForEach(host.subscriptions) { subscription in
-					TopicCell(subscription: subscription,
-							  deletionHandler: self.deleteSubscription,
-							  active: self.lastCreated === subscription)
+					NavigationLink(destination: SubscriptionDetailsView(subscription: subscription, deletionHandler: deleteSubscription),
+						   tag: subscription.id,
+						   selection: $selection) {
+						Group {
+							Text(subscription.topic)
+								.font(.body)
+								.foregroundColor(.secondary)
+						}
+					}
+					
 				}
 				.onDelete(perform: self.delete)
 				
@@ -35,13 +43,15 @@ struct TopicsFormView: View {
 	}
 	
 	func delete(at offsets: IndexSet) {
-		lastCreated = nil
 		host.subscriptions.remove(atOffsets: offsets)
 	}
 	
 	func addSubscription() {
 		let model = TopicSubscriptionFormModel(topic: "#", qos: 0)
-		lastCreated = model
 		host.subscriptions.append(model)
+		
+		ViewSelection.update(newValue: model.id) { id in
+			selection = id
+		}
 	}
 }
