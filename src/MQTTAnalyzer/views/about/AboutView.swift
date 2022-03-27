@@ -34,7 +34,7 @@ Thank you! This project would not be possible without your great work! Thanks fo
 
 **Contributors**
 [Ulrich Frank](https://github.com/UlrichFrank), [Ricardo Pereira](https://github.com/visnaut), [AndreCouture](https://github.com/AndreCouture), [RoSchmi](https://github.com/RoSchmi),
-	[Xploder](https://github.com/Xploder)
+[Xploder](https://github.com/Xploder), [Ed Gauthier](https://github.com/edgauthier)
 
 **Dependencies**
 [CocoaMQTT](https://github.com/emqx/CocoaMQTT), [CocoaAsyncSocket](https://github.com/robbiehanson/CocoaAsyncSocket), [Starscream](https://github.com/daltoniam/Starscream), [RealmSwift](https://realm.io/docs/swift/latest/), [IceCream](https://github.com/caiyue1993/IceCream), [Highlightr](https://github.com/raspu/Highlightr), [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), [swift-petitparser](https://github.com/philipparndt/swift-petitparser)
