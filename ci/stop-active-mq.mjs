@@ -1,6 +1,6 @@
 #!/usr/bin/env zx
 try {
-    await $`/usr/local/opt/activemq/bin/activemq stop`
+    await $`brew services stop mosquitto`
 }
 catch (e) {
     console.log("Error stopping ActiveMQ")
