@@ -15,21 +15,24 @@ class ReadStateTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
+		let id = "testMarkRead/"
 
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()
-		examples.publish()
+
 		brokers.start(alias: alias)
-		
+		examples.publish(prefix: id)
+
 		let nav = Navigation(app: app, alias: alias)
-		let home = nav.getReadMarker(topic: "home")
-		let hue = nav.getReadMarker(topic: "hue")
+		nav.navigate(to: "\(id)")
+		let home = nav.getReadMarker(topic: "\(id)home")
+		let hue = nav.getReadMarker(topic: "\(id)hue")
 		awaitAppear(element: home)
 		awaitAppear(element: hue)
 
-		nav.navigate(to: "hue/light")
-		let office = nav.getReadMarker(topic: "hue/light/office")
-		let kitchen = nav.getReadMarker(topic: "hue/light/office")
+		nav.navigate(to: "\(id)hue/light")
+		let office = nav.getReadMarker(topic: "\(id)hue/light/office")
+		let kitchen = nav.getReadMarker(topic: "\(id)hue/light/office")
 		
 		XCTAssertTrue(office.firstMatch.exists)
 		XCTAssertTrue(kitchen.firstMatch.exists)
@@ -39,11 +42,11 @@ class ReadStateTests: AbstractUITests {
 		awaitDisappear(element: office)
 		awaitDisappear(element: kitchen)
 
-		nav.navigate(to: "hue")
-		let light = nav.getReadMarker(topic: "hue/light")
+		nav.navigate(to: "\(id)hue")
+		let light = nav.getReadMarker(topic: "\(id)hue/light")
 		XCTAssertFalse(light.exists)
 		
-		nav.navigate(to: "")
+		nav.navigate(to: "\(id)")
 		XCTAssertTrue(home.exists)
 		XCTAssertFalse(hue.exists)
 	}
@@ -53,21 +56,24 @@ class ReadStateTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
+		let id = "testClear/"
 
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()
-		examples.publish()
+
 		brokers.start(alias: alias)
-		
+		examples.publish(prefix: id)
+
 		let nav = Navigation(app: app, alias: alias)
-		let homeFolder = nav.folderCell(topic: "home")
+		nav.navigate(to: id)
+		let homeFolder = nav.folderCell(topic: "\(id)home")
 		awaitAppear(element: homeFolder.staticTexts["7/7"])
 
-		nav.navigate(to: "home")
+		nav.navigate(to: "\(id)home")
 		MessageTopicUtils.clearAll(app: app)
 		
-		nav.navigate(to: "")
-		let home = nav.getReadMarker(topic: "home")
+		nav.navigate(to: id)
+		let home = nav.getReadMarker(topic: "\(id)home")
 		XCTAssertTrue(homeFolder.staticTexts["0/0"].exists)
 			XCTAssertFalse(home.exists)
 	}

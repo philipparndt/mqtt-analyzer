@@ -14,15 +14,17 @@ class FlatViewTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
-
+		let id = "testFlatView/"
+		
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()
-		examples.publish()
 		brokers.start(alias: alias)
-		let nav = Navigation(app: app, alias: alias)
-		nav.navigate(to: "home")
+		examples.publish(prefix: id)
 		
-		let cell = nav.groupCell(topic: "home/contacts/frontdoor")
+		let nav = Navigation(app: app, alias: alias)
+		nav.navigate(to: "\(id)home")
+		
+		let cell = nav.groupCell(topic: "\(id)home/contacts/frontdoor")
 		
 		awaitDisappear(element: cell)
 		nav.flatView()

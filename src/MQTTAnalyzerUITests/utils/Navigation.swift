@@ -73,7 +73,9 @@ class Navigation {
 	}
 	
 	func folderCell(topic: String) -> XCUIElement {
-		return app.cells["folder: \(topic)"]
+		let cell = app.cells["folder: \(topic)"]
+		XCTAssertTrue(cell.waitForExistence(timeout: 4))
+		return cell
 	}
 	
 	func flatView() {

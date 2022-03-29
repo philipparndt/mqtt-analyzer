@@ -40,7 +40,7 @@ class MQTTCLient {
 			topic: topic,
 			string: payload,
 			qos: CocoaMQTTQoS.qos2,
-			retained: true)
+			retained: false)
 		)
 	}
 }
@@ -57,34 +57,34 @@ class ExampleMessages {
 						.replacingOccurrences(of: "\n", with: ""))
 	}
 	
-	func publish() {
-		publish("home/sensors/water", "{\"temperature\":50.5}")
+	func publish(prefix: String) {
+		publish("\(prefix)home/sensors/water", "{\"temperature\":50.5}")
 
-		publish("hue/light/kitchen/coffee-spot",
+		publish("\(prefix)hue/light/kitchen/coffee-spot",
 				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":366}")
-		publish("hue/light/kitchen/kitchen-1",
+		publish("\(prefix)hue/light/kitchen/kitchen-1",
 				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
-		publish("hue/light/kitchen/kitchen-2",
+		publish("\(prefix)hue/light/kitchen/kitchen-2",
 				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
-		publish("hue/light/kitchen/kitchen-3",
+		publish("\(prefix)hue/light/kitchen/kitchen-3",
 				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
-		publish("hue/light/kitchen/kitchen-4",
+		publish("\(prefix)hue/light/kitchen/kitchen-4",
 				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
-		publish("hue/light/kitchen/kitchen-5",
+		publish("\(prefix)hue/light/kitchen/kitchen-5",
 				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
 
-		publish("hue/light/office/left",
+		publish("\(prefix)hue/light/office/left",
 				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":230}")
-		publish("hue/light/office/center",
+		publish("\(prefix)hue/light/office/center",
 				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":233}")
-		publish("hue/light/office/right",
+		publish("\(prefix)hue/light/office/right",
 				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":230}")
 
-		publish("home/sensors/air/in",
+		publish("\(prefix)home/sensors/air/in",
 				"{\"temperature\":21.5625}")
-		publish("home/sensors/air/out",
+		publish("\(prefix)home/sensors/air/out",
 				"{\"temperature\":23.1875}")
-		publish("home/sensors/bathroom/temperature",
+		publish("\(prefix)home/sensors/bathroom/temperature",
 """
 {
 	"battery": 97,
@@ -96,7 +96,7 @@ class ExampleMessages {
 }
 """)
 		
-		publish("home/contacts/frontdoor",
+		publish("\(prefix)home/contacts/frontdoor",
 """
 {
 	"battery": 91,
@@ -106,7 +106,7 @@ class ExampleMessages {
 }
 """)
 
-		publish("home/dishwasher/000123456789",
+		publish("\(prefix)home/dishwasher/000123456789",
 """
 {
 	"phase": "DRYING",
@@ -118,7 +118,7 @@ class ExampleMessages {
 }
 """)
 		
-		publish("home/dishwasher/000123456789/full",
+		publish("\(prefix)home/dishwasher/000123456789/full",
 """
 {
 	"ident": {

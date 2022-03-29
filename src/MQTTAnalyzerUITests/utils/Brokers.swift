@@ -109,12 +109,30 @@ class Brokers {
 		app.buttons["Save"].tap()
 	}
 	
-	func start(alias: String) {
+	func start(alias: String, waitConnected: Bool = true) {
 		borkerCell(of: alias).tap()
 		
 		#if targetEnvironment(macCatalyst)
 		app.buttons["Play"].tap()
 		#endif
+		
+		if waitConnected {
+			let flatView: XCUIElement
+			#if targetEnvironment(macCatalyst)
+			flatView = app.checkBoxes["flatview"]
+			#else
+			flatView = app.switches["flatview"]
+			#endif
+			for _ in (0 ... 3) {
+				if flatView.waitForExistence(timeout: 1) {
+					return
+				}
+				if self.app.staticTexts["wait_messages"]
+					.waitForExistence(timeout: 2) {
+					return
+				}
+			}
+		}
 	}
 	
 	func borkerCell(of alias: String) -> XCUIElement {

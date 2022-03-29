@@ -26,12 +26,12 @@ class PublishDialog {
 	func fill(topic: String, message: String) {
 		let topicText = app.textFields["topic"]
 		topicText.tap()
-		topicText.clearAndEnterText(text: "topic")
+		topicText.clearAndEnterText(text: topic)
 		
-		let message = app.textViews["textbox"]
-		XCTAssertTrue(message.waitForExistence(timeout: 2))
-		message.tap()
-		message.typeText("msg")
+		let messageView = app.textViews["textbox"]
+		XCTAssertTrue(messageView.waitForExistence(timeout: 2))
+		messageView.tap()
+		messageView.typeText(message)
 	}
 	
 }
