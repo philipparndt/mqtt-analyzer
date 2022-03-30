@@ -9,12 +9,11 @@
 import XCTest
 
 class SearchTests: AbstractUITests {
-	func testSearch() {
+	func startSearch(id: String) -> Navigation {
 		let brokers = Brokers(app: app)
 		
 		let hostname = "localhost"
 		let alias = "Example"
-		let id = "testSearch/"
 		
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()
@@ -24,6 +23,13 @@ class SearchTests: AbstractUITests {
 
 		let nav = Navigation(app: app, alias: alias)
 		nav.navigate(to: "\(id)home")
+		
+		return nav
+	}
+	
+	func testSearch() {
+		let id = "testSearch/"
+		let nav = startSearch(id: id)
 		
 		let cell = nav.groupCell(topic: "\(id)home/dishwasher/000123456789")
 		awaitDisappear(element: cell)
@@ -35,20 +41,8 @@ class SearchTests: AbstractUITests {
 	}
 	
 	func testToggleWholeWord() {
-		let brokers = Brokers(app: app)
-		
-		let hostname = "localhost"
-		let alias = "Example"
 		let id = "testToggleWholeWord/"
-
-		let examples = ExampleMessages(hostname: hostname)
-		app.launch()
-
-		brokers.start(alias: alias)
-		examples.publish(prefix: id)
-
-		let nav = Navigation(app: app, alias: alias)
-		nav.navigate(to: "\(id)home")
+		let nav = startSearch(id: id)
 		
 		let cell = nav.groupCell(topic: "\(id)home/dishwasher/000123456789")
 		awaitDisappear(element: cell)
