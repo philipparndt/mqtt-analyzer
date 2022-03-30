@@ -4,5 +4,5 @@ try {
     await $`brew services start mosquitto`
 }
 catch (e) {
-    console.log("Error stopping ActiveMQ")
+    console.log("Error stopping Mosquitto")
 }

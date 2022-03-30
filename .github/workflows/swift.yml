@@ -17,9 +17,9 @@ jobs:
       run: |
         npm install -g zx
 
-    - name: Install ActiveMQ
+    - name: Install Mosquitto
       run: |
-        ci/start-active-mq.mjs
+        ci/start-mosquitto.mjs
 
     - name: Set XCode Version
       run: sudo xcode-select -s /Applications/Xcode_13.2.app
@@ -42,7 +42,7 @@ jobs:
     #  run: |
     #    fastlane mac tests
 
-    - name: Stop ActiveMQ
+    - name: Stop Mosquitto
       if: always()
       run: |
-        ci/stop-active-mq.mjs
+        ci/stop-mosquitto.mjs
