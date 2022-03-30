@@ -20,7 +20,7 @@ class Brokers {
 			XCTFail("Expected to be on the broker page")
 		}
 		
-		let broker = borkerCell(of: alias)
+		let broker = brokerCell(of: alias)
 		if broker.exists {
 			#if targetEnvironment(macCatalyst)
 			app.launchMenuAction(
@@ -67,7 +67,7 @@ class Brokers {
 	
 	func edit(alias oldName: String, broker: Broker) {
 		app.launchMenuAction(
-			on: borkerCell(of: oldName),
+			on: brokerCell(of: oldName),
 			label: "Edit"
 		)
 		
@@ -86,7 +86,7 @@ class Brokers {
 	
 	func createBasedOn(alias oldName: String, broker: Broker) {
 		app.launchMenuAction(
-			on: borkerCell(of: oldName),
+			on: brokerCell(of: oldName),
 			label: "Create new based on this"
 		)
 		
@@ -110,7 +110,7 @@ class Brokers {
 	}
 	
 	func start(alias: String, waitConnected: Bool = true) {
-		borkerCell(of: alias).tap()
+		brokerCell(of: alias).tap()
 		
 		#if targetEnvironment(macCatalyst)
 		app.buttons["Play"].tap()
@@ -135,7 +135,7 @@ class Brokers {
 		}
 	}
 	
-	func borkerCell(of alias: String) -> XCUIElement {
+	func brokerCell(of alias: String) -> XCUIElement {
 		return app.cells["broker: \(alias)"]
 	}
 }
