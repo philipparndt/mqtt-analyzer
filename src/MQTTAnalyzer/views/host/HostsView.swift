@@ -24,7 +24,6 @@ struct HostsView: View {
 	@State var selectedHost: Host?
 	@State var sheetState = ServerPageSheetState()
 	@State var searchText: String = ""
-	@State private var confirmDelete = ConfirmDeleteBroker()
 
 	var body: some View {
 		buildView()
@@ -43,8 +42,6 @@ struct HostsView: View {
 									 cloneHostHandler: self.cloneHost)
 							.accessibilityLabel("broker: \(host.aliasOrHost)")
 					}
-					.onDelete(perform: self.delete)
-					
 				}.searchable(text: $searchText)
 			}
 			.navigationBarTitleDisplayMode(.inline)
@@ -63,11 +60,6 @@ struct HostsView: View {
 				}
 			}
 		}
-		.confirmationDialog("Are you shure you want to delete the broker setting?", isPresented: $confirmDelete.isPresented, actions: {
-			Button("Delete", role: .destructive) {
-				deleteBroker()
-			}
-		})
 		.sheet(isPresented: $presented, onDismiss: { self.presented=false}, content: {
 			HostsViewSheetDelegate(model: self.model,
 								   hostsModel: self.hostsModel,
@@ -91,18 +83,7 @@ struct HostsView: View {
 			return hostsModel.hostsSorted.filter { $0.aliasOrHost.lowercased().contains(searchFor) }
 		}
 	}
-	
-	func deleteBroker() {
-		if let broker = confirmDelete.broker {
-			hostsModel.delete(broker, persistence: model.persistence)
-		}
-	}
-	
-	func delete(at indexSet: IndexSet) {
-		confirmDelete.broker = hostsModel.getBroker(at: indexSet)
-		confirmDelete.isPresented = true
-	}
-	
+		
 	func createHost() {
 		sheetType = .createHost
 		selectedHost = nil

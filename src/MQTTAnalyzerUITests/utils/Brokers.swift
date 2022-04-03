@@ -20,18 +20,12 @@ class Brokers {
 			XCTFail("Expected to be on the broker page")
 		}
 		
-		let broker = brokerCell(of: alias)
-		if broker.exists {
-			#if targetEnvironment(macCatalyst)
-			app.launchMenuAction(
-				on: broker,
-				label: "Delete broker"
-			)
-			#else
-			broker.swipeLeft()
-			app.buttons["Delete"].tap()
-			#endif
-		}
+		app.launchMenuAction(
+			on: brokerCell(of: alias),
+			label: "Edit"
+		)
+		
+		app.buttons["delete-broker"].tap()
 	}
 	
 	func confirmDelete() {
@@ -42,8 +36,9 @@ class Brokers {
 		#if targetEnvironment(macCatalyst)
 		app.typeKey("\u{1B}", modifierFlags: [])
 		#else
-		app.buttons["Cancel"].tap()
+		app.staticTexts["Port"].tap()
 		#endif
+		app.buttons["Cancel"].tap()
 	}
 	
 	func create(broker: Broker) {

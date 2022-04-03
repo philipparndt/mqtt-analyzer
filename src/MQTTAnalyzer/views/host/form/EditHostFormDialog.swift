@@ -26,7 +26,7 @@ struct EditHostFormModalView: View {
 
 	var body: some View {
 		NavigationView {
-			EditHostFormView(host: $host)
+			EditHostFormView(onDelete: delete, host: $host)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
 				.navigationTitle("Edit broker")
@@ -53,6 +53,13 @@ struct EditHostFormModalView: View {
 		
 		DispatchQueue.main.async {
 			self.root.persistence.update(updated!)
+			self.closeHandler()
+		}
+	}
+	
+	func delete() {
+		DispatchQueue.main.async {
+			self.root.persistence.delete(original)
 			self.closeHandler()
 		}
 	}

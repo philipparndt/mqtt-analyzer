@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct EditHostFormView: View {
+	var onDelete: () -> Void
 	@Binding var host: HostFormModel
 	@State var advanced = false
+	@State var confirmDelete = false
 	
 	var body: some View {
 		Form {
@@ -27,7 +29,33 @@ struct EditHostFormView: View {
 				ClientIDFormView(host: $host)
 				LimitsFormView(host: $host)
 			}
+			
+			Section(header: Text("")) {
+				Button(action: delete) {
+					HStack(alignment: .center) {
+						Spacer()
+						Text("Delete")
+						Spacer()
+					}
+				}
+				.accessibilityLabel("delete-broker")
+				.foregroundColor(.red)
+				.font(.body)
+				.confirmationDialog("Are you shure you want to delete the broker setting?", isPresented: $confirmDelete, actions: {
+					Button("Delete", role: .destructive) {
+						deleteNow()
+					}
+				})
+			}
 		}
+	}
+	
+	func delete() {
+		confirmDelete = true
+	}
+	
+	func deleteNow() {
+		onDelete()
 	}
 }
 

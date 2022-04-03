@@ -20,6 +20,7 @@ public class StubPersistence: Persistence {
 	
 	func delete(_ host: Host) {
 		hosts = hosts.filter { $0.ID != host.ID }
+		load()
 	}
 	
 	func initExamples() {
