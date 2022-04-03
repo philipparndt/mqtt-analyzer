@@ -28,7 +28,8 @@ platform :ios do
       scheme: "MQTTAnalyzer",
       devices: ["iPhone 13 Pro", "iPhone SE (3rd generation)", "iPad Pro (11-inch) (3rd generation)"],
       parallel_testing: true,
-      concurrent_workers: 10
+      concurrent_workers: 10,
+      verbose: true
     )
   end
 
