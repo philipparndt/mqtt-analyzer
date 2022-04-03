@@ -15,9 +15,10 @@ struct TopicCellView: View {
 	
 	let host: Host
 	let selectMessage: (MsgMessage) -> Void
-	
+	@State private var selection: String?
+
 	var body: some View {
-		NavigationLink(destination: MessagesView(node: messages, host: host)) {
+		NavigationLink(destination: MessagesView(node: messages, host: host), tag: messages.nameQualified, selection: $selection) {
 			HStack {
 				ReadMarkerView(read: messages.readState)
 				

@@ -18,7 +18,7 @@ struct TopicsView: View {
 	
 	var body: some View {
 		VStack {
-			if model.messageCount == 0 {
+			if model.messageCount == 0 && model.children.keys.isEmpty {
 				AwaitMessagesView(model: model, host: host)
 				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
 					PublishMessageFormModalView(closeCallback: self.cancelDialog,

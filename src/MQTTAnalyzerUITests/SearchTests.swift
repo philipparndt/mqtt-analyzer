@@ -63,7 +63,7 @@ class SearchTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
-		let id = "testSearchIsUpdated"
+		let id = "testSearchIsUpdated/"
 		
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()

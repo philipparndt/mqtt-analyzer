@@ -12,7 +12,7 @@ import SwiftUI
 struct TopicsFormView: View {
 	@Binding var host: HostFormModel
 
-	@State private var selection: String? = nil
+	@State private var selection: String?
 
 	var body: some View {
 		return Section(header: Text("Subscribe to")) {
