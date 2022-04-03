@@ -15,7 +15,7 @@ class ReadStateTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
-		let id = "testMarkRead/"
+		let id = Navigation.id()
 
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()
@@ -56,7 +56,7 @@ class ReadStateTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
-		let id = "testClear/"
+		let id = Navigation.id()
 
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()

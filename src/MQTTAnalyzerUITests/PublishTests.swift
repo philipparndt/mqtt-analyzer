@@ -15,7 +15,7 @@ class PublishTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
-		let id = "testPublish/"
+		let id = Navigation.id()
 
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()
@@ -43,7 +43,7 @@ class PublishTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
-		let id = "testPublishWhileWait/"
+		let id = Navigation.id()
 
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()

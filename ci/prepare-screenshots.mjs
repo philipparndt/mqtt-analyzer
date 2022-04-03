@@ -2,7 +2,7 @@
 
 const devices = [
     "iPhone 13 Pro", 
-    "iPhone SE (2nd generation)", 
+    "iPhone SE (3rd generation)"", 
     "iPad Pro (11-inch) (3rd generation)"
     //, "iPad Air (3rd generation)"
 ]

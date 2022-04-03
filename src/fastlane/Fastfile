@@ -26,7 +26,7 @@ platform :ios do
   lane :tests do
     scan(
       scheme: "MQTTAnalyzer",
-      devices: ["iPhone 13 Pro", "iPhone SE (2nd generation)", "iPad Pro (11-inch) (3rd generation)"],
+      devices: ["iPhone 13 Pro", "iPhone SE (3rd generation)", "iPad Pro (11-inch) (3rd generation)"],
       parallel_testing: true,
       concurrent_workers: 10
     )

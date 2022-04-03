@@ -28,7 +28,7 @@ class SearchTests: AbstractUITests {
 	}
 	
 	func testSearch() {
-		let id = "testSearch/"
+		let id = Navigation.id()
 		let nav = startSearch(id: id)
 		
 		let cell = nav.groupCell(topic: "\(id)home/dishwasher/000123456789")
@@ -41,7 +41,7 @@ class SearchTests: AbstractUITests {
 	}
 	
 	func testToggleWholeWord() {
-		let id = "testToggleWholeWord/"
+		let id = Navigation.id()
 		let nav = startSearch(id: id)
 		
 		let cell = nav.groupCell(topic: "\(id)home/dishwasher/000123456789")
@@ -63,7 +63,7 @@ class SearchTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
-		let id = "testSearchIsUpdated/"
+		let id = Navigation.id()
 		
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()

@@ -14,7 +14,7 @@ class FlatViewTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
-		let id = "testFlatView/"
+		let id = Navigation.id()
 		
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()

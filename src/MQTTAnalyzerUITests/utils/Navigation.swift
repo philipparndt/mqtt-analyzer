@@ -19,6 +19,10 @@ class Navigation {
 		self.alias = alias
 	}
 	
+	class func id() -> String {
+		return String.random(length: 8) + "/"
+	}
+	
 	func navigateToBrokers() {
 		navigate(to: "")
 		
