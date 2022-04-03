@@ -1,0 +1,3 @@
+output_types("html,junit")
+parallel_testing(true)
+concurrent_workers(5)
