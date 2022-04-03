@@ -9,20 +9,29 @@
 import XCTest
 
 class SearchTests: AbstractUITests {
-	func testSearch() {
+	func startSearch(id: String) -> Navigation {
 		let brokers = Brokers(app: app)
 		
 		let hostname = "localhost"
 		let alias = "Example"
-
+		
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()
-		examples.publish()
+
 		brokers.start(alias: alias)
+		examples.publish(prefix: id)
+
 		let nav = Navigation(app: app, alias: alias)
-		nav.navigate(to: "home")
+		nav.navigate(to: "\(id)home")
 		
-		let cell = nav.groupCell(topic: "home/dishwasher/000123456789")
+		return nav
+	}
+	
+	func testSearch() {
+		let id = Navigation.id()
+		let nav = startSearch(id: id)
+		
+		let cell = nav.groupCell(topic: "\(id)home/dishwasher/000123456789")
 		awaitDisappear(element: cell)
 		
 		let search = Search(app: app)
@@ -32,19 +41,10 @@ class SearchTests: AbstractUITests {
 	}
 	
 	func testToggleWholeWord() {
-		let brokers = Brokers(app: app)
+		let id = Navigation.id()
+		let nav = startSearch(id: id)
 		
-		let hostname = "localhost"
-		let alias = "Example"
-
-		let examples = ExampleMessages(hostname: hostname)
-		app.launch()
-		examples.publish()
-		brokers.start(alias: alias)
-		let nav = Navigation(app: app, alias: alias)
-		nav.navigate(to: "home")
-		
-		let cell = nav.groupCell(topic: "home/dishwasher/000123456789")
+		let cell = nav.groupCell(topic: "\(id)home/dishwasher/000123456789")
 		awaitDisappear(element: cell)
 		
 		let search = Search(app: app)
@@ -63,36 +63,39 @@ class SearchTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
-
+		let id = Navigation.id()
+		
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()
-		examples.publish()
+		
 		brokers.start(alias: alias)
+		examples.publish(prefix: id)
+		
 		let nav = Navigation(app: app, alias: alias)
-		nav.navigate(to: "hue/light/office")
+		nav.navigate(to: "\(id)hue/light/office")
 
 		let search = Search(app: app)
 		search.searchFor(text: "On")
 
-		let center = nav.groupCell(topic: "hue/light/office/center")
-		let left = nav.groupCell(topic: "hue/light/office/left")
-		let right = nav.groupCell(topic: "hue/light/office/right")
+		let center = nav.groupCell(topic: "\(id)hue/light/office/center")
+		let left = nav.groupCell(topic: "\(id)hue/light/office/left")
+		let right = nav.groupCell(topic: "\(id)hue/light/office/right")
 		awaitAppear(element: center)
 		awaitAppear(element: left)
 		awaitAppear(element: right)
 		
-		examples.publish("hue/light/office/left",
+		examples.publish("\(id)hue/light/office/left",
 				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":230}")
-		examples.publish("hue/light/office/center",
+		examples.publish("\(id)hue/light/office/center",
 				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":233}")
-		examples.publish("hue/light/office/right",
+		examples.publish("\(id)hue/light/office/right",
 				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":230}")
 
 		awaitDisappear(element: center)
 		awaitDisappear(element: left)
 		awaitDisappear(element: right)
 		
-		examples.publish()
+		examples.publish(prefix: id)
 		
 		awaitAppear(element: center)
 		awaitAppear(element: left)

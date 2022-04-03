@@ -3,7 +3,7 @@
 # A list of devices you want to take the screenshots from
  devices([
      "iPhone 13 Pro",
-     "iPhone SE (2nd generation)",
+     "iPhone SE (3rd generation)",
      "iPad Pro (11-inch) (3rd generation)",
  #    "iPad Air (4th generation)"
  #  "iPhone 8",

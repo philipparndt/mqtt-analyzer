@@ -84,6 +84,8 @@ public class RealmPersistence: Persistence {
 				NSLog("Error deleting entry from database: \(error.localizedDescription)")
 			}
 		}
+		
+		load()
 	}
 	
 	func load() {

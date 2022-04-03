@@ -15,18 +15,23 @@ class PublishTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
+		let id = Navigation.id()
 
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()
-		examples.publish()
-		brokers.start(alias: alias)
 
+		brokers.start(alias: alias)
+		examples.publish(prefix: id)
+
+		let nav = Navigation(app: app, alias: alias)
+		nav.navigate(to: id)
+		
 		XCTAssertTrue(app.staticTexts["hue"]
 						.waitForExistence(timeout: 4))
 
 		let dialog = PublishDialog(app: app)
 		dialog.open()
-		dialog.fill(topic: "topic", message: "msg")
+		dialog.fill(topic: "\(id)topic", message: "msg")
 		dialog.apply()
 		
 		XCTAssertTrue(app.staticTexts["Inherited Message Groups"].waitForExistence(timeout: 4))
@@ -38,11 +43,16 @@ class PublishTests: AbstractUITests {
 		
 		let hostname = "localhost"
 		let alias = "Example"
+		let id = Navigation.id()
 
 		let examples = ExampleMessages(hostname: hostname)
 		app.launch()
-		examples.publish()
+
 		brokers.start(alias: alias)
+		examples.publish(prefix: id)
+
+		let nav = Navigation(app: app, alias: alias)
+		nav.navigate(to: id)
 		
 		MessageTopicUtils.clearAll(app: app)
 		
@@ -50,7 +60,7 @@ class PublishTests: AbstractUITests {
 		
 		let dialog = PublishDialog(app: app)
 		dialog.open()
-		dialog.fill(topic: "topic", message: "msg")
+		dialog.fill(topic: "\(id)topic", message: "msg")
 		dialog.apply()
 		
 		XCTAssertTrue(app.staticTexts["Inherited Message Groups"].waitForExistence(timeout: 4))

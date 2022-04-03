@@ -1,6 +1,8 @@
 version: '3'
 services:
   mosquitto:
-    image: rmohr/activemq:5.15.9-alpine
+    image: eclipse-mosquitto
+    volumes:
+      - ./config/mosquitto/config:/mosquitto/config:rw    
     ports:
       - "1883:1883"

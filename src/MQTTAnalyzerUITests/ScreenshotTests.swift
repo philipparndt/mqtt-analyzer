@@ -13,12 +13,12 @@ class ScreenshotTests: AbstractUITests {
 	func testFullRoundtripScreenshots() {
 		let hostname = "localhost"
 		let alias = "Example"
-
+		
 		let examples = ExampleMessages(hostname: hostname)
 		let brokers = Brokers(app: app)
 		
 		app.launch()
-		examples.publish()
+
 		snapshot(ScreenshotIds.BROKERS)
 		
 		let nav = Navigation(app: app, alias: alias)
@@ -28,7 +28,9 @@ class ScreenshotTests: AbstractUITests {
 		
 		brokers.create(broker: Broker(alias: alias, hostname: hostname))
 		brokers.start(alias: alias)
-		
+
+		examples.publish(prefix: "")
+
 		nav.navigate(to: "home/dishwasher/000123456789")
 		nav.openMessageGroup()
 		snapshot(ScreenshotIds.JSON_DATA)

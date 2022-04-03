@@ -26,7 +26,7 @@ struct NewHostFormModalView: View {
 	
 	var body: some View {
 		NavigationView {
-			EditHostFormView(host: $host)
+			EditHostFormView(onDelete: closeHandler, host: $host)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
 				.navigationTitle("New broker")

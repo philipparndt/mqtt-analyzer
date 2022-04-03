@@ -29,6 +29,7 @@ struct AwaitMessagesView: View {
 					   .progressViewStyle(CircularProgressViewStyle())
 					
 					Text("Waiting for messages").padding([.leading])
+						.accessibilityIdentifier("wait_messages")
 				}
 				else if host.state == .connecting {
 					ProgressView()

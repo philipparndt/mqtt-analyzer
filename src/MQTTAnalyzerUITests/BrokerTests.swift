@@ -16,7 +16,7 @@ class BrokerTests: AbstractUITests {
 		
 		app.launch()
 		
-		let example = brokers.borkerCell(of: alias)
+		let example = brokers.brokerCell(of: alias)
 		awaitAppear(element: example)
 		brokers.delete(alias: alias)
 		brokers.confirmDelete()
@@ -31,7 +31,7 @@ class BrokerTests: AbstractUITests {
 		
 		app.launch()
 		
-		let example = brokers.borkerCell(of: alias)
+		let example = brokers.brokerCell(of: alias)
 		awaitAppear(element: example)
 		brokers.delete(alias: alias)
 		brokers.cancelDelete(alias: alias)
@@ -47,7 +47,7 @@ class BrokerTests: AbstractUITests {
 		
 		app.launch()
 		
-		let old = brokers.borkerCell(of: alias)
+		let old = brokers.brokerCell(of: alias)
 		awaitAppear(element: old)
 		brokers.edit(alias: alias, broker: Broker(alias: newAlias, hostname: nil))
 		awaitDisappear(element: app.staticTexts[alias])

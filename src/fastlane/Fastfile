@@ -24,7 +24,14 @@ platform :ios do
   end
 
   lane :tests do
-    run_tests(scheme: "MQTTAnalyzer")
+    scan(
+      scheme: "MQTTAnalyzer",
+      devices: [
+        "iPhone 13 Pro", 
+        #"iPhone SE (3rd generation)", 
+        "iPad Pro (11-inch) (3rd generation)"
+      ]
+    )
   end
 
   lane :archive do
