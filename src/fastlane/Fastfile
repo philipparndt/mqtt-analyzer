@@ -28,7 +28,7 @@ platform :ios do
       scheme: "MQTTAnalyzer",
       devices: [
         "iPhone 13 Pro", 
-        #"iPhone SE (3rd generation)", 
+        "iPhone SE (3rd generation)", 
         "iPad Pro (11-inch) (3rd generation)"
       ]
     )
@@ -65,7 +65,7 @@ platform :mac do
   lane :tests do
     run_tests(
       scheme: "MQTTAnalyzer",
-      destination: "platform=macOS,arch=x86_64,variant=Mac Catalyst"
+      destination: "platform=macOS,arch=arm64,variant=Mac Catalyst"
     )
   end
   
