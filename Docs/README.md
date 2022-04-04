@@ -35,18 +35,15 @@ https://testflight.apple.com/join/dsvlFCPU
 
 ## iOS
 <p float="left">
-<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-1.png" width="180"/>
-<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-2.png" width="180"/>
-<!--img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-3.png" width="180"/-->
-<!--img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-4.png" width="180"/-->
+<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-1.png" width="80"/>
+<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-2.png" width="80"/>
+<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-3.png" width="80"/>
+<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-4.png" width="80"/>
+<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-5.png" width="80"/>
+<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-6.png" width="80"/>
+<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-7.png" width="80"/>
+<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-8.png" width="80"/>
 </p>
-<p float="left">
-<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-5.png" width="180"/>
-<img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-6.png" width="180"/>
-<!--img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-7.png" width="180"/-->
-<!--img src="https://github.com/philipparndt/mqtt-analyzer/raw/master/Docs/screenshot-8.png" width="180"/-->
-</p>
-
 
 ## macOS
 <p float="left">
