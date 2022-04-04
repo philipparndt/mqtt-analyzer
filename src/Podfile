@@ -13,9 +13,13 @@ def shared_pods
 	$cocoaMQTTVersion = '2.0.3-beta3'
 	$cocoaMQTTURL = 'https://github.com/emqx/CocoaMQTT.git'
 	
-	pod 'CocoaMQTT', :git => $cocoaMQTTURL, :tag => $cocoaMQTTVersion
-	pod 'CocoaMQTT/WebSockets', :git => $cocoaMQTTURL, :tag => $cocoaMQTTVersion
+	#pod 'CocoaMQTT', :git => $cocoaMQTTURL, :tag => $cocoaMQTTVersion
+	#pod 'CocoaMQTT/WebSockets', :git => $cocoaMQTTURL, :tag => $cocoaMQTTVersion
 	
+	pod 'CocoaMQTT', :path => '~/dev/oss/CocoaMQTT'
+	pod 'CocoaMQTT/WebSockets', :path => '~/dev/oss/CocoaMQTT'
+	
+
 	pod 'RealmSwift', '~> 10.7.0'
 	pod 'IceCream', '2.0.4'
 
