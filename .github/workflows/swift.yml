@@ -40,7 +40,7 @@ jobs:
       uses: actions/upload-artifact@v3
       if: failure()
       with:
-        name: homework
+        name: test_output
         path: src/fastlane/test_output
     # no public macOS 12 runner available
     #- name: macOS Tests
