@@ -23,6 +23,10 @@ class Navigation {
 		return String.random(length: 8) + "/"
 	}
 	
+	class func idSmall() -> String {
+		return String.random(length: 3) + "/"
+	}
+	
 	func navigateToBrokers() {
 		navigate(to: "")
 		

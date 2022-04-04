@@ -13,6 +13,7 @@ class ScreenshotTests: AbstractUITests {
 	func testFullRoundtripScreenshots() {
 		let hostname = "localhost"
 		let alias = "Example"
+		let id = Navigation.idSmall()
 		
 		let examples = ExampleMessages(hostname: hostname)
 		let brokers = Brokers(app: app)
@@ -29,25 +30,25 @@ class ScreenshotTests: AbstractUITests {
 		brokers.create(broker: Broker(alias: alias, hostname: hostname))
 		brokers.start(alias: alias)
 
-		examples.publish(prefix: "")
+		examples.publish(prefix: id)
 
-		nav.navigate(to: "home/dishwasher/000123456789")
+		nav.navigate(to: "\(id)home/dishwasher/000123456789")
 		nav.openMessageGroup()
 		snapshot(ScreenshotIds.JSON_DATA)
 		
-		nav.navigate(to: "home/dishwasher/000123456789/full")
+		nav.navigate(to: "\(id)home/dishwasher/000123456789/full")
 		nav.openMessageGroup()
 		nav.openMessage()
 		snapshot(ScreenshotIds.JSON_DETAILS)
 		
-		nav.navigate(to: "hue")
+		nav.navigate(to: "\(id)hue")
 		nav.flatView()
 		snapshot(ScreenshotIds.FLAT_VIEW)
 		nav.flatView()
 
-		nav.navigate(to: "hue/light/kitchen")
+		nav.navigate(to: "\(id)hue/light/kitchen")
 		snapshot(ScreenshotIds.LIGHTS)
 		
-		nav.publishNew(topic: "hue/light/kitchen/coffee-spot")
+		nav.publishNew(topic: "\(id)hue/light/kitchen/coffee-spot")
 	}
 }
