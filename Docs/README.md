@@ -39,7 +39,9 @@ https://testflight.apple.com/join/dsvlFCPU
 ![Screenshot 3](screenshot-3.png)
 ![Screenshot 4](screenshot-4.png)
 ![Screenshot 5](screenshot-5.png)
-![Screenshot 5](screenshot-6.png)
+![Screenshot 6](screenshot-6.png)
+![Screenshot 7](screenshot-8.png)
+![Screenshot 8](screenshot-7.png)
 
 ## macOS
 ![macOS Screenshot 1](macos-screenshot-1.png)
