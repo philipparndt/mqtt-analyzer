@@ -13,7 +13,7 @@ devices([
 
 scheme("MQTTAnalyzer")
 
-open_report(true)
+open_report(false)
 
 # clean(true)
 
