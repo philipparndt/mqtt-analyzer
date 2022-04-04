@@ -66,6 +66,7 @@ class MqttClientCocoaMQTT: MqttClient {
 		
 		mqtt.enableSSL = host.ssl
 		mqtt.allowUntrustCACertificate = host.untrustedSSL
+		mqtt.sslSettings = [kCFStreamSSLPeerName as String: host.hostname as NSObject]
 		
 		if host.auth == .usernamePassword {
 			mqtt.username = host.usernameNonpersistent ?? host.username
