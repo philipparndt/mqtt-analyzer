@@ -8,8 +8,8 @@
 
 import Foundation
 import CocoaMQTT
-import Starscream
 import Combine
+import Network
 
 class MqttClientCocoaMQTT: MqttClient {
 	
@@ -66,8 +66,7 @@ class MqttClientCocoaMQTT: MqttClient {
 		
 		mqtt.enableSSL = host.ssl
 		mqtt.allowUntrustCACertificate = host.untrustedSSL
-		mqtt.sslSettings = [kCFStreamSSLPeerName as String: host.hostname as NSObject]
-		
+
 		if host.auth == .usernamePassword {
 			mqtt.username = host.usernameNonpersistent ?? host.username
 			mqtt.password = host.passwordNonpersistent ?? host.password
@@ -93,9 +92,6 @@ class MqttClientCocoaMQTT: MqttClient {
 		mqtt.didReceiveMessage = self.didReceiveMessage
 		mqtt.didDisconnect = self.didDisconnect
 		mqtt.didConnectAck = self.didConnect
-		mqtt.didChangeState = { _, state in
-			print(state)
-		}
 		
 		if !mqtt.connect() {
 			failConnection(reason: "Connection to port \(host.port) failed")
@@ -255,29 +251,11 @@ class MqttClientCocoaMQTT: MqttClient {
 		}
 	}
 	
-	func extractErrorMessage(error: Error) -> String {
-		let code = (error as NSError).code
-		
-		switch code {
-		case 8:
-			return "Invalid hostname.\n\(error.localizedDescription)"
-		case -9807:
-			if host.protocolMethod == .mqtt {
-				return "Invalid certificate chain.\nTry to switch to WebSockets (with better SSL support) or check your certificates."
-			}
-			else {
-				return "Invalid certificate chain"
-			}
-		default:
-			return error.localizedDescription
-		}
-	}
-
 	func didDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname)")
 
 		if err != nil {
-			let messgae = extractErrorMessage(error: err!)
+			let messgae = MqttClientCocoaMQTT.extractErrorMessage(error: err!)
 			
 			connectionState.message = messgae
 			DispatchQueue.main.async {

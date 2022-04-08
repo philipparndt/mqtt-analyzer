@@ -145,6 +145,9 @@
 		22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FC2409440F00DF8F94 /* InfoBox.swift */; };
 		22A387052409768100DF8F94 /* HostModelPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A387042409768100DF8F94 /* HostModelPersistenceTests.swift */; };
 		22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */; };
+		22AB2C0F280076CB00E88875 /* String+RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C0E280076CB00E88875 /* String+RegExp.swift */; };
+		22AB2C112800771700E88875 /* CocoaMQTTClient+ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C102800771700E88875 /* CocoaMQTTClient+ErrorMessage.swift */; };
+		22AB2C132800854700E88875 /* MqttClientCocoaMQTTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C122800854700E88875 /* MqttClientCocoaMQTTTests.swift */; };
 		22AE64342412636300C2C4FE /* DiagramPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64332412636300C2C4FE /* DiagramPath.swift */; };
 		22AE64362412637A00C2C4FE /* TimeSeriesValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */; };
 		22AE643824126A7500C2C4FE /* DiagramPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE643724126A7500C2C4FE /* DiagramPathTests.swift */; };
@@ -360,6 +363,9 @@
 		22A386FC2409440F00DF8F94 /* InfoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBox.swift; sourceTree = "<group>"; };
 		22A387042409768100DF8F94 /* HostModelPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostModelPersistenceTests.swift; sourceTree = "<group>"; };
 		22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesValueUtil.swift; sourceTree = "<group>"; };
+		22AB2C0E280076CB00E88875 /* String+RegExp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RegExp.swift"; sourceTree = "<group>"; };
+		22AB2C102800771700E88875 /* CocoaMQTTClient+ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CocoaMQTTClient+ErrorMessage.swift"; sourceTree = "<group>"; };
+		22AB2C122800854700E88875 /* MqttClientCocoaMQTTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClientCocoaMQTTTests.swift; sourceTree = "<group>"; };
 		22AE64332412636300C2C4FE /* DiagramPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramPath.swift; sourceTree = "<group>"; };
 		22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesValue.swift; sourceTree = "<group>"; };
 		22AE643724126A7500C2C4FE /* DiagramPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramPathTests.swift; sourceTree = "<group>"; };
@@ -476,6 +482,7 @@
 				226A6B5124445BA400ACDFC3 /* CocoaMQTTClient.swift */,
 				2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */,
 				220357202445B2ED00A98CD3 /* MQTTDelegate.swift */,
+				22AB2C102800771700E88875 /* CocoaMQTTClient+ErrorMessage.swift */,
 			);
 			path = cocoamqtt;
 			sourceTree = "<group>";
@@ -651,6 +658,7 @@
 				2230FF0F27A6511F00D4327F /* TreeUtilsTests.swift */,
 				2230FF2327A6B80900D4327F /* TopicLimitTests.swift */,
 				2200D97D27C91B5300E63E89 /* SearchIndexTests.swift */,
+				22AB2C122800854700E88875 /* MqttClientCocoaMQTTTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
 			sourceTree = "<group>";
@@ -750,6 +758,7 @@
 				2230FEFD27A50E9000D4327F /* Date+Iso.swift */,
 				224AFEA627AE88DC00DFD09F /* Color+SystemColors.swift */,
 				22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */,
+				22AB2C0E280076CB00E88875 /* String+RegExp.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1334,6 +1343,7 @@
 				228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */,
 				2230FF2F27A6CDB800D4327F /* Welcome.swift in Sources */,
 				22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */,
+				22AB2C112800771700E88875 /* CocoaMQTTClient+ErrorMessage.swift in Sources */,
 				2231894B27F08BAB001177F4 /* ViewSelection.swift in Sources */,
 				2285C80C2781E89B008DA37D /* LimitReachedView.swift in Sources */,
 				2291283E24682494006F8256 /* TopicCell.swift in Sources */,
@@ -1367,6 +1377,7 @@
 				223AF5D92477D620009810E6 /* NoFilesHelpView.swift in Sources */,
 				223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */,
 				22E469DB23801CA000D72BD6 /* Array+Move.swift in Sources */,
+				22AB2C0F280076CB00E88875 /* String+RegExp.swift in Sources */,
 				226A6B632445759600ACDFC3 /* ClientIDFormView.swift in Sources */,
 				226A6B67244575DB00ACDFC3 /* AuthFormView.swift in Sources */,
 				2230FF3327A830C900D4327F /* DataProtocol+Hex.swift in Sources */,
@@ -1390,6 +1401,7 @@
 				221C57202466CC2800C0DD02 /* AWSIOTPresetTests.swift in Sources */,
 				22A387052409768100DF8F94 /* HostModelPersistenceTests.swift in Sources */,
 				2230FF2427A6B80900D4327F /* TopicLimitTests.swift in Sources */,
+				22AB2C132800854700E88875 /* MqttClientCocoaMQTTTests.swift in Sources */,
 				2230FEFA27A50C8000D4327F /* TreeModelTests.swift in Sources */,
 				2230FF1027A6511F00D4327F /* TreeUtilsTests.swift in Sources */,
 				22E914DF25A8420700BEC599 /* HostFormModelTests.swift in Sources */,

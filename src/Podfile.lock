@@ -1,10 +1,9 @@
 PODS:
-  - CocoaMQTT (2.0.3-beta5):
-    - CocoaMQTT/Core (= 2.0.3-beta5)
-  - CocoaMQTT/Core (2.0.3-beta5)
-  - CocoaMQTT/WebSockets (2.0.3-beta5):
+  - CocoaMQTT (2.0.3-beta6):
+    - CocoaMQTT/Core (= 2.0.3-beta6)
+  - CocoaMQTT/Core (2.0.3-beta6)
+  - CocoaMQTT/WebSockets (2.0.3-beta6):
     - CocoaMQTT/Core
-    - Starscream (~> 3.1.1)
   - CodeEditor (1.2.0):
     - Highlightr
   - GRDB.swift (5.21.0):
@@ -18,14 +17,13 @@ PODS:
   - Realm/Headers (10.7.7)
   - RealmSwift (10.7.7):
     - Realm (= 10.7.7)
-  - Starscream (3.1.1)
   - swift-petitparser (1.2.1)
   - SwiftLint (0.46.5)
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
-  - CocoaMQTT (from `~/dev/oss/CocoaMQTT`)
-  - CocoaMQTT/WebSockets (from `~/dev/oss/CocoaMQTT`)
+  - CocoaMQTT (from `https://github.com/philipparndt/CocoaMQTT.git`, branch `apple-network`)
+  - CocoaMQTT/WebSockets (from `https://github.com/philipparndt/CocoaMQTT.git`, branch `apple-network`)
   - CodeEditor (from `https://github.com/ZeeZide/CodeEditor.git`)
   - GRDB.swift (= 5.21.0)
   - Highlightr (from `https://github.com/raspu/Highlightr.git`, tag `2.1.2`)
@@ -41,14 +39,14 @@ SPEC REPOS:
     - IceCream
     - Realm
     - RealmSwift
-    - Starscream
     - swift-petitparser
     - SwiftLint
     - SwiftyJSON
 
 EXTERNAL SOURCES:
   CocoaMQTT:
-    :path: "~/dev/oss/CocoaMQTT"
+    :branch: apple-network
+    :git: https://github.com/philipparndt/CocoaMQTT.git
   CodeEditor:
     :git: https://github.com/ZeeZide/CodeEditor.git
   Highlightr:
@@ -56,6 +54,9 @@ EXTERNAL SOURCES:
     :tag: 2.1.2
 
 CHECKOUT OPTIONS:
+  CocoaMQTT:
+    :commit: 413e8b854e66b015e461b6b0598a2b61d52a311f
+    :git: https://github.com/philipparndt/CocoaMQTT.git
   CodeEditor:
     :commit: 39f457f9ddeb5ee27a7dc035e9c9c8c40be25c37
     :git: https://github.com/ZeeZide/CodeEditor.git
@@ -64,18 +65,17 @@ CHECKOUT OPTIONS:
     :tag: 2.1.2
 
 SPEC CHECKSUMS:
-  CocoaMQTT: 6e54f5cecb99055f17557fffdd5edc3bd3fb30a2
+  CocoaMQTT: 81138efdeb80613387a26bb4809e36c4d7d4b074
   CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
   GRDB.swift: 09b2c81379f8949e1f6e2696f620bf15b7b9a051
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
   IceCream: 717d516a1c634eba8eaa8ce7d3d7bc5f7e40c2fa
   Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
   RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
   SwiftLint: 2c16e8fa99dac2e440dc0c70ea74d2532048f6cf
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 44fb0644dff8c6bc9750eb492e19c11b67658dc0
+PODFILE CHECKSUM: 300b0ef56e822bde826e9c5fc46bc5f82d092d75
 
 COCOAPODS: 1.11.3
