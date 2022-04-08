@@ -23,7 +23,7 @@ jobs:
 
     - name: Set XCode Version
       run: sudo xcode-select -s /Applications/Xcode_13.2.app
-    
+
     - name: Install Dependences
       working-directory: src
       run: |
@@ -31,6 +31,12 @@ jobs:
         pod install
       shell: bash
     
+    # No support for Package.resolve v2 on GitHub
+    - name: Remove Package.resolve 
+      working-directory: src
+      run: |
+        rm ./MQTTAnalyzer.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
     - name: iOS Tests
       working-directory: src
       run: |
