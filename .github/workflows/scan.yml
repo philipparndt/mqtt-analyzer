@@ -27,7 +27,7 @@ jobs:
         pod install
       shell: bash
     
-    - name: Create screenshots
+    - name: Fastlane scan
       working-directory: src
       run: |
         fastlane scan
