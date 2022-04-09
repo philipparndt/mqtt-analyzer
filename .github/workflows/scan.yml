@@ -9,16 +9,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-
-    - name: Install ZX
-      run: |
-        npm install -g zx
-    
-    - name: Install Mosquitto
-      run: |
-        ci/start-mosquitto.mjs
-    - name: Set XCode Version
-      run: sudo xcode-select -s /Applications/Xcode_13.2.app
         
     # No support for Package.resolve v2 on GitHub
     - name: Remove Package.resolve 
@@ -33,19 +23,10 @@ jobs:
         pod install
       shell: bash
     
-    - name: Fastlane scan
-      working-directory: src
+    - name: Test
       run: |
-        fastlane scan
-        
-    - name: Stop Mosquitto
-      if: always()
-      run: |
-        ci/stop-mosquitto.mjs
-
-    - name: Upload test results
-      uses: actions/upload-artifact@v3
-      if: failure()
-      with:
-        name: test_output
-        path: src/fastlane/test_output
+        cd src
+        xcodebuild test -enableCodeCoverage YES \
+        -workspace MQTTAnalyzer.xcworkspace \
+        -scheme MQTTAnalyzer \
+        -destination 'platform=iOS Simulator,name=iPhone 13,OS=14.3'
