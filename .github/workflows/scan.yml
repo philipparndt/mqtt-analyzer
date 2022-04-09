@@ -29,4 +29,4 @@ jobs:
         xcodebuild test -enableCodeCoverage YES \
         -workspace MQTTAnalyzer.xcworkspace \
         -scheme MQTTAnalyzer \
-        -destination 'platform=iOS Simulator,name=iPhone 13,OS=14.3'
+        -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
