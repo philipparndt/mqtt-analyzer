@@ -19,7 +19,7 @@ class MqttClientCocoaMQTTTests: XCTestCase {
 	
     func testConnectionRefused() throws {
 		let msg = MqttClientCocoaMQTT.extractErrorMessage(error: NWError.posix(POSIXErrorCode.ECONNREFUSED))
-		XCTAssertEqual("Connection refused (NW: 61)", msg)
+		XCTAssertTrue(msg.contains("Connection refused"), msg)
 	}
 	
 	func testConnectionTLS() throws {

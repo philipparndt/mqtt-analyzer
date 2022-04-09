@@ -22,8 +22,6 @@ extension MqttClientCocoaMQTT {
 			if groups.count == 1 && groups[0].count == 3 {
 				return "\(groups[0][2]) (NW: \(groups[0][1]))"
 			}
-			
-			return "\(nsError.domain): \(nsError.description)"
 		}
 		
 		return "\(nsError.domain): \(nsError.description)"
