@@ -11,16 +11,17 @@ import XCTest
 class ConfigurationTests: AbstractUITests {
 	let hostname = "localhost"
 
-	func assertWithBroker(id: String, alias: String, broker: Broker) {
+	func assertWithBroker(_ broker: Broker) {
+		let id = Navigation.id()
 		let examples = ExampleMessages(hostname: hostname)
 		let brokers = Brokers(app: app)
 
 		app.launch()
 		
-		let nav = Navigation(app: app, alias: alias)
+		let nav = Navigation(app: app, alias: broker.alias!)
 		
 		brokers.create(broker: broker)
-		brokers.start(alias: alias)
+		brokers.start(alias: broker.alias!)
 
 		examples.publish(prefix: id)
 
@@ -35,14 +36,9 @@ class ConfigurationTests: AbstractUITests {
 	}
 	
 	func testWebSocket() {
-		let alias = "WebSocket"
-		let id = Navigation.id()
-		
 		assertWithBroker(
-			id: id,
-			alias: alias,
-			broker: Broker(
-				alias: alias,
+			Broker(
+				alias: "WebSocket",
 				hostname: hostname,
 				port: "9001",
 				connectionProtocol: .websocket
