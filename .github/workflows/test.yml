@@ -1,4 +1,6 @@
-name: 'Fastlane scan'
+name: 'Test'
+
+# Use this action to get mor logging during test execution
 
 on: 
   workflow_dispatch:
