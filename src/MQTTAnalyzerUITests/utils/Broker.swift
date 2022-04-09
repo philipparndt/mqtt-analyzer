@@ -8,7 +8,14 @@
 
 import Foundation
 
+enum ConnectionProtocol {
+	case mqtt
+	case websocket
+}
+
 struct Broker {
 	let alias: String?
 	let hostname: String?
+	var port: String?
+	var connectionProtocol: ConnectionProtocol?
 }

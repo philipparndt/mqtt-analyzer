@@ -55,6 +55,17 @@ class Brokers {
 			hostField.tap()
 			hostField.typeText("\(hostname)\n")
 		}
+
+		if let port = broker.port {
+			let portField = app.textFields["port"]
+			portField.tap()
+			portField.clearAndEnterText(text: port)
+		}
+		
+		if let proto = broker.connectionProtocol {
+			let protoField = app.buttons["\(proto)"]
+			protoField.tap()
+		}
 		
 		snapshot(ScreenshotIds.CONFIG)
 		app.buttons["Save"].tap()

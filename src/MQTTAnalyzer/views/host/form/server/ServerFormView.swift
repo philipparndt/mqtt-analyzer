@@ -64,9 +64,10 @@ struct ServerFormView: View {
 
 				Spacer()
 
-				TextField("1883", text: $host.port)
+				TextField("e.g. 1883", text: $host.port)
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
+					.accessibilityLabel("port")
 					.font(.body)
 			}
 			
