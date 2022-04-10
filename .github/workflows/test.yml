@@ -21,25 +21,25 @@ jobs:
       run: sudo xcode-select -s /Applications/Xcode_13.2.app
 
      # No support for Package.resolve v2 on GitHub
-     - name: Remove Package.resolve 
-       working-directory: src
-       run: |
-         rm ./MQTTAnalyzer.xcworkspace/xcshareddata/swiftpm/Package.resolved
+    - name: Remove Package.resolve 
+      working-directory: src
+      run: |
+        rm ./MQTTAnalyzer.xcworkspace/xcshareddata/swiftpm/Package.resolved
 
-     - name: Install Dependences
-       working-directory: src
-       run: |
-         pod repo update
-         pod install
-       shell: bash
+    - name: Install Dependences
+      working-directory: src
+      run: |
+        pod repo update
+        pod install
+      shell: bash
 
-     - name: Test
-       run: |
-         cd src
-         xcodebuild test -enableCodeCoverage YES \
-         -workspace MQTTAnalyzer.xcworkspace \
-         -scheme MQTTAnalyzer \
-         -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
+    - name: Test
+      run: |
+        cd src
+        xcodebuild test -enableCodeCoverage YES \
+        -workspace MQTTAnalyzer.xcworkspace \
+        -scheme MQTTAnalyzer \
+        -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
 
     - name: Stop Mosquitto
       if: always()
