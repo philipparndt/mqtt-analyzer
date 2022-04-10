@@ -1,0 +1,34 @@
+name: 'Test'
+
+ # Use this action to get mor logging during test execution
+
+ on: 
+   workflow_dispatch:
+
+ jobs:
+   test:
+     runs-on: macOS-latest
+
+     steps:
+     - uses: actions/checkout@master
+
+     # No support for Package.resolve v2 on GitHub
+     - name: Remove Package.resolve 
+       working-directory: src
+       run: |
+         rm ./MQTTAnalyzer.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
+     - name: Install Dependences
+       working-directory: src
+       run: |
+         pod repo update
+         pod install
+       shell: bash
+
+     - name: Test
+       run: |
+         cd src
+         xcodebuild test -enableCodeCoverage YES \
+         -workspace MQTTAnalyzer.xcworkspace \
+         -scheme MQTTAnalyzer \
+         -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
