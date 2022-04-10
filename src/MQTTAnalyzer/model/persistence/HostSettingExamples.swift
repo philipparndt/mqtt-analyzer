@@ -47,9 +47,18 @@ class HostSettingExamples {
 		return result
 	}
 	
-	class func exampleLocalhost() -> Host {
+	class func exampleRnd7() -> Host {
 		let result = Host()
 		result.alias = "Example"
+		result.hostname = "test.mqtt-analyzer.rnd7.de"
+		result.limitTopic = 400
+		result.subscriptions = [TopicSubscription(topic: "#", qos: 0)]
+		return result
+	}
+	
+	class func exampleLocalhost() -> Host {
+		let result = Host()
+		result.alias = "localhost"
 		result.hostname = "localhost"
 		result.limitTopic = 400
 		result.subscriptions = [TopicSubscription(topic: "#", qos: 0)]

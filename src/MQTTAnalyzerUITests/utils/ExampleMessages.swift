@@ -61,7 +61,7 @@ class MQTTCLient {
 		client.publish(CocoaMQTTMessage(
 			topic: topic,
 			string: payload,
-			qos: CocoaMQTTQoS.qos2,
+			qos: CocoaMQTTQoS.qos1,
 			retained: false)
 		)
 	}
@@ -269,5 +269,9 @@ class ExampleMessages {
 	}
 }
 """)
+	}
+	
+	func disconnect() {
+		self.client.client.disconnect()
 	}
 }

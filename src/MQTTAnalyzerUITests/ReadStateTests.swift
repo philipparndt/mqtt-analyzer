@@ -13,7 +13,7 @@ class ReadStateTests: AbstractUITests {
 	func testMarkRead() {
 		let brokers = Brokers(app: app)
 		
-		let hostname = "localhost"
+		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
 
@@ -54,7 +54,7 @@ class ReadStateTests: AbstractUITests {
 	func testClear() {
 		let brokers = Brokers(app: app)
 		
-		let hostname = "localhost"
+		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
 

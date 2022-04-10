@@ -27,6 +27,7 @@ public class StubPersistence: Persistence {
 		hosts = [
 			HostSettingExamples.example1(),
 			HostSettingExamples.example2(),
+			HostSettingExamples.exampleRnd7(),
 			HostSettingExamples.exampleLocalhost()
 		]
 	}

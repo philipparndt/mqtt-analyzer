@@ -10,7 +10,7 @@ import XCTest
 import RealmSwift
 
 class ConfigurationTests: AbstractUITests {
-	let hostname = "localhost"
+	let hostname = TestServer.getTestServer()
 
 	func assertWithBroker(_ broker: Broker, credentials: Credentials? = nil) {
 		let id = Navigation.id()
@@ -29,7 +29,7 @@ class ConfigurationTests: AbstractUITests {
 		}
 		
 		brokers.waitUntilConnected()
-		
+
 		examples.publish(prefix: id)
 
 		nav.navigate(to: "\(id)home")

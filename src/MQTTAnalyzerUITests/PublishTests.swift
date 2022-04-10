@@ -13,7 +13,7 @@ class PublishTests: AbstractUITests {
 	func testPublish() {
 		let brokers = Brokers(app: app)
 		
-		let hostname = "localhost"
+		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
 
@@ -41,7 +41,7 @@ class PublishTests: AbstractUITests {
 	func testPublishWhileWait() {
 		let brokers = Brokers(app: app)
 		
-		let hostname = "localhost"
+		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
 

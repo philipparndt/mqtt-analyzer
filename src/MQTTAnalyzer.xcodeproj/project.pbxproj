@@ -30,6 +30,7 @@
 		221C571C2466847800C0DD02 /* QuestionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571B2466847800C0DD02 /* QuestionBox.swift */; };
 		221C571E2466C9CD00C0DD02 /* HostFormModel+AWS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571D2466C9CD00C0DD02 /* HostFormModel+AWS.swift */; };
 		221C57202466CC2800C0DD02 /* AWSIOTPresetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */; };
+		222AC3302803350600D66334 /* TestServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222AC32F2803350600D66334 /* TestServer.swift */; };
 		222EAAB1279FC289000E37AF /* CocoaMQTTRegression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB0279FC289000E37AF /* CocoaMQTTRegression.swift */; };
 		222EAAB327A31849000E37AF /* PropertyImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB227A31849000E37AF /* PropertyImageProvider.swift */; };
 		222EAAB527A31CCB000E37AF /* PropertyImageProviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB427A31CCB000E37AF /* PropertyImageProviderTest.swift */; };
@@ -237,6 +238,7 @@
 		221C571B2466847800C0DD02 /* QuestionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBox.swift; sourceTree = "<group>"; };
 		221C571D2466C9CD00C0DD02 /* HostFormModel+AWS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HostFormModel+AWS.swift"; sourceTree = "<group>"; };
 		221C571F2466CC2800C0DD02 /* AWSIOTPresetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSIOTPresetTests.swift; sourceTree = "<group>"; };
+		222AC32F2803350600D66334 /* TestServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServer.swift; sourceTree = "<group>"; };
 		222EAAB0279FC289000E37AF /* CocoaMQTTRegression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTRegression.swift; sourceTree = "<group>"; };
 		222EAAB227A31849000E37AF /* PropertyImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyImageProvider.swift; sourceTree = "<group>"; };
 		222EAAB427A31CCB000E37AF /* PropertyImageProviderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyImageProviderTest.swift; sourceTree = "<group>"; };
@@ -912,6 +914,7 @@
 				227D987A27B7A05C00E45C4C /* ScreenshotTests.swift */,
 				22AB2C142801D8A400E88875 /* ConfigurationTests.swift */,
 				22C7F0D42416A16600534880 /* Info.plist */,
+				222AC32F2803350600D66334 /* TestServer.swift */,
 			);
 			path = MQTTAnalyzerUITests;
 			sourceTree = "<group>";
@@ -1428,6 +1431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22B46BDA27CA652B0077FB83 /* Brokers.swift in Sources */,
+				222AC3302803350600D66334 /* TestServer.swift in Sources */,
 				224AFEB327B2C07A00DFD09F /* XCTestCase+Disappear.swift in Sources */,
 				2240834927AC533A00AA4A42 /* SnapshotHelper.swift in Sources */,
 				22061AC327CA6BD300FFF915 /* XCUIElement+Checked.swift in Sources */,
