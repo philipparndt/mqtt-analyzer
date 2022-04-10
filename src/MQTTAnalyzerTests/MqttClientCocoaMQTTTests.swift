@@ -26,5 +26,10 @@ class MqttClientCocoaMQTTTests: XCTestCase {
 		let msg = MqttClientCocoaMQTT.extractErrorMessage(error: NWError.tls(-9407))
 		XCTAssertEqual("Network.NWError: -9407: Optional(OSStatus -9407)", msg)
 	}
+	
+	func testConnectionTLSBadCertificate() throws {
+		let msg = MqttClientCocoaMQTT.extractErrorMessage(error: NWError.tls(-9808))
+		XCTAssertEqual("Bad certificate format, check all properties, like SAN, ... (-9808)", msg)
+	}
 
 }
