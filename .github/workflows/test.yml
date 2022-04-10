@@ -3,11 +3,11 @@ on:
    workflow_dispatch:
 
 jobs:
-   test:
-     runs-on: macOS-latest
+  test:
+    runs-on: macOS-latest
 
-     steps:
-     - uses: actions/checkout@master
+    steps:
+    - uses: actions/checkout@master
     
     - name: Install ZX
       run: |
