@@ -1,11 +1,8 @@
 name: 'Test'
-
- # Use this action to get mor logging during test execution
-
- on: 
+on:
    workflow_dispatch:
 
- jobs:
+jobs:
    test:
      runs-on: macOS-latest
 
