@@ -156,4 +156,16 @@ class TreeModelTests: XCTestCase {
 		XCTAssertFalse(msg.topic.readStateCombined)
 		XCTAssertFalse(root.readStateCombined)
 	}
+	
+	func testRegressionTopicStartsWithSlash() throws {
+		let root = TopicTree()
+		let withSlash = root.addTopic(topic: "/test")!
+		let withoutSlash = root.addTopic(topic: "test")!
+		let withMultipleSlashes = root.addTopic(topic: "///test")!
+		XCTAssertEqual("/test", withSlash.nameQualified)
+		XCTAssertEqual("test", withoutSlash.nameQualified)
+		XCTAssertEqual("///test", withMultipleSlashes.nameQualified)
+		XCTAssertEqual(2, root.children.count)
+	}
+	
 }

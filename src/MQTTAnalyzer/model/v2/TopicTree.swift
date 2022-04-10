@@ -144,7 +144,7 @@ extension TopicTree {
 	}
 	
 	func addTopic(topic: String, create: Bool = true) -> TopicTree? {
-		let segments = topic.split(separator: "/").map { String($0) }
+		let segments = topic.split(separator: "/", omittingEmptySubsequences: false).map { String($0) }
 		
 		var current = findRoot()
 		var created = false
