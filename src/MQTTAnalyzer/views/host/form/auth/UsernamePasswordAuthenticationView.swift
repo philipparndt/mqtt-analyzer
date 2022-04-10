@@ -26,6 +26,7 @@ struct UsernamePasswordAuthenticationView: View {
 					.autocapitalization(.none)
 					.multilineTextAlignment(.trailing)
 					.font(.body)
+					.accessibilityLabel("your username")
 			}
 			
 			HStack {
@@ -34,11 +35,12 @@ struct UsernamePasswordAuthenticationView: View {
 				
 					Spacer()
 				
-				SecureField("password", text: $host.password)
+				SecureField("your password", text: $host.password)
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
 					.multilineTextAlignment(.trailing)
 					.font(.body)
+					.accessibilityLabel("password")
 			}
 			
 			InfoBox(text: "Leave username and/or password empty. In order to not persist them. You will get a login dialog.")

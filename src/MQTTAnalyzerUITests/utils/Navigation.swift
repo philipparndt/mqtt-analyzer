@@ -19,12 +19,12 @@ class Navigation {
 		self.alias = alias
 	}
 	
-	class func id() -> String {
-		return String.random(length: 8) + "/"
+	class func id(suffix: String = "/") -> String {
+		return String.random(length: 8) + suffix
 	}
 	
-	class func idSmall() -> String {
-		return String.random(length: 3) + "/"
+	class func idSmall(suffix: String = "/") -> String {
+		return String.random(length: 3) + suffix
 	}
 	
 	func navigateToBrokers() {

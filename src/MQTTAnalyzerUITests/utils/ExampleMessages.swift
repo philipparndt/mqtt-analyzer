@@ -17,14 +17,36 @@ func randomClientId() -> String {
 class MQTTCLient {
 	let client: CocoaMQTT
 	
-	init(hostname: String) {
-		client = MQTTCLient.connect(hostname: hostname)
+	init(broker: Broker, credentials: Credentials?) {
+		client = MQTTCLient.connect(broker: broker, credentials: credentials)
 	}
 	
-	class func connect(hostname: String) -> CocoaMQTT {
-		let result = CocoaMQTT(clientID: randomClientId(),
-							  host: hostname,
-							  port: 1883)
+	class func createClient(broker: Broker) -> CocoaMQTT {
+		let host = broker.hostname ?? "localhost"
+		let port = broker.port ?? 1883
+		let clientId = randomClientId()
+		
+		if broker.connectionProtocol == .websocket {
+			let websocket = CocoaMQTTWebSocket(uri: "")
+			return CocoaMQTT(clientID: clientId,
+								  host: host,
+								  port: port,
+								  socket: websocket)
+
+		}
+		else {
+			return CocoaMQTT(clientID: clientId,
+										  host: host,
+										  port: port)
+		}
+	}
+	
+	class func connect(broker: Broker, credentials: Credentials?) -> CocoaMQTT {
+		let result = createClient(broker: broker)
+		
+		result.username = broker.username ?? credentials?.username
+		result.password = broker.password ?? credentials?.password
+		
 		result.keepAlive = 60
 		result.autoReconnect = false
 		
@@ -47,8 +69,8 @@ class MQTTCLient {
 
 class ExampleMessages {
 	let client: MQTTCLient
-	init(hostname: String) {
-		self.client = MQTTCLient(hostname: hostname)
+	init(broker: Broker, credentials: Credentials? = nil) {
+		self.client = MQTTCLient(broker: broker, credentials: credentials)
 	}
 	
 	func publish(_ topic: String, _ payload: String) {

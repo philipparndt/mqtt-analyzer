@@ -16,7 +16,7 @@ class FlatViewTests: AbstractUITests {
 		let alias = "Example"
 		let id = Navigation.id()
 		
-		let examples = ExampleMessages(hostname: hostname)
+		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname))
 		app.launch()
 		brokers.start(alias: alias)
 		examples.publish(prefix: id)

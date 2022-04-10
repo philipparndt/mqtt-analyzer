@@ -1,9 +1,16 @@
 version: '3'
 services:
-  mosquitto:
+  mosquitto-no-auth:
     image: eclipse-mosquitto
     volumes:
-      - ./config/mosquitto/config:/mosquitto/config:rw    
+      - ./config/mosquitto-noauth/config:/mosquitto/config:rw    
     ports:
       - "1883:1883"
       - "9001:9001"
+  mosquitto-user-apssword-auth:
+    image: eclipse-mosquitto
+    volumes:
+      - ./config/mosquitto-userpass/config:/mosquitto/config:rw    
+    ports:
+      - "1884:1884"
+      - "9002:9002"

@@ -13,9 +13,18 @@ enum ConnectionProtocol {
 	case websocket
 }
 
+enum AuthType {
+	case none
+	case userPassword
+	case certificate
+}
+
 struct Broker {
 	let alias: String?
 	let hostname: String?
-	var port: String?
+	var port: UInt16?
 	var connectionProtocol: ConnectionProtocol?
+	var authType: AuthType?
+	var username: String?
+	var password: String?
 }

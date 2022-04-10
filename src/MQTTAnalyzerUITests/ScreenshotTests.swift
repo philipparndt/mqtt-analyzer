@@ -15,7 +15,7 @@ class ScreenshotTests: AbstractUITests {
 		let alias = "Example"
 		let id = Navigation.idSmall()
 		
-		let examples = ExampleMessages(hostname: hostname)
+		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname))
 		let brokers = Brokers(app: app)
 		
 		app.launch()

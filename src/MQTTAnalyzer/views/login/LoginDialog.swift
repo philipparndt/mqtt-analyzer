@@ -57,6 +57,7 @@ struct LoginFormView: View {
 							.autocapitalization(.none)
 							.multilineTextAlignment(.trailing)
 							.font(.body)
+							.accessibilityLabel("username")
 					}
 					
 					HStack {
@@ -70,6 +71,7 @@ struct LoginFormView: View {
 							.autocapitalization(.none)
 							.multilineTextAlignment(.trailing)
 							.font(.body)
+							.accessibilityLabel("password")
 					}
 				}
 				
