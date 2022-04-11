@@ -124,10 +124,6 @@ class MqttClientCocoaMQTT: MqttClient {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname)")
 				sleep(1)
 				
-				if self.connectionState.state == .connecting {
-					self.setConnectionMessage(message: "Connecting... \(i)")
-				}
-
 				i-=1
 			}
 			group.leave()
