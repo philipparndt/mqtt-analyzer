@@ -25,6 +25,8 @@
 		22061AC527CA79FE00FFF915 /* DispatchQueue+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
 		220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */; };
+		22117B6F2805C93300D0117D /* AbstractConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22117B6E2805C93300D0117D /* AbstractConfigurationTests.swift */; };
+		22117B712805C95A00D0117D /* ConfigurationWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22117B702805C95A00D0117D /* ConfigurationWebSocketTests.swift */; };
 		2215118D27C923EB0000E385 /* TopicTree+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2215118C27C923EB0000E385 /* TopicTree+Search.swift */; };
 		2217BA3C27A3D2F900699428 /* AwaitMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2217BA3B27A3D2F900699428 /* AwaitMessagesView.swift */; };
 		221C571E2466C9CD00C0DD02 /* HostFormModel+AWS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C571D2466C9CD00C0DD02 /* HostFormModel+AWS.swift */; };
@@ -144,7 +146,7 @@
 		22AB2C0F280076CB00E88875 /* String+RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C0E280076CB00E88875 /* String+RegExp.swift */; };
 		22AB2C112800771700E88875 /* CocoaMQTTClient+ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C102800771700E88875 /* CocoaMQTTClient+ErrorMessage.swift */; };
 		22AB2C132800854700E88875 /* MqttClientCocoaMQTTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C122800854700E88875 /* MqttClientCocoaMQTTTests.swift */; };
-		22AB2C152801D8A400E88875 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C142801D8A400E88875 /* ConfigurationTests.swift */; };
+		22AB2C152801D8A400E88875 /* ConfigurationMQTTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C142801D8A400E88875 /* ConfigurationMQTTTests.swift */; };
 		22AE64342412636300C2C4FE /* DiagramPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64332412636300C2C4FE /* DiagramPath.swift */; };
 		22AE64362412637A00C2C4FE /* TimeSeriesValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */; };
 		22AE643824126A7500C2C4FE /* DiagramPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE643724126A7500C2C4FE /* DiagramPathTests.swift */; };
@@ -228,6 +230,8 @@
 		22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Background.swift"; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
 		220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMigrationCertificateFiles.swift; sourceTree = "<group>"; };
+		22117B6E2805C93300D0117D /* AbstractConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractConfigurationTests.swift; sourceTree = "<group>"; };
+		22117B702805C95A00D0117D /* ConfigurationWebSocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationWebSocketTests.swift; sourceTree = "<group>"; };
 		2215118C27C923EB0000E385 /* TopicTree+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicTree+Search.swift"; sourceTree = "<group>"; };
 		2217BA3B27A3D2F900699428 /* AwaitMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwaitMessagesView.swift; sourceTree = "<group>"; };
 		221C571D2466C9CD00C0DD02 /* HostFormModel+AWS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HostFormModel+AWS.swift"; sourceTree = "<group>"; };
@@ -359,7 +363,7 @@
 		22AB2C0E280076CB00E88875 /* String+RegExp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RegExp.swift"; sourceTree = "<group>"; };
 		22AB2C102800771700E88875 /* CocoaMQTTClient+ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CocoaMQTTClient+ErrorMessage.swift"; sourceTree = "<group>"; };
 		22AB2C122800854700E88875 /* MqttClientCocoaMQTTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClientCocoaMQTTTests.swift; sourceTree = "<group>"; };
-		22AB2C142801D8A400E88875 /* ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
+		22AB2C142801D8A400E88875 /* ConfigurationMQTTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationMQTTTests.swift; sourceTree = "<group>"; };
 		22AE64332412636300C2C4FE /* DiagramPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramPath.swift; sourceTree = "<group>"; };
 		22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesValue.swift; sourceTree = "<group>"; };
 		22AE643724126A7500C2C4FE /* DiagramPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramPathTests.swift; sourceTree = "<group>"; };
@@ -890,7 +894,9 @@
 				2200D96527C0C3BF00E63E89 /* PublishTests.swift */,
 				22B90E872805B2DE0083C6E5 /* SubscriptionTests.swift */,
 				227D987A27B7A05C00E45C4C /* ScreenshotTests.swift */,
-				22AB2C142801D8A400E88875 /* ConfigurationTests.swift */,
+				22117B6E2805C93300D0117D /* AbstractConfigurationTests.swift */,
+				22AB2C142801D8A400E88875 /* ConfigurationMQTTTests.swift */,
+				22117B702805C95A00D0117D /* ConfigurationWebSocketTests.swift */,
 				22C7F0D42416A16600534880 /* Info.plist */,
 				222AC32F2803350600D66334 /* TestServer.swift */,
 			);
@@ -1411,11 +1417,13 @@
 				22B46BDF27CA65750077FB83 /* SearchTests.swift in Sources */,
 				22B46BD627CA652B0077FB83 /* ExampleMessages.swift in Sources */,
 				227D987B27B7A05C00E45C4C /* ScreenshotTests.swift in Sources */,
-				22AB2C152801D8A400E88875 /* ConfigurationTests.swift in Sources */,
+				22AB2C152801D8A400E88875 /* ConfigurationMQTTTests.swift in Sources */,
 				22B90E882805B2DE0083C6E5 /* SubscriptionTests.swift in Sources */,
 				2200D96627C0C3BF00E63E89 /* PublishTests.swift in Sources */,
 				2200D97B27C2675300E63E89 /* AbstractUITests.swift in Sources */,
+				22117B712805C95A00D0117D /* ConfigurationWebSocketTests.swift in Sources */,
 				22B46BD527CA652B0077FB83 /* PublishDialog.swift in Sources */,
+				22117B6F2805C93300D0117D /* AbstractConfigurationTests.swift in Sources */,
 				22061AC127CA682F00FFF915 /* Search.swift in Sources */,
 				224AFEB727B2C67900DFD09F /* XCUIElement+ClearText.swift in Sources */,
 				22B46BD727CA652B0077FB83 /* ScreenshotIds.swift in Sources */,
