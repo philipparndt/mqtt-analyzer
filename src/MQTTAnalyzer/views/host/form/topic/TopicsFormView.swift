@@ -33,7 +33,9 @@ struct TopicsFormView: View {
 				
 				Button(action: addSubscription) {
 					Text("Add subscription")
-				}.font(.body)
+				}
+				.font(.body)
+				.accessibilityLabel("add-subscription")
 			}
 		}
 	}

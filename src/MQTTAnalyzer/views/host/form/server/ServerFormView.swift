@@ -99,7 +99,7 @@ struct ServerFormView: View {
 			Toggle(isOn: $host.ssl) {
 				Text("SSL")
 					.font(.headline)
-			}
+			}.accessibilityLabel("tls")
 
 			if host.ssl {
 				Toggle(isOn: $host.untrustedSSL) {

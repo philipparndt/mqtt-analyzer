@@ -25,6 +25,7 @@ struct SubscriptionDetailsView: View {
 						.disableAutocorrection(true)
 						.autocapitalization(.none)
 						.font(.body)
+						.accessibilityLabel("subscription-topic")
 				}
 
 				HStack {

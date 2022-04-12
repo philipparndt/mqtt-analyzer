@@ -14,7 +14,6 @@ import Network
 class MqttClientCocoaMQTT: MqttClient {
 	
 	let delgate = MQTTDelegate()
-	let utils = MqttClientSharedUtils()
 	
 	let sessionNum: Int
 	let model: TopicTree

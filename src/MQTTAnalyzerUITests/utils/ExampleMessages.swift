@@ -44,6 +44,10 @@ class MQTTCLient {
 	class func connect(broker: Broker, credentials: Credentials?) -> CocoaMQTT {
 		let result = createClient(broker: broker)
 		
+		if let tls = broker.tls {
+			result.enableSSL = tls
+		}
+		
 		result.username = broker.username ?? credentials?.username
 		result.password = broker.password ?? credentials?.password
 		
@@ -61,7 +65,7 @@ class MQTTCLient {
 		client.publish(CocoaMQTTMessage(
 			topic: topic,
 			string: payload,
-			qos: CocoaMQTTQoS.qos1,
+			qos: CocoaMQTTQoS.qos2,
 			retained: false)
 		)
 	}

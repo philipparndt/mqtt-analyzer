@@ -50,31 +50,38 @@ class Brokers {
 		app.buttons["Add Broker"].tap()
 		
 		if let alias = broker.alias {
-			let aliasField = app.textFields["alias"]
-			aliasField.tap()
-			aliasField.typeText("\(alias)\n")
+			let field = app.textFields["alias"]
+			field.tap()
+			field.typeText("\(alias)\n")
 		}
 		
 		if let hostname = broker.hostname {
-			let hostField = app.textFields["hostname"]
-			hostField.tap()
-			hostField.typeText("\(hostname)\n")
+			let field = app.textFields["hostname"]
+			field.tap()
+			field.typeText("\(hostname)\n")
 		}
 
 		if let port = broker.port {
-			let portField = app.textFields["port"]
-			portField.tap()
-			portField.clearAndEnterText(text: "\(port)")
+			let field = app.textFields["port"]
+			field.tap()
+			field.clearAndEnterText(text: "\(port)")
 		}
 		
 		if let proto = broker.connectionProtocol {
-			let protoField = app.buttons["\(proto)"]
-			protoField.tap()
+			let field = app.buttons["\(proto)"]
+			field.tap()
+		}
+		
+		if let tls = broker.tls {
+			if tls {
+				let field = app.switches["tls"]
+				field.tap()
+			}
 		}
 		
 		if let authType = broker.authType {
-			let protoField = app.buttons["\(authType)-auth"]
-			protoField.tap()
+			let field = app.buttons["\(authType)-auth"]
+			field.tap()
 			
 			if authType == .userPassword {
 				if let username = broker.username {
@@ -95,11 +102,19 @@ class Brokers {
 		app.buttons["Save"].tap()
 	}
 	
-	func edit(alias oldName: String, broker: Broker) {
+	func startEdit(alias oldName: String) {
 		app.launchMenuAction(
 			on: brokerCell(of: oldName),
 			label: "Edit"
 		)
+	}
+	
+	func save() {
+		app.buttons["Save"].tap()
+	}
+	
+	func edit(alias oldName: String, broker: Broker) {
+		startEdit(alias: oldName)
 		
 		if let alias = broker.alias {
 			let aliasField = app.textFields["alias"]
@@ -111,7 +126,30 @@ class Brokers {
 			hostField.clearAndEnterText(text: "\(hostname)\n")
 		}
 		
+		save()
+	}
+	
+	func addSubscription(alias: String, topic: String) {
+		startEdit(alias: alias)
+		addSubscriptionToCurrentBroker(topic: topic)
 		app.buttons["Save"].tap()
+		save()
+	}
+	
+	func addSubscriptionToCurrentBroker(topic: String) {
+		app.buttons["add-subscription"].tap()
+		let field = app.textFields["subscription-topic"]
+		XCTAssertTrue(field.waitForExistence(timeout: 4))
+		field.tap()
+		field.clearAndEnterText(text: topic)
+		app.buttons["Edit broker"].tap()
+	}
+	
+	func deleteSubscriptionFromCurrentBroker(topic: String) {
+		app.buttons[topic].tap()
+		let button = app.buttons["Delete"]
+		XCTAssertTrue(button.waitForExistence(timeout: 4))
+		button.tap()
 	}
 	
 	func createBasedOn(alias oldName: String, broker: Broker) {

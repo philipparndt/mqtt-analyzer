@@ -82,7 +82,7 @@ class Navigation {
 	
 	func folderCell(topic: String) -> XCUIElement {
 		let cell = app.cells["folder: \(topic)"]
-		XCTAssertTrue(cell.waitForExistence(timeout: 4))
+		XCTAssertTrue(cell.waitForExistence(timeout: 10))
 		return cell
 	}
 	

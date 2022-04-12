@@ -28,12 +28,30 @@ extension XCUIElement {
 		return false
 	}
 	
+	func isPlaceholderEqValue() -> Bool {
+		guard let stringValue = self.value as? String else {
+			XCTFail("Tried to clear and enter text into a non string value")
+			return false
+		}
+		
+		if stringValue.isEmpty {
+			return false
+		}
+		
+		// workaround for apple bug
+		if let placeholderString = self.placeholderValue, placeholderString == stringValue {
+			return true
+		}
+		
+		return false
+	}
+	
 	func clear() {
 		#if targetEnvironment(macCatalyst)
 		self.tap()
 		#endif
 		
-		if alreadyClearStrategy() || clearWithDeleteKeyStrategy() || clearWithSelectAllStrategy() {
+		if fastClearStrategy() || clearWithDeleteKeyStrategy() || clearWithSelectAllStrategy() {
 			return
 		}
 		
@@ -43,6 +61,33 @@ extension XCUIElement {
 	func clearAndEnterText(text: String) {
 		clear()
 		typeText(text)
+	}
+}
+
+extension XCUIElement {
+	/*
+	 Try a fast clear by typing a single character, verify that it is the
+	 single character and delete it again.
+	 
+	 This is necessary as we cannot distinct between a placeholder value
+	 and the same value entered.
+	 */
+	func fastClearStrategy() -> Bool {
+		if isPlaceholderEqValue() {
+			self.typeText(".")
+			
+			guard let stringValue = self.value as? String else {
+				XCTFail("Tried to clear and enter text into a non string value")
+				return false
+			}
+			
+			if stringValue == "." {
+				self.typeText(XCUIKeyboardKey.delete.rawValue)
+			}
+			return isEmpty()
+		}
+		
+		return false
 	}
 }
 
@@ -62,7 +107,8 @@ extension XCUIElement {
 		lowerRightCorner.tap()
 		#endif
 		
-		let deleteString = String(repeating: XCUIKeyboardKey.delete.rawValue, count: stringValue.count)
+		let sometimesCharactersMissing = 5
+		let deleteString = String(repeating: XCUIKeyboardKey.delete.rawValue, count: stringValue.count + sometimesCharactersMissing)
 		self.typeText(deleteString)
 		
 		return isEmpty()

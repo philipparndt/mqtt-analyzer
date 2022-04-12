@@ -27,4 +27,5 @@ struct Broker {
 	var authType: AuthType?
 	var username: String?
 	var password: String?
+	var tls: Bool?
 }

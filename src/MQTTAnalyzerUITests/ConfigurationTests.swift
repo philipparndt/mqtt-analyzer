@@ -14,7 +14,6 @@ class ConfigurationTests: AbstractUITests {
 
 	func assertWithBroker(_ broker: Broker, credentials: Credentials? = nil) {
 		let id = Navigation.id()
-		let examples = ExampleMessages(broker: broker, credentials: credentials)
 		let brokers = Brokers(app: app)
 
 		app.launch()
@@ -30,18 +29,12 @@ class ConfigurationTests: AbstractUITests {
 		
 		brokers.waitUntilConnected()
 
-		examples.publish(prefix: id)
-
-		nav.navigate(to: "\(id)home")
+		let dialog = PublishDialog(app: app)
+		dialog.open()
+		dialog.fill(topic: "\(id)topic", message: "msg")
+		dialog.apply()
 		
-		let smallId = Navigation.idSmall(suffix: "")
-		
-		let publish = PublishDialog(app: app)
-		publish.open()
-		publish.fill(topic: "\(id)home/\(smallId)", message: id)
-		publish.apply()
-		
-		nav.navigate(to: "\(id)home/\(smallId)")
+		nav.navigate(to: "\(id)topic")
 	}
 	
 	func testMQTTNoAuth() {
@@ -77,6 +70,30 @@ class ConfigurationTests: AbstractUITests {
 				username: "admin"
 			),
 			credentials: Credentials(username: nil, password: "password")
+		)
+	}
+	
+	func testMQTTLetsEncryptTraefik() {
+		assertWithBroker(
+			Broker(
+				alias: "LE MQTTS",
+				hostname: hostname,
+				port: 8883,
+				connectionProtocol: .mqtt,
+				tls: true
+			)
+		)
+	}
+	
+	func testWebSocketLetsEncryptTraefik() {
+		assertWithBroker(
+			Broker(
+				alias: "LE WSS",
+				hostname: hostname,
+				port: 443,
+				connectionProtocol: .websocket,
+				tls: true
+			)
 		)
 	}
 	

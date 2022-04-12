@@ -32,5 +32,8 @@ DerivedData
 *.hmap
 *.ipa
 
+# IntelliJ
+.idea/
+
 # CocoaPods
 Pods
