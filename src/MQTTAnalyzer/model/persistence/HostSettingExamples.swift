@@ -51,7 +51,7 @@ class HostSettingExamples {
 		let result = Host()
 		result.alias = "Example"
 		result.hostname = "test.mqtt-analyzer.rnd7.de"
-		result.limitTopic = 400
+		result.limitTopic = 0
 		result.subscriptions = [TopicSubscription(topic: "#", qos: 0)]
 		return result
 	}
@@ -60,7 +60,7 @@ class HostSettingExamples {
 		let result = Host()
 		result.alias = "localhost"
 		result.hostname = "localhost"
-		result.limitTopic = 400
+		result.limitTopic = 0
 		result.subscriptions = [TopicSubscription(topic: "#", qos: 0)]
 		return result
 	}

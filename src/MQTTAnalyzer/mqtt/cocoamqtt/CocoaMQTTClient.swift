@@ -237,7 +237,7 @@ class MqttClientCocoaMQTT: MqttClient {
 		}
 		
 		for message in messages {
-			if self.model.totalTopicCounter >= host.limitTopic {
+			if host.limitTopic > 0 && self.model.totalTopicCounter >= host.limitTopic {
 				// Limit exceeded
 				self.model.topicLimitExceeded = true
 			}
