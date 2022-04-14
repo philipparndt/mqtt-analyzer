@@ -11,7 +11,7 @@ array=( dark light )
 for i in "${array[@]}"
 do
     mkdir "./screenshots/$i"
-    export APPEARENCE="$i" 
+    export APPEARANCE="$i"
     ./ci/prepare-screenshots.mjs
 
     pushd src
