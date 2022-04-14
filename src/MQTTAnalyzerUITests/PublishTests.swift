@@ -27,15 +27,15 @@ class PublishTests: AbstractUITests {
 		nav.navigate(to: id)
 		
 		XCTAssertTrue(app.staticTexts["hue"]
-						.waitForExistence(timeout: 4))
+						.waitForExistence(timeout: 4), "Expected hue to be there")
 
 		let dialog = PublishDialog(app: app)
 		dialog.open()
 		dialog.fill(topic: "\(id)topic", message: "msg")
 		dialog.apply()
 		
-		XCTAssertTrue(app.staticTexts["Inherited Message Groups"].waitForExistence(timeout: 4))
-		XCTAssertTrue(app.staticTexts["msg"].waitForExistence(timeout: 4))
+		XCTAssertTrue(app.staticTexts["Inherited Message Groups"].waitForExistence(timeout: 4), "Expected Inherited Message Groups to be there")
+		XCTAssertTrue(app.staticTexts["msg"].waitForExistence(timeout: 4), "Expected msg to be there")
 	}
 	
 	func testPublishWhileWait() {
@@ -56,14 +56,14 @@ class PublishTests: AbstractUITests {
 		
 		MessageTopicUtils.clearAll(app: app)
 		
-		XCTAssertTrue(app.staticTexts["Waiting for messages"].waitForExistence(timeout: 4))
+		XCTAssertTrue(app.staticTexts["Waiting for messages"].waitForExistence(timeout: 4), "Expected waiting for messages to be there")
 		
 		let dialog = PublishDialog(app: app)
 		dialog.open()
 		dialog.fill(topic: "\(id)topic", message: "msg")
 		dialog.apply()
 		
-		XCTAssertTrue(app.staticTexts["Inherited Message Groups"].waitForExistence(timeout: 4))
-		XCTAssertTrue(app.staticTexts["msg"].waitForExistence(timeout: 4))
+		XCTAssertTrue(app.staticTexts["Inherited Message Groups"].waitForExistence(timeout: 4), "Expected inherited messages groups to be there")
+		XCTAssertTrue(app.staticTexts["msg"].waitForExistence(timeout: 4), "Expected msg to be there")
 	}
 }

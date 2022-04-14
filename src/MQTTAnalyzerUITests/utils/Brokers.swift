@@ -62,9 +62,11 @@ class Brokers {
 		}
 
 		if let port = broker.port {
-			let field = app.textFields["port"]
-			field.tap()
-			field.clearAndEnterText(text: "\(port)")
+			if port != 1883 {
+				let field = app.textFields["port"]
+				field.tap()
+				field.clearAndEnterText(text: "\(port)")
+			}
 		}
 		
 		if let proto = broker.connectionProtocol {
@@ -139,7 +141,7 @@ class Brokers {
 	func addSubscriptionToCurrentBroker(topic: String) {
 		app.buttons["add-subscription"].tap()
 		let field = app.textFields["subscription-topic"]
-		XCTAssertTrue(field.waitForExistence(timeout: 4))
+		XCTAssertTrue(field.waitForExistence(timeout: 4), "Expected add-subscription button to be there")
 		field.tap()
 		field.clearAndEnterText(text: topic)
 		app.buttons["Edit broker"].tap()
@@ -148,7 +150,7 @@ class Brokers {
 	func deleteSubscriptionFromCurrentBroker(topic: String) {
 		app.buttons[topic].tap()
 		let button = app.buttons["Delete"]
-		XCTAssertTrue(button.waitForExistence(timeout: 4))
+		XCTAssertTrue(button.waitForExistence(timeout: 4), "Expected delete button to be there")
 		button.tap()
 	}
 	
@@ -208,7 +210,7 @@ class Brokers {
 	}
 	
 	func login(credentials: Credentials) {
-		XCTAssertTrue(app.staticTexts["Login"].waitForExistence(timeout: 2))
+		XCTAssertTrue(app.staticTexts["Login"].waitForExistence(timeout: 2), "Expected Login to be there")
 		
 		if let username = credentials.username {
 			let field = app.textFields["username"]
@@ -226,6 +228,8 @@ class Brokers {
 	}
 	
 	func brokerCell(of alias: String) -> XCUIElement {
-		return app.cells["broker: \(alias)"]
+		let cell = app.cells["broker: \(alias)"]
+		XCTAssertTrue(cell.waitForExistence(timeout: 4), "Expected brokerCell \(alias) to be there")
+		return cell
 	}
 }
