@@ -1,0 +1,3 @@
+.env
+traefik/
+acme.json

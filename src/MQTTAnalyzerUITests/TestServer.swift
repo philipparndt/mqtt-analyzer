@@ -10,6 +10,6 @@ import Foundation
 
 class TestServer {
 	static func getTestServer() -> String {
-		return "test.mqtt-analyzer.rnd7.de"
+		return "test.mqtt.rnd7.de"
 	}
 }

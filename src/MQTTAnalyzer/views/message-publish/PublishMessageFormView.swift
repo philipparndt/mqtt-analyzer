@@ -212,7 +212,7 @@ struct PublishMessageFormJSONView: View {
 	
 	var body: some View {
 		Group {
-			ForEach(message.properties.indices) { index in
+			ForEach(message.properties.indices, id: \.self) { index in
 				HStack {
 					Text(self.message.properties[index].pathName)
 					Spacer()

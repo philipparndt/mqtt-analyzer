@@ -26,7 +26,7 @@ class PublishDialog {
 	func fill(topic: String, message: String) {
 		let topicText = app.textFields["topic"]
 		topicText.tap()
-		topicText.clearAndEnterText(text: topic)
+		topicText.enterTextIfNotAlreadySame(text: topic)
 		
 		let messageView = app.textViews["textbox"]
 		XCTAssertTrue(messageView.waitForExistence(timeout: 2))

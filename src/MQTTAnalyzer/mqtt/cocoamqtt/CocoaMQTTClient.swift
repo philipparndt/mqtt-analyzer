@@ -291,7 +291,6 @@ class MqttClientCocoaMQTT: MqttClient {
 				self.connectionState.state = .connected
 			}
 
-			
 			NSLog("Connected. Return Code is \(ack.description)")
 			DispatchQueue.main.async {
 				self.host.state = .connected

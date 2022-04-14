@@ -1,16 +1,77 @@
 version: '3'
 services:
+  traefik:
+    image: traefik:v2.6
+    restart: "no"
+
+    command:
+      # System options
+      - "--log.level=info"
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--pilot.dashboard=false"
+
+      # Entrypoints
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.mqtts.address=:8883"
+
+      # Redirections
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+
+      # TLS
+      - "--entrypoints.websecure.http.tls.certResolver=letsencrypt"
+      - "--certificatesResolvers.letsencrypt.acme.email=${MAIL}"
+      - "--certificatesresolvers.letsencrypt.acme.preferredChain='ISRG Root X1'"
+      - "--certificatesResolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json"
+      - "--certificatesResolvers.letsencrypt.acme.keyType=EC384"
+      - "--certificatesResolvers.letsencrypt.acme.dnsChallenge.provider=ionos"
+
+      # Providers
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.file.directory=/configurations"
+      - "--providers.file.watch=true"
+
+    ports:
+      # Web server
+      - 443:443
+      # MQTT
+      - 8883:8883
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/traefik/configs:/configurations
+      - ./config/traefik/acme:/etc/traefik/acme
+
+    environment:
+      - IONOS_API_KEY=${IONOS_API_KEY}
+
   mosquitto-no-auth:
     image: eclipse-mosquitto
     volumes:
-      - ./config/mosquitto-noauth/config:/mosquitto/config:rw    
+      - ./config/mosquitto-noauth/config:/mosquitto/config:rw
     ports:
       - "1883:1883"
       - "9001:9001"
+
+    labels:
+      - traefik.enable=true
+
+      - "traefik.http.routers.websecure.rule=Host(`${MQTT_HOST}`)"
+      - "traefik.http.routers.websecure.entrypoints=websecure"
+      - "traefik.http.routers.websecure.tls.certresolver=letsencrypt"
+      - "traefik.http.services.websecure.loadbalancer.server.port=9001"
+
+      - traefik.tcp.routers.mqtts.rule=HostSNI(`${MQTT_HOST}`)
+      - traefik.tcp.routers.mqtts.entrypoints=mqtts
+      - traefik.tcp.routers.mqtts.tls.certresolver=letsencrypt
+      - traefik.tcp.routers.mqtts.service=mqtts
+      - traefik.tcp.services.mqtts.loadBalancer.server.port=1883
+
   mosquitto-user-apssword-auth:
     image: eclipse-mosquitto
     volumes:
-      - ./config/mosquitto-userpass/config:/mosquitto/config:rw    
+      - ./config/mosquitto-userpass/config:/mosquitto/config:rw
     ports:
       - "1884:1884"
       - "9002:9002"

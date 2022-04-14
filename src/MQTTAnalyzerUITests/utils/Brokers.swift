@@ -89,13 +89,13 @@ class Brokers {
 				if let username = broker.username {
 					let field = app.textFields["username"]
 					field.tap()
-					field.clearAndEnterText(text: username)
+					field.typeText(username)
 				}
 				
 				if let password = broker.password {
 					let field = app.secureTextFields["password"]
 					field.tap()
-					field.clearAndEnterText(text: password)
+					field.typeText(password)
 				}
 			}
 		}
