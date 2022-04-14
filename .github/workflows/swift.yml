@@ -32,7 +32,10 @@ jobs:
     - name: iOS Tests
       working-directory: src
       run: |
-        fastlane ios tests
+        xcodebuild test -enableCodeCoverage YES \
+        -workspace MQTTAnalyzer.xcworkspace \
+        -scheme MQTTAnalyzer \
+        -only-testing MQTTAnalyzerTests
 
     - name: Upload test results
       uses: actions/upload-artifact@v3
