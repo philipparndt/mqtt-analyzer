@@ -46,7 +46,7 @@ struct FolderCellView: View {
 			FolderReadMarkerView(read: model.readState)
 			
 			Text(model.name.isBlank ? "<empty>" : model.name)
-				.foregroundColor(model.name.isBlank ? .gray : .black)
+				.foregroundColor(model.name.isBlank ? .gray : .primary)
 			
 			Spacer()
 
