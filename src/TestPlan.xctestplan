@@ -1,0 +1,56 @@
+{
+  "configurations" : [
+    {
+      "id" : "2A2694F0-04A0-48DF-89F7-0FB6E5736C21",
+      "name" : "Run Tests",
+      "options" : {
+
+      }
+    },
+    {
+      "id" : "5981D911-D806-4131-BC6C-DD5FD2E6A558",
+      "name" : "Run Tests - Thread Sanitizer",
+      "options" : {
+        "addressSanitizer" : {
+          "enabled" : false
+        },
+        "mallocScribbleEnabled" : false,
+        "repeatInNewRunnerProcess" : true,
+        "testRepetitionMode" : "untilFailure",
+        "threadSanitizerEnabled" : true,
+        "undefinedBehaviorSanitizerEnabled" : true
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "addressSanitizer" : {
+      "detectStackUseAfterReturn" : true,
+      "enabled" : true
+    },
+    "mallocScribbleEnabled" : true,
+    "nsZombieEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MQTTAnalyzer.xcodeproj",
+      "identifier" : "2253F8D122C8C007007E35A2",
+      "name" : "MQTTAnalyzer"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MQTTAnalyzer.xcodeproj",
+        "identifier" : "2253F8EA22C8C008007E35A2",
+        "name" : "MQTTAnalyzerTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MQTTAnalyzer.xcodeproj",
+        "identifier" : "22C7F0CF2416A16600534880",
+        "name" : "MQTTAnalyzerUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
