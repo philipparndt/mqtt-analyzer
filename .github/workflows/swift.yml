@@ -35,7 +35,7 @@ jobs:
         xcodebuild test -enableCodeCoverage YES \
         -workspace MQTTAnalyzer.xcworkspace \
         -scheme MQTTAnalyzer \
-        -only-testing MQTTAnalyzerTests \
+        -testPlan UnitTestPlan \
         -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
 
     - name: Upload test results

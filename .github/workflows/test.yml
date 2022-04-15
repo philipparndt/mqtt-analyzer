@@ -9,14 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
     
-    - name: Install ZX
-      run: |
-        npm install -g zx
-
-    - name: Install Mosquitto
-      run: |
-        ci/start-mosquitto.mjs
-
     - name: Set XCode Version
       run: sudo xcode-select -s /Applications/Xcode_13.2.app
 
@@ -34,14 +26,10 @@ jobs:
       shell: bash
 
     - name: Test
+      working-directory: src
       run: |
-        cd src
         xcodebuild test -enableCodeCoverage YES \
         -workspace MQTTAnalyzer.xcworkspace \
         -scheme MQTTAnalyzer \
+        -testPlan UnitTestPlan \
         -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
-
-    - name: Stop Mosquitto
-      if: always()
-      run: |
-        ci/stop-mosquitto.mjs

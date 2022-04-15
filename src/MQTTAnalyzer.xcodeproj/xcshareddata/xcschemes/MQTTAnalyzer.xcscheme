@@ -50,6 +50,9 @@
          <TestPlanReference
             reference = "container:TestPlanThreads.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:UnitTestPlan.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference

@@ -16,5 +16,8 @@
       <FileRef
          location = "group:TestPlanThreads.xctestplan">
       </FileRef>
+      <FileRef
+         location = "group:UnitTestPlan.xctestplan">
+      </FileRef>
    </Group>
 </Workspace>

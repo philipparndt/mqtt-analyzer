@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "8929315E-C6DC-4A7E-9052-C19CDE203342",
+      "name" : "Run Tests",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MQTTAnalyzer.xcodeproj",
+        "identifier" : "2253F8EA22C8C008007E35A2",
+        "name" : "MQTTAnalyzerTests"
+      }
+    }
+  ],
+  "version" : 1
+}
