@@ -143,7 +143,7 @@ struct PublishMessageFormView: View {
 	var body: some View {
 		Form {
 			Section(header: Text("Topic")) {
-				TextField("#", text: $message.topic)
+				TextField("", text: $message.topic)
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
 					.font(.body)
