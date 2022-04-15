@@ -7,4 +7,14 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
+   <Group
+      location = "container:"
+      name = "TestPlans">
+      <FileRef
+         location = "group:/Users/philipparndt/dev/smarthome/projects/mqtt-analyzer/src/TestPlan.xctestplan">
+      </FileRef>
+      <FileRef
+         location = "group:TestPlanThreads.xctestplan">
+      </FileRef>
+   </Group>
 </Workspace>
