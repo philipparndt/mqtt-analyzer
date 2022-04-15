@@ -20,7 +20,7 @@ struct SubscriptionDetailsView: View {
 						.font(.headline)
 
 					Spacer()
-					TextField("#", text: $subscription.topic)
+					TextField("e.g. #", text: $subscription.topic)
 						.multilineTextAlignment(.trailing)
 						.disableAutocorrection(true)
 						.autocapitalization(.none)

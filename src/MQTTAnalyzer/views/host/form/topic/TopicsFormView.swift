@@ -49,7 +49,7 @@ struct TopicsFormView: View {
 	}
 	
 	func addSubscription() {
-		let model = TopicSubscriptionFormModel(topic: "#", qos: 0)
+		let model = TopicSubscriptionFormModel(topic: "", qos: 0)
 		host.subscriptions.append(model)
 		
 		ViewSelection.update(newValue: model.id) { id in

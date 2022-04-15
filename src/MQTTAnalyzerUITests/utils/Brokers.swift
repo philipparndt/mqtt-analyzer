@@ -76,8 +76,13 @@ class Brokers {
 		
 		if let tls = broker.tls {
 			if tls {
+				#if targetEnvironment(macCatalyst)
+				let field = app.checkBoxes["tls"]
+				field.click()
+				#else
 				let field = app.switches["tls"]
 				field.tap()
+				#endif
 			}
 		}
 		
