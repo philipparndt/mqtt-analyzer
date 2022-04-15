@@ -44,14 +44,14 @@
       </AdditionalOptions>
       <TestPlans>
          <TestPlanReference
-            reference = "container:MQTTAnalyzer.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-         <TestPlanReference
             reference = "container:TestPlanThreads.xctestplan">
          </TestPlanReference>
          <TestPlanReference
             reference = "container:UnitTestPlan.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:ReleaseTestPlan.xctestplan"
+            default = "YES">
          </TestPlanReference>
       </TestPlans>
       <Testables>
