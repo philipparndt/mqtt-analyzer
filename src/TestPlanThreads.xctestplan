@@ -2,17 +2,34 @@
   "configurations" : [
     {
       "id" : "35FB3C04-42A9-45B9-88A3-657D11E1C39C",
-      "name" : "Configuration 1",
+      "name" : "Run Tests",
       "options" : {
 
       }
     }
   ],
   "defaultOptions" : {
-    "testTimeoutsEnabled" : true
+    "nsZombieEnabled" : true,
+    "testTimeoutsEnabled" : true,
+    "threadSanitizerEnabled" : true,
+    "undefinedBehaviorSanitizerEnabled" : true
   },
   "testTargets" : [
-
+    {
+      "target" : {
+        "containerPath" : "container:MQTTAnalyzer.xcodeproj",
+        "identifier" : "2253F8EA22C8C008007E35A2",
+        "name" : "MQTTAnalyzerTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MQTTAnalyzer.xcodeproj",
+        "identifier" : "22C7F0CF2416A16600534880",
+        "name" : "MQTTAnalyzerUITests"
+      }
+    }
   ],
   "version" : 1
 }

@@ -6,20 +6,6 @@
       "options" : {
 
       }
-    },
-    {
-      "id" : "5981D911-D806-4131-BC6C-DD5FD2E6A558",
-      "name" : "Run Tests - Thread Sanitizer",
-      "options" : {
-        "addressSanitizer" : {
-          "enabled" : false
-        },
-        "mallocScribbleEnabled" : false,
-        "repeatInNewRunnerProcess" : true,
-        "testRepetitionMode" : "untilFailure",
-        "threadSanitizerEnabled" : true,
-        "undefinedBehaviorSanitizerEnabled" : true
-      }
     }
   ],
   "defaultOptions" : {
