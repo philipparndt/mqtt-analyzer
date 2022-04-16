@@ -47,7 +47,7 @@ services:
       - IONOS_API_KEY=${IONOS_API_KEY}
 
   mosquitto-no-auth:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:2.0.14
     volumes:
       - ./config/mosquitto-noauth/config:/mosquitto/config:rw
     ports:
@@ -69,7 +69,7 @@ services:
       - traefik.tcp.services.mqtts.loadBalancer.server.port=1883
 
   mosquitto-user-apssword-auth:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:2.0.14
     volumes:
       - ./config/mosquitto-userpass/config:/mosquitto/config:rw
     ports:
