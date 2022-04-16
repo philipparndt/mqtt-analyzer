@@ -20,7 +20,7 @@ struct CustomList: View {
 	var body: some View {
 		HStack {
 			VStack {
-				ForEach(views.indices) { index in
+				ForEach(views.indices, id: \.self) { index in
 					views[index]
 					if index < views.count - 1 {
 						Divider()

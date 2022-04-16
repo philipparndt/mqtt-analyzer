@@ -36,7 +36,7 @@ class BrokerTests: AbstractUITests {
 		brokers.delete(alias: alias)
 		brokers.cancelDelete(alias: alias)
 		XCTAssertFalse(app.buttons["Delete"].exists)
-		XCTAssertTrue(example.exists)
+		XCTAssertTrue(example.exists, "Expected example to be still there")
 	}
 	
 	func testRenameBroker() {

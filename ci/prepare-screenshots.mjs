@@ -2,11 +2,11 @@
 
 const devices = [
     "iPhone 13 Pro", 
-    "iPhone SE (3rd generation)"", 
+    "iPhone SE (3rd generation)",
     "iPad Pro (11-inch) (3rd generation)"
     //, "iPad Air (3rd generation)"
 ]
-const papp = process.env["APPEARENCE"]
+const papp = process.env["APPEARANCE"]
 const appearance=papp ?? "dark" //  'dark' or 'light'
 
 console.log(`---- Setting appearance to ${papp} ----`)

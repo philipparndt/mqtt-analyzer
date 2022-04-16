@@ -55,6 +55,9 @@ struct ServerFormView: View {
 			if host.isAWS() {
 				AWSIoTHelpView(host: $host)
 			}
+			else if host.isClientCerts() {
+				ClientCertsHelpView(host: $host)
+			}
 			
 			HStack {
 				FormFieldInvalidMark(invalid: portInvalid)
@@ -64,9 +67,10 @@ struct ServerFormView: View {
 
 				Spacer()
 
-				TextField("1883", text: $host.port)
+				TextField("e.g. 1883", text: $host.port)
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
+					.accessibilityLabel("port")
 					.font(.body)
 			}
 			
@@ -98,7 +102,7 @@ struct ServerFormView: View {
 			Toggle(isOn: $host.ssl) {
 				Text("SSL")
 					.font(.headline)
-			}
+			}.accessibilityLabel("tls")
 
 			if host.ssl {
 				Toggle(isOn: $host.untrustedSSL) {

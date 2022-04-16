@@ -45,7 +45,8 @@ struct FolderCellView: View {
 		HStack {
 			FolderReadMarkerView(read: model.readState)
 			
-			Text(model.name)
+			Text(model.name.isBlank ? "<empty>" : model.name)
+				.foregroundColor(model.name.isBlank ? .gray : .primary)
 			
 			Spacer()
 

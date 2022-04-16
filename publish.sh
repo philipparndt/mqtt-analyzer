@@ -7,17 +7,16 @@ pushd ci
     zx realm-headers.mjs undo
 popd 
 
-### Create macOS Archive
+### Test Env
+pushd mqtt-stub-service
+    docker compose up -d
+popd
+
+
+### Install / build number
 pushd src
     pod install
     fastlane ios incbuild # increment build number
-popd
-
-## iOS ##################################
-### Create iOS Archive
-pushd src
-    rm -f MQTTAnalyzer.ipa MQTTAnalyzer.pkg
-    fastlane ios publish
 popd
 
 ## macOS ################################ 
@@ -41,3 +40,10 @@ popd
 pushd ci
     zx realm-headers.mjs undo
 popd 
+
+## iOS ##################################
+### Create iOS Archive
+pushd src
+    rm -f MQTTAnalyzer.ipa MQTTAnalyzer.pkg
+    fastlane ios publish
+popd

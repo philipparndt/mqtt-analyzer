@@ -27,6 +27,7 @@ struct LoginView: View {
 					Text("Authenticate")
 				}
 			}
+			.accessibilityLabel("Play")
 		}
 		.padding()
 	}

@@ -9,6 +9,7 @@ devices([
     "iPhone 13 Pro",
     "iPhone SE (3rd generation)",
     "iPad Pro (11-inch) (3rd generation)",
+    "iPad mini (6th generation)"
 ])
 
 scheme("MQTTAnalyzer")

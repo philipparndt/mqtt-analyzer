@@ -13,11 +13,11 @@ class ReadStateTests: AbstractUITests {
 	func testMarkRead() {
 		let brokers = Brokers(app: app)
 		
-		let hostname = "localhost"
+		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
 
-		let examples = ExampleMessages(hostname: hostname)
+		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname))
 		app.launch()
 
 		brokers.start(alias: alias)
@@ -34,8 +34,8 @@ class ReadStateTests: AbstractUITests {
 		let office = nav.getReadMarker(topic: "\(id)hue/light/office")
 		let kitchen = nav.getReadMarker(topic: "\(id)hue/light/office")
 		
-		XCTAssertTrue(office.firstMatch.exists)
-		XCTAssertTrue(kitchen.firstMatch.exists)
+		XCTAssertTrue(office.firstMatch.exists, "Expected office to be there")
+		XCTAssertTrue(kitchen.firstMatch.exists, "Expected kitche to be there")
 		
 		MessageTopicUtils.markAllAsRead(app: app)
 
@@ -47,18 +47,18 @@ class ReadStateTests: AbstractUITests {
 		XCTAssertFalse(light.exists)
 		
 		nav.navigate(to: "\(id)")
-		XCTAssertTrue(home.exists)
-		XCTAssertFalse(hue.exists)
+		XCTAssertTrue(home.exists, "Expected home to be there")
+		XCTAssertFalse(hue.exists, "Expected hue to be not there")
 	}
 	
 	func testClear() {
 		let brokers = Brokers(app: app)
 		
-		let hostname = "localhost"
+		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
 
-		let examples = ExampleMessages(hostname: hostname)
+		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname))
 		app.launch()
 
 		brokers.start(alias: alias)
@@ -74,7 +74,7 @@ class ReadStateTests: AbstractUITests {
 		
 		nav.navigate(to: id)
 		let home = nav.getReadMarker(topic: "\(id)home")
-		XCTAssertTrue(homeFolder.staticTexts["0/0"].exists)
-			XCTAssertFalse(home.exists)
+		XCTAssertTrue(homeFolder.staticTexts["0/0"].exists, "Expected 0/0 to be there")
+		XCTAssertFalse(home.exists, "Expected brokerCell home to be not there")
 	}
 }

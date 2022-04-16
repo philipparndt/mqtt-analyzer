@@ -12,10 +12,10 @@ class SearchTests: AbstractUITests {
 	func startSearch(id: String) -> Navigation {
 		let brokers = Brokers(app: app)
 		
-		let hostname = "localhost"
+		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		
-		let examples = ExampleMessages(hostname: hostname)
+		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname))
 		app.launch()
 
 		brokers.start(alias: alias)
@@ -61,11 +61,11 @@ class SearchTests: AbstractUITests {
 	func testSearchIsUpdated() {
 		let brokers = Brokers(app: app)
 		
-		let hostname = "localhost"
+		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
 		
-		let examples = ExampleMessages(hostname: hostname)
+		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname))
 		app.launch()
 		
 		brokers.start(alias: alias)

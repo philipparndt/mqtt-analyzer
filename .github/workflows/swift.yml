@@ -13,17 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
     
-    - name: Install ZX
-      run: |
-        npm install -g zx
-
-    - name: Install Mosquitto
-      run: |
-        ci/start-mosquitto.mjs
-
     - name: Set XCode Version
       run: sudo xcode-select -s /Applications/Xcode_13.2.app
-    
+
     - name: Install Dependences
       working-directory: src
       run: |
@@ -31,10 +23,20 @@ jobs:
         pod install
       shell: bash
     
+    # No support for Package.resolve v2 on GitHub
+    - name: Remove Package.resolve 
+      working-directory: src
+      run: |
+        rm ./MQTTAnalyzer.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
     - name: iOS Tests
       working-directory: src
       run: |
-        fastlane ios tests
+        xcodebuild test -enableCodeCoverage YES \
+        -workspace MQTTAnalyzer.xcworkspace \
+        -scheme MQTTAnalyzer \
+        -testPlan UnitTestPlan \
+        -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
 
     - name: Upload test results
       uses: actions/upload-artifact@v3
@@ -47,8 +49,3 @@ jobs:
     #  working-directory: src
     #  run: |
     #    fastlane mac tests
-
-    - name: Stop Mosquitto
-      if: always()
-      run: |
-        ci/stop-mosquitto.mjs

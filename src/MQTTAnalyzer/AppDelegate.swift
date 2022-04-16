@@ -10,7 +10,6 @@ import UIKit
 import IceCream
 import CloudKit
 import CocoaMQTT
-import Starscream
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -10,17 +10,15 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - name: Install ZX
-      run: |
-        npm install -g zx
-    
-    - name: Install Mosquitto
-      run: |
-        ci/start-mosquitto.mjs
-
     - name: Set XCode Version
       run: sudo xcode-select -s /Applications/Xcode_13.2.app
-    
+        
+    # No support for Package.resolve v2 on GitHub
+    - name: Remove Package.resolve 
+      working-directory: src
+      run: |
+        rm ./MQTTAnalyzer.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
     - name: Install Dependences
       working-directory: src
       run: |
@@ -35,14 +33,15 @@ jobs:
         brew install imagemagick
       shell: bash
 
+    # No support for Package.resolve v2 on GitHub
+    - name: Remove Package.resolve 
+      working-directory: src
+      run: |
+        rm ./MQTTAnalyzer.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
     - name: Create screenshots
       run: |
         bash create-screenshots.sh
-
-    - name: Stop Mosquitto
-      if: always()
-      run: |
-        ci/stop-mosquitto.mjs
 
     - uses: actions/upload-artifact@v3
       with:

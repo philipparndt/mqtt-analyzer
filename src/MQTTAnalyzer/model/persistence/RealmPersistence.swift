@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import SwiftUI
 
 public class RealmPersistence: Persistence {
 	let model: HostsModel
@@ -17,7 +18,7 @@ public class RealmPersistence: Persistence {
 	init?(model: HostsModel) {
 		self.model = model
 		
-		if let realm = RealmPersistence.initRelam() {
+		if let realm = RealmPersistence.initRealm() {
 			self.realm = realm
 		}
 		else {
@@ -25,12 +26,12 @@ public class RealmPersistence: Persistence {
 		}
 	}
 	
-	class func initRelam() -> Realm? {
+	class func initRealm() -> Realm? {
 		do {
 			return try Realm()
 		}
 		catch {
-			NSLog("Unable to initialize persistence, using stub persistence.")
+			NSLog("Unable to initialize persistence, using stub persistence. \(error)")
 			return nil
 		}
 		

@@ -15,15 +15,15 @@ struct AWSIoTHelpView: View {
 		HStack {
 			VStack {
 				HStack {
-					Text("[AWS IoT documentation](https://github.com/philipparndt/mqtt-analyzer/blob/master/Docs/AWS-IoT.md#connect-to-aws-iot)")
+					Text("[AWS IoT documentation](https://github.com/philipparndt/mqtt-analyzer/blob/master/Docs/examples/aws/README.md)")
 						.foregroundColor(.blue)
 					Spacer()
 				}
 				
-				if host.suggestAWSIOTCHanges() {
+				if host.suggestAWSIOTChanges() {
 					Text("") // Space
 					HStack {
-						Button(action: self.updateSettingsForAWSIOT) {
+						Button(action: self.updateSettings) {
 							Text("Apply default values")
 						}
 						Spacer()
@@ -41,7 +41,7 @@ struct AWSIoTHelpView: View {
 		.cornerRadius(10)
     }
 	
-	func updateSettingsForAWSIOT() {
+	func updateSettings() {
 		self.host.updateSettingsForAWSIOT()
 	}
 }

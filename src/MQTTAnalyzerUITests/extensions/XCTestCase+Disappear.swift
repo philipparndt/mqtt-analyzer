@@ -12,7 +12,7 @@ import XCTest
 extension XCTestCase {
 	
 	func awaitAppear(element: XCUIElement) {
-		XCTAssertTrue(element.waitForExistence(timeout: 4))
+		XCTAssertTrue(element.waitForExistence(timeout: 4), "Expected element to appear")
 	}
 	
 	func awaitDisappear(element: XCUIElement) {
@@ -21,6 +21,6 @@ extension XCTestCase {
 					handler: nil)
 		waitForExpectations(timeout: 4, handler: nil)
 		
-		XCTAssertFalse(element.exists)
+		XCTAssertFalse(element.exists, "Expected element to disappear")
 	}
 }

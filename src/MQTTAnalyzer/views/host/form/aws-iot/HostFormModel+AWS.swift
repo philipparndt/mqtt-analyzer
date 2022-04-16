@@ -14,7 +14,7 @@ extension HostFormModel {
 		&& hostname.lowercased().contains(".iot.")
 	}
 	
-	func suggestAWSIOTCHanges() -> Bool {
+	func suggestAWSIOTChanges() -> Bool {
 		if isAWS() {
 			// mqtt not ws
 			// cocoa not moscapsule

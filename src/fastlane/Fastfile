@@ -29,13 +29,14 @@ platform :ios do
       devices: [
         "iPhone 13 Pro", 
         "iPhone SE (3rd generation)", 
-        "iPad Pro (11-inch) (3rd generation)"
+        "iPad Pro (11-inch) (3rd generation)",
+        "iPad mini (6th generation)"
       ]
     )
   end
 
   lane :archive do
-    gym()
+    gym(scheme: "MQTTAnalyzer")
   end
 
   lane :upload do
@@ -73,6 +74,7 @@ platform :mac do
     gym(
       catalyst_platform: "macos",
       destination: "generic/platform=macOS,variant=Mac Catalyst",
+      scheme: "MQTTAnalyzer"
     )
   end
 

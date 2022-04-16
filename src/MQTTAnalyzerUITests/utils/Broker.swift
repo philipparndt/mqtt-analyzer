@@ -8,7 +8,24 @@
 
 import Foundation
 
+enum ConnectionProtocol {
+	case mqtt
+	case websocket
+}
+
+enum AuthType {
+	case none
+	case userPassword
+	case certificate
+}
+
 struct Broker {
 	let alias: String?
 	let hostname: String?
+	var port: UInt16?
+	var connectionProtocol: ConnectionProtocol?
+	var authType: AuthType?
+	var username: String?
+	var password: String?
+	var tls: Bool?
 }

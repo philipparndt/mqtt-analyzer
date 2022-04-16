@@ -1,12 +1,9 @@
 PODS:
-  - CocoaAsyncSocket (7.6.5)
-  - CocoaMQTT (2.0.3-beta3):
-    - CocoaMQTT/Core (= 2.0.3-beta3)
-  - CocoaMQTT/Core (2.0.3-beta3):
-    - CocoaAsyncSocket (~> 7.6.5)
-  - CocoaMQTT/WebSockets (2.0.3-beta3):
+  - CocoaMQTT (2.0.3-beta6):
+    - CocoaMQTT/Core (= 2.0.3-beta6)
+  - CocoaMQTT/Core (2.0.3-beta6)
+  - CocoaMQTT/WebSockets (2.0.3-beta6):
     - CocoaMQTT/Core
-    - Starscream (~> 3.1.1)
   - CodeEditor (1.2.0):
     - Highlightr
   - GRDB.swift (5.21.0):
@@ -20,14 +17,13 @@ PODS:
   - Realm/Headers (10.7.7)
   - RealmSwift (10.7.7):
     - Realm (= 10.7.7)
-  - Starscream (3.1.1)
   - swift-petitparser (1.2.1)
-  - SwiftLint (0.46.5)
+  - SwiftLint (0.47.0)
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
-  - CocoaMQTT (from `https://github.com/emqx/CocoaMQTT.git`, tag `2.0.3-beta3`)
-  - CocoaMQTT/WebSockets (from `https://github.com/emqx/CocoaMQTT.git`, tag `2.0.3-beta3`)
+  - CocoaMQTT (from `https://github.com/philipparndt/CocoaMQTT.git`, branch `apple-network`)
+  - CocoaMQTT/WebSockets (from `https://github.com/philipparndt/CocoaMQTT.git`, branch `apple-network`)
   - CodeEditor (from `https://github.com/ZeeZide/CodeEditor.git`)
   - GRDB.swift (= 5.21.0)
   - Highlightr (from `https://github.com/raspu/Highlightr.git`, tag `2.1.2`)
@@ -39,20 +35,18 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - CocoaAsyncSocket
     - GRDB.swift
     - IceCream
     - Realm
     - RealmSwift
-    - Starscream
     - swift-petitparser
     - SwiftLint
     - SwiftyJSON
 
 EXTERNAL SOURCES:
   CocoaMQTT:
-    :git: https://github.com/emqx/CocoaMQTT.git
-    :tag: 2.0.3-beta3
+    :branch: apple-network
+    :git: https://github.com/philipparndt/CocoaMQTT.git
   CodeEditor:
     :git: https://github.com/ZeeZide/CodeEditor.git
   Highlightr:
@@ -61,8 +55,8 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CocoaMQTT:
-    :git: https://github.com/emqx/CocoaMQTT.git
-    :tag: 2.0.3-beta3
+    :commit: b0545d571819044f853c5741f386f3129743bf17
+    :git: https://github.com/philipparndt/CocoaMQTT.git
   CodeEditor:
     :commit: 39f457f9ddeb5ee27a7dc035e9c9c8c40be25c37
     :git: https://github.com/ZeeZide/CodeEditor.git
@@ -71,19 +65,17 @@ CHECKOUT OPTIONS:
     :tag: 2.1.2
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  CocoaMQTT: e9cecd5fb62a87bce99620aa5ef977762afa016a
+  CocoaMQTT: 81138efdeb80613387a26bb4809e36c4d7d4b074
   CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
   GRDB.swift: 09b2c81379f8949e1f6e2696f620bf15b7b9a051
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
   IceCream: 717d516a1c634eba8eaa8ce7d3d7bc5f7e40c2fa
   Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
   RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
-  SwiftLint: 2c16e8fa99dac2e440dc0c70ea74d2532048f6cf
+  SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 1d8798ed531dadfdd8a4394082aa4fb7e68c137a
+PODFILE CHECKSUM: 300b0ef56e822bde826e9c5fc46bc5f82d092d75
 
 COCOAPODS: 1.11.3

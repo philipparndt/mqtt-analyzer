@@ -11,11 +11,11 @@ import XCTest
 class ScreenshotTests: AbstractUITests {
 	//  ~/Library/Containers/de.rnd7.MQTTAnalyzerUITests.xctrunner/Data/screenshots
 	func testFullRoundtripScreenshots() {
-		let hostname = "localhost"
+		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.idSmall()
 		
-		let examples = ExampleMessages(hostname: hostname)
+		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname))
 		let brokers = Brokers(app: app)
 		
 		app.launch()

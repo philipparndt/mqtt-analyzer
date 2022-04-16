@@ -13,7 +13,7 @@ struct DisconnectedView: View {
 
 	var body: some View {
 		HStack {
-			Text(host.connectionMessage ?? "Disconnected...")
+			Text(host.connectionMessage ?? "Disconnected")
 			
 			Spacer()
 			
