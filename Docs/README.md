@@ -78,3 +78,11 @@ https://github.com/realm/realm-swift/issues/3556#issuecomment-218990100
 - Set target member to `Public`
 - Do this for all header files (multi selection is possible)
 
+## Thank you
+
+<table>
+  <tr>
+  <td valign="center"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="40"/> </td>
+  <td valign="center">Thanks to JetBrains for sponsoring an all tools <a href="https://www.jetbrains.com/community/opensource/#support">Open Source License</a></td>
+  </tr>
+</table>
