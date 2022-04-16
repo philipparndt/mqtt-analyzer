@@ -269,10 +269,7 @@ class MqttClientCocoaMQTT: MqttClient {
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
-				
-				self.connectionStateQueue.async {
-					self.host.connectionMessage = self.connectionState.message
-				}
+				self.host.connectionMessage = self.connectionState.message
 			}
 		}
 		

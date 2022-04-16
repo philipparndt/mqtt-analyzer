@@ -134,6 +134,8 @@
 		2291284924685AE1006F8256 /* DataMigrationLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291284824685AE0006F8256 /* DataMigrationLimits.swift */; };
 		2291424C23BF78000086C251 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424B23BF78000086C251 /* AboutView.swift */; };
 		2291424F23C0C0370086C251 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424E23C0C0370086C251 /* MenuButton.swift */; };
+		22953B31280A9206000F8F37 /* HostFormModel+ClientCerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B30280A9206000F8F37 /* HostFormModel+ClientCerts.swift */; };
+		22953B33280A92D8000F8F37 /* ClientCertsHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B32280A92D8000F8F37 /* ClientCertsHelpView.swift */; };
 		229FCAED247D67BC00490628 /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FCAEC247D67BC00490628 /* DocumentPickerView.swift */; };
 		229FCAEF247D6E2700490628 /* ImportCertificatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FCAEE247D6E2700490628 /* ImportCertificatePicker.swift */; };
 		22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A351DD24A76463001B8AEE /* PublishMessageModel.swift */; };
@@ -349,6 +351,8 @@
 		2291284824685AE0006F8256 /* DataMigrationLimits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationLimits.swift; sourceTree = "<group>"; };
 		2291424B23BF78000086C251 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2291424E23C0C0370086C251 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
+		22953B30280A9206000F8F37 /* HostFormModel+ClientCerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HostFormModel+ClientCerts.swift"; sourceTree = "<group>"; };
+		22953B32280A92D8000F8F37 /* ClientCertsHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCertsHelpView.swift; sourceTree = "<group>"; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229FCAEC247D67BC00490628 /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
@@ -655,6 +659,7 @@
 		226A6B5B2445740C00ACDFC3 /* form */ = {
 			isa = PBXGroup;
 			children = (
+				22953B2F280A91DC000F8F37 /* client-certs */,
 				2200D97927C2381100E63E89 /* aws-iot */,
 				2285C81927842176008DA37D /* DisconnectedView.swift */,
 				222EAAB627A3CDEB000E37AF /* ConnectBrokerView.swift */,
@@ -851,6 +856,15 @@
 				224AFEAC27AEF9BB00DFD09F /* TupleView+GetChildren.swift */,
 			);
 			path = common;
+			sourceTree = "<group>";
+		};
+		22953B2F280A91DC000F8F37 /* client-certs */ = {
+			isa = PBXGroup;
+			children = (
+				22953B30280A9206000F8F37 /* HostFormModel+ClientCerts.swift */,
+				22953B32280A92D8000F8F37 /* ClientCertsHelpView.swift */,
+			);
+			path = "client-certs";
 			sourceTree = "<group>";
 		};
 		22B46BCB27CA640A0077FB83 /* Recovered References */ = {
@@ -1337,6 +1351,7 @@
 				22FD7CFE22C8D2660078795F /* MessageDetailsView.swift in Sources */,
 				22AF3AEB23891267001D9F87 /* HostSettingExamples.swift in Sources */,
 				226A6B50244457E100ACDFC3 /* MqttClient.swift in Sources */,
+				22953B33280A92D8000F8F37 /* ClientCertsHelpView.swift in Sources */,
 				22F6057B23D4911000E6338B /* DataMigration.swift in Sources */,
 				2285C81C27847786008DA37D /* MetadataView.swift in Sources */,
 				2291284524685A13006F8256 /* DataMigrationClientImpl.swift in Sources */,
@@ -1361,6 +1376,7 @@
 				223AF5D92477D620009810E6 /* NoFilesHelpView.swift in Sources */,
 				223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */,
 				22AB2C0F280076CB00E88875 /* String+RegExp.swift in Sources */,
+				22953B31280A9206000F8F37 /* HostFormModel+ClientCerts.swift in Sources */,
 				226A6B632445759600ACDFC3 /* ClientIDFormView.swift in Sources */,
 				226A6B67244575DB00ACDFC3 /* AuthFormView.swift in Sources */,
 				2230FF3327A830C900D4327F /* DataProtocol+Hex.swift in Sources */,

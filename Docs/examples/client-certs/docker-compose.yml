@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    hostname: mosquitto
+    expose:
+      - "8883"
+    ports:
+      - "8883:8883"
+    volumes:
+      - ./config/mosquitto:/mosquitto/config

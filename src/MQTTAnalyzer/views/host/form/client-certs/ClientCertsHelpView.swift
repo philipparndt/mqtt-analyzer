@@ -8,19 +8,19 @@
 
 import SwiftUI
 
-struct AWSIoTHelpView: View {
+struct ClientCertsHelpView: View {
 	@Binding var host: HostFormModel
 	
     var body: some View {
 		HStack {
 			VStack {
 				HStack {
-					Text("[AWS IoT documentation](https://github.com/philipparndt/mqtt-analyzer/blob/master/Docs/examples/aws/README.md)")
+					Text("[Client certificates documentation](https://github.com/philipparndt/mqtt-analyzer/blob/master/Docs/examples/client-certs/README.md)")
 						.foregroundColor(.blue)
 					Spacer()
 				}
 				
-				if host.suggestAWSIOTChanges() {
+				if host.suggestClientCertsTLSChanges() {
 					Text("") // Space
 					HStack {
 						Button(action: self.updateSettings) {
@@ -42,6 +42,6 @@ struct AWSIoTHelpView: View {
     }
 	
 	func updateSettings() {
-		self.host.updateSettingsForAWSIOT()
+		self.host.updateSettingsForClientCertsTLS()
 	}
 }
