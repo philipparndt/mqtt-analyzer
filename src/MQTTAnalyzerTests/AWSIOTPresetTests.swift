@@ -15,22 +15,22 @@ class AWSIOTPresetTests: XCTestCase {
 	func testNoSuggestChangeForOtherHosts() {
 		var model = HostFormModel()
 		model.hostname = "piiot"
-		XCTAssertFalse(model.suggestAWSIOTCHanges())
+		XCTAssertFalse(model.suggestAWSIOTChanges())
 		model.hostname = "test.mosquitto.org"
-		XCTAssertFalse(model.suggestAWSIOTCHanges())
+		XCTAssertFalse(model.suggestAWSIOTChanges())
 	}
 	
 	func testSuggestChange() {
 		var model = HostFormModel()
 		model.hostname = "1234-ats.iot.some.amazonaws.com"
-		XCTAssert(model.suggestAWSIOTCHanges())
+		XCTAssert(model.suggestAWSIOTChanges())
 	}
 	
 	func testNoSuggestChangeAfterApply() {
 		var model = HostFormModel()
 		model.hostname = "1234-ats.iot.some.amazonaws.com"
 		model.updateSettingsForAWSIOT()
-		XCTAssertFalse(model.suggestAWSIOTCHanges())
+		XCTAssertFalse(model.suggestAWSIOTChanges())
 	}
 	
 	func testSettingsAfterApply() {
