@@ -9,7 +9,7 @@
 import Foundation
 import CocoaMQTT
 
-extension MqttClientCocoaMQTT {
+extension MQTTClientCocoaMQTT {
 	class func extractErrorMessage(error: Error) -> String {
 		let nsError = error as NSError
 		let code = nsError.code

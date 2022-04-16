@@ -11,15 +11,15 @@ import CocoaMQTT
 import Combine
 import Network
 
-class MqttClientCocoaMQTT: MqttClient {
+class MQTT5ClientCocoaMQTT: MqttClient {
 	private let connectionStateQueue = DispatchQueue(label: "connection.state.lock.queue")
 	
-	let delgate = MQTTDelegate()
+	let delgate = MQTT5Delegate()
 	
 	let sessionNum: Int
 	let model: TopicTree
 	var host: Host
-	var mqtt: CocoaMQTT?
+	var mqtt: CocoaMQTT5?
 	
 	var connectionAlive: Bool {
 		self.mqtt != nil && connectionState.state == .connected
@@ -27,7 +27,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	
 	var connectionState = ConnectionState()
 	
-	let messageSubject = MsgSubject<CocoaMQTTMessage>()
+	let messageSubject = MsgSubject<CocoaMQTT5Message>()
 		
 	init(host: Host, model: TopicTree) {
 		ConnectionState.sessionNum += 1
@@ -49,17 +49,17 @@ class MqttClientCocoaMQTT: MqttClient {
 	func connect() {
 		initConnect()
 		
-		let mqtt: CocoaMQTT
+		let mqtt: CocoaMQTT5
 		if host.protocolMethod == .websocket {
 			let websocket = CocoaMQTTWebSocket(uri: sanitizeBasePath(self.host.basePath))
-			mqtt = CocoaMQTT(clientID: host.computeClientID,
+			mqtt = CocoaMQTT5(clientID: host.computeClientID,
 								  host: host.hostname,
 								  port: host.port,
 								  socket: websocket)
 
 		}
 		else {
-			mqtt = CocoaMQTT(clientID: host.computeClientID,
+			mqtt = CocoaMQTT5(clientID: host.computeClientID,
 										  host: host.hostname,
 										  port: host.port)
 		}
@@ -193,11 +193,15 @@ class MqttClientCocoaMQTT: MqttClient {
 	}
 	
 	func publish(message: MsgMessage) {
-		mqtt?.publish(CocoaMQTTMessage(
+		let properties: MqttPublishProperties = MqttPublishProperties()
+		let message = CocoaMQTT5Message(
 			topic: message.topic.nameQualified,
 			string: message.payload.dataString,
 			qos: convertQOS(qos: message.metadata.qos),
-			retained: message.metadata.retain))
+			retained: message.metadata.retain
+		)
+		message.contentType = "application/json"
+		mqtt?.publish(message, properties: properties)
 	}
 
 	func convertQOS(qos: Int32) -> CocoaMQTTQoS {
@@ -223,7 +227,7 @@ class MqttClientCocoaMQTT: MqttClient {
 	}
 
 	// MARK: Should be shared
-	func onMessageInMain(messages: [CocoaMQTTMessage]) {
+	func onMessageInMain(messages: [CocoaMQTT5Message]) {
 		if host.pause {
 			return
 		}
@@ -256,12 +260,12 @@ class MqttClientCocoaMQTT: MqttClient {
 			mqtt?.subscribe($0.topic, qos: convertQOS(qos: Int32($0.qos)))
 		}
 	}
-	
-	func didDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
+
+	func didDisconnect(_ mqtt: CocoaMQTT5, withError err: Error?) {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname)")
 
 		if err != nil {
-			let messgae = MqttClientCocoaMQTT.extractErrorMessage(error: err!)
+			let messgae = MQTTClientCocoaMQTT.extractErrorMessage(error: err!)
 			
 			self.connectionStateQueue.async {
 				self.connectionState.message = messgae
@@ -281,42 +285,39 @@ class MqttClientCocoaMQTT: MqttClient {
 		}
 	}
 	
-	func didConnect(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
-		if ack == .accept {
-			print("CONNECTION: onConnect \(sessionNum) \(host.hostname)")
-			self.connectionStateQueue.async {
-				self.connectionState.state = .connected
-			}
-
-			NSLog("Connected. Return Code is \(ack.description)")
-			DispatchQueue.main.async {
-				self.host.state = .connected
-			}
-			
-			subscribeToTopic(host)
-		}
-		else if ack == .notAuthorized {
-			self.host.usernameNonpersistent = nil
-			self.host.passwordNonpersistent = nil
-			failConnection(reason: "Not authorized")
-		}
-		else if ack == .badUsernameOrPassword {
-			self.host.usernameNonpersistent = nil
-			self.host.passwordNonpersistent = nil
+	func didConnect(_ mqtt: CocoaMQTT5, reasonCode: CocoaMQTTCONNACKReasonCode, didConnectAck ack: MqttDecodeConnAck) {
+		
+		switch reasonCode {
+		case .success:
+			connectedSuccess(didConnectAck: ack)
+		case .badUsernameOrPassword:
+			clearAuth()
 			failConnection(reason: "Bad username/password")
+		case .notAuthorized:
+			clearAuth()
+			failConnection(reason: "Not authorized")
+		default:
+			failConnection(reason: String(describing: reasonCode))
 		}
-		else if ack == .unacceptableProtocolVersion {
-			failConnection(reason: "Unacceptable protocol version")
+	}
+	
+	func connectedSuccess(didConnectAck ack: MqttDecodeConnAck) {
+		print("CONNECTION: onConnect \(sessionNum) \(host.hostname)")
+		self.connectionStateQueue.async {
+			self.connectionState.state = .connected
 		}
-		else if ack == .identifierRejected {
-			failConnection(reason: "Identifier rejected")
+
+		NSLog("Connected. Return Code is \(ack.description)")
+		DispatchQueue.main.async {
+			self.host.state = .connected
 		}
-		else if ack == .serverUnavailable {
-			failConnection(reason: "Server unavailable")
-		}
-		else {
-			failConnection(reason: "Unknown error")
-		}
+		
+		subscribeToTopic(host)
+	}
+	
+	func clearAuth() {
+		self.host.usernameNonpersistent = nil
+		self.host.passwordNonpersistent = nil
 	}
 	
 	func failConnection(reason: String) {
@@ -332,10 +333,9 @@ class MqttClientCocoaMQTT: MqttClient {
 			self.host.pause = false
 			self.host.state = .disconnected
 		}
-		
 	}
 	
-	func didReceiveMessage(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
+	func didReceiveMessage(client: CocoaMQTT5, message: CocoaMQTT5Message, qos: UInt16, decode: MqttDecodePublish) {
 		if !host.pause {
 			messageSubject.send(message)
 		}

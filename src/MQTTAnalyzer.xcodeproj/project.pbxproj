@@ -89,7 +89,7 @@
 		2256BDAA246FBE5100F92EFE /* DataMigrationEmptyTopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256BDA9246FBE5100F92EFE /* DataMigrationEmptyTopic.swift */; };
 		2263C1D924813B0C00FF14E8 /* CertificateFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263C1D824813B0C00FF14E8 /* CertificateFilesModel.swift */; };
 		226A6B50244457E100ACDFC3 /* MqttClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B4F244457E100ACDFC3 /* MqttClient.swift */; };
-		226A6B5224445BA400ACDFC3 /* CocoaMQTTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5124445BA400ACDFC3 /* CocoaMQTTClient.swift */; };
+		226A6B5224445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5124445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift */; };
 		226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */; };
 		226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5C2445748500ACDFC3 /* HostFormModel.swift */; };
 		226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */; };
@@ -136,6 +136,8 @@
 		2291424F23C0C0370086C251 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424E23C0C0370086C251 /* MenuButton.swift */; };
 		22953B31280A9206000F8F37 /* HostFormModel+ClientCerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B30280A9206000F8F37 /* HostFormModel+ClientCerts.swift */; };
 		22953B33280A92D8000F8F37 /* ClientCertsHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B32280A92D8000F8F37 /* ClientCertsHelpView.swift */; };
+		22953B38280AEEFD000F8F37 /* MQTT5Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B36280AEDB7000F8F37 /* MQTT5Delegate.swift */; };
+		22953B39280AEEFD000F8F37 /* MQTT5ClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B37280AEDC0000F8F37 /* MQTT5ClientCocoaMQTT.swift */; };
 		229FCAED247D67BC00490628 /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FCAEC247D67BC00490628 /* DocumentPickerView.swift */; };
 		229FCAEF247D6E2700490628 /* ImportCertificatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FCAEE247D6E2700490628 /* ImportCertificatePicker.swift */; };
 		22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A351DD24A76463001B8AEE /* PublishMessageModel.swift */; };
@@ -306,7 +308,7 @@
 		2256BDA9246FBE5100F92EFE /* DataMigrationEmptyTopic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationEmptyTopic.swift; sourceTree = "<group>"; };
 		2263C1D824813B0C00FF14E8 /* CertificateFilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFilesModel.swift; sourceTree = "<group>"; };
 		226A6B4F244457E100ACDFC3 /* MqttClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClient.swift; sourceTree = "<group>"; };
-		226A6B5124445BA400ACDFC3 /* CocoaMQTTClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTClient.swift; sourceTree = "<group>"; };
+		226A6B5124445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTClientCocoaMQTT.swift; sourceTree = "<group>"; };
 		226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolPicker.swift; sourceTree = "<group>"; };
 		226A6B5C2445748500ACDFC3 /* HostFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormModel.swift; sourceTree = "<group>"; };
 		226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
@@ -353,6 +355,8 @@
 		2291424E23C0C0370086C251 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		22953B30280A9206000F8F37 /* HostFormModel+ClientCerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HostFormModel+ClientCerts.swift"; sourceTree = "<group>"; };
 		22953B32280A92D8000F8F37 /* ClientCertsHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCertsHelpView.swift; sourceTree = "<group>"; };
+		22953B36280AEDB7000F8F37 /* MQTT5Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTT5Delegate.swift; sourceTree = "<group>"; };
+		22953B37280AEDC0000F8F37 /* MQTT5ClientCocoaMQTT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTT5ClientCocoaMQTT.swift; sourceTree = "<group>"; };
 		229D30C923197D8200632896 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229D30CA23197D8200632896 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229FCAEC247D67BC00490628 /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
@@ -481,9 +485,11 @@
 		2203571D2445850F00A98CD3 /* cocoamqtt */ = {
 			isa = PBXGroup;
 			children = (
-				226A6B5124445BA400ACDFC3 /* CocoaMQTTClient.swift */,
-				2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */,
+				22953B37280AEDC0000F8F37 /* MQTT5ClientCocoaMQTT.swift */,
+				22953B36280AEDB7000F8F37 /* MQTT5Delegate.swift */,
+				226A6B5124445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift */,
 				220357202445B2ED00A98CD3 /* MQTTDelegate.swift */,
+				2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */,
 				22AB2C102800771700E88875 /* CocoaMQTTClient+ErrorMessage.swift */,
 			);
 			path = cocoamqtt;
@@ -1260,6 +1266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2285C81827842115008DA37D /* ConnectingView.swift in Sources */,
+				22953B38280AEEFD000F8F37 /* MQTT5Delegate.swift in Sources */,
 				224AFEAB27AEF98700DFD09F /* CustomListView.swift in Sources */,
 				22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */,
 				22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */,
@@ -1268,6 +1275,7 @@
 				22061AC527CA79FE00FFF915 /* DispatchQueue+Background.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
 				2230FF1427A6667000D4327F /* MsgPayload.swift in Sources */,
+				22953B39280AEEFD000F8F37 /* MQTT5ClientCocoaMQTT.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				229128412468590D006F8256 /* DataMigrationMultipleTopics.swift in Sources */,
 				226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */,
@@ -1280,7 +1288,7 @@
 				2285C80D2781E89B008DA37D /* TopicLimitReachedView.swift in Sources */,
 				229005CF237E7A8600D5A706 /* RealmPersistence.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormDialog.swift in Sources */,
-				226A6B5224445BA400ACDFC3 /* CocoaMQTTClient.swift in Sources */,
+				226A6B5224445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift in Sources */,
 				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
 				22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */,
 				2285C82127872D46008DA37D /* JSONUtils.swift in Sources */,
