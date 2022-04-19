@@ -8,9 +8,11 @@
 
 import CocoaMQTT
 
-class ClientUtils<T> {
+class ClientUtils<T, M> {
 	let connectionStateQueue = DispatchQueue(label: "connection.state.lock.queue")
 	var connectionState = ConnectionState()
+	let messageSubject = MsgSubject<M>()
+	
 	var host: Host
 	let sessionNum: Int
 	let model: TopicTree
@@ -89,7 +91,7 @@ class ClientUtils<T> {
 		model.topicLimitExceeded = false
 	}
 	
-	func didDisconnect(withError err: Error?) {
+	func didDisconnect(_ client: T, withError err: Error?) {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname)")
 
 		if err != nil {
@@ -127,6 +129,22 @@ class ClientUtils<T> {
 		mqtt = nil
 	}
 	
+	func installMessageDispatch(metadata: @escaping ((M) -> MsgMetadata), payload: @escaping((M) -> MsgPayload), topic: @escaping ((M) -> String)) {
+		let queue = DispatchQueue(label: "Message Dispatch queue")
+		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
+			.collect(.byTime(queue, 0.5))
+			.receive(on: DispatchQueue.main)
+			.sink(receiveValue: {
+				self.onMessages(messages: $0, metadata: metadata, payload: payload, topic: topic)
+			})
+	}
+	
+	func didReceiveMessage(message: M) {
+		if !host.pause {
+			messageSubject.send(message)
+		}
+	}
+	
 	func receiveMessagePreflight(amount: Int) -> Bool {
 		if host.pause {
 			return false
@@ -141,7 +159,7 @@ class ClientUtils<T> {
 		return true
 	}
 	
-	func onMessages<T>(messages: [T], metadata: ((T) -> MsgMetadata), payload: ((T) -> MsgPayload), topic: ((T) -> String)) {
+	func onMessages<M>(messages: [M], metadata: ((M) -> MsgMetadata), payload: ((M) -> MsgPayload), topic: ((M) -> String)) {
 		if !receiveMessagePreflight(amount: messages.count) {
 			return
 		}

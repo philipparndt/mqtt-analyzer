@@ -14,12 +14,10 @@ import Network
 class MQTTClientCocoaMQTT: MqttClient {
 	let delgate = MQTTDelegate()
 
-	let utils: ClientUtils<CocoaMQTT>
+	let utils: ClientUtils<CocoaMQTT, CocoaMQTTMessage>
 	var connectionState: ConnectionState { utils.connectionState }
 	var host: Host { utils.host }
 	var connectionAlive: Bool { utils.connectionAlive }
-	
-	let messageSubject = MsgSubject<CocoaMQTTMessage>()
 		
 	init(host: Host, model: TopicTree) {
 		utils = ClientUtils(host: host, model: model)
@@ -28,27 +26,13 @@ class MQTTClientCocoaMQTT: MqttClient {
 	func connect() {
 		utils.initConnect()
 		
-		let mqtt: CocoaMQTT
-		if host.protocolMethod == .websocket {
-			let websocket = CocoaMQTTWebSocket(uri: utils.sanitizeBasePath(self.host.basePath))
-			mqtt = CocoaMQTT(clientID: host.computeClientID,
-								  host: host.hostname,
-								  port: host.port,
-								  socket: websocket)
-
-		}
-		else {
-			mqtt = CocoaMQTT(clientID: host.computeClientID,
-										  host: host.hostname,
-										  port: host.port)
-		}
-		
+		let mqtt = createClient(host: host)
 		mqtt.enableSSL = host.ssl
 		mqtt.allowUntrustCACertificate = host.untrustedSSL
 
 		if host.auth == .usernamePassword {
-			mqtt.username = host.usernameNonpersistent ?? host.username
-			mqtt.password = host.passwordNonpersistent ?? host.password
+			mqtt.username = host.actualUsername
+			mqtt.password = host.actualPassword
 		}
 		else if host.auth == .certificate {
 			do {
@@ -69,7 +53,7 @@ class MQTTClientCocoaMQTT: MqttClient {
 		
 		mqtt.delegate = self.delgate
 		mqtt.didReceiveMessage = self.didReceiveMessage
-		mqtt.didDisconnect = self.didDisconnect
+		mqtt.didDisconnect = utils.didDisconnect(_:withError:)
 		mqtt.didConnectAck = self.didConnect
 		
 		if !mqtt.connect() {
@@ -81,17 +65,15 @@ class MQTTClientCocoaMQTT: MqttClient {
 
 		utils.mqtt = mqtt
 
-		let queue = DispatchQueue(label: "Message Dispatch queue")
-		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
-			.collect(.byTime(queue, 0.5))
-			.receive(on: DispatchQueue.main)
-			.sink(receiveValue: {
-				self.onMessageInMain(messages: $0)
-			})
+		utils.installMessageDispatch(
+			metadata: metadata(of:),
+			payload: payload(of:),
+			topic: topic(of:)
+		)
 	}
 			
 	func disconnect() {
-		messageSubject.cancel()
+		utils.messageSubject.cancel()
 
 		if let mqtt = utils.mqtt {
 			DispatchQueue.global(qos: .background).async {
@@ -113,15 +95,10 @@ class MQTTClientCocoaMQTT: MqttClient {
 			retained: message.metadata.retain))
 	}
 	
-	// MARK: Should be shared
 	func subscribeToTopic(_ host: Host) {
 		host.subscriptions.forEach {
 			utils.mqtt?.subscribe($0.topic, qos: utils.convertQOS(qos: Int32($0.qos)))
 		}
-	}
-	
-	func didDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
-		utils.didDisconnect(withError: err)
 	}
 	
 	func didConnect(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
@@ -140,10 +117,7 @@ class MQTTClientCocoaMQTT: MqttClient {
 		}
 	}
 	
-	func didReceiveMessage(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
-		if !host.pause {
-			messageSubject.send(message)
-		}
+	func didReceiveMessage(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, qos: UInt16) {
+		utils.didReceiveMessage(message: message)
 	}
-
 }

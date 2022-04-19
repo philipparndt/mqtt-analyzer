@@ -134,6 +134,7 @@ class Host: Identifiable, ObservableObject {
 	@Published var usernameNonpersistent: String?
 	@Published var passwordNonpersistent: String?
 	
+	
 	var needsAuth: Bool {
 		return auth == .usernamePassword
 			&& (username.isBlank || password.isBlank)

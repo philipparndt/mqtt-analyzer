@@ -159,6 +159,9 @@
 		22B38939280E885A00D23022 /* ClientUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38938280E885A00D23022 /* ClientUtils.swift */; };
 		22B3893B280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893A280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift */; };
 		22B3893D280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */; };
+		22B3893F280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893E280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift */; };
+		22B38941280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38940280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift */; };
+		22B38943280ED2FC00D23022 /* Host+ActualUserPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */; };
 		22B46BD427CA652B0077FB83 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BCD27CA652B0077FB83 /* Navigation.swift */; };
 		22B46BD527CA652B0077FB83 /* PublishDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BCE27CA652B0077FB83 /* PublishDialog.swift */; };
 		22B46BD627CA652B0077FB83 /* ExampleMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BCF27CA652B0077FB83 /* ExampleMessages.swift */; };
@@ -382,6 +385,9 @@
 		22B38938280E885A00D23022 /* ClientUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientUtils.swift; sourceTree = "<group>"; };
 		22B3893A280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MQTT5ClientCocoaMQTT+OnMessage.swift"; sourceTree = "<group>"; };
 		22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MQTTClientCocoaMQTT+OnMessage.swift"; sourceTree = "<group>"; };
+		22B3893E280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MQTT5ClientCocoaMQTT+Client.swift"; sourceTree = "<group>"; };
+		22B38940280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MQTTClientCocoaMQTT+Client.swift"; sourceTree = "<group>"; };
+		22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Host+ActualUserPassword.swift"; sourceTree = "<group>"; };
 		22B46BCD27CA652B0077FB83 /* Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		22B46BCE27CA652B0077FB83 /* PublishDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishDialog.swift; sourceTree = "<group>"; };
 		22B46BCF27CA652B0077FB83 /* ExampleMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleMessages.swift; sourceTree = "<group>"; };
@@ -491,12 +497,15 @@
 			children = (
 				22953B37280AEDC0000F8F37 /* MQTT5ClientCocoaMQTT.swift */,
 				22B3893A280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift */,
+				22B3893E280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift */,
 				22953B36280AEDB7000F8F37 /* MQTT5Delegate.swift */,
 				226A6B5124445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift */,
 				22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */,
+				22B38940280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift */,
 				220357202445B2ED00A98CD3 /* MQTTDelegate.swift */,
 				2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */,
 				22B38938280E885A00D23022 /* ClientUtils.swift */,
+				22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */,
 			);
 			path = cocoamqtt;
 			sourceTree = "<group>";
@@ -1284,12 +1293,14 @@
 				22953B39280AEEFD000F8F37 /* MQTT5ClientCocoaMQTT.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				229128412468590D006F8256 /* DataMigrationMultipleTopics.swift in Sources */,
+				22B38943280ED2FC00D23022 /* Host+ActualUserPassword.swift in Sources */,
 				226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */,
 				22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */,
 				22F8BEE723C24A5800422BFF /* String+Utils.swift in Sources */,
 				2217BA3C27A3D2F900699428 /* AwaitMessagesView.swift in Sources */,
 				2203571F2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift in Sources */,
 				228104982381796B00112F24 /* HostCellView.swift in Sources */,
+				22B38941280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift in Sources */,
 				229FCAEF247D6E2700490628 /* ImportCertificatePicker.swift in Sources */,
 				2285C80D2781E89B008DA37D /* TopicLimitReachedView.swift in Sources */,
 				229005CF237E7A8600D5A706 /* RealmPersistence.swift in Sources */,
@@ -1373,6 +1384,7 @@
 				2291284524685A13006F8256 /* DataMigrationClientImpl.swift in Sources */,
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
 				2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */,
+				22B3893F280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormDialog.swift in Sources */,
 				2230FF0827A56BDE00D4327F /* FolderNavigationView.swift in Sources */,
 				2285C81427841CA1008DA37D /* LoginView.swift in Sources */,

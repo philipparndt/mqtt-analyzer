@@ -20,11 +20,4 @@ extension MQTT5ClientCocoaMQTT {
 	func topic(of message: CocoaMQTT5Message) -> String {
 		return message.topic
 	}
-	
-	func onMessageInMain(messages: [CocoaMQTT5Message]) {
-		utils.onMessages(messages: messages,
-						 metadata: self.metadata(of:),
-						 payload: self.payload(of:),
-						 topic: self.topic(of:))
-	}
 }
