@@ -89,13 +89,15 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 	
 	func publish(message: MsgMessage) {
 		let properties: MqttPublishProperties = MqttPublishProperties()
+		properties.contentType = message.payload.contentType
+		properties.userProperty = message.metadata.userProperty
+		
 		let message = CocoaMQTT5Message(
 			topic: message.topic.nameQualified,
 			string: message.payload.dataString,
 			qos: utils.convertQOS(qos: message.metadata.qos),
 			retained: message.metadata.retain
 		)
-		message.contentType = "application/json"
 		utils.mqtt?.publish(message, properties: properties)
 	}
 	
@@ -106,7 +108,6 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 	}
 	
 	func didConnect(_ mqtt: CocoaMQTT5, reasonCode: CocoaMQTTCONNACKReasonCode, didConnectAck ack: MqttDecodeConnAck) {
-		
 		switch reasonCode {
 		case .success:
 			utils.connectedSuccess()
@@ -123,7 +124,12 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 	}
 		
 	func didReceiveMessage(client: CocoaMQTT5, message: CocoaMQTT5Message, qos: UInt16, decode: MqttDecodePublish) {
-		
-		utils.didReceiveMessage(message: message)
+		let rmessage = ReceivedMessage(
+			message: message,
+			responseTopic: decode.responseTopic,
+			userProperty: decode.userProperty,
+			contentType: decode.contentType
+		)		
+		utils.didReceiveMessage(message: rmessage)
 	}
 }

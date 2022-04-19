@@ -164,6 +164,7 @@
 		22B38943280ED2FC00D23022 /* Host+ActualUserPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */; };
 		22B38945280ED63100D23022 /* DataMigrationProtocolVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38944280ED63100D23022 /* DataMigrationProtocolVersion.swift */; };
 		22B38947280ED79000D23022 /* ProtocolVersionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38946280ED79000D23022 /* ProtocolVersionPicker.swift */; };
+		22B38949280EEC6900D23022 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38948280EEC6900D23022 /* ReceivedMessage.swift */; };
 		22B46BD427CA652B0077FB83 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BCD27CA652B0077FB83 /* Navigation.swift */; };
 		22B46BD527CA652B0077FB83 /* PublishDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BCE27CA652B0077FB83 /* PublishDialog.swift */; };
 		22B46BD627CA652B0077FB83 /* ExampleMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BCF27CA652B0077FB83 /* ExampleMessages.swift */; };
@@ -392,6 +393,7 @@
 		22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Host+ActualUserPassword.swift"; sourceTree = "<group>"; };
 		22B38944280ED63100D23022 /* DataMigrationProtocolVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationProtocolVersion.swift; sourceTree = "<group>"; };
 		22B38946280ED79000D23022 /* ProtocolVersionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolVersionPicker.swift; sourceTree = "<group>"; };
+		22B38948280EEC6900D23022 /* ReceivedMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedMessage.swift; sourceTree = "<group>"; };
 		22B46BCD27CA652B0077FB83 /* Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		22B46BCE27CA652B0077FB83 /* PublishDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishDialog.swift; sourceTree = "<group>"; };
 		22B46BCF27CA652B0077FB83 /* ExampleMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleMessages.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */,
 				22B38938280E885A00D23022 /* ClientUtils.swift */,
 				22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */,
+				22B38948280EEC6900D23022 /* ReceivedMessage.swift */,
 			);
 			path = cocoamqtt;
 			sourceTree = "<group>";
@@ -1350,6 +1353,7 @@
 				2215118D27C923EB0000E385 /* TopicTree+Search.swift in Sources */,
 				228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */,
 				2230FF2D27A6BC8900D4327F /* InformationContainerView.swift in Sources */,
+				22B38949280EEC6900D23022 /* ReceivedMessage.swift in Sources */,
 				2285C82527887F79008DA37D /* TopicSuffixPickerView.swift in Sources */,
 				229FCAED247D67BC00490628 /* DocumentPickerView.swift in Sources */,
 				221C571E2466C9CD00C0DD02 /* HostFormModel+AWS.swift in Sources */,

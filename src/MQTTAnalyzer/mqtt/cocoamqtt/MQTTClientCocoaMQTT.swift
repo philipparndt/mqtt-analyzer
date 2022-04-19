@@ -118,6 +118,9 @@ class MQTTClientCocoaMQTT: MqttClient {
 	}
 	
 	func didReceiveMessage(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, qos: UInt16) {
-		utils.didReceiveMessage(message: message)
+		let rmessage = ReceivedMessage(
+			message: message
+		)
+		utils.didReceiveMessage(message: rmessage)
 	}
 }

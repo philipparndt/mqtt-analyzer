@@ -11,7 +11,7 @@ import CocoaMQTT
 class ClientUtils<T, M> {
 	let connectionStateQueue = DispatchQueue(label: "connection.state.lock.queue")
 	var connectionState = ConnectionState()
-	let messageSubject = MsgSubject<M>()
+	let messageSubject = MsgSubject<ReceivedMessage<M>>()
 	
 	var host: Host
 	let sessionNum: Int
@@ -139,7 +139,7 @@ class ClientUtils<T, M> {
 			})
 	}
 	
-	func didReceiveMessage(message: M) {
+	func didReceiveMessage(message: ReceivedMessage<M>) {
 		if !host.pause {
 			messageSubject.send(message)
 		}
@@ -159,20 +159,28 @@ class ClientUtils<T, M> {
 		return true
 	}
 	
-	func onMessages<M>(messages: [M], metadata: ((M) -> MsgMetadata), payload: ((M) -> MsgPayload), topic: ((M) -> String)) {
+	func onMessages<M>(messages: [ReceivedMessage<M>], metadata: ((M) -> MsgMetadata), payload: ((M) -> MsgPayload), topic: ((M) -> String)) {
 		if !receiveMessagePreflight(amount: messages.count) {
 			return
 		}
 		
-		for message in messages {
+		for rmessage in messages {
 			if host.limitTopic > 0 && self.model.totalTopicCounter >= host.limitTopic {
 				// Limit exceeded
 				self.model.topicLimitExceeded = true
 			}
 			
+			let message = rmessage.message
+			let messageMetadata = metadata(message)
+			messageMetadata.userProperty = rmessage.userProperty
+			messageMetadata.responseTopic = rmessage.responseTopic
+			
+			let messagePayload = payload(message)
+			messagePayload.contentType = rmessage.contentType
+			
 			_ = self.model.addMessage(
-				metadata: metadata(message),
-				payload: payload(message),
+				metadata: messageMetadata,
+				payload: messagePayload,
 				to: topic(message)
 			)
 		}

@@ -13,7 +13,9 @@ class MsgMetadata {
 	let localDate: String
 	let qos: Int32
 	let retain: Bool
-	
+	var responseTopic: String?
+	var userProperty: [String: String]?
+
 	init(qos: Int32, retain: Bool) {
 		self.date = Date.now
 		self.localDate = DateFormatter.iso.string(from: self.date)

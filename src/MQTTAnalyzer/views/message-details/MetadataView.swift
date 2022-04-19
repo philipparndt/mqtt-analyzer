@@ -46,6 +46,11 @@ struct MetadataView: View {
 			MetadataTextView(key: "Timestamp", value: message.metadata.localDate)
 			MetadataTextView(key: "QoS", value: "\(message.metadata.qos)")
 			MetadataTextView(key: "Retain", value: "\(message.metadata.retain ? "Yes" : "No")")
+
+			// MQTT 5
+			MetadataTextView(key: "Response topic", value: "\(message.metadata.responseTopic ?? "n.a.")")
+			MetadataTextView(key: "Content type", value: "\(message.payload.contentType ?? "n.a.")")
+			// MetadataTextView(key: "Properties", value: "\(message.metadata.userProperty.debugDescription)")
 		}
     }
 }
