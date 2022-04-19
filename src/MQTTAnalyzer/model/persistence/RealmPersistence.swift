@@ -176,12 +176,24 @@ class RealmPresistenceTransformer {
 		}
 	}
 	
-	private class func transformClientImplType(_ type: HostClientImplType) -> Int8 {
-		return ClientImplType.cocoamqtt
+	private class func transformProtocolVersion(_ type: HostProtocolVersion) -> Int8 {
+		switch type {
+		case .mqtt5:
+			return HostProtocolVersionType.mqtt5
+		default:
+			return HostProtocolVersionType.mqtt3
+		}
 	}
 	
-	private class func transformClientImplType(_ type: Int8) -> HostClientImplType {
-		return .cocoamqtt
+	private class func transformProtocolVersion(_ type: Int8) -> HostProtocolVersion {
+		switch type {
+		case HostProtocolVersionType.mqtt5:
+			return .mqtt5
+		case HostProtocolVersionType.mqtt3:
+			return .mqtt3
+		default:
+			return .mqtt3
+		}
 	}
 	
 	class func transform(_ host: HostSetting) -> Host {
@@ -200,7 +212,7 @@ class RealmPresistenceTransformer {
 		result.limitTopic = host.limitTopic
 		result.limitMessagesBatch = host.limitMessagesBatch
 		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
-		result.clientImpl = transformClientImplType(host.clientImplType)
+		result.protocolVersion = transformProtocolVersion(host.protocolVersion)
 		result.basePath = host.basePath
 		result.ssl = host.ssl
 		result.untrustedSSL = host.untrustedSSL
@@ -230,7 +242,7 @@ class RealmPresistenceTransformer {
 		result.limitTopic = host.limitTopic
 		result.limitMessagesBatch = host.limitMessagesBatch
 		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
-		result.clientImplType = transformClientImplType(host.clientImpl)
+		result.protocolVersion = transformProtocolVersion(host.protocolVersion)
 		result.basePath = host.basePath
 		result.ssl = host.ssl
 		result.untrustedSSL = host.untrustedSSL

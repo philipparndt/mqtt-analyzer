@@ -46,7 +46,7 @@ struct HostFormModel {
 	
 	var protocolMethod: HostProtocol = .mqtt
 	var authType: HostAuthenticationType = .none
-	var clientImpl: HostClientImplType = .cocoamqtt
+	var protocolVersion: HostProtocolVersion = .mqtt3
 	
 	var navigation: NavigationMode = .folders
 	var maxMessagesOfSubFolders = "10"
@@ -82,14 +82,8 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	target.limitMessagesBatch = Int(host.limitMessagesBatch) ?? 1000
 	target.navigationMode = host.navigation
 	target.maxMessagesOfSubFolders = Int(host.maxMessagesOfSubFolders) ?? 10
+	target.protocolVersion = host.protocolVersion
 	
-	if target.protocolMethod == .websocket {
-		target.clientImpl = .cocoamqtt
-	}
-	else {
-		target.clientImpl = host.clientImpl
-	}
-
 	if host.authType == .usernamePassword {
 		target.username = host.username
 		target.password = host.password
@@ -141,7 +135,7 @@ func transformHost(source host: Host) -> HostFormModel {
 						 untrustedSSL: host.untrustedSSL,
 						 protocolMethod: host.protocolMethod,
 						 authType: host.auth,
-						 clientImpl: host.clientImpl,
+						 protocolVersion: host.protocolVersion,
 						 navigation: host.navigationMode,
 						 maxMessagesOfSubFolders: "\(host.maxMessagesOfSubFolders)"
 						)

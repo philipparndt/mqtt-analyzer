@@ -84,6 +84,16 @@ struct ServerFormView: View {
 				ProtocolPicker(type: $host.protocolMethod)
 			}
 			
+			HStack {
+				Text("Version")
+					.font(.headline)
+					.frame(minWidth: 100, alignment: .leading)
+
+				Spacer()
+
+				ProtocolVersionPicker(version: $host.protocolVersion)
+			}
+			
 			if host.protocolMethod == .websocket {
 				HStack {
 					Text("Basepath")

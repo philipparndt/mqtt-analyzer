@@ -55,6 +55,11 @@ enum HostClientImplType {
 	case cocoamqtt
 }
 
+enum HostProtocolVersion {
+	case mqtt3
+	case mqtt5
+}
+
 extension Host: Hashable {
 	static func == (lhs: Host, rhs: Host) -> Bool {
 		return lhs.ID == rhs.ID
@@ -96,7 +101,7 @@ class Host: Identifiable, ObservableObject {
 	}
 	
 	var protocolMethod: HostProtocol = .mqtt
-	var clientImpl: HostClientImplType = .cocoamqtt
+	var protocolVersion: HostProtocolVersion = .mqtt3
 	var basePath: String = ""
 	var ssl: Bool = false
 	var untrustedSSL: Bool = false
@@ -133,7 +138,6 @@ class Host: Identifiable, ObservableObject {
 	
 	@Published var usernameNonpersistent: String?
 	@Published var passwordNonpersistent: String?
-	
 	
 	var needsAuth: Bool {
 		return auth == .usernamePassword

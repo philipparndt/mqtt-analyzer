@@ -20,7 +20,7 @@ struct AuthFormView: View {
 				UsernamePasswordAuthenticationView(host: $host)
 			}
 			else if self.host.authType == .certificate {
-				CertificateAuthenticationView(host: $host, clientImpl: $host.clientImpl)
+				CertificateAuthenticationView(host: $host)
 			}
 		}
 	}

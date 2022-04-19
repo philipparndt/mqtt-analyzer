@@ -1,5 +1,5 @@
 //
-//  DataMigrationClientImpl.swift
+//  DataMigrationAuth.swift
 //  MQTTAnalyzer
 //
 //  Created by Philipp Arndt on 2020-05-10.
@@ -10,13 +10,12 @@ import Foundation
 import RealmSwift
 
 // Added support for multiple topics
-class DataMigrationClientImpl {
-
+class DataMigrationProtocolVersion {
 	class func migrate(_ oldSchemaVersion: UInt64, _ migration: Migration) {
-		if oldSchemaVersion < 11 {
+		if oldSchemaVersion < 27 {
 			migration.enumerateObjects(ofType: HostSetting.className()) { _, newObject in
 				if let no = newObject {
-					no["clientImplType"] = 0
+					no["protocolVersion"] = HostProtocolVersionType.mqtt3
 				}
 			}
 		}
