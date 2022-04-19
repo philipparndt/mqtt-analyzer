@@ -22,6 +22,18 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 		)
 	}
 	
+	func testMQTT5NoAuth() {
+		assertWithBroker(
+			Broker(
+				alias: "WS MQTT 5",
+				hostname: hostname,
+				port: 9001,
+				connectionProtocol: .websocket,
+				protocolVersion: .mqtt5
+			)
+		)
+	}
+	
 	func testWebSocket() {
 		assertWithBroker(
 			Broker(

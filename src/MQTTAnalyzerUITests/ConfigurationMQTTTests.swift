@@ -20,6 +20,17 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 		)
 	}
 	
+	func testMQTT5NoAuth() {
+		assertWithBroker(
+			Broker(
+				alias: "MQTT 5",
+				hostname: hostname,
+				port: 1883,
+				protocolVersion: .mqtt5
+			)
+		)
+	}
+	
 	func testMQTTPersistedAuth() {
 		assertWithBroker(
 			Broker(
