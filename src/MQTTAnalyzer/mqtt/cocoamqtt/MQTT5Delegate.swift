@@ -65,7 +65,7 @@ class MQTT5Delegate: CocoaMQTT5Delegate {
 		completionHandler(true)
 	}
 
-	func mqtt5(_ mqtt5: CocoaMQTT5, didPublishComplete id: UInt16,  pubCompData: MqttDecodePubComp) {
+	func mqtt5(_ mqtt5: CocoaMQTT5, didPublishComplete id: UInt16, pubCompData: MqttDecodePubComp) {
 		// currently not necessary, but required by protocol
 	}
 
