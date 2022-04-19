@@ -42,7 +42,7 @@ class AWSIOTPresetTests: XCTestCase {
 		XCTAssertEqual(false, model.untrustedSSL)
 		XCTAssertEqual(HostProtocol.mqtt, model.protocolMethod)
 		XCTAssertEqual(HostAuthenticationType.certificate, model.authType)
-		XCTAssertEqual(HostClientImplType.cocoamqtt, model.clientImpl)
+		XCTAssertEqual(HostProtocolVersion.mqtt3, model.protocolVersion)
 	}
 	
 }

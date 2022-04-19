@@ -42,7 +42,7 @@ public class RealmPersistence: Persistence {
 			return
 		}
 
-		let setting = RealmPresistenceTransformer.transform(host)
+		let setting = RealmPersistenceTransformer.transform(host)
 		
 		do {
 			try realm.write {
@@ -61,7 +61,7 @@ public class RealmPersistence: Persistence {
 		if let setting = settings.first {
 			do {
 				try realm.write {
-					RealmPresistenceTransformer.copy(from: host, to: setting)
+					RealmPersistenceTransformer.copy(from: host, to: setting)
 				}
 			}
 			catch {
@@ -104,7 +104,7 @@ public class RealmPersistence: Persistence {
 	private func pushModel(settings: Results<HostSetting>) {
 		let hosts: [Host] = settings
 		.filter { !$0.isDeleted }
-		.map { RealmPresistenceTransformer.transform($0) }
+		.map { RealmPersistenceTransformer.transform($0) }
 		
 		DispatchQueue.main.async {
 			self.model.hosts = hosts
@@ -113,7 +113,7 @@ public class RealmPersistence: Persistence {
 	
 }
 
-class RealmPresistenceTransformer {
+class RealmPersistenceTransformer {
 	private class func transformAuth(_ type: HostAuthenticationType) -> Int8 {
 		switch type {
 		case .usernamePassword:
