@@ -13,15 +13,11 @@ import Network
 
 class MQTTClientCocoaMQTT: MqttClient {
 	let delgate = MQTTDelegate()
-	var mqtt: CocoaMQTT?
 
-	let utils: ClientUtils
+	let utils: ClientUtils<CocoaMQTT>
 	var connectionState: ConnectionState { utils.connectionState }
 	var host: Host { utils.host }
-
-	var connectionAlive: Bool {
-		self.mqtt != nil && connectionState.state == .connected
-	}
+	var connectionAlive: Bool { utils.connectionAlive }
 	
 	let messageSubject = MsgSubject<CocoaMQTTMessage>()
 		
@@ -83,7 +79,7 @@ class MQTTClientCocoaMQTT: MqttClient {
 
 		utils.waitConnected()
 
-		self.mqtt = mqtt
+		utils.mqtt = mqtt
 
 		let queue = DispatchQueue(label: "Message Dispatch queue")
 		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
@@ -97,35 +93,30 @@ class MQTTClientCocoaMQTT: MqttClient {
 	func disconnect() {
 		messageSubject.cancel()
 
-		if let mqtt = self.mqtt {
+		if let mqtt = utils.mqtt {
 			DispatchQueue.global(qos: .background).async {
 				self.host.subscriptions.forEach { mqtt.unsubscribe($0.topic)}
 				mqtt.disconnect()
 
 				DispatchQueue.main.async {
-					self.setDisconnected()
+					self.utils.setDisconnected()
 				}
 			}
 		}
 	}
 	
 	func publish(message: MsgMessage) {
-		mqtt?.publish(CocoaMQTTMessage(
+		utils.mqtt?.publish(CocoaMQTTMessage(
 			topic: message.topic.nameQualified,
 			string: message.payload.dataString,
 			qos: utils.convertQOS(qos: message.metadata.qos),
 			retained: message.metadata.retain))
 	}
-
-	func setDisconnected() {
-		utils.setDisconnected()
-		mqtt = nil
-	}
 	
 	// MARK: Should be shared
 	func subscribeToTopic(_ host: Host) {
 		host.subscriptions.forEach {
-			mqtt?.subscribe($0.topic, qos: utils.convertQOS(qos: Int32($0.qos)))
+			utils.mqtt?.subscribe($0.topic, qos: utils.convertQOS(qos: Int32($0.qos)))
 		}
 	}
 	

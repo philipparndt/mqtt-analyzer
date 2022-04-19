@@ -8,13 +8,17 @@
 
 import CocoaMQTT
 
-class ClientUtils {
+class ClientUtils<T> {
 	let connectionStateQueue = DispatchQueue(label: "connection.state.lock.queue")
 	var connectionState = ConnectionState()
 	var host: Host
 	let sessionNum: Int
 	let model: TopicTree
-
+	var mqtt: T?
+	var connectionAlive: Bool {
+		self.mqtt != nil && connectionState.state == .connected
+	}
+	
 	init(host: Host, model: TopicTree) {
 		ConnectionState.sessionNum += 1
 		self.model = model
@@ -119,6 +123,8 @@ class ClientUtils {
 		DispatchQueue.main.async {
 			self.host.state = .disconnected
 		}
+		
+		mqtt = nil
 	}
 	
 	func receiveMessagePreflight(amount: Int) -> Bool {

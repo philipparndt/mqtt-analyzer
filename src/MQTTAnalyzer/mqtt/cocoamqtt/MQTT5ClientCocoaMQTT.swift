@@ -13,15 +13,11 @@ import Network
 
 class MQTT5ClientCocoaMQTT: MqttClient {
 	let delgate = MQTT5Delegate()
-	var mqtt: CocoaMQTT5?
 
-	let utils: ClientUtils
+	let utils: ClientUtils<CocoaMQTT5>
 	var connectionState: ConnectionState { utils.connectionState }
 	var host: Host { utils.host }
-
-	var connectionAlive: Bool {
-		self.mqtt != nil && connectionState.state == .connected
-	}
+	var connectionAlive: Bool { utils.connectionAlive }
 	
 	let messageSubject = MsgSubject<CocoaMQTT5Message>()
 		
@@ -83,7 +79,7 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 
 		utils.waitConnected()
 
-		self.mqtt = mqtt
+		utils.mqtt = mqtt
 
 		let queue = DispatchQueue(label: "Message Dispatch queue")
 		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
@@ -97,13 +93,13 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 	func disconnect() {
 		messageSubject.cancel()
 		
-		if let mqtt = self.mqtt {
+		if let mqtt = utils.mqtt {
 			DispatchQueue.global(qos: .background).async {
 				self.host.subscriptions.forEach { mqtt.unsubscribe($0.topic)}
 				mqtt.disconnect()
 
 				DispatchQueue.main.async {
-					self.setDisconnected()
+					self.utils.setDisconnected()
 				}
 			}
 		}
@@ -118,18 +114,13 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 			retained: message.metadata.retain
 		)
 		message.contentType = "application/json"
-		mqtt?.publish(message, properties: properties)
-	}
-	
-	func setDisconnected() {
-		utils.setDisconnected()
-		mqtt = nil
+		utils.mqtt?.publish(message, properties: properties)
 	}
 	
 	// MARK: Should be shared
 	func subscribeToTopic(_ host: Host) {
 		host.subscriptions.forEach {
-			mqtt?.subscribe($0.topic, qos: utils.convertQOS(qos: Int32($0.qos)))
+			utils.mqtt?.subscribe($0.topic, qos: utils.convertQOS(qos: Int32($0.qos)))
 		}
 	}
 
