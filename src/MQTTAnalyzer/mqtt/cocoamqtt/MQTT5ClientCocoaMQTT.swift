@@ -90,7 +90,14 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 	func publish(message: MsgMessage) {
 		let properties: MqttPublishProperties = MqttPublishProperties()
 		properties.contentType = message.payload.contentType
-		properties.userProperty = message.metadata.userProperty
+		
+		if !(message.metadata.userProperty.isEmpty) {
+			var props: [String: String] = [:]
+			for property in message.metadata.userProperty {
+				props[property.key] = property.value
+			}
+			properties.userProperty = props
+		}
 		
 		let message = CocoaMQTT5Message(
 			topic: message.topic.nameQualified,

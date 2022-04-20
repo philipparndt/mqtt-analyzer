@@ -172,7 +172,12 @@ class ClientUtils<T, M> {
 			
 			let message = rmessage.message
 			let messageMetadata = metadata(message)
-			messageMetadata.userProperty = rmessage.userProperty
+			
+			if let properties = rmessage.userProperty {
+				for (key, value) in properties {
+					messageMetadata.userProperty.append(Property(key: key, value: value))
+				}
+			}
 			messageMetadata.responseTopic = rmessage.responseTopic
 			
 			let messagePayload = payload(message)

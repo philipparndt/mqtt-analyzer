@@ -8,13 +8,19 @@
 
 import Foundation
 
+struct Property: Identifiable {
+	var id = UUID()
+	let key: String
+	let value: String
+}
+
 class MsgMetadata {
 	let date: Date
 	let localDate: String
 	let qos: Int32
 	let retain: Bool
 	var responseTopic: String?
-	var userProperty: [String: String]?
+	var userProperty: [Property] = []
 
 	init(qos: Int32, retain: Bool) {
 		self.date = Date.now
