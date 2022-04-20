@@ -42,7 +42,7 @@ public class RealmPersistence: Persistence {
 			return
 		}
 
-		let setting = RealmPresistenceTransformer.transform(host)
+		let setting = RealmPersistenceTransformer.transform(host)
 		
 		do {
 			try realm.write {
@@ -61,7 +61,7 @@ public class RealmPersistence: Persistence {
 		if let setting = settings.first {
 			do {
 				try realm.write {
-					RealmPresistenceTransformer.copy(from: host, to: setting)
+					RealmPersistenceTransformer.copy(from: host, to: setting)
 				}
 			}
 			catch {
@@ -104,7 +104,7 @@ public class RealmPersistence: Persistence {
 	private func pushModel(settings: Results<HostSetting>) {
 		let hosts: [Host] = settings
 		.filter { !$0.isDeleted }
-		.map { RealmPresistenceTransformer.transform($0) }
+		.map { RealmPersistenceTransformer.transform($0) }
 		
 		DispatchQueue.main.async {
 			self.model.hosts = hosts
@@ -113,7 +113,7 @@ public class RealmPersistence: Persistence {
 	
 }
 
-class RealmPresistenceTransformer {
+class RealmPersistenceTransformer {
 	private class func transformAuth(_ type: HostAuthenticationType) -> Int8 {
 		switch type {
 		case .usernamePassword:
@@ -176,12 +176,24 @@ class RealmPresistenceTransformer {
 		}
 	}
 	
-	private class func transformClientImplType(_ type: HostClientImplType) -> Int8 {
-		return ClientImplType.cocoamqtt
+	private class func transformProtocolVersion(_ type: HostProtocolVersion) -> Int8 {
+		switch type {
+		case .mqtt5:
+			return HostProtocolVersionType.mqtt5
+		default:
+			return HostProtocolVersionType.mqtt3
+		}
 	}
 	
-	private class func transformClientImplType(_ type: Int8) -> HostClientImplType {
-		return .cocoamqtt
+	private class func transformProtocolVersion(_ type: Int8) -> HostProtocolVersion {
+		switch type {
+		case HostProtocolVersionType.mqtt5:
+			return .mqtt5
+		case HostProtocolVersionType.mqtt3:
+			return .mqtt3
+		default:
+			return .mqtt3
+		}
 	}
 	
 	class func transform(_ host: HostSetting) -> Host {
@@ -200,7 +212,7 @@ class RealmPresistenceTransformer {
 		result.limitTopic = host.limitTopic
 		result.limitMessagesBatch = host.limitMessagesBatch
 		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
-		result.clientImpl = transformClientImplType(host.clientImplType)
+		result.protocolVersion = transformProtocolVersion(host.protocolVersion)
 		result.basePath = host.basePath
 		result.ssl = host.ssl
 		result.untrustedSSL = host.untrustedSSL
@@ -230,7 +242,7 @@ class RealmPresistenceTransformer {
 		result.limitTopic = host.limitTopic
 		result.limitMessagesBatch = host.limitMessagesBatch
 		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
-		result.clientImplType = transformClientImplType(host.clientImpl)
+		result.protocolVersion = transformProtocolVersion(host.protocolVersion)
 		result.basePath = host.basePath
 		result.ssl = host.ssl
 		result.untrustedSSL = host.untrustedSSL

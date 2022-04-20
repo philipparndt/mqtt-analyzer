@@ -122,9 +122,17 @@ struct PublishMessageFormModalView: View {
 		}
 		
 		if let topic = TopicTree().addTopic(topic: model.topic) {
-			let msg = MsgMessage(topic: topic,
-							  payload: MsgPayload(data: Array(model.message.utf8)),
-							  metadata: MsgMetadata(qos: Int32(model.qos), retain: model.retain))
+			let payload = MsgPayload(data: Array(model.message.utf8))
+			payload.contentType = model.messageType == .plain ? "text/plain" : "application/json"
+			
+			let metadata = MsgMetadata(qos: Int32(model.qos), retain: model.retain)
+			// metadata.userProperty = ["hi": "there", "foo": "bar"]
+			
+			let msg = MsgMessage(
+				topic: topic,
+				payload: payload,
+				metadata: metadata
+			)
 			root.publish(message: msg, on: self.host)
 		}
 		
@@ -179,6 +187,7 @@ struct PublishMessageFormView: View {
 }
 enum PublishMessageType {
 	case plain
+	case jsonText
 	case json
 }
 
@@ -188,6 +197,7 @@ struct PublishMessageTypeView: View {
 	var body: some View {
 		Picker(selection: $type, label: Text("Type")) {
 			Text("Plain text").tag(PublishMessageType.plain)
+			Text("JSON text").tag(PublishMessageType.jsonText)
 			Text("JSON").tag(PublishMessageType.json)
 		}.pickerStyle(SegmentedPickerStyle())
 	}

@@ -19,6 +19,8 @@ class MsgPayload {
 		return dataStringCache == nil
 	}
 	
+	var contentType: String?
+	
 	private let dataStringCache: String?
 	var dataString: String {
 		return dataStringCache ?? "[\(data.count) bytes]"

@@ -13,6 +13,11 @@ enum ConnectionProtocol {
 	case websocket
 }
 
+enum ProtocolVersion {
+	case mqtt3
+	case mqtt5
+}
+
 enum AuthType {
 	case none
 	case userPassword
@@ -24,6 +29,7 @@ struct Broker {
 	let hostname: String?
 	var port: UInt16?
 	var connectionProtocol: ConnectionProtocol?
+	var protocolVersion: ProtocolVersion?
 	var authType: AuthType?
 	var username: String?
 	var password: String?

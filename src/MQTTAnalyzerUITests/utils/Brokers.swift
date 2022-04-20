@@ -74,6 +74,11 @@ class Brokers {
 			field.tap()
 		}
 		
+		if let version = broker.protocolVersion {
+			let field = app.buttons["\(version)"]
+			field.tap()
+		}
+		
 		if let tls = broker.tls {
 			if tls {
 				#if targetEnvironment(macCatalyst)

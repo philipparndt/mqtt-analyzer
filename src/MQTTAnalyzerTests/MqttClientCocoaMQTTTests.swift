@@ -8,27 +8,28 @@
 
 import XCTest
 import Network
+import CocoaMQTT
 @testable import MQTTAnalyzer
 
 class MqttClientCocoaMQTTTests: XCTestCase {
 	 
 	func testInvalidHostname() throws {
-		let msg = MqttClientCocoaMQTT.extractErrorMessage(error: NSError(domain: "", code: 8))
+		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorMessage(error: NSError(domain: "", code: 8))
 		XCTAssertEqual("Invalid hostname.\nThe operation couldn’t be completed. ( error 8.)", msg)
 	}
 	
     func testConnectionRefused() throws {
-		let msg = MqttClientCocoaMQTT.extractErrorMessage(error: NWError.posix(POSIXErrorCode.ECONNREFUSED))
+		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorMessage(error: NWError.posix(POSIXErrorCode.ECONNREFUSED))
 		XCTAssertTrue(msg.contains("Connection refused"), msg)
 	}
 	
 	func testConnectionTLS() throws {
-		let msg = MqttClientCocoaMQTT.extractErrorMessage(error: NWError.tls(-9407))
+		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorMessage(error: NWError.tls(-9407))
 		XCTAssertEqual("Network.NWError: -9407: Optional(OSStatus -9407)", msg)
 	}
 	
 	func testConnectionTLSBadCertificate() throws {
-		let msg = MqttClientCocoaMQTT.extractErrorMessage(error: NWError.tls(-9808))
+		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorMessage(error: NWError.tls(-9808))
 		XCTAssertEqual("Bad certificate format, check all properties, like SAN, ... (-9808)", msg)
 	}
 

@@ -23,9 +23,9 @@ struct ConnectionMethod {
 	static let websocket: Int8 = 1
 }
 
-struct ClientImplType {
-	static let moscapsule: Int8 = 0
-	static let cocoamqtt: Int8 = 1
+struct HostProtocolVersionType {
+	static let mqtt3: Int8 = 0
+	static let mqtt5: Int8 = 1
 }
 
 struct NavigationModeType {
@@ -46,7 +46,8 @@ class HostSetting: Object {
 	@objc dynamic var ssl: Bool = false
 	@objc dynamic var untrustedSSL: Bool = false
 	
-	@objc dynamic var clientImplType: Int8 = ClientImplType.cocoamqtt
+	@objc dynamic var clientImplType: Int8 = 0
+	@objc dynamic var protocolVersion: Int8 = HostProtocolVersionType.mqtt3
 	
 	@objc dynamic var authType: Int8 = AuthenticationType.none
 	@objc dynamic var username: String = ""
