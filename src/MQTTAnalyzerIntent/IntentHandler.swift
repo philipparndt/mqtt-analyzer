@@ -11,6 +11,7 @@ import SwiftUI
 import CocoaMQTT
 
 class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
+
 	func initHost(host: Host) {
 		
 	}
@@ -27,27 +28,25 @@ class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
 		
 		if let broker = intent.broker,
 			let topic = intent.topic,
-			let message = intent.message {
+			let message = intent.message,
+		    let retain = intent.retainMessage as? Bool {
 			
 			let sqlite = SQLitePersistence()
 			let firstHost = sqlite.first(byName: broker)
 			sqlite.close()
 
 			if let host = firstHost {
-				print("#### MQTTAnalyzer IntentHandler: \(host.hostname)")
-				
 				do {
 					let result = try PublishSync.publish(
 						host: host,
 						topic: topic,
 						message: message,
-						retain: false
+						retain: retain
 					)
 
 					completion(response(from: result ? nil : "Publish failed"))
 				}
 				catch {
-					print("#### MQTTAnalyzer IntentHandler: Error \(error)")
 					completion(response(from: "\(error)"))
 				}
 			}
@@ -86,6 +85,14 @@ class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
 			completion(INStringResolutionResult.success(with: broker))
 		} else {
 			completion(INStringResolutionResult.needsValue())
+		}
+	}
+	
+	func resolveRetain(for intent: PublishMQTTMessageIntent, with completion: @escaping (INBooleanResolutionResult) -> Void) {
+		if let retain = intent.retainMessage as? Bool {
+			completion(INBooleanResolutionResult.success(with: retain))
+		} else {
+			completion(INBooleanResolutionResult.needsValue())
 		}
 	}
 	

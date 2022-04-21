@@ -12,7 +12,6 @@ func getCertificate(_ host: Host, type: CertificateFileType) -> CertificateFile?
 	return host.certificates.filter { $0.type == type }.first
 }
 
-
 extension CertificateFile {
 	func getBaseUrl(certificate: CertificateFile) throws -> URL {
 		if certificate.location == .cloud {
