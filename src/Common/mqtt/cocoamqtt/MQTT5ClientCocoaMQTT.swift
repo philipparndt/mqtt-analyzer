@@ -12,7 +12,7 @@ import Combine
 import Network
 
 class MQTT5ClientCocoaMQTT: MqttClient {
-	let delgate = MQTT5Delegate()
+	let delegate = MQTT5Delegate()
 
 	let utils: ClientUtils<CocoaMQTT5, CocoaMQTT5Message>
 	var connectionState: ConnectionState { utils.connectionState }
@@ -51,7 +51,7 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 		mqtt.keepAlive = 60
 		mqtt.autoReconnect = false
 		
-		mqtt.delegate = self.delgate
+		mqtt.delegate = self.delegate
 		mqtt.didReceiveMessage = self.didReceiveMessage
 		mqtt.didDisconnect = utils.didDisconnect
 		mqtt.didConnectAck = self.didConnect

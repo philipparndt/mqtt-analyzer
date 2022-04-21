@@ -10,8 +10,11 @@ import Intents
 import SwiftUI
 import CocoaMQTT
 
-class IntentHandler: INExtension, SendMQTTMessageIntentHandling {
-    
+class IntentHandler: INExtension, SendMQTTMessageIntentHandling, InitHost {
+	func initHost(host: Host) {
+		
+	}
+	    
     override func handler(for intent: INIntent) -> Any {
 		guard intent is SendMQTTMessageIntent else {
 			fatalError("Unhandled Intent error : \(intent)")
@@ -22,26 +25,41 @@ class IntentHandler: INExtension, SendMQTTMessageIntentHandling {
 	
 	func handle(intent: SendMQTTMessageIntent, completion: @escaping (SendMQTTMessageIntentResponse) -> Void) {
 		
-		if let broker = intent.broker, let topic = intent.topic, let message = intent.message {
+		if let broker = intent.broker,
+			let topic = intent.topic,
+			let message = intent.message {
 			
-			let client = MQTTCLient(
-				broker: Broker(
-					alias: "1883",
-					hostname: "192.168.3.15",
-					port: 1883
-				),
-				credentials: nil
-			)
-			
-			client.client.didPublishMessage = { (mqtt: CocoaMQTT, msg: CocoaMQTTMessage, id: UInt16) in
-				
+			let sqlite = SQLitePersistence()
+			let firstHost = sqlite.first(byName: broker)
+			sqlite.close()
+
+			if let host = firstHost {
 				completion(SendMQTTMessageIntentResponse(
-					code: SendMQTTMessageIntentResponseCode.success,
+					code: .success,
 					userActivity: nil)
 				)
+				
+				do {
+					let result = try PublishSync.publish(
+						host: host,
+						topic: topic,
+						message: message,
+						retain: false
+					)
+
+					completion(SendMQTTMessageIntentResponse(
+						code: result ? .success : .failure,
+						userActivity: nil)
+					)
+				}
+				catch {
+				}
 			}
-			let msgId = client.publish("test", "test from siri")
-			// (CocoaMQTT, CocoaMQTTMessage, UInt16)
+			
+			completion(SendMQTTMessageIntentResponse(
+				code: .failure,
+				userActivity: nil)
+			)
 		}
 	}
     

@@ -124,7 +124,6 @@
 		2282DA0428103BDD00F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
 		2282DA0728103DB400F79E65 /* Pods_MQTTAnalyzer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2282DA0D28103E9400F79E65 /* ExampleMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0C28103E9400F79E65 /* ExampleMessages.swift */; };
-		2282DA0F2810738900F79E65 /* SendSnycTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0E2810738900F79E65 /* SendSnycTests.swift */; };
 		2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1727A666C600D4327F /* MsgMessage.swift */; };
 		2282DA162811254F00F79E65 /* MsgMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1527A6669C00D4327F /* MsgMetadata.swift */; };
 		2282DA182811254F00F79E65 /* MsgPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1327A6667000D4327F /* MsgPayload.swift */; };
@@ -252,6 +251,13 @@
 		22C96E0628112B6700A4F627 /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
 		22C96E0728112B6700A4F627 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* Persistence.swift */; };
 		22C96E0828112B6700A4F627 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
+		22C96E0A28112BE700A4F627 /* PublishSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E0928112BE700A4F627 /* PublishSync.swift */; };
+		22C96E0B28112BE700A4F627 /* PublishSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E0928112BE700A4F627 /* PublishSync.swift */; };
+		22C96E0F2811319900A4F627 /* PublishSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0E2810738900F79E65 /* PublishSyncTests.swift */; };
+		22C96E11281172A900A4F627 /* SQLitePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E10281172A900A4F627 /* SQLitePersistence.swift */; };
+		22C96E12281172A900A4F627 /* SQLitePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E10281172A900A4F627 /* SQLitePersistence.swift */; };
+		22C96E14281177B600A4F627 /* PersistenceTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E13281177B600A4F627 /* PersistenceTransformer.swift */; };
+		22C96E15281177B600A4F627 /* PersistenceTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E13281177B600A4F627 /* PersistenceTransformer.swift */; };
 		22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F72E23B7486E00892C4B /* .swiftlint.yml */; };
 		22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */; };
 		22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MessageTextView.swift */; };
@@ -473,7 +479,7 @@
 		2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_MQTTAnalyzer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2282DA0928103DF200F79E65 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2282DA0C28103E9400F79E65 /* ExampleMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleMessages.swift; sourceTree = "<group>"; };
-		2282DA0E2810738900F79E65 /* SendSnycTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSnycTests.swift; sourceTree = "<group>"; };
+		2282DA0E2810738900F79E65 /* PublishSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishSyncTests.swift; sourceTree = "<group>"; };
 		2282DA522811276000F79E65 /* HostModel+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HostModel+Delete.swift"; sourceTree = "<group>"; };
 		2282DA56281127C800F79E65 /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
 		2282DA6B2811297200F79E65 /* Certificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
@@ -545,6 +551,9 @@
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C7F0D42416A16600534880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22C96E0928112BE700A4F627 /* PublishSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishSync.swift; sourceTree = "<group>"; };
+		22C96E10281172A900A4F627 /* SQLitePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLitePersistence.swift; sourceTree = "<group>"; };
+		22C96E13281177B600A4F627 /* PersistenceTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTransformer.swift; sourceTree = "<group>"; };
 		22C9F72E23B7486E00892C4B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishMessageFormView.swift; sourceTree = "<group>"; };
 		22C9F73623B79A1300892C4B /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
@@ -651,17 +660,18 @@
 		2203571D2445850F00A98CD3 /* cocoamqtt */ = {
 			isa = PBXGroup;
 			children = (
+				22B38938280E885A00D23022 /* ClientUtils.swift */,
+				2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */,
+				22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */,
 				22953B37280AEDC0000F8F37 /* MQTT5ClientCocoaMQTT.swift */,
-				22B3893A280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift */,
 				22B3893E280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift */,
+				22B3893A280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift */,
 				22953B36280AEDB7000F8F37 /* MQTT5Delegate.swift */,
 				226A6B5124445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift */,
-				22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */,
 				22B38940280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift */,
+				22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */,
 				220357202445B2ED00A98CD3 /* MQTTDelegate.swift */,
-				2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */,
-				22B38938280E885A00D23022 /* ClientUtils.swift */,
-				22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */,
+				22C96E0928112BE700A4F627 /* PublishSync.swift */,
 				22B38948280EEC6900D23022 /* ReceivedMessage.swift */,
 			);
 			path = cocoamqtt;
@@ -801,6 +811,7 @@
 				2230FF2327A6B80900D4327F /* TopicLimitTests.swift */,
 				2230FEF927A50C8000D4327F /* TreeModelTests.swift */,
 				2230FF0F27A6511F00D4327F /* TreeUtilsTests.swift */,
+				2282DA0E2810738900F79E65 /* PublishSyncTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
 			sourceTree = "<group>";
@@ -1158,7 +1169,6 @@
 				22117B702805C95A00D0117D /* ConfigurationWebSocketTests.swift */,
 				22C7F0D42416A16600534880 /* Info.plist */,
 				222AC32F2803350600D66334 /* TestServer.swift */,
-				2282DA0E2810738900F79E65 /* SendSnycTests.swift */,
 			);
 			path = MQTTAnalyzerUITests;
 			sourceTree = "<group>";
@@ -1172,6 +1182,8 @@
 				224AFEB027B0602000DFD09F /* Persistence.swift */,
 				224AFEAE27B0600D00DFD09F /* StubPersistence.swift */,
 				229005CE237E7A8600D5A706 /* RealmPersistence.swift */,
+				22C96E10281172A900A4F627 /* SQLitePersistence.swift */,
+				22C96E13281177B600A4F627 /* PersistenceTransformer.swift */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -1608,6 +1620,7 @@
 				22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */,
 				22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */,
 				2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */,
+				22C96E11281172A900A4F627 /* SQLitePersistence.swift in Sources */,
 				22061AC527CA79FE00FFF915 /* DispatchQueue+Background.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
 				2230FF1427A6667000D4327F /* MsgPayload.swift in Sources */,
@@ -1704,6 +1717,7 @@
 				226A6B50244457E100ACDFC3 /* MqttClient.swift in Sources */,
 				22953B33280A92D8000F8F37 /* ClientCertsHelpView.swift in Sources */,
 				22F6057B23D4911000E6338B /* DataMigration.swift in Sources */,
+				22C96E0A28112BE700A4F627 /* PublishSync.swift in Sources */,
 				2282DA0428103BDD00F79E65 /* Intents.intentdefinition in Sources */,
 				2285C81C27847786008DA37D /* MetadataView.swift in Sources */,
 				2291284524685A13006F8256 /* DataMigrationClientImpl.swift in Sources */,
@@ -1724,6 +1738,7 @@
 				2200D97827C237EF00E63E89 /* AWSIOTHelpView.swift in Sources */,
 				226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */,
 				226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */,
+				22C96E14281177B600A4F627 /* PersistenceTransformer.swift in Sources */,
 				2291424C23BF78000086C251 /* AboutView.swift in Sources */,
 				22AE64362412637A00C2C4FE /* TimeSeriesValue.swift in Sources */,
 				22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */,
@@ -1752,6 +1767,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C96E0F2811319900A4F627 /* PublishSyncTests.swift in Sources */,
 				228B069323FC318100E988D0 /* ModelTests.swift in Sources */,
 				221C57202466CC2800C0DD02 /* AWSIOTPresetTests.swift in Sources */,
 				22A387052409768100DF8F94 /* HostModelPersistenceTests.swift in Sources */,
@@ -1797,6 +1813,7 @@
 				2282DA632811290400F79E65 /* ReceivedMessage.swift in Sources */,
 				2282DA412811261A00F79E65 /* TimeSeriesModel.swift in Sources */,
 				2282DA622811290400F79E65 /* MQTTClientCocoaMQTT+Client.swift in Sources */,
+				22C96E15281177B600A4F627 /* PersistenceTransformer.swift in Sources */,
 				2282DA4A2811268C00F79E65 /* HostModel.swift in Sources */,
 				22C96E0428112B6700A4F627 /* RealmPersistence.swift in Sources */,
 				2282DA70281129F800F79E65 /* FileLister.swift in Sources */,
@@ -1813,6 +1830,7 @@
 				22C96DF928112B6300A4F627 /* DataMigrationEmptyTopic.swift in Sources */,
 				22C96DFA28112B6300A4F627 /* DataMigrationLimits.swift in Sources */,
 				2282D9E228102EB100F79E65 /* IntentHandler.swift in Sources */,
+				22C96E0B28112BE700A4F627 /* PublishSync.swift in Sources */,
 				22C96DFE28112B6300A4F627 /* DataMigrationAuth.swift in Sources */,
 				22C96DFC28112B6300A4F627 /* DataMigrationCertificateFiles.swift in Sources */,
 				2282DA642811290400F79E65 /* Host+ActualUserPassword.swift in Sources */,
@@ -1820,6 +1838,7 @@
 				2282DA552811278500F79E65 /* DispatchQueue+Background.swift in Sources */,
 				2282DA3A281125E900F79E65 /* TreeUtils.swift in Sources */,
 				22C96DFF28112B6300A4F627 /* MigrationHelper.swift in Sources */,
+				22C96E12281172A900A4F627 /* SQLitePersistence.swift in Sources */,
 				2282DA71281129F800F79E65 /* CertificateFileModel.swift in Sources */,
 				22C96DFB28112B6300A4F627 /* DataMigrationProtocolVersion.swift in Sources */,
 				2282DA72281129F800F79E65 /* Certificate.swift in Sources */,
@@ -1869,7 +1888,6 @@
 				22B46BD627CA652B0077FB83 /* ExampleMessages.swift in Sources */,
 				227D987B27B7A05C00E45C4C /* ScreenshotTests.swift in Sources */,
 				22AB2C152801D8A400E88875 /* ConfigurationMQTTTests.swift in Sources */,
-				2282DA0F2810738900F79E65 /* SendSnycTests.swift in Sources */,
 				22B90E882805B2DE0083C6E5 /* SubscriptionTests.swift in Sources */,
 				2200D96627C0C3BF00E63E89 /* PublishTests.swift in Sources */,
 				2200D97B27C2675300E63E89 /* AbstractUITests.swift in Sources */,

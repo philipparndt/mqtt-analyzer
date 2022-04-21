@@ -25,8 +25,8 @@ class IntentViewController: UIViewController, INUIHostedViewControlling {
 			return
 		}
 		
-		if let topic = intent.topic, let message = intent.message {
-			self.contentLabel.text = "Okay"
+		if let topic = intent.topic {
+			self.contentLabel.text = "Message published to \(topic)"
 		}
 
 		completion(true, parameters, self.desiredSize)
