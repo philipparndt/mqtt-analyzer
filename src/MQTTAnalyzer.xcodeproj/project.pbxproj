@@ -257,7 +257,6 @@
 		22C96E12281172A900A4F627 /* SQLitePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E10281172A900A4F627 /* SQLitePersistence.swift */; };
 		22C96E14281177B600A4F627 /* PersistenceTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E13281177B600A4F627 /* PersistenceTransformer.swift */; };
 		22C96E15281177B600A4F627 /* PersistenceTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E13281177B600A4F627 /* PersistenceTransformer.swift */; };
-		22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F72E23B7486E00892C4B /* .swiftlint.yml */; };
 		22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */; };
 		22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MessageTextView.swift */; };
 		22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73923B8CCCC00892C4B /* QOSView.swift */; };
@@ -284,7 +283,6 @@
 		22FD7D0322C8D2660078795F /* HostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFC22C8D2660078795F /* HostsView.swift */; };
 		22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */; };
 		458A44A5726DF316EE6004E8 /* Pods_MQTTAnalyzerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE6D91479F36479741E6FCC /* Pods_MQTTAnalyzerUITests.framework */; };
-		AC359FF0D5CCE4657B0BF477 /* Pods_MQTTAnalyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */; };
 		B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA00F32BE18033F923EAEA0 /* Pods_MQTTAnalyzer.framework */; };
 		B871A48F9CF9EC8FD5CD46F5 /* Pods_MQTTAnalyzerIntent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A97398D1A8868944BA1F5E2 /* Pods_MQTTAnalyzerIntent.framework */; };
 /* End PBXBuildFile section */
@@ -598,7 +596,6 @@
 				2200D97027C124FD00E63E89 /* Dynamic in Frameworks */,
 				223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */,
 				B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */,
-				AC359FF0D5CCE4657B0BF477 /* Pods_MQTTAnalyzer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1425,7 +1422,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */,
 				2253F8E522C8C008007E35A2 /* LaunchScreen.storyboard in Resources */,
 				2253F8E222C8C008007E35A2 /* Preview Assets.xcassets in Resources */,
 				2253F8DF22C8C008007E35A2 /* Assets.xcassets in Resources */,
@@ -2073,7 +2069,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 141;
+				CURRENT_PROJECT_VERSION = 142;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -2101,7 +2097,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 141;
+				CURRENT_PROJECT_VERSION = 142;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -2172,7 +2168,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntent/MQTTAnalyzerIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 142;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
@@ -2184,7 +2180,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2202,7 +2198,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntent/MQTTAnalyzerIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 142;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
@@ -2214,7 +2210,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2231,7 +2227,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntentUI/MQTTAnalyzerIntentUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 142;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
@@ -2243,7 +2239,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2260,7 +2256,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntentUI/MQTTAnalyzerIntentUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 142;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
@@ -2272,7 +2268,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

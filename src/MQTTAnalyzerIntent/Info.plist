@@ -17,7 +17,7 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
-				<string>SendMQTTMessageIntent</string>
+				<string>PublishMQTTMessageIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>

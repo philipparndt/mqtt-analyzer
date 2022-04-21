@@ -8,7 +8,7 @@
 		<dict>
 			<key>IntentsSupported</key>
 			<array>
-				<string>SendMQTTMessageIntent</string>
+				<string>PublishMQTTMessageIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>

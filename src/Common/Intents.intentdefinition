@@ -44,7 +44,7 @@
 				</dict>
 			</dict>
 			<key>INIntentName</key>
-			<string>SendMQTTMessage</string>
+			<string>PublishMQTTMessage</string>
 			<key>INIntentParameters</key>
 			<array>
 				<dict>

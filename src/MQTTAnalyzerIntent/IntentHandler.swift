@@ -10,20 +10,20 @@ import Intents
 import SwiftUI
 import CocoaMQTT
 
-class IntentHandler: INExtension, SendMQTTMessageIntentHandling, InitHost {
+class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
 	func initHost(host: Host) {
 		
 	}
 	    
     override func handler(for intent: INIntent) -> Any {
-		guard intent is SendMQTTMessageIntent else {
+		guard intent is PublishMQTTMessageIntent else {
 			fatalError("Unhandled Intent error : \(intent)")
 		}
 		
         return self
     }
 	
-	func handle(intent: SendMQTTMessageIntent, completion: @escaping (SendMQTTMessageIntentResponse) -> Void) {
+	func handle(intent: PublishMQTTMessageIntent, completion: @escaping (PublishMQTTMessageIntentResponse) -> Void) {
 		
 		if let broker = intent.broker,
 			let topic = intent.topic,
@@ -54,8 +54,8 @@ class IntentHandler: INExtension, SendMQTTMessageIntentHandling, InitHost {
 		}
 	}
 	
-	func response(from error: String?) -> SendMQTTMessageIntentResponse {
-		let response = SendMQTTMessageIntentResponse(
+	func response(from error: String?) -> PublishMQTTMessageIntentResponse {
+		let response = PublishMQTTMessageIntentResponse(
 			code: error == nil ? .success : .failure,
 			userActivity: nil)
 		
@@ -64,7 +64,7 @@ class IntentHandler: INExtension, SendMQTTMessageIntentHandling, InitHost {
 		return response
 	}
 	
-	func resolveTopic(for intent: SendMQTTMessageIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
+	func resolveTopic(for intent: PublishMQTTMessageIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
 		   
 	   if let topic = intent.topic {
 		   completion(INStringResolutionResult.success(with: topic))
@@ -73,7 +73,7 @@ class IntentHandler: INExtension, SendMQTTMessageIntentHandling, InitHost {
 	   }
    }
    
-   func resolveMessage(for intent: SendMQTTMessageIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
+   func resolveMessage(for intent: PublishMQTTMessageIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
 	   if let message = intent.message {
 		   completion(INStringResolutionResult.success(with: message))
 	   } else {
@@ -81,7 +81,7 @@ class IntentHandler: INExtension, SendMQTTMessageIntentHandling, InitHost {
 	   }
    }
 	
-	func resolveBroker(for intent: SendMQTTMessageIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
+	func resolveBroker(for intent: PublishMQTTMessageIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
 		if let broker = intent.broker {
 			completion(INStringResolutionResult.success(with: broker))
 		} else {
