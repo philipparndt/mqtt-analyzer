@@ -24,6 +24,17 @@ class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
         return self
     }
 	
+	func transformQos(qos: Qos) -> Int{
+		switch qos {
+		case .qos1:
+			return 1
+		case .qos2:
+			return 2
+		default:
+			return 0
+		}
+	}
+	
 	func handle(intent: PublishMQTTMessageIntent, completion: @escaping (PublishMQTTMessageIntentResponse) -> Void) {
 		
 		if let broker = intent.broker,
@@ -41,7 +52,8 @@ class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
 						host: host,
 						topic: topic,
 						message: message,
-						retain: retain
+						retain: retain,
+						qos: transformQos(qos: intent.qos)
 					)
 
 					completion(response(from: result ? nil : "Publish failed"))
@@ -96,4 +108,12 @@ class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
 		}
 	}
 	
+	func provideBrokerOptionsCollection(for intent: PublishMQTTMessageIntent, with completion: @escaping (INObjectCollection<NSString>?, Error?) -> Void) {
+		
+		let sqlite = SQLitePersistence()
+		let hosts = sqlite.allNames()
+		sqlite.close()
+		
+		completion(INObjectCollection(items: hosts.map { $0 as NSString }), nil)
+	}
 }

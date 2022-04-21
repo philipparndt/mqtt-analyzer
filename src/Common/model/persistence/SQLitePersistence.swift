@@ -167,13 +167,32 @@ extension SQLitePersistence {
 			}
 			
 			return settings
-				.map { PersistenceTransformer.transform(from: $0)}
+				.map { PersistenceTransformer.transform(from: $0) }
 				.filter { $0.aliasOrHost.lowercased() == byName.lowercased() }
 				.first
 		}
 		catch {
 			NSLog("Error reading settings")
 			return nil
+		}
+	}
+	
+	func allNames() -> [String] {
+		if !availabe {
+			return []
+		}
+		do {
+			let settings: [SQLiteBrokerSetting] = try queue.read { db in
+				try SQLiteBrokerSetting.fetchAll(db)
+			}
+			
+			return settings
+				.map { PersistenceTransformer.transform(from: $0) }
+				.map { $0.aliasOrHost }
+		}
+		catch {
+			NSLog("Error reading settings")
+			return []
 		}
 	}
 }

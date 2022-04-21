@@ -19,7 +19,18 @@ class PublishSync {
 		return queue
 	}
 	
-	class func publish(host: Host, topic: String, message: String, retain: Bool) throws -> Bool {
+	class func transformQos(qos: Int) -> CocoaMQTTQoS {
+		switch qos {
+		case 1:
+			return .qos1
+		case 2:
+			return .qos2
+		default:
+			return .qos0
+		}
+	}
+	
+	class func publish(host: Host, topic: String, message: String, retain: Bool, qos: Int) throws -> Bool {
 		
 		let model = TopicTree()
 		let client = MQTTClientCocoaMQTT(host: host, model: model)
@@ -41,7 +52,7 @@ class PublishSync {
 		mqtt.publish(
 			topic,
 			withString: message,
-			qos: .qos1,
+			qos: transformQos(qos: qos),
 			retained: retain
 		)
 		

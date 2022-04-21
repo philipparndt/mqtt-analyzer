@@ -3,7 +3,61 @@
 <plist version="1.0">
 <dict>
 	<key>INEnums</key>
-	<array/>
+	<array>
+		<dict>
+			<key>INEnumDisplayName</key>
+			<string>Qos</string>
+			<key>INEnumDisplayNameID</key>
+			<string>iH1f8j</string>
+			<key>INEnumGeneratesHeader</key>
+			<true/>
+			<key>INEnumName</key>
+			<string>Qos</string>
+			<key>INEnumType</key>
+			<string>Regular</string>
+			<key>INEnumValues</key>
+			<array>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>unknown</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>QoedXM</string>
+					<key>INEnumValueName</key>
+					<string>unknown</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>qos 0</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>OpoFfw</string>
+					<key>INEnumValueIndex</key>
+					<integer>1</integer>
+					<key>INEnumValueName</key>
+					<string>qos0</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>qos 1</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>JjmyXl</string>
+					<key>INEnumValueIndex</key>
+					<integer>2</integer>
+					<key>INEnumValueName</key>
+					<string>qos1</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>qos 2</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>v3y4Xg</string>
+					<key>INEnumValueIndex</key>
+					<integer>3</integer>
+					<key>INEnumValueName</key>
+					<string>qos2</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
 	<key>INIntentDefinitionModelVersion</key>
 	<string>1.2</string>
 	<key>INIntentDefinitionNamespace</key>
@@ -28,15 +82,15 @@
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentLastParameterTag</key>
-			<integer>5</integer>
+			<integer>9</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>broker,topic,message,retainMessage</key>
+				<key>broker,topic,message,retainMessage,qos</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Send MQTT message</string>
+					<string>Publish MQTT message</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>McC9za</string>
 					<key>INIntentParameterCombinationUpdatesLinked</key>
@@ -59,15 +113,9 @@
 					<key>INIntentParameterMetadata</key>
 					<dict>
 						<key>INIntentParameterMetadataCapitalization</key>
-						<string>None</string>
+						<string>Sentences</string>
 						<key>INIntentParameterMetadataDefaultValueID</key>
-						<string>XIOYw3</string>
-						<key>INIntentParameterMetadataDisableAutocorrect</key>
-						<true/>
-						<key>INIntentParameterMetadataDisableSmartDashes</key>
-						<true/>
-						<key>INIntentParameterMetadataDisableSmartQuotes</key>
-						<true/>
+						<string>n2hhqx</string>
 					</dict>
 					<key>INIntentParameterName</key>
 					<string>broker</string>
@@ -86,8 +134,10 @@
 							<string>Primary</string>
 						</dict>
 					</array>
+					<key>INIntentParameterSupportsDynamicEnumeration</key>
+					<true/>
 					<key>INIntentParameterTag</key>
-					<integer>1</integer>
+					<integer>7</integer>
 					<key>INIntentParameterType</key>
 					<string>String</string>
 				</dict>
@@ -222,6 +272,66 @@
 					<integer>5</integer>
 					<key>INIntentParameterType</key>
 					<string>Boolean</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>QoS</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>88fmBQ</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>5</integer>
+					<key>INIntentParameterEnumType</key>
+					<string>Qos</string>
+					<key>INIntentParameterEnumTypeNamespace</key>
+					<string>WAoQSI</string>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataDefaultValue</key>
+						<string>qos0</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>qos</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>There are ${count} options matching ‘${qos}’.</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>j7Z5NT</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>DisambiguationIntroduction</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Just to confirm, you wanted ‘${qos}’?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>Blqlxv</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Confirmation</string>
+						</dict>
+					</array>
+					<key>INIntentParameterTag</key>
+					<integer>9</integer>
+					<key>INIntentParameterType</key>
+					<string>Integer</string>
 				</dict>
 			</array>
 			<key>INIntentResponse</key>
