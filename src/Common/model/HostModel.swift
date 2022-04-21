@@ -204,25 +204,16 @@ class HostsModel: ObservableObject {
 		self.hosts = hosts
 	}
 	
-	func delete(at offsets: IndexSet, persistence: Persistence) {
-		let original = hostsSorted
-				
-		for idx in offsets {
-			persistence.delete(original[idx])
-		}
-		
-		persistence.load()
-	}
-	
 	func getBroker(at offsets: IndexSet) -> Host? {
 		if let first = offsets.first {
 			return hostsSorted[first]
 		}
 		return nil
 	}
-	
-	func delete(_ host: Host, persistence: Persistence) {
-		persistence.delete(host)
-		persistence.load()
+}
+
+extension Host {
+	static func randomClientId() -> String {
+		return "mqtt-analyzer-\(String.random(length: 8))"
 	}
 }

@@ -125,6 +125,34 @@
 		2282DA0728103DB400F79E65 /* Pods_MQTTAnalyzer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2282DA0D28103E9400F79E65 /* ExampleMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0C28103E9400F79E65 /* ExampleMessages.swift */; };
 		2282DA0F2810738900F79E65 /* SendSnycTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0E2810738900F79E65 /* SendSnycTests.swift */; };
+		2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1727A666C600D4327F /* MsgMessage.swift */; };
+		2282DA162811254F00F79E65 /* MsgMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1527A6669C00D4327F /* MsgMetadata.swift */; };
+		2282DA182811254F00F79E65 /* MsgPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1327A6667000D4327F /* MsgPayload.swift */; };
+		2282DA35281125E900F79E65 /* TopicTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEFB27A50C9700D4327F /* TopicTree.swift */; };
+		2282DA36281125E900F79E65 /* TopicTree+Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0527A5668200D4327F /* TopicTree+Counter.swift */; };
+		2282DA37281125E900F79E65 /* TopicTree+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1927A6678B00D4327F /* TopicTree+Filter.swift */; };
+		2282DA38281125E900F79E65 /* TopicTree+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2215118C27C923EB0000E385 /* TopicTree+Search.swift */; };
+		2282DA39281125E900F79E65 /* TopicTree+Flatten.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2127A6AEC800D4327F /* TopicTree+Flatten.swift */; };
+		2282DA3A281125E900F79E65 /* TreeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0D27A650CE00D4327F /* TreeUtils.swift */; };
+		2282DA3B281125E900F79E65 /* TopicTree+ReadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0B27A57DF400D4327F /* TopicTree+ReadState.swift */; };
+		2282DA3C281125E900F79E65 /* TopicTree+Deletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1127A65EE100D4327F /* TopicTree+Deletion.swift */; };
+		2282DA3E2811261A00F79E65 /* TimeSeriesValueUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */; };
+		2282DA3F2811261A00F79E65 /* DiagramPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64332412636300C2C4FE /* DiagramPath.swift */; };
+		2282DA402811261A00F79E65 /* TimeSeriesValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */; };
+		2282DA412811261A00F79E65 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
+		2282DA462811265500F79E65 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D98027C91DCA00E63E89 /* SearchIndex.swift */; };
+		2282DA4A2811268C00F79E65 /* HostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73D23BB5E5C00892C4B /* HostModel.swift */; };
+		2282DA4B2811268C00F79E65 /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
+		2282DA4C2811268C00F79E65 /* Readstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D6237FC03500D72BD6 /* Readstate.swift */; };
+		2282DA50281126D400F79E65 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE623C24A5800422BFF /* String+Utils.swift */; };
+		2282DA51281126D400F79E65 /* Date+Iso.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEFD27A50E9000D4327F /* Date+Iso.swift */; };
+		2282DA532811276000F79E65 /* HostModel+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA522811276000F79E65 /* HostModel+Delete.swift */; };
+		2282DA552811278500F79E65 /* DispatchQueue+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */; };
+		2282DA57281127C800F79E65 /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA56281127C800F79E65 /* Handlers.swift */; };
+		2282DA59281127D800F79E65 /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA56281127C800F79E65 /* Handlers.swift */; };
+		2282DA5A281127F400F79E65 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82027872D46008DA37D /* JSONUtils.swift */; };
+		2282DA5B281127F600F79E65 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82027872D46008DA37D /* JSONUtils.swift */; };
+		2282DA5E2811285000F79E65 /* MqttClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B4F244457E100ACDFC3 /* MqttClient.swift */; };
 		2285C80C2781E89B008DA37D /* LimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C8092781E89B008DA37D /* LimitReachedView.swift */; };
 		2285C80D2781E89B008DA37D /* TopicLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */; };
 		2285C81227841C72008DA37D /* ResumeConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81127841C72008DA37D /* ResumeConnectionView.swift */; };
@@ -411,6 +439,8 @@
 		2282DA0928103DF200F79E65 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2282DA0C28103E9400F79E65 /* ExampleMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleMessages.swift; sourceTree = "<group>"; };
 		2282DA0E2810738900F79E65 /* SendSnycTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSnycTests.swift; sourceTree = "<group>"; };
+		2282DA522811276000F79E65 /* HostModel+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HostModel+Delete.swift"; sourceTree = "<group>"; };
+		2282DA56281127C800F79E65 /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
 		2285C8092781E89B008DA37D /* LimitReachedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LimitReachedView.swift; path = MQTTAnalyzer/views/topic/connection/LimitReachedView.swift; sourceTree = SOURCE_ROOT; };
 		2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopicLimitReachedView.swift; path = MQTTAnalyzer/views/topic/connection/TopicLimitReachedView.swift; sourceTree = SOURCE_ROOT; };
 		2285C81127841C72008DA37D /* ResumeConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeConnectionView.swift; sourceTree = "<group>"; };
@@ -582,14 +612,6 @@
 			path = "aws-iot";
 			sourceTree = "<group>";
 		};
-		2200D97F27C91DBC00E63E89 /* search */ = {
-			isa = PBXGroup;
-			children = (
-				2200D98027C91DCA00E63E89 /* SearchIndex.swift */,
-			);
-			path = search;
-			sourceTree = "<group>";
-		};
 		2203571D2445850F00A98CD3 /* cocoamqtt */ = {
 			isa = PBXGroup;
 			children = (
@@ -607,25 +629,6 @@
 				22B38948280EEC6900D23022 /* ReceivedMessage.swift */,
 			);
 			path = cocoamqtt;
-			sourceTree = "<group>";
-		};
-		2230FF0027A5206400D4327F /* v2 */ = {
-			isa = PBXGroup;
-			children = (
-				2200D97F27C91DBC00E63E89 /* search */,
-				2230FEFB27A50C9700D4327F /* TopicTree.swift */,
-				2230FF0B27A57DF400D4327F /* TopicTree+ReadState.swift */,
-				2230FF2127A6AEC800D4327F /* TopicTree+Flatten.swift */,
-				2230FF1127A65EE100D4327F /* TopicTree+Deletion.swift */,
-				2230FF0527A5668200D4327F /* TopicTree+Counter.swift */,
-				2230FF1927A6678B00D4327F /* TopicTree+Filter.swift */,
-				2215118C27C923EB0000E385 /* TopicTree+Search.swift */,
-				2230FF0D27A650CE00D4327F /* TreeUtils.swift */,
-				2230FF1327A6667000D4327F /* MsgPayload.swift */,
-				2230FF1527A6669C00D4327F /* MsgMetadata.swift */,
-				2230FF1727A666C600D4327F /* MsgMessage.swift */,
-			);
-			path = v2;
 			sourceTree = "<group>";
 		};
 		2230FF2527A6BAD800D4327F /* news */ = {
@@ -695,9 +698,9 @@
 		2253F8C922C8C007007E35A2 = {
 			isa = PBXGroup;
 			children = (
-				2282DA0128102ED700F79E65 /* Intents.intentdefinition */,
 				2240834827AC533A00AA4A42 /* SnapshotHelper.swift */,
 				22C9F72E23B7486E00892C4B /* .swiftlint.yml */,
+				2282DA112811249300F79E65 /* Common */,
 				2253F8D422C8C007007E35A2 /* MQTTAnalyzer */,
 				2253F8EE22C8C008007E35A2 /* MQTTAnalyzerTests */,
 				22C7F0D12416A16600534880 /* MQTTAnalyzerUITests */,
@@ -727,7 +730,6 @@
 			isa = PBXGroup;
 			children = (
 				2200D96927C1122200E63E89 /* logger */,
-				2285C81F27872D2A008DA37D /* json */,
 				223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */,
 				22FD7D0722C8D39D0078795F /* model */,
 				228104782381708E00112F24 /* views */,
@@ -871,10 +873,7 @@
 			isa = PBXGroup;
 			children = (
 				2230FF3227A830C900D4327F /* DataProtocol+Hex.swift */,
-				22F8BEE623C24A5800422BFF /* String+Utils.swift */,
-				2230FEFD27A50E9000D4327F /* Date+Iso.swift */,
 				224AFEA627AE88DC00DFD09F /* Color+SystemColors.swift */,
-				22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */,
 				22AB2C0E280076CB00E88875 /* String+RegExp.swift */,
 			);
 			path = extensions;
@@ -948,6 +947,76 @@
 				2282D9F128102EB100F79E65 /* Info.plist */,
 			);
 			path = MQTTAnalyzerIntentUI;
+			sourceTree = "<group>";
+		};
+		2282DA112811249300F79E65 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2282DA4D281126BD00F79E65 /* extensions */,
+				2282DA132811253600F79E65 /* model */,
+				2282DA5C2811282700F79E65 /* mqtt */,
+				2285C81F27872D2A008DA37D /* json */,
+				2282DA0128102ED700F79E65 /* Intents.intentdefinition */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2282DA132811253600F79E65 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				2282DA1E2811258B00F79E65 /* search */,
+				2282DA20281125BE00F79E65 /* tree */,
+				228911CF22CF86B20095301F /* timeseries */,
+				2230FF1327A6667000D4327F /* MsgPayload.swift */,
+				2230FF1527A6669C00D4327F /* MsgMetadata.swift */,
+				2230FF1727A666C600D4327F /* MsgMessage.swift */,
+				22D50F9622CE4C4300F37EAF /* Multimap.swift */,
+				22E469D6237FC03500D72BD6 /* Readstate.swift */,
+				22C9F73D23BB5E5C00892C4B /* HostModel.swift */,
+				2282DA56281127C800F79E65 /* Handlers.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		2282DA1E2811258B00F79E65 /* search */ = {
+			isa = PBXGroup;
+			children = (
+				2200D98027C91DCA00E63E89 /* SearchIndex.swift */,
+			);
+			path = search;
+			sourceTree = "<group>";
+		};
+		2282DA20281125BE00F79E65 /* tree */ = {
+			isa = PBXGroup;
+			children = (
+				2230FEFB27A50C9700D4327F /* TopicTree.swift */,
+				2230FF0B27A57DF400D4327F /* TopicTree+ReadState.swift */,
+				2230FF2127A6AEC800D4327F /* TopicTree+Flatten.swift */,
+				2230FF1127A65EE100D4327F /* TopicTree+Deletion.swift */,
+				2230FF0527A5668200D4327F /* TopicTree+Counter.swift */,
+				2230FF1927A6678B00D4327F /* TopicTree+Filter.swift */,
+				2215118C27C923EB0000E385 /* TopicTree+Search.swift */,
+				2230FF0D27A650CE00D4327F /* TreeUtils.swift */,
+			);
+			path = tree;
+			sourceTree = "<group>";
+		};
+		2282DA4D281126BD00F79E65 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				22F8BEE623C24A5800422BFF /* String+Utils.swift */,
+				2230FEFD27A50E9000D4327F /* Date+Iso.swift */,
+				22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		2282DA5C2811282700F79E65 /* mqtt */ = {
+			isa = PBXGroup;
+			children = (
+				226A6B4F244457E100ACDFC3 /* MqttClient.swift */,
+			);
+			path = mqtt;
 			sourceTree = "<group>";
 		};
 		2285C81F27872D2A008DA37D /* json */ = {
@@ -1099,7 +1168,6 @@
 			children = (
 				2203571D2445850F00A98CD3 /* cocoamqtt */,
 				22FD7CF822C8D2650078795F /* MQTTSessionController.swift */,
-				226A6B4F244457E100ACDFC3 /* MqttClient.swift */,
 			);
 			path = mqtt;
 			sourceTree = "<group>";
@@ -1107,14 +1175,10 @@
 		22FD7D0722C8D39D0078795F /* model */ = {
 			isa = PBXGroup;
 			children = (
-				2230FF0027A5206400D4327F /* v2 */,
 				223EF0042387082E002ADF3E /* persistence */,
-				228911CF22CF86B20095301F /* timeseries */,
 				22FD7CFB22C8D2650078795F /* RootModel.swift */,
-				22D50F9622CE4C4300F37EAF /* Multimap.swift */,
-				22E469D6237FC03500D72BD6 /* Readstate.swift */,
-				22C9F73D23BB5E5C00892C4B /* HostModel.swift */,
 				2230FF2E27A6CDB800D4327F /* Welcome.swift */,
+				2282DA522811276000F79E65 /* HostModel+Delete.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1540,6 +1604,7 @@
 				2230FF1827A666C600D4327F /* MsgMessage.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
 				220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */,
+				2282DA57281127C800F79E65 /* Handlers.swift in Sources */,
 				22810488238173BB00112F24 /* DataSeriesView.swift in Sources */,
 				223AF5D72477D60A009810E6 /* PKCS12HelpView.swift in Sources */,
 				2281048A2381740000112F24 /* MessageView.swift in Sources */,
@@ -1636,6 +1701,7 @@
 				2230FF1227A65EE100D4327F /* TopicTree+Deletion.swift in Sources */,
 				2230FF2B27A6BC1C00D4327F /* InformationDetailView.swift in Sources */,
 				226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */,
+				2282DA532811276000F79E65 /* HostModel+Delete.swift in Sources */,
 				2230FF0627A5668200D4327F /* TopicTree+Counter.swift in Sources */,
 				223AF5D12477D575009810E6 /* FileLister.swift in Sources */,
 				223AF5DB2477D64B009810E6 /* CertificateFileModel.swift in Sources */,
@@ -1655,6 +1721,7 @@
 				22AB2C132800854700E88875 /* MqttClientCocoaMQTTTests.swift in Sources */,
 				2230FEFA27A50C8000D4327F /* TreeModelTests.swift in Sources */,
 				2230FF1027A6511F00D4327F /* TreeUtilsTests.swift in Sources */,
+				2282DA5A281127F400F79E65 /* JSONUtils.swift in Sources */,
 				22E914DF25A8420700BEC599 /* HostFormModelTests.swift in Sources */,
 				2230FF0227A53EA700D4327F /* ModelTestExtensions.swift in Sources */,
 				22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */,
@@ -1675,9 +1742,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2282DA5E2811285000F79E65 /* MqttClient.swift in Sources */,
+				2282DA162811254F00F79E65 /* MsgMetadata.swift in Sources */,
+				2282DA50281126D400F79E65 /* String+Utils.swift in Sources */,
+				2282DA3E2811261A00F79E65 /* TimeSeriesValueUtil.swift in Sources */,
+				2282DA462811265500F79E65 /* SearchIndex.swift in Sources */,
+				2282DA5B281127F600F79E65 /* JSONUtils.swift in Sources */,
 				2282DA0D28103E9400F79E65 /* ExampleMessages.swift in Sources */,
+				2282DA4B2811268C00F79E65 /* Multimap.swift in Sources */,
+				2282DA412811261A00F79E65 /* TimeSeriesModel.swift in Sources */,
+				2282DA4A2811268C00F79E65 /* HostModel.swift in Sources */,
+				2282DA3B281125E900F79E65 /* TopicTree+ReadState.swift in Sources */,
 				2282DA0228102ED700F79E65 /* Intents.intentdefinition in Sources */,
+				2282DA182811254F00F79E65 /* MsgPayload.swift in Sources */,
+				2282DA36281125E900F79E65 /* TopicTree+Counter.swift in Sources */,
+				2282DA38281125E900F79E65 /* TopicTree+Search.swift in Sources */,
 				2282D9E228102EB100F79E65 /* IntentHandler.swift in Sources */,
+				2282DA59281127D800F79E65 /* Handlers.swift in Sources */,
+				2282DA552811278500F79E65 /* DispatchQueue+Background.swift in Sources */,
+				2282DA3A281125E900F79E65 /* TreeUtils.swift in Sources */,
+				2282DA3C281125E900F79E65 /* TopicTree+Deletion.swift in Sources */,
+				2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */,
+				2282DA35281125E900F79E65 /* TopicTree.swift in Sources */,
+				2282DA4C2811268C00F79E65 /* Readstate.swift in Sources */,
+				2282DA39281125E900F79E65 /* TopicTree+Flatten.swift in Sources */,
+				2282DA3F2811261A00F79E65 /* DiagramPath.swift in Sources */,
+				2282DA51281126D400F79E65 /* Date+Iso.swift in Sources */,
+				2282DA402811261A00F79E65 /* TimeSeriesValue.swift in Sources */,
+				2282DA37281125E900F79E65 /* TopicTree+Filter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
