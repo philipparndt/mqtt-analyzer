@@ -122,7 +122,6 @@
 		2282DA0228102ED700F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
 		2282DA03281038B600F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
 		2282DA0428103BDD00F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
-		2282DA0728103DB400F79E65 /* Pods_MQTTAnalyzer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1727A666C600D4327F /* MsgMessage.swift */; };
 		2282DA162811254F00F79E65 /* MsgMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1527A6669C00D4327F /* MsgMetadata.swift */; };
 		2282DA182811254F00F79E65 /* MsgPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1327A6667000D4327F /* MsgPayload.swift */; };
@@ -337,7 +336,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2282DA0728103DB400F79E65 /* Pods_MQTTAnalyzer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
