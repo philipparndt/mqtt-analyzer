@@ -34,10 +34,7 @@ class IntentHandler: INExtension, SendMQTTMessageIntentHandling, InitHost {
 			sqlite.close()
 
 			if let host = firstHost {
-				completion(SendMQTTMessageIntentResponse(
-					code: .success,
-					userActivity: nil)
-				)
+				print("#### MQTTAnalyzer IntentHandler: \(host.hostname)")
 				
 				do {
 					let result = try PublishSync.publish(
@@ -47,22 +44,26 @@ class IntentHandler: INExtension, SendMQTTMessageIntentHandling, InitHost {
 						retain: false
 					)
 
-					completion(SendMQTTMessageIntentResponse(
-						code: result ? .success : .failure,
-						userActivity: nil)
-					)
+					completion(response(from: result ? nil : "Publish failed"))
 				}
 				catch {
+					print("#### MQTTAnalyzer IntentHandler: Error \(error)")
+					completion(response(from: "\(error)"))
 				}
 			}
-			
-			completion(SendMQTTMessageIntentResponse(
-				code: .failure,
-				userActivity: nil)
-			)
 		}
 	}
-    
+	
+	func response(from error: String?) -> SendMQTTMessageIntentResponse {
+		let response = SendMQTTMessageIntentResponse(
+			code: error == nil ? .success : .failure,
+			userActivity: nil)
+		
+		response.error = error
+		
+		return response
+	}
+	
 	func resolveTopic(for intent: SendMQTTMessageIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
 		   
 	   if let topic = intent.topic {

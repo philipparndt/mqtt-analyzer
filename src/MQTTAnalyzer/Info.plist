@@ -29,6 +29,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSSiriUsageDescription</key>
+	<string>Siri support is used to suggest shortcuts</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.de.rnd7.MQTTAnalyzer</key>
@@ -41,6 +43,10 @@
 			<string>One</string>
 		</dict>
 	</dict>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>SendMQTTMessageIntent</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -85,7 +91,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSSiriUsageDescription</key>
-	<string>Siri support is used to suggest shortcuts</string>
 </dict>
 </plist>

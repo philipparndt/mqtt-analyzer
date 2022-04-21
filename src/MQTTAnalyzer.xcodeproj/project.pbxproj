@@ -123,7 +123,6 @@
 		2282DA03281038B600F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
 		2282DA0428103BDD00F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
 		2282DA0728103DB400F79E65 /* Pods_MQTTAnalyzer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2282DA0D28103E9400F79E65 /* ExampleMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0C28103E9400F79E65 /* ExampleMessages.swift */; };
 		2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1727A666C600D4327F /* MsgMessage.swift */; };
 		2282DA162811254F00F79E65 /* MsgMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1527A6669C00D4327F /* MsgMetadata.swift */; };
 		2282DA182811254F00F79E65 /* MsgPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1327A6667000D4327F /* MsgPayload.swift */; };
@@ -478,7 +477,6 @@
 		2282DA0128102ED700F79E65 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
 		2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_MQTTAnalyzer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2282DA0928103DF200F79E65 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2282DA0C28103E9400F79E65 /* ExampleMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleMessages.swift; sourceTree = "<group>"; };
 		2282DA0E2810738900F79E65 /* PublishSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishSyncTests.swift; sourceTree = "<group>"; };
 		2282DA522811276000F79E65 /* HostModel+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HostModel+Delete.swift"; sourceTree = "<group>"; };
 		2282DA56281127C800F79E65 /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
@@ -965,7 +963,6 @@
 				2282D9F928102EB100F79E65 /* MQTTAnalyzerIntent.entitlements */,
 				2282D9E128102EB100F79E65 /* IntentHandler.swift */,
 				2282D9E328102EB100F79E65 /* Info.plist */,
-				2282DA0C28103E9400F79E65 /* ExampleMessages.swift */,
 			);
 			path = MQTTAnalyzerIntent;
 			sourceTree = "<group>";
@@ -1805,7 +1802,6 @@
 				2282DA5B281127F600F79E65 /* JSONUtils.swift in Sources */,
 				22C96E0228112B6300A4F627 /* DataMigrationNavigationMode.swift in Sources */,
 				22C96E0128112B6300A4F627 /* DataMigrationClientImpl.swift in Sources */,
-				2282DA0D28103E9400F79E65 /* ExampleMessages.swift in Sources */,
 				2282DA682811290400F79E65 /* MQTTClientCocoaMQTT.swift in Sources */,
 				2282DA7328112A1900F79E65 /* Logger.swift in Sources */,
 				22C96E0528112B6700A4F627 /* StubPersistence.swift in Sources */,

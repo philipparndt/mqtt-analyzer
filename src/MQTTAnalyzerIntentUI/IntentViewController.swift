@@ -25,16 +25,12 @@ class IntentViewController: UIViewController, INUIHostedViewControlling {
 			return
 		}
 		
-		if let topic = intent.topic {
-			self.contentLabel.text = "Message published to \(topic)"
+		if let broker = intent.broker {
+			self.contentLabel.text = "Message published to broker \(broker)"
 		}
 
 		completion(true, parameters, self.desiredSize)
     }
-    
-//    var desiredSize: CGSize {
-//        return self.extensionContext!.hostedViewMaximumAllowedSize
-//    }
 	
 	var desiredSize: CGSize {
 		return CGSize.init(width: 10, height: 100)

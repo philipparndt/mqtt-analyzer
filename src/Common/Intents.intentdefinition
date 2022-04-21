@@ -22,9 +22,11 @@
 			<key>INIntentConfigurable</key>
 			<true/>
 			<key>INIntentDescription</key>
-			<string>Send a MQTT message</string>
+			<string>Publish a MQTT message</string>
 			<key>INIntentDescriptionID</key>
 			<string>cVQ1cO</string>
+			<key>INIntentIneligibleForSuggestions</key>
+			<true/>
 			<key>INIntentLastParameterTag</key>
 			<integer>3</integer>
 			<key>INIntentManagedParameterCombinations</key>
@@ -43,20 +45,6 @@
 			</dict>
 			<key>INIntentName</key>
 			<string>SendMQTTMessage</string>
-			<key>INIntentParameterCombinations</key>
-			<dict>
-				<key>broker,topic,message</key>
-				<dict>
-					<key>INIntentParameterCombinationIsLinked</key>
-					<true/>
-					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
-					<true/>
-					<key>INIntentParameterCombinationTitle</key>
-					<string>Send MQTT message</string>
-					<key>INIntentParameterCombinationTitleID</key>
-					<string>jpc0YR</string>
-				</dict>
-			</dict>
 			<key>INIntentParameters</key>
 			<array>
 				<dict>
@@ -209,9 +197,28 @@
 						<string>failure</string>
 					</dict>
 				</array>
+				<key>INIntentResponseLastParameterTag</key>
+				<integer>1</integer>
+				<key>INIntentResponseParameters</key>
+				<array>
+					<dict>
+						<key>INIntentResponseParameterDisplayName</key>
+						<string>Error</string>
+						<key>INIntentResponseParameterDisplayNameID</key>
+						<string>Ce8ycL</string>
+						<key>INIntentResponseParameterDisplayPriority</key>
+						<integer>1</integer>
+						<key>INIntentResponseParameterName</key>
+						<string>error</string>
+						<key>INIntentResponseParameterTag</key>
+						<integer>1</integer>
+						<key>INIntentResponseParameterType</key>
+						<string>String</string>
+					</dict>
+				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Send MQTT Message</string>
+			<string>Publish MQTT Message</string>
 			<key>INIntentTitleID</key>
 			<string>rviDew</string>
 			<key>INIntentType</key>
