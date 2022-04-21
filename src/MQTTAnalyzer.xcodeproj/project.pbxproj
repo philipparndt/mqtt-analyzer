@@ -153,6 +153,25 @@
 		2282DA5A281127F400F79E65 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82027872D46008DA37D /* JSONUtils.swift */; };
 		2282DA5B281127F600F79E65 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82027872D46008DA37D /* JSONUtils.swift */; };
 		2282DA5E2811285000F79E65 /* MqttClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B4F244457E100ACDFC3 /* MqttClient.swift */; };
+		2282DA5F2811290400F79E65 /* CocoaMQTTCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */; };
+		2282DA602811290400F79E65 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893E280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift */; };
+		2282DA612811290400F79E65 /* MQTTClientCocoaMQTT+OnMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */; };
+		2282DA622811290400F79E65 /* MQTTClientCocoaMQTT+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38940280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift */; };
+		2282DA632811290400F79E65 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38948280EEC6900D23022 /* ReceivedMessage.swift */; };
+		2282DA642811290400F79E65 /* Host+ActualUserPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */; };
+		2282DA652811290400F79E65 /* MQTT5Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B36280AEDB7000F8F37 /* MQTT5Delegate.swift */; };
+		2282DA662811290400F79E65 /* MQTT5ClientCocoaMQTT+OnMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893A280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift */; };
+		2282DA672811290400F79E65 /* MQTT5ClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B37280AEDC0000F8F37 /* MQTT5ClientCocoaMQTT.swift */; };
+		2282DA682811290400F79E65 /* MQTTClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5124445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift */; };
+		2282DA692811290400F79E65 /* MQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357202445B2ED00A98CD3 /* MQTTDelegate.swift */; };
+		2282DA6A2811290400F79E65 /* ClientUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38938280E885A00D23022 /* ClientUtils.swift */; };
+		2282DA6C2811297200F79E65 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA6B2811297200F79E65 /* Certificate.swift */; };
+		2282DA6E281129A100F79E65 /* String+RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C0E280076CB00E88875 /* String+RegExp.swift */; };
+		2282DA6F281129F800F79E65 /* CloudDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F67AE024716ED50082C79F /* CloudDataManager.swift */; };
+		2282DA70281129F800F79E65 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
+		2282DA71281129F800F79E65 /* CertificateFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */; };
+		2282DA72281129F800F79E65 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA6B2811297200F79E65 /* Certificate.swift */; };
+		2282DA7328112A1900F79E65 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96A27C1123000E63E89 /* Logger.swift */; };
 		2285C80C2781E89B008DA37D /* LimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C8092781E89B008DA37D /* LimitReachedView.swift */; };
 		2285C80D2781E89B008DA37D /* TopicLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */; };
 		2285C81227841C72008DA37D /* ResumeConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81127841C72008DA37D /* ResumeConnectionView.swift */; };
@@ -441,6 +460,7 @@
 		2282DA0E2810738900F79E65 /* SendSnycTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSnycTests.swift; sourceTree = "<group>"; };
 		2282DA522811276000F79E65 /* HostModel+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HostModel+Delete.swift"; sourceTree = "<group>"; };
 		2282DA56281127C800F79E65 /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
+		2282DA6B2811297200F79E65 /* Certificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
 		2285C8092781E89B008DA37D /* LimitReachedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LimitReachedView.swift; path = MQTTAnalyzer/views/topic/connection/LimitReachedView.swift; sourceTree = SOURCE_ROOT; };
 		2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopicLimitReachedView.swift; path = MQTTAnalyzer/views/topic/connection/TopicLimitReachedView.swift; sourceTree = SOURCE_ROOT; };
 		2285C81127841C72008DA37D /* ResumeConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeConnectionView.swift; sourceTree = "<group>"; };
@@ -662,6 +682,7 @@
 		223AF5CF2477D55C009810E6 /* icloud */ = {
 			isa = PBXGroup;
 			children = (
+				2282DA6B2811297200F79E65 /* Certificate.swift */,
 				22F67AE024716ED50082C79F /* CloudDataManager.swift */,
 				223AF5D02477D575009810E6 /* FileLister.swift */,
 				223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */,
@@ -729,13 +750,11 @@
 		2253F8D422C8C007007E35A2 /* MQTTAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
-				2200D96927C1122200E63E89 /* logger */,
 				223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */,
 				22FD7D0722C8D39D0078795F /* model */,
 				228104782381708E00112F24 /* views */,
 				22810479238170A200112F24 /* extensions */,
 				22FD7D0622C8D3760078795F /* mqtt */,
-				223AF5CF2477D55C009810E6 /* icloud */,
 				2253F8D722C8C007007E35A2 /* SceneDelegate.swift */,
 				2253F8D522C8C007007E35A2 /* AppDelegate.swift */,
 				2253F8DE22C8C008007E35A2 /* Assets.xcassets */,
@@ -874,7 +893,6 @@
 			children = (
 				2230FF3227A830C900D4327F /* DataProtocol+Hex.swift */,
 				224AFEA627AE88DC00DFD09F /* Color+SystemColors.swift */,
-				22AB2C0E280076CB00E88875 /* String+RegExp.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -953,9 +971,11 @@
 			isa = PBXGroup;
 			children = (
 				2282DA4D281126BD00F79E65 /* extensions */,
+				2200D96927C1122200E63E89 /* logger */,
 				2282DA132811253600F79E65 /* model */,
 				2282DA5C2811282700F79E65 /* mqtt */,
 				2285C81F27872D2A008DA37D /* json */,
+				223AF5CF2477D55C009810E6 /* icloud */,
 				2282DA0128102ED700F79E65 /* Intents.intentdefinition */,
 			);
 			path = Common;
@@ -1005,6 +1025,7 @@
 			isa = PBXGroup;
 			children = (
 				22F8BEE623C24A5800422BFF /* String+Utils.swift */,
+				22AB2C0E280076CB00E88875 /* String+RegExp.swift */,
 				2230FEFD27A50E9000D4327F /* Date+Iso.swift */,
 				22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */,
 			);
@@ -1014,6 +1035,7 @@
 		2282DA5C2811282700F79E65 /* mqtt */ = {
 			isa = PBXGroup;
 			children = (
+				2203571D2445850F00A98CD3 /* cocoamqtt */,
 				226A6B4F244457E100ACDFC3 /* MqttClient.swift */,
 			);
 			path = mqtt;
@@ -1166,7 +1188,6 @@
 		22FD7D0622C8D3760078795F /* mqtt */ = {
 			isa = PBXGroup;
 			children = (
-				2203571D2445850F00A98CD3 /* cocoamqtt */,
 				22FD7CF822C8D2650078795F /* MQTTSessionController.swift */,
 			);
 			path = mqtt;
@@ -1675,6 +1696,7 @@
 				22B3893F280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormDialog.swift in Sources */,
 				2230FF0827A56BDE00D4327F /* FolderNavigationView.swift in Sources */,
+				2282DA6C2811297200F79E65 /* Certificate.swift in Sources */,
 				2285C81427841CA1008DA37D /* LoginView.swift in Sources */,
 				22B38947280ED79000D23022 /* ProtocolVersionPicker.swift in Sources */,
 				22AE64342412636300C2C4FE /* DiagramPath.swift in Sources */,
@@ -1745,28 +1767,46 @@
 				2282DA5E2811285000F79E65 /* MqttClient.swift in Sources */,
 				2282DA162811254F00F79E65 /* MsgMetadata.swift in Sources */,
 				2282DA50281126D400F79E65 /* String+Utils.swift in Sources */,
+				2282DA612811290400F79E65 /* MQTTClientCocoaMQTT+OnMessage.swift in Sources */,
 				2282DA3E2811261A00F79E65 /* TimeSeriesValueUtil.swift in Sources */,
 				2282DA462811265500F79E65 /* SearchIndex.swift in Sources */,
 				2282DA5B281127F600F79E65 /* JSONUtils.swift in Sources */,
 				2282DA0D28103E9400F79E65 /* ExampleMessages.swift in Sources */,
+				2282DA682811290400F79E65 /* MQTTClientCocoaMQTT.swift in Sources */,
+				2282DA7328112A1900F79E65 /* Logger.swift in Sources */,
 				2282DA4B2811268C00F79E65 /* Multimap.swift in Sources */,
+				2282DA632811290400F79E65 /* ReceivedMessage.swift in Sources */,
 				2282DA412811261A00F79E65 /* TimeSeriesModel.swift in Sources */,
+				2282DA622811290400F79E65 /* MQTTClientCocoaMQTT+Client.swift in Sources */,
 				2282DA4A2811268C00F79E65 /* HostModel.swift in Sources */,
+				2282DA70281129F800F79E65 /* FileLister.swift in Sources */,
+				2282DA652811290400F79E65 /* MQTT5Delegate.swift in Sources */,
 				2282DA3B281125E900F79E65 /* TopicTree+ReadState.swift in Sources */,
 				2282DA0228102ED700F79E65 /* Intents.intentdefinition in Sources */,
 				2282DA182811254F00F79E65 /* MsgPayload.swift in Sources */,
 				2282DA36281125E900F79E65 /* TopicTree+Counter.swift in Sources */,
+				2282DA6F281129F800F79E65 /* CloudDataManager.swift in Sources */,
+				2282DA672811290400F79E65 /* MQTT5ClientCocoaMQTT.swift in Sources */,
+				2282DA692811290400F79E65 /* MQTTDelegate.swift in Sources */,
 				2282DA38281125E900F79E65 /* TopicTree+Search.swift in Sources */,
 				2282D9E228102EB100F79E65 /* IntentHandler.swift in Sources */,
+				2282DA642811290400F79E65 /* Host+ActualUserPassword.swift in Sources */,
 				2282DA59281127D800F79E65 /* Handlers.swift in Sources */,
 				2282DA552811278500F79E65 /* DispatchQueue+Background.swift in Sources */,
 				2282DA3A281125E900F79E65 /* TreeUtils.swift in Sources */,
+				2282DA71281129F800F79E65 /* CertificateFileModel.swift in Sources */,
+				2282DA72281129F800F79E65 /* Certificate.swift in Sources */,
+				2282DA5F2811290400F79E65 /* CocoaMQTTCertificateFiles.swift in Sources */,
+				2282DA6E281129A100F79E65 /* String+RegExp.swift in Sources */,
 				2282DA3C281125E900F79E65 /* TopicTree+Deletion.swift in Sources */,
 				2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */,
 				2282DA35281125E900F79E65 /* TopicTree.swift in Sources */,
+				2282DA602811290400F79E65 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
+				2282DA662811290400F79E65 /* MQTT5ClientCocoaMQTT+OnMessage.swift in Sources */,
 				2282DA4C2811268C00F79E65 /* Readstate.swift in Sources */,
 				2282DA39281125E900F79E65 /* TopicTree+Flatten.swift in Sources */,
 				2282DA3F2811261A00F79E65 /* DiagramPath.swift in Sources */,
+				2282DA6A2811290400F79E65 /* ClientUtils.swift in Sources */,
 				2282DA51281126D400F79E65 /* Date+Iso.swift in Sources */,
 				2282DA402811261A00F79E65 /* TimeSeriesValue.swift in Sources */,
 				2282DA37281125E900F79E65 /* TopicTree+Filter.swift in Sources */,

@@ -111,10 +111,6 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	return target
 }
 
-func getCertificate(_ host: Host, type: CertificateFileType) -> CertificateFile? {
-	return host.certificates.filter { $0.type == type }.first
-}
-
 func transformHost(source host: Host) -> HostFormModel {
 	return HostFormModel(alias: host.alias,
 						 hostname: host.hostname,
