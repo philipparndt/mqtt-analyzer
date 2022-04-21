@@ -112,6 +112,19 @@
 		228104932381773100112F24 /* TopicCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104922381773100112F24 /* TopicCellView.swift */; };
 		228104952381779000112F24 /* TopicToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104942381779000112F24 /* TopicToolsView.swift */; };
 		228104982381796B00112F24 /* HostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104972381796B00112F24 /* HostCellView.swift */; };
+		2282D9DF28102EB100F79E65 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2282D9DE28102EB000F79E65 /* Intents.framework */; };
+		2282D9E228102EB100F79E65 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282D9E128102EB100F79E65 /* IntentHandler.swift */; };
+		2282D9EA28102EB100F79E65 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2282D9E928102EB100F79E65 /* IntentsUI.framework */; };
+		2282D9ED28102EB100F79E65 /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282D9EC28102EB100F79E65 /* IntentViewController.swift */; };
+		2282D9F028102EB100F79E65 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2282D9EE28102EB100F79E65 /* MainInterface.storyboard */; };
+		2282D9F428102EB100F79E65 /* MQTTAnalyzerIntentUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2282D9F828102EB100F79E65 /* MQTTAnalyzerIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2282DA0228102ED700F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
+		2282DA03281038B600F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
+		2282DA0428103BDD00F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
+		2282DA0728103DB400F79E65 /* Pods_MQTTAnalyzer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2282DA0D28103E9400F79E65 /* ExampleMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0C28103E9400F79E65 /* ExampleMessages.swift */; };
+		2282DA0F2810738900F79E65 /* SendSnycTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0E2810738900F79E65 /* SendSnycTests.swift */; };
 		2285C80C2781E89B008DA37D /* LimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C8092781E89B008DA37D /* LimitReachedView.swift */; };
 		2285C80D2781E89B008DA37D /* TopicLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */; };
 		2285C81227841C72008DA37D /* ResumeConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81127841C72008DA37D /* ResumeConnectionView.swift */; };
@@ -203,7 +216,9 @@
 		22FD7D0322C8D2660078795F /* HostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFC22C8D2660078795F /* HostsView.swift */; };
 		22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */; };
 		458A44A5726DF316EE6004E8 /* Pods_MQTTAnalyzerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE6D91479F36479741E6FCC /* Pods_MQTTAnalyzerUITests.framework */; };
+		AC359FF0D5CCE4657B0BF477 /* Pods_MQTTAnalyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */; };
 		B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA00F32BE18033F923EAEA0 /* Pods_MQTTAnalyzer.framework */; };
+		B871A48F9CF9EC8FD5CD46F5 /* Pods_MQTTAnalyzerIntent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A97398D1A8868944BA1F5E2 /* Pods_MQTTAnalyzerIntent.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +229,20 @@
 			remoteGlobalIDString = 2253F8D122C8C007007E35A2;
 			remoteInfo = MQTTAnalyzer;
 		};
+		2282D9F228102EB100F79E65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2282D9E728102EB100F79E65;
+			remoteInfo = MQTTAnalyzerIntentUI;
+		};
+		2282D9F628102EB100F79E65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2282D9DC28102EB000F79E65;
+			remoteInfo = MQTTAnalyzerIntent;
+		};
 		22C7F0D52416A16600534880 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
@@ -223,8 +252,35 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2282D9FA28102EB100F79E65 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2282D9F828102EB100F79E65 /* MQTTAnalyzerIntent.appex in Embed App Extensions */,
+				2282D9F428102EB100F79E65 /* MQTTAnalyzerIntentUI.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282DA0828103DB400F79E65 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2282DA0728103DB400F79E65 /* Pods_MQTTAnalyzer.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		01671CB030544C85ED77188C /* Pods-MQTTAnalyzer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.debug.xcconfig"; sourceTree = "<group>"; };
+		10309D143F9F34802A2586F6 /* Pods-MQTTAnalyzerIntent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerIntent.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerIntent/Pods-MQTTAnalyzerIntent.debug.xcconfig"; sourceTree = "<group>"; };
 		2200D96527C0C3BF00E63E89 /* PublishTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTests.swift; sourceTree = "<group>"; };
 		2200D96727C0CA0100E63E89 /* PublishDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishDialog.swift; sourceTree = "<group>"; };
 		2200D96A27C1123000E63E89 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -339,6 +395,22 @@
 		228104922381773100112F24 /* TopicCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCellView.swift; sourceTree = "<group>"; };
 		228104942381779000112F24 /* TopicToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicToolsView.swift; sourceTree = "<group>"; };
 		228104972381796B00112F24 /* HostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostCellView.swift; path = MQTTAnalyzer/views/HostCellView.swift; sourceTree = SOURCE_ROOT; };
+		2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MQTTAnalyzerIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2282D9DE28102EB000F79E65 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		2282D9E128102EB100F79E65 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		2282D9E328102EB100F79E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MQTTAnalyzerIntentUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2282D9E928102EB100F79E65 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		2282D9EC28102EB100F79E65 /* IntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentViewController.swift; sourceTree = "<group>"; };
+		2282D9EF28102EB100F79E65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		2282D9F128102EB100F79E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2282D9F528102EB100F79E65 /* MQTTAnalyzerIntentUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzerIntentUI.entitlements; sourceTree = "<group>"; };
+		2282D9F928102EB100F79E65 /* MQTTAnalyzerIntent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzerIntent.entitlements; sourceTree = "<group>"; };
+		2282DA0128102ED700F79E65 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
+		2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_MQTTAnalyzer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2282DA0928103DF200F79E65 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2282DA0C28103E9400F79E65 /* ExampleMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleMessages.swift; sourceTree = "<group>"; };
+		2282DA0E2810738900F79E65 /* SendSnycTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSnycTests.swift; sourceTree = "<group>"; };
 		2285C8092781E89B008DA37D /* LimitReachedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LimitReachedView.swift; path = MQTTAnalyzer/views/topic/connection/LimitReachedView.swift; sourceTree = SOURCE_ROOT; };
 		2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopicLimitReachedView.swift; path = MQTTAnalyzer/views/topic/connection/TopicLimitReachedView.swift; sourceTree = SOURCE_ROOT; };
 		2285C81127841C72008DA37D /* ResumeConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeConnectionView.swift; sourceTree = "<group>"; };
@@ -437,7 +509,9 @@
 		6EA00F32BE18033F923EAEA0 /* Pods_MQTTAnalyzer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		771859B939F07AF34A710F07 /* Pods_MQTTAnalyzerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92AF6D7587A8674FE6DBEE42 /* Pods-MQTTAnalyzerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerUITests.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A97398D1A8868944BA1F5E2 /* Pods_MQTTAnalyzerIntent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerIntent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEE6D91479F36479741E6FCC /* Pods_MQTTAnalyzerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD79B0138F517C71F6255C4C /* Pods-MQTTAnalyzerIntent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerIntent.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerIntent/Pods-MQTTAnalyzerIntent.release.xcconfig"; sourceTree = "<group>"; };
 		C1D6B6244A390AA6C066AB20 /* Pods-MQTTAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
 		CCEE79FFC156E6A7A3EB4B17 /* Pods-MQTTAnalyzerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerTests.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerTests/Pods-MQTTAnalyzerTests.release.xcconfig"; sourceTree = "<group>"; };
 		D7D50319E94CFEFF222234D3 /* Pods-MQTTAnalyzerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerTests.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerTests/Pods-MQTTAnalyzerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -451,6 +525,7 @@
 				2200D97027C124FD00E63E89 /* Dynamic in Frameworks */,
 				223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */,
 				B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */,
+				AC359FF0D5CCE4657B0BF477 /* Pods_MQTTAnalyzer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +534,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A6B19EC7DAB8540135183CF /* Pods_MQTTAnalyzerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9DA28102EB000F79E65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2282D9DF28102EB100F79E65 /* Intents.framework in Frameworks */,
+				B871A48F9CF9EC8FD5CD46F5 /* Pods_MQTTAnalyzerIntent.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9E528102EB100F79E65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2282D9EA28102EB100F79E65 /* IntentsUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,11 +695,14 @@
 		2253F8C922C8C007007E35A2 = {
 			isa = PBXGroup;
 			children = (
+				2282DA0128102ED700F79E65 /* Intents.intentdefinition */,
 				2240834827AC533A00AA4A42 /* SnapshotHelper.swift */,
 				22C9F72E23B7486E00892C4B /* .swiftlint.yml */,
 				2253F8D422C8C007007E35A2 /* MQTTAnalyzer */,
 				2253F8EE22C8C008007E35A2 /* MQTTAnalyzerTests */,
 				22C7F0D12416A16600534880 /* MQTTAnalyzerUITests */,
+				2282D9E028102EB100F79E65 /* MQTTAnalyzerIntent */,
+				2282D9EB28102EB100F79E65 /* MQTTAnalyzerIntentUI */,
 				2253F8D322C8C007007E35A2 /* Products */,
 				B2BAC619436C49079AC0498E /* Pods */,
 				45E8AFAA8B14B8DFB865D13B /* Frameworks */,
@@ -622,6 +717,8 @@
 				2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */,
 				2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */,
 				22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */,
+				2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */,
+				2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -831,6 +928,28 @@
 			path = host;
 			sourceTree = "<group>";
 		};
+		2282D9E028102EB100F79E65 /* MQTTAnalyzerIntent */ = {
+			isa = PBXGroup;
+			children = (
+				2282D9F928102EB100F79E65 /* MQTTAnalyzerIntent.entitlements */,
+				2282D9E128102EB100F79E65 /* IntentHandler.swift */,
+				2282D9E328102EB100F79E65 /* Info.plist */,
+				2282DA0C28103E9400F79E65 /* ExampleMessages.swift */,
+			);
+			path = MQTTAnalyzerIntent;
+			sourceTree = "<group>";
+		};
+		2282D9EB28102EB100F79E65 /* MQTTAnalyzerIntentUI */ = {
+			isa = PBXGroup;
+			children = (
+				2282D9F528102EB100F79E65 /* MQTTAnalyzerIntentUI.entitlements */,
+				2282D9EC28102EB100F79E65 /* IntentViewController.swift */,
+				2282D9EE28102EB100F79E65 /* MainInterface.storyboard */,
+				2282D9F128102EB100F79E65 /* Info.plist */,
+			);
+			path = MQTTAnalyzerIntentUI;
+			sourceTree = "<group>";
+		};
 		2285C81F27872D2A008DA37D /* json */ = {
 			isa = PBXGroup;
 			children = (
@@ -905,6 +1024,7 @@
 				2240834A27AD68CE00AA4A42 /* Brokers.swift */,
 				224AFEB427B2C3FA00DFD09F /* Broker.swift */,
 				2240834E27AD6F1800AA4A42 /* ExampleMessages.swift */,
+				2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -943,6 +1063,7 @@
 				22117B702805C95A00D0117D /* ConfigurationWebSocketTests.swift */,
 				22C7F0D42416A16600534880 /* Info.plist */,
 				222AC32F2803350600D66334 /* TestServer.swift */,
+				2282DA0E2810738900F79E65 /* SendSnycTests.swift */,
 			);
 			path = MQTTAnalyzerUITests;
 			sourceTree = "<group>";
@@ -1001,6 +1122,7 @@
 		45E8AFAA8B14B8DFB865D13B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2282DA0928103DF200F79E65 /* CocoaMQTT.framework */,
 				2240835027AD701000AA4A42 /* CocoaMQTT.framework */,
 				223EF00723870AA5002ADF3E /* CloudKit.framework */,
 				229D30C923197D8200632896 /* CocoaAsyncSocket.framework */,
@@ -1008,6 +1130,9 @@
 				6EA00F32BE18033F923EAEA0 /* Pods_MQTTAnalyzer.framework */,
 				771859B939F07AF34A710F07 /* Pods_MQTTAnalyzerTests.framework */,
 				AEE6D91479F36479741E6FCC /* Pods_MQTTAnalyzerUITests.framework */,
+				2282D9DE28102EB000F79E65 /* Intents.framework */,
+				2282D9E928102EB100F79E65 /* IntentsUI.framework */,
+				9A97398D1A8868944BA1F5E2 /* Pods_MQTTAnalyzerIntent.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1021,6 +1146,8 @@
 				CCEE79FFC156E6A7A3EB4B17 /* Pods-MQTTAnalyzerTests.release.xcconfig */,
 				92AF6D7587A8674FE6DBEE42 /* Pods-MQTTAnalyzerUITests.debug.xcconfig */,
 				4ADA38A28345B5524D23563B /* Pods-MQTTAnalyzerUITests.release.xcconfig */,
+				10309D143F9F34802A2586F6 /* Pods-MQTTAnalyzerIntent.debug.xcconfig */,
+				BD79B0138F517C71F6255C4C /* Pods-MQTTAnalyzerIntent.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1038,10 +1165,13 @@
 				2253F8D022C8C007007E35A2 /* Resources */,
 				22C9F72D23B747E800892C4B /* ShellScript */,
 				E5E6333FBC9D713242D1C693 /* [CP] Embed Pods Frameworks */,
+				2282D9FA28102EB100F79E65 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2282D9F328102EB100F79E65 /* PBXTargetDependency */,
+				2282D9F728102EB100F79E65 /* PBXTargetDependency */,
 			);
 			name = MQTTAnalyzer;
 			packageProductDependencies = (
@@ -1070,6 +1200,42 @@
 			productReference = 2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		2282D9DC28102EB000F79E65 /* MQTTAnalyzerIntent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2282DA0028102EB100F79E65 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerIntent" */;
+			buildPhases = (
+				6B08FEE4E1DF7FC7F71DEBB2 /* [CP] Check Pods Manifest.lock */,
+				2282D9D928102EB000F79E65 /* Sources */,
+				2282D9DA28102EB000F79E65 /* Frameworks */,
+				2282D9DB28102EB000F79E65 /* Resources */,
+				2282DA0828103DB400F79E65 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MQTTAnalyzerIntent;
+			productName = MQTTAnalyzerIntent;
+			productReference = 2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		2282D9E728102EB100F79E65 /* MQTTAnalyzerIntentUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2282D9FF28102EB100F79E65 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerIntentUI" */;
+			buildPhases = (
+				2282D9E428102EB100F79E65 /* Sources */,
+				2282D9E528102EB100F79E65 /* Frameworks */,
+				2282D9E628102EB100F79E65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MQTTAnalyzerIntentUI;
+			productName = MQTTAnalyzerIntentUI;
+			productReference = 2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		22C7F0CF2416A16600534880 /* MQTTAnalyzerUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22C7F0D72416A16600534880 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerUITests" */;
@@ -1096,7 +1262,7 @@
 		2253F8CA22C8C007007E35A2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Philipp Arndt";
 				TargetAttributes = {
@@ -1106,6 +1272,12 @@
 					2253F8EA22C8C008007E35A2 = {
 						CreatedOnToolsVersion = 11.0;
 						TestTargetID = 2253F8D122C8C007007E35A2;
+					};
+					2282D9DC28102EB000F79E65 = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+					2282D9E728102EB100F79E65 = {
+						CreatedOnToolsVersion = 13.3.1;
 					};
 					22C7F0CF2416A16600534880 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -1132,6 +1304,8 @@
 				2253F8D122C8C007007E35A2 /* MQTTAnalyzer */,
 				2253F8EA22C8C008007E35A2 /* MQTTAnalyzerTests */,
 				22C7F0CF2416A16600534880 /* MQTTAnalyzerUITests */,
+				2282D9DC28102EB000F79E65 /* MQTTAnalyzerIntent */,
+				2282D9E728102EB100F79E65 /* MQTTAnalyzerIntentUI */,
 			);
 		};
 /* End PBXProject section */
@@ -1152,6 +1326,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9DB28102EB000F79E65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9E628102EB100F79E65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2282D9F028102EB100F79E65 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1198,6 +1387,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-MQTTAnalyzerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B08FEE4E1DF7FC7F71DEBB2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MQTTAnalyzerIntent-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1391,6 +1602,7 @@
 				226A6B50244457E100ACDFC3 /* MqttClient.swift in Sources */,
 				22953B33280A92D8000F8F37 /* ClientCertsHelpView.swift in Sources */,
 				22F6057B23D4911000E6338B /* DataMigration.swift in Sources */,
+				2282DA0428103BDD00F79E65 /* Intents.intentdefinition in Sources */,
 				2285C81C27847786008DA37D /* MetadataView.swift in Sources */,
 				2291284524685A13006F8256 /* DataMigrationClientImpl.swift in Sources */,
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
@@ -1459,6 +1671,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2282D9D928102EB000F79E65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2282DA0D28103E9400F79E65 /* ExampleMessages.swift in Sources */,
+				2282DA0228102ED700F79E65 /* Intents.intentdefinition in Sources */,
+				2282D9E228102EB100F79E65 /* IntentHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9E428102EB100F79E65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2282DA03281038B600F79E65 /* Intents.intentdefinition in Sources */,
+				2282D9ED28102EB100F79E65 /* IntentViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		22C7F0CC2416A16600534880 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1474,6 +1705,7 @@
 				22B46BD627CA652B0077FB83 /* ExampleMessages.swift in Sources */,
 				227D987B27B7A05C00E45C4C /* ScreenshotTests.swift in Sources */,
 				22AB2C152801D8A400E88875 /* ConfigurationMQTTTests.swift in Sources */,
+				2282DA0F2810738900F79E65 /* SendSnycTests.swift in Sources */,
 				22B90E882805B2DE0083C6E5 /* SubscriptionTests.swift in Sources */,
 				2200D96627C0C3BF00E63E89 /* PublishTests.swift in Sources */,
 				2200D97B27C2675300E63E89 /* AbstractUITests.swift in Sources */,
@@ -1502,6 +1734,16 @@
 			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
 			targetProxy = 2253F8EC22C8C008007E35A2 /* PBXContainerItemProxy */;
 		};
+		2282D9F328102EB100F79E65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2282D9E728102EB100F79E65 /* MQTTAnalyzerIntentUI */;
+			targetProxy = 2282D9F228102EB100F79E65 /* PBXContainerItemProxy */;
+		};
+		2282D9F728102EB100F79E65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2282D9DC28102EB000F79E65 /* MQTTAnalyzerIntent */;
+			targetProxy = 2282D9F628102EB100F79E65 /* PBXContainerItemProxy */;
+		};
 		22C7F0D62416A16600534880 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
@@ -1516,6 +1758,14 @@
 				2253F8E422C8C008007E35A2 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		2282D9EE28102EB100F79E65 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2282D9EF28102EB100F79E65 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1641,6 +1891,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 01671CB030544C85ED77188C /* Pods-MQTTAnalyzer.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -1668,6 +1919,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C1D6B6244A390AA6C066AB20 /* Pods-MQTTAnalyzer.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -1732,6 +1984,124 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/MQTTAnalyzer";
+			};
+			name = Release;
+		};
+		2282D9FB28102EB100F79E65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10309D143F9F34802A2586F6 /* Pods-MQTTAnalyzerIntent.debug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntent/MQTTAnalyzerIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntent;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2282D9FC28102EB100F79E65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD79B0138F517C71F6255C4C /* Pods-MQTTAnalyzerIntent.release.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntent/MQTTAnalyzerIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntent;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2282D9FD28102EB100F79E65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntentUI/MQTTAnalyzerIntentUI.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntentUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2282D9FE28102EB100F79E65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntentUI/MQTTAnalyzerIntentUI.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntentUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1803,6 +2173,24 @@
 			buildConfigurations = (
 				2253F90322C8C008007E35A2 /* Debug */,
 				2253F90422C8C008007E35A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2282D9FF28102EB100F79E65 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerIntentUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2282D9FD28102EB100F79E65 /* Debug */,
+				2282D9FE28102EB100F79E65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2282DA0028102EB100F79E65 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerIntent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2282D9FB28102EB100F79E65 /* Debug */,
+				2282D9FC28102EB100F79E65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
