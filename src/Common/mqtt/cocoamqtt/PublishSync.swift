@@ -9,6 +9,11 @@
 import Foundation
 import CocoaMQTT
 
+enum MQTTError: String, Error {
+	case connectionError = "Timeout during connection"
+	case messageTimeout = "Message timeout"
+}
+
 class PublishSync {
 	class func createQueue() -> DispatchQueue {
 		let queue = DispatchQueue(label: "syncPublishDelegateQueue")
@@ -30,15 +35,13 @@ class PublishSync {
 		}
 	}
 	
-	class func publish(host: Host, topic: String, message: String, retain: Bool, qos: Int) throws -> Bool {
-		
+	class func connect(host: Host, delegate: SyncMQTTDelegate) throws -> CocoaMQTT {
 		let model = TopicTree()
 		let client = MQTTClientCocoaMQTT(host: host, model: model)
 		
 		let mqtt = client.createClient(host: host)
 		try client.configureClient(client: mqtt)
 		
-		let delegate = SyncMQTTDelegate()
 		mqtt.delegate = delegate
 		let queue = createQueue()
 		mqtt.delegateQueue = queue
@@ -46,8 +49,15 @@ class PublishSync {
 		_ = mqtt.connect()
 		
 		if !wait(for: { delegate.isConnected }) {
-			return false
+			throw MQTTError.connectionError
 		}
+		
+		return mqtt
+	}
+	
+	class func publish(host: Host, topic: String, message: String, retain: Bool, qos: Int) throws -> Bool {
+		let delegate = SyncMQTTDelegate()
+		let mqtt = try connect(host: host, delegate: delegate)
 		
 		mqtt.publish(
 			topic,
@@ -67,6 +77,18 @@ class PublishSync {
 		}
 		
 		return true
+	}
+	
+	class func receiveFirst(host: Host, topic: String, timeout: Int) throws -> String? {
+		let delegate = SyncMQTTDelegate()
+		let mqtt = try connect(host: host, delegate: delegate)
+		mqtt.subscribe(topic)
+		
+		if !wait(for: { delegate.messages.count >= 1 }) {
+			throw MQTTError.messageTimeout
+		}
+		
+		return delegate.messages.first?.dataString
 	}
 }
 
@@ -90,7 +112,7 @@ func wait(for expectation: @escaping () -> Bool, timeout seconds: Int = 10) -> B
 }
 
 class SyncMQTTDelegate: CocoaMQTTDelegate {
-	var recvs = [UInt16]()
+	var messages = [MsgPayload]()
 	
 	var sents = [UInt16]()
 	
@@ -113,8 +135,7 @@ class SyncMQTTDelegate: CocoaMQTTDelegate {
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
-		
-		recvs.append(id)
+		messages.append(MsgPayload(data: message.payload))
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopics success: NSDictionary, failed: [String]) {
