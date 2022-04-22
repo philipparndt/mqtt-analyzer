@@ -10,21 +10,20 @@ import Intents
 import SwiftUI
 import CocoaMQTT
 
-class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
-
-	func initHost(host: Host) {
-		
-	}
+class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, ReceiveMQTTMessageIntentHandling {
 	    
     override func handler(for intent: INIntent) -> Any {
-		guard intent is PublishMQTTMessageIntent else {
-			fatalError("Unhandled Intent error : \(intent)")
+		if intent is PublishMQTTMessageIntent {
+			return self
 		}
-		
-        return self
+		else if intent is ReceiveMQTTMessageIntent {
+			return self
+		}
+
+		fatalError("Unhandled Intent error : \(intent)")
     }
 	
-	func transformQos(qos: Qos) -> Int{
+	func transformQos(qos: Qos) -> Int {
 		switch qos {
 		case .qos1:
 			return 1
@@ -50,7 +49,7 @@ class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
 				do {
 					let result = try PublishSync.publish(
 						host: host,
-						topic: topic,
+						topic: topic.trimmingCharacters(in: [" "]),
 						message: message,
 						retain: retain,
 						qos: transformQos(qos: intent.qos)
@@ -62,6 +61,8 @@ class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
 					completion(response(from: "\(error)"))
 				}
 			}
+
+			completion(response(from: "Error finding broker"))
 		}
 	}
 	
@@ -108,12 +109,57 @@ class IntentHandler: INExtension, PublishMQTTMessageIntentHandling, InitHost {
 		}
 	}
 	
-	func provideBrokerOptionsCollection(for intent: PublishMQTTMessageIntent, with completion: @escaping (INObjectCollection<NSString>?, Error?) -> Void) {
-		
+	func load() -> [NSString] {
 		let sqlite = SQLitePersistence()
-		let hosts = sqlite.allNames()
+		let brokers = sqlite.allNames()
 		sqlite.close()
 		
-		completion(INObjectCollection(items: hosts.map { $0 as NSString }), nil)
+		return brokers
+			.map { $0 as NSString }
+	}
+	
+	func provideBrokerOptionsCollection(for intent: PublishMQTTMessageIntent, with completion: @escaping (INObjectCollection<NSString>?, Error?) -> Void) {
+		completion(INObjectCollection(items: load()), nil)
+	}
+	
+	// MARK: Receive
+	
+	func provideBrokerOptionsCollection(for intent: ReceiveMQTTMessageIntent, with completion: @escaping (INObjectCollection<NSString>?, Error?) -> Void) {
+			completion(INObjectCollection(items: load()), nil)
+	}
+	
+	func handle(intent: ReceiveMQTTMessageIntent, completion: @escaping (ReceiveMQTTMessageIntentResponse) -> Void) {
+		
+		if let broker = intent.broker,
+			let topic = intent.topic,
+		    let timeout = intent.timeoutSeconds {
+			
+			let sqlite = SQLitePersistence()
+			let firstHost = sqlite.first(byName: broker)
+			sqlite.close()
+
+			if let host = firstHost {
+				do {
+					let result = try PublishSync.receiveFirst(
+						host: host,
+						topic: topic.trimmingCharacters(in: [" "]),
+						timeout: Int(truncating: timeout)
+					)
+					
+					let response = ReceiveMQTTMessageIntentResponse(
+						code: result != nil ? .success : .failure,
+						userActivity: nil)
+					response.message = result
+					
+					completion(response)
+				}
+				catch {
+				}
+			}
+
+			completion(ReceiveMQTTMessageIntentResponse(
+				code: .failure,
+					  userActivity: nil))
+		}
 	}
 }

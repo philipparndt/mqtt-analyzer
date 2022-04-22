@@ -46,6 +46,7 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>PublishMQTTMessageIntent</string>
+		<string>ReceiveMQTTMessageIntent</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
