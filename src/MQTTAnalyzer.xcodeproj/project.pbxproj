@@ -249,13 +249,16 @@
 		22C96E0628112B6700A4F627 /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
 		22C96E0728112B6700A4F627 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* Persistence.swift */; };
 		22C96E0828112B6700A4F627 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
-		22C96E0A28112BE700A4F627 /* PublishSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E0928112BE700A4F627 /* PublishSync.swift */; };
-		22C96E0B28112BE700A4F627 /* PublishSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E0928112BE700A4F627 /* PublishSync.swift */; };
+		22C96E0A28112BE700A4F627 /* MQTTClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E0928112BE700A4F627 /* MQTTClientSync.swift */; };
+		22C96E0B28112BE700A4F627 /* MQTTClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E0928112BE700A4F627 /* MQTTClientSync.swift */; };
 		22C96E0F2811319900A4F627 /* PublishSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0E2810738900F79E65 /* PublishSyncTests.swift */; };
 		22C96E11281172A900A4F627 /* SQLitePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E10281172A900A4F627 /* SQLitePersistence.swift */; };
 		22C96E12281172A900A4F627 /* SQLitePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E10281172A900A4F627 /* SQLitePersistence.swift */; };
 		22C96E14281177B600A4F627 /* PersistenceTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E13281177B600A4F627 /* PersistenceTransformer.swift */; };
 		22C96E15281177B600A4F627 /* PersistenceTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E13281177B600A4F627 /* PersistenceTransformer.swift */; };
+		22C96E192812C41F00A4F627 /* PublishHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E182812C41F00A4F627 /* PublishHandler.swift */; };
+		22C96E1B2812C50200A4F627 /* ReceiveHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E1A2812C50200A4F627 /* ReceiveHandler.swift */; };
+		22C96E1D2812C60200A4F627 /* Brokers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E1C2812C60200A4F627 /* Brokers.swift */; };
 		22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */; };
 		22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MessageTextView.swift */; };
 		22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73923B8CCCC00892C4B /* QOSView.swift */; };
@@ -545,9 +548,12 @@
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C7F0D42416A16600534880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		22C96E0928112BE700A4F627 /* PublishSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishSync.swift; sourceTree = "<group>"; };
+		22C96E0928112BE700A4F627 /* MQTTClientSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTClientSync.swift; sourceTree = "<group>"; };
 		22C96E10281172A900A4F627 /* SQLitePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLitePersistence.swift; sourceTree = "<group>"; };
 		22C96E13281177B600A4F627 /* PersistenceTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTransformer.swift; sourceTree = "<group>"; };
+		22C96E182812C41F00A4F627 /* PublishHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishHandler.swift; sourceTree = "<group>"; };
+		22C96E1A2812C50200A4F627 /* ReceiveHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveHandler.swift; sourceTree = "<group>"; };
+		22C96E1C2812C60200A4F627 /* Brokers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brokers.swift; sourceTree = "<group>"; };
 		22C9F72E23B7486E00892C4B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishMessageFormView.swift; sourceTree = "<group>"; };
 		22C9F73623B79A1300892C4B /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
@@ -664,7 +670,7 @@
 				22B38940280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift */,
 				22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */,
 				220357202445B2ED00A98CD3 /* MQTTDelegate.swift */,
-				22C96E0928112BE700A4F627 /* PublishSync.swift */,
+				22C96E0928112BE700A4F627 /* MQTTClientSync.swift */,
 				22B38948280EEC6900D23022 /* ReceivedMessage.swift */,
 			);
 			path = cocoamqtt;
@@ -957,6 +963,9 @@
 			children = (
 				2282D9F928102EB100F79E65 /* MQTTAnalyzerIntent.entitlements */,
 				2282D9E128102EB100F79E65 /* IntentHandler.swift */,
+				22C96E1C2812C60200A4F627 /* Brokers.swift */,
+				22C96E182812C41F00A4F627 /* PublishHandler.swift */,
+				22C96E1A2812C50200A4F627 /* ReceiveHandler.swift */,
 				2282D9E328102EB100F79E65 /* Info.plist */,
 			);
 			path = MQTTAnalyzerIntent;
@@ -1708,7 +1717,7 @@
 				226A6B50244457E100ACDFC3 /* MqttClient.swift in Sources */,
 				22953B33280A92D8000F8F37 /* ClientCertsHelpView.swift in Sources */,
 				22F6057B23D4911000E6338B /* DataMigration.swift in Sources */,
-				22C96E0A28112BE700A4F627 /* PublishSync.swift in Sources */,
+				22C96E0A28112BE700A4F627 /* MQTTClientSync.swift in Sources */,
 				2282DA0428103BDD00F79E65 /* Intents.intentdefinition in Sources */,
 				2285C81C27847786008DA37D /* MetadataView.swift in Sources */,
 				2291284524685A13006F8256 /* DataMigrationClientImpl.swift in Sources */,
@@ -1811,6 +1820,7 @@
 				2282DA3B281125E900F79E65 /* TopicTree+ReadState.swift in Sources */,
 				2282DA0228102ED700F79E65 /* Intents.intentdefinition in Sources */,
 				2282DA182811254F00F79E65 /* MsgPayload.swift in Sources */,
+				22C96E192812C41F00A4F627 /* PublishHandler.swift in Sources */,
 				2282DA36281125E900F79E65 /* TopicTree+Counter.swift in Sources */,
 				2282DA6F281129F800F79E65 /* CloudDataManager.swift in Sources */,
 				2282DA672811290400F79E65 /* MQTT5ClientCocoaMQTT.swift in Sources */,
@@ -1820,7 +1830,7 @@
 				22C96DF928112B6300A4F627 /* DataMigrationEmptyTopic.swift in Sources */,
 				22C96DFA28112B6300A4F627 /* DataMigrationLimits.swift in Sources */,
 				2282D9E228102EB100F79E65 /* IntentHandler.swift in Sources */,
-				22C96E0B28112BE700A4F627 /* PublishSync.swift in Sources */,
+				22C96E0B28112BE700A4F627 /* MQTTClientSync.swift in Sources */,
 				22C96DFE28112B6300A4F627 /* DataMigrationAuth.swift in Sources */,
 				22C96DFC28112B6300A4F627 /* DataMigrationCertificateFiles.swift in Sources */,
 				2282DA642811290400F79E65 /* Host+ActualUserPassword.swift in Sources */,
@@ -1844,6 +1854,8 @@
 				2282DA39281125E900F79E65 /* TopicTree+Flatten.swift in Sources */,
 				22C96E0628112B6700A4F627 /* HostSetting.swift in Sources */,
 				2282DA3F2811261A00F79E65 /* DiagramPath.swift in Sources */,
+				22C96E1D2812C60200A4F627 /* Brokers.swift in Sources */,
+				22C96E1B2812C50200A4F627 /* ReceiveHandler.swift in Sources */,
 				22C96E0328112B6300A4F627 /* DataMigrationMoscapsuleDeprecation.swift in Sources */,
 				22C96E0728112B6700A4F627 /* Persistence.swift in Sources */,
 				22C96DFD28112B6300A4F627 /* DataMigrationMultipleTopics.swift in Sources */,

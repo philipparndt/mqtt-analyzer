@@ -157,7 +157,7 @@ extension SQLitePersistence {
 			.forEach { add(setting: $0) }
 	}
 	
-	func first(byName: String) -> Host? {
+	func first(by name: String) -> Host? {
 		if !availabe {
 			return nil
 		}
@@ -168,7 +168,7 @@ extension SQLitePersistence {
 			
 			return settings
 				.map { PersistenceTransformer.transform(from: $0) }
-				.filter { $0.aliasOrHost.lowercased() == byName.lowercased() }
+				.filter { $0.aliasOrHost.lowercased() == name.lowercased() }
 				.first
 		}
 		catch {

@@ -14,7 +14,7 @@ enum MQTTError: String, Error {
 	case messageTimeout = "Message timeout"
 }
 
-class PublishSync {
+class MQTTClientSync {
 	class func createQueue() -> DispatchQueue {
 		let queue = DispatchQueue(label: "syncPublishDelegateQueue")
 		queue.setSpecific(
