@@ -71,12 +71,6 @@ class HostSetting: Object {
 	}
 }
 
-extension Host {
-	static func randomClientId() -> String {
-		return "mqtt-analyzer-\(String.random(length: 8))"
-	}
-}
-
 extension HostSetting: CKRecordConvertible {
 }
 

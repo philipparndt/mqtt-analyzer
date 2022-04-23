@@ -55,4 +55,9 @@ target 'MQTTAnalyzer' do
 	inherit! :search_paths
 	shared_pods
   end
+  
+  target 'MQTTAnalyzerIntent' do
+  inherit! :search_paths
+  shared_pods
+  end
 end

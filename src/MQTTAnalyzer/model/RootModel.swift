@@ -9,18 +9,6 @@
 import SwiftUI
 import Combine
 
-protocol InitHost: AnyObject {
-	func initHost(host: Host)
-}
-
-protocol ReconnectDelegate: AnyObject {
-	func reconnect(host: Host)
-}
-
-protocol DisconnectDelegate: AnyObject {
-	func disconnect(host: Host)
-}
-
 class RootModel: ObservableObject {
 	static let controller = MQTTSessionController()
 	

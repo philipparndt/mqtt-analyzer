@@ -22,7 +22,7 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		
 		let host = Host(id: "some-id")
 		
-		RealmPersistenceTransformer.copy(from: host, to: setting)
+		PersistenceTransformer.copy(from: host, to: setting)
 		
 		// ID is a primary key and must not be overwritten
 		XCTAssertEqual(setting.id, id)
@@ -65,7 +65,7 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		setting.limitTopic = 4
 		setting.limitMessagesBatch = 5
 		
-		let transformed = RealmPersistenceTransformer.transform(setting)
+		let transformed = PersistenceTransformer.transform(from: setting)
 		XCTAssertEqual("alias", transformed.alias)
 		XCTAssertEqual("hostname", transformed.hostname)
 		XCTAssertEqual(1, transformed.port)
@@ -87,48 +87,48 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 	func testTransformFromPersistenceModelAuthType() {
 		let setting = HostSetting()
 		setting.authType = AuthenticationType.none
-		let transformed1 = RealmPersistenceTransformer.transform(setting)
+		let transformed1 = PersistenceTransformer.transform(from: setting)
 		XCTAssertEqual(HostAuthenticationType.none, transformed1.auth)
 
 		setting.authType = AuthenticationType.certificate
-		let transformed2 = RealmPersistenceTransformer.transform(setting)
+		let transformed2 = PersistenceTransformer.transform(from: setting)
 		XCTAssertEqual(HostAuthenticationType.certificate, transformed2.auth)
 
 		setting.authType = AuthenticationType.usernamePassword
-		let transformed3 = RealmPersistenceTransformer.transform(setting)
+		let transformed3 = PersistenceTransformer.transform(from: setting)
 		XCTAssertEqual(HostAuthenticationType.usernamePassword, transformed3.auth)
 	}
 	
 	func testTransformFromPersistenceModelClientImplType() {
 		let setting = HostSetting()
 		setting.protocolVersion = HostProtocolVersionType.mqtt3
-		let transformed1 = RealmPersistenceTransformer.transform(setting)
+		let transformed1 = PersistenceTransformer.transform(from: setting)
 		XCTAssertEqual(HostProtocolVersion.mqtt3, transformed1.protocolVersion)
 
 		setting.protocolVersion = HostProtocolVersionType.mqtt5
-		let transformed2 = RealmPersistenceTransformer.transform(setting)
+		let transformed2 = PersistenceTransformer.transform(from: setting)
 		XCTAssertEqual(HostProtocolVersion.mqtt5, transformed2.protocolVersion)
 	}
 	
 	func testTransformFromPersistenceModelSSL() {
 		let setting = HostSetting()
 		setting.ssl = false
-		let transformed1 = RealmPersistenceTransformer.transform(setting)
+		let transformed1 = PersistenceTransformer.transform(from: setting)
 		XCTAssertFalse(transformed1.ssl)
 
 		setting.ssl = true
-		let transformed2 = RealmPersistenceTransformer.transform(setting)
+		let transformed2 = PersistenceTransformer.transform(from: setting)
 		XCTAssertTrue(transformed2.ssl)
 	}
 	
 	func testTransformFromPersistenceModelSSLUntrusted() {
 		let setting = HostSetting()
 		setting.untrustedSSL = false
-		let transformed1 = RealmPersistenceTransformer.transform(setting)
+		let transformed1 = PersistenceTransformer.transform(from: setting)
 		XCTAssertFalse(transformed1.untrustedSSL)
 
 		setting.untrustedSSL = true
-		let transformed2 = RealmPersistenceTransformer.transform(setting)
+		let transformed2 = PersistenceTransformer.transform(from: setting)
 		XCTAssertTrue(transformed2.untrustedSSL)
 	}
 	
@@ -156,7 +156,7 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		host.limitTopic = 4
 		host.limitMessagesBatch = 5
 		
-		let transformed = RealmPersistenceTransformer.transform(host)
+		let transformed = PersistenceTransformer.transformToRealm(from: host)
 		XCTAssertEqual("alias", transformed.alias)
 		XCTAssertEqual("hostname", transformed.hostname)
 		XCTAssertEqual(1, transformed.port)
@@ -188,48 +188,48 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 	func testTransformToPersistenceModelAuthType() {
 		let host = Host()
 		host.auth = .none
-		let transformed1 = RealmPersistenceTransformer.transform(host)
-		XCTAssertEqual(AuthenticationType.none, transformed1.authType)
+		XCTAssertEqual(AuthenticationType.none, PersistenceTransformer.transformToRealm(from: host).authType)
+		XCTAssertEqual(Int(AuthenticationType.none), PersistenceTransformer.transformToSQLite(from: host).authType)
 
 		host.auth = .certificate
-		let transformed2 = RealmPersistenceTransformer.transform(host)
-		XCTAssertEqual(AuthenticationType.certificate, transformed2.authType)
+		XCTAssertEqual(AuthenticationType.certificate, PersistenceTransformer.transformToRealm(from: host).authType)
+		XCTAssertEqual(Int(AuthenticationType.certificate), PersistenceTransformer.transformToSQLite(from: host).authType)
 
 		host.auth = .usernamePassword
-		let transformed3 = RealmPersistenceTransformer.transform(host)
-		XCTAssertEqual(AuthenticationType.usernamePassword, transformed3.authType)
+		XCTAssertEqual(AuthenticationType.usernamePassword, PersistenceTransformer.transformToRealm(from: host).authType)
+		XCTAssertEqual(Int(AuthenticationType.usernamePassword), PersistenceTransformer.transformToSQLite(from: host).authType)
 	}
 	
 	func testTransformToPersistenceModelClientImplType() {
 		let host = Host()
 		host.protocolVersion = .mqtt3
-		let transformed1 = RealmPersistenceTransformer.transform(host)
-		XCTAssertEqual(HostProtocolVersionType.mqtt3, transformed1.protocolVersion)
+		XCTAssertEqual(HostProtocolVersionType.mqtt3, PersistenceTransformer.transformToRealm(from: host).protocolVersion)
+		XCTAssertEqual(Int(HostProtocolVersionType.mqtt3), PersistenceTransformer.transformToSQLite(from: host).protocolVersion)
 
 		host.protocolVersion = .mqtt5
-		let transformed2 = RealmPersistenceTransformer.transform(host)
-		XCTAssertEqual(HostProtocolVersionType.mqtt5, transformed2.protocolVersion)
+		XCTAssertEqual(HostProtocolVersionType.mqtt5, PersistenceTransformer.transformToRealm(from: host).protocolVersion)
+		XCTAssertEqual(Int(HostProtocolVersionType.mqtt5), PersistenceTransformer.transformToSQLite(from: host).protocolVersion)
 	}
 	
 	func testTransformToPersistenceModelSSL() {
 		let host = Host()
 		host.ssl = false
-		let transformed1 = RealmPersistenceTransformer.transform(host)
-		XCTAssertFalse(transformed1.ssl)
+		XCTAssertFalse(PersistenceTransformer.transformToRealm(from: host).ssl)
+		XCTAssertFalse(PersistenceTransformer.transformToSQLite(from: host).ssl)
 
 		host.ssl = true
-		let transformed2 = RealmPersistenceTransformer.transform(host)
-		XCTAssertTrue(transformed2.ssl)
+		XCTAssertTrue(PersistenceTransformer.transformToRealm(from: host).ssl)
+		XCTAssertTrue(PersistenceTransformer.transformToSQLite(from: host).ssl)
 	}
 	
 	func testTransformToPersistenceModelSSLUntrusted() {
 		let host = Host()
 		host.untrustedSSL = false
-		let transformed1 = RealmPersistenceTransformer.transform(host)
-		XCTAssertFalse(transformed1.untrustedSSL)
+		XCTAssertFalse(PersistenceTransformer.transformToRealm(from: host).untrustedSSL)
+		XCTAssertFalse(PersistenceTransformer.transformToSQLite(from: host).untrustedSSL)
 
 		host.untrustedSSL = true
-		let transformed2 = RealmPersistenceTransformer.transform(host)
-		XCTAssertTrue(transformed2.untrustedSSL)
+		XCTAssertTrue(PersistenceTransformer.transformToRealm(from: host).untrustedSSL)
+		XCTAssertTrue(PersistenceTransformer.transformToSQLite(from: host).untrustedSSL)
 	}
 }

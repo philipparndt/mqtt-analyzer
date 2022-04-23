@@ -28,6 +28,7 @@ struct InformationDetailView: View {
 					.font(.headline)
 					.foregroundColor(.primary)
 					.accessibility(addTraits: .isHeader)
+					.padding([.bottom], 1)
 
 				Text(subTitle)
 					.font(.body)

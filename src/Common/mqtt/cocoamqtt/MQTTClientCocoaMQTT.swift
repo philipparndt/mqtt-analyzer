@@ -12,7 +12,7 @@ import Combine
 import Network
 
 class MQTTClientCocoaMQTT: MqttClient {
-	let delgate = MQTTDelegate()
+	let delegate = MQTTDelegate()
 
 	let utils: ClientUtils<CocoaMQTT, CocoaMQTTMessage>
 	var connectionState: ConnectionState { utils.connectionState }
@@ -27,31 +27,19 @@ class MQTTClientCocoaMQTT: MqttClient {
 		utils.initConnect()
 		
 		let mqtt = createClient(host: host)
-		mqtt.enableSSL = host.ssl
-		mqtt.allowUntrustCACertificate = host.untrustedSSL
-
-		if host.auth == .usernamePassword {
-			mqtt.username = host.actualUsername
-			mqtt.password = host.actualPassword
+		do {
+			try configureClient(client: mqtt)
 		}
-		else if host.auth == .certificate {
-			do {
-				try mqtt.sslSettings = createSSLSettings(host: host)
-			}
-			catch let error as CertificateError {
-				utils.failConnection(reason: "\(error.rawValue)")
-				return
-			}
-			catch {
-				utils.failConnection(reason: "\(error)")
-				return
-			}
+		catch let error as CertificateError {
+			utils.failConnection(reason: "\(error.rawValue)")
+			return
+		}
+		catch {
+			utils.failConnection(reason: "\(error)")
+			return
 		}
 		
-		mqtt.keepAlive = 60
-		mqtt.autoReconnect = false
-		
-		mqtt.delegate = self.delgate
+		mqtt.delegate = self.delegate
 		mqtt.didReceiveMessage = self.didReceiveMessage
 		mqtt.didDisconnect = utils.didDisconnect(_:withError:)
 		mqtt.didConnectAck = self.didConnect
@@ -62,7 +50,6 @@ class MQTTClientCocoaMQTT: MqttClient {
 		}
 
 		utils.waitConnected()
-
 		utils.mqtt = mqtt
 
 		utils.installMessageDispatch(
@@ -70,6 +57,22 @@ class MQTTClientCocoaMQTT: MqttClient {
 			payload: payload(of:),
 			topic: topic(of:)
 		)
+	}
+	
+	func configureClient(client mqtt: CocoaMQTT) throws {
+		mqtt.enableSSL = host.ssl
+		mqtt.allowUntrustCACertificate = host.untrustedSSL
+
+		if host.auth == .usernamePassword {
+			mqtt.username = host.actualUsername
+			mqtt.password = host.actualPassword
+		}
+		else if host.auth == .certificate {
+			try mqtt.sslSettings = createSSLSettings(host: host)
+		}
+		
+		mqtt.keepAlive = 60
+		mqtt.autoReconnect = false
 	}
 			
 	func disconnect() {

@@ -112,6 +112,63 @@
 		228104932381773100112F24 /* TopicCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104922381773100112F24 /* TopicCellView.swift */; };
 		228104952381779000112F24 /* TopicToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104942381779000112F24 /* TopicToolsView.swift */; };
 		228104982381796B00112F24 /* HostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104972381796B00112F24 /* HostCellView.swift */; };
+		2282D9DF28102EB100F79E65 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2282D9DE28102EB000F79E65 /* Intents.framework */; };
+		2282D9E228102EB100F79E65 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282D9E128102EB100F79E65 /* IntentHandler.swift */; };
+		2282D9EA28102EB100F79E65 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2282D9E928102EB100F79E65 /* IntentsUI.framework */; };
+		2282D9ED28102EB100F79E65 /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282D9EC28102EB100F79E65 /* IntentViewController.swift */; };
+		2282D9F028102EB100F79E65 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2282D9EE28102EB100F79E65 /* MainInterface.storyboard */; };
+		2282D9F428102EB100F79E65 /* MQTTAnalyzerIntentUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2282D9F828102EB100F79E65 /* MQTTAnalyzerIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2282DA0228102ED700F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
+		2282DA03281038B600F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
+		2282DA0428103BDD00F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
+		2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1727A666C600D4327F /* MsgMessage.swift */; };
+		2282DA162811254F00F79E65 /* MsgMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1527A6669C00D4327F /* MsgMetadata.swift */; };
+		2282DA182811254F00F79E65 /* MsgPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1327A6667000D4327F /* MsgPayload.swift */; };
+		2282DA35281125E900F79E65 /* TopicTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEFB27A50C9700D4327F /* TopicTree.swift */; };
+		2282DA36281125E900F79E65 /* TopicTree+Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0527A5668200D4327F /* TopicTree+Counter.swift */; };
+		2282DA37281125E900F79E65 /* TopicTree+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1927A6678B00D4327F /* TopicTree+Filter.swift */; };
+		2282DA38281125E900F79E65 /* TopicTree+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2215118C27C923EB0000E385 /* TopicTree+Search.swift */; };
+		2282DA39281125E900F79E65 /* TopicTree+Flatten.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2127A6AEC800D4327F /* TopicTree+Flatten.swift */; };
+		2282DA3A281125E900F79E65 /* TreeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0D27A650CE00D4327F /* TreeUtils.swift */; };
+		2282DA3B281125E900F79E65 /* TopicTree+ReadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0B27A57DF400D4327F /* TopicTree+ReadState.swift */; };
+		2282DA3C281125E900F79E65 /* TopicTree+Deletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1127A65EE100D4327F /* TopicTree+Deletion.swift */; };
+		2282DA3E2811261A00F79E65 /* TimeSeriesValueUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */; };
+		2282DA3F2811261A00F79E65 /* DiagramPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64332412636300C2C4FE /* DiagramPath.swift */; };
+		2282DA402811261A00F79E65 /* TimeSeriesValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */; };
+		2282DA412811261A00F79E65 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
+		2282DA462811265500F79E65 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D98027C91DCA00E63E89 /* SearchIndex.swift */; };
+		2282DA4A2811268C00F79E65 /* HostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73D23BB5E5C00892C4B /* HostModel.swift */; };
+		2282DA4B2811268C00F79E65 /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
+		2282DA4C2811268C00F79E65 /* Readstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D6237FC03500D72BD6 /* Readstate.swift */; };
+		2282DA50281126D400F79E65 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE623C24A5800422BFF /* String+Utils.swift */; };
+		2282DA51281126D400F79E65 /* Date+Iso.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEFD27A50E9000D4327F /* Date+Iso.swift */; };
+		2282DA532811276000F79E65 /* HostModel+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA522811276000F79E65 /* HostModel+Delete.swift */; };
+		2282DA552811278500F79E65 /* DispatchQueue+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */; };
+		2282DA57281127C800F79E65 /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA56281127C800F79E65 /* Handlers.swift */; };
+		2282DA59281127D800F79E65 /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA56281127C800F79E65 /* Handlers.swift */; };
+		2282DA5A281127F400F79E65 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82027872D46008DA37D /* JSONUtils.swift */; };
+		2282DA5B281127F600F79E65 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82027872D46008DA37D /* JSONUtils.swift */; };
+		2282DA5E2811285000F79E65 /* MqttClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B4F244457E100ACDFC3 /* MqttClient.swift */; };
+		2282DA5F2811290400F79E65 /* CocoaMQTTCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */; };
+		2282DA602811290400F79E65 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893E280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift */; };
+		2282DA612811290400F79E65 /* MQTTClientCocoaMQTT+OnMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */; };
+		2282DA622811290400F79E65 /* MQTTClientCocoaMQTT+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38940280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift */; };
+		2282DA632811290400F79E65 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38948280EEC6900D23022 /* ReceivedMessage.swift */; };
+		2282DA642811290400F79E65 /* Host+ActualUserPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */; };
+		2282DA652811290400F79E65 /* MQTT5Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B36280AEDB7000F8F37 /* MQTT5Delegate.swift */; };
+		2282DA662811290400F79E65 /* MQTT5ClientCocoaMQTT+OnMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893A280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift */; };
+		2282DA672811290400F79E65 /* MQTT5ClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B37280AEDC0000F8F37 /* MQTT5ClientCocoaMQTT.swift */; };
+		2282DA682811290400F79E65 /* MQTTClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5124445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift */; };
+		2282DA692811290400F79E65 /* MQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357202445B2ED00A98CD3 /* MQTTDelegate.swift */; };
+		2282DA6A2811290400F79E65 /* ClientUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38938280E885A00D23022 /* ClientUtils.swift */; };
+		2282DA6C2811297200F79E65 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA6B2811297200F79E65 /* Certificate.swift */; };
+		2282DA6E281129A100F79E65 /* String+RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C0E280076CB00E88875 /* String+RegExp.swift */; };
+		2282DA6F281129F800F79E65 /* CloudDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F67AE024716ED50082C79F /* CloudDataManager.swift */; };
+		2282DA70281129F800F79E65 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
+		2282DA71281129F800F79E65 /* CertificateFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */; };
+		2282DA72281129F800F79E65 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA6B2811297200F79E65 /* Certificate.swift */; };
+		2282DA7328112A1900F79E65 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96A27C1123000E63E89 /* Logger.swift */; };
 		2285C80C2781E89B008DA37D /* LimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C8092781E89B008DA37D /* LimitReachedView.swift */; };
 		2285C80D2781E89B008DA37D /* TopicLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */; };
 		2285C81227841C72008DA37D /* ResumeConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81127841C72008DA37D /* ResumeConnectionView.swift */; };
@@ -176,7 +233,32 @@
 		22B90E882805B2DE0083C6E5 /* SubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B90E872805B2DE0083C6E5 /* SubscriptionTests.swift */; };
 		22C2856224759FD40000C1E8 /* CertificateLocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2856124759FD40000C1E8 /* CertificateLocationPicker.swift */; };
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
-		22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 22C9F72E23B7486E00892C4B /* .swiftlint.yml */; };
+		22C96DF928112B6300A4F627 /* DataMigrationEmptyTopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2256BDA9246FBE5100F92EFE /* DataMigrationEmptyTopic.swift */; };
+		22C96DFA28112B6300A4F627 /* DataMigrationLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291284824685AE0006F8256 /* DataMigrationLimits.swift */; };
+		22C96DFB28112B6300A4F627 /* DataMigrationProtocolVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38944280ED63100D23022 /* DataMigrationProtocolVersion.swift */; };
+		22C96DFC28112B6300A4F627 /* DataMigrationCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220CCD622477F12300E8CA39 /* DataMigrationCertificateFiles.swift */; };
+		22C96DFD28112B6300A4F627 /* DataMigrationMultipleTopics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229128402468590D006F8256 /* DataMigrationMultipleTopics.swift */; };
+		22C96DFE28112B6300A4F627 /* DataMigrationAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291284624685A92006F8256 /* DataMigrationAuth.swift */; };
+		22C96DFF28112B6300A4F627 /* MigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291284224685959006F8256 /* MigrationHelper.swift */; };
+		22C96E0028112B6300A4F627 /* DataMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6057A23D4911000E6338B /* DataMigration.swift */; };
+		22C96E0128112B6300A4F627 /* DataMigrationClientImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291284424685A13006F8256 /* DataMigrationClientImpl.swift */; };
+		22C96E0228112B6300A4F627 /* DataMigrationNavigationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEF727A4434800D4327F /* DataMigrationNavigationMode.swift */; };
+		22C96E0328112B6300A4F627 /* DataMigrationMoscapsuleDeprecation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F3AB1224A77B6600B2CF92 /* DataMigrationMoscapsuleDeprecation.swift */; };
+		22C96E0428112B6700A4F627 /* RealmPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229005CE237E7A8600D5A706 /* RealmPersistence.swift */; };
+		22C96E0528112B6700A4F627 /* StubPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAE27B0600D00DFD09F /* StubPersistence.swift */; };
+		22C96E0628112B6700A4F627 /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
+		22C96E0728112B6700A4F627 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* Persistence.swift */; };
+		22C96E0828112B6700A4F627 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
+		22C96E0A28112BE700A4F627 /* MQTTClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E0928112BE700A4F627 /* MQTTClientSync.swift */; };
+		22C96E0B28112BE700A4F627 /* MQTTClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E0928112BE700A4F627 /* MQTTClientSync.swift */; };
+		22C96E0F2811319900A4F627 /* PublishSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0E2810738900F79E65 /* PublishSyncTests.swift */; };
+		22C96E11281172A900A4F627 /* SQLitePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E10281172A900A4F627 /* SQLitePersistence.swift */; };
+		22C96E12281172A900A4F627 /* SQLitePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E10281172A900A4F627 /* SQLitePersistence.swift */; };
+		22C96E14281177B600A4F627 /* PersistenceTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E13281177B600A4F627 /* PersistenceTransformer.swift */; };
+		22C96E15281177B600A4F627 /* PersistenceTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E13281177B600A4F627 /* PersistenceTransformer.swift */; };
+		22C96E192812C41F00A4F627 /* PublishHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E182812C41F00A4F627 /* PublishHandler.swift */; };
+		22C96E1B2812C50200A4F627 /* ReceiveHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E1A2812C50200A4F627 /* ReceiveHandler.swift */; };
+		22C96E1D2812C60200A4F627 /* Brokers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E1C2812C60200A4F627 /* Brokers.swift */; };
 		22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */; };
 		22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MessageTextView.swift */; };
 		22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73923B8CCCC00892C4B /* QOSView.swift */; };
@@ -204,6 +286,7 @@
 		22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */; };
 		458A44A5726DF316EE6004E8 /* Pods_MQTTAnalyzerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE6D91479F36479741E6FCC /* Pods_MQTTAnalyzerUITests.framework */; };
 		B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA00F32BE18033F923EAEA0 /* Pods_MQTTAnalyzer.framework */; };
+		B871A48F9CF9EC8FD5CD46F5 /* Pods_MQTTAnalyzerIntent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A97398D1A8868944BA1F5E2 /* Pods_MQTTAnalyzerIntent.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +297,20 @@
 			remoteGlobalIDString = 2253F8D122C8C007007E35A2;
 			remoteInfo = MQTTAnalyzer;
 		};
+		2282D9F228102EB100F79E65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2282D9E728102EB100F79E65;
+			remoteInfo = MQTTAnalyzerIntentUI;
+		};
+		2282D9F628102EB100F79E65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2282D9DC28102EB000F79E65;
+			remoteInfo = MQTTAnalyzerIntent;
+		};
 		22C7F0D52416A16600534880 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
@@ -223,8 +320,34 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2282D9FA28102EB100F79E65 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2282D9F828102EB100F79E65 /* MQTTAnalyzerIntent.appex in Embed App Extensions */,
+				2282D9F428102EB100F79E65 /* MQTTAnalyzerIntentUI.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282DA0828103DB400F79E65 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		01671CB030544C85ED77188C /* Pods-MQTTAnalyzer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.debug.xcconfig"; sourceTree = "<group>"; };
+		10309D143F9F34802A2586F6 /* Pods-MQTTAnalyzerIntent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerIntent.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerIntent/Pods-MQTTAnalyzerIntent.debug.xcconfig"; sourceTree = "<group>"; };
 		2200D96527C0C3BF00E63E89 /* PublishTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTests.swift; sourceTree = "<group>"; };
 		2200D96727C0CA0100E63E89 /* PublishDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishDialog.swift; sourceTree = "<group>"; };
 		2200D96A27C1123000E63E89 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -285,7 +408,7 @@
 		223AF5D82477D620009810E6 /* NoFilesHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFilesHelpView.swift; sourceTree = "<group>"; };
 		223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFileModel.swift; sourceTree = "<group>"; };
 		223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzer.entitlements; sourceTree = "<group>"; };
-		223EF0052387084D002ADF3E /* HostSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostSetting.swift; path = MQTTAnalyzer/model/HostSetting.swift; sourceTree = SOURCE_ROOT; };
+		223EF0052387084D002ADF3E /* HostSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostSetting.swift; path = Common/model/persistence/HostSetting.swift; sourceTree = SOURCE_ROOT; };
 		223EF00723870AA5002ADF3E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		2240834827AC533A00AA4A42 /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
 		2240834A27AD68CE00AA4A42 /* Brokers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brokers.swift; sourceTree = "<group>"; };
@@ -339,6 +462,24 @@
 		228104922381773100112F24 /* TopicCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCellView.swift; sourceTree = "<group>"; };
 		228104942381779000112F24 /* TopicToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicToolsView.swift; sourceTree = "<group>"; };
 		228104972381796B00112F24 /* HostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostCellView.swift; path = MQTTAnalyzer/views/HostCellView.swift; sourceTree = SOURCE_ROOT; };
+		2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MQTTAnalyzerIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2282D9DE28102EB000F79E65 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		2282D9E128102EB100F79E65 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		2282D9E328102EB100F79E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MQTTAnalyzerIntentUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2282D9E928102EB100F79E65 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		2282D9EC28102EB100F79E65 /* IntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentViewController.swift; sourceTree = "<group>"; };
+		2282D9EF28102EB100F79E65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		2282D9F128102EB100F79E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2282D9F528102EB100F79E65 /* MQTTAnalyzerIntentUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzerIntentUI.entitlements; sourceTree = "<group>"; };
+		2282D9F928102EB100F79E65 /* MQTTAnalyzerIntent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzerIntent.entitlements; sourceTree = "<group>"; };
+		2282DA0128102ED700F79E65 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
+		2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_MQTTAnalyzer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2282DA0928103DF200F79E65 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2282DA0E2810738900F79E65 /* PublishSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishSyncTests.swift; sourceTree = "<group>"; };
+		2282DA522811276000F79E65 /* HostModel+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HostModel+Delete.swift"; sourceTree = "<group>"; };
+		2282DA56281127C800F79E65 /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
+		2282DA6B2811297200F79E65 /* Certificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
 		2285C8092781E89B008DA37D /* LimitReachedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LimitReachedView.swift; path = MQTTAnalyzer/views/topic/connection/LimitReachedView.swift; sourceTree = SOURCE_ROOT; };
 		2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopicLimitReachedView.swift; path = MQTTAnalyzer/views/topic/connection/TopicLimitReachedView.swift; sourceTree = SOURCE_ROOT; };
 		2285C81127841C72008DA37D /* ResumeConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeConnectionView.swift; sourceTree = "<group>"; };
@@ -351,7 +492,7 @@
 		2285C82227887CDC008DA37D /* PublishMessageFormModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishMessageFormModelTests.swift; sourceTree = "<group>"; };
 		2285C82427887F79008DA37D /* TopicSuffixPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSuffixPickerView.swift; sourceTree = "<group>"; };
 		228B069223FC318100E988D0 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
-		229005CE237E7A8600D5A706 /* RealmPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RealmPersistence.swift; path = MQTTAnalyzer/model/persistence/RealmPersistence.swift; sourceTree = SOURCE_ROOT; };
+		229005CE237E7A8600D5A706 /* RealmPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RealmPersistence.swift; path = Common/model/persistence/RealmPersistence.swift; sourceTree = SOURCE_ROOT; };
 		2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDetailsView.swift; sourceTree = "<group>"; };
 		2291283D24682494006F8256 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
 		229128402468590D006F8256 /* DataMigrationMultipleTopics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigrationMultipleTopics.swift; sourceTree = "<group>"; };
@@ -407,6 +548,12 @@
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C7F0D42416A16600534880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22C96E0928112BE700A4F627 /* MQTTClientSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTClientSync.swift; sourceTree = "<group>"; };
+		22C96E10281172A900A4F627 /* SQLitePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLitePersistence.swift; sourceTree = "<group>"; };
+		22C96E13281177B600A4F627 /* PersistenceTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTransformer.swift; sourceTree = "<group>"; };
+		22C96E182812C41F00A4F627 /* PublishHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishHandler.swift; sourceTree = "<group>"; };
+		22C96E1A2812C50200A4F627 /* ReceiveHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveHandler.swift; sourceTree = "<group>"; };
+		22C96E1C2812C60200A4F627 /* Brokers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brokers.swift; sourceTree = "<group>"; };
 		22C9F72E23B7486E00892C4B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishMessageFormView.swift; sourceTree = "<group>"; };
 		22C9F73623B79A1300892C4B /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
@@ -437,7 +584,9 @@
 		6EA00F32BE18033F923EAEA0 /* Pods_MQTTAnalyzer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		771859B939F07AF34A710F07 /* Pods_MQTTAnalyzerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92AF6D7587A8674FE6DBEE42 /* Pods-MQTTAnalyzerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerUITests.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A97398D1A8868944BA1F5E2 /* Pods_MQTTAnalyzerIntent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerIntent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEE6D91479F36479741E6FCC /* Pods_MQTTAnalyzerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD79B0138F517C71F6255C4C /* Pods-MQTTAnalyzerIntent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerIntent.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerIntent/Pods-MQTTAnalyzerIntent.release.xcconfig"; sourceTree = "<group>"; };
 		C1D6B6244A390AA6C066AB20 /* Pods-MQTTAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
 		CCEE79FFC156E6A7A3EB4B17 /* Pods-MQTTAnalyzerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerTests.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerTests/Pods-MQTTAnalyzerTests.release.xcconfig"; sourceTree = "<group>"; };
 		D7D50319E94CFEFF222234D3 /* Pods-MQTTAnalyzerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerTests.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerTests/Pods-MQTTAnalyzerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -459,6 +608,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A6B19EC7DAB8540135183CF /* Pods_MQTTAnalyzerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9DA28102EB000F79E65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2282D9DF28102EB100F79E65 /* Intents.framework in Frameworks */,
+				B871A48F9CF9EC8FD5CD46F5 /* Pods_MQTTAnalyzerIntent.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9E528102EB100F79E65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2282D9EA28102EB100F79E65 /* IntentsUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,50 +656,24 @@
 			path = "aws-iot";
 			sourceTree = "<group>";
 		};
-		2200D97F27C91DBC00E63E89 /* search */ = {
-			isa = PBXGroup;
-			children = (
-				2200D98027C91DCA00E63E89 /* SearchIndex.swift */,
-			);
-			path = search;
-			sourceTree = "<group>";
-		};
 		2203571D2445850F00A98CD3 /* cocoamqtt */ = {
 			isa = PBXGroup;
 			children = (
+				22B38938280E885A00D23022 /* ClientUtils.swift */,
+				2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */,
+				22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */,
 				22953B37280AEDC0000F8F37 /* MQTT5ClientCocoaMQTT.swift */,
-				22B3893A280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift */,
 				22B3893E280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift */,
+				22B3893A280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift */,
 				22953B36280AEDB7000F8F37 /* MQTT5Delegate.swift */,
 				226A6B5124445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift */,
-				22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */,
 				22B38940280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift */,
+				22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */,
 				220357202445B2ED00A98CD3 /* MQTTDelegate.swift */,
-				2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */,
-				22B38938280E885A00D23022 /* ClientUtils.swift */,
-				22B38942280ED2FC00D23022 /* Host+ActualUserPassword.swift */,
+				22C96E0928112BE700A4F627 /* MQTTClientSync.swift */,
 				22B38948280EEC6900D23022 /* ReceivedMessage.swift */,
 			);
 			path = cocoamqtt;
-			sourceTree = "<group>";
-		};
-		2230FF0027A5206400D4327F /* v2 */ = {
-			isa = PBXGroup;
-			children = (
-				2200D97F27C91DBC00E63E89 /* search */,
-				2230FEFB27A50C9700D4327F /* TopicTree.swift */,
-				2230FF0B27A57DF400D4327F /* TopicTree+ReadState.swift */,
-				2230FF2127A6AEC800D4327F /* TopicTree+Flatten.swift */,
-				2230FF1127A65EE100D4327F /* TopicTree+Deletion.swift */,
-				2230FF0527A5668200D4327F /* TopicTree+Counter.swift */,
-				2230FF1927A6678B00D4327F /* TopicTree+Filter.swift */,
-				2215118C27C923EB0000E385 /* TopicTree+Search.swift */,
-				2230FF0D27A650CE00D4327F /* TreeUtils.swift */,
-				2230FF1327A6667000D4327F /* MsgPayload.swift */,
-				2230FF1527A6669C00D4327F /* MsgMetadata.swift */,
-				2230FF1727A666C600D4327F /* MsgMessage.swift */,
-			);
-			path = v2;
 			sourceTree = "<group>";
 		};
 		2230FF2527A6BAD800D4327F /* news */ = {
@@ -567,24 +707,12 @@
 		223AF5CF2477D55C009810E6 /* icloud */ = {
 			isa = PBXGroup;
 			children = (
+				2282DA6B2811297200F79E65 /* Certificate.swift */,
 				22F67AE024716ED50082C79F /* CloudDataManager.swift */,
 				223AF5D02477D575009810E6 /* FileLister.swift */,
 				223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */,
 			);
 			path = icloud;
-			sourceTree = "<group>";
-		};
-		223EF0042387082E002ADF3E /* persistence */ = {
-			isa = PBXGroup;
-			children = (
-				2291283F246858FB006F8256 /* migration */,
-				223EF0052387084D002ADF3E /* HostSetting.swift */,
-				22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */,
-				224AFEB027B0602000DFD09F /* Persistence.swift */,
-				229005CE237E7A8600D5A706 /* RealmPersistence.swift */,
-				224AFEAE27B0600D00DFD09F /* StubPersistence.swift */,
-			);
-			path = persistence;
 			sourceTree = "<group>";
 		};
 		224AFEB827B2CE7F00DFD09F /* extensions */ = {
@@ -605,9 +733,12 @@
 			children = (
 				2240834827AC533A00AA4A42 /* SnapshotHelper.swift */,
 				22C9F72E23B7486E00892C4B /* .swiftlint.yml */,
+				2282DA112811249300F79E65 /* Common */,
 				2253F8D422C8C007007E35A2 /* MQTTAnalyzer */,
 				2253F8EE22C8C008007E35A2 /* MQTTAnalyzerTests */,
 				22C7F0D12416A16600534880 /* MQTTAnalyzerUITests */,
+				2282D9E028102EB100F79E65 /* MQTTAnalyzerIntent */,
+				2282D9EB28102EB100F79E65 /* MQTTAnalyzerIntentUI */,
 				2253F8D322C8C007007E35A2 /* Products */,
 				B2BAC619436C49079AC0498E /* Pods */,
 				45E8AFAA8B14B8DFB865D13B /* Frameworks */,
@@ -622,6 +753,8 @@
 				2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */,
 				2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */,
 				22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */,
+				2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */,
+				2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -629,14 +762,11 @@
 		2253F8D422C8C007007E35A2 /* MQTTAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
-				2200D96927C1122200E63E89 /* logger */,
-				2285C81F27872D2A008DA37D /* json */,
 				223EF0032382F99A002ADF3E /* MQTTAnalyzer.entitlements */,
 				22FD7D0722C8D39D0078795F /* model */,
 				228104782381708E00112F24 /* views */,
 				22810479238170A200112F24 /* extensions */,
 				22FD7D0622C8D3760078795F /* mqtt */,
-				223AF5CF2477D55C009810E6 /* icloud */,
 				2253F8D722C8C007007E35A2 /* SceneDelegate.swift */,
 				2253F8D522C8C007007E35A2 /* AppDelegate.swift */,
 				2253F8DE22C8C008007E35A2 /* Assets.xcassets */,
@@ -680,6 +810,7 @@
 				2230FF2327A6B80900D4327F /* TopicLimitTests.swift */,
 				2230FEF927A50C8000D4327F /* TreeModelTests.swift */,
 				2230FF0F27A6511F00D4327F /* TreeUtilsTests.swift */,
+				2282DA0E2810738900F79E65 /* PublishSyncTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
 			sourceTree = "<group>";
@@ -774,11 +905,7 @@
 			isa = PBXGroup;
 			children = (
 				2230FF3227A830C900D4327F /* DataProtocol+Hex.swift */,
-				22F8BEE623C24A5800422BFF /* String+Utils.swift */,
-				2230FEFD27A50E9000D4327F /* Date+Iso.swift */,
 				224AFEA627AE88DC00DFD09F /* Color+SystemColors.swift */,
-				22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */,
-				22AB2C0E280076CB00E88875 /* String+RegExp.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -829,6 +956,105 @@
 				228104972381796B00112F24 /* HostCellView.swift */,
 			);
 			path = host;
+			sourceTree = "<group>";
+		};
+		2282D9E028102EB100F79E65 /* MQTTAnalyzerIntent */ = {
+			isa = PBXGroup;
+			children = (
+				2282D9F928102EB100F79E65 /* MQTTAnalyzerIntent.entitlements */,
+				2282D9E128102EB100F79E65 /* IntentHandler.swift */,
+				22C96E1C2812C60200A4F627 /* Brokers.swift */,
+				22C96E182812C41F00A4F627 /* PublishHandler.swift */,
+				22C96E1A2812C50200A4F627 /* ReceiveHandler.swift */,
+				2282D9E328102EB100F79E65 /* Info.plist */,
+			);
+			path = MQTTAnalyzerIntent;
+			sourceTree = "<group>";
+		};
+		2282D9EB28102EB100F79E65 /* MQTTAnalyzerIntentUI */ = {
+			isa = PBXGroup;
+			children = (
+				2282D9F528102EB100F79E65 /* MQTTAnalyzerIntentUI.entitlements */,
+				2282D9EC28102EB100F79E65 /* IntentViewController.swift */,
+				2282D9EE28102EB100F79E65 /* MainInterface.storyboard */,
+				2282D9F128102EB100F79E65 /* Info.plist */,
+			);
+			path = MQTTAnalyzerIntentUI;
+			sourceTree = "<group>";
+		};
+		2282DA112811249300F79E65 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2282DA4D281126BD00F79E65 /* extensions */,
+				2200D96927C1122200E63E89 /* logger */,
+				2282DA132811253600F79E65 /* model */,
+				2282DA5C2811282700F79E65 /* mqtt */,
+				2285C81F27872D2A008DA37D /* json */,
+				223AF5CF2477D55C009810E6 /* icloud */,
+				2282DA0128102ED700F79E65 /* Intents.intentdefinition */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2282DA132811253600F79E65 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				22C96DF828112B3500A4F627 /* persistence */,
+				2282DA1E2811258B00F79E65 /* search */,
+				2282DA20281125BE00F79E65 /* tree */,
+				228911CF22CF86B20095301F /* timeseries */,
+				2230FF1327A6667000D4327F /* MsgPayload.swift */,
+				2230FF1527A6669C00D4327F /* MsgMetadata.swift */,
+				2230FF1727A666C600D4327F /* MsgMessage.swift */,
+				22D50F9622CE4C4300F37EAF /* Multimap.swift */,
+				22E469D6237FC03500D72BD6 /* Readstate.swift */,
+				22C9F73D23BB5E5C00892C4B /* HostModel.swift */,
+				2282DA56281127C800F79E65 /* Handlers.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		2282DA1E2811258B00F79E65 /* search */ = {
+			isa = PBXGroup;
+			children = (
+				2200D98027C91DCA00E63E89 /* SearchIndex.swift */,
+			);
+			path = search;
+			sourceTree = "<group>";
+		};
+		2282DA20281125BE00F79E65 /* tree */ = {
+			isa = PBXGroup;
+			children = (
+				2230FEFB27A50C9700D4327F /* TopicTree.swift */,
+				2230FF0B27A57DF400D4327F /* TopicTree+ReadState.swift */,
+				2230FF2127A6AEC800D4327F /* TopicTree+Flatten.swift */,
+				2230FF1127A65EE100D4327F /* TopicTree+Deletion.swift */,
+				2230FF0527A5668200D4327F /* TopicTree+Counter.swift */,
+				2230FF1927A6678B00D4327F /* TopicTree+Filter.swift */,
+				2215118C27C923EB0000E385 /* TopicTree+Search.swift */,
+				2230FF0D27A650CE00D4327F /* TreeUtils.swift */,
+			);
+			path = tree;
+			sourceTree = "<group>";
+		};
+		2282DA4D281126BD00F79E65 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				22F8BEE623C24A5800422BFF /* String+Utils.swift */,
+				22AB2C0E280076CB00E88875 /* String+RegExp.swift */,
+				2230FEFD27A50E9000D4327F /* Date+Iso.swift */,
+				22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		2282DA5C2811282700F79E65 /* mqtt */ = {
+			isa = PBXGroup;
+			children = (
+				2203571D2445850F00A98CD3 /* cocoamqtt */,
+				226A6B4F244457E100ACDFC3 /* MqttClient.swift */,
+			);
+			path = mqtt;
 			sourceTree = "<group>";
 		};
 		2285C81F27872D2A008DA37D /* json */ = {
@@ -905,6 +1131,7 @@
 				2240834A27AD68CE00AA4A42 /* Brokers.swift */,
 				224AFEB427B2C3FA00DFD09F /* Broker.swift */,
 				2240834E27AD6F1800AA4A42 /* ExampleMessages.swift */,
+				2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -947,6 +1174,21 @@
 			path = MQTTAnalyzerUITests;
 			sourceTree = "<group>";
 		};
+		22C96DF828112B3500A4F627 /* persistence */ = {
+			isa = PBXGroup;
+			children = (
+				2291283F246858FB006F8256 /* migration */,
+				223EF0052387084D002ADF3E /* HostSetting.swift */,
+				22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */,
+				224AFEB027B0602000DFD09F /* Persistence.swift */,
+				224AFEAE27B0600D00DFD09F /* StubPersistence.swift */,
+				229005CE237E7A8600D5A706 /* RealmPersistence.swift */,
+				22C96E10281172A900A4F627 /* SQLitePersistence.swift */,
+				22C96E13281177B600A4F627 /* PersistenceTransformer.swift */,
+			);
+			path = persistence;
+			sourceTree = "<group>";
+		};
 		22C9F73823B79BFD00892C4B /* multiline-text */ = {
 			isa = PBXGroup;
 			children = (
@@ -976,9 +1218,7 @@
 		22FD7D0622C8D3760078795F /* mqtt */ = {
 			isa = PBXGroup;
 			children = (
-				2203571D2445850F00A98CD3 /* cocoamqtt */,
 				22FD7CF822C8D2650078795F /* MQTTSessionController.swift */,
-				226A6B4F244457E100ACDFC3 /* MqttClient.swift */,
 			);
 			path = mqtt;
 			sourceTree = "<group>";
@@ -986,14 +1226,9 @@
 		22FD7D0722C8D39D0078795F /* model */ = {
 			isa = PBXGroup;
 			children = (
-				2230FF0027A5206400D4327F /* v2 */,
-				223EF0042387082E002ADF3E /* persistence */,
-				228911CF22CF86B20095301F /* timeseries */,
 				22FD7CFB22C8D2650078795F /* RootModel.swift */,
-				22D50F9622CE4C4300F37EAF /* Multimap.swift */,
-				22E469D6237FC03500D72BD6 /* Readstate.swift */,
-				22C9F73D23BB5E5C00892C4B /* HostModel.swift */,
 				2230FF2E27A6CDB800D4327F /* Welcome.swift */,
+				2282DA522811276000F79E65 /* HostModel+Delete.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1001,6 +1236,7 @@
 		45E8AFAA8B14B8DFB865D13B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2282DA0928103DF200F79E65 /* CocoaMQTT.framework */,
 				2240835027AD701000AA4A42 /* CocoaMQTT.framework */,
 				223EF00723870AA5002ADF3E /* CloudKit.framework */,
 				229D30C923197D8200632896 /* CocoaAsyncSocket.framework */,
@@ -1008,6 +1244,9 @@
 				6EA00F32BE18033F923EAEA0 /* Pods_MQTTAnalyzer.framework */,
 				771859B939F07AF34A710F07 /* Pods_MQTTAnalyzerTests.framework */,
 				AEE6D91479F36479741E6FCC /* Pods_MQTTAnalyzerUITests.framework */,
+				2282D9DE28102EB000F79E65 /* Intents.framework */,
+				2282D9E928102EB100F79E65 /* IntentsUI.framework */,
+				9A97398D1A8868944BA1F5E2 /* Pods_MQTTAnalyzerIntent.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1021,6 +1260,8 @@
 				CCEE79FFC156E6A7A3EB4B17 /* Pods-MQTTAnalyzerTests.release.xcconfig */,
 				92AF6D7587A8674FE6DBEE42 /* Pods-MQTTAnalyzerUITests.debug.xcconfig */,
 				4ADA38A28345B5524D23563B /* Pods-MQTTAnalyzerUITests.release.xcconfig */,
+				10309D143F9F34802A2586F6 /* Pods-MQTTAnalyzerIntent.debug.xcconfig */,
+				BD79B0138F517C71F6255C4C /* Pods-MQTTAnalyzerIntent.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1038,10 +1279,13 @@
 				2253F8D022C8C007007E35A2 /* Resources */,
 				22C9F72D23B747E800892C4B /* ShellScript */,
 				E5E6333FBC9D713242D1C693 /* [CP] Embed Pods Frameworks */,
+				2282D9FA28102EB100F79E65 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2282D9F328102EB100F79E65 /* PBXTargetDependency */,
+				2282D9F728102EB100F79E65 /* PBXTargetDependency */,
 			);
 			name = MQTTAnalyzer;
 			packageProductDependencies = (
@@ -1070,6 +1314,42 @@
 			productReference = 2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		2282D9DC28102EB000F79E65 /* MQTTAnalyzerIntent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2282DA0028102EB100F79E65 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerIntent" */;
+			buildPhases = (
+				6B08FEE4E1DF7FC7F71DEBB2 /* [CP] Check Pods Manifest.lock */,
+				2282D9D928102EB000F79E65 /* Sources */,
+				2282D9DA28102EB000F79E65 /* Frameworks */,
+				2282D9DB28102EB000F79E65 /* Resources */,
+				2282DA0828103DB400F79E65 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MQTTAnalyzerIntent;
+			productName = MQTTAnalyzerIntent;
+			productReference = 2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		2282D9E728102EB100F79E65 /* MQTTAnalyzerIntentUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2282D9FF28102EB100F79E65 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerIntentUI" */;
+			buildPhases = (
+				2282D9E428102EB100F79E65 /* Sources */,
+				2282D9E528102EB100F79E65 /* Frameworks */,
+				2282D9E628102EB100F79E65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MQTTAnalyzerIntentUI;
+			productName = MQTTAnalyzerIntentUI;
+			productReference = 2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		22C7F0CF2416A16600534880 /* MQTTAnalyzerUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22C7F0D72416A16600534880 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerUITests" */;
@@ -1096,7 +1376,7 @@
 		2253F8CA22C8C007007E35A2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Philipp Arndt";
 				TargetAttributes = {
@@ -1106,6 +1386,12 @@
 					2253F8EA22C8C008007E35A2 = {
 						CreatedOnToolsVersion = 11.0;
 						TestTargetID = 2253F8D122C8C007007E35A2;
+					};
+					2282D9DC28102EB000F79E65 = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+					2282D9E728102EB100F79E65 = {
+						CreatedOnToolsVersion = 13.3.1;
 					};
 					22C7F0CF2416A16600534880 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -1132,6 +1418,8 @@
 				2253F8D122C8C007007E35A2 /* MQTTAnalyzer */,
 				2253F8EA22C8C008007E35A2 /* MQTTAnalyzerTests */,
 				22C7F0CF2416A16600534880 /* MQTTAnalyzerUITests */,
+				2282D9DC28102EB000F79E65 /* MQTTAnalyzerIntent */,
+				2282D9E728102EB100F79E65 /* MQTTAnalyzerIntentUI */,
 			);
 		};
 /* End PBXProject section */
@@ -1141,7 +1429,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22C9F72F23B7486E00892C4B /* .swiftlint.yml in Resources */,
 				2253F8E522C8C008007E35A2 /* LaunchScreen.storyboard in Resources */,
 				2253F8E222C8C008007E35A2 /* Preview Assets.xcassets in Resources */,
 				2253F8DF22C8C008007E35A2 /* Assets.xcassets in Resources */,
@@ -1152,6 +1439,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9DB28102EB000F79E65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9E628102EB100F79E65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2282D9F028102EB100F79E65 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1198,6 +1500,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-MQTTAnalyzerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B08FEE4E1DF7FC7F71DEBB2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MQTTAnalyzerIntent-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1296,6 +1620,7 @@
 				22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */,
 				22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */,
 				2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */,
+				22C96E11281172A900A4F627 /* SQLitePersistence.swift in Sources */,
 				22061AC527CA79FE00FFF915 /* DispatchQueue+Background.swift in Sources */,
 				2281048C2381744300112F24 /* TopicView.swift in Sources */,
 				2230FF1427A6667000D4327F /* MsgPayload.swift in Sources */,
@@ -1329,6 +1654,7 @@
 				2230FF1827A666C600D4327F /* MsgMessage.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
 				220CCD632477F12300E8CA39 /* DataMigrationCertificateFiles.swift in Sources */,
+				2282DA57281127C800F79E65 /* Handlers.swift in Sources */,
 				22810488238173BB00112F24 /* DataSeriesView.swift in Sources */,
 				223AF5D72477D60A009810E6 /* PKCS12HelpView.swift in Sources */,
 				2281048A2381740000112F24 /* MessageView.swift in Sources */,
@@ -1391,6 +1717,8 @@
 				226A6B50244457E100ACDFC3 /* MqttClient.swift in Sources */,
 				22953B33280A92D8000F8F37 /* ClientCertsHelpView.swift in Sources */,
 				22F6057B23D4911000E6338B /* DataMigration.swift in Sources */,
+				22C96E0A28112BE700A4F627 /* MQTTClientSync.swift in Sources */,
+				2282DA0428103BDD00F79E65 /* Intents.intentdefinition in Sources */,
 				2285C81C27847786008DA37D /* MetadataView.swift in Sources */,
 				2291284524685A13006F8256 /* DataMigrationClientImpl.swift in Sources */,
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
@@ -1398,6 +1726,7 @@
 				22B3893F280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormDialog.swift in Sources */,
 				2230FF0827A56BDE00D4327F /* FolderNavigationView.swift in Sources */,
+				2282DA6C2811297200F79E65 /* Certificate.swift in Sources */,
 				2285C81427841CA1008DA37D /* LoginView.swift in Sources */,
 				22B38947280ED79000D23022 /* ProtocolVersionPicker.swift in Sources */,
 				22AE64342412636300C2C4FE /* DiagramPath.swift in Sources */,
@@ -1409,6 +1738,7 @@
 				2200D97827C237EF00E63E89 /* AWSIOTHelpView.swift in Sources */,
 				226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */,
 				226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */,
+				22C96E14281177B600A4F627 /* PersistenceTransformer.swift in Sources */,
 				2291424C23BF78000086C251 /* AboutView.swift in Sources */,
 				22AE64362412637A00C2C4FE /* TimeSeriesValue.swift in Sources */,
 				22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */,
@@ -1424,6 +1754,7 @@
 				2230FF1227A65EE100D4327F /* TopicTree+Deletion.swift in Sources */,
 				2230FF2B27A6BC1C00D4327F /* InformationDetailView.swift in Sources */,
 				226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */,
+				2282DA532811276000F79E65 /* HostModel+Delete.swift in Sources */,
 				2230FF0627A5668200D4327F /* TopicTree+Counter.swift in Sources */,
 				223AF5D12477D575009810E6 /* FileLister.swift in Sources */,
 				223AF5DB2477D64B009810E6 /* CertificateFileModel.swift in Sources */,
@@ -1436,6 +1767,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C96E0F2811319900A4F627 /* PublishSyncTests.swift in Sources */,
 				228B069323FC318100E988D0 /* ModelTests.swift in Sources */,
 				221C57202466CC2800C0DD02 /* AWSIOTPresetTests.swift in Sources */,
 				22A387052409768100DF8F94 /* HostModelPersistenceTests.swift in Sources */,
@@ -1443,6 +1775,7 @@
 				22AB2C132800854700E88875 /* MqttClientCocoaMQTTTests.swift in Sources */,
 				2230FEFA27A50C8000D4327F /* TreeModelTests.swift in Sources */,
 				2230FF1027A6511F00D4327F /* TreeUtilsTests.swift in Sources */,
+				2282DA5A281127F400F79E65 /* JSONUtils.swift in Sources */,
 				22E914DF25A8420700BEC599 /* HostFormModelTests.swift in Sources */,
 				2230FF0227A53EA700D4327F /* ModelTestExtensions.swift in Sources */,
 				22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */,
@@ -1456,6 +1789,89 @@
 				22D236F923FEFBA10003D87F /* HostFormValidatorTests.swift in Sources */,
 				2285C82327887CDC008DA37D /* PublishMessageFormModelTests.swift in Sources */,
 				22AE643824126A7500C2C4FE /* DiagramPathTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9D928102EB000F79E65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2282DA5E2811285000F79E65 /* MqttClient.swift in Sources */,
+				2282DA162811254F00F79E65 /* MsgMetadata.swift in Sources */,
+				2282DA50281126D400F79E65 /* String+Utils.swift in Sources */,
+				2282DA612811290400F79E65 /* MQTTClientCocoaMQTT+OnMessage.swift in Sources */,
+				2282DA3E2811261A00F79E65 /* TimeSeriesValueUtil.swift in Sources */,
+				2282DA462811265500F79E65 /* SearchIndex.swift in Sources */,
+				2282DA5B281127F600F79E65 /* JSONUtils.swift in Sources */,
+				22C96E0228112B6300A4F627 /* DataMigrationNavigationMode.swift in Sources */,
+				22C96E0128112B6300A4F627 /* DataMigrationClientImpl.swift in Sources */,
+				2282DA682811290400F79E65 /* MQTTClientCocoaMQTT.swift in Sources */,
+				2282DA7328112A1900F79E65 /* Logger.swift in Sources */,
+				22C96E0528112B6700A4F627 /* StubPersistence.swift in Sources */,
+				2282DA4B2811268C00F79E65 /* Multimap.swift in Sources */,
+				2282DA632811290400F79E65 /* ReceivedMessage.swift in Sources */,
+				2282DA412811261A00F79E65 /* TimeSeriesModel.swift in Sources */,
+				2282DA622811290400F79E65 /* MQTTClientCocoaMQTT+Client.swift in Sources */,
+				22C96E15281177B600A4F627 /* PersistenceTransformer.swift in Sources */,
+				2282DA4A2811268C00F79E65 /* HostModel.swift in Sources */,
+				22C96E0428112B6700A4F627 /* RealmPersistence.swift in Sources */,
+				2282DA70281129F800F79E65 /* FileLister.swift in Sources */,
+				2282DA652811290400F79E65 /* MQTT5Delegate.swift in Sources */,
+				2282DA3B281125E900F79E65 /* TopicTree+ReadState.swift in Sources */,
+				2282DA0228102ED700F79E65 /* Intents.intentdefinition in Sources */,
+				2282DA182811254F00F79E65 /* MsgPayload.swift in Sources */,
+				22C96E192812C41F00A4F627 /* PublishHandler.swift in Sources */,
+				2282DA36281125E900F79E65 /* TopicTree+Counter.swift in Sources */,
+				2282DA6F281129F800F79E65 /* CloudDataManager.swift in Sources */,
+				2282DA672811290400F79E65 /* MQTT5ClientCocoaMQTT.swift in Sources */,
+				2282DA692811290400F79E65 /* MQTTDelegate.swift in Sources */,
+				2282DA38281125E900F79E65 /* TopicTree+Search.swift in Sources */,
+				22C96E0828112B6700A4F627 /* HostSettingExamples.swift in Sources */,
+				22C96DF928112B6300A4F627 /* DataMigrationEmptyTopic.swift in Sources */,
+				22C96DFA28112B6300A4F627 /* DataMigrationLimits.swift in Sources */,
+				2282D9E228102EB100F79E65 /* IntentHandler.swift in Sources */,
+				22C96E0B28112BE700A4F627 /* MQTTClientSync.swift in Sources */,
+				22C96DFE28112B6300A4F627 /* DataMigrationAuth.swift in Sources */,
+				22C96DFC28112B6300A4F627 /* DataMigrationCertificateFiles.swift in Sources */,
+				2282DA642811290400F79E65 /* Host+ActualUserPassword.swift in Sources */,
+				2282DA59281127D800F79E65 /* Handlers.swift in Sources */,
+				2282DA552811278500F79E65 /* DispatchQueue+Background.swift in Sources */,
+				2282DA3A281125E900F79E65 /* TreeUtils.swift in Sources */,
+				22C96DFF28112B6300A4F627 /* MigrationHelper.swift in Sources */,
+				22C96E12281172A900A4F627 /* SQLitePersistence.swift in Sources */,
+				2282DA71281129F800F79E65 /* CertificateFileModel.swift in Sources */,
+				22C96DFB28112B6300A4F627 /* DataMigrationProtocolVersion.swift in Sources */,
+				2282DA72281129F800F79E65 /* Certificate.swift in Sources */,
+				2282DA5F2811290400F79E65 /* CocoaMQTTCertificateFiles.swift in Sources */,
+				2282DA6E281129A100F79E65 /* String+RegExp.swift in Sources */,
+				2282DA3C281125E900F79E65 /* TopicTree+Deletion.swift in Sources */,
+				2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */,
+				2282DA35281125E900F79E65 /* TopicTree.swift in Sources */,
+				2282DA602811290400F79E65 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
+				22C96E0028112B6300A4F627 /* DataMigration.swift in Sources */,
+				2282DA662811290400F79E65 /* MQTT5ClientCocoaMQTT+OnMessage.swift in Sources */,
+				2282DA4C2811268C00F79E65 /* Readstate.swift in Sources */,
+				2282DA39281125E900F79E65 /* TopicTree+Flatten.swift in Sources */,
+				22C96E0628112B6700A4F627 /* HostSetting.swift in Sources */,
+				2282DA3F2811261A00F79E65 /* DiagramPath.swift in Sources */,
+				22C96E1D2812C60200A4F627 /* Brokers.swift in Sources */,
+				22C96E1B2812C50200A4F627 /* ReceiveHandler.swift in Sources */,
+				22C96E0328112B6300A4F627 /* DataMigrationMoscapsuleDeprecation.swift in Sources */,
+				22C96E0728112B6700A4F627 /* Persistence.swift in Sources */,
+				22C96DFD28112B6300A4F627 /* DataMigrationMultipleTopics.swift in Sources */,
+				2282DA6A2811290400F79E65 /* ClientUtils.swift in Sources */,
+				2282DA51281126D400F79E65 /* Date+Iso.swift in Sources */,
+				2282DA402811261A00F79E65 /* TimeSeriesValue.swift in Sources */,
+				2282DA37281125E900F79E65 /* TopicTree+Filter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2282D9E428102EB100F79E65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2282DA03281038B600F79E65 /* Intents.intentdefinition in Sources */,
+				2282D9ED28102EB100F79E65 /* IntentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1502,6 +1918,16 @@
 			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
 			targetProxy = 2253F8EC22C8C008007E35A2 /* PBXContainerItemProxy */;
 		};
+		2282D9F328102EB100F79E65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2282D9E728102EB100F79E65 /* MQTTAnalyzerIntentUI */;
+			targetProxy = 2282D9F228102EB100F79E65 /* PBXContainerItemProxy */;
+		};
+		2282D9F728102EB100F79E65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2282D9DC28102EB000F79E65 /* MQTTAnalyzerIntent */;
+			targetProxy = 2282D9F628102EB100F79E65 /* PBXContainerItemProxy */;
+		};
 		22C7F0D62416A16600534880 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
@@ -1516,6 +1942,14 @@
 				2253F8E422C8C008007E35A2 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		2282D9EE28102EB100F79E65 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2282D9EF28102EB100F79E65 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1641,10 +2075,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 01671CB030544C85ED77188C /* Pods-MQTTAnalyzer.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 141;
+				CURRENT_PROJECT_VERSION = 146;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -1668,10 +2103,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C1D6B6244A390AA6C066AB20 /* Pods-MQTTAnalyzer.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 141;
+				CURRENT_PROJECT_VERSION = 146;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -1732,6 +2168,124 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/MQTTAnalyzer";
+			};
+			name = Release;
+		};
+		2282D9FB28102EB100F79E65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10309D143F9F34802A2586F6 /* Pods-MQTTAnalyzerIntent.debug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntent/MQTTAnalyzerIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 146;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntent;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2282D9FC28102EB100F79E65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD79B0138F517C71F6255C4C /* Pods-MQTTAnalyzerIntent.release.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntent/MQTTAnalyzerIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 146;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntent;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2282D9FD28102EB100F79E65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntentUI/MQTTAnalyzerIntentUI.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 146;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntentUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2282D9FE28102EB100F79E65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntentUI/MQTTAnalyzerIntentUI.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 146;
+				DEVELOPMENT_TEAM = 643R6YSRER;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntentUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1803,6 +2357,24 @@
 			buildConfigurations = (
 				2253F90322C8C008007E35A2 /* Debug */,
 				2253F90422C8C008007E35A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2282D9FF28102EB100F79E65 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerIntentUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2282D9FD28102EB100F79E65 /* Debug */,
+				2282D9FE28102EB100F79E65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2282DA0028102EB100F79E65 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerIntent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2282D9FB28102EB100F79E65 /* Debug */,
+				2282D9FC28102EB100F79E65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

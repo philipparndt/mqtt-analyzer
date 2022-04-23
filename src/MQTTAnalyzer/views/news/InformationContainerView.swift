@@ -11,23 +11,29 @@ import SwiftUI
 struct InformationContainerView: View {
     var body: some View {
 		VStack(alignment: .leading) {
+			HStack(alignment: .center) {
+				Spacer()
+				Text("New in 2.7").font(.subheadline)
+				Spacer()
+			}
+
 			InformationDetailView(
-				title: "Folder and flat view",
-				subTitle: "Toggle between folder and flat view. You will have a much more structured view of your broker.",
-				imageName: "folder",
+				title: "Siri Shortcuts",
+				subTitle: "Publish and receive messages in the Shortcuts app.",
+				imageName: "flowchart",
 				color: .secondary
 			)
 
 			InformationDetailView(
-				title: "Mac application",
-				subTitle: "MQTTAnalyzer is now available in the App Store on your Mac for free and open source.",
-				imageName: "desktopcomputer",
+				title: "MQTT 5",
+				subTitle: "Connect to MQTT 5.0 brokers. View message MIME types and properties.",
+				imageName: "5.circle",
 				color: .secondary
 			)
 
 			InformationDetailView(
 				title: "Feedback welcome",
-				subTitle: "App Store and GitHub stars are good for motivation. Feedback and contributions like ideas, documentation, source code are welcome.",
+				subTitle: "App Store and GitHub stars are good for motivation. Feedback and contributions like ideas, documentation, and source code are welcome.",
 				imageName: "star",
 				color: .yellow
 			)

@@ -10,21 +10,28 @@ subscribe to a topic. It is written in Swift using SwiftUI.
 This App is open source, contributions are welcome.
 
 Features:
-- authentication with username/password or client certificates
-- connect using MQTT or Websocket
-- support for SSL/TLS
-- support for self signed certificates
-- create multiple broker settings
-- messages are grouped by topic
-- search/filter/focus-on for topics
-- json highlighting and pretty printing
-- publish messages
-- publish json messages with a form
-- sync settings using private iCloud database
-- pause the connection
-- connect to multiple brokers at once
-- totally free and no ADs
-- open source
+- Authentication with username/password or client certificates
+- Connect using MQTT or Websocket
+- Support for SSL/TLS
+- Support for self-signed certificates
+- MQTT 3.1.1 and MQTT 5
+- Siri shortcuts for publish and receive messages
+- Create multiple broker settings
+- Subscribe to multiple topics
+- Folder and flat view
+- Messages are grouped by topic
+- Fulltext search for topics and payload
+- JSON highlighting and pretty-printing
+- Publish messages
+- Publish JSON messages with a form
+- Sync settings using a private iCloud database
+- Pause the connection
+- Connect to multiple brokers at once
+- Hex view for binary payload
+- Predefined settings for AWS IoT
+- Free and without any ADs
+- Open source
+
 
 # TestFlight
 

@@ -1,119 +1,14 @@
 //
-//  HostModelPersistence.swift
+//  PersistenceTransformer.swift
 //  MQTTAnalyzer
 //
-//  Created by Philipp Arndt on 2019-11-15.
-//  Copyright © 2019 Philipp Arndt. All rights reserved.
+//  Created by Philipp Arndt on 21.04.22.
+//  Copyright © 2022 Philipp Arndt. All rights reserved.
 //
 
 import Foundation
-import RealmSwift
-import SwiftUI
 
-public class RealmPersistence: Persistence {
-	let model: HostsModel
-	let realm: Realm
-	var token: NotificationToken?
-	
-	init?(model: HostsModel) {
-		self.model = model
-		
-		if let realm = RealmPersistence.initRealm() {
-			self.realm = realm
-		}
-		else {
-			return nil
-		}
-	}
-	
-	class func initRealm() -> Realm? {
-		do {
-			return try Realm()
-		}
-		catch {
-			NSLog("Unable to initialize persistence, using stub persistence. \(error)")
-			return nil
-		}
-		
-	}
-	
-	func create(_ host: Host) {
-		if CommandLine.arguments.contains("--ui-testing") {
-			return
-		}
-
-		let setting = RealmPersistenceTransformer.transform(host)
-		
-		do {
-			try realm.write {
-				realm.add(setting)
-			}
-		}
-		catch {
-			NSLog("Error creating entry in database: \(error.localizedDescription)")
-		}
-	}
-		
-	func update(_ host: Host) {
-		let settings = realm.objects(HostSetting.self)
-			.filter("id = %@", host.ID)
-		
-		if let setting = settings.first {
-			do {
-				try realm.write {
-					RealmPersistenceTransformer.copy(from: host, to: setting)
-				}
-			}
-			catch {
-				NSLog("Error updating database: \(error.localizedDescription)")
-			}
-			
-		}
-	}
-	
-	func delete(_ host: Host) {
-		let settings = realm.objects(HostSetting.self)
-			.filter("id = %@", host.ID)
-		
-		if let setting = settings.first {
-			do {
-				try realm.write {
-					setting.isDeleted = true
-				}
-			}
-			catch {
-				NSLog("Error deleting entry from database: \(error.localizedDescription)")
-			}
-		}
-		
-		load()
-	}
-	
-	func load() {
-		HostSettingExamples.inititalize(realm: realm)
-		
-		let settings = realm.objects(HostSetting.self)
-		
-		token?.invalidate()
-		
-		token = settings.observe { (_: RealmCollectionChange) in
-			self.pushModel(settings: settings)
-		}
-	}
-	
-	private func pushModel(settings: Results<HostSetting>) {
-		let hosts: [Host] = settings
-		.filter { !$0.isDeleted }
-		.map { RealmPersistenceTransformer.transform($0) }
-		
-		DispatchQueue.main.async {
-			self.model.hosts = hosts
-		}
-	}
-	
-}
-
-class RealmPersistenceTransformer {
+class PersistenceTransformer {
 	private class func transformAuth(_ type: HostAuthenticationType) -> Int8 {
 		switch type {
 		case .usernamePassword:
@@ -196,7 +91,7 @@ class RealmPersistenceTransformer {
 		}
 	}
 	
-	class func transform(_ host: HostSetting) -> Host {
+	class func transform(from host: HostSetting) -> Host {
 		let result = Host(id: host.id)
 		result.deleted = host.isDeleted
 		result.alias = host.alias
@@ -221,7 +116,7 @@ class RealmPersistenceTransformer {
 		return result
 	}
 		
-	class func transform(_ host: Host) -> HostSetting {
+	class func transformToRealm(from host: Host) -> HostSetting {
 		let result = HostSetting()
 		copy(from: host, to: result)
 		return result
@@ -248,5 +143,52 @@ class RealmPersistenceTransformer {
 		result.untrustedSSL = host.untrustedSSL
 		result.navigationMode = transformNavigationMode(host.navigationMode)
 		result.maxMessagesOfSubFolders = host.maxMessagesOfSubFolders
+	}
+	
+	class func transformToSQLite(from host: Host) -> SQLiteBrokerSetting {
+		return SQLiteBrokerSetting(
+			id: host.ID,
+			alias: host.alias,
+			hostname: host.hostname,
+			port: Int(host.port),
+			subscriptions: PersistenceEncoder.encode(subscriptions: host.subscriptions),
+			protocolMethod: Int(transformConnectionMethod(host.protocolMethod)),
+			basePath: host.basePath,
+			ssl: host.ssl,
+			untrustedSSL: host.untrustedSSL,
+			protocolVersion: Int(transformProtocolVersion(host.protocolVersion)),
+			authType: Int(transformAuth(host.auth)),
+			username: host.username,
+			password: host.password,
+			certificates: PersistenceEncoder.encode(certificates: host.certificates),
+			certClientKeyPassword: host.certClientKeyPassword,
+			clientID: host.clientID,
+			limitTopic: host.limitTopic,
+			limitMessagesBatch: host.limitMessagesBatch,
+			deleted: host.deleted
+		)
+	}
+	
+	class func transform(from host: SQLiteBrokerSetting) -> Host {
+		let result = Host(id: host.id)
+		result.deleted = host.deleted
+		result.alias = host.alias
+		result.hostname = host.hostname
+		result.port = UInt16(host.port)
+		result.subscriptions = PersistenceEncoder.decode(subscriptions: host.subscriptions)
+		result.auth = transformAuth(Int8(host.authType))
+		result.username = host.username
+		result.password = host.password
+		result.certificates = PersistenceEncoder.decode(certificates: host.certificates)
+		result.certClientKeyPassword = host.certClientKeyPassword
+		result.clientID = host.clientID
+		result.limitTopic = host.limitTopic
+		result.limitMessagesBatch = host.limitMessagesBatch
+		result.protocolMethod = transformConnectionMethod(Int8(host.protocolMethod))
+		result.protocolVersion = transformProtocolVersion(Int8(host.protocolVersion))
+		result.basePath = host.basePath
+		result.ssl = host.ssl
+		result.untrustedSSL = host.untrustedSSL
+		return result
 	}
 }

@@ -21,8 +21,8 @@ class HostSettingExamples {
 			return
 		}
 
-		createIfNotPresent(setting: RealmPersistenceTransformer.transform(example1()), realm: realm)
-		createIfNotPresent(setting: RealmPersistenceTransformer.transform(example2()), realm: realm)
+		createIfNotPresent(setting: PersistenceTransformer.transformToRealm(from: example1()), realm: realm)
+		createIfNotPresent(setting: PersistenceTransformer.transformToRealm(from: example2()), realm: realm)
 		
 		setWritten()
 	}

@@ -114,26 +114,3 @@ class CloudDataManager {
 		}
 	}
 }
-
-extension CertificateFile {
-	func getBaseUrl(certificate: CertificateFile) throws -> URL {
-		if certificate.location == .cloud {
-			if let url = CloudDataManager.instance.getCloudDocumentDiretoryURL() {
-				return url
-			}
-			else {
-				CloudDataManager.logger.error("No cloud URL found (Cloud disbled?)")
-				throw CertificateError.noCloud
-			}
-		}
-		else {
-			if let url = CloudDataManager.instance.getLocalDocumentDiretoryURL() {
-				return url
-			}
-			else {
-				CloudDataManager.logger.error("No local URL found")
-				throw CertificateError.noLocalURL
-			}
-		}
-	}
-}
