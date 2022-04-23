@@ -48,7 +48,7 @@ class MQTTClientSync {
 				
 		_ = mqtt.connect()
 		
-		if !wait(for: { delegate.isConnected }) {
+		if !wait(for: { delegate.connected }) {
 			throw MQTTError.connectionError
 		}
 		
@@ -72,7 +72,7 @@ class MQTTClientSync {
 		
 		mqtt.disconnect()
 		
-		if !wait(for: { !delegate.isConnected }) {
+		if !wait(for: { !delegate.connected }) {
 			return false
 		}
 		
@@ -109,61 +109,4 @@ func wait(for expectation: @escaping () -> Bool, timeout seconds: Int = 10) -> B
 		.advanced(by: .seconds(seconds)))
 	thread.cancel()
 	return result == .success
-}
-
-class SyncMQTTDelegate: CocoaMQTTDelegate {
-	var messages = [MsgPayload]()
-	
-	var sents = [UInt16]()
-	
-	var acks = [UInt16]()
-	
-	var subs = [String]()
-	
-	var isConnected = false
-	
-	func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
-		if ack == .accept { isConnected = true }
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
-		sents.append(id)
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
-		acks.append(id)
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
-		messages.append(MsgPayload(data: message.payload))
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopics success: NSDictionary, failed: [String]) {
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopics topics: [String]) {
-		subs = subs.filter { (e) -> Bool in
-			!topics.contains(e)
-		}
-	}
-	
-	func mqttDidPing(_ mqtt: CocoaMQTT) {
-	}
-	
-	func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
-	}
-	
-	func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
-		isConnected = false
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didStateChangeTo state: CocoaMQTTConnState) {
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didPublishComplete id: UInt16) {
-	}
-	
-	func mqtt(_ mqtt: CocoaMQTT, didReceive trust: SecTrust, completionHandler: @escaping (Bool) -> Void) {
-		completionHandler(true)
-	}
 }

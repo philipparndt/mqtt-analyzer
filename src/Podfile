@@ -51,6 +51,11 @@ target 'MQTTAnalyzer' do
 	# Pods for testing
   end
 
+  target 'MQTTAnalyzerIntegrationTests' do
+	inherit! :search_paths
+	# Pods for testing
+  end
+
   target 'MQTTAnalyzerUITests' do
 	inherit! :search_paths
 	shared_pods

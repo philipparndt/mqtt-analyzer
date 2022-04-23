@@ -76,6 +76,16 @@
                ReferencedContainer = "container:MQTTAnalyzer.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "22C96E2628141B9900A4F627"
+               BuildableName = "MQTTAnalyzerIntegrationTests.xctest"
+               BlueprintName = "MQTTAnalyzerIntegrationTests"
+               ReferencedContainer = "container:MQTTAnalyzer.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

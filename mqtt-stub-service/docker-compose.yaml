@@ -46,13 +46,15 @@ services:
     environment:
       - IONOS_API_KEY=${IONOS_API_KEY}
 
-  mosquitto-no-auth:
+  mosquitto:
     image: eclipse-mosquitto:2.0.14
     volumes:
-      - ./config/mosquitto-noauth/config:/mosquitto/config:rw
+      - ./config/mosquitto/config:/mosquitto/config:rw
     ports:
       - "1883:1883"
+      - "1884:1884"
       - "9001:9001"
+      - "9002:9002"
 
     labels:
       - traefik.enable=true
@@ -67,11 +69,3 @@ services:
       - traefik.tcp.routers.mqtts.tls.certresolver=letsencrypt
       - traefik.tcp.routers.mqtts.service=mqtts
       - traefik.tcp.services.mqtts.loadBalancer.server.port=1883
-
-  mosquitto-user-apssword-auth:
-    image: eclipse-mosquitto:2.0.14
-    volumes:
-      - ./config/mosquitto-userpass/config:/mosquitto/config:rw
-    ports:
-      - "1884:1884"
-      - "9002:9002"
