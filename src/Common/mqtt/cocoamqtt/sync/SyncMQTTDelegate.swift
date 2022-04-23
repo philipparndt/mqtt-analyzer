@@ -8,7 +8,7 @@
 
 import CocoaMQTT
 
-class SyncMQTTDelegate: CocoaMQTTDelegate, SyncListener {
+class SyncDelegate {
 	private let semaphore = DispatchSemaphore(value: 1)
 	
 	private var pMessages = [MsgPayload]()
@@ -41,25 +41,41 @@ class SyncMQTTDelegate: CocoaMQTTDelegate, SyncListener {
 		return result
 	}
 	
-	func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
+	func connect(connected: Bool) {
 		semaphore.wait()
-		pConnected = ack == .accept
+		pConnected = connected
 		semaphore.signal()
 	}
 	
-	func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
+	func sent(id: UInt16) {
 		semaphore.wait()
 		pSents.append(id)
 		semaphore.signal()
+	}
+	
+	func received(payload: MsgPayload) {
+		semaphore.wait()
+		pMessages.append(payload)
+		semaphore.signal()
+	}
+}
+
+class SyncMQTTDelegate: CocoaMQTTDelegate, SyncListener {
+	let delegate = SyncDelegate()
+	
+	func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
+		delegate.connect(connected: ack == .accept)
+	}
+	
+	func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
+		delegate.sent(id: id)
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
-		semaphore.wait()
-		pMessages.append(MsgPayload(data: message.payload))
-		semaphore.signal()
+		delegate.received(payload: MsgPayload(data: message.payload))
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopics success: NSDictionary, failed: [String]) {
@@ -75,9 +91,7 @@ class SyncMQTTDelegate: CocoaMQTTDelegate, SyncListener {
 	}
 	
 	func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
-		semaphore.wait()
-		pConnected = false
-		semaphore.signal()
+		delegate.connect(connected: false)
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didStateChangeTo state: CocoaMQTTConnState) {

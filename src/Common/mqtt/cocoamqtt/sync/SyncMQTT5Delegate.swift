@@ -9,48 +9,14 @@
 import CocoaMQTT
 
 class SyncMQTT5Delegate: CocoaMQTT5Delegate, SyncListener {
-	private let semaphore = DispatchSemaphore(value: 1)
-	
-	private var pMessages = [MsgPayload]()
-	
-	private var pSents = [UInt16]()
-	
-	private var pConnected = false
-	
-	var connected: Bool {
-		var result: Bool
-		semaphore.wait()
-		result = pConnected
-		semaphore.signal()
-		return result
-	}
-	
-	var messages: [MsgPayload] {
-		var result: [MsgPayload]
-		semaphore.wait()
-		result = pMessages
-		semaphore.signal()
-		return result
-	}
-	
-	var sents: [UInt16] {
-		var result: [UInt16]
-		semaphore.wait()
-		result = pSents
-		semaphore.signal()
-		return result
-	}
-	
+	let delegate = SyncDelegate()
+
 	func mqtt5(_ mqtt5: CocoaMQTT5, didConnectAck ack: CocoaMQTTCONNACKReasonCode, connAckData: MqttDecodeConnAck) {
-		semaphore.wait()
-		pConnected = ack == .success
-		semaphore.signal()
+		delegate.connect(connected: ack == .success)
 	}
 
 	func mqtt5(_ mqtt5: CocoaMQTT5, didPublishMessage message: CocoaMQTT5Message, id: UInt16) {
-		semaphore.wait()
-		pSents.append(id)
-		semaphore.signal()
+		delegate.sent(id: id)
 	}
 
 	func mqtt5(_ mqtt5: CocoaMQTT5, didPublishAck id: UInt16, pubAckData: MqttDecodePubAck?) {
@@ -62,9 +28,7 @@ class SyncMQTT5Delegate: CocoaMQTT5Delegate, SyncListener {
 	}
 
 	func mqtt5(_ mqtt5: CocoaMQTT5, didReceiveMessage message: CocoaMQTT5Message, id: UInt16, publishData: MqttDecodePublish) {
-		semaphore.wait()
-		pMessages.append(MsgPayload(data: message.payload))
-		semaphore.signal()
+		delegate.received(payload: MsgPayload(data: message.payload))
 	}
 
 	func mqtt5(_ mqtt5: CocoaMQTT5, didSubscribeTopics success: NSDictionary, failed: [String], subAckData: MqttDecodeSubAck) {
@@ -92,9 +56,7 @@ class SyncMQTT5Delegate: CocoaMQTT5Delegate, SyncListener {
 	}
 
 	func mqtt5DidDisconnect(_ mqtt5: CocoaMQTT5, withError err: Error?) {
-		semaphore.wait()
-		pConnected = false
-		semaphore.signal()
+		delegate.connect(connected: false)
 	}
 	
 	/// Manually validate SSL/TLS server certificate.

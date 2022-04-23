@@ -11,10 +11,10 @@ import CocoaMQTT
 
 class MQTT5ClientSync {
 	class func createQueue() -> DispatchQueue {
-		let queue = DispatchQueue(label: "syncPublishDelegateQueue")
+		let queue = DispatchQueue(label: "syncMQTT5DelegateQueue")
 		queue.setSpecific(
 			key: DispatchSpecificKey<String>(),
-			value: "syncPublishDelegateQueue"
+			value: "syncMQTT5DelegateQueue"
 		)
 		return queue
 	}
@@ -33,7 +33,7 @@ class MQTT5ClientSync {
 				
 		_ = mqtt.connect()
 		
-		if !wait(for: { delegate.connected }) {
+		if !wait(for: { delegate.delegate.connected }) {
 			throw MQTTError.connectionError
 		}
 		
@@ -53,13 +53,13 @@ class MQTT5ClientSync {
 			properties: MqttPublishProperties()
 		)
 		
-		if !wait(for: { delegate.sents.count >= 1 }) {
+		if !wait(for: { delegate.delegate.sents.count >= 1 }) {
 			return false
 		}
 		
 		mqtt.disconnect()
 		
-		if !wait(for: { !delegate.connected }) {
+		if !wait(for: { !delegate.delegate.connected }) {
 			return false
 		}
 		
@@ -72,10 +72,10 @@ class MQTT5ClientSync {
 		let delegate = connected.1
 		mqtt.subscribe(topic)
 		
-		if !wait(for: { delegate.messages.count >= 1 }) {
+		if !wait(for: { delegate.delegate.messages.count >= 1 }) {
 			throw MQTTError.messageTimeout
 		}
 		
-		return delegate.messages.first?.dataString
+		return delegate.delegate.messages.first?.dataString
 	}
 }

@@ -15,11 +15,7 @@ enum MQTTError: String, Error {
 }
 
 protocol SyncListener {
-	var connected: Bool { get }
-	
-	var messages: [MsgPayload] { get }
-	
-	var sents: [UInt16] { get }
+	var delegate: SyncDelegate { get }
 }
 
 func transformQos(qos: Int) -> CocoaMQTTQoS {
