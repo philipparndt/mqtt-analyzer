@@ -262,6 +262,12 @@
 		22C96E32281422F200A4F627 /* ReceiveSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E31281422F200A4F627 /* ReceiveSyncTests.swift */; };
 		22C96E352814254400A4F627 /* SyncMQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E342814254400A4F627 /* SyncMQTTDelegate.swift */; };
 		22C96E362814254400A4F627 /* SyncMQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E342814254400A4F627 /* SyncMQTTDelegate.swift */; };
+		22C96E3828142BD400A4F627 /* SyncMQTT5Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E372814299000A4F627 /* SyncMQTT5Delegate.swift */; };
+		22C96E3928142BD700A4F627 /* SyncMQTT5Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E372814299000A4F627 /* SyncMQTT5Delegate.swift */; };
+		22C96E3B28142C9A00A4F627 /* MQTT3ClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E3A28142C9A00A4F627 /* MQTT3ClientSync.swift */; };
+		22C96E3C28142C9A00A4F627 /* MQTT3ClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E3A28142C9A00A4F627 /* MQTT3ClientSync.swift */; };
+		22C96E3E28142CDB00A4F627 /* MQTT5ClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E3D28142CDB00A4F627 /* MQTT5ClientSync.swift */; };
+		22C96E3F28142CDB00A4F627 /* MQTT5ClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E3D28142CDB00A4F627 /* MQTT5ClientSync.swift */; };
 		22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */; };
 		22C9F73723B79A1300892C4B /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MessageTextView.swift */; };
 		22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73923B8CCCC00892C4B /* QOSView.swift */; };
@@ -568,6 +574,9 @@
 		22C96E2728141B9900A4F627 /* MQTTAnalyzerIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C96E31281422F200A4F627 /* ReceiveSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveSyncTests.swift; sourceTree = "<group>"; };
 		22C96E342814254400A4F627 /* SyncMQTTDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncMQTTDelegate.swift; sourceTree = "<group>"; };
+		22C96E372814299000A4F627 /* SyncMQTT5Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncMQTT5Delegate.swift; sourceTree = "<group>"; };
+		22C96E3A28142C9A00A4F627 /* MQTT3ClientSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTT3ClientSync.swift; sourceTree = "<group>"; };
+		22C96E3D28142CDB00A4F627 /* MQTT5ClientSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTT5ClientSync.swift; sourceTree = "<group>"; };
 		22C9F72E23B7486E00892C4B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishMessageFormView.swift; sourceTree = "<group>"; };
 		22C9F73623B79A1300892C4B /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
@@ -1228,7 +1237,10 @@
 			isa = PBXGroup;
 			children = (
 				22C96E0928112BE700A4F627 /* MQTTClientSync.swift */,
+				22C96E3A28142C9A00A4F627 /* MQTT3ClientSync.swift */,
+				22C96E3D28142CDB00A4F627 /* MQTT5ClientSync.swift */,
 				22C96E342814254400A4F627 /* SyncMQTTDelegate.swift */,
+				22C96E372814299000A4F627 /* SyncMQTT5Delegate.swift */,
 			);
 			path = sync;
 			sourceTree = "<group>";
@@ -1824,6 +1836,8 @@
 				2291284524685A13006F8256 /* DataMigrationClientImpl.swift in Sources */,
 				228104952381779000112F24 /* TopicToolsView.swift in Sources */,
 				2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */,
+				22C96E3C28142C9A00A4F627 /* MQTT3ClientSync.swift in Sources */,
+				22C96E3828142BD400A4F627 /* SyncMQTT5Delegate.swift in Sources */,
 				22B3893F280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormDialog.swift in Sources */,
 				2230FF0827A56BDE00D4327F /* FolderNavigationView.swift in Sources */,
@@ -1858,6 +1872,7 @@
 				2282DA532811276000F79E65 /* HostModel+Delete.swift in Sources */,
 				2230FF0627A5668200D4327F /* TopicTree+Counter.swift in Sources */,
 				223AF5D12477D575009810E6 /* FileLister.swift in Sources */,
+				22C96E3E28142CDB00A4F627 /* MQTT5ClientSync.swift in Sources */,
 				223AF5DB2477D64B009810E6 /* CertificateFileModel.swift in Sources */,
 				22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */,
 				224AFEAD27AEF9BB00DFD09F /* TupleView+GetChildren.swift in Sources */,
@@ -1927,6 +1942,7 @@
 				2282DA672811290400F79E65 /* MQTT5ClientCocoaMQTT.swift in Sources */,
 				2282DA692811290400F79E65 /* MQTTDelegate.swift in Sources */,
 				2282DA38281125E900F79E65 /* TopicTree+Search.swift in Sources */,
+				22C96E3B28142C9A00A4F627 /* MQTT3ClientSync.swift in Sources */,
 				22C96E0828112B6700A4F627 /* HostSettingExamples.swift in Sources */,
 				22C96DF928112B6300A4F627 /* DataMigrationEmptyTopic.swift in Sources */,
 				22C96DFA28112B6300A4F627 /* DataMigrationLimits.swift in Sources */,
@@ -1946,9 +1962,11 @@
 				2282DA5F2811290400F79E65 /* CocoaMQTTCertificateFiles.swift in Sources */,
 				2282DA6E281129A100F79E65 /* String+RegExp.swift in Sources */,
 				2282DA3C281125E900F79E65 /* TopicTree+Deletion.swift in Sources */,
+				22C96E3928142BD700A4F627 /* SyncMQTT5Delegate.swift in Sources */,
 				2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */,
 				2282DA35281125E900F79E65 /* TopicTree.swift in Sources */,
 				2282DA602811290400F79E65 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
+				22C96E3F28142CDB00A4F627 /* MQTT5ClientSync.swift in Sources */,
 				22C96E0028112B6300A4F627 /* DataMigration.swift in Sources */,
 				2282DA662811290400F79E65 /* MQTT5ClientCocoaMQTT+OnMessage.swift in Sources */,
 				2282DA4C2811268C00F79E65 /* Readstate.swift in Sources */,

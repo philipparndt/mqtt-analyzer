@@ -14,81 +14,63 @@ enum MQTTError: String, Error {
 	case messageTimeout = "Message timeout"
 }
 
+protocol SyncListener {
+	var connected: Bool { get }
+	
+	var messages: [MsgPayload] { get }
+	
+	var sents: [UInt16] { get }
+}
+
+func transformQos(qos: Int) -> CocoaMQTTQoS {
+	switch qos {
+	case 1:
+		return .qos1
+	case 2:
+		return .qos2
+	default:
+		return .qos0
+	}
+}
+
 class MQTTClientSync {
-	class func createQueue() -> DispatchQueue {
-		let queue = DispatchQueue(label: "syncPublishDelegateQueue")
-		queue.setSpecific(
-			key: DispatchSpecificKey<String>(),
-			value: "syncPublishDelegateQueue"
-		)
-		return queue
-	}
-	
-	class func transformQos(qos: Int) -> CocoaMQTTQoS {
-		switch qos {
-		case 1:
-			return .qos1
-		case 2:
-			return .qos2
-		default:
-			return .qos0
-		}
-	}
-	
-	class func connect(host: Host, delegate: SyncMQTTDelegate) throws -> CocoaMQTT {
-		let model = TopicTree()
-		let client = MQTTClientCocoaMQTT(host: host, model: model)
-		
-		let mqtt = client.createClient(host: host)
-		try client.configureClient(client: mqtt)
-		
-		mqtt.delegate = delegate
-		let queue = createQueue()
-		mqtt.delegateQueue = queue
-				
-		_ = mqtt.connect()
-		
-		if !wait(for: { delegate.connected }) {
-			throw MQTTError.connectionError
-		}
-		
-		return mqtt
-	}
-	
 	class func publish(host: Host, topic: String, message: String, retain: Bool, qos: Int) throws -> Bool {
-		let delegate = SyncMQTTDelegate()
-		let mqtt = try connect(host: host, delegate: delegate)
 		
-		mqtt.publish(
-			topic,
-			withString: message,
-			qos: transformQos(qos: qos),
-			retained: retain
-		)
-		
-		if !wait(for: { delegate.sents.count >= 1 }) {
-			return false
+		if host.protocolVersion == .mqtt5 {
+			return try MQTT5ClientSync.publish(
+				host: host,
+				topic: topic,
+				message: message,
+				retain: retain,
+				qos: qos
+			)
 		}
-		
-		mqtt.disconnect()
-		
-		if !wait(for: { !delegate.connected }) {
-			return false
+		else {
+			return try MQTT3ClientSync.publish(
+				host: host,
+				topic: topic,
+				message: message,
+				retain: retain,
+				qos: qos
+			)
 		}
-		
-		return true
 	}
 	
 	class func receiveFirst(host: Host, topic: String, timeout: Int) throws -> String? {
-		let delegate = SyncMQTTDelegate()
-		let mqtt = try connect(host: host, delegate: delegate)
-		mqtt.subscribe(topic)
-		
-		if !wait(for: { delegate.messages.count >= 1 }) {
-			throw MQTTError.messageTimeout
+		if host.protocolVersion == .mqtt5 {
+			return try MQTT5ClientSync.receiveFirst(
+				host: host,
+				topic: topic,
+				timeout: timeout
+			)
 		}
-		
-		return delegate.messages.first?.dataString
+		else {
+			return try MQTT3ClientSync.receiveFirst(
+				host: host,
+				topic: topic,
+				timeout: timeout
+			)
+		}
 	}
 }
 

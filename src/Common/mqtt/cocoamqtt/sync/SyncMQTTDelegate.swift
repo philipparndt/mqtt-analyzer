@@ -8,7 +8,7 @@
 
 import CocoaMQTT
 
-class SyncMQTTDelegate: CocoaMQTTDelegate {
+class SyncMQTTDelegate: CocoaMQTTDelegate, SyncListener {
 	private let semaphore = DispatchSemaphore(value: 1)
 	
 	private var pMessages = [MsgPayload]()

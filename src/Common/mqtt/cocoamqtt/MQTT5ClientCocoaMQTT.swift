@@ -27,29 +27,17 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 		utils.initConnect()
 		
 		let mqtt = createClient(host: host)
-		mqtt.enableSSL = host.ssl
-		mqtt.allowUntrustCACertificate = host.untrustedSSL
-
-		if host.auth == .usernamePassword {
-			mqtt.username = host.actualUsername
-			mqtt.password = host.actualPassword
+		do {
+			try configureClient(client: mqtt)
 		}
-		else if host.auth == .certificate {
-			do {
-				try mqtt.sslSettings = createSSLSettings(host: host)
-			}
-			catch let error as CertificateError {
-				utils.failConnection(reason: "\(error.rawValue)")
-				return
-			}
-			catch {
-				utils.failConnection(reason: "\(error)")
-				return
-			}
+		catch let error as CertificateError {
+			utils.failConnection(reason: "\(error.rawValue)")
+			return
 		}
-		
-		mqtt.keepAlive = 60
-		mqtt.autoReconnect = false
+		catch {
+			utils.failConnection(reason: "\(error)")
+			return
+		}
 		
 		mqtt.delegate = self.delegate
 		mqtt.didReceiveMessage = self.didReceiveMessage
@@ -70,6 +58,22 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 			payload: payload(of:),
 			topic: topic(of:)
 		)
+	}
+	
+	func configureClient(client mqtt: CocoaMQTT5) throws {
+		mqtt.enableSSL = host.ssl
+		mqtt.allowUntrustCACertificate = host.untrustedSSL
+
+		if host.auth == .usernamePassword {
+			mqtt.username = host.actualUsername
+			mqtt.password = host.actualPassword
+		}
+		else if host.auth == .certificate {
+			try mqtt.sslSettings = createSSLSettings(host: host)
+		}
+		
+		mqtt.keepAlive = 60
+		mqtt.autoReconnect = false
 	}
 	
 	func disconnect() {
