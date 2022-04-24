@@ -14,7 +14,7 @@ Features:
 - Connect using MQTT or Websocket
 - Support for SSL/TLS
 - Support for self-signed certificates
-- MQTT 3.1.1 and MQTT 5
+- MQTT 3.1.1 and MQTT 5.0
 - Siri shortcuts for publish and receive messages
 - Create multiple broker settings
 - Subscribe to multiple topics
