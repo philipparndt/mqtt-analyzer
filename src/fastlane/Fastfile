@@ -51,9 +51,14 @@ platform :ios do
 
   lane :publish do
     tests()
+    publishSkipTests()
+  end
+
+  lane :publishSkipTests do
     archive()
     upload()
   end
+
 
   lane :screenshots do
     capture_screenshots(workspace: "MQTTAnalyzer.xcworkspace", scheme: "MQTTAnalyzer")

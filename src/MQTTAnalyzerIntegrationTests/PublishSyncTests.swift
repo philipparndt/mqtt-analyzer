@@ -19,7 +19,7 @@ class PublishSyncTests: XCTestCase {
 	}
 	
 	func assertPublish(with broker: Host) {
-		let topic = String.random(length: 8)
+		let topic = "integration/publish/\(String.random(length: 8))"
 		
 		XCTAssertTrue(try MQTTClientSync.publish(
 			host: broker,

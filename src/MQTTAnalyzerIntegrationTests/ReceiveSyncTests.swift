@@ -13,8 +13,7 @@ import CocoaMQTT
 private let host = "test.mqtt.rnd7.de"
 
 class ReceiveSyncTests: XCTestCase {
-	
-	private let topic = String.random(length: 8)
+	private let topic = "integration/receive/\(String.random(length: 8))"
 	private let message = String.random(length: 8)
 	
 	override func setUp() {

@@ -55,10 +55,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CocoaMQTT:
-    :commit: b0545d571819044f853c5741f386f3129743bf17
+    :commit: 987a058054e3a02c214a825b998feda3a72fcece
     :git: https://github.com/philipparndt/CocoaMQTT.git
   CodeEditor:
-    :commit: 39f457f9ddeb5ee27a7dc035e9c9c8c40be25c37
+    :commit: 9b888ab2d74592888c066e0486e64c62e191b1f3
     :git: https://github.com/ZeeZide/CodeEditor.git
   Highlightr:
     :git: https://github.com/raspu/Highlightr.git

@@ -55,6 +55,14 @@ Build iOS
 
 
 
+### ios publishSkipTests
+
+```sh
+[bundle exec] fastlane ios publishSkipTests
+```
+
+
+
 ### ios screenshots
 
 ```sh
