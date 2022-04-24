@@ -30,18 +30,15 @@ class ReceiveHandler: INExtension, ReceiveMQTTMessageIntentHandling {
 					)
 					
 					completion(response(from: result))
+				} catch MQTTError.runtimeError(let errorMessage) {
+					completion(fail(from: errorMessage))
 				}
 				catch {
-					NSLog("Error during receive \(error)")
-					completion(ReceiveMQTTMessageIntentResponse(
-						code: .failure,
-							  userActivity: nil))
+					completion(fail(from: "Unexpected error during receive \(error)."))
 				}
 			}
 			else {
-				completion(ReceiveMQTTMessageIntentResponse(
-					code: .failure,
-						  userActivity: nil))
+				completion(fail(from: "Unknown broker."))
 			}
 		}
 	}
@@ -51,6 +48,14 @@ class ReceiveHandler: INExtension, ReceiveMQTTMessageIntentHandling {
 			code: message != nil ? .success : .failure,
 			userActivity: nil)
 		response.message = message
+		return response
+	}
+	
+	func fail(from error: String?) -> ReceiveMQTTMessageIntentResponse {
+		let response = ReceiveMQTTMessageIntentResponse(
+			code: .failure,
+			userActivity: nil)
+		response.error = error
 		return response
 	}
 }

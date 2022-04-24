@@ -30,7 +30,7 @@ class PublishHandler: INExtension, PublishMQTTMessageIntentHandling {
 
 			if let broker = firstBroker(by: brokerName) {
 				do {
-					let result = try MQTTClientSync.publish(
+					try MQTTClientSync.publish(
 						host: broker,
 						topic: topic.trimmingCharacters(in: [" "]),
 						message: message,
@@ -38,26 +38,33 @@ class PublishHandler: INExtension, PublishMQTTMessageIntentHandling {
 						qos: transformQos(qos: intent.qos)
 					)
 
-					completion(response(from: result ? nil : "Publish failed"))
+					completion(success())
+				} catch MQTTError.runtimeError(let errorMessage) {
+					completion(fail(from: errorMessage))
 				}
 				catch {
-					NSLog("Error during publish \(error)")
-					completion(response(from: "\(error)"))
+					completion(fail(from: "Unexpected error during receive \(error)."))
 				}
 			}
 			else {
-				completion(response(from: "Error finding broker"))
+				completion(fail(from: "Unknown broker."))
 			}
 		}
 	}
 	
-	func response(from error: String?) -> PublishMQTTMessageIntentResponse {
+	func success() -> PublishMQTTMessageIntentResponse {
 		let response = PublishMQTTMessageIntentResponse(
-			code: error == nil ? .success : .failure,
+			code: .success,
 			userActivity: nil)
 		
+		return response
+	}
+	
+	func fail(from error: String?) -> PublishMQTTMessageIntentResponse {
+		let response = PublishMQTTMessageIntentResponse(
+			code: .failure,
+			userActivity: nil)
 		response.error = error
-		
 		return response
 	}
 	

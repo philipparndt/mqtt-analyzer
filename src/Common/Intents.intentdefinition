@@ -345,6 +345,14 @@
 						<true/>
 					</dict>
 					<dict>
+						<key>INIntentResponseCodeConciseFormatString</key>
+						<string>${error}</string>
+						<key>INIntentResponseCodeConciseFormatStringID</key>
+						<string>SEDSyB</string>
+						<key>INIntentResponseCodeFormatString</key>
+						<string>${error}</string>
+						<key>INIntentResponseCodeFormatStringID</key>
+						<string>PL7bsR</string>
 						<key>INIntentResponseCodeName</key>
 						<string>failure</string>
 					</dict>
@@ -547,12 +555,20 @@
 						<true/>
 					</dict>
 					<dict>
+						<key>INIntentResponseCodeConciseFormatString</key>
+						<string>${error}</string>
+						<key>INIntentResponseCodeConciseFormatStringID</key>
+						<string>bYSJBV</string>
+						<key>INIntentResponseCodeFormatString</key>
+						<string>${error}</string>
+						<key>INIntentResponseCodeFormatStringID</key>
+						<string>Nr8W12</string>
 						<key>INIntentResponseCodeName</key>
 						<string>failure</string>
 					</dict>
 				</array>
 				<key>INIntentResponseLastParameterTag</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>INIntentResponseOutput</key>
 				<string>message</string>
 				<key>INIntentResponseParameters</key>
@@ -568,6 +584,20 @@
 						<string>message</string>
 						<key>INIntentResponseParameterTag</key>
 						<integer>1</integer>
+						<key>INIntentResponseParameterType</key>
+						<string>String</string>
+					</dict>
+					<dict>
+						<key>INIntentResponseParameterDisplayName</key>
+						<string>Error</string>
+						<key>INIntentResponseParameterDisplayNameID</key>
+						<string>m5vK9d</string>
+						<key>INIntentResponseParameterDisplayPriority</key>
+						<integer>2</integer>
+						<key>INIntentResponseParameterName</key>
+						<string>error</string>
+						<key>INIntentResponseParameterTag</key>
+						<integer>2</integer>
 						<key>INIntentResponseParameterType</key>
 						<string>String</string>
 					</dict>

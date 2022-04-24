@@ -9,9 +9,24 @@
 import Foundation
 import CocoaMQTT
 
-enum MQTTError: String, Error {
-	case connectionError = "Timeout during connection"
-	case messageTimeout = "Message timeout"
+enum MQTTError: Error {
+	case runtimeError(String)
+}
+
+func messageTimeoutError(topic: String) -> MQTTError {
+	return MQTTError.runtimeError("Timeout waiting for message on topic \(topic). Maybe switch to retained messages.")
+}
+
+func connectionTimeoutError(host: Host) -> MQTTError {
+	return MQTTError.runtimeError("Error connecting to broker \(host.hostname)")
+}
+
+func disconnectionTimeoutError(host: Host) -> MQTTError {
+	return MQTTError.runtimeError("Error disconnecting from broker \(host.hostname)")
+}
+
+func sentMessageTimeoutError(topic: String) -> MQTTError {
+	return MQTTError.runtimeError("Timout publishing message to topic \(topic)")
 }
 
 protocol SyncListener {
@@ -30,10 +45,10 @@ func transformQos(qos: Int) -> CocoaMQTTQoS {
 }
 
 class MQTTClientSync {
-	class func publish(host: Host, topic: String, message: String, retain: Bool, qos: Int) throws -> Bool {
+	class func publish(host: Host, topic: String, message: String, retain: Bool, qos: Int) throws {
 		
 		if host.protocolVersion == .mqtt5 {
-			return try MQTT5ClientSync.publish(
+			try MQTT5ClientSync.publish(
 				host: host,
 				topic: topic,
 				message: message,
@@ -42,7 +57,7 @@ class MQTTClientSync {
 			)
 		}
 		else {
-			return try MQTT3ClientSync.publish(
+			try MQTT3ClientSync.publish(
 				host: host,
 				topic: topic,
 				message: message,
