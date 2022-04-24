@@ -34,13 +34,13 @@ class MQTT5ClientSync {
 		_ = mqtt.connect()
 		
 		if !wait(for: { delegate.delegate.connected }) {
-			throw MQTTError.connectionError
+			throw connectionTimeoutError(host: host)
 		}
 		
 		return (mqtt, delegate)
 	}
 		
-	class func publish(host: Host, topic: String, message: String, retain: Bool, qos: Int) throws -> Bool {
+	class func publish(host: Host, topic: String, message: String, retain: Bool, qos: Int) throws {
 		let connected = try connect(host: host)
 		let mqtt = connected.0
 		let delegate = connected.1
@@ -54,16 +54,14 @@ class MQTT5ClientSync {
 		)
 		
 		if !wait(for: { delegate.delegate.sents.count >= 1 }) {
-			return false
+			throw sentMessageTimeoutError(topic: topic)
 		}
 		
 		mqtt.disconnect()
 		
 		if !wait(for: { !delegate.delegate.connected }) {
-			return false
+			throw disconnectionTimeoutError(host: host)
 		}
-		
-		return true
 	}
 	
 	class func receiveFirst(host: Host, topic: String, timeout: Int) throws -> String? {
@@ -73,7 +71,7 @@ class MQTT5ClientSync {
 		mqtt.subscribe(topic)
 		
 		if !wait(for: { delegate.delegate.messages.count >= 1 }) {
-			throw MQTTError.messageTimeout
+			throw messageTimeoutError(topic: topic)
 		}
 		
 		return delegate.delegate.messages.first?.dataString

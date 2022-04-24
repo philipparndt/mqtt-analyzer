@@ -21,13 +21,12 @@ class ReceiveSyncTests: XCTestCase {
 
 		let broker = Host()
 		broker.hostname = host
-		XCTAssertTrue(try MQTTClientSync.publish(
+		try? MQTTClientSync.publish(
 			host: broker,
 			topic: topic,
 			message: message,
 			retain: true,
 			qos: 1)
-		)
 	}
 	
 	func assertReceive(with broker: Host) throws {
