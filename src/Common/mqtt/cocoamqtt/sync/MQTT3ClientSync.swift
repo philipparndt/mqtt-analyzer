@@ -69,8 +69,32 @@ class MQTT3ClientSync {
 		let delegate = connected.1
 		mqtt.subscribe(topic)
 		
-		if !wait(for: { delegate.delegate.messages.count >= 1 }) {
+		if !wait(for: { delegate.delegate.messages.count >= 1 }, timeout: timeout) {
 			throw messageTimeoutError(topic: topic)
+		}
+		
+		return delegate.delegate.messages.first?.dataString
+	}
+	
+	class func requestResponse(host: Host, requestTopic: String, requestPayload: String, qos: Int,
+							   responseTopic: String, timeout: Int) throws -> String? {
+		let connected = try connect(host: host)
+		let mqtt = connected.0
+		let delegate = connected.1
+		mqtt.subscribe(responseTopic)
+		if !wait(for: { delegate.delegate.didSubscribe == 1 }) {
+			throw subscriptionTimeoutError(topic: responseTopic)
+		}
+		
+		mqtt.publish(
+			requestTopic,
+			withString: requestPayload,
+			qos: transformQos(qos: qos),
+			retained: false
+		)
+		
+		if !wait(for: { delegate.delegate.messages.count >= 1 }, timeout: timeout) {
+			throw messageTimeoutError(topic: responseTopic)
 		}
 		
 		return delegate.delegate.messages.first?.dataString

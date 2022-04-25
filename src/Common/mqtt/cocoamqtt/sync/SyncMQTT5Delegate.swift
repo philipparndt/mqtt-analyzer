@@ -32,7 +32,7 @@ class SyncMQTT5Delegate: CocoaMQTT5Delegate, SyncListener {
 	}
 
 	func mqtt5(_ mqtt5: CocoaMQTT5, didSubscribeTopics success: NSDictionary, failed: [String], subAckData: MqttDecodeSubAck) {
-		// currently not necessary, but required by protocol
+		delegate.subscribed()
 	}
 
 	func mqtt5(_ mqtt5: CocoaMQTT5, didUnsubscribeTopics topics: [String], UnsubAckData: MqttDecodeUnsubAck) {

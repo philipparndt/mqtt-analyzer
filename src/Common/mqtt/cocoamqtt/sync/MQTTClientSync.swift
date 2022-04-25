@@ -13,6 +13,10 @@ enum MQTTError: Error {
 	case runtimeError(String)
 }
 
+func subscriptionTimeoutError(topic: String) -> MQTTError {
+	return MQTTError.runtimeError("Timeout waiting for subscribe on topic \(topic).")
+}
+
 func messageTimeoutError(topic: String) -> MQTTError {
 	return MQTTError.runtimeError("Timeout waiting for message on topic \(topic). Maybe switch to retained messages.")
 }
@@ -83,6 +87,31 @@ class MQTTClientSync {
 			)
 		}
 	}
+	
+	class func requestResponse(host: Host, requestTopic: String, requestPayload: String, qos: Int,
+							   responseTopic: String, timeout: Int) throws -> String? {
+		if host.protocolVersion == .mqtt5 {
+			return try MQTT5ClientSync.requestResponse(
+				host: host,
+				requestTopic: requestTopic,
+				requestPayload: requestPayload,
+				qos: qos,
+				responseTopic: responseTopic,
+				timeout: timeout
+			)
+		}
+		else {
+			return try MQTT3ClientSync.requestResponse(
+				host: host,
+				requestTopic: requestTopic,
+				requestPayload: requestPayload,
+				qos: qos,
+				responseTopic: responseTopic,
+				timeout: timeout
+			)
+		}
+	}
+	
 }
 
 func wait(for expectation: @escaping () -> Bool, timeout seconds: Int = 10) -> Bool {

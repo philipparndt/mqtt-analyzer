@@ -47,6 +47,7 @@
 	<array>
 		<string>PublishMQTTMessageIntent</string>
 		<string>ReceiveMQTTMessageIntent</string>
+		<string>RequestResponseIntent</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

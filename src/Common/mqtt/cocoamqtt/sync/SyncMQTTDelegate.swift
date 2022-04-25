@@ -17,6 +17,8 @@ class SyncDelegate {
 	
 	private var pConnected = false
 	
+	private var pDidSubscribe = 0
+	
 	var connected: Bool {
 		var result: Bool
 		semaphore.wait()
@@ -41,6 +43,14 @@ class SyncDelegate {
 		return result
 	}
 	
+	var didSubscribe: Int {
+		var result: Int
+		semaphore.wait()
+		result = pDidSubscribe
+		semaphore.signal()
+		return result
+	}
+	
 	func connect(connected: Bool) {
 		semaphore.wait()
 		pConnected = connected
@@ -56,6 +66,12 @@ class SyncDelegate {
 	func received(payload: MsgPayload) {
 		semaphore.wait()
 		pMessages.append(payload)
+		semaphore.signal()
+	}
+	
+	func subscribed() {
+		semaphore.wait()
+		pDidSubscribe += 1
 		semaphore.signal()
 	}
 }
@@ -79,6 +95,7 @@ class SyncMQTTDelegate: CocoaMQTTDelegate, SyncListener {
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopics success: NSDictionary, failed: [String]) {
+		delegate.subscribed()
 	}
 	
 	func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopics topics: [String]) {

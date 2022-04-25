@@ -19,7 +19,10 @@ class IntentHandler: INExtension {
 		else if intent is ReceiveMQTTMessageIntent {
 			return ReceiveHandler()
 		}
-
+		else if intent is RequestResponseIntent {
+			return RequestResponseHandler()
+		}
+		
 		fatalError("Unhandled Intent error : \(intent)")
     }
 	
