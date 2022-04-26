@@ -18,7 +18,7 @@ PODS:
   - RealmSwift (10.7.7):
     - Realm (= 10.7.7)
   - swift-petitparser (1.2.1)
-  - SwiftLint (0.47.0)
+  - SwiftLint (0.47.1)
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
@@ -55,7 +55,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CocoaMQTT:
-    :commit: 987a058054e3a02c214a825b998feda3a72fcece
+    :commit: b10005552af8a4af48727076fe82e9701a9f2cc8
     :git: https://github.com/philipparndt/CocoaMQTT.git
   CodeEditor:
     :commit: 9b888ab2d74592888c066e0486e64c62e191b1f3
@@ -73,7 +73,7 @@ SPEC CHECKSUMS:
   Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
   RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
-  SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
+  SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
 PODFILE CHECKSUM: 65c5df60478c88438d6429fe61cec4be361d8e0a
