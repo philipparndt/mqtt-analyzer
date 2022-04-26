@@ -22,7 +22,6 @@ func transformQosToInt(qos: Qos) -> Int {
 
 class PublishHandler: INExtension, PublishMQTTMessageIntentHandling {
 
-	
 	func handle(intent: PublishMQTTMessageIntent, completion: @escaping (PublishMQTTMessageIntentResponse) -> Void) {
 		
 		if let brokerName = intent.broker,

@@ -77,8 +77,7 @@ class MQTT5ClientSync {
 		return delegate.delegate.messages.first?.dataString
 	}
 	
-	class func requestResponse(host: Host, requestTopic: String, requestPayload: String, qos: Int,
-							   responseTopic: String, timeout: Int) throws -> String? {
+	class func requestResponse(host: Host, requestTopic: String, requestPayload: String, qos: Int, responseTopic: String, timeout: Int) throws -> String? {
 		let connected = try connect(host: host)
 		let mqtt = connected.0
 		let delegate = connected.1

@@ -88,8 +88,7 @@ class MQTTClientSync {
 		}
 	}
 	
-	class func requestResponse(host: Host, requestTopic: String, requestPayload: String, qos: Int,
-							   responseTopic: String, timeout: Int) throws -> String? {
+	class func requestResponse(host: Host, requestTopic: String, requestPayload: String, qos: Int, responseTopic: String, timeout: Int) throws -> String? {
 		if host.protocolVersion == .mqtt5 {
 			return try MQTT5ClientSync.requestResponse(
 				host: host,
