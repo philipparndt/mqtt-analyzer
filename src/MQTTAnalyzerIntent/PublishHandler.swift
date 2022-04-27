@@ -9,18 +9,19 @@
 import Intents
 import CocoaMQTT
 
-class PublishHandler: INExtension, PublishMQTTMessageIntentHandling {
-	func transformQos(qos: Qos) -> Int {
-		switch qos {
-		case .qos1:
-			return 1
-		case .qos2:
-			return 2
-		default:
-			return 0
-		}
+func transformQosToInt(qos: Qos) -> Int {
+	switch qos {
+	case .qos1:
+		return 1
+	case .qos2:
+		return 2
+	default:
+		return 0
 	}
-	
+}
+
+class PublishHandler: INExtension, PublishMQTTMessageIntentHandling {
+
 	func handle(intent: PublishMQTTMessageIntent, completion: @escaping (PublishMQTTMessageIntentResponse) -> Void) {
 		
 		if let brokerName = intent.broker,
@@ -35,7 +36,7 @@ class PublishHandler: INExtension, PublishMQTTMessageIntentHandling {
 						topic: topic.trimmingCharacters(in: [" "]),
 						message: message,
 						retain: retain,
-						qos: transformQos(qos: intent.qos)
+						qos: transformQosToInt(qos: intent.qos)
 					)
 
 					completion(success())

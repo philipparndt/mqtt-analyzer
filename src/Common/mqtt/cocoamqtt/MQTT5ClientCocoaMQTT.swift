@@ -118,7 +118,7 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 		}
 	}
 	
-	func didConnect(_ mqtt: CocoaMQTT5, reasonCode: CocoaMQTTCONNACKReasonCode, didConnectAck ack: MqttDecodeConnAck) {
+	func didConnect(_ mqtt: CocoaMQTT5, reasonCode: CocoaMQTTCONNACKReasonCode, didConnectAck ack: MqttDecodeConnAck?) {
 		switch reasonCode {
 		case .success:
 			utils.connectedSuccess()
@@ -134,12 +134,12 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 		}
 	}
 		
-	func didReceiveMessage(client: CocoaMQTT5, message: CocoaMQTT5Message, qos: UInt16, decode: MqttDecodePublish) {
+	func didReceiveMessage(client: CocoaMQTT5, message: CocoaMQTT5Message, qos: UInt16, decode: MqttDecodePublish?) {
 		let rmessage = ReceivedMessage(
 			message: message,
-			responseTopic: decode.responseTopic,
-			userProperty: decode.userProperty,
-			contentType: decode.contentType
+			responseTopic: decode?.responseTopic,
+			userProperty: decode?.userProperty,
+			contentType: decode?.contentType
 		)		
 		utils.didReceiveMessage(message: rmessage)
 	}

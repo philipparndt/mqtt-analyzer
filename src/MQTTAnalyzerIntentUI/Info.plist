@@ -10,6 +10,7 @@
 			<array>
 				<string>PublishMQTTMessageIntent</string>
 				<string>ReceiveMQTTMessageIntent</string>
+				<string>RequestResponseIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>

@@ -10,7 +10,7 @@ import Foundation
 import CocoaMQTT
 
 class MQTT5Delegate: CocoaMQTT5Delegate {
-	func mqtt5(_ mqtt5: CocoaMQTT5, didConnectAck ack: CocoaMQTTCONNACKReasonCode, connAckData: MqttDecodeConnAck) {
+	func mqtt5(_ mqtt5: CocoaMQTT5, didConnectAck ack: CocoaMQTTCONNACKReasonCode, connAckData: MqttDecodeConnAck?) {
 		// currently not necessary, but required by protocol
 	}
 
@@ -26,15 +26,15 @@ class MQTT5Delegate: CocoaMQTT5Delegate {
 		// currently not necessary, but required by protocol
 	}
 
-	func mqtt5(_ mqtt5: CocoaMQTT5, didReceiveMessage message: CocoaMQTT5Message, id: UInt16, publishData: MqttDecodePublish) {
+	func mqtt5(_ mqtt5: CocoaMQTT5, didReceiveMessage message: CocoaMQTT5Message, id: UInt16, publishData: MqttDecodePublish?) {
 		// currently not necessary, but required by protocol
 	}
 
-	func mqtt5(_ mqtt5: CocoaMQTT5, didSubscribeTopics success: NSDictionary, failed: [String], subAckData: MqttDecodeSubAck) {
+	func mqtt5(_ mqtt5: CocoaMQTT5, didSubscribeTopics success: NSDictionary, failed: [String], subAckData: MqttDecodeSubAck?) {
 		// currently not necessary, but required by protocol
 	}
 
-	func mqtt5(_ mqtt5: CocoaMQTT5, didUnsubscribeTopics topics: [String], UnsubAckData: MqttDecodeUnsubAck) {
+	func mqtt5(_ mqtt5: CocoaMQTT5, didUnsubscribeTopics topics: [String], UnsubAckData: MqttDecodeUnsubAck?) {
 		// currently not necessary, but required by protocol
 	}
 	
@@ -65,7 +65,7 @@ class MQTT5Delegate: CocoaMQTT5Delegate {
 		completionHandler(true)
 	}
 
-	func mqtt5(_ mqtt5: CocoaMQTT5, didPublishComplete id: UInt16, pubCompData: MqttDecodePubComp) {
+	func mqtt5(_ mqtt5: CocoaMQTT5, didPublishComplete id: UInt16, pubCompData: MqttDecodePubComp?) {
 		// currently not necessary, but required by protocol
 	}
 

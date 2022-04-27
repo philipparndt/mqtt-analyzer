@@ -33,7 +33,8 @@ struct InformationContainerView: View {
 
 			InformationDetailView(
 				title: "Feedback welcome",
-				subTitle: "App Store and GitHub stars are good for motivation. Feedback and contributions like ideas, documentation, and source code are welcome.",
+				subTitle: "App Store and GitHub stars are good for motivation. Feedback and" +
+				" contributions like ideas, documentation, and source code are welcome.",
 				imageName: "star",
 				color: .yellow
 			)
