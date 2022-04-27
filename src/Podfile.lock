@@ -1,8 +1,8 @@
 PODS:
-  - CocoaMQTT (2.0.3-beta6):
-    - CocoaMQTT/Core (= 2.0.3-beta6)
-  - CocoaMQTT/Core (2.0.3-beta6)
-  - CocoaMQTT/WebSockets (2.0.3-beta6):
+  - CocoaMQTT (2.0.3-beta7):
+    - CocoaMQTT/Core (= 2.0.3-beta7)
+  - CocoaMQTT/Core (2.0.3-beta7)
+  - CocoaMQTT/WebSockets (2.0.3-beta7):
     - CocoaMQTT/Core
   - CodeEditor (1.2.0):
     - Highlightr
@@ -55,7 +55,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CocoaMQTT:
-    :commit: b10005552af8a4af48727076fe82e9701a9f2cc8
+    :commit: b4ce68146223433e365462ac877c9b7e7a7f995a
     :git: https://github.com/philipparndt/CocoaMQTT.git
   CodeEditor:
     :commit: 9b888ab2d74592888c066e0486e64c62e191b1f3
@@ -65,7 +65,7 @@ CHECKOUT OPTIONS:
     :tag: 2.1.2
 
 SPEC CHECKSUMS:
-  CocoaMQTT: 81138efdeb80613387a26bb4809e36c4d7d4b074
+  CocoaMQTT: fa30f302b0fa359f8b3bdbef5f0b6c2fda36ad4a
   CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
   GRDB.swift: aa11d3b2fc6243ce8b5573d7bfa75a89093d1ee0
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
