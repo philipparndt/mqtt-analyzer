@@ -7,22 +7,13 @@
 //
 
 import Foundation
-import RealmSwift
 
 class HostSettingExamples {
-	class func inititalize(realm: Realm) {
+	class func inititalize() {
 		if isWritten() {
 			return
 		}
 		
-		if !realm.objects(HostSetting.self).isEmpty {
-			// the user defaults store was introduced in a later version
-			setWritten()
-			return
-		}
-
-		createIfNotPresent(setting: PersistenceTransformer.transformToRealm(from: example1()), realm: realm)
-		createIfNotPresent(setting: PersistenceTransformer.transformToRealm(from: example2()), realm: realm)
 		
 		setWritten()
 	}
@@ -65,16 +56,7 @@ class HostSettingExamples {
 		return result
 	}
 	
-	private class func createIfNotPresent(setting: HostSetting, realm: Realm) {
-		do {
-			try realm.write {
-				realm.add(setting)
-			}
-		}
-		catch {
-			NSLog("Error writing example data: \(error.localizedDescription)")
-		}
-	}
+
 	
 	private class func isWritten() -> Bool {
 		let defaults = UserDefaults.standard

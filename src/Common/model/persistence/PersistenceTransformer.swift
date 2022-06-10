@@ -90,61 +90,7 @@ class PersistenceTransformer {
 			return .mqtt3
 		}
 	}
-	
-	class func transform(from host: HostSetting) -> Host {
-		let result = Host(id: host.id)
-		result.deleted = host.isDeleted
-		result.alias = host.alias
-		result.hostname = host.hostname
-		result.port = UInt16(host.port)
-		result.subscriptions = PersistenceEncoder.decode(subscriptions: host.subscriptions)
-		result.auth = transformAuth(host.authType)
-		result.username = host.username
-		result.password = host.password
-		result.certificates = PersistenceEncoder.decode(certificates: host.certificates)
-		result.certClientKeyPassword = host.certClientKeyPassword
-		result.clientID = host.clientID
-		result.limitTopic = host.limitTopic
-		result.limitMessagesBatch = host.limitMessagesBatch
-		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
-		result.protocolVersion = transformProtocolVersion(host.protocolVersion)
-		result.basePath = host.basePath
-		result.ssl = host.ssl
-		result.untrustedSSL = host.untrustedSSL
-		result.navigationMode = transformNavigationMode(host.navigationMode)
-		result.maxMessagesOfSubFolders = host.maxMessagesOfSubFolders
-		return result
-	}
 		
-	class func transformToRealm(from host: Host) -> HostSetting {
-		let result = HostSetting()
-		copy(from: host, to: result)
-		return result
-	}
-	
-	class func copy(from host: Host, to result: HostSetting) {
-		result.isDeleted = host.deleted
-		result.alias = host.alias
-		result.hostname = host.hostname
-		result.port = Int32(host.port)
-		result.subscriptions = PersistenceEncoder.encode(subscriptions: host.subscriptions)
-		result.authType = transformAuth(host.auth)
-		result.username = host.username
-		result.password = host.password
-		result.certificates = PersistenceEncoder.encode(certificates: host.certificates)
-		result.certClientKeyPassword = host.certClientKeyPassword
-		result.clientID = host.clientID
-		result.limitTopic = host.limitTopic
-		result.limitMessagesBatch = host.limitMessagesBatch
-		result.protocolMethod = transformConnectionMethod(host.protocolMethod)
-		result.protocolVersion = transformProtocolVersion(host.protocolVersion)
-		result.basePath = host.basePath
-		result.ssl = host.ssl
-		result.untrustedSSL = host.untrustedSSL
-		result.navigationMode = transformNavigationMode(host.navigationMode)
-		result.maxMessagesOfSubFolders = host.maxMessagesOfSubFolders
-	}
-	
 	class func transformToSQLite(from host: Host) -> SQLiteBrokerSetting {
 		return SQLiteBrokerSetting(
 			id: host.ID,

@@ -33,12 +33,14 @@ struct SQLiteBrokerSetting: Codable, FetchableRecord, PersistableRecord {
 	var deleted: Bool
 }
 
-class SQLitePersistence {
+class SQLitePersistence: Persistence {
+
 	let availabe: Bool
 	let queue: DatabaseQueue
-	
+	let model: HostsModel?
+
 	static let table = "SQLiteBrokerSetting"
-	
+
 	static var path: URL? {
 		let directoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.de.rnd7.mqttanalyzer")
 		return directoryUrl?.appendingPathComponent("brokers.sqlite")
@@ -56,8 +58,9 @@ class SQLitePersistence {
 		
 		return DatabaseQueue()
 	}
-	
-	init() {
+		
+	init(model: HostsModel? = nil) {
+		self.model = model
 		self.queue = SQLitePersistence.createQueue()
 		
 		do {
@@ -149,6 +152,35 @@ class SQLitePersistence {
 }
 
 extension SQLitePersistence {
+	func delete(_ host: Host) {
+		do {
+			_ = try queue.write { db in
+				try db.execute(sql: "DELETE FROM \(SQLitePersistence.table) WHERE id = \(host.id)")
+			}
+		}
+		catch {
+			NSLog("Error deleting record \(host.id)")
+		}
+	}
+	
+	func load() {
+		if let m = model {
+			m.hosts = all()
+		}
+	}
+	
+	func create(_ host: Host) {
+		let transformed = PersistenceTransformer.transformToSQLite(from: host)
+		add(setting: transformed)
+	}
+	
+	func update(_ host: Host) {
+		delete(host)
+		create(host)
+	}
+}
+
+extension SQLitePersistence {
 	func insert(hosts: [Host]) {
 		deleteAll()
 		
@@ -161,6 +193,16 @@ extension SQLitePersistence {
 		if !availabe {
 			return nil
 		}
+		
+		return all()
+			.filter { $0.aliasOrHost.lowercased() == name.lowercased() }
+			.first
+	}
+	
+	func all() -> [Host] {
+		if !availabe {
+			return []
+		}
 		do {
 			let settings: [SQLiteBrokerSetting] = try queue.read { db in
 				try SQLiteBrokerSetting.fetchAll(db)
@@ -168,12 +210,10 @@ extension SQLitePersistence {
 			
 			return settings
 				.map { PersistenceTransformer.transform(from: $0) }
-				.filter { $0.aliasOrHost.lowercased() == name.lowercased() }
-				.first
 		}
 		catch {
 			NSLog("Error reading settings")
-			return nil
+			return []
 		}
 	}
 	

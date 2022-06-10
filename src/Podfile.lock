@@ -10,13 +10,6 @@ PODS:
     - GRDB.swift/standard (= 5.22.2)
   - GRDB.swift/standard (5.22.2)
   - Highlightr (2.1.0)
-  - IceCream (2.0.4):
-    - RealmSwift (< 10.8.0)
-  - Realm (10.7.7):
-    - Realm/Headers (= 10.7.7)
-  - Realm/Headers (10.7.7)
-  - RealmSwift (10.7.7):
-    - Realm (= 10.7.7)
   - swift-petitparser (1.2.1)
   - SwiftLint (0.47.1)
   - SwiftyJSON (5.0.1)
@@ -27,8 +20,6 @@ DEPENDENCIES:
   - CodeEditor (from `https://github.com/ZeeZide/CodeEditor.git`)
   - GRDB.swift (= 5.22.2)
   - Highlightr (from `https://github.com/raspu/Highlightr.git`, tag `2.1.2`)
-  - IceCream (= 2.0.4)
-  - RealmSwift (~> 10.7.0)
   - swift-petitparser
   - SwiftLint
   - SwiftyJSON
@@ -36,9 +27,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - GRDB.swift
-    - IceCream
-    - Realm
-    - RealmSwift
     - swift-petitparser
     - SwiftLint
     - SwiftyJSON
@@ -69,13 +57,10 @@ SPEC CHECKSUMS:
   CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
   GRDB.swift: aa11d3b2fc6243ce8b5573d7bfa75a89093d1ee0
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
-  IceCream: 717d516a1c634eba8eaa8ce7d3d7bc5f7e40c2fa
-  Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
-  RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 65c5df60478c88438d6429fe61cec4be361d8e0a
+PODFILE CHECKSUM: 94faf073d588fd21bab13c70611fc4be624170d0
 
 COCOAPODS: 1.11.3

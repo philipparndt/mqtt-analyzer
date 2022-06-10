@@ -25,12 +25,18 @@ class RootModel: ObservableObject {
 			self.persistence = StubPersistence(model: hostsModel)
 		}
 		else {
-			if let persistence = RealmPersistence(model: hostsModel) {
+			self.persistence = SQLitePersistence(model: hostsModel)
+			
+			/*
+			if let persistence = SQLitePersistence() {
 				self.persistence = persistence
 			}
 			else {
 				self.persistence = StubPersistence(model: hostsModel)
 			}
+			*/
+			
+			// self.persistence = StubPersistence(model: hostsModel)
 		}
 
 		self.persistence.load()

@@ -7,17 +7,13 @@
 //
 
 import UIKit
-import IceCream
 import CloudKit
 import CocoaMQTT
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
-	var syncEngine: SyncEngine?
-	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		DataMigration.initMigration(afterMigration: self.afterMigration)
 
 		#if DEBUG
 		if CommandLine.arguments.contains("--ui-testing") {
@@ -30,12 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			defaults.set(false, forKey: Welcome.key)
 		}
 
-		syncEngine = SyncEngine(objects: [
-				SyncObject(type: HostSetting.self)
-			], databaseScope: .private)
-
-		syncEngine?.pull()
-		
 		application.registerForRemoteNotifications()
 		
 		CloudDataManager.instance.initDocumentsDirectory()
@@ -45,17 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func afterMigration() {
-		syncEngine?.pushAll()
 	}
 	
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 		
 		// swiftlint:disable line_length
-		if let dict = userInfo as? [String: NSObject], let notification = CKNotification(fromRemoteNotificationDictionary: dict), let subscriptionID = notification.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID) {
-			NotificationCenter.default.post(name: Notifications.cloudKitDataDidChangeRemotely.name, object: nil, userInfo: userInfo)
-			completionHandler(.newData)
-		}
-		
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {
