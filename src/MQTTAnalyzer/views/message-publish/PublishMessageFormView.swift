@@ -151,6 +151,14 @@ struct PublishMessageFormView: View {
 	var body: some View {
 		Form {
 			Section(header: Text("Topic")) {
+				LabeledContent("Label") {
+					TextField("", text: $message.topic)
+						.disableAutocorrection(true)
+						.autocapitalization(.none)
+						.font(.body)
+						.accessibilityLabel("topic")
+				}
+				
 				TextField("", text: $message.topic)
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
@@ -167,8 +175,10 @@ struct PublishMessageFormView: View {
 					QOSPicker(qos: $message.qos)
 				}
 				
+				
 				Toggle(isOn: $message.retain) {
 					Text("Retain")
+					Text("keep this message")
 				}
 			}
 			
@@ -183,6 +193,7 @@ struct PublishMessageFormView: View {
 				}
 			}
 		}
+		.formStyle(.grouped)
 	}
 }
 enum PublishMessageType {

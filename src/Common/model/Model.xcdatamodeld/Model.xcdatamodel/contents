@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21223.11" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Broker" representedClassName="Broker" syncable="YES" codeGenerationType="class">
+        <attribute name="alias" optional="YES" attributeType="String"/>
+        <attribute name="authType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="basePath" optional="YES" attributeType="String"/>
+        <attribute name="certClientKeyPassword" optional="YES" attributeType="String"/>
+        <attribute name="certificates" optional="YES" attributeType="Binary"/>
+        <attribute name="clientID" optional="YES" attributeType="String"/>
+        <attribute name="hostname" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="limitMessagesBatch" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="limitTopic" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="password" optional="YES" attributeType="String"/>
+        <attribute name="port" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="protocolMethod" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="protocolVersion" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="ssl" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="subscriptions" optional="YES" attributeType="Binary"/>
+        <attribute name="untrustedSSL" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="username" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Broker" positionX="-63" positionY="-18" width="128" height="299"/>
+    </elements>
+</model>

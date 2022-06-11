@@ -73,12 +73,9 @@
 		224AFEAB27AEF98700DFD09F /* CustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAA27AEF98700DFD09F /* CustomListView.swift */; };
 		224AFEAD27AEF9BB00DFD09F /* TupleView+GetChildren.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAC27AEF9BB00DFD09F /* TupleView+GetChildren.swift */; };
 		224AFEAF27B0600D00DFD09F /* StubPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAE27B0600D00DFD09F /* StubPersistence.swift */; };
-		224AFEB127B0602000DFD09F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* Persistence.swift */; };
 		224AFEB327B2C07A00DFD09F /* XCTestCase+Disappear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB227B2C07A00DFD09F /* XCTestCase+Disappear.swift */; };
 		224AFEB727B2C67900DFD09F /* XCUIElement+ClearText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB627B2C67900DFD09F /* XCUIElement+ClearText.swift */; };
 		224AFEBA27B2CE8F00DFD09F /* XCUIElement+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB927B2CE8F00DFD09F /* XCUIElement+Menu.swift */; };
-		2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D522C8C007007E35A2 /* AppDelegate.swift */; };
-		2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D722C8C007007E35A2 /* SceneDelegate.swift */; };
 		2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */; };
 		2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8DC22C8C007007E35A2 /* TopicsView.swift */; };
 		2253F8DF22C8C008007E35A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8DE22C8C008007E35A2 /* Assets.xcassets */; };
@@ -179,6 +176,13 @@
 		2285C82527887F79008DA37D /* TopicSuffixPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82427887F79008DA37D /* TopicSuffixPickerView.swift */; };
 		228AB89F281706EF00F6E714 /* RequestResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228AB89E281706EF00F6E714 /* RequestResponseHandler.swift */; };
 		228B069323FC318100E988D0 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228B069223FC318100E988D0 /* ModelTests.swift */; };
+		2290894F2854AF4D00C7499A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2290894D2854AF4D00C7499A /* Model.xcdatamodeld */; };
+		229089502854AF4D00C7499A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2290894D2854AF4D00C7499A /* Model.xcdatamodeld */; };
+		229089522854B5AD00C7499A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229089512854B5AD00C7499A /* Persistence.swift */; };
+		229089552854BB1F00C7499A /* PersistenceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* PersistenceImpl.swift */; };
+		229089562854BB5400C7499A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229089512854B5AD00C7499A /* Persistence.swift */; };
+		229089572854BB5400C7499A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229089512854B5AD00C7499A /* Persistence.swift */; };
+		229089592854C85B00C7499A /* MQTTAnalyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229089582854C85B00C7499A /* MQTTAnalyzerApp.swift */; };
 		2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */; };
 		2291283E24682494006F8256 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283D24682494006F8256 /* TopicCell.swift */; };
 		2291424C23BF78000086C251 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424B23BF78000086C251 /* AboutView.swift */; };
@@ -226,7 +230,7 @@
 		22C386A322CB84900054C385 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
 		22C96E0528112B6700A4F627 /* StubPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAE27B0600D00DFD09F /* StubPersistence.swift */; };
 		22C96E0628112B6700A4F627 /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
-		22C96E0728112B6700A4F627 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* Persistence.swift */; };
+		22C96E0728112B6700A4F627 /* PersistenceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* PersistenceImpl.swift */; };
 		22C96E0828112B6700A4F627 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
 		22C96E0A28112BE700A4F627 /* MQTTClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E0928112BE700A4F627 /* MQTTClientSync.swift */; };
 		22C96E0B28112BE700A4F627 /* MQTTClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E0928112BE700A4F627 /* MQTTClientSync.swift */; };
@@ -412,14 +416,12 @@
 		224AFEAA27AEF98700DFD09F /* CustomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListView.swift; sourceTree = "<group>"; };
 		224AFEAC27AEF9BB00DFD09F /* TupleView+GetChildren.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TupleView+GetChildren.swift"; sourceTree = "<group>"; };
 		224AFEAE27B0600D00DFD09F /* StubPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubPersistence.swift; sourceTree = "<group>"; };
-		224AFEB027B0602000DFD09F /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		224AFEB027B0602000DFD09F /* PersistenceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceImpl.swift; sourceTree = "<group>"; };
 		224AFEB227B2C07A00DFD09F /* XCTestCase+Disappear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Disappear.swift"; sourceTree = "<group>"; };
 		224AFEB427B2C3FA00DFD09F /* Broker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Broker.swift; sourceTree = "<group>"; };
 		224AFEB627B2C67900DFD09F /* XCUIElement+ClearText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+ClearText.swift"; sourceTree = "<group>"; };
 		224AFEB927B2CE8F00DFD09F /* XCUIElement+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Menu.swift"; sourceTree = "<group>"; };
 		2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2253F8D522C8C007007E35A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2253F8D722C8C007007E35A2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2253F8DA22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MQTTAnalyzer.xcdatamodel; sourceTree = "<group>"; };
 		2253F8DC22C8C007007E35A2 /* TopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsView.swift; sourceTree = "<group>"; };
 		2253F8DE22C8C008007E35A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -484,6 +486,9 @@
 		2285C82427887F79008DA37D /* TopicSuffixPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSuffixPickerView.swift; sourceTree = "<group>"; };
 		228AB89E281706EF00F6E714 /* RequestResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResponseHandler.swift; sourceTree = "<group>"; };
 		228B069223FC318100E988D0 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		2290894E2854AF4D00C7499A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		229089512854B5AD00C7499A /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		229089582854C85B00C7499A /* MQTTAnalyzerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerApp.swift; sourceTree = "<group>"; };
 		2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDetailsView.swift; sourceTree = "<group>"; };
 		2291283D24682494006F8256 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
 		2291424B23BF78000086C251 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -769,13 +774,12 @@
 				228104782381708E00112F24 /* views */,
 				22810479238170A200112F24 /* extensions */,
 				22FD7D0622C8D3760078795F /* mqtt */,
-				2253F8D722C8C007007E35A2 /* SceneDelegate.swift */,
-				2253F8D522C8C007007E35A2 /* AppDelegate.swift */,
 				2253F8DE22C8C008007E35A2 /* Assets.xcassets */,
 				2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */,
 				2253F8E622C8C008007E35A2 /* Info.plist */,
 				2253F8D922C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld */,
 				2253F8E022C8C008007E35A2 /* Preview Content */,
+				229089582854C85B00C7499A /* MQTTAnalyzerApp.swift */,
 			);
 			path = MQTTAnalyzer;
 			sourceTree = "<group>";
@@ -987,6 +991,7 @@
 		2282DA112811249300F79E65 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				229089512854B5AD00C7499A /* Persistence.swift */,
 				2282DA4D281126BD00F79E65 /* extensions */,
 				2200D96927C1122200E63E89 /* logger */,
 				2282DA132811253600F79E65 /* model */,
@@ -1012,6 +1017,7 @@
 				22E469D6237FC03500D72BD6 /* Readstate.swift */,
 				22C9F73D23BB5E5C00892C4B /* HostModel.swift */,
 				2282DA56281127C800F79E65 /* Handlers.swift */,
+				2290894D2854AF4D00C7499A /* Model.xcdatamodeld */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1171,7 +1177,7 @@
 				2291283F246858FB006F8256 /* migration */,
 				223EF0052387084D002ADF3E /* HostSetting.swift */,
 				22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */,
-				224AFEB027B0602000DFD09F /* Persistence.swift */,
+				224AFEB027B0602000DFD09F /* PersistenceImpl.swift */,
 				224AFEAE27B0600D00DFD09F /* StubPersistence.swift */,
 				22C96E10281172A900A4F627 /* SQLitePersistence.swift */,
 				22C96E13281177B600A4F627 /* PersistenceTransformer.swift */,
@@ -1695,6 +1701,8 @@
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				22B38943280ED2FC00D23022 /* Host+ActualUserPassword.swift in Sources */,
 				226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */,
+				229089552854BB1F00C7499A /* PersistenceImpl.swift in Sources */,
+				229089522854B5AD00C7499A /* Persistence.swift in Sources */,
 				22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */,
 				22F8BEE723C24A5800422BFF /* String+Utils.swift in Sources */,
 				2217BA3C27A3D2F900699428 /* AwaitMessagesView.swift in Sources */,
@@ -1705,7 +1713,6 @@
 				2285C80D2781E89B008DA37D /* TopicLimitReachedView.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormDialog.swift in Sources */,
 				226A6B5224445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift in Sources */,
-				2253F8D622C8C007007E35A2 /* AppDelegate.swift in Sources */,
 				22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */,
 				2285C82127872D46008DA37D /* JSONUtils.swift in Sources */,
 				22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */,
@@ -1717,14 +1724,13 @@
 				223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */,
 				2230FF1827A666C600D4327F /* MsgMessage.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
+				229089592854C85B00C7499A /* MQTTAnalyzerApp.swift in Sources */,
 				2282DA57281127C800F79E65 /* Handlers.swift in Sources */,
 				22810488238173BB00112F24 /* DataSeriesView.swift in Sources */,
 				223AF5D72477D60A009810E6 /* PKCS12HelpView.swift in Sources */,
 				2281048A2381740000112F24 /* MessageView.swift in Sources */,
-				2253F8D822C8C007007E35A2 /* SceneDelegate.swift in Sources */,
 				22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */,
 				2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */,
-				224AFEB127B0602000DFD09F /* Persistence.swift in Sources */,
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
 				2200D98127C91DCA00E63E89 /* SearchIndex.swift in Sources */,
 				2230FF2227A6AEC800D4327F /* TopicTree+Flatten.swift in Sources */,
@@ -1767,6 +1773,7 @@
 				2231894B27F08BAB001177F4 /* ViewSelection.swift in Sources */,
 				2285C80C2781E89B008DA37D /* LimitReachedView.swift in Sources */,
 				2291283E24682494006F8256 /* TopicCell.swift in Sources */,
+				2290894F2854AF4D00C7499A /* Model.xcdatamodeld in Sources */,
 				2253F8DB22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodeld in Sources */,
 				223EF0062387084D002ADF3E /* HostSetting.swift in Sources */,
 				222EAAB327A31849000E37AF /* PropertyImageProvider.swift in Sources */,
@@ -1900,6 +1907,7 @@
 				22C96E3928142BD700A4F627 /* SyncMQTT5Delegate.swift in Sources */,
 				2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */,
 				2282DA35281125E900F79E65 /* TopicTree.swift in Sources */,
+				229089502854AF4D00C7499A /* Model.xcdatamodeld in Sources */,
 				2282DA602811290400F79E65 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
 				22C96E3F28142CDB00A4F627 /* MQTT5ClientSync.swift in Sources */,
 				2282DA662811290400F79E65 /* MQTT5ClientCocoaMQTT+OnMessage.swift in Sources */,
@@ -1909,11 +1917,12 @@
 				2282DA3F2811261A00F79E65 /* DiagramPath.swift in Sources */,
 				22C96E1D2812C60200A4F627 /* Brokers.swift in Sources */,
 				22C96E1B2812C50200A4F627 /* ReceiveHandler.swift in Sources */,
-				22C96E0728112B6700A4F627 /* Persistence.swift in Sources */,
+				22C96E0728112B6700A4F627 /* PersistenceImpl.swift in Sources */,
 				2282DA6A2811290400F79E65 /* ClientUtils.swift in Sources */,
 				2282DA51281126D400F79E65 /* Date+Iso.swift in Sources */,
 				2282DA402811261A00F79E65 /* TimeSeriesValue.swift in Sources */,
 				2282DA37281125E900F79E65 /* TopicTree+Filter.swift in Sources */,
+				229089562854BB5400C7499A /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1921,6 +1930,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				229089572854BB5400C7499A /* Persistence.swift in Sources */,
 				2282DA03281038B600F79E65 /* Intents.intentdefinition in Sources */,
 				2282D9ED28102EB100F79E65 /* IntentViewController.swift in Sources */,
 			);
@@ -2150,7 +2160,7 @@
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MQTTAnalyzer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2178,7 +2188,7 @@
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MQTTAnalyzer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2533,6 +2543,16 @@
 			);
 			currentVersion = 2253F8DA22C8C007007E35A2 /* MQTTAnalyzer.xcdatamodel */;
 			path = MQTTAnalyzer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		2290894D2854AF4D00C7499A /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2290894E2854AF4D00C7499A /* Model.xcdatamodel */,
+			);
+			currentVersion = 2290894E2854AF4D00C7499A /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
