@@ -137,4 +137,28 @@ class PersistenceTransformer {
 		result.untrustedSSL = host.untrustedSSL
 		return result
 	}
+	
+	
+	class func transform(from host: BrokerSetting) -> Host {
+		let result = Host(id: host.id?.uuidString ?? "")
+		result.deleted = host.isDeleted
+		result.alias = host.alias ?? ""
+		result.hostname = host.hostname ?? ""
+		result.port = UInt16(host.port)
+		result.subscriptions = PersistenceEncoder.decode(subscriptions: host.subscriptions ?? Data())
+		result.auth = transformAuth(Int8(host.authType))
+		result.username = host.username ?? ""
+		result.password = host.password ?? ""
+		result.certificates = PersistenceEncoder.decode(certificates: host.certificates ?? Data())
+		result.certClientKeyPassword = host.certClientKeyPassword ?? ""
+		result.clientID = host.clientID ?? ""
+		result.limitTopic = Int(host.limitTopic)
+		result.limitMessagesBatch = Int(host.limitMessagesBatch)
+		result.protocolMethod = transformConnectionMethod(Int8(host.protocolMethod))
+		result.protocolVersion = transformProtocolVersion(Int8(host.protocolVersion))
+		result.basePath = host.basePath ?? ""
+		result.ssl = host.ssl
+		result.untrustedSSL = host.untrustedSSL
+		return result
+	}
 }

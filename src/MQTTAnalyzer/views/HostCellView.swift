@@ -48,45 +48,35 @@ struct HostCellView: View {
 	
 	var body: some View {
 		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
-			VStack {
-				#if targetEnvironment(macCatalyst)
-				Spacer()
-				#endif
-				HStack {
-					VStack(alignment: .leading) {
-						HStack {
-							Text(host.aliasOrHost)
-						}
-						
-						Spacer()
-						Group {
-							Text(host.hostname)
-							Text(host.subscriptionsReadable)
-						}
-						.font(.footnote)
-						.foregroundColor(.secondary)
+			HStack {
+				VStack(alignment: .leading) {
+					HStack {
+						Text(host.aliasOrHost)
 					}
 					
 					Spacer()
-
-					if host.state != .disconnected {
-						Text("\(messageModel.messageCountDisplay)")
-							.font(.system(size: 14, design: .monospaced))
-							.foregroundColor(.secondary)
-
-						Image(systemName: "circle.fill")
-							.font(.subheadline)
-							.foregroundColor(connectionColor)
+					Group {
+						Text(host.hostname)
+						Text(host.subscriptionsReadable)
 					}
-
-					contextMenu()
+					.font(.footnote)
+					.foregroundColor(.secondary)
 				}
 				
-				#if targetEnvironment(macCatalyst)
 				Spacer()
-				Divider()
-				#endif
-			}
+
+				if host.state != .disconnected {
+					Text("\(messageModel.messageCountDisplay)")
+						.font(.system(size: 14, design: .monospaced))
+						.foregroundColor(.secondary)
+
+					Image(systemName: "circle.fill")
+						.font(.subheadline)
+						.foregroundColor(connectionColor)
+				}
+
+				contextMenu()
+			}.padding([.top, .bottom], 5)
 		}
 		.confirmationDialog("Are you shure you want to delete the broker setting?", isPresented: $confirmDelete.isPresented, actions: {
 			Button("Delete", role: .destructive) {

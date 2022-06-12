@@ -31,3 +31,12 @@ struct NavigationModeType {
 	static let classic: Int8 = 1
 }
 
+extension BrokerSetting {
+	var aliasOrHost: String {
+		let a = alias ?? ""
+		if a.trimmingCharacters(in: [" "]).isBlank {
+			return hostname ?? ""
+		}
+		return a
+	}
+}

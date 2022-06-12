@@ -24,7 +24,14 @@ struct HostsView: View {
 	@State var selectedHost: Host?
 	@State var sheetState = ServerPageSheetState()
 	@State var searchText: String = ""
+	
+	@Environment(\.managedObjectContext) private var viewContext
 
+	@FetchRequest(
+		sortDescriptors: [NSSortDescriptor(keyPath: \BrokerSetting.alias, ascending: true)],
+		animation: .default)
+	private var brokers: FetchedResults<BrokerSetting>
+	
 	var body: some View {
 		buildView()
 	}
@@ -33,14 +40,14 @@ struct HostsView: View {
 		let view = NavigationView {
 			VStack(alignment: .leading) {
 				List {
-					ForEach(searchHosts) { host in
-						HostCellView(host: host,
+					ForEach(searchBroker) { broker in
+						HostCellView(host: PersistenceTransformer.transform(from: broker),
 									 hostsModel: hostsModel,
 									 messageModel: (
-										self.model.getMessageModel(host)
+										self.model.getMessageModel(PersistenceTransformer.transform(from: broker))
 									 ),
 									 cloneHostHandler: self.cloneHost)
-							.accessibilityLabel("broker: \(host.aliasOrHost)")
+							.accessibilityLabel("broker: \(broker.aliasOrHost)")
 					}
 				}.searchable(text: $searchText)
 			}
@@ -75,12 +82,16 @@ struct HostsView: View {
 		#endif
 	}
 	
-	var searchHosts: [Host] {
+	var searchBroker: [BrokerSetting] {
+		let sorted = brokers.sorted {
+			$0.aliasOrHost > $1.aliasOrHost
+		}
+		
 		if searchText.isEmpty {
-			return hostsModel.hostsSorted
+			return sorted
 		} else {
 			let searchFor = searchText.lowercased()
-			return hostsModel.hostsSorted.filter { $0.aliasOrHost.lowercased().contains(searchFor) }
+			return sorted.filter { $0.aliasOrHost.lowercased().contains(searchFor) }
 		}
 	}
 		
