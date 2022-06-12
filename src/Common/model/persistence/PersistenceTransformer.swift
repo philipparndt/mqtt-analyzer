@@ -9,7 +9,7 @@
 import Foundation
 
 class PersistenceTransformer {
-	private class func transformAuth(_ type: HostAuthenticationType) -> Int8 {
+	class func transformAuth(_ type: HostAuthenticationType) -> Int8 {
 		switch type {
 		case .usernamePassword:
 			return AuthenticationType.usernamePassword
@@ -31,7 +31,7 @@ class PersistenceTransformer {
 		}
 	}
 	
-	private class func transformConnectionMethod(_ type: HostProtocol) -> Int8 {
+	class func transformConnectionMethod(_ type: HostProtocol) -> Int8 {
 		switch type {
 		case .websocket:
 			return ConnectionMethod.websocket
@@ -51,7 +51,7 @@ class PersistenceTransformer {
 		}
 	}
 	
-	private class func transformNavigationMode(_ type: NavigationMode) -> Int8 {
+	class func transformNavigationMode(_ type: NavigationMode) -> Int8 {
 		switch type {
 		case .folders:
 			return NavigationModeType.folders
@@ -71,7 +71,7 @@ class PersistenceTransformer {
 		}
 	}
 	
-	private class func transformProtocolVersion(_ type: HostProtocolVersion) -> Int8 {
+	class func transformProtocolVersion(_ type: HostProtocolVersion) -> Int8 {
 		switch type {
 		case .mqtt5:
 			return HostProtocolVersionType.mqtt5

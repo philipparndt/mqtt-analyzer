@@ -26,6 +26,8 @@ struct MQTTAnalyzerApp: App {
 			defaults.set(false, forKey: Welcome.key)
 		}
 		
+		ModelMigration.migrateToCoreData()
+
 		CloudDataManager.instance.initDocumentsDirectory()
 	}
 	
@@ -35,7 +37,7 @@ struct MQTTAnalyzerApp: App {
 				.environment(\.managedObjectContext, persistenceController.container.viewContext)
 				.environmentObject(root)
 		}
-		.onChange(of: scenePhase) { _ in
+		.onChange(of: scenePhase) { phase in
 			persistenceController.save()
 		}
 	}

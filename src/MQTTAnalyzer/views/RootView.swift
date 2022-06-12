@@ -16,6 +16,9 @@ struct RootView: View {
 
 	var body: some View {
 		VStack {
+			NavigationView {
+				BrokerView()
+			}
 			HostsView(hostsModel: model.hostsModel)
 		}
 		.sheet(isPresented: $welcome, onDismiss: closeWelcome, content: {
