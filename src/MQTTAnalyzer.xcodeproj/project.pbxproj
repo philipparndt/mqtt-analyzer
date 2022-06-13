@@ -2087,7 +2087,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2142,7 +2142,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -2226,7 +2226,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/MQTTAnalyzer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MQTTAnalyzer";
 			};
 			name = Debug;
 		};
@@ -2248,7 +2248,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/MQTTAnalyzer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MQTTAnalyzer";
 			};
 			name = Release;
 		};
@@ -2265,7 +2265,7 @@
 				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntent;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2295,7 +2295,7 @@
 				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntent;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2324,7 +2324,7 @@
 				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntentUI;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2353,7 +2353,7 @@
 				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntentUI;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2377,7 +2377,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2398,7 +2398,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2422,14 +2422,14 @@
 				CURRENT_PROJECT_VERSION = 153;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd.MQTTAnalyzerIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/MQTTAnalyzer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MQTTAnalyzer";
 			};
 			name = Debug;
 		};
@@ -2443,14 +2443,14 @@
 				CURRENT_PROJECT_VERSION = 153;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd.MQTTAnalyzerIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/MQTTAnalyzer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MQTTAnalyzer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MQTTAnalyzer";
 			};
 			name = Release;
 		};
