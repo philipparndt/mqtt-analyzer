@@ -1090,6 +1090,7 @@
 		2291283F246858FB006F8256 /* migration */ = {
 			isa = PBXGroup;
 			children = (
+				22EC325D285603550000DAED /* ModelMigration.swift */,
 			);
 			path = migration;
 			sourceTree = "<group>";
@@ -1249,7 +1250,6 @@
 				22FD7CFB22C8D2650078795F /* RootModel.swift */,
 				2230FF2E27A6CDB800D4327F /* Welcome.swift */,
 				2282DA522811276000F79E65 /* HostModel+Delete.swift */,
-				22EC325D285603550000DAED /* ModelMigration.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";

@@ -15,6 +15,7 @@ struct NewHostFormModalView: View {
 	let root: RootModel
 	var hosts: HostsModel
 	
+	@Environment(\.managedObjectContext) private var viewContext
 	@State var host: HostFormModel
 	
 	var disableSave: Bool {
@@ -46,16 +47,25 @@ struct NewHostFormModalView: View {
 	}
 	
 	func save() {
-		let newHost = copyHost(target: Host(), source: host)
+		let broker = BrokerSetting(context: viewContext)
+		
+		let newHost = copyBroker(target: broker, source: host)
 		if newHost == nil {
 			return
 		}
 		
-		DispatchQueue.main.async {
-			self.hosts.hosts.append(newHost!)
-			self.root.persistence.create(newHost!)
-			
-			self.closeHandler()
+		do {
+			try viewContext.save()
+						
+			DispatchQueue.main.async {
+				self.closeHandler()
+			}
+		} catch {
+			// FIXME: implement
+			// Replace this implementation with code to handle the error appropriately.
+			// fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+			// let nsError = error as NSError
+			// fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
 		}
 	}
 	

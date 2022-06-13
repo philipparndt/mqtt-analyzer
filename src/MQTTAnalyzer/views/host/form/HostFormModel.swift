@@ -111,6 +111,55 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	return target
 }
 
+func copyBroker(target: BrokerSetting, source host: HostFormModel) -> BrokerSetting? {
+	let newHostname = HostFormValidator.validateHostname(name: host.hostname)
+	let port = HostFormValidator.validatePort(port: host.port)
+	
+	if port == nil || newHostname == nil {
+		return nil
+	}
+	
+	target.alias = host.alias
+	target.hostname = newHostname!
+	target.authType = Int32(PersistenceTransformer.transformAuth(host.authType))
+	target.port = Int32(port!)
+	target.subscriptions = PersistenceEncoder.encode(subscriptions:  transform(subscriptions: host.subscriptions))
+	target.clientID = host.clientID
+	target.basePath = host.basePath
+	target.protocolMethod = Int32(PersistenceTransformer.transformConnectionMethod(host.protocolMethod))
+	target.ssl = host.ssl
+	target.untrustedSSL = host.ssl && host.untrustedSSL
+	target.limitTopic = Int32(host.limitTopic) ?? 250
+	target.limitMessagesBatch = Int32(host.limitMessagesBatch) ?? 1000
+	target.protocolVersion = Int32(PersistenceTransformer.transformProtocolVersion(host.protocolVersion))
+	
+	if host.authType == .usernamePassword {
+		target.username = host.username
+		target.password = host.password
+	}
+	else if host.authType == .certificate {
+		var certificates: [CertificateFile] = []
+		
+		if let cert = host.certServerCA {
+			certificates.append(cert)
+		}
+		if let cert = host.certClient {
+			certificates.append(cert)
+		}
+		if let cert = host.certClientKey {
+			certificates.append(cert)
+		}
+		if let cert = host.certP12 {
+			certificates.append(cert)
+		}
+
+		target.certificates = PersistenceEncoder.encode(certificates: certificates)
+		target.certClientKeyPassword = host.certClientKeyPassword
+	}
+	
+	return target
+}
+
 func transformHost(source host: Host) -> HostFormModel {
 	return HostFormModel(alias: host.alias,
 						 hostname: host.hostname,
