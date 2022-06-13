@@ -13,8 +13,9 @@ struct EditHostFormModalView: View {
 	let closeHandler: () -> Void
 	let root: RootModel
 	var hosts: HostsModel = HostsModel(initMethod: RootModel.controller)
-	let original: Host
-	
+	let original: BrokerSetting
+	@Environment(\.managedObjectContext) private var viewContext
+
 	@State var host: HostFormModel
 
 	var disableSave: Bool {
@@ -46,20 +47,34 @@ struct EditHostFormModalView: View {
 	}
 	
 	func save() {
-		let updated = copyHost(target: original, source: host)
-		if updated == nil {
+		
+		if !validate(source: host) {
 			return
 		}
 		
+		do {
+			try copyBroker(target: original, source: host)
+			try viewContext.save()
+		} catch {
+			let nsError = error as NSError
+			NSLog("Unresolved error \(nsError), \(nsError.userInfo)")
+		}
+		
 		DispatchQueue.main.async {
-			self.root.persistence.update(updated!)
 			self.closeHandler()
 		}
 	}
 	
 	func delete() {
 		DispatchQueue.main.async {
-			self.root.persistence.delete(original)
+			viewContext.delete(original)
+			do {
+				try viewContext.save()
+			} catch {
+				let nsError = error as NSError
+				NSLog("Unresolved error \(nsError), \(nsError.userInfo)")
+			}
+
 			self.closeHandler()
 		}
 	}

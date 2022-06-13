@@ -20,7 +20,10 @@ struct BrokerView: View {
 		Group {
 			List {
 				ForEach(brokers) { broker in
-					Text(broker.id?.uuidString ?? "")
+					VStack(alignment: .leading) {
+						Text(broker.aliasOrHost)
+						Text(broker.id?.uuidString ?? "").font(.footnote)
+					}
 				}
 				.onDelete(perform: delete)
 			}

@@ -41,7 +41,8 @@ struct HostsView: View {
 			VStack(alignment: .leading) {
 				List {
 					ForEach(searchBroker) { broker in
-						HostCellView(host: PersistenceTransformer.transform(from: broker),
+						HostCellView(broker: broker,
+									 host: PersistenceTransformer.transform(from: broker),
 									 hostsModel: hostsModel,
 									 messageModel: (
 										self.model.getMessageModel(PersistenceTransformer.transform(from: broker))

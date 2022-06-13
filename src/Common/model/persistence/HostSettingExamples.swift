@@ -14,7 +14,6 @@ class HostSettingExamples {
 			return
 		}
 		
-		
 		setWritten()
 	}
 	

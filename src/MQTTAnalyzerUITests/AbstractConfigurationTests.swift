@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import RealmSwift
 
 class AbstractConfigurationTests: AbstractUITests {
 	let hostname = TestServer.getTestServer()

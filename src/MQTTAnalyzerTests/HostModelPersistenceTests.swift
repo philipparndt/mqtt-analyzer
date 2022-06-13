@@ -12,10 +12,11 @@ import CoreData
 @testable import MQTTAnalyzer
 
 class HostModelPersistenceTests: XCTestCase, InitHost {
+	
 	func initHost(host: Host) {
 		// Empty by intention
 	}
-	
+	/*
 	func testRegressionPrimaryKey() {
 		let setting = HostSetting()
 		let id = setting.id
@@ -232,4 +233,5 @@ class HostModelPersistenceTests: XCTestCase, InitHost {
 		XCTAssertTrue(PersistenceTransformer.transformToRealm(from: host).untrustedSSL)
 		XCTAssertTrue(PersistenceTransformer.transformToSQLite(from: host).untrustedSSL)
 	}
+	*/
 }

@@ -20,6 +20,10 @@ class TopicSubscriptionFormModel: Identifiable, ObservableObject {
 	}
 }
 
+enum RuntineError: Error {
+	case runtimeError(String)
+}
+
 struct HostFormModel {
 	var alias = ""
 	var hostname = ""
@@ -111,12 +115,23 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 	return target
 }
 
-func copyBroker(target: BrokerSetting, source host: HostFormModel) -> BrokerSetting? {
+func validate(source host: HostFormModel) -> Bool {
 	let newHostname = HostFormValidator.validateHostname(name: host.hostname)
 	let port = HostFormValidator.validatePort(port: host.port)
 	
 	if port == nil || newHostname == nil {
-		return nil
+		return false
+	}
+	
+	return true
+}
+
+func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
+	let newHostname = HostFormValidator.validateHostname(name: host.hostname)
+	let port = HostFormValidator.validatePort(port: host.port)
+	
+	if port == nil || newHostname == nil {
+		throw RuntineError.runtimeError("Validation failed")
 	}
 	
 	target.alias = host.alias
@@ -156,8 +171,6 @@ func copyBroker(target: BrokerSetting, source host: HostFormModel) -> BrokerSett
 		target.certificates = PersistenceEncoder.encode(certificates: certificates)
 		target.certClientKeyPassword = host.certClientKeyPassword
 	}
-	
-	return target
 }
 
 func transformHost(source host: Host) -> HostFormModel {

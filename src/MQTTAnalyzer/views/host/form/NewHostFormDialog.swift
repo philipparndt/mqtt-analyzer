@@ -14,6 +14,7 @@ struct NewHostFormModalView: View {
 	let closeHandler: () -> Void
 	let root: RootModel
 	var hosts: HostsModel
+	@State var errorMessage: String?
 	
 	@Environment(\.managedObjectContext) private var viewContext
 	@State var host: HostFormModel
@@ -27,6 +28,10 @@ struct NewHostFormModalView: View {
 	
 	var body: some View {
 		NavigationView {
+			if let message = errorMessage {
+				Text(message).foregroundColor(.red)
+			}
+			
 			EditHostFormView(onDelete: closeHandler, host: $host)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
@@ -47,25 +52,22 @@ struct NewHostFormModalView: View {
 	}
 	
 	func save() {
-		let broker = BrokerSetting(context: viewContext)
-		
-		let newHost = copyBroker(target: broker, source: host)
-		if newHost == nil {
+		if !validate(source: host) {
 			return
 		}
 		
 		do {
+			let broker = BrokerSetting(context: viewContext)
+			broker.id = UUID()
+			try copyBroker(target: broker, source: host)
+			
 			try viewContext.save()
-						
 			DispatchQueue.main.async {
 				self.closeHandler()
 			}
 		} catch {
-			// FIXME: implement
-			// Replace this implementation with code to handle the error appropriately.
-			// fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-			// let nsError = error as NSError
-			// fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+			let nsError = error as NSError
+			errorMessage = "Unresolved error \(nsError), \(nsError.userInfo)"
 		}
 	}
 	

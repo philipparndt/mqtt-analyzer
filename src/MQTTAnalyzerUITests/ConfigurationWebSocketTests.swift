@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import RealmSwift
 
 class ConfigurationWebSocketTests: AbstractConfigurationTests {
 	func testWebSocketLetsEncryptTraefik() {

@@ -25,11 +25,14 @@ struct ServerPageSheetState {
 
 struct ConfirmDeleteBroker {
 	var isPresented = false
-	var broker: Host?
+	var broker: BrokerSetting?
 }
 
 struct HostCellView: View {
+	@Environment(\.managedObjectContext) private var viewContext
+
 	@EnvironmentObject var model: RootModel
+	@ObservedObject var broker: BrokerSetting
 	@ObservedObject var host: Host
 	@ObservedObject var hostsModel: HostsModel
 	@ObservedObject var messageModel: TopicTree
@@ -50,9 +53,7 @@ struct HostCellView: View {
 		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
 			HStack {
 				VStack(alignment: .leading) {
-					HStack {
-						Text(host.aliasOrHost)
-					}
+					Text(broker.aliasOrHost)
 					
 					Spacer()
 					Group {
@@ -88,7 +89,7 @@ struct HostCellView: View {
 				EditHostFormModalView(closeHandler: self.cancelEditCreation,
 									  root: self.model,
 									  hosts: self.model.hostsModel,
-									  original: self.host,
+									  original: self.broker,
 									  host: transformHost(source: self.host))
 			}
 			else {
@@ -134,13 +135,19 @@ struct HostCellView: View {
 	}
 	
 	func confirmDeleteBroker() {
-		confirmDelete.broker = host
+		confirmDelete.broker = broker
 		confirmDelete.isPresented = true
 	}
 	
 	func deleteBroker() {
 		if let broker = confirmDelete.broker {
-			hostsModel.delete(broker, persistence: model.persistence)
+			viewContext.delete(broker)
+			do {
+				try viewContext.save()
+			} catch {
+				let nsError = error as NSError
+				NSLog("Unresolved error \(nsError), \(nsError.userInfo)")
+			}
 		}
 	}
 	

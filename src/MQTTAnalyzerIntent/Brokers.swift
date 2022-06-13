@@ -9,17 +9,35 @@
 import Foundation
 
 func loadBrokers() -> [NSString] {
-	let sqlite = SQLitePersistence()
-	let brokers = sqlite.allNames()
-	sqlite.close()
-	
-	return brokers
-		.map { $0 as NSString }
+	let controller = PersistenceController.shared
+	let container = controller.container
+	let fetchRequest = BrokerSetting.fetchRequest()
+	do {
+		let objects = try container.viewContext.fetch(fetchRequest)
+		return objects
+			.map { $0.aliasOrHost }
+			.map { $0 as NSString }
+	}
+	catch {
+		NSLog("Error loading all existingIDs from CoreData")
+		return []
+	}
 }
 
 func firstBroker(by name: String) -> Host? {
-	let sqlite = SQLitePersistence()
-	let broker = sqlite.first(by: name)
-	sqlite.close()
-	return broker
+	let controller = PersistenceController.shared
+	let container = controller.container
+	let fetchRequest = BrokerSetting.fetchRequest()
+	do {
+		let objects = try container.viewContext.fetch(fetchRequest)
+		
+		if let first = objects.first(where: { $0.aliasOrHost == name }) {
+			return PersistenceTransformer.transform(from: first)
+		}
+	}
+	catch {
+		NSLog("Error loading all existingIDs from CoreData")
+	}
+	
+	return nil
 }
