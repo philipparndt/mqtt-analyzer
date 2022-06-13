@@ -72,15 +72,11 @@ struct PersistenceController {
             }
         })
 		
-		if inMemory {
-			createStubs()
-		}
-		
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
 	
 	func createStubs() {
-		ModelMigration.createAll(hosts: [
+		PersistenceHelper.createAll(hosts: [
 			HostSettingExamples.example1(),
 			 HostSettingExamples.example2(),
 			 HostSettingExamples.exampleRnd7(),
@@ -100,7 +96,6 @@ struct PersistenceController {
 		}
 	}
 }
-
 
 class PersistenceHelper {
 	class func createAll(hosts: [Host]) {

@@ -128,7 +128,7 @@ extension XCUIElement {
 	func clearWithSelectAllStrategy() -> Bool {
 		// Use other strategy
 		self.press(forDuration: 1.2)
-		AbstractUITests.currentApp.menuItems["Select All"].tap()
+		AbstractUITests.currentApp.buttons["Select All"].tap()
 		self.typeText(XCUIKeyboardKey.delete.rawValue)
 		
 		return isEmpty()

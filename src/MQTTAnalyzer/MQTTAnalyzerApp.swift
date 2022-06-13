@@ -18,6 +18,8 @@ struct MQTTAnalyzerApp: App {
 		#if DEBUG
 		if CommandLine.arguments.contains("--ui-testing") {
 			UIView.setAnimationsEnabled(false)
+			
+			PersistenceController.shared.createStubs()
 		}
 		#endif
 

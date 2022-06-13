@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 
 class Search {
-	let WHOLE_WORD = "whole-word"
+	let WHOLE_WORD = "Whole word, whole-word"
 	
 	let app: XCUIApplication
 	init(app: XCUIApplication) {

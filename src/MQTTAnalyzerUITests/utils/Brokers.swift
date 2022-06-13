@@ -85,7 +85,7 @@ class Brokers {
 				let field = app.checkBoxes["tls"]
 				field.click()
 				#else
-				let field = app.switches["tls"]
+				let field = app.switches["TLS, tls"]
 				field.tap()
 				#endif
 			}
@@ -238,7 +238,7 @@ class Brokers {
 	}
 	
 	func brokerCell(of alias: String) -> XCUIElement {
-		let cell = app.cells["broker: \(alias)"]
+		let cell = app.buttons["broker: \(alias)"]
 		XCTAssertTrue(cell.waitForExistence(timeout: 4), "Expected brokerCell \(alias) to be there")
 		return cell
 	}
