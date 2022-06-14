@@ -20,6 +20,10 @@
 		2202F0E428585D8400AEAE4C /* SubscriptionValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0E228585D8400AEAE4C /* SubscriptionValueTransformer.swift */; };
 		2202F0E6285867E100AEAE4C /* CertificateValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */; };
 		2202F0E7285867E100AEAE4C /* CertificateValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */; };
+		2202F0F32858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F12858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift */; };
+		2202F0F42858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F12858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift */; };
+		2202F0F52858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F22858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift */; };
+		2202F0F62858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F22858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift */; };
 		2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */; };
 		2203571F2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */; };
 		220357212445B2ED00A98CD3 /* MQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357202445B2ED00A98CD3 /* MQTTDelegate.swift */; };
@@ -362,6 +366,8 @@
 		2200D98027C91DCA00E63E89 /* SearchIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIndex.swift; sourceTree = "<group>"; };
 		2202F0E228585D8400AEAE4C /* SubscriptionValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionValueTransformer.swift; sourceTree = "<group>"; };
 		2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateValueTransformer.swift; sourceTree = "<group>"; };
+		2202F0F12858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BrokerSetting+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2202F0F22858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BrokerSetting+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTypePicker.swift; sourceTree = "<group>"; };
 		2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTCertificateFiles.swift; sourceTree = "<group>"; };
 		220357202445B2ED00A98CD3 /* MQTTDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTDelegate.swift; sourceTree = "<group>"; };
@@ -1184,6 +1190,10 @@
 		22C96DF828112B3500A4F627 /* persistence */ = {
 			isa = PBXGroup;
 			children = (
+				2202F0F12858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift */,
+				2202F0F22858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift */,
+				2202F0E228585D8400AEAE4C /* SubscriptionValueTransformer.swift */,
+				2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */,
 				2291283F246858FB006F8256 /* migration */,
 				223EF0052387084D002ADF3E /* HostSetting.swift */,
 				22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */,
@@ -1191,8 +1201,6 @@
 				224AFEAE27B0600D00DFD09F /* StubPersistence.swift */,
 				22C96E10281172A900A4F627 /* SQLitePersistence.swift */,
 				22C96E13281177B600A4F627 /* PersistenceTransformer.swift */,
-				2202F0E228585D8400AEAE4C /* SubscriptionValueTransformer.swift */,
-				2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -1713,6 +1721,7 @@
 				22953B39280AEEFD000F8F37 /* MQTT5ClientCocoaMQTT.swift in Sources */,
 				22FD7CFD22C8D2660078795F /* MessagesView.swift in Sources */,
 				22B38943280ED2FC00D23022 /* Host+ActualUserPassword.swift in Sources */,
+				2202F0F52858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift in Sources */,
 				226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */,
 				229089552854BB1F00C7499A /* PersistenceImpl.swift in Sources */,
 				229089522854B5AD00C7499A /* Persistence.swift in Sources */,
@@ -1803,6 +1812,7 @@
 				2205E5E1238A7EE2001638DF /* ButtonStyle.swift in Sources */,
 				22C96E3C28142C9A00A4F627 /* MQTT3ClientSync.swift in Sources */,
 				22C96E3828142BD400A4F627 /* SyncMQTT5Delegate.swift in Sources */,
+				2202F0F32858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift in Sources */,
 				22B3893F280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
 				22AF3AE9238885AF001D9F87 /* EditHostFormDialog.swift in Sources */,
 				2230FF0827A56BDE00D4327F /* FolderNavigationView.swift in Sources */,
@@ -1889,6 +1899,7 @@
 				2282DA4B2811268C00F79E65 /* Multimap.swift in Sources */,
 				2282DA632811290400F79E65 /* ReceivedMessage.swift in Sources */,
 				2282DA412811261A00F79E65 /* TimeSeriesModel.swift in Sources */,
+				2202F0F62858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift in Sources */,
 				2282DA622811290400F79E65 /* MQTTClientCocoaMQTT+Client.swift in Sources */,
 				22C96E15281177B600A4F627 /* PersistenceTransformer.swift in Sources */,
 				2282DA4A2811268C00F79E65 /* HostModel.swift in Sources */,
@@ -1927,6 +1938,7 @@
 				2282DA602811290400F79E65 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
 				22C96E3F28142CDB00A4F627 /* MQTT5ClientSync.swift in Sources */,
 				2282DA662811290400F79E65 /* MQTT5ClientCocoaMQTT+OnMessage.swift in Sources */,
+				2202F0F42858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift in Sources */,
 				2282DA4C2811268C00F79E65 /* Readstate.swift in Sources */,
 				2282DA39281125E900F79E65 /* TopicTree+Flatten.swift in Sources */,
 				22C96E0628112B6700A4F627 /* HostSetting.swift in Sources */,

@@ -136,17 +136,17 @@ func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
 	
 	target.alias = host.alias
 	target.hostname = newHostname!
-	target.authType = Int32(PersistenceTransformer.transformAuth(host.authType))
+	target.authType = host.authType
 	target.port = Int32(port!)
 	target.subscriptions = Subscriptions(transform(subscriptions: host.subscriptions))
 	target.clientID = host.clientID
 	target.basePath = host.basePath
-	target.protocolMethod = Int32(PersistenceTransformer.transformConnectionMethod(host.protocolMethod))
+	target.protocolMethod = host.protocolMethod
 	target.ssl = host.ssl
 	target.untrustedSSL = host.ssl && host.untrustedSSL
 	target.limitTopic = Int32(host.limitTopic) ?? 250
 	target.limitMessagesBatch = Int32(host.limitMessagesBatch) ?? 1000
-	target.protocolVersion = Int32(PersistenceTransformer.transformProtocolVersion(host.protocolVersion))
+	target.protocolVersion = host.protocolVersion
 	
 	if host.authType == .usernamePassword {
 		target.username = host.username

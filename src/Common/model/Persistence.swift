@@ -134,13 +134,13 @@ class PersistenceHelper {
 		broker.hostname = host.hostname
 		broker.port = Int32(host.port)
 		broker.basePath = host.basePath
-		broker.protocolMethod = Int32(PersistenceTransformer.transformConnectionMethod(host.protocolMethod))
-		broker.protocolVersion = Int32(PersistenceTransformer.transformProtocolVersion(host.protocolVersion))
+		broker.protocolMethod = host.protocolMethod
+		broker.protocolVersion = host.protocolVersion
 
 		broker.ssl = host.ssl
 		broker.untrustedSSL = host.untrustedSSL
 
-		broker.authType = Int32(PersistenceTransformer.transformAuth(host.auth))
+		broker.authType = host.auth
 		broker.username = host.username
 		broker.password = host.password
 		broker.certificates = Certificates(host.certificates)

@@ -145,7 +145,7 @@ class PersistenceTransformer {
 		result.hostname = host.hostname ?? ""
 		result.port = UInt16(host.port)
 		result.subscriptions = host.subscriptions?.subscriptions ?? []
-		result.auth = transformAuth(Int8(host.authType))
+		result.auth = host.authType
 		result.username = host.username ?? ""
 		result.password = host.password ?? ""
 		result.certificates = host.certificates?.files ?? []
@@ -153,8 +153,8 @@ class PersistenceTransformer {
 		result.clientID = host.clientID ?? ""
 		result.limitTopic = Int(host.limitTopic)
 		result.limitMessagesBatch = Int(host.limitMessagesBatch)
-		result.protocolMethod = transformConnectionMethod(Int8(host.protocolMethod))
-		result.protocolVersion = transformProtocolVersion(Int8(host.protocolVersion))
+		result.protocolMethod = host.protocolMethod
+		result.protocolVersion = host.protocolVersion
 		result.basePath = host.basePath ?? ""
 		result.ssl = host.ssl
 		result.untrustedSSL = host.untrustedSSL

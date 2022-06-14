@@ -39,25 +39,20 @@ extension CertificateFileType {
 	}
 }
 
-enum HostAuthenticationType {
-	case none
-	case usernamePassword
-	case certificate
+@objc public enum HostAuthenticationType: Int32 {
+	case none = 0
+	case usernamePassword = 1
+	case certificate = 2
 }
 
-enum HostProtocol {
-	case mqtt
-	case websocket
+@objc public enum HostProtocol: Int32 {
+	case mqtt = 0
+	case websocket = 1
 }
 
-enum HostClientImplType {
-	case moscapsule
-	case cocoamqtt
-}
-
-enum HostProtocolVersion {
-	case mqtt3
-	case mqtt5
+@objc public enum HostProtocolVersion: Int32{
+	case mqtt3 = 0
+	case mqtt5 = 1
 }
 
 extension Host: Hashable {
