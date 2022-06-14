@@ -143,12 +143,12 @@ class PersistenceHelper {
 		broker.authType = Int32(PersistenceTransformer.transformAuth(host.auth))
 		broker.username = host.username
 		broker.password = host.password
-		broker.certificates = PersistenceEncoder.encode(certificates: host.certificates)
+		broker.certificates = Certificates(host.certificates)
 		broker.certClientKeyPassword = host.certClientKeyPassword
 
 		broker.limitMessagesBatch = Int32(host.limitMessagesBatch)
 		broker.limitTopic = Int32(host.limitTopic)
-
-		broker.subscriptions = PersistenceEncoder.encode(subscriptions: host.subscriptions)
+		
+		broker.subscriptions = Subscriptions(host.subscriptions)
 	}
 }

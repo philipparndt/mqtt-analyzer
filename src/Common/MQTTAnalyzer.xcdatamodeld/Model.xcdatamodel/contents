@@ -5,7 +5,7 @@
         <attribute name="authType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="basePath" optional="YES" attributeType="String"/>
         <attribute name="certClientKeyPassword" optional="YES" attributeType="String"/>
-        <attribute name="certificates" optional="YES" attributeType="Binary"/>
+        <attribute name="certificates" optional="YES" attributeType="Transformable" valueTransformerName="CertificateValueTransformer" customClassName="Certificates"/>
         <attribute name="clientID" optional="YES" attributeType="String"/>
         <attribute name="hostname" attributeType="String" defaultValueString=""/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -16,7 +16,7 @@
         <attribute name="protocolMethod" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="protocolVersion" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="ssl" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="subscriptions" optional="YES" attributeType="Binary"/>
+        <attribute name="subscriptions" optional="YES" attributeType="Transformable" valueTransformerName="SubscriptionValueTransformer" customClassName="Subscriptions"/>
         <attribute name="untrustedSSL" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="username" optional="YES" attributeType="String"/>
     </entity>

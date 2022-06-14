@@ -138,7 +138,7 @@ func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
 	target.hostname = newHostname!
 	target.authType = Int32(PersistenceTransformer.transformAuth(host.authType))
 	target.port = Int32(port!)
-	target.subscriptions = PersistenceEncoder.encode(subscriptions:  transform(subscriptions: host.subscriptions))
+	target.subscriptions = Subscriptions(transform(subscriptions: host.subscriptions))
 	target.clientID = host.clientID
 	target.basePath = host.basePath
 	target.protocolMethod = Int32(PersistenceTransformer.transformConnectionMethod(host.protocolMethod))
@@ -168,7 +168,7 @@ func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
 			certificates.append(cert)
 		}
 
-		target.certificates = PersistenceEncoder.encode(certificates: certificates)
+		target.certificates = Certificates(certificates)
 		target.certClientKeyPassword = host.certClientKeyPassword
 	}
 }

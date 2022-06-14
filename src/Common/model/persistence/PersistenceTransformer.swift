@@ -97,7 +97,7 @@ class PersistenceTransformer {
 			alias: host.alias,
 			hostname: host.hostname,
 			port: Int(host.port),
-			subscriptions: PersistenceEncoder.encode(subscriptions: host.subscriptions),
+			subscriptions: SubscriptionValueTransformer.encode(subscriptions: host.subscriptions),
 			protocolMethod: Int(transformConnectionMethod(host.protocolMethod)),
 			basePath: host.basePath,
 			ssl: host.ssl,
@@ -106,7 +106,7 @@ class PersistenceTransformer {
 			authType: Int(transformAuth(host.auth)),
 			username: host.username,
 			password: host.password,
-			certificates: PersistenceEncoder.encode(certificates: host.certificates),
+			certificates: CertificateValueTransformer.encode(certificates: host.certificates),
 			certClientKeyPassword: host.certClientKeyPassword,
 			clientID: host.clientID,
 			limitTopic: host.limitTopic,
@@ -121,11 +121,11 @@ class PersistenceTransformer {
 		result.alias = host.alias
 		result.hostname = host.hostname
 		result.port = UInt16(host.port)
-		result.subscriptions = PersistenceEncoder.decode(subscriptions: host.subscriptions)
+		result.subscriptions = SubscriptionValueTransformer.decode(subscriptions: host.subscriptions)
 		result.auth = transformAuth(Int8(host.authType))
 		result.username = host.username
 		result.password = host.password
-		result.certificates = PersistenceEncoder.decode(certificates: host.certificates)
+		result.certificates = CertificateValueTransformer.decode(certificates: host.certificates)
 		result.certClientKeyPassword = host.certClientKeyPassword
 		result.clientID = host.clientID
 		result.limitTopic = host.limitTopic
@@ -138,18 +138,17 @@ class PersistenceTransformer {
 		return result
 	}
 	
-	
 	class func transform(from host: BrokerSetting) -> Host {
 		let result = Host(id: host.id?.uuidString ?? "")
 		result.deleted = host.isDeleted
 		result.alias = host.alias ?? ""
 		result.hostname = host.hostname ?? ""
 		result.port = UInt16(host.port)
-		result.subscriptions = PersistenceEncoder.decode(subscriptions: host.subscriptions ?? Data())
+		result.subscriptions = host.subscriptions?.subscriptions ?? []
 		result.auth = transformAuth(Int8(host.authType))
 		result.username = host.username ?? ""
 		result.password = host.password ?? ""
-		result.certificates = PersistenceEncoder.decode(certificates: host.certificates ?? Data())
+		result.certificates = host.certificates?.files ?? []
 		result.certClientKeyPassword = host.certClientKeyPassword ?? ""
 		result.clientID = host.clientID ?? ""
 		result.limitTopic = Int(host.limitTopic)

@@ -16,6 +16,10 @@
 		2200D97B27C2675300E63E89 /* AbstractUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97A27C2675300E63E89 /* AbstractUITests.swift */; };
 		2200D97E27C91B5300E63E89 /* SearchIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97D27C91B5300E63E89 /* SearchIndexTests.swift */; };
 		2200D98127C91DCA00E63E89 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D98027C91DCA00E63E89 /* SearchIndex.swift */; };
+		2202F0E328585D8400AEAE4C /* SubscriptionValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0E228585D8400AEAE4C /* SubscriptionValueTransformer.swift */; };
+		2202F0E428585D8400AEAE4C /* SubscriptionValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0E228585D8400AEAE4C /* SubscriptionValueTransformer.swift */; };
+		2202F0E6285867E100AEAE4C /* CertificateValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */; };
+		2202F0E7285867E100AEAE4C /* CertificateValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */; };
 		2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */; };
 		2203571F2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */; };
 		220357212445B2ED00A98CD3 /* MQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357202445B2ED00A98CD3 /* MQTTDelegate.swift */; };
@@ -356,6 +360,8 @@
 		2200D97A27C2675300E63E89 /* AbstractUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractUITests.swift; sourceTree = "<group>"; };
 		2200D97D27C91B5300E63E89 /* SearchIndexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIndexTests.swift; sourceTree = "<group>"; };
 		2200D98027C91DCA00E63E89 /* SearchIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIndex.swift; sourceTree = "<group>"; };
+		2202F0E228585D8400AEAE4C /* SubscriptionValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionValueTransformer.swift; sourceTree = "<group>"; };
+		2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateValueTransformer.swift; sourceTree = "<group>"; };
 		2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTypePicker.swift; sourceTree = "<group>"; };
 		2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTCertificateFiles.swift; sourceTree = "<group>"; };
 		220357202445B2ED00A98CD3 /* MQTTDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTDelegate.swift; sourceTree = "<group>"; };
@@ -1185,6 +1191,8 @@
 				224AFEAE27B0600D00DFD09F /* StubPersistence.swift */,
 				22C96E10281172A900A4F627 /* SQLitePersistence.swift */,
 				22C96E13281177B600A4F627 /* PersistenceTransformer.swift */,
+				2202F0E228585D8400AEAE4C /* SubscriptionValueTransformer.swift */,
+				2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -1760,6 +1768,7 @@
 				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
 				2285C81A27842176008DA37D /* DisconnectedView.swift in Sources */,
 				22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */,
+				2202F0E328585D8400AEAE4C /* SubscriptionValueTransformer.swift in Sources */,
 				2263C1D924813B0C00FF14E8 /* CertificateFilesModel.swift in Sources */,
 				22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */,
 				2230FF1627A6669C00D4327F /* MsgMetadata.swift in Sources */,
@@ -1772,6 +1781,7 @@
 				2200D96B27C1123000E63E89 /* Logger.swift in Sources */,
 				224AFEA727AE88DC00DFD09F /* Color+SystemColors.swift in Sources */,
 				2230FF0C27A57DF500D4327F /* TopicTree+ReadState.swift in Sources */,
+				2202F0E6285867E100AEAE4C /* CertificateValueTransformer.swift in Sources */,
 				228104932381773100112F24 /* TopicCellView.swift in Sources */,
 				228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */,
 				2230FF2F27A6CDB800D4327F /* Welcome.swift in Sources */,
@@ -1892,6 +1902,7 @@
 				2282DA6F281129F800F79E65 /* CloudDataManager.swift in Sources */,
 				22C96E362814254400A4F627 /* SyncMQTTDelegate.swift in Sources */,
 				2282DA672811290400F79E65 /* MQTT5ClientCocoaMQTT.swift in Sources */,
+				2202F0E428585D8400AEAE4C /* SubscriptionValueTransformer.swift in Sources */,
 				2282DA692811290400F79E65 /* MQTTDelegate.swift in Sources */,
 				2282DA38281125E900F79E65 /* TopicTree+Search.swift in Sources */,
 				22C96E3B28142C9A00A4F627 /* MQTT3ClientSync.swift in Sources */,
@@ -1922,6 +1933,7 @@
 				2282DA3F2811261A00F79E65 /* DiagramPath.swift in Sources */,
 				22C96E1D2812C60200A4F627 /* Brokers.swift in Sources */,
 				22C96E1B2812C50200A4F627 /* ReceiveHandler.swift in Sources */,
+				2202F0E7285867E100AEAE4C /* CertificateValueTransformer.swift in Sources */,
 				22C96E0728112B6700A4F627 /* PersistenceImpl.swift in Sources */,
 				2282DA6A2811290400F79E65 /* ClientUtils.swift in Sources */,
 				2282DA51281126D400F79E65 /* Date+Iso.swift in Sources */,
