@@ -37,7 +37,7 @@ Thank you! This project would not be possible without your great work! Thanks fo
 [Xploder](https://github.com/Xploder), [Ed Gauthier](https://github.com/edgauthier)
 
 **Dependencies**
-[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [RealmSwift](https://realm.io/docs/swift/latest/), [IceCream](https://github.com/caiyue1993/IceCream), [Highlightr](https://github.com/raspu/Highlightr), [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), [swift-petitparser](https://github.com/philipparndt/swift-petitparser) [GRDB](https://github.com/groue/GRDB.swift)
+[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [Highlightr](https://github.com/raspu/Highlightr), [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), [swift-petitparser](https://github.com/philipparndt/swift-petitparser) [GRDB](https://github.com/groue/GRDB.swift)
 
 """).foregroundColor(.secondary)
 					.font(.footnote)
