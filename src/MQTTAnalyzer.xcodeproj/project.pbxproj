@@ -24,6 +24,10 @@
 		2202F0F42858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F12858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift */; };
 		2202F0F52858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F22858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift */; };
 		2202F0F62858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F22858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift */; };
+		2202F0F8285B4E6000AEAE4C /* Host+Certificates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F7285B4E6000AEAE4C /* Host+Certificates.swift */; };
+		2202F0F9285B4E6000AEAE4C /* Host+Certificates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F7285B4E6000AEAE4C /* Host+Certificates.swift */; };
+		2202F0FB285B4F9B00AEAE4C /* Host+AliasOrHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0FA285B4F9B00AEAE4C /* Host+AliasOrHost.swift */; };
+		2202F0FC285B4F9B00AEAE4C /* Host+AliasOrHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0FA285B4F9B00AEAE4C /* Host+AliasOrHost.swift */; };
 		2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */; };
 		2203571F2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */; };
 		220357212445B2ED00A98CD3 /* MQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357202445B2ED00A98CD3 /* MQTTDelegate.swift */; };
@@ -187,8 +191,6 @@
 		229089522854B5AD00C7499A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229089512854B5AD00C7499A /* Persistence.swift */; };
 		229089552854BB1F00C7499A /* PersistenceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* PersistenceImpl.swift */; };
 		229089592854C85B00C7499A /* MQTTAnalyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229089582854C85B00C7499A /* MQTTAnalyzerApp.swift */; };
-		2290895C2854CDDF00C7499A /* BrokerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2290895B2854CDDF00C7499A /* BrokerView.swift */; };
-		2290895D2854CDDF00C7499A /* BrokerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2290895B2854CDDF00C7499A /* BrokerView.swift */; };
 		2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */; };
 		2291283E24682494006F8256 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283D24682494006F8256 /* TopicCell.swift */; };
 		2291424C23BF78000086C251 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424B23BF78000086C251 /* AboutView.swift */; };
@@ -368,6 +370,8 @@
 		2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateValueTransformer.swift; sourceTree = "<group>"; };
 		2202F0F12858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BrokerSetting+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2202F0F22858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BrokerSetting+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2202F0F7285B4E6000AEAE4C /* Host+Certificates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Host+Certificates.swift"; sourceTree = "<group>"; };
+		2202F0FA285B4F9B00AEAE4C /* Host+AliasOrHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Host+AliasOrHost.swift"; sourceTree = "<group>"; };
 		2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTypePicker.swift; sourceTree = "<group>"; };
 		2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTCertificateFiles.swift; sourceTree = "<group>"; };
 		220357202445B2ED00A98CD3 /* MQTTDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTDelegate.swift; sourceTree = "<group>"; };
@@ -502,7 +506,6 @@
 		2290894E2854AF4D00C7499A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		229089512854B5AD00C7499A /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		229089582854C85B00C7499A /* MQTTAnalyzerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerApp.swift; sourceTree = "<group>"; };
-		2290895B2854CDDF00C7499A /* BrokerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerView.swift; sourceTree = "<group>"; };
 		2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDetailsView.swift; sourceTree = "<group>"; };
 		2291283D24682494006F8256 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
 		2291424B23BF78000086C251 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -973,7 +976,6 @@
 				2205E5E0238A7EE2001638DF /* ButtonStyle.swift */,
 				22FD7CFC22C8D2660078795F /* HostsView.swift */,
 				228104972381796B00112F24 /* HostCellView.swift */,
-				2290895B2854CDDF00C7499A /* BrokerView.swift */,
 			);
 			path = host;
 			sourceTree = "<group>";
@@ -1032,6 +1034,8 @@
 				22D50F9622CE4C4300F37EAF /* Multimap.swift */,
 				22E469D6237FC03500D72BD6 /* Readstate.swift */,
 				22C9F73D23BB5E5C00892C4B /* HostModel.swift */,
+				2202F0F7285B4E6000AEAE4C /* Host+Certificates.swift */,
+				2202F0FA285B4F9B00AEAE4C /* Host+AliasOrHost.swift */,
 				2282DA56281127C800F79E65 /* Handlers.swift */,
 			);
 			path = model;
@@ -1709,7 +1713,6 @@
 				2285C81827842115008DA37D /* ConnectingView.swift in Sources */,
 				22953B38280AEEFD000F8F37 /* MQTT5Delegate.swift in Sources */,
 				224AFEAB27AEF98700DFD09F /* CustomListView.swift in Sources */,
-				2290895C2854CDDF00C7499A /* BrokerView.swift in Sources */,
 				22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */,
 				22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */,
 				22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */,
@@ -1762,6 +1765,7 @@
 				222EAAB727A3CDEB000E37AF /* ConnectBrokerView.swift in Sources */,
 				2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */,
 				2230FEFF27A5206100D4327F /* TopicTree.swift in Sources */,
+				2202F0F8285B4E6000AEAE4C /* Host+Certificates.swift in Sources */,
 				2230FF2927A6BBB800D4327F /* TitleView.swift in Sources */,
 				22C9F73123B78F9700892C4B /* PublishMessageFormView.swift in Sources */,
 				2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */,
@@ -1792,6 +1796,7 @@
 				2230FF0C27A57DF500D4327F /* TopicTree+ReadState.swift in Sources */,
 				2202F0E6285867E100AEAE4C /* CertificateValueTransformer.swift in Sources */,
 				228104932381773100112F24 /* TopicCellView.swift in Sources */,
+				2202F0FB285B4F9B00AEAE4C /* Host+AliasOrHost.swift in Sources */,
 				228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */,
 				2230FF2F27A6CDB800D4327F /* Welcome.swift in Sources */,
 				22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */,
@@ -1892,6 +1897,7 @@
 				2282DA612811290400F79E65 /* MQTTClientCocoaMQTT+OnMessage.swift in Sources */,
 				2282DA3E2811261A00F79E65 /* TimeSeriesValueUtil.swift in Sources */,
 				2282DA462811265500F79E65 /* SearchIndex.swift in Sources */,
+				2202F0F9285B4E6000AEAE4C /* Host+Certificates.swift in Sources */,
 				2282DA5B281127F600F79E65 /* JSONUtils.swift in Sources */,
 				2282DA682811290400F79E65 /* MQTTClientCocoaMQTT.swift in Sources */,
 				2282DA7328112A1900F79E65 /* Logger.swift in Sources */,
@@ -1915,6 +1921,7 @@
 				2282DA672811290400F79E65 /* MQTT5ClientCocoaMQTT.swift in Sources */,
 				2202F0E428585D8400AEAE4C /* SubscriptionValueTransformer.swift in Sources */,
 				2282DA692811290400F79E65 /* MQTTDelegate.swift in Sources */,
+				2202F0FC285B4F9B00AEAE4C /* Host+AliasOrHost.swift in Sources */,
 				2282DA38281125E900F79E65 /* TopicTree+Search.swift in Sources */,
 				22C96E3B28142C9A00A4F627 /* MQTT3ClientSync.swift in Sources */,
 				228AB89F281706EF00F6E714 /* RequestResponseHandler.swift in Sources */,
@@ -1933,7 +1940,6 @@
 				2282DA3C281125E900F79E65 /* TopicTree+Deletion.swift in Sources */,
 				22C96E3928142BD700A4F627 /* SyncMQTT5Delegate.swift in Sources */,
 				2282DA142811254F00F79E65 /* MsgMessage.swift in Sources */,
-				2290895D2854CDDF00C7499A /* BrokerView.swift in Sources */,
 				2282DA35281125E900F79E65 /* TopicTree.swift in Sources */,
 				2282DA602811290400F79E65 /* MQTT5ClientCocoaMQTT+Client.swift in Sources */,
 				22C96E3F28142CDB00A4F627 /* MQTT5ClientSync.swift in Sources */,

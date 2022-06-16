@@ -98,15 +98,15 @@ struct PersistenceController {
 }
 
 class PersistenceHelper {
-	class func createAll(hosts: [Host]) {
+	class func createAll(hosts: [SQLiteBrokerSetting]) {
 		let controller = PersistenceController.shared
 		let container = controller.container
 		
 		let existing = loadAllExistingIDs(context: container.viewContext)
 		
 		for host in hosts {
-			if !existing.contains(host.ID) {
-				create(host: host, context: container.viewContext)
+			if !existing.contains(host.id) {
+				create(host: host, setting: BrokerSetting(context: container.viewContext))
 			}
 		}
 		
@@ -125,30 +125,29 @@ class PersistenceHelper {
 		}
 	}
 	
-	class func create(host: Host, context: NSManagedObjectContext) {
-		let broker = BrokerSetting(context: context)
-		broker.id = UUID.init(uuidString: host.ID)
+	class func create(host: SQLiteBrokerSetting, setting broker: BrokerSetting) {
+		broker.id = UUID.init(uuidString: host.id)
 		broker.alias = host.alias
 		broker.clientID = host.clientID
 
 		broker.hostname = host.hostname
-		broker.port = Int32(host.port)
+		broker.port = Int16(host.port)
 		broker.basePath = host.basePath
-		broker.protocolMethod = host.protocolMethod
-		broker.protocolVersion = host.protocolVersion
+		broker.protocolMethod = PersistenceTransformer.transformConnectionMethod(Int8(host.protocolMethod))
+		broker.protocolVersion = PersistenceTransformer.transformProtocolVersion(Int8(host.protocolVersion))
 
 		broker.ssl = host.ssl
 		broker.untrustedSSL = host.untrustedSSL
 
-		broker.authType = host.auth
+		broker.authType = PersistenceTransformer.transformAuth(Int8(host.authType))
 		broker.username = host.username
 		broker.password = host.password
-		broker.certificates = Certificates(host.certificates)
+		broker.certificates = Certificates(CertificateValueTransformer.decode(certificates: host.certificates))
 		broker.certClientKeyPassword = host.certClientKeyPassword
 
 		broker.limitMessagesBatch = Int32(host.limitMessagesBatch)
 		broker.limitTopic = Int32(host.limitTopic)
 		
-		broker.subscriptions = Subscriptions(host.subscriptions)
+		broker.subscriptions = Subscriptions(SubscriptionValueTransformer.decode(subscriptions: host.subscriptions))
 	}
 }

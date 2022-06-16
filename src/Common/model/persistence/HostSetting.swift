@@ -33,9 +33,9 @@ struct NavigationModeType {
 
 extension BrokerSetting {
 	var aliasOrHost: String {
-		let a = alias ?? ""
+		let a = alias
 		if a.trimmingCharacters(in: [" "]).isBlank {
-			return hostname ?? ""
+			return hostname
 		}
 		return a
 	}

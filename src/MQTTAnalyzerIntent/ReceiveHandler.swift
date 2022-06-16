@@ -23,8 +23,9 @@ class ReceiveHandler: INExtension, ReceiveMQTTMessageIntentHandling {
 
 			if let broker = firstBroker(by: brokerName) {
 				do {
+					let host = Host(settings: broker)
 					let result = try MQTTClientSync.receiveFirst(
-						host: broker,
+						host: host,
 						topic: topic.trimmingCharacters(in: [" "]),
 						timeout: Int(truncating: timeout)
 					)

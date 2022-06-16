@@ -22,11 +22,11 @@ func messageTimeoutError(topic: String) -> MQTTError {
 }
 
 func connectionTimeoutError(host: Host) -> MQTTError {
-	return MQTTError.runtimeError("Error connecting to broker \(host.hostname)")
+	return MQTTError.runtimeError("Error connecting to broker \(host.settings.hostname)")
 }
 
 func disconnectionTimeoutError(host: Host) -> MQTTError {
-	return MQTTError.runtimeError("Error disconnecting from broker \(host.hostname)")
+	return MQTTError.runtimeError("Error disconnecting from broker \(host.settings.hostname)")
 }
 
 func sentMessageTimeoutError(topic: String) -> MQTTError {
@@ -51,7 +51,7 @@ func transformQos(qos: Int) -> CocoaMQTTQoS {
 class MQTTClientSync {
 	class func publish(host: Host, topic: String, message: String, retain: Bool, qos: Int) throws {
 		
-		if host.protocolVersion == .mqtt5 {
+		if host.settings.protocolVersion == .mqtt5 {
 			try MQTT5ClientSync.publish(
 				host: host,
 				topic: topic,
@@ -72,7 +72,7 @@ class MQTTClientSync {
 	}
 	
 	class func receiveFirst(host: Host, topic: String, timeout: Int) throws -> String? {
-		if host.protocolVersion == .mqtt5 {
+		if host.settings.protocolVersion == .mqtt5 {
 			return try MQTT5ClientSync.receiveFirst(
 				host: host,
 				topic: topic,
@@ -89,7 +89,7 @@ class MQTTClientSync {
 	}
 	
 	class func requestResponse(host: Host, requestTopic: String, requestPayload: String, qos: Int, responseTopic: String, timeout: Int) throws -> String? {
-		if host.protocolVersion == .mqtt5 {
+		if host.settings.protocolVersion == .mqtt5 {
 			return try MQTT5ClientSync.requestResponse(
 				host: host,
 				requestTopic: requestTopic,

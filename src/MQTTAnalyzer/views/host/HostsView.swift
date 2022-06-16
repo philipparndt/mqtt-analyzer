@@ -41,11 +41,10 @@ struct HostsView: View {
 			VStack(alignment: .leading) {
 				List {
 					ForEach(searchBroker) { broker in
-						HostCellView(broker: broker,
-									 host: PersistenceTransformer.transform(from: broker),
+						HostCellView(host: model.getConnectionModel(broker: broker),
 									 hostsModel: hostsModel,
 									 messageModel: (
-										self.model.getMessageModel(PersistenceTransformer.transform(from: broker))
+										self.model.getMessageModel(model.getConnectionModel(broker: broker))
 									 ),
 									 cloneHostHandler: self.cloneHost)
 							.accessibilityLabel("broker: \(broker.aliasOrHost)")

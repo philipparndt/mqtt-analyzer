@@ -24,7 +24,7 @@ func loadBrokers() -> [NSString] {
 	}
 }
 
-func firstBroker(by name: String) -> Host? {
+func firstBroker(by name: String) -> BrokerSetting? {
 	let controller = PersistenceController.shared
 	let container = controller.container
 	let fetchRequest = BrokerSetting.fetchRequest()
@@ -32,7 +32,7 @@ func firstBroker(by name: String) -> Host? {
 		let objects = try container.viewContext.fetch(fetchRequest)
 		
 		if let first = objects.first(where: { $0.aliasOrHost == name }) {
-			return PersistenceTransformer.transform(from: first)
+			return first
 		}
 	}
 	catch {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21223.11" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="BrokerSetting" representedClassName="BrokerSetting" syncable="YES">
-        <attribute name="alias" optional="YES" attributeType="String"/>
+        <attribute name="alias" attributeType="String" defaultValueString=""/>
         <attribute name="authType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="basePath" optional="YES" attributeType="String"/>
         <attribute name="certClientKeyPassword" optional="YES" attributeType="String" allowsCloudEncryption="YES"/>
@@ -12,7 +12,7 @@
         <attribute name="limitMessagesBatch" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="limitTopic" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="password" optional="YES" attributeType="String" allowsCloudEncryption="YES"/>
-        <attribute name="port" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="port" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="protocolMethod" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" customClassName="HostProtocol"/>
         <attribute name="protocolVersion" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="ssl" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

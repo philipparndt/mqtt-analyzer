@@ -32,7 +32,6 @@ struct HostCellView: View {
 	@Environment(\.managedObjectContext) private var viewContext
 
 	@EnvironmentObject var model: RootModel
-	@ObservedObject var broker: BrokerSetting
 	@ObservedObject var host: Host
 	@ObservedObject var hostsModel: HostsModel
 	@ObservedObject var messageModel: TopicTree
@@ -53,11 +52,11 @@ struct HostCellView: View {
 		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
 			HStack {
 				VStack(alignment: .leading) {
-					Text(broker.aliasOrHost)
-					
+					Text(host.settings.aliasOrHost)
+
 					Spacer()
 					Group {
-						Text(host.hostname)
+						Text(host.settings.hostname)
 						Text(host.subscriptionsReadable)
 					}
 					.font(.footnote)
@@ -89,7 +88,7 @@ struct HostCellView: View {
 				EditHostFormModalView(closeHandler: self.cancelEditCreation,
 									  root: self.model,
 									  hosts: self.model.hostsModel,
-									  original: self.broker,
+									  original: self.host.settings,
 									  host: transformHost(source: self.host))
 			}
 			else {
@@ -98,8 +97,8 @@ struct HostCellView: View {
 		})
 		.onAppear {
 			if self.host.needsAuth {
-				self.loginData.username = self.host.username
-				self.loginData.password = self.host.password
+				self.loginData.username = self.host.settings.username ?? ""
+				self.loginData.password = self.host.settings.password ?? ""
 			}
 		}
 	}
@@ -135,7 +134,7 @@ struct HostCellView: View {
 	}
 	
 	func confirmDeleteBroker() {
-		confirmDelete.broker = broker
+		confirmDelete.broker = host.settings
 		confirmDelete.isPresented = true
 	}
 	

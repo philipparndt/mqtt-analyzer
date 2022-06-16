@@ -49,7 +49,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 	}
 	
 	fileprivate func createClient(_ host: Host) -> MqttClient {
-		switch host.protocolVersion {
+		switch host.settings.protocolVersion {
 		case .mqtt5:
 			return MQTT5ClientCocoaMQTT(host: host, model: model!)
 		default:

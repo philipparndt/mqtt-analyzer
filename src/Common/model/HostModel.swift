@@ -50,7 +50,7 @@ extension CertificateFileType {
 	case websocket = 1
 }
 
-@objc public enum HostProtocolVersion: Int32{
+@objc public enum HostProtocolVersion: Int32 {
 	case mqtt3 = 0
 	case mqtt5 = 1
 }
@@ -85,60 +85,27 @@ class Host: Identifiable, ObservableObject {
 	
 	let ID: String
 	
-	var deleted = false
-	
-	var alias: String = ""
-	var hostname: String = ""
-	var port: UInt16 = 1883
-	var subscriptions: [TopicSubscription] = [TopicSubscription(topic: "#", qos: 0)]
 	var subscriptionsReadable: String {
-		return subscriptions.map { $0.topic }.joined(separator: ", ")
+		return settings.subscriptions?
+			.subscriptions
+			.map { $0.topic }
+			.joined(separator: ", ") ?? "<no subscription>"
 	}
 	
-	var protocolMethod: HostProtocol = .mqtt
-	var protocolVersion: HostProtocolVersion = .mqtt3
-	var basePath: String = ""
-	var ssl: Bool = false
-	var untrustedSSL: Bool = false
+	let settings: BrokerSetting
 	
-	var limitTopic = 250
-	var limitMessagesBatch = 1000
-
-	var clientID = ""
-	
-	init(id: String = NSUUID().uuidString) {
-		self.ID = id
+	init(settings: BrokerSetting) {
+		self.settings = settings
+		self.ID = settings.id?.uuidString ?? ""
 	}
 	
 	var computeClientID: String {
-		let trimmed = clientID.trimmingCharacters(in: [" "])
+		let trimmed = settings.clientID?.trimmingCharacters(in: [" "]) ?? ""
 		return trimmed.isBlank ? Host.randomClientId() : trimmed
 	}
 	
-	var aliasOrHost: String {
-		return alias.isBlank ? hostname : alias
-	}
-	
-	var qos: Int = 0
-	
-	var auth: HostAuthenticationType = .none
-	var username: String = ""
-	var password: String = ""
-	
-	var certificates: [CertificateFile] = []
-	var certClientKeyPassword: String = ""
-	
-	var navigationMode: NavigationMode = .folders
-	var maxMessagesOfSubFolders = 10
-	
 	@Published var usernameNonpersistent: String?
 	@Published var passwordNonpersistent: String?
-	
-	var needsAuth: Bool {
-		return auth == .usernamePassword
-			&& (username.isBlank || password.isBlank)
-			&& (usernameNonpersistent == nil || passwordNonpersistent == nil)
-	}
 	
 	@Published var connectionMessage: String?
 	
@@ -172,6 +139,14 @@ class Host: Identifiable, ObservableObject {
 
 }
 
+extension Host {
+	var needsAuth: Bool {
+		return settings.authType == .usernamePassword
+		&& ((settings.username ?? "").isBlank || (settings.password ?? "").isBlank)
+			&& (usernameNonpersistent == nil || passwordNonpersistent == nil)
+	}
+}
+
 class HostsModel: ObservableObject {
 	let initMethod: InitHost
 	
@@ -185,11 +160,11 @@ class HostsModel: ObservableObject {
 	
 	var hostsSorted: [Host] {
 		return self.hosts.sorted {
-			if $0.alias != $1.alias {
-				return $0.alias < $1.alias
+			if $0.settings.alias != $1.settings.alias {
+				return $0.settings.alias < $1.settings.alias
 			}
 			else {
-				return $0.aliasOrHost < $1.aliasOrHost
+				return $0.settings.aliasOrHost < $1.settings.aliasOrHost
 			}
 		}
 	}

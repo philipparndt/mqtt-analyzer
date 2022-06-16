@@ -33,7 +33,17 @@ struct SQLiteBrokerSetting: Codable, FetchableRecord, PersistableRecord {
 	var deleted: Bool
 }
 
-class SQLitePersistence: Persistence {
+extension SQLiteBrokerSetting {
+	var aliasOrHost: String {
+		let a = alias
+		if a.trimmingCharacters(in: [" "]).isBlank {
+			return hostname
+		}
+		return a
+	}
+}
+
+class SQLitePersistence {
 
 	let availabe: Bool
 	let queue: DatabaseQueue
@@ -152,44 +162,15 @@ class SQLitePersistence: Persistence {
 }
 
 extension SQLitePersistence {
-	func delete(_ host: Host) {
-		do {
-			_ = try queue.write { db in
-				try db.execute(sql: "DELETE FROM \(SQLitePersistence.table) WHERE id = \(host.id)")
-			}
-		}
-		catch {
-			NSLog("Error deleting record \(host.id)")
-		}
-	}
-	
-	func load() {
-		if let m = model {
-			m.hosts = all()
-		}
-	}
-	
-	func create(_ host: Host) {
-		let transformed = PersistenceTransformer.transformToSQLite(from: host)
-		add(setting: transformed)
-	}
-	
-	func update(_ host: Host) {
-		delete(host)
-		create(host)
-	}
-}
-
-extension SQLitePersistence {
 	func insert(hosts: [Host]) {
 		deleteAll()
 		
 		hosts
-			.map { PersistenceTransformer.transformToSQLite(from: $0)}
+			.map { PersistenceTransformer.transformToSQLite(from: $0.settings)}
 			.forEach { add(setting: $0) }
 	}
 	
-	func first(by name: String) -> Host? {
+	func first(by name: String) -> SQLiteBrokerSetting? {
 		if !availabe {
 			return nil
 		}
@@ -199,7 +180,7 @@ extension SQLitePersistence {
 			.first
 	}
 	
-	func all() -> [Host] {
+	func all() -> [SQLiteBrokerSetting] {
 		if !availabe {
 			return []
 		}
@@ -209,7 +190,6 @@ extension SQLitePersistence {
 			}
 			
 			return settings
-				.map { PersistenceTransformer.transform(from: $0) }
 		}
 		catch {
 			NSLog("Error reading settings")
@@ -227,7 +207,6 @@ extension SQLitePersistence {
 			}
 			
 			return settings
-				.map { PersistenceTransformer.transform(from: $0) }
 				.map { $0.aliasOrHost }
 		}
 		catch {

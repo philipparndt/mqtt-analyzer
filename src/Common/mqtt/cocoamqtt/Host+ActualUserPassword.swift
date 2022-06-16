@@ -10,10 +10,10 @@ import Foundation
 
 extension Host {
 	var actualUsername: String {
-		usernameNonpersistent ?? username
+		usernameNonpersistent ?? (settings.username ?? "")
 	}
 
 	var actualPassword: String {
-		passwordNonpersistent ?? password
+		passwordNonpersistent ?? (settings.password ?? "")
 	}
 }

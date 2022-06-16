@@ -10,18 +10,18 @@ import CocoaMQTT
 
 extension MQTTClientCocoaMQTT {
 	func createClient(host: Host) -> CocoaMQTT {
-		if host.protocolMethod == .websocket {
-			let websocket = CocoaMQTTWebSocket(uri: utils.sanitizeBasePath(self.host.basePath))
+		if host.settings.protocolMethod == .websocket {
+			let websocket = CocoaMQTTWebSocket(uri: utils.sanitizeBasePath(host.settings.basePath ?? ""))
 			return CocoaMQTT(clientID: host.computeClientID,
-								  host: host.hostname,
-								  port: host.port,
-								  socket: websocket)
+							 host: host.settings.hostname,
+							 port: UInt16(host.settings.port),
+							 socket: websocket)
 
 		}
 		else {
 			return CocoaMQTT(clientID: host.computeClientID,
-										  host: host.hostname,
-										  port: host.port)
+							 host: host.settings.hostname,
+							 port: UInt16(host.settings.port))
 		}
 	}
 }

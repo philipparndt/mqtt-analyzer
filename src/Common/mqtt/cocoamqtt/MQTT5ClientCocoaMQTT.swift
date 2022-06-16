@@ -45,7 +45,7 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 		mqtt.didConnectAck = self.didConnect
 		
 		if !mqtt.connect() {
-			utils.failConnection(reason: "Connection to port \(host.port) failed")
+			utils.failConnection(reason: "Connection to port \(host.settings.port) failed")
 			return
 		}
 
@@ -61,14 +61,14 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 	}
 	
 	func configureClient(client mqtt: CocoaMQTT5) throws {
-		mqtt.enableSSL = host.ssl
-		mqtt.allowUntrustCACertificate = host.untrustedSSL
+		mqtt.enableSSL = host.settings.ssl
+		mqtt.allowUntrustCACertificate = host.settings.untrustedSSL
 
-		if host.auth == .usernamePassword {
+		if host.settings.authType == .usernamePassword {
 			mqtt.username = host.actualUsername
 			mqtt.password = host.actualPassword
 		}
-		else if host.auth == .certificate {
+		else if host.settings.authType == .certificate {
 			try mqtt.sslSettings = createSSLSettings(host: host)
 		}
 		
@@ -81,7 +81,7 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 		
 		if let mqtt = utils.mqtt {
 			DispatchQueue.global(qos: .background).async {
-				self.host.subscriptions.forEach { mqtt.unsubscribe($0.topic)}
+				(self.host.settings.subscriptions?.subscriptions ?? []).forEach { mqtt.unsubscribe($0.topic)}
 				mqtt.disconnect()
 
 				DispatchQueue.main.async {
@@ -113,7 +113,7 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 	}
 	
 	func subscribeToTopic(_ host: Host) {
-		host.subscriptions.forEach {
+		(self.host.settings.subscriptions?.subscriptions ?? []).forEach {
 			utils.mqtt?.subscribe($0.topic, qos: utils.convertQOS(qos: Int32($0.qos)))
 		}
 	}

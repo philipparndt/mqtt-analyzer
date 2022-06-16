@@ -29,6 +29,7 @@ struct MQTTAnalyzerApp: App {
 		}
 		
 		ModelMigration.migrateToCoreData()
+		HostSettingExamples.inititalize()
 
 		CloudDataManager.instance.initDocumentsDirectory()
 	}

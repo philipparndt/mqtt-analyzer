@@ -49,7 +49,7 @@ class ClientUtils<T, M> {
 	}
 	
 	func connectedSuccess() {
-		print("CONNECTION: onConnect \(sessionNum) \(host.hostname)")
+		print("CONNECTION: onConnect \(sessionNum) \(host.settings.hostname)")
 		self.connectionStateQueue.async {
 			self.connectionState.state = .connected
 		}
@@ -82,7 +82,7 @@ class ClientUtils<T, M> {
 	}
 	
 	func initConnect() {
-		print("CONNECTION: connect \(sessionNum) \(host.hostname)")
+		print("CONNECTION: connect \(sessionNum) \(host.settings.hostname)")
 		host.connectionMessage = nil
 		host.state = .connecting
 		connectionState.state = .connecting
@@ -92,7 +92,7 @@ class ClientUtils<T, M> {
 	}
 	
 	func didDisconnect(_ client: T, withError err: Error?) {
-		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname)")
+		print("CONNECTION: onDisconnect \(sessionNum) \(host.settings.hostname)")
 
 		if err != nil {
 			let message = ClientUtils.extractErrorMessage(error: err!)
@@ -116,7 +116,7 @@ class ClientUtils<T, M> {
 	}
 	
 	func setDisconnected() {
-		print("CONNECTION: disconnected \(self.sessionNum) \(self.host.hostname)")
+		print("CONNECTION: disconnected \(self.sessionNum) \(self.host.settings.hostname)")
 		
 		self.connectionStateQueue.async {
 			self.connectionState.state = .disconnected
@@ -150,7 +150,7 @@ class ClientUtils<T, M> {
 			return false
 		}
 		
-		if amount > host.limitMessagesBatch {
+		if amount > host.settings.limitMessagesBatch {
 			// Limit exceeded
 			self.model.messageLimitExceeded = true
 			return false
@@ -165,7 +165,7 @@ class ClientUtils<T, M> {
 		}
 		
 		for rmessage in messages {
-			if host.limitTopic > 0 && self.model.totalTopicCounter >= host.limitTopic {
+			if host.settings.limitTopic > 0 && self.model.totalTopicCounter >= host.settings.limitTopic {
 				// Limit exceeded
 				self.model.topicLimitExceeded = true
 			}
@@ -201,7 +201,7 @@ class ClientUtils<T, M> {
 			var connecting = true
 			
 			while connecting && i > 0 {
-				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname)")
+				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.settings.hostname)")
 				sleep(1)
 				
 				i-=1

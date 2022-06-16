@@ -177,8 +177,8 @@ struct TopicsView: View {
 		.onAppear {
 			#if !targetEnvironment(macCatalyst)
 			if self.host.needsAuth {
-				self.loginData.username = self.host.username
-				self.loginData.password = self.host.password
+				self.loginData.username = self.host.settings.username ?? ""
+				self.loginData.password = self.host.settings.password ?? ""
 				self.loginData.isPresented = true
 			}
 			else {
@@ -187,20 +187,13 @@ struct TopicsView: View {
 			#endif
 		}
 	}
-	
-	func getMaxMessagesOfSubFolders() -> Int? {
-		if host.navigationMode == .folders {
-			return host.maxMessagesOfSubFolders
-		}
-		return nil
-	}
 
 	func title() -> String {
 		if model.parent != nil {
 			return model.name
 		}
 		else {
-			return host.aliasOrHost
+			return host.settings.aliasOrHost
 		}
 	}
 	

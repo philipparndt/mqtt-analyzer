@@ -21,7 +21,7 @@ struct LoginDialogView: View {
 
 	var body: some View {
 		NavigationView {
-			LoginFormView(username: host.username, password: host.password, loginCallback: login)
+			LoginFormView(username: host.settings.username ?? "", password: host.settings.password ?? "", loginCallback: login)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
 				.navigationTitle("Login")
