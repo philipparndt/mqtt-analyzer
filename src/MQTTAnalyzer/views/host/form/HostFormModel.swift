@@ -51,9 +51,6 @@ struct HostFormModel {
 	var protocolMethod: HostProtocol = .mqtt
 	var authType: HostAuthenticationType = .none
 	var protocolVersion: HostProtocolVersion = .mqtt3
-	
-	var navigation: NavigationMode = .folders
-	var maxMessagesOfSubFolders = "10"
 }
 
 func transform(subscriptions: [TopicSubscription]) -> [TopicSubscriptionFormModel] {
@@ -143,8 +140,6 @@ func transformHost(source host: Host) -> HostFormModel {
 		untrustedSSL: host.settings.untrustedSSL,
 		protocolMethod: host.settings.protocolMethod,
 		authType: host.settings.authType,
-		protocolVersion: host.settings.protocolVersion,
-		navigation: .folders,
-		maxMessagesOfSubFolders: "10" // FIXME: \(host.settings.maxMessagesOfSubFolders)"
+		protocolVersion: host.settings.protocolVersion
 	)
 }

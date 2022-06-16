@@ -10,8 +10,6 @@ import Foundation
 
 extension Host {
 	var certificates: [CertificateFile] {
-		get {
-			return settings.certificates?.files ?? []
-		}
+		return settings.certificates?.files ?? []
 	}
 }

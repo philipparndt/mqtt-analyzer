@@ -50,16 +50,12 @@ struct PersistenceController {
 				// Use the container to initialize the development schema.
 				try container.initializeCloudKitSchema(options: [])
 			} catch {
-				// Handle any errors.
+				NSLog("Unexpected error while initializeCloudKitSchema \(error)")
 			}
 			#endif
 		}
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
-				// MARK: FIXME
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -68,7 +64,11 @@ struct PersistenceController {
                  * The store could not be migrated to the current model version.
                  Check the error message to determine what the actual problem was.
                  */
+				#if DEBUG
                 fatalError("Unresolved error \(error), \(error.userInfo)")
+				#else
+				NSLog("Unresolved error \(error), \(error.userInfo)")
+				#endif
             }
         })
 		
