@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct DataSeriesDetailsView: View {
 	
@@ -28,6 +29,25 @@ struct DataSeriesDetailsView: View {
 						Text(path.path)
 					}
 					Section(header: Text("Values")) {
+						Chart(series.getGrouped(path)) {
+							AreaMark(
+								x: .value("time", $0.date, unit: .minute),
+								yStart: .value("min", Double($0.min)),
+								yEnd: .value("max", Double($0.max))
+							)
+							.foregroundStyle(.cyan)
+							
+							LineMark(
+								x: .value("time", $0.date, unit: .minute),
+								y: .value("value", $0.average),
+								series: .value("average", "average")
+							)
+							.foregroundStyle(.blue)
+							.symbol(Circle())
+						}
+						.chartLegend(.visible)
+						.frame(width: nil, height: 100)
+						
 						ForEach(series.getId(path).reversed()) {
 							DataSeriesCell(path: $0)
 						}
