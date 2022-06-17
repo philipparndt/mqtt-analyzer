@@ -19,4 +19,8 @@ extension MsgMetadata {
 	class func stub() -> MsgMetadata {
 		return MsgMetadata(qos: 0, retain: true)
 	}
+	
+	class func stub(date: Date) -> MsgMetadata {
+		return MsgMetadata(qos: 0, retain: true, date: date)
+	}
 }

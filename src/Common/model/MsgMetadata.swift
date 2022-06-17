@@ -22,8 +22,8 @@ class MsgMetadata {
 	var responseTopic: String?
 	var userProperty: [Property] = []
 
-	init(qos: Int32, retain: Bool) {
-		self.date = Date.now
+	init(qos: Int32, retain: Bool, date: Date = .now) {
+		self.date = date
 		self.localDate = DateFormatter.iso.string(from: self.date)
 		self.qos = qos
 		self.retain = retain

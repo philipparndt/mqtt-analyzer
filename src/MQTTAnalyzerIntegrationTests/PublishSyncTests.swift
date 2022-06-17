@@ -28,72 +28,91 @@ class PublishSyncTests: XCTestCase {
 			retain: false,
 			qos: 1)
 	}
-
+	
 	func testMQTT3() throws {
-		let broker = Host()
-		broker.hostname = host
+		let setting = BrokerSetting()
+		setting.hostname = host
+
+		let broker = Host(settings: setting)
 		try assertPublish(with: broker)
 	}
 
 	func testMQTT5() throws {
-		let broker = Host()
-		broker.hostname = host
-		broker.protocolVersion = .mqtt5
+		let setting = BrokerSetting()
+		setting.hostname = host
+		setting.protocolVersion = .mqtt5
+
+		let broker = Host(settings: setting)
 		try assertPublish(with: broker)
 	}
 	
 	func testMQTTPersistedAuth() throws {
-		let broker = Host()
-		broker.hostname = host
-		broker.port = 1884
-		broker.auth = .usernamePassword
-		broker.username = "admin"
-		broker.password = "password"
+		let setting = BrokerSetting()
+		setting.hostname = host
+		setting.port = 1884
+		setting.authType = .usernamePassword
+		setting.username = "admin"
+		setting.password = "password"
+
+		let broker = Host(settings: setting)
 		try assertPublish(with: broker)
 	}
 	
 	func testMQTTLetsEncryptTraefik() throws {
-		let broker = Host()
-		broker.hostname = host
-		broker.port = 8883
-		broker.ssl = true
+		let setting = BrokerSetting()
+		setting.hostname = host
+		setting.port = 8883
+		setting.ssl = true
+
+		let broker = Host(settings: setting)
 		try assertPublish(with: broker)
 	}
 	
 	func testWebSocket() throws {
-		let broker = Host()
-		broker.hostname = host
-		broker.port = 9001
-		broker.protocolMethod = .websocket
+		let setting = BrokerSetting()
+		setting.hostname = host
+		setting.port = 9001
+		setting.protocolMethod = .websocket
+
+		let broker = Host(settings: setting)
 		try assertPublish(with: broker)
 	}
 	
 	func testWebSocketMQTT5() throws {
-		let broker = Host()
-		broker.hostname = host
-		broker.port = 9001
-		broker.protocolMethod = .websocket
-		broker.protocolVersion = .mqtt5
+		let setting = BrokerSetting()
+		setting.hostname = host
+		setting.port = 9001
+		setting.protocolMethod = .websocket
+		setting.protocolVersion = .mqtt5
+
+		let broker = Host(settings: setting)
+
 		try assertPublish(with: broker)
 	}
 	
 	func testWebSocketPersistedAuth() throws {
-		let broker = Host()
-		broker.hostname = host
-		broker.port = 9002
-		broker.protocolMethod = .websocket
-		broker.auth = .usernamePassword
-		broker.username = "admin"
-		broker.password = "password"
+		let setting = BrokerSetting()
+		setting.hostname = host
+		setting.port = 9002
+		setting.protocolMethod = .websocket
+		setting.authType = .usernamePassword
+		setting.username = "admin"
+		setting.password = "password"
+
+		let broker = Host(settings: setting)
+
 		try assertPublish(with: broker)
 	}
 	
 	func testWebSocketLetsEncryptTraefik() throws {
-		let broker = Host()
-		broker.hostname = host
-		broker.port = 443
-		broker.protocolMethod = .websocket
-		broker.ssl = true
+		let setting = BrokerSetting()
+		setting.hostname = host
+		setting.port = 443
+		setting.protocolMethod = .websocket
+		setting.ssl = true
+
+		let broker = Host(settings: setting)
+
 		try assertPublish(with: broker)
 	}
 }
