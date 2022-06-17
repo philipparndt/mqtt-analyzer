@@ -122,8 +122,8 @@
 		2282D9EA28102EB100F79E65 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2282D9E928102EB100F79E65 /* IntentsUI.framework */; };
 		2282D9ED28102EB100F79E65 /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282D9EC28102EB100F79E65 /* IntentViewController.swift */; };
 		2282D9F028102EB100F79E65 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2282D9EE28102EB100F79E65 /* MainInterface.storyboard */; };
-		2282D9F428102EB100F79E65 /* MQTTAnalyzerIntentUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2282D9F828102EB100F79E65 /* MQTTAnalyzerIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2282D9F428102EB100F79E65 /* MQTTAnalyzerIntentUI.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2282D9F828102EB100F79E65 /* MQTTAnalyzerIntent.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2282DA0228102ED700F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
 		2282DA03281038B600F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
 		2282DA0428103BDD00F79E65 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA0128102ED700F79E65 /* Intents.intentdefinition */; };
@@ -330,16 +330,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2282D9FA28102EB100F79E65 /* Embed App Extensions */ = {
+		2282D9FA28102EB100F79E65 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				2282D9F828102EB100F79E65 /* MQTTAnalyzerIntent.appex in Embed App Extensions */,
-				2282D9F428102EB100F79E65 /* MQTTAnalyzerIntentUI.appex in Embed App Extensions */,
+				2282D9F828102EB100F79E65 /* MQTTAnalyzerIntent.appex in Embed Foundation Extensions */,
+				2282D9F428102EB100F79E65 /* MQTTAnalyzerIntentUI.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2282DA0828103DB400F79E65 /* Embed Frameworks */ = {
@@ -1320,7 +1320,7 @@
 				2253F8D022C8C007007E35A2 /* Resources */,
 				22C9F72D23B747E800892C4B /* ShellScript */,
 				E5E6333FBC9D713242D1C693 /* [CP] Embed Pods Frameworks */,
-				2282D9FA28102EB100F79E65 /* Embed App Extensions */,
+				2282D9FA28102EB100F79E65 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1437,7 +1437,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Philipp Arndt";
 				TargetAttributes = {
 					2253F8D122C8C007007E35A2 = {
@@ -2188,7 +2188,6 @@
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 153;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				ENABLE_PREVIEWS = YES;
@@ -2216,7 +2215,6 @@
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 153;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				ENABLE_PREVIEWS = YES;
