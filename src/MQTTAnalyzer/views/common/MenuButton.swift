@@ -20,3 +20,16 @@ struct MenuButton: View {
 		}
 	}
 }
+
+struct DestructiveMenuButton: View {
+	let title: String
+	let systemImage: String
+	let action: () -> Void
+
+	var body: some View {
+		Button(role: .destructive, action: action) {
+			Text(title)
+			Image(systemName: systemImage)
+		}
+	}
+}

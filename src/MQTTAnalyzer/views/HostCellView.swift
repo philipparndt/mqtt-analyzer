@@ -114,15 +114,12 @@ struct HostCellView: View {
 				MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
 			}
 			
-			#if targetEnvironment(macCatalyst)
 			Divider()
-			MenuButton(title: "Delete broker", systemImage: "trash.fill", action: confirmDeleteBroker)
-			#endif
-
+			DestructiveMenuButton(title: "Delete broker", systemImage: "trash.fill", action: confirmDeleteBroker)
 		}
 		// WORKAROUND: random UUID identifier to force re-creation of the context menu.
 		// Otherwise, it will not toggle between connect and disconnect.
-		.id(UUID().uuidString)
+//		.id(UUID().uuidString)
 	}
 	
 	func cloneHost() {
