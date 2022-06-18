@@ -30,6 +30,7 @@
 		2202F0FC285B4F9B00AEAE4C /* Host+AliasOrHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0FA285B4F9B00AEAE4C /* Host+AliasOrHost.swift */; };
 		2202F0FE285CAD7A00AEAE4C /* TimeSeriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0FD285CAD7A00AEAE4C /* TimeSeriesTests.swift */; };
 		2202F100285CB4BF00AEAE4C /* BrokerSetting+InMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0FF285CB4BF00AEAE4C /* BrokerSetting+InMemory.swift */; };
+		2202F102285DC55200AEAE4C /* DataSeriesChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F101285DC55200AEAE4C /* DataSeriesChartView.swift */; };
 		2202FFE224059D2A00161AD9 /* AuthenticationTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */; };
 		2203571F2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */; };
 		220357212445B2ED00A98CD3 /* MQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357202445B2ED00A98CD3 /* MQTTDelegate.swift */; };
@@ -375,6 +376,7 @@
 		2202F0FA285B4F9B00AEAE4C /* Host+AliasOrHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Host+AliasOrHost.swift"; sourceTree = "<group>"; };
 		2202F0FD285CAD7A00AEAE4C /* TimeSeriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesTests.swift; sourceTree = "<group>"; };
 		2202F0FF285CB4BF00AEAE4C /* BrokerSetting+InMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BrokerSetting+InMemory.swift"; sourceTree = "<group>"; };
+		2202F101285DC55200AEAE4C /* DataSeriesChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSeriesChartView.swift; sourceTree = "<group>"; };
 		2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTypePicker.swift; sourceTree = "<group>"; };
 		2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaMQTTCertificateFiles.swift; sourceTree = "<group>"; };
 		220357202445B2ED00A98CD3 /* MQTTDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTDelegate.swift; sourceTree = "<group>"; };
@@ -944,6 +946,7 @@
 				228104892381740000112F24 /* MessageView.swift */,
 				2281048B2381744300112F24 /* TopicView.swift */,
 				22C9F73923B8CCCC00892C4B /* QOSView.swift */,
+				2202F101285DC55200AEAE4C /* DataSeriesChartView.swift */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -1844,6 +1847,7 @@
 				2285C81227841C72008DA37D /* ResumeConnectionView.swift in Sources */,
 				223AF5D92477D620009810E6 /* NoFilesHelpView.swift in Sources */,
 				223AF5D52477D5F5009810E6 /* FileItemView.swift in Sources */,
+				2202F102285DC55200AEAE4C /* DataSeriesChartView.swift in Sources */,
 				22AB2C0F280076CB00E88875 /* String+RegExp.swift in Sources */,
 				22953B31280A9206000F8F37 /* HostFormModel+ClientCerts.swift in Sources */,
 				226A6B632445759600ACDFC3 /* ClientIDFormView.swift in Sources */,

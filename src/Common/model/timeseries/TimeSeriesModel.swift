@@ -87,7 +87,7 @@ class TimeSeriesModel: ObservableObject {
 			)
 		}
 		.sorted { $0.date < $1.date }
-		.suffix(200)
+		.suffix(30)
 	}
 	
 	func collect(date: Date, json: JSON, path: [String], dateFormatted: String) {
