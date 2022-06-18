@@ -21,7 +21,8 @@ struct DataSeriesChartView: View {
 				yEnd: .value("max", Double($0.max))
 			)
 			.interpolationMethod(.monotone)
-			.foregroundStyle(.cyan)
+			.foregroundStyle(.blue)
+			.opacity(0.3)
 			
 			LineMark(
 				x: .value("time", $0.date, unit: .minute),
