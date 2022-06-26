@@ -20,42 +20,66 @@ struct PersistenceController {
 
     let container: NSPersistentCloudKitContainer
 
+	static var path: URL? {
+		let directoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.de.rnd7.mqttanalyzer")
+		return directoryUrl?.appendingPathComponent("data")
+	}
+	
     init(inMemory: Bool = isInMemory()) {
-        container = NSPersistentCloudKitContainer(name: "MQTTAnalyzer")
 		
-        if inMemory {
-            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
-        }
-		else {
-			#if DEBUG
-			do {
-				// Use the container to initialize the development schema.
-				try container.initializeCloudKitSchema(options: [])
-			} catch {
-				NSLog("Unexpected error while initializeCloudKitSchema \(error)")
+        container = NSPersistentCloudKitContainer(name: "MQTTAnalyzer")
+		initInMemory()
+		
+        if !inMemory {
+			if let storeURL = PersistenceController.path {
+				let storeDescription = NSPersistentStoreDescription(url: storeURL)
+				storeDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.de.rnd7.MQTTAnalyzer")
+				container.persistentStoreDescriptions = [storeDescription]
+
+				handleCloudInit()
 			}
-			#endif
+			else {
+				NSLog("no storeURL, stick with in memory db")
+			}
 		}
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-				#if DEBUG
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-				#else
-				NSLog("Unresolved error \(error), \(error.userInfo)")
-				#endif
-            }
-        })
+		
+        container.loadPersistentStores(completionHandler: completeLoadPersistentStores)
 		
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
+	
+	func initInMemory() {
+		container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+	}
+
+	func handleCloudInit() {
+		#if DEBUG
+		do {
+			// Use the container to initialize the development schema.
+			try container.initializeCloudKitSchema(options: [])
+		} catch {
+			NSLog("Unexpected error while initializeCloudKitSchema \(error)")
+		}
+		#endif
+	}
+	
+	func completeLoadPersistentStores(description: NSPersistentStoreDescription, error: Error?) {
+		if let error = error as NSError? {
+			/*
+			 Typical reasons for an error here include:
+			 * The parent directory does not exist, cannot be created, or disallows writing.
+			 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+			 * The device is out of space.
+			 * The store could not be migrated to the current model version.
+			 Check the error message to determine what the actual problem was.
+			 */
+			#if DEBUG
+			fatalError("Unresolved error \(error), \(error.userInfo)")
+			#else
+			NSLog("Unresolved error \(error), \(error.userInfo)")
+			#endif
+		}
+	}
 	
 	func createStubs() {
 		PersistenceHelper.createAll(hosts: [
