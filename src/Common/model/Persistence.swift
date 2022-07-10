@@ -33,7 +33,10 @@ struct PersistenceController {
         if !inMemory {
 			if let storeURL = PersistenceController.path {
 				let storeDescription = NSPersistentStoreDescription(url: storeURL)
-				storeDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.de.rnd7.MQTTAnalyzer")
+				
+				if isCloudEnabled() {
+					storeDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.de.rnd7.MQTTAnalyzer")
+				}
 				container.persistentStoreDescriptions = [storeDescription]
 
 				handleCloudInit()
@@ -47,6 +50,14 @@ struct PersistenceController {
 		
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
+	
+	func isCloudEnabled() -> Bool {
+		if FileManager.default.ubiquityIdentityToken != nil {
+			return true
+		} else {
+			return false
+		}
+	}
 	
 	func initInMemory() {
 		container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
