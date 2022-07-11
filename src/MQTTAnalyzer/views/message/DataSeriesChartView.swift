@@ -10,31 +10,37 @@ import SwiftUI
 import Charts
 
 struct DataSeriesChartView: View {
+	var axis: Visibility = .visible
 	let path: DiagramPath
 	@ObservedObject var series: TimeSeriesModel
 	
     var body: some View {
-		Chart(series.getGrouped(path)) {
-			AreaMark(
-				x: .value("time", $0.date, unit: .minute),
-				yStart: .value("min", Double($0.min)),
-				yEnd: .value("max", Double($0.max))
-			)
-			.interpolationMethod(.monotone)
-			.foregroundStyle(.blue)
-			.opacity(0.3)
-			
-			LineMark(
-				x: .value("time", $0.date, unit: .minute),
-				y: .value("value", $0.average),
-				series: .value("average", "average")
-			)
-			.interpolationMethod(.monotone)
-			.foregroundStyle(.blue)
-			.symbol(Circle())
-			.symbolSize(16)
-			
+		if !series.canPlot(path) {
+			EmptyView()
 		}
-		.chartLegend(.visible)
+		else {
+			Chart(series.getGrouped(path)) {
+				AreaMark(
+					x: .value("time", $0.date, unit: .minute),
+					yStart: .value("min", Double($0.min)),
+					yEnd: .value("max", Double($0.max))
+				)
+				.interpolationMethod(.monotone)
+				.foregroundStyle(.blue)
+				.opacity(0.3)
+				
+				LineMark(
+					x: .value("time", $0.date, unit: .minute),
+					y: .value("value", $0.average),
+					series: .value("average", "average")
+				)
+				.interpolationMethod(.monotone)
+				.foregroundStyle(.blue)
+				.symbol(Circle())
+				.symbolSize(16)
+			}
+			.chartXAxis(axis)
+			.chartYAxis(axis)
+		}
     }
 }

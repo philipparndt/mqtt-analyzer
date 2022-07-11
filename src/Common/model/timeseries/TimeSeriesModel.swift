@@ -47,6 +47,17 @@ class TimeSeriesModel: ObservableObject {
 		!timeSeries.dict.isEmpty
 	}
 	
+	func canPlot(_ path: DiagramPath) -> Bool {
+		let values = get(path)
+		if !values.isEmpty {
+			if let _ = values[0].value as? NSNumber {
+				return true
+			}
+		}
+		
+		return false
+	}
+	
 	func getDiagrams() -> [DiagramPath] {
 		return Array(timeSeries.dict.keys).sorted { $0.path < $1.path }
 	}
