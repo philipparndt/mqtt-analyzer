@@ -84,7 +84,7 @@ struct HostsView: View {
 	
 	var searchBroker: [BrokerSetting] {
 		let sorted = brokers.sorted {
-			$0.aliasOrHost > $1.aliasOrHost
+			$0.aliasOrHost.lowercased() < $1.aliasOrHost.lowercased()
 		}
 		
 		if searchText.isEmpty {
