@@ -44,7 +44,9 @@ class Navigation {
 	}
 	
 	func openMessage() {
-		app.buttons["message"].tap()
+		let button = app.buttons["message"]
+		app.scrollToElement(element: button)
+		button.tap()
 		currentFolder.append("message")
 	}
 	
