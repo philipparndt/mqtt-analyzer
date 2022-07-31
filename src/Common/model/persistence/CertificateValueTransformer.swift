@@ -63,5 +63,3 @@ public final class CertificateValueTransformer: ValueTransformer {
 		 }
 	 }
 }
-
-
