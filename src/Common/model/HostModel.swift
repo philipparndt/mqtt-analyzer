@@ -43,6 +43,7 @@ extension CertificateFileType {
 	case none = 0
 	case usernamePassword = 1
 	case certificate = 2
+	case both = 3
 }
 
 @objc public enum HostProtocol: Int32 {
