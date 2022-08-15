@@ -49,7 +49,8 @@ struct HostFormModel {
 	var untrustedSSL = false
 	
 	var protocolMethod: HostProtocol = .mqtt
-	var authType: HostAuthenticationType = .none
+	var usernamePasswordAuth = false
+	var certificateAuth = false
 	var protocolVersion: HostProtocolVersion = .mqtt3
 }
 
@@ -82,7 +83,19 @@ func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
 	
 	target.alias = host.alias
 	target.hostname = newHostname!
-	target.authType = host.authType
+	
+	if host.usernamePasswordAuth && host.certificateAuth {
+		target.authType = .both
+	}
+	else if host.usernamePasswordAuth {
+		target.authType = .usernamePassword
+	}
+	else if host.certificateAuth {
+		target.authType = .certificate
+	}
+	else {
+		target.authType = .none
+	}
 	target.port = Int32(port!)
 	target.subscriptions = Subscriptions(transform(subscriptions: host.subscriptions))
 	target.clientID = host.clientID
@@ -94,11 +107,11 @@ func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
 	target.limitMessagesBatch = Int32(host.limitMessagesBatch) ?? 1000
 	target.protocolVersion = host.protocolVersion
 	
-	if host.authType == .usernamePassword {
+	if host.usernamePasswordAuth {
 		target.username = host.username
 		target.password = host.password
 	}
-	else if host.authType == .certificate {
+	if host.certificateAuth {
 		var certificates: [CertificateFile] = []
 		
 		if let cert = host.certServerCA {
@@ -139,7 +152,8 @@ func transformHost(source host: Host) -> HostFormModel {
 		ssl: host.settings.ssl,
 		untrustedSSL: host.settings.untrustedSSL,
 		protocolMethod: host.settings.protocolMethod,
-		authType: host.settings.authType,
+		usernamePasswordAuth: host.settings.authType == .usernamePassword || host.settings.authType == .both,
+		certificateAuth: host.settings.authType == .certificate || host.settings.authType == .both,
 		protocolVersion: host.settings.protocolVersion
 	)
 }
