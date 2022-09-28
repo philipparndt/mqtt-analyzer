@@ -1,8 +1,8 @@
 PODS:
-  - CocoaMQTT (2.0.3-beta7):
-    - CocoaMQTT/Core (= 2.0.3-beta7)
-  - CocoaMQTT/Core (2.0.3-beta7)
-  - CocoaMQTT/WebSockets (2.0.3-beta7):
+  - CocoaMQTT (2.0.7):
+    - CocoaMQTT/Core (= 2.0.7)
+  - CocoaMQTT/Core (2.0.7)
+  - CocoaMQTT/WebSockets (2.0.7):
     - CocoaMQTT/Core
   - CodeEditor (1.2.0):
     - Highlightr
@@ -11,7 +11,7 @@ PODS:
   - GRDB.swift/standard (5.22.2)
   - Highlightr (2.1.0)
   - swift-petitparser (1.2.1)
-  - SwiftLint (0.47.1)
+  - SwiftLint (0.49.1)
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
@@ -43,22 +43,22 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CocoaMQTT:
-    :commit: c059e966466aefab6b8d97d86d2789774ee21060
+    :commit: 885e984c186f8b950fb697918a99284e9fb9e6a3
     :git: https://github.com/philipparndt/CocoaMQTT.git
   CodeEditor:
-    :commit: 9b888ab2d74592888c066e0486e64c62e191b1f3
+    :commit: 180bde07b44dea839b32873bd8586ba146fa9106
     :git: https://github.com/ZeeZide/CodeEditor.git
   Highlightr:
     :git: https://github.com/raspu/Highlightr.git
     :tag: 2.1.2
 
 SPEC CHECKSUMS:
-  CocoaMQTT: fa30f302b0fa359f8b3bdbef5f0b6c2fda36ad4a
+  CocoaMQTT: 96aa37dde2ed19eb0e413d38fd21fcc7655d6239
   CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
   GRDB.swift: aa11d3b2fc6243ce8b5573d7bfa75a89093d1ee0
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
-  SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
+  SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
 PODFILE CHECKSUM: 762188fdcfcb5f0a69ff0fbe7459efcbd3caa90b
