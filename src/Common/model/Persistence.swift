@@ -121,10 +121,8 @@ class PersistenceHelper {
 		
 		let existing = loadAllExistingIDs(context: container.viewContext)
 		
-		for host in hosts {
-			if !existing.contains(host.id) {
-				create(host: host, setting: BrokerSetting(context: container.viewContext))
-			}
+		for host in hosts where !existing.contains(host.id) {
+			create(host: host, setting: BrokerSetting(context: container.viewContext))
 		}
 		
 		controller.save()

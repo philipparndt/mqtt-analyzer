@@ -42,7 +42,6 @@ public class StubPersistence: Persistence {
 		return Host(settings: setting)
 	}
 	
-	
 	func load() {
 		model.hosts = hosts
 	}
