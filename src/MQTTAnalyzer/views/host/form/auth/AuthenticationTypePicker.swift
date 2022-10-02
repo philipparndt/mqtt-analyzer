@@ -29,6 +29,8 @@ struct AuthenticationTypePicker: View {
 			Text("User/password").tag(HostAuthenticationType.usernamePassword).accessibilityLabel("userPassword-auth")
 			Text("Certificate").tag(HostAuthenticationType.certificate)
 				.accessibilityLabel("certificate-auth")
+			Text("Both").tag(HostAuthenticationType.both)
+				.accessibilityLabel("certificate-userPassword-auth")
 		}.pickerStyle(SegmentedPickerStyle())
 	}
 }

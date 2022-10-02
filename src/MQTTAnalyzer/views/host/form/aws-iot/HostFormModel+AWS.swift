@@ -23,7 +23,8 @@ extension HostFormModel {
 			|| !ssl
 			|| untrustedSSL
 			|| self.protocolMethod != .mqtt
-			|| self.authType != .certificate
+			|| self.usernamePasswordAuth
+			|| !self.certificateAuth
 			|| self.protocolVersion != .mqtt3 {
 				return true
 			}
@@ -36,7 +37,8 @@ extension HostFormModel {
 		self.ssl = true
 		self.untrustedSSL = false
 		self.protocolMethod = .mqtt
-		self.authType = .certificate
+		self.usernamePasswordAuth = false
+		self.certificateAuth = true
 		self.protocolVersion = .mqtt3
 	}
 }

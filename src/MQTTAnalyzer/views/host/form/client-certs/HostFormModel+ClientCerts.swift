@@ -10,7 +10,7 @@ import Foundation
 
 extension HostFormModel {
 	func isClientCerts() -> Bool {
-		return authType == .certificate
+		return certificateAuth
 	}
 	
 	func suggestClientCertsTLSChanges() -> Bool {
