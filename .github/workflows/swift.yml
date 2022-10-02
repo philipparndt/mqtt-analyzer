@@ -2,9 +2,9 @@ name: 'Build'
 
 on: 
   workflow_dispatch:
-  push:
-    paths:
-      - 'src/**'
+#  push:
+#    paths:
+#      - 'src/**'
 
 jobs:
   test:
