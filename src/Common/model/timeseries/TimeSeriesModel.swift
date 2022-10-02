@@ -22,6 +22,22 @@ class MTimeSeriesModel {
 	var values: [MTimeSeriesValue] = []
 }
 
+struct GroupedValue: Identifiable {
+	let date: Date
+	let min: Double
+	let max: Double
+	let average: Double
+	
+	var id: Date {
+		return date
+	}
+}
+
+struct NumberValue {
+	let date: Date
+	let value: Double
+}
+
 class TimeSeriesModel: ObservableObject {
 	
 	@Published var timeSeries = Multimap<DiagramPath, TimeSeriesValue>()
@@ -29,6 +45,17 @@ class TimeSeriesModel: ObservableObject {
 	
 	var hasTimeseries: Bool {
 		!timeSeries.dict.isEmpty
+	}
+	
+	func canPlot(_ path: DiagramPath) -> Bool {
+		let values = get(path)
+		if !values.isEmpty {
+			if values[0].value as? NSNumber != nil {
+				return true
+			}
+		}
+		
+		return false
 	}
 	
 	func getDiagrams() -> [DiagramPath] {
@@ -45,6 +72,33 @@ class TimeSeriesModel: ObservableObject {
 	
 	func getId(_ path: DiagramPath) -> [TimeSeriesValue] {
 		return get(path)
+	}
+	
+	func getGrouped(_ path: DiagramPath) -> [GroupedValue] {
+		let values = get(path).map {
+			if let num = $0.value as? NSNumber {
+				return NumberValue(date: $0.date, value: num.doubleValue)
+			}
+			return NumberValue(date: $0.date, value: 0)
+		}
+		
+		let grouped = Dictionary(grouping: values) { value in
+			Int(value.date.timeIntervalSince1970 / 60)
+		}
+		
+		return grouped.values.map { value in
+			let raw = value.map { $0.value }
+			let date = value.first?.date ?? .now
+			let average = raw.reduce(0.0, +) / Double(value.count)
+			return GroupedValue(
+				date: date,
+				min: raw.min() ?? 0,
+				max: raw.max() ?? 0,
+				average: average
+			)
+		}
+		.sorted { $0.date < $1.date }
+		.suffix(30)
 	}
 	
 	func collect(date: Date, json: JSON, path: [String], dateFormatted: String) {

@@ -20,6 +20,10 @@ class TopicSubscriptionFormModel: Identifiable, ObservableObject {
 	}
 }
 
+enum RuntineError: Error {
+	case runtimeError(String)
+}
+
 struct HostFormModel {
 	var alias = ""
 	var hostname = ""
@@ -47,9 +51,6 @@ struct HostFormModel {
 	var protocolMethod: HostProtocol = .mqtt
 	var authType: HostAuthenticationType = .none
 	var protocolVersion: HostProtocolVersion = .mqtt3
-	
-	var navigation: NavigationMode = .folders
-	var maxMessagesOfSubFolders = "10"
 }
 
 func transform(subscriptions: [TopicSubscription]) -> [TopicSubscriptionFormModel] {
@@ -60,28 +61,37 @@ func transform(subscriptions: [TopicSubscriptionFormModel]) -> [TopicSubscriptio
 	return subscriptions.map { TopicSubscription(topic: $0.topic, qos: $0.qos)}
 }
 
-func copyHost(target: Host, source host: HostFormModel) -> Host? {
+func validate(source host: HostFormModel) -> Bool {
 	let newHostname = HostFormValidator.validateHostname(name: host.hostname)
 	let port = HostFormValidator.validatePort(port: host.port)
 	
 	if port == nil || newHostname == nil {
-		return nil
+		return false
+	}
+	
+	return true
+}
+
+func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
+	let newHostname = HostFormValidator.validateHostname(name: host.hostname)
+	let port = HostFormValidator.validatePort(port: host.port)
+	
+	if port == nil || newHostname == nil {
+		throw RuntineError.runtimeError("Validation failed")
 	}
 	
 	target.alias = host.alias
 	target.hostname = newHostname!
-	target.auth = host.authType
-	target.port = UInt16(port!)
-	target.subscriptions = transform(subscriptions: host.subscriptions)
+	target.authType = host.authType
+	target.port = Int16(port!)
+	target.subscriptions = Subscriptions(transform(subscriptions: host.subscriptions))
 	target.clientID = host.clientID
 	target.basePath = host.basePath
 	target.protocolMethod = host.protocolMethod
 	target.ssl = host.ssl
 	target.untrustedSSL = host.ssl && host.untrustedSSL
-	target.limitTopic = Int(host.limitTopic) ?? 250
-	target.limitMessagesBatch = Int(host.limitMessagesBatch) ?? 1000
-	target.navigationMode = host.navigation
-	target.maxMessagesOfSubFolders = Int(host.maxMessagesOfSubFolders) ?? 10
+	target.limitTopic = Int32(host.limitTopic) ?? 250
+	target.limitMessagesBatch = Int32(host.limitMessagesBatch) ?? 1000
 	target.protocolVersion = host.protocolVersion
 	
 	if host.authType == .usernamePassword {
@@ -104,35 +114,32 @@ func copyHost(target: Host, source host: HostFormModel) -> Host? {
 			certificates.append(cert)
 		}
 
-		target.certificates = certificates
+		target.certificates = Certificates(certificates)
 		target.certClientKeyPassword = host.certClientKeyPassword
 	}
-	
-	return target
 }
 
 func transformHost(source host: Host) -> HostFormModel {
-	return HostFormModel(alias: host.alias,
-						 hostname: host.hostname,
-						 port: "\(host.port)",
-						 basePath: host.basePath,
-						 subscriptions: transform(subscriptions: host.subscriptions),
-						 username: host.username,
-						 password: host.password,
-						 certServerCA: getCertificate(host, type: .serverCA),
-						 certClient: getCertificate(host, type: .client),
-						 certClientKey: getCertificate(host, type: .clientKey),
-						 certP12: getCertificate(host, type: .p12),
-						 certClientKeyPassword: host.certClientKeyPassword,
-						 clientID: host.clientID,
-						 limitTopic: "\(host.limitTopic)",
-						 limitMessagesBatch: "\(host.limitMessagesBatch)",
-						 ssl: host.ssl,
-						 untrustedSSL: host.untrustedSSL,
-						 protocolMethod: host.protocolMethod,
-						 authType: host.auth,
-						 protocolVersion: host.protocolVersion,
-						 navigation: host.navigationMode,
-						 maxMessagesOfSubFolders: "\(host.maxMessagesOfSubFolders)"
-						)
+	return HostFormModel(
+		alias: host.settings.alias,
+		hostname: host.settings.hostname,
+		port: "\(host.settings.port)",
+		basePath: host.settings.basePath ?? "",
+		subscriptions: transform(subscriptions: host.settings.subscriptions?.subscriptions ?? []),
+		username: host.settings.username ?? "",
+		password: host.settings.password ?? "",
+		certServerCA: getCertificate(host, type: .serverCA),
+	    certClient: getCertificate(host, type: .client),
+		certClientKey: getCertificate(host, type: .clientKey),
+		certP12: getCertificate(host, type: .p12),
+		certClientKeyPassword: host.settings.certClientKeyPassword ?? "",
+		clientID: host.settings.clientID ?? "",
+		limitTopic: "\(host.settings.limitTopic)",
+		limitMessagesBatch: "\(host.settings.limitMessagesBatch)",
+		ssl: host.settings.ssl,
+		untrustedSSL: host.settings.untrustedSSL,
+		protocolMethod: host.settings.protocolMethod,
+		authType: host.settings.authType,
+		protocolVersion: host.settings.protocolVersion
+	)
 }

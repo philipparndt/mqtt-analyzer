@@ -7,73 +7,92 @@
 //
 
 import Foundation
-import RealmSwift
 
 class HostSettingExamples {
-	class func inititalize(realm: Realm) {
+	class func inititalize() {
 		if isWritten() {
 			return
 		}
 		
-		if !realm.objects(HostSetting.self).isEmpty {
-			// the user defaults store was introduced in a later version
-			setWritten()
-			return
+		let controller = PersistenceController.shared
+		let container = controller.container
+		
+		let existing = PersistenceHelper.loadAllExistingIDs(context: container.viewContext)
+		if existing.isEmpty {
+			PersistenceHelper.createAll(hosts: [
+				example1(),
+				example2()
+			])
 		}
-
-		createIfNotPresent(setting: PersistenceTransformer.transformToRealm(from: example1()), realm: realm)
-		createIfNotPresent(setting: PersistenceTransformer.transformToRealm(from: example2()), realm: realm)
 		
 		setWritten()
 	}
-	
-	class func example1() -> Host {
-		let result = Host()
-		result.alias = "Revspace sensors"
-		result.hostname = "test.mosquitto.org"
-		result.limitTopic = 400
-		result.subscriptions = [TopicSubscription(topic: "revspace/sensors/#", qos: 0)]
-		return result
+		
+	class func create(alias: String, hostname: String, limitTopic: Int = 0, subscriptions: [TopicSubscription]) -> SQLiteBrokerSetting {
+		return SQLiteBrokerSetting(
+			id: UUID().uuidString,
+			alias: alias,
+			hostname: hostname,
+			port: 1883,
+			subscriptions: SubscriptionValueTransformer.encode(subscriptions: subscriptions),
+			protocolMethod: Int(ConnectionMethod.mqtt),
+			
+			basePath: "",
+			ssl: false,
+			untrustedSSL: false,
+			protocolVersion: 0,
+			authType: 0,
+			
+			username: "",
+			password: "",
+			certificates: CertificateValueTransformer.encode(certificates: []),
+			certClientKeyPassword: "",
+			clientID: "",
+			limitTopic: limitTopic,
+			limitMessagesBatch: 1000,
+			deleted: false
+		)
 	}
 	
-	class func example2() -> Host {
-		let result = Host()
-		result.alias = "mqtt-analyzer mosquitto example"
-		result.hostname = "test.mosquitto.org"
-		result.subscriptions = [
-			TopicSubscription(topic: "de/rnd7/mqtt-analyzer/#", qos: 0),
-			TopicSubscription(topic: "$SYS/#", qos: 0)
-		]
-		return result
+	class func example1() -> SQLiteBrokerSetting {
+		return create(
+			alias: "Example: Revspace sensors",
+			hostname: "test.mosquitto.org",
+			limitTopic: 400,
+			subscriptions: [
+				TopicSubscription(topic: "revspace/sensors/#", qos: 0)
+		 ])
 	}
 	
-	class func exampleRnd7() -> Host {
-		let result = Host()
-		result.alias = "Example"
-		result.hostname = "test.mqtt.rnd7.de"
-		result.limitTopic = 0
-		result.subscriptions = [TopicSubscription(topic: "#", qos: 0)]
-		return result
+	class func example2() -> SQLiteBrokerSetting {
+		return create(
+			alias: "Example: MQTTAnalyzer Mosquitto",
+			hostname: "test.mosquitto.org",
+			subscriptions: [
+				TopicSubscription(topic: "de/rnd7/mqtt-analyzer/#", qos: 0),
+				TopicSubscription(topic: "$SYS/#", qos: 0)
+			]
+		)
 	}
 	
-	class func exampleLocalhost() -> Host {
-		let result = Host()
-		result.alias = "localhost"
-		result.hostname = "localhost"
-		result.limitTopic = 0
-		result.subscriptions = [TopicSubscription(topic: "#", qos: 0)]
-		return result
+	class func exampleRnd7() -> SQLiteBrokerSetting {
+		return create(
+			alias: "Example",
+			hostname: "test.mqtt.rnd7.de",
+			subscriptions: [
+				TopicSubscription(topic: "#", qos: 0)
+			]
+		)
 	}
 	
-	private class func createIfNotPresent(setting: HostSetting, realm: Realm) {
-		do {
-			try realm.write {
-				realm.add(setting)
-			}
-		}
-		catch {
-			NSLog("Error writing example data: \(error.localizedDescription)")
-		}
+	class func exampleLocalhost() -> SQLiteBrokerSetting {
+		return create(
+			alias: "localhost",
+			hostname: "localhost",
+			subscriptions: [
+				TopicSubscription(topic: "#", qos: 0)
+			]
+		)
 	}
 	
 	private class func isWritten() -> Bool {

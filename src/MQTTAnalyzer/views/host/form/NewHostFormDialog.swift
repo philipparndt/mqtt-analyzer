@@ -14,7 +14,9 @@ struct NewHostFormModalView: View {
 	let closeHandler: () -> Void
 	let root: RootModel
 	var hosts: HostsModel
+	@State var errorMessage: String?
 	
+	@Environment(\.managedObjectContext) private var viewContext
 	@State var host: HostFormModel
 	
 	var disableSave: Bool {
@@ -26,6 +28,10 @@ struct NewHostFormModalView: View {
 	
 	var body: some View {
 		NavigationView {
+			if let message = errorMessage {
+				Text(message).foregroundColor(.red)
+			}
+			
 			EditHostFormView(onDelete: closeHandler, host: $host)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
@@ -46,16 +52,22 @@ struct NewHostFormModalView: View {
 	}
 	
 	func save() {
-		let newHost = copyHost(target: Host(), source: host)
-		if newHost == nil {
+		if !validate(source: host) {
 			return
 		}
 		
-		DispatchQueue.main.async {
-			self.hosts.hosts.append(newHost!)
-			self.root.persistence.create(newHost!)
+		do {
+			let broker = BrokerSetting(context: viewContext)
+			broker.id = UUID()
+			try copyBroker(target: broker, source: host)
 			
-			self.closeHandler()
+			try viewContext.save()
+			DispatchQueue.main.async {
+				self.closeHandler()
+			}
+		} catch {
+			let nsError = error as NSError
+			errorMessage = "Unresolved error \(nsError), \(nsError.userInfo)"
 		}
 	}
 	

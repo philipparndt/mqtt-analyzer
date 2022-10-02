@@ -16,10 +16,8 @@ func initCertificates(host: Host, config: MQTTConfig) -> (Bool, String?) {
 		let userkeyFile = documents + "/\(getCertificate(host, type: .clientKey)?.name ?? "")"
 		let fm = FileManager.default
 		
-		for file in [certFile, usercertFile, userkeyFile] {
-			if !fm.fileExists(atPath: file) {
-				return (false, "\"\((file as NSString).lastPathComponent)\" not found")
-			}
+		for file in [certFile, usercertFile, userkeyFile] where !fm.fileExists(atPath: file) {
+            return (false, "\"\((file as NSString).lastPathComponent)\" not found")
 		}
 		
 		config.mqttServerCert = MQTTServerCert(cafile: certFile, capath: nil)

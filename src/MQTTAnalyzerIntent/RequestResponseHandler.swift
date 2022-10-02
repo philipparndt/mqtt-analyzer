@@ -23,8 +23,9 @@ class RequestResponseHandler: INExtension, RequestResponseIntentHandling {
 			
 			if let broker = firstBroker(by: brokerName) {
 				do {
+					let host = Host(settings: broker)
 					let result = try MQTTClientSync.requestResponse(
-						host: broker,
+						host: host,
 						requestTopic: requestTopic,
 						requestPayload: requestPayload,
 						qos: transformQosToInt(qos: intent.qos),

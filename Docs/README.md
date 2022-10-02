@@ -77,14 +77,6 @@ see [Traefik + Mosquitto + Let's Encrypt](./examples/traefik-tls)
 | Install / update pods | `pod install`     |
 | Execute test cases    | `run-tests.sh`    |
 
-## Realm on macOS
-In case you get the error `Umbrella header 'Realm.h' not found` when creating an archive see:
-https://github.com/realm/realm-swift/issues/3556#issuecomment-218990100
-
-- Right click on `Pods/Realm/Headers/Realm` / Show file inspector
-- Set target member to `Public`
-- Do this for all header files (multi selection is possible)
-
 ## Thank you
 
 <table>

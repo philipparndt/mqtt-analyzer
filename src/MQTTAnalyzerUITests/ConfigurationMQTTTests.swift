@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import RealmSwift
 
 class ConfigurationMQTTTests: AbstractConfigurationTests {
 	func testMQTTNoAuth() {

@@ -63,11 +63,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>WAoQSI</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>21E258</string>
+	<string>21F79</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>13E500a</string>
+	<string>14A5270f</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>13.3.1</string>
+	<string>14.0</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -670,26 +670,6 @@
 							<true/>
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${broker}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>58aSpr</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${broker}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>hnC6eW</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
 						</dict>
 					</array>
 					<key>INIntentParameterSupportsDynamicEnumeration</key>

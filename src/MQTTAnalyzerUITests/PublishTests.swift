@@ -34,7 +34,7 @@ class PublishTests: AbstractUITests {
 		dialog.fill(topic: "\(id)topic", message: "msg")
 		dialog.apply()
 		
-		XCTAssertTrue(app.staticTexts["Inherited Message Groups"].waitForExistence(timeout: 4), "Expected Inherited Message Groups to be there")
+		XCTAssertTrue(app.staticTexts["INHERITED MESSAGE GROUPS"].waitForExistence(timeout: 4), "Expected Inherited Message Groups to be there")
 		XCTAssertTrue(app.staticTexts["msg"].waitForExistence(timeout: 4), "Expected msg to be there")
 	}
 	
@@ -63,7 +63,7 @@ class PublishTests: AbstractUITests {
 		dialog.fill(topic: "\(id)topic", message: "msg")
 		dialog.apply()
 		
-		XCTAssertTrue(app.staticTexts["Inherited Message Groups"].waitForExistence(timeout: 4), "Expected inherited messages groups to be there")
+		XCTAssertTrue(app.staticTexts["INHERITED MESSAGE GROUPS"].waitForExistence(timeout: 4), "Expected inherited messages groups to be there")
 		XCTAssertTrue(app.staticTexts["msg"].waitForExistence(timeout: 4), "Expected msg to be there")
 	}
 }

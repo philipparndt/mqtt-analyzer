@@ -94,7 +94,7 @@ platform :mac do
   end
 
   lane :publish do
-    # tests() # TODO: tests are not possible here, due to realm header issues. Tests have to run separately (done by the publish script).
+    tests()
     archive()
     upload()
   end

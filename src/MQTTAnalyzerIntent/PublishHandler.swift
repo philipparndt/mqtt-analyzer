@@ -31,8 +31,10 @@ class PublishHandler: INExtension, PublishMQTTMessageIntentHandling {
 
 			if let broker = firstBroker(by: brokerName) {
 				do {
+					let host = Host(settings: broker)
+					
 					try MQTTClientSync.publish(
-						host: broker,
+						host: host,
 						topic: topic.trimmingCharacters(in: [" "]),
 						message: message,
 						retain: retain,

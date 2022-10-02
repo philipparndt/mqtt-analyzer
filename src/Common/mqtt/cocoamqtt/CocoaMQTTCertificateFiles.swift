@@ -13,7 +13,7 @@ import CocoaMQTT
 // openssl pkcs12 -export -in user.crt -inkey user.key -out user.p12
 func createSSLSettings(host: Host) throws -> [String: NSObject] {
 	if let certificate = getCertificate(host, type: .p12) {
-		let clientCertArray = try getClientCertFromP12File(certificate: certificate, certPassword: host.certClientKeyPassword)
+		let clientCertArray = try getClientCertFromP12File(certificate: certificate, certPassword: host.settings.certClientKeyPassword ?? "")
 		
 		var sslSettings: [String: NSObject] = [:]
 		sslSettings[kCFStreamSSLCertificates as String] = clientCertArray

@@ -17,7 +17,6 @@ struct DataSeriesDetailsView: View {
 	@State var range: Int = 60
 	
 	var body: some View {
-
 		VStack {
 			VStack(alignment: .leading) {
 				List {
@@ -28,6 +27,9 @@ struct DataSeriesDetailsView: View {
 						Text(path.path)
 					}
 					Section(header: Text("Values")) {
+						DataSeriesChartView(path: path, series: series)
+							.frame(width: nil, height: 100)
+						
 						ForEach(series.getId(path).reversed()) {
 							DataSeriesCell(path: $0)
 						}

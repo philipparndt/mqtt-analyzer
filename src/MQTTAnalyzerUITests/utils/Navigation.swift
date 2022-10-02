@@ -35,7 +35,7 @@ class Navigation {
 	
 	func groupCell(topic: String) -> XCUIElement {
 		let groupName = "group: \(topic)"
-		return app.cells[groupName]
+		return app.buttons[groupName]
 	}
 	
 	func openMessageGroup() {
@@ -44,7 +44,9 @@ class Navigation {
 	}
 	
 	func openMessage() {
-		app.cells["message"].tap()
+		let button = app.buttons["message"]
+		app.scrollToElement(element: button)
+		button.tap()
 		currentFolder.append("message")
 	}
 	
@@ -81,7 +83,7 @@ class Navigation {
 	}
 	
 	func folderCell(topic: String) -> XCUIElement {
-		let cell = app.cells["folder: \(topic)"]
+		let cell = app.buttons["folder: \(topic)"]
 		XCTAssertTrue(cell.waitForExistence(timeout: 10))
 		return cell
 	}
@@ -90,12 +92,12 @@ class Navigation {
 		#if targetEnvironment(macCatalyst)
 		app.checkBoxes["flatview"].click()
 		#else
-		app.switches["flatview"].tap()
+		app.switches["Flat, flatview"].tap()
 		#endif
 	}
 	
 	func publishNew(topic: String) {
-		let groupCell = app.cells["group: \(topic)"]
+		let groupCell = app.buttons["group: \(topic)"]
 		app.openMenu(on: groupCell)
 		
 		snapshot(ScreenshotIds.CONTEXT_MENU)

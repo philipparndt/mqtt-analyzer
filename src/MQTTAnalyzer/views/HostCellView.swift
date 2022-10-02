@@ -25,10 +25,12 @@ struct ServerPageSheetState {
 
 struct ConfirmDeleteBroker {
 	var isPresented = false
-	var broker: Host?
+	var broker: BrokerSetting?
 }
 
 struct HostCellView: View {
+	@Environment(\.managedObjectContext) private var viewContext
+
 	@EnvironmentObject var model: RootModel
 	@ObservedObject var host: Host
 	@ObservedObject var hostsModel: HostsModel
@@ -48,45 +50,33 @@ struct HostCellView: View {
 	
 	var body: some View {
 		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
-			VStack {
-				#if targetEnvironment(macCatalyst)
-				Spacer()
-				#endif
-				HStack {
-					VStack(alignment: .leading) {
-						HStack {
-							Text(host.aliasOrHost)
-						}
-						
-						Spacer()
-						Group {
-							Text(host.hostname)
-							Text(host.subscriptionsReadable)
-						}
-						.font(.footnote)
-						.foregroundColor(.secondary)
-					}
-					
+			HStack {
+				VStack(alignment: .leading) {
+					Text(host.settings.aliasOrHost)
+
 					Spacer()
-
-					if host.state != .disconnected {
-						Text("\(messageModel.messageCountDisplay)")
-							.font(.system(size: 14, design: .monospaced))
-							.foregroundColor(.secondary)
-
-						Image(systemName: "circle.fill")
-							.font(.subheadline)
-							.foregroundColor(connectionColor)
+					Group {
+						Text(host.settings.hostname)
+						Text(host.subscriptionsReadable)
 					}
-
-					contextMenu()
+					.font(.footnote)
+					.foregroundColor(.secondary)
 				}
 				
-				#if targetEnvironment(macCatalyst)
 				Spacer()
-				Divider()
-				#endif
-			}
+
+				if host.state != .disconnected {
+					Text("\(messageModel.messageCountDisplay)")
+						.font(.system(size: 14, design: .monospaced))
+						.foregroundColor(.secondary)
+
+					Image(systemName: "circle.fill")
+						.font(.subheadline)
+						.foregroundColor(connectionColor)
+				}
+
+				contextMenu()
+			}.padding([.top, .bottom], 5)
 		}
 		.confirmationDialog("Are you shure you want to delete the broker setting?", isPresented: $confirmDelete.isPresented, actions: {
 			Button("Delete", role: .destructive) {
@@ -98,7 +88,7 @@ struct HostCellView: View {
 				EditHostFormModalView(closeHandler: self.cancelEditCreation,
 									  root: self.model,
 									  hosts: self.model.hostsModel,
-									  original: self.host,
+									  original: self.host.settings,
 									  host: transformHost(source: self.host))
 			}
 			else {
@@ -107,8 +97,8 @@ struct HostCellView: View {
 		})
 		.onAppear {
 			if self.host.needsAuth {
-				self.loginData.username = self.host.username
-				self.loginData.password = self.host.password
+				self.loginData.username = self.host.settings.username ?? ""
+				self.loginData.password = self.host.settings.password ?? ""
 			}
 		}
 	}
@@ -124,15 +114,12 @@ struct HostCellView: View {
 				MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
 			}
 			
-			#if targetEnvironment(macCatalyst)
 			Divider()
-			MenuButton(title: "Delete broker", systemImage: "trash.fill", action: confirmDeleteBroker)
-			#endif
-
+			DestructiveMenuButton(title: "Delete broker", systemImage: "trash.fill", action: confirmDeleteBroker)
 		}
 		// WORKAROUND: random UUID identifier to force re-creation of the context menu.
 		// Otherwise, it will not toggle between connect and disconnect.
-		.id(UUID().uuidString)
+//		.id(UUID().uuidString)
 	}
 	
 	func cloneHost() {
@@ -144,13 +131,19 @@ struct HostCellView: View {
 	}
 	
 	func confirmDeleteBroker() {
-		confirmDelete.broker = host
+		confirmDelete.broker = host.settings
 		confirmDelete.isPresented = true
 	}
 	
 	func deleteBroker() {
 		if let broker = confirmDelete.broker {
-			hostsModel.delete(broker, persistence: model.persistence)
+			viewContext.delete(broker)
+			do {
+				try viewContext.save()
+			} catch {
+				let nsError = error as NSError
+				NSLog("Unresolved error \(nsError), \(nsError.userInfo)")
+			}
 		}
 	}
 	

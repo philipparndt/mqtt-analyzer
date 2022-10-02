@@ -29,10 +29,8 @@ struct PublishMessageFormModel {
 
 		set {
 			var newTopic = topic
-			for suffix in TopicSuffix.allCases {
-				if newTopic.hasSuffix(suffix.rawValue) {
-					newTopic = String(newTopic.dropLast(suffix.rawValue.count))
-				}
+			for suffix in TopicSuffix.allCases where newTopic.hasSuffix(suffix.rawValue) {
+				newTopic = String(newTopic.dropLast(suffix.rawValue.count))
 			}
 			
 			newTopic = String(newTopic + newValue.rawValue)
@@ -48,10 +46,8 @@ struct PublishMessageFormModel {
 		}
 
 		set {
-			for suffix in TopicSuffix.allCases {
-				if newValue.hasSuffix(suffix.rawValue) {
-					_topicSuffix = suffix
-				}
+			for suffix in TopicSuffix.allCases where newValue.hasSuffix(suffix.rawValue) {
+				_topicSuffix = suffix
 			}
 			_topic = newValue
 		}

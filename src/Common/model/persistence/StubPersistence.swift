@@ -25,11 +25,21 @@ public class StubPersistence: Persistence {
 	
 	func initExamples() {
 		hosts = [
-			HostSettingExamples.example1(),
-			HostSettingExamples.example2(),
-			HostSettingExamples.exampleRnd7(),
-			HostSettingExamples.exampleLocalhost()
+			StubPersistence.toHost(HostSettingExamples.example1()),
+			StubPersistence.toHost(HostSettingExamples.example2()),
+			StubPersistence.toHost(HostSettingExamples.exampleRnd7()),
+			StubPersistence.toHost(HostSettingExamples.exampleLocalhost())
 		]
+	}
+	
+	class func toHost(_ host: SQLiteBrokerSetting) -> Host {
+		let setting = BrokerSetting()
+		PersistenceHelper.create(
+			host: host,
+			setting: setting
+		)
+		
+		return Host(settings: setting)
 	}
 	
 	func load() {

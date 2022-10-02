@@ -18,24 +18,19 @@ class RootModel: ObservableObject {
 	
 	var messageModelByHost: [Host: TopicTree] = [:]
 	
-	let persistence: Persistence
+	var hostModelsById: [String: Host] = [:]
 	
-	init() {
-		if CommandLine.arguments.contains("--ui-testing") {
-			self.persistence = StubPersistence(model: hostsModel)
+	func getConnectionModel(broker: BrokerSetting) -> Host {
+		let key = broker.id?.uuidString ?? "<no id>"
+		var result = hostModelsById[key]
+		
+		if result == nil {
+			result = Host(settings: broker)
+			hostModelsById[key] = result
 		}
-		else {
-			if let persistence = RealmPersistence(model: hostsModel) {
-				self.persistence = persistence
-			}
-			else {
-				self.persistence = StubPersistence(model: hostsModel)
-			}
-		}
-
-		self.persistence.load()
+		return result!
 	}
- 
+	
 	func createModel(for subscriptions: [TopicSubscription]) -> TopicTree {
 		let prefix = TreeUtils.commomPrefix(subscriptions: subscriptions.map { $0.topic })
 		var model = TopicTree()
@@ -50,7 +45,7 @@ class RootModel: ObservableObject {
 		var model = messageModelByHost[host]
 		
 		if model == nil {
-			model = createModel(for: host.subscriptions)
+			model = createModel(for: host.settings.subscriptions?.subscriptions ?? [])
 			messageModelByHost[host] = model
 		}
 		

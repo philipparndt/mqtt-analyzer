@@ -9,18 +9,18 @@
 import XCTest
 @testable import MQTTAnalyzer
 
-class ModelTests: XCTestCase {
-
+extension XCTestCase {
 	func rootWithLocalhost() -> (RootModel, Host) {
 		let model = RootModel()
 		let hostsModel = model.hostsModel
-		let host = Host()
-		host.hostname = "localhost"
+		let setting = BrokerSetting.stub()
+		setting.hostname = "localhost"
+		let host = Host(settings: setting)
 		
 		hostsModel.hosts += [host]
 		return (model, host)
 	}
-
+	
 	func modelWithOneMessage(messageData: String) -> (RootModel, TopicTree) {
 		return modelWithMessages(messageData: messageData)
 	}
@@ -40,6 +40,9 @@ class ModelTests: XCTestCase {
 		// addTopic will actually get the topic here, as it is already created
 		return (model, messageModel.addTopic(topic: "topic")!)
 	}
+}
+
+class ModelTests: XCTestCase {
 
 	func testBooleanTruePropInJSON() {
 		let (_, messages) = modelWithOneMessage(messageData: """

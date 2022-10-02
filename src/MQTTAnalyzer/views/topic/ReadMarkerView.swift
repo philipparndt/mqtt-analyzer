@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import RealmSwift
 
 struct ReadMarkerView: View {
 	var read: Readstate

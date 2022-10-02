@@ -50,7 +50,7 @@ extension XCUIElement {
 		#if targetEnvironment(macCatalyst)
 		self.tap()
 		#endif
-		
+
 		if fastClearStrategy() || clearWithDeleteKeyStrategy() || clearWithSelectAllStrategy() {
 			return
 		}
@@ -113,11 +113,18 @@ extension XCUIElement {
 			return false
 		}
 
+		self.tap()
+		
+		XCUIElement.perform(withKeyModifiers: .control) {
+			typeText(XCUIKeyboardKey.control.rawValue)
+		}
+		
+		/*
 		#if !targetEnvironment(macCatalyst)
 		let lowerRightCorner = self.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.9))
 		lowerRightCorner.tap()
 		#endif
-		
+		*/
 		let sometimesCharactersMissing = 5
 		let deleteString = String(repeating: XCUIKeyboardKey.delete.rawValue, count: stringValue.count + sometimesCharactersMissing)
 		self.typeText(deleteString)

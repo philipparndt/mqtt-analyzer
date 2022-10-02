@@ -33,12 +33,24 @@ struct SQLiteBrokerSetting: Codable, FetchableRecord, PersistableRecord {
 	var deleted: Bool
 }
 
+extension SQLiteBrokerSetting {
+	var aliasOrHost: String {
+		let a = alias
+		if a.trimmingCharacters(in: [" "]).isBlank {
+			return hostname
+		}
+		return a
+	}
+}
+
 class SQLitePersistence {
+
 	let availabe: Bool
 	let queue: DatabaseQueue
-	
+	let model: HostsModel?
+
 	static let table = "SQLiteBrokerSetting"
-	
+
 	static var path: URL? {
 		let directoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.de.rnd7.mqttanalyzer")
 		return directoryUrl?.appendingPathComponent("brokers.sqlite")
@@ -56,8 +68,9 @@ class SQLitePersistence {
 		
 		return DatabaseQueue()
 	}
-	
-	init() {
+		
+	init(model: HostsModel? = nil) {
+		self.model = model
 		self.queue = SQLitePersistence.createQueue()
 		
 		do {
@@ -153,13 +166,23 @@ extension SQLitePersistence {
 		deleteAll()
 		
 		hosts
-			.map { PersistenceTransformer.transformToSQLite(from: $0)}
+			.map { PersistenceTransformer.transformToSQLite(from: $0.settings)}
 			.forEach { add(setting: $0) }
 	}
 	
-	func first(by name: String) -> Host? {
+	func first(by name: String) -> SQLiteBrokerSetting? {
 		if !availabe {
 			return nil
+		}
+		
+		return all()
+			.filter { $0.aliasOrHost.lowercased() == name.lowercased() }
+			.first
+	}
+	
+	func all() -> [SQLiteBrokerSetting] {
+		if !availabe {
+			return []
 		}
 		do {
 			let settings: [SQLiteBrokerSetting] = try queue.read { db in
@@ -167,13 +190,10 @@ extension SQLitePersistence {
 			}
 			
 			return settings
-				.map { PersistenceTransformer.transform(from: $0) }
-				.filter { $0.aliasOrHost.lowercased() == name.lowercased() }
-				.first
 		}
 		catch {
 			NSLog("Error reading settings")
-			return nil
+			return []
 		}
 	}
 	
@@ -187,7 +207,6 @@ extension SQLitePersistence {
 			}
 			
 			return settings
-				.map { PersistenceTransformer.transform(from: $0) }
 				.map { $0.aliasOrHost }
 		}
 		catch {
