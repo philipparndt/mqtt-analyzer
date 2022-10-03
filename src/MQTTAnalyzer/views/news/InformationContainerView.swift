@@ -13,21 +13,14 @@ struct InformationContainerView: View {
 		VStack(alignment: .leading) {
 			HStack(alignment: .center) {
 				Spacer()
-				Text("New in 2.7").font(.subheadline)
+				Text("New in 2.8").font(.subheadline)
 				Spacer()
 			}
 
 			InformationDetailView(
-				title: "Siri Shortcuts",
-				subTitle: "Publish and receive messages in the Shortcuts app.",
-				imageName: "flowchart",
-				color: .secondary
-			)
-
-			InformationDetailView(
-				title: "MQTT 5",
-				subTitle: "Connect to MQTT 5.0 brokers. View message MIME types and properties.",
-				imageName: "5.circle",
+				title: "Charts",
+				subTitle: "Data series are now visualized in a chart view.",
+				imageName: "chart.xyaxis.line",
 				color: .secondary
 			)
 
