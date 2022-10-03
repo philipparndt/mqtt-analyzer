@@ -9,7 +9,7 @@ subscribe to a topic. It is written in Swift using SwiftUI.
 
 This App is open source, contributions are welcome.
 
-Features:
+### Features:
 - Authentication with username/password or client certificates
 - Connect using MQTT or Websocket
 - Support for SSL/TLS
