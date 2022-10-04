@@ -83,7 +83,7 @@ func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
 	target.alias = host.alias
 	target.hostname = newHostname!
 	target.authType = host.authType
-	target.port = Int16(port!)
+	target.port = Int32(port!)
 	target.subscriptions = Subscriptions(transform(subscriptions: host.subscriptions))
 	target.clientID = host.clientID
 	target.basePath = host.basePath
