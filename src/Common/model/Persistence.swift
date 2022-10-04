@@ -146,7 +146,7 @@ class PersistenceHelper {
 		broker.clientID = host.clientID
 
 		broker.hostname = host.hostname
-		broker.port = Int16(host.port)
+		broker.port = Int32(host.port)
 		broker.basePath = host.basePath
 		broker.protocolMethod = PersistenceTransformer.transformConnectionMethod(Int8(host.protocolMethod))
 		broker.protocolVersion = PersistenceTransformer.transformProtocolVersion(Int8(host.protocolVersion))

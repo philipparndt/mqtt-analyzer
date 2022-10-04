@@ -111,6 +111,7 @@
 		227D987B27B7A05C00E45C4C /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D987A27B7A05C00E45C4C /* ScreenshotTests.swift */; };
 		227D987D27B7A0D100E45C4C /* FlatViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D987C27B7A0D100E45C4C /* FlatViewTests.swift */; };
 		227D987F27B7A0EB00E45C4C /* AboutDialogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D987E27B7A0EB00E45C4C /* AboutDialogTests.swift */; };
+		228098A028EBEF7300D41353 /* BrokerSettingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2280989F28EBEF7300D41353 /* BrokerSettingTests.swift */; };
 		228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104822381723D00112F24 /* MessageDetailsJsonView.swift */; };
 		228104852381727B00112F24 /* MessageDetailsPlainTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */; };
 		22810488238173BB00112F24 /* DataSeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22810487238173BB00112F24 /* DataSeriesView.swift */; };
@@ -469,6 +470,7 @@
 		227D987A27B7A05C00E45C4C /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		227D987C27B7A0D100E45C4C /* FlatViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatViewTests.swift; sourceTree = "<group>"; };
 		227D987E27B7A0EB00E45C4C /* AboutDialogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDialogTests.swift; sourceTree = "<group>"; };
+		2280989F28EBEF7300D41353 /* BrokerSettingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerSettingTests.swift; sourceTree = "<group>"; };
 		228104822381723D00112F24 /* MessageDetailsJsonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailsJsonView.swift; sourceTree = "<group>"; };
 		228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailsPlainTextView.swift; sourceTree = "<group>"; };
 		22810487238173BB00112F24 /* DataSeriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSeriesView.swift; sourceTree = "<group>"; };
@@ -841,6 +843,7 @@
 				2230FEF927A50C8000D4327F /* TreeModelTests.swift */,
 				2230FF0F27A6511F00D4327F /* TreeUtilsTests.swift */,
 				2202F0FF285CB4BF00AEAE4C /* BrokerSetting+InMemory.swift */,
+				2280989F28EBEF7300D41353 /* BrokerSettingTests.swift */,
 			);
 			path = MQTTAnalyzerTests;
 			sourceTree = "<group>";
@@ -1880,6 +1883,7 @@
 				2202F100285CB4BF00AEAE4C /* BrokerSetting+InMemory.swift in Sources */,
 				22AB2C132800854700E88875 /* MqttClientCocoaMQTTTests.swift in Sources */,
 				2230FEFA27A50C8000D4327F /* TreeModelTests.swift in Sources */,
+				228098A028EBEF7300D41353 /* BrokerSettingTests.swift in Sources */,
 				2230FF1027A6511F00D4327F /* TreeUtilsTests.swift in Sources */,
 				2202F0FE285CAD7A00AEAE4C /* TimeSeriesTests.swift in Sources */,
 				2282DA5A281127F400F79E65 /* JSONUtils.swift in Sources */,
@@ -2214,7 +2218,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8.0;
+				MARKETING_VERSION = 2.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2244,7 +2248,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8.0;
+				MARKETING_VERSION = 2.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -27,7 +27,7 @@ extension BrokerSetting {
     @NSManaged public var limitMessagesBatch: Int32
     @NSManaged public var limitTopic: Int32
     @NSManaged public var password: String?
-    @NSManaged public var port: Int16
+    @NSManaged public var port: Int32
     @NSManaged public var protocolMethod: HostProtocol
     @NSManaged public var protocolVersion: HostProtocolVersion
     @NSManaged public var ssl: Bool
