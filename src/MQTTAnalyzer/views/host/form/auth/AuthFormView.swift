@@ -21,9 +21,6 @@ struct AuthFormView: View {
 			if host.usernamePasswordAuth {
 				UsernamePasswordAuthenticationView(host: $host)
 			}
-			else {
-				Spacer()
-			}
 
 			Toggle(isOn: $host.certificateAuth) {
 				Text("Certificate")
@@ -31,9 +28,6 @@ struct AuthFormView: View {
 			}.accessibilityLabel("certificate-auth")
 			if host.certificateAuth {
 				CertificateAuthenticationView(host: $host)
-			}
-			else {
-				Spacer()
 			}
 		}
 	}
