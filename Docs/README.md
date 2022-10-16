@@ -4,10 +4,10 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=philipparndt_mqtt-analyzer&metric=alert_status)](https://sonarcloud.io/dashboard?id=philipparndt_mqtt-analyzer)
 
-MQTTAnalyzer is an iOS App that allows to connect to your MQTT Broker and
+MQTTAnalyzer is an iOS App that allows you to connect to your MQTT Broker and
 subscribe to a topic. It is written in Swift using SwiftUI.
 
-This App is open source, contributions are welcome.
+This App is open source, and contributions are welcome.
 
 ### Features:
 - Authentication with username/password and/or client certificates
@@ -15,7 +15,7 @@ This App is open source, contributions are welcome.
 - Support for SSL/TLS
 - Support for self-signed certificates
 - MQTT 3.1.1 and MQTT 5.0
-- Siri shortcuts for publish and receive messages
+- Siri shortcuts for publishing and receiving messages
 - Create multiple broker settings
 - Subscribe to multiple topics
 - Folder and flat view
@@ -32,6 +32,21 @@ This App is open source, contributions are welcome.
 - Free and without any ADs
 - Open source
 
+# Project goals
+
+The goal is to provide a great application for smart home development and give a good overview 
+of the most recent and old payloads on an MQTT broker. 
+
+- The application should work with any backend MQTT broker.
+- No other backend services are necessary to execute this application.
+- The latest version of macOS, iOS, and iPad OS are supported. 
+Older versions are only supported by using an older version of the application. 
+This is necessary to reduce the development overhead in fixing and testing older versions.
+
+## No goals
+
+Providing the best front end for controlling your smart home is not a goal. 
+Every feature that will require extra backend services for push notifications is out of the scope of this application.
 
 # TestFlight
 
@@ -75,17 +90,18 @@ see [mutual-tls](./examples/mutual-tls)
 
 # Developer notes
 
-| Description           | Command           |
+| Description | Command |
 | --------------------- | ----------------- |
-| Update pod repos      | `pod repo update` |
-| Install / update pods | `pod install`     |
-| Execute test cases    | `run-tests.sh`    |
+| Update pod repos | `pod repo update` |
+| Install / update pods | `pod install` |
+| Execute test cases | `run-tests.sh` |
 
 ## Thank you
 
 <table>
-  <tr>
-  <td valign="center"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="40"/> </td>
-  <td valign="center">Thanks to JetBrains for sponsoring an all tools <a href="https://www.jetbrains.com/community/opensource/#support">Open Source License</a></td>
-  </tr>
+ <tr>
+ <td valign="center"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="40"/> </td>
+ <td valign="center">Thanks to JetBrains for sponsoring an all tools <a href="https://www.jetbrains.com/community/opensource/#support">Open Source License</a></td>
+ </tr>
 </table>
+
