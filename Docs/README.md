@@ -10,7 +10,7 @@ subscribe to a topic. It is written in Swift using SwiftUI.
 This App is open source, contributions are welcome.
 
 ### Features:
-- Authentication with username/password or client certificates
+- Authentication with username/password and/or client certificates
 - Connect using MQTT or Websocket
 - Support for SSL/TLS
 - Support for self-signed certificates
@@ -68,6 +68,10 @@ see [Create a certificate for AWS IoT](./examples/aws)
 ## Traefik + Mosquitto + Let's Encrypt
 
 see [Traefik + Mosquitto + Let's Encrypt](./examples/traefik-tls)
+
+## Mutual TLS (mTLS)
+
+see [mutual-tls](./examples/mutual-tls)
 
 # Developer notes
 
