@@ -46,7 +46,7 @@ extension SQLiteBrokerSetting {
 class SQLitePersistence {
 
 	let availabe: Bool
-	let queue: DatabaseQueue
+	let queue: DatabaseQueue?
 	let model: HostsModel?
 
 	static let table = "SQLiteBrokerSetting"
@@ -56,7 +56,7 @@ class SQLitePersistence {
 		return directoryUrl?.appendingPathComponent("brokers.sqlite")
 	}
 
-	class func createQueue() -> DatabaseQueue {
+	class func createQueue() -> DatabaseQueue? {
 		do {
 			if let dbPath = path {
 				return try DatabaseQueue(path: dbPath.path)
@@ -66,16 +66,22 @@ class SQLitePersistence {
 			NSLog("Unable to create database file. Using in memory database.")
 		}
 		
-		return DatabaseQueue()
+		do {
+			return try DatabaseQueue()
+		}
+		catch {
+			NSLog("Unable to create in memory database.")
+			return nil
+		}
 	}
 		
 	init(model: HostsModel? = nil) {
 		self.model = model
 		self.queue = SQLitePersistence.createQueue()
-		
+
 		do {
 			// 2. Define the database schema
-			try queue.write { db in
+			try queue?.write { db in
 				if !(try db.tableExists(SQLitePersistence.table)) {
 					try db.create(table: SQLitePersistence.table) { t in
 						t.column("id", .text).notNull()
@@ -123,7 +129,7 @@ class SQLitePersistence {
 		}
 
 		do {
-			_ = try queue.write { db in
+			_ = try queue?.write { db in
 				try db.execute(sql: "DELETE FROM \(SQLitePersistence.table)")
 			}
 		}
@@ -138,7 +144,7 @@ class SQLitePersistence {
 		}
 		
 		do {
-			try queue.write { db in
+			try queue?.write { db in
 				try setting.insert(db)
 			}
 		}
@@ -153,7 +159,7 @@ class SQLitePersistence {
 		}
 
 		do {
-			try queue.close()
+			try queue?.close()
 		}
 		catch {
 			NSLog("Error closing database")
@@ -185,7 +191,7 @@ extension SQLitePersistence {
 			return []
 		}
 		do {
-			let settings: [SQLiteBrokerSetting] = try queue.read { db in
+			let settings: [SQLiteBrokerSetting] = try queue!.read { db in
 				try SQLiteBrokerSetting.fetchAll(db)
 			}
 			
@@ -202,7 +208,7 @@ extension SQLitePersistence {
 			return []
 		}
 		do {
-			let settings: [SQLiteBrokerSetting] = try queue.read { db in
+			let settings: [SQLiteBrokerSetting] = try queue!.read { db in
 				try SQLiteBrokerSetting.fetchAll(db)
 			}
 			

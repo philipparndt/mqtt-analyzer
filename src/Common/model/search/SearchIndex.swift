@@ -14,13 +14,15 @@ struct Message: Codable, FetchableRecord, PersistableRecord {
 }
 
 class SearchIndex {
-	let inMemoryDBQueue = DatabaseQueue()
+	var inMemoryDBQueue: DatabaseQueue? = nil
 	let availabe: Bool
 	
 	init() {
 		do {
+			inMemoryDBQueue = try DatabaseQueue()
+			
 			// 2. Define the database schema
-			try inMemoryDBQueue.write { db in
+			try inMemoryDBQueue?.write { db in
 				try db.create(virtualTable: "message", using: FTS4()) { t in
 					t.column("topic")
 					t.column("payload")
@@ -59,12 +61,12 @@ class SearchIndex {
 		let payload = topic + " " + message.payload.dataString
 		
 		do {
-			try self.inMemoryDBQueue.write { db in
+			try self.inMemoryDBQueue?.write { db in
 				try db.execute(sql: "DELETE FROM message WHERE topic = :topic",
 							   arguments: ["topic": topic])
 			}
 			
-			try self.inMemoryDBQueue.write { db in
+			try self.inMemoryDBQueue?.write { db in
 				try Message(topic: topic, payload: payload).insert(db)
 			}
 		}
@@ -75,7 +77,7 @@ class SearchIndex {
 	
 	func clear(topicStartsWith topic: String) {
 		do {
-			try inMemoryDBQueue.write { db in
+			try inMemoryDBQueue?.write { db in
 				try db.execute(sql: "DELETE FROM message WHERE topic LIKE :topic",
 							   arguments: ["topic": "\(topic)%"])
 			}
@@ -88,7 +90,7 @@ class SearchIndex {
 	func search(text: String, topic: String = "") -> [String] {
 		var result: [String] = []
 		do {
-			try inMemoryDBQueue.read { db in
+			try inMemoryDBQueue?.read { db in
 				let topics = try String.fetchAll(db,
 					  sql: "SELECT DISTINCT topic FROM message WHERE topic like ? AND payload MATCH ? ORDER by topic",
 					  arguments: [
