@@ -159,7 +159,7 @@ class ClientUtils<T, M> {
 		return true
 	}
 	
-	func onMessages<M>(messages: [ReceivedMessage<M>], metadata: ((M) -> MsgMetadata), payload: ((M) -> MsgPayload), topic: ((M) -> String)) {
+	func onMessages<MT>(messages: [ReceivedMessage<MT>], metadata: ((MT) -> MsgMetadata), payload: ((MT) -> MsgPayload), topic: ((MT) -> String)) {
 		if !receiveMessagePreflight(amount: messages.count) {
 			return
 		}
