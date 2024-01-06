@@ -6,9 +6,9 @@ PODS:
     - CocoaMQTT/Core
   - CodeEditor (1.2.0):
     - Highlightr
-  - GRDB.swift (6.15.0):
-    - GRDB.swift/standard (= 6.15.0)
-  - GRDB.swift/standard (6.15.0)
+  - GRDB.swift (6.24.1):
+    - GRDB.swift/standard (= 6.24.1)
+  - GRDB.swift/standard (6.24.1)
   - Highlightr (2.1.0)
   - swift-petitparser (1.2.1)
   - SwiftLint (0.49.1)
@@ -18,7 +18,7 @@ DEPENDENCIES:
   - CocoaMQTT (from `https://github.com/philipparndt/CocoaMQTT.git`, branch `apple-network`)
   - CocoaMQTT/WebSockets (from `https://github.com/philipparndt/CocoaMQTT.git`, branch `apple-network`)
   - CodeEditor (from `https://github.com/ZeeZide/CodeEditor.git`)
-  - GRDB.swift (= 6.15.0)
+  - GRDB.swift (= 6.24.1)
   - Highlightr (from `https://github.com/raspu/Highlightr.git`, tag `2.1.2`)
   - swift-petitparser
   - SwiftLint
@@ -55,12 +55,12 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   CocoaMQTT: 96aa37dde2ed19eb0e413d38fd21fcc7655d6239
   CodeEditor: 9fe96645a2af098efc83df3807f41b60bc4fddd1
-  GRDB.swift: 70d96b648395ad346a844461c121f005228e7ae1
+  GRDB.swift: 136dcb5d8dddca50aae3ba7d77475f79e7232cd8
   Highlightr: 683f05d5223cade533a78528a35c9f06e4caddf8
   swift-petitparser: 3a4ef1e19bbf198200d73036459a9ce02a0a3068
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 4e0de621ed40310681cd040ae4d4bea351984bbf
+PODFILE CHECKSUM: a0b2cf9b10403dc489fafcfb11512fe3fad80834
 
 COCOAPODS: 1.11.3
