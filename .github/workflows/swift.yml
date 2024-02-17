@@ -39,7 +39,7 @@ jobs:
         -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2'
 
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: test_output
