@@ -1,7 +1,7 @@
 version: '3'
 services:
   traefik:
-    image: traefik:v2.9
+    image: traefik:3.0
     restart: "no"
 
     command:
