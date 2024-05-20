@@ -47,6 +47,7 @@ extension XCUIElement {
 	}
 	
 	func clear() {
+		/*
 		#if targetEnvironment(macCatalyst)
 		self.tap()
 		#endif
@@ -55,7 +56,25 @@ extension XCUIElement {
 			return
 		}
 		
-		XCTFail("Failed to clear text field")
+		XCTFail("Failed to clear text field")*/
+		guard self.exists, self.isHittable else {
+			return
+		}
+
+		// Tap on the element to make it active
+		self.tap()
+
+		// Select all text by sending the select all command
+		self.doubleTap()
+
+		// Wait briefly to ensure the select all command has been processed
+		let selectAllMenuItem = XCUIApplication().menuItems["Select All"]
+		if selectAllMenuItem.exists {
+			selectAllMenuItem.tap()
+		}
+
+		// Type the delete key
+		self.typeText(XCUIKeyboardKey.delete.rawValue)
 	}
 	
 	func clearAndEnterText(text: String) {
@@ -119,12 +138,6 @@ extension XCUIElement {
 			typeText(XCUIKeyboardKey.control.rawValue)
 		}
 		
-		/*
-		#if !targetEnvironment(macCatalyst)
-		let lowerRightCorner = self.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.9))
-		lowerRightCorner.tap()
-		#endif
-		*/
 		let sometimesCharactersMissing = 5
 		let deleteString = String(repeating: XCUIKeyboardKey.delete.rawValue, count: stringValue.count + sometimesCharactersMissing)
 		self.typeText(deleteString)

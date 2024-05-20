@@ -23,11 +23,6 @@ struct ServerPageSheetState {
 	}
 }
 
-struct ConfirmDeleteBroker {
-	var isPresented = false
-	var broker: BrokerSetting?
-}
-
 struct HostCellView: View {
 	@Environment(\.managedObjectContext) private var viewContext
 
@@ -37,8 +32,6 @@ struct HostCellView: View {
 	@ObservedObject var messageModel: TopicTree
 	
 	@State private var sheetState = ServerPageSheetState()
-	
-	@State private var confirmDelete = ConfirmDeleteBroker()
 	
 	@State private var loginData = LoginData()
 	
@@ -78,11 +71,6 @@ struct HostCellView: View {
 				contextMenu()
 			}.padding([.top, .bottom], 5)
 		}
-		.confirmationDialog("Are you shure you want to delete the broker setting?", isPresented: $confirmDelete.isPresented, actions: {
-			Button("Delete", role: .destructive) {
-				deleteBroker()
-			}
-		})
 		.sheet(isPresented: $sheetState.isPresented, onDismiss: cancelEditCreation, content: {
 			if self.sheetState.type == .edit {
 				EditHostFormModalView(closeHandler: self.cancelEditCreation,
@@ -115,7 +103,14 @@ struct HostCellView: View {
 			}
 			
 			Divider()
-			DestructiveMenuButton(title: "Delete broker", systemImage: "trash.fill", action: confirmDeleteBroker)
+		
+			Menu {
+				DestructiveMenuButton(title: "Delete broker", systemImage: "trash.fill", action: deleteBroker)
+					.accessibilityLabel("confirm-delete-broker")
+			} label: {
+				Label("Delete", systemImage: "trash.fill")
+			}
+			.accessibilityLabel("delete-broker")
 		}
 		// WORKAROUND: random UUID identifier to force re-creation of the context menu.
 		// Otherwise, it will not toggle between connect and disconnect.
@@ -130,22 +125,16 @@ struct HostCellView: View {
 		sheetState.present(type: .edit)
 	}
 	
-	func confirmDeleteBroker() {
-		confirmDelete.broker = host.settings
-		confirmDelete.isPresented = true
-	}
-	
 	func deleteBroker() {
-		if let broker = confirmDelete.broker {
-			viewContext.delete(broker)
-			do {
-				try viewContext.save()
-			} catch {
-				let nsError = error as NSError
-				NSLog("Unresolved error \(nsError), \(nsError.userInfo)")
-			}
+		let broker = host.settings
+		viewContext.delete(broker)
+		do {
+			try viewContext.save()
+		} catch {
+			let nsError = error as NSError
+			NSLog("Unresolved error \(nsError), \(nsError.userInfo)")
 		}
-	}
+}
 	
 	func disconnect() {
 		host.disconnect()

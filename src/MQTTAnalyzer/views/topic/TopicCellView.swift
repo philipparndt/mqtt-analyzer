@@ -41,6 +41,7 @@ struct TopicCellView: View {
 				MenuButton(title: "Publish message again", systemImage: "paperplane.fill", action: publish)
 				MenuButton(title: "Publish new message", systemImage: "paperplane.fill", action: publishManually)
 					.accessibilityLabel("publish new")
+				MenuButton(title: "Delete retained message", systemImage: "paperplane.fill", action: deleteRetained)
 			}
 		}
 		.accessibilityLabel("group: \(messages.nameQualified)")
@@ -49,6 +50,15 @@ struct TopicCellView: View {
 	func publish() {
 		if let first = messages.messages.first {
 			root.publish(message: first, on: host)
+		}
+	}
+	
+	func deleteRetained() {
+		if let first = messages.messages.first {
+			root.publish(message: MsgMessage(
+				topic: first.topic,
+				payload: MsgPayload(data: []),
+				metadata: MsgMetadata(qos: first.metadata.qos, retain: true)), on: host)
 		}
 	}
 	
