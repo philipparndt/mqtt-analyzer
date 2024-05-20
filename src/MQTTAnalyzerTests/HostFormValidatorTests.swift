@@ -16,8 +16,8 @@ class HostFormValidatorTests: XCTestCase {
 		XCTAssertEqual(HostFormValidator.validateHostname(name: "pisvr"), "pisvr")
 	}
 	
-	func testUnicodeHostnameDoesNotWork() {
-		XCTAssertNil(HostFormValidator.validateHostname(name: "pisvr💖"))
+	func testUnicodeHostnameDoesWork() {
+		XCTAssertEqual(HostFormValidator.validateHostname(name: "pisvr💖"), "pisvr💖")
 	}
 
 	func testNoProtocolPrefix() {
