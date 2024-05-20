@@ -63,9 +63,9 @@ struct HostCellView: View {
 						.font(.system(size: 14, design: .monospaced))
 						.foregroundColor(.secondary)
 
-					Image(systemName: "circle.fill")
+					Image(systemName: host.pause ? "pause.fill" : "circle.fill" )
 						.font(.subheadline)
-						.foregroundColor(connectionColor)
+						.foregroundColor(host.pause ? .gray : connectionColor)
 				}
 
 				contextMenu()
