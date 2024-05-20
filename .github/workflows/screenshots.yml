@@ -43,7 +43,7 @@ jobs:
       run: |
         bash create-screenshots.sh
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: screenshots
         path: screenshots/**/*.png
