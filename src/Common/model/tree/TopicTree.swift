@@ -22,14 +22,36 @@ class TopicTree: Identifiable, ObservableObject {
 		didSet {
 			updateSearchResult()
 			updateChildrenToDisplay()
-			updateMessageCount()
+			markMessageCountDirty()
 		}
 	}
 
 	var totalTopicCounter = 0
 	
-	@Published var messageCountDisplay: Int = 0
-	@Published var topicCountDisplay: Int = 0
+	var messageCountDirty = false
+	
+	private var _messageCountDisplay: Int = 0
+	private var _topicCountDisplay: Int = 0
+	
+	var messageCountDisplay: Int {
+		get {
+			updateMessageCount()
+			return _messageCountDisplay
+		}
+		set {
+			_messageCountDisplay = newValue
+		}
+	}
+	var topicCountDisplay: Int {
+		get {
+			updateMessageCount()
+			return _topicCountDisplay
+		}
+		set {
+			_topicCountDisplay = newValue
+		}
+	}
+	
 	@Published var childrenDisplay: [TopicTree] = [] {
 		didSet {
 			if childrenDisplay.isEmpty && messages.isEmpty {
@@ -97,7 +119,7 @@ class TopicTree: Identifiable, ObservableObject {
 		markUnread()
 		
 		childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
-		updateMessageCount()
+		markMessageCountDirty()
 		 
 		if let json = message.payload.jsonData {
 			timeSeries.collect(
@@ -109,12 +131,17 @@ class TopicTree: Identifiable, ObservableObject {
 		}
 	}
 	
-	private func updateMessageCount() {
-		messageCountDisplay = messageCount
-		topicCountDisplay = topicCount
-		
-		// Propagate new message counter
-		parent?.updateMessageCount()
+	private func markMessageCountDirty() {
+		messageCountDirty = true
+		parent?.markMessageCountDirty()
+	}
+	
+	func updateMessageCount() {
+		if messageCountDirty {
+			messageCountDirty = false
+			messageCountDisplay = messageCount
+			topicCountDisplay = topicCount
+		}
 	}
 }
 
