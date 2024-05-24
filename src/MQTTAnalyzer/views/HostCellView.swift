@@ -96,7 +96,13 @@ struct HostCellView: View {
 			MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
 			MenuButton(title: "Create new based on this", systemImage: "pencil.circle", action: cloneHost)
 			if host.state != .disconnected {
-				MenuButton(title: "Disconnect", systemImage: "stop.circle", action: disconnect)
+				Menu {
+					MenuButton(title: "Disconnect", systemImage: "stop.circle", action: disconnect)
+					
+					DestructiveMenuButton(title: "Disconnect and clean", systemImage: "stop.circle", action: disconnectClean)
+				} label: {
+					Label("Disconnect", systemImage: "stop.circle")
+				}
 			}
 			else {
 				MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
@@ -138,6 +144,11 @@ struct HostCellView: View {
 	
 	func disconnect() {
 		host.disconnect()
+	}
+	
+	func disconnectClean() {
+		host.disconnect()
+		messageModel.clear()
 	}
 	
 	func connect() {
