@@ -42,7 +42,7 @@ struct HostFormModel {
 	
 	var clientID = ""
 	
-	var limitTopic = "250"
+	var limitTopic = "1000"
 	var limitMessagesBatch = "1000"
 	
 	var ssl = false
