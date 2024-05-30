@@ -57,7 +57,14 @@ struct FolderCellView: View {
 		.contextMenu {
 			MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
 			MenuButton(title: "Copy name", systemImage: "doc.on.doc", action: copyName)
-			MenuButton(title: "Delete all retained messages", systemImage: "trash.fill", action: deleteAllReatined)
+			
+			Menu {
+				DestructiveMenuButton(title: "Delete retained messages from broker", systemImage: "trash.fill", action: deleteAllReatined)
+					.accessibilityLabel("confirm-delete-broker")
+			} label: {
+				Label("Delete", systemImage: "trash.fill")
+			}
+			.accessibilityLabel("delete-broker")
 	    }
 	}
 	
@@ -70,11 +77,18 @@ struct FolderCellView: View {
 	}
 	
 	func deleteAllReatined() {
-		for message in model.allRetainedMessages {
+		model.pauseAcceptEmptyFor(seconds: 5)
+		
+		let messages = model.allRetainedMessages
+		for message in messages {
 			root.publish(message: MsgMessage(
 				topic: message.topic,
 				payload: MsgPayload(data: []),
-				metadata: MsgMetadata(qos: message.metadata.qos, retain: true, duplicated: false)), on: host)
+				metadata: MsgMetadata(qos: message.metadata.qos, retain: true)), on: host)
+		}
+		
+		for message in messages {
+			message.topic.delete(message: message)
 		}
 	}
 }

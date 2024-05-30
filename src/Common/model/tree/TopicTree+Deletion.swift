@@ -25,4 +25,18 @@ extension TopicTree {
 	func delete(at offsets: IndexSet) {
 		messages.remove(atOffsets: offsets)
 	}
+	
+	func delete(message: MsgMessage) {
+		if let index = messages.firstIndex(of: message) {
+			messages.remove(at: index)
+		}
+		
+		var node: TopicTree? = self
+		while node != nil {
+			let current = node!
+			current.messageCountDirty = true
+
+			node = current.parent
+		}
+	}
 }
