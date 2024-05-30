@@ -42,7 +42,7 @@ class TopicTree: Identifiable, ObservableObject {
 			_messageCountDisplay = newValue
 		}
 	}
-	var topicCountDisplay: Int {
+var topicCountDisplay: Int {
 		get {
 			updateMessageCount()
 			return _topicCountDisplay
@@ -89,6 +89,17 @@ class TopicTree: Identifiable, ObservableObject {
 		didSet {
 			updateSearchResult()
 		}
+	}
+	
+	var allRetainedMessages: [MsgMessage] {
+		var result: [MsgMessage] = []
+		for child in children {
+			result += child.value.allRetainedMessages
+		}
+		
+		result += messages.filter { $0.metadata.retain }
+		
+		return result
 	}
 	
 	var filterTextCleaned = ""

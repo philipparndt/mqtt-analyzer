@@ -12,12 +12,14 @@ extension TopicTree {
 	func clear() {
 		children = [:]
 		messageCountDisplay = 0
+		totalTopicCounter = 0
 		topicCountDisplay = 0
 		childrenDisplay = []
 		messages = []
 		timeSeries = TimeSeriesModel()
 		readState = Readstate(read: true)
 		index?.clear(topicStartsWith: nameQualified)
+		topicLimitExceeded = false
 	}
 	
 	func delete(at offsets: IndexSet) {

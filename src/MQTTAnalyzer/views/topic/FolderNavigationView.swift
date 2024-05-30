@@ -29,7 +29,7 @@ struct FolderNavigationView: View {
 			else {
 				ForEach(model.childrenDisplay.sorted { $0.name < $1.name }) { child in
 					NavigationLink(destination: TopicsView(model: child, host: self.host)) {
-						FolderCellView(model: child)
+						FolderCellView(model: child, host: host)
 					}
 					.accessibilityLabel("folder: \(child.nameQualified)")
 				}
@@ -40,7 +40,9 @@ struct FolderNavigationView: View {
 
 struct FolderCellView: View {
 	@ObservedObject var model: TopicTree
-
+	@EnvironmentObject var root: RootModel
+	let host: Host
+	
 	var body: some View {
 		HStack {
 			FolderReadMarkerView(read: model.readState)
@@ -55,6 +57,7 @@ struct FolderCellView: View {
 		.contextMenu {
 			MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
 			MenuButton(title: "Copy name", systemImage: "doc.on.doc", action: copyName)
+			MenuButton(title: "Delete all retained messages", systemImage: "trash.fill", action: deleteAllReatined)
 	    }
 	}
 	
@@ -64,6 +67,15 @@ struct FolderCellView: View {
 
 	func copyName() {
 		UIPasteboard.general.string = model.name
+	}
+	
+	func deleteAllReatined() {
+		for message in model.allRetainedMessages {
+			root.publish(message: MsgMessage(
+				topic: message.topic,
+				payload: MsgPayload(data: []),
+				metadata: MsgMetadata(qos: message.metadata.qos, retain: true, duplicated: false)), on: host)
+		}
 	}
 }
 
