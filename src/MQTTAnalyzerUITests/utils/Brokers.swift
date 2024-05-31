@@ -30,7 +30,9 @@ class Brokers {
 			label: "Edit"
 		)
 		
-		app.buttons["delete-broker"].tap()
+		let button = app.buttons["delete-broker"]
+		app.scrollToElement(element: button)
+		button.tap()
 	}
 	
 	func confirmDelete() {
