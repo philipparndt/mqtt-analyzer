@@ -1,6 +1,6 @@
 # mqtt-analyzer
 
-<a href="https://apps.apple.com/de/app/mqttanalyzer/id1493015317?mt=8">![Download on AppStore](https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-01-07&kind=iossoftware&bubble=apple_music)</a>
+<a href="https://apps.apple.com/us/app/mqttanalyzer/id1493015317?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1578355200" alt="Download on the App Store" style="border-radius: 13px; width: 125px; height: 83px;"></a>
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=philipparndt_mqtt-analyzer&metric=alert_status)](https://sonarcloud.io/dashboard?id=philipparndt_mqtt-analyzer)
 
