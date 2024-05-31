@@ -39,6 +39,7 @@
 		22061AC327CA6BD300FFF915 /* XCUIElement+Checked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC227CA6BD300FFF915 /* XCUIElement+Checked.swift */; };
 		22061AC527CA79FE00FFF915 /* DispatchQueue+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
+		221093962C08599C00290825 /* HighlightSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 221093952C08599C00290825 /* HighlightSwift */; };
 		22117B6F2805C93300D0117D /* AbstractConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22117B6E2805C93300D0117D /* AbstractConfigurationTests.swift */; };
 		22117B712805C95A00D0117D /* ConfigurationWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22117B702805C95A00D0117D /* ConfigurationWebSocketTests.swift */; };
 		2215118D27C923EB0000E385 /* TopicTree+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2215118C27C923EB0000E385 /* TopicTree+Search.swift */; };
@@ -623,6 +624,7 @@
 				2200D97027C124FD00E63E89 /* Dynamic in Frameworks */,
 				223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */,
 				B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */,
+				221093962C08599C00290825 /* HighlightSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,6 +1348,7 @@
 			name = MQTTAnalyzer;
 			packageProductDependencies = (
 				2200D96F27C124FD00E63E89 /* Dynamic */,
+				221093952C08599C00290825 /* HighlightSwift */,
 			);
 			productName = MQTTAnalyzer;
 			productReference = 2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */;
@@ -1489,6 +1492,7 @@
 			mainGroup = 2253F8C922C8C007007E35A2;
 			packageReferences = (
 				2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */,
+				221093942C08580D00290825 /* XCRemoteSwiftPackageReference "highlightswift" */,
 			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
 			projectDirPath = "";
@@ -2213,7 +2217,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MQTTAnalyzer/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2243,7 +2247,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MQTTAnalyzer/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2600,6 +2604,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		221093942C08580D00290825 /* XCRemoteSwiftPackageReference "highlightswift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/appstefan/highlightswift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.8;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2607,6 +2619,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */;
 			productName = Dynamic;
+		};
+		221093952C08599C00290825 /* HighlightSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 221093942C08580D00290825 /* XCRemoteSwiftPackageReference "highlightswift" */;
+			productName = HighlightSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 

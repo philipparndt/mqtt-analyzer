@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CodeEditor
+import HighlightSwift
 
 struct MessageDetailsJsonView: View {
 	@Environment(\.colorScheme) var colorScheme
@@ -16,6 +17,9 @@ struct MessageDetailsJsonView: View {
 
 	var body: some View {
 		VStack {
+			// CodeText(source).font(.footnote)
+				// .frame(minHeight: 100, alignment: Alignment.leading)
+			
 			CodeEditor(source: $source,
 					   language: language,
 					   theme: colorScheme == .light ? CodeEditor.ThemeName.atelierSavannaLight : CodeEditor.ThemeName.atelierSavannaDark,
