@@ -10,7 +10,7 @@ import XCTest
 
 class ScreenshotTests: AbstractUITests {
 	//  ~/Library/Containers/de.rnd7.MQTTAnalyzerUITests.xctrunner/Data/screenshots
-	func testFullRoundtripScreenshots() {
+	@MainActor func testFullRoundtripScreenshots() {
 		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.idSmall()
@@ -42,9 +42,9 @@ class ScreenshotTests: AbstractUITests {
 		snapshot(ScreenshotIds.JSON_DETAILS)
 		
 		nav.navigate(to: "\(id)hue")
-		nav.flatView()
+		nav.flatView(tc: self)
 		snapshot(ScreenshotIds.FLAT_VIEW)
-		nav.flatView()
+		nav.flatViewOff(tc: self)
 
 		nav.navigate(to: "\(id)hue/light/kitchen")
 		snapshot(ScreenshotIds.LIGHTS)

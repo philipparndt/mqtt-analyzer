@@ -9,7 +9,7 @@
 import XCTest
 
 class ConfigurationWebSocketTests: AbstractConfigurationTests {
-	func testWebSocketLetsEncryptTraefik() {
+	@MainActor func testWebSocketLetsEncryptTraefik() {
 		assertWithBroker(
 			Broker(
 				alias: "LE WSS",
@@ -21,7 +21,7 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 		)
 	}
 	
-	func testMQTT5NoAuth() {
+	@MainActor func testMQTT5NoAuth() {
 		assertWithBroker(
 			Broker(
 				alias: "WS MQTT 5",
@@ -33,7 +33,7 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 		)
 	}
 	
-	func testWebSocket() {
+	@MainActor func testWebSocket() {
 		assertWithBroker(
 			Broker(
 				alias: "WebSocket",
@@ -44,7 +44,7 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 		)
 	}
 	
-	func testWebSocketPersistedAuth() {
+	@MainActor func testWebSocketPersistedAuth() {
 		assertWithBroker(
 			Broker(
 				alias: "9002",
@@ -58,7 +58,7 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 		)
 	}
 	
-	func testWebSocketPersistedUsername() {
+	@MainActor func testWebSocketPersistedUsername() {
 		assertWithBroker(
 			Broker(
 				alias: "9002",

@@ -9,7 +9,7 @@
 import XCTest
 
 class ConfigurationMQTTTests: AbstractConfigurationTests {
-	func testMQTTNoAuth() {
+	@MainActor func testMQTTNoAuth() {
 		assertWithBroker(
 			Broker(
 				alias: "1883",
@@ -19,7 +19,7 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 		)
 	}
 	
-	func testMQTT5NoAuth() {
+	@MainActor func testMQTT5NoAuth() {
 		assertWithBroker(
 			Broker(
 				alias: "MQTT 5",
@@ -30,7 +30,7 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 		)
 	}
 	
-	func testMQTTPersistedAuth() {
+	@MainActor func testMQTTPersistedAuth() {
 		assertWithBroker(
 			Broker(
 				alias: "1884",
@@ -43,7 +43,7 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 		)
 	}
 	
-	func testMQTTPersistedUsername() {
+	@MainActor func testMQTTPersistedUsername() {
 		assertWithBroker(
 			Broker(
 				alias: "1884",
@@ -56,7 +56,7 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 		)
 	}
 	
-	func testMQTTLetsEncryptTraefik() {
+	@MainActor func testMQTTLetsEncryptTraefik() {
 		assertWithBroker(
 			Broker(
 				alias: "LE MQTTS",

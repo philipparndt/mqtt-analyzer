@@ -27,7 +27,7 @@ class FlatViewTests: AbstractUITests {
 		let cell = nav.groupCell(topic: "\(id)home/contacts/frontdoor")
 		
 		awaitDisappear(element: cell)
-		nav.flatView()
+		nav.flatView(tc: self)
 		awaitAppear(element: cell)
 	}
 }
