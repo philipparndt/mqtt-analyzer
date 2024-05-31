@@ -32,7 +32,8 @@ class TopicTree: Identifiable, ObservableObject {
 	
 	private var _messageCountDisplay: Int = 0
 	private var _topicCountDisplay: Int = 0
-	
+	private var pauseAcceptEmptyUntil: Date?
+
 	var messageCountDisplay: Int {
 		get {
 			updateMessageCount()
@@ -42,6 +43,7 @@ class TopicTree: Identifiable, ObservableObject {
 			_messageCountDisplay = newValue
 		}
 	}
+	
 	var topicCountDisplay: Int {
 		get {
 			updateMessageCount()
@@ -89,6 +91,17 @@ class TopicTree: Identifiable, ObservableObject {
 		didSet {
 			updateSearchResult()
 		}
+	}
+	
+	var allRetainedMessages: [MsgMessage] {
+		var result: [MsgMessage] = []
+		for child in children {
+			result += child.value.allRetainedMessages
+		}
+		
+		result += messages.filter { $0.metadata.retain }
+		
+		return result
 	}
 	
 	var filterTextCleaned = ""
@@ -200,6 +213,10 @@ extension TopicTree {
 	
 	func addMessage(metadata: MsgMetadata, payload: MsgPayload, to topic: String) -> MsgMessage? {
 		if let node = addTopic(topic: topic) {
+			if !node.canAccept(payload: payload) {
+				return nil
+			}
+			
 			let message = MsgMessage(topic: node, payload: payload, metadata: metadata)
 			node.addMessage(message: message)
 			
@@ -209,5 +226,28 @@ extension TopicTree {
 		else {
 			return nil
 		}
+	}
+}
+
+extension TopicTree {
+	func pauseAcceptEmptyFor(seconds: Int32) {
+		pauseAcceptEmptyUntil = Date().addingTimeInterval(TimeInterval(seconds))
+	}
+	
+	func canAccept(payload: MsgPayload) -> Bool {
+		if !payload.data.isEmpty {
+			return true
+		}
+		var node: TopicTree? = self
+		while node != nil {
+			let current = node!
+			if let pauseUntil = current.pauseAcceptEmptyUntil, Date() < pauseUntil {
+				return false
+			}
+
+			node = current.parent
+		}
+		
+		return true
 	}
 }

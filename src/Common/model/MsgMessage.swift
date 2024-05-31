@@ -19,3 +19,10 @@ class MsgMessage: Identifiable {
 		self.metadata = metadata
 	}
 }
+
+extension MsgMessage: Equatable {
+	static func == (lhs: MsgMessage, rhs: MsgMessage) -> Bool {
+		return lhs.id == rhs.id
+	}
+}
+

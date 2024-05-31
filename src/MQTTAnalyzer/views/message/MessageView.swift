@@ -67,20 +67,34 @@ struct MessageCellView: View {
 				}
 			}
 			.contextMenu {
-				MenuButton(title: "Copy message",
-						   systemImage: "doc.on.doc",
-						   action: copy)
-				MenuButton(title: "Publish message again",
-						   systemImage: "paperplane.fill",
-						   action: publish)
-				MenuButton(title: "Publish new message",
-						   systemImage: "paperplane.fill",
-						   action: publishManually)
+				MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
+				MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
+				
+				Menu {
+					MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
+					MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishManually)
+						.accessibilityLabel("publish new")
+				} label: {
+					Label("Publish", systemImage: "paperplane.fill")
+				}
+				.accessibilityLabel("publish")
+				
+				Menu {
+					DestructiveMenuButton(title: "Delete retained message from broker", systemImage: "trash.fill", action: deleteRetained)
+						.accessibilityLabel("confirm-delete-retained")
+				} label: {
+					Label("Delete", systemImage: "trash.fill")
+				}
+				.accessibilityLabel("delete-retained")
 			}
 		}
 	}
 	
-	func copy() {
+	func copyTopic() {
+		UIPasteboard.general.string = message.topic.nameQualified
+	}
+	
+	func copyMessage() {
 		UIPasteboard.general.string = message.payload.dataString
 	}
 	
@@ -90,5 +104,12 @@ struct MessageCellView: View {
 	
 	func publishManually() {
 		selectMessage(message)
+	}
+	
+	func deleteRetained() {
+		model.publish(message: MsgMessage(
+			topic: message.topic,
+			payload: MsgPayload(data: []),
+			metadata: MsgMetadata(qos: message.metadata.qos, retain: true)), on: host)
 	}
 }

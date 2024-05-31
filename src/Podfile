@@ -21,7 +21,7 @@ def shared_pods
 	
 	pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git', :tag => '2.1.2'
 	
-	pod 'CodeEditor', :git => 'https://github.com/ZeeZide/CodeEditor.git'
+	pod 'CodeEditor', :git => 'https://github.com/ZeeZide/CodeEditor.git', :tag => '1.2.4'
 	
 	pod 'swift-petitparser'
 	
@@ -29,7 +29,7 @@ def shared_pods
 
 	pod 'SwiftLint'
 	
-	pod 'GRDB.swift', '6.15.0'
+	pod 'GRDB.swift', :git => 'https://github.com/groue/GRDB.swift', :tag => 'v6.27.0'
 end
 
 target 'MQTTAnalyzer' do
