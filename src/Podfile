@@ -29,7 +29,7 @@ def shared_pods
 
 	pod 'SwiftLint'
 	
-	pod 'GRDB.swift', '6.15.0'
+	pod 'GRDB.swift', :git => 'https://github.com/groue/GRDB.swift', :tag => 'v6.27.0'
 end
 
 target 'MQTTAnalyzer' do
