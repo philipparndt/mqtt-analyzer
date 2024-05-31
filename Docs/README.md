@@ -95,13 +95,3 @@ see [mutual-tls](./examples/mutual-tls)
 | Update pod repos | `pod repo update` |
 | Install / update pods | `pod install` |
 | Execute test cases | `run-tests.sh` |
-
-## Thank you
-
-<table>
- <tr>
- <td valign="center"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="40"/> </td>
- <td valign="center">Thanks to JetBrains for sponsoring an all tools <a href="https://www.jetbrains.com/community/opensource/#support">Open Source License</a></td>
- </tr>
-</table>
-
