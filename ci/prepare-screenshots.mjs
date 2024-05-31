@@ -4,8 +4,8 @@ const devices = [
     "iPhone 15 Pro", 
     "iPhone 15", 
     "iPhone SE (3rd generation)",
-    "iPad Pro 11-inch (M4)"
-    //, "iPad Air 11-inch (M2)"
+    //"iPad Pro 11-inch (M4)",
+    "iPad Air 11-inch (M2)"
 ]
 const papp = process.env["APPEARANCE"]
 const appearance=papp ?? "dark" //  'dark' or 'light'

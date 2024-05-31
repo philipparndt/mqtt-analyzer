@@ -109,7 +109,8 @@ class Navigation {
 	@MainActor func publishNew(topic: String) {
 		let groupCell = app.buttons["group: \(topic)"]
 		app.openMenu(on: groupCell)
-		
+		snapshot(ScreenshotIds.CONTEXT_MENU_COPY)
+
 		#if targetEnvironment(macCatalyst)
 		app.menuItems["Publish new message"].tap()
 		#else

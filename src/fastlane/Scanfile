@@ -9,7 +9,8 @@ devices([
     "iPhone 15 Pro", 
     "iPhone 15", 
     "iPhone SE (3rd generation)",
-    "iPad Pro 11-inch (M4)",
+    # "iPad Pro 11-inch (M4)",
+    "iPad Air 11-inch (M2)",
     "iPad mini (6th generation)"
 ])
 
