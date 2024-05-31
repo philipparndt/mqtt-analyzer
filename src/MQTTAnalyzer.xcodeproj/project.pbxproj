@@ -39,6 +39,7 @@
 		22061AC327CA6BD300FFF915 /* XCUIElement+Checked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC227CA6BD300FFF915 /* XCUIElement+Checked.swift */; };
 		22061AC527CA79FE00FFF915 /* DispatchQueue+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */; };
 		2209C86C23B720E7007C1D93 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
+		221093982C09998800290825 /* XCTestCase+toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221093972C09998800290825 /* XCTestCase+toggle.swift */; };
 		22117B6F2805C93300D0117D /* AbstractConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22117B6E2805C93300D0117D /* AbstractConfigurationTests.swift */; };
 		22117B712805C95A00D0117D /* ConfigurationWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22117B702805C95A00D0117D /* ConfigurationWebSocketTests.swift */; };
 		2215118D27C923EB0000E385 /* TopicTree+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2215118C27C923EB0000E385 /* TopicTree+Search.swift */; };
@@ -387,6 +388,7 @@
 		22061AC227CA6BD300FFF915 /* XCUIElement+Checked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Checked.swift"; sourceTree = "<group>"; };
 		22061AC427CA79FE00FFF915 /* DispatchQueue+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Background.swift"; sourceTree = "<group>"; };
 		2209C86B23B720E7007C1D93 /* HostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostValidator.swift; sourceTree = "<group>"; };
+		221093972C09998800290825 /* XCTestCase+toggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+toggle.swift"; sourceTree = "<group>"; };
 		22117B6E2805C93300D0117D /* AbstractConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractConfigurationTests.swift; sourceTree = "<group>"; };
 		22117B702805C95A00D0117D /* ConfigurationWebSocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationWebSocketTests.swift; sourceTree = "<group>"; };
 		2215118C27C923EB0000E385 /* TopicTree+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicTree+Search.swift"; sourceTree = "<group>"; };
@@ -756,6 +758,7 @@
 				224AFEB627B2C67900DFD09F /* XCUIElement+ClearText.swift */,
 				227D987227B41EC800E45C4C /* Navigation+ReadMarker.swift */,
 				22CFA3032896A6290003125D /* XUIElement+ScrollTo.swift */,
+				221093972C09998800290825 /* XCTestCase+toggle.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1992,6 +1995,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22CFA3042896A6290003125D /* XUIElement+ScrollTo.swift in Sources */,
+				221093982C09998800290825 /* XCTestCase+toggle.swift in Sources */,
 				22B46BDA27CA652B0077FB83 /* Brokers.swift in Sources */,
 				222AC3302803350600D66334 /* TestServer.swift in Sources */,
 				224AFEB327B2C07A00DFD09F /* XCTestCase+Disappear.swift in Sources */,
@@ -2328,7 +2332,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.9.0;
+				MARKETING_VERSION = 2.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2358,7 +2362,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.9.0;
+				MARKETING_VERSION = 2.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2387,7 +2391,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.9.0;
+				MARKETING_VERSION = 2.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2416,7 +2420,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.9.0;
+				MARKETING_VERSION = 2.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

@@ -30,7 +30,9 @@ class Brokers {
 			label: "Edit"
 		)
 		
-		app.buttons["delete-broker"].tap()
+		let button = app.buttons["delete-broker"]
+		app.scrollToElement(element: button)
+		button.tap()
 	}
 	
 	func confirmDelete() {
@@ -46,7 +48,7 @@ class Brokers {
 		app.buttons["Cancel"].tap()
 	}
 	
-	func create(broker: Broker) {
+	@MainActor func create(broker: Broker) {
 		app.buttons["Add Broker"].tap()
 		
 		if let alias = broker.alias {
@@ -85,7 +87,7 @@ class Brokers {
 				let field = app.checkBoxes["tls"]
 				field.click()
 				#else
-				let field = app.switches["TLS, tls"]
+				let field = app.switches["tls"]
 				field.tap()
 				#endif
 			}

@@ -88,23 +88,34 @@ class Navigation {
 		return cell
 	}
 	
-	func flatView() {
+	func flatView(tc: XCTestCase) {
 		#if targetEnvironment(macCatalyst)
 		app.checkBoxes["flatview"].click()
 		#else
-		app.switches["Flat, flatview"].tap()
+		let flatview = app.switches["flatview"]
+		tc.turnSwitchOn(flatview)
 		#endif
 	}
 	
-	func publishNew(topic: String) {
+	func flatViewOff(tc: XCTestCase) {
+		#if targetEnvironment(macCatalyst)
+		app.checkBoxes["flatview"].click()
+		#else
+		let flatview = app.switches["flatview"]
+		tc.turnSwitchOff(flatview)
+		#endif
+	}
+	
+	@MainActor func publishNew(topic: String) {
 		let groupCell = app.buttons["group: \(topic)"]
 		app.openMenu(on: groupCell)
-		
-		snapshot(ScreenshotIds.CONTEXT_MENU)
-		
+		snapshot(ScreenshotIds.CONTEXT_MENU_COPY)
+
 		#if targetEnvironment(macCatalyst)
 		app.menuItems["Publish new message"].tap()
 		#else
+		app.buttons["Publish"].tap()
+		snapshot(ScreenshotIds.CONTEXT_MENU)
 		app.buttons["publish new"].tap()
 		#endif
 		app.buttons["set"].tap()

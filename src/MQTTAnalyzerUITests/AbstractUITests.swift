@@ -12,7 +12,7 @@ class AbstractUITests: XCTestCase {
 	var app: XCUIApplication!
 	static var currentApp: XCUIApplication!
 	
-    override func setUp() {
+	@MainActor override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
         // In UI tests it is usually best to stop immediately when a failure occurs.
