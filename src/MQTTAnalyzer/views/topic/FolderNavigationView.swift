@@ -60,11 +60,11 @@ struct FolderCellView: View {
 			
 			Menu {
 				DestructiveMenuButton(title: "Delete retained messages from broker", systemImage: "trash.fill", action: deleteAllReatined)
-					.accessibilityLabel("confirm-delete-broker")
+					.accessibilityLabel("confirm-delete-retained")
 			} label: {
 				Label("Delete", systemImage: "trash.fill")
 			}
-			.accessibilityLabel("delete-broker")
+			.accessibilityLabel("delete-retained")
 	    }
 	}
 	

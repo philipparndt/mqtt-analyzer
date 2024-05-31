@@ -37,11 +37,23 @@ struct TopicCellView: View {
 			.contextMenu {
 				MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
 				MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
-								
-				MenuButton(title: "Publish message again", systemImage: "paperplane.fill", action: publish)
-				MenuButton(title: "Publish new message", systemImage: "paperplane.fill", action: publishManually)
-					.accessibilityLabel("publish new")
-				MenuButton(title: "Delete retained message", systemImage: "paperplane.fill", action: deleteRetained)
+				
+				Menu {
+					MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
+					MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishManually)
+						.accessibilityLabel("publish new")
+				} label: {
+					Label("Publish", systemImage: "paperplane.fill")
+				}
+				.accessibilityLabel("publish")
+				
+				Menu {
+					DestructiveMenuButton(title: "Delete retained message from broker", systemImage: "trash.fill", action: deleteRetained)
+						.accessibilityLabel("confirm-delete-retained")
+				} label: {
+					Label("Delete", systemImage: "trash.fill")
+				}
+				.accessibilityLabel("delete-retained")
 			}
 		}
 		.accessibilityLabel("group: \(messages.nameQualified)")
