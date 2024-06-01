@@ -114,7 +114,6 @@ class SQLitePersistence {
 						t.column("category", .text).notNull()
 						
 						t.primaryKey(["id"])
-						
 					}
 				}
 			}

@@ -19,7 +19,7 @@ extension BrokerSetting {
     @NSManaged public var alias: String
     @NSManaged public var authType: HostAuthenticationType
     @NSManaged public var basePath: String?
-	@NSManaged public var category: String?
+    @NSManaged public var category: String?
     @NSManaged public var certClientKeyPassword: String?
     @NSManaged public var certificates: Certificates?
     @NSManaged public var clientID: String?
