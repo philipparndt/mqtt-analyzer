@@ -13,22 +13,25 @@ struct InformationContainerView: View {
 		VStack(alignment: .leading) {
 			HStack(alignment: .center) {
 				Spacer()
-				Text("New in 2.8").font(.subheadline)
+				Text("New in 2.11").font(.subheadline)
 				Spacer()
 			}
 
 			InformationDetailView(
-				title: "Charts",
-				subTitle: "Data series are now visualized in a chart view.",
-				imageName: "chart.xyaxis.line",
+				title: "Broker categories",
+				subTitle: "You can now organize your brokers by categories!\n\n" +
+					"Assign a category to each broker for better organization. " +
+					"View brokers grouped by their categories in the broker list.\n\n" +
+					"Open Edit broker / More settings.",
+				imageName: "tag",
 				color: .secondary
 			)
-
+			
 			InformationDetailView(
 				title: "Feedback welcome",
 				subTitle: "App Store and GitHub stars are good for motivation. Feedback and" +
 				" contributions like ideas, documentation, and source code are welcome.",
-				imageName: "star",
+				imageName: "star.fill",
 				color: .yellow
 			)
 		}
