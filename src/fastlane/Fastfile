@@ -23,16 +23,6 @@ platform :ios do
     )
   end
 
-  lane :increment_version do |options|
-    increment_version_number(
-      version_number: options[:version_number] # Pass the version number as an argument
-    )
-    commit_version_bump(
-      message: "Version bump to #{options[:version_number]}"
-    )
-    push_to_git_remote
-  end
-
   lane :tests do
     scan(
       scheme: "MQTTAnalyzer",
