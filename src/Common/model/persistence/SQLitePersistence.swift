@@ -31,6 +31,8 @@ struct SQLiteBrokerSetting: Codable, FetchableRecord, PersistableRecord {
 	var limitTopic: Int
 	var limitMessagesBatch: Int
 	var deleted: Bool
+	
+	var category: String
 }
 
 extension SQLiteBrokerSetting {
@@ -109,8 +111,10 @@ class SQLitePersistence {
 						t.column("limitTopic", .integer).notNull()
 						t.column("limitMessagesBatch", .integer).notNull()
 						t.column("deleted", .boolean).notNull()
+						t.column("category", .text).notNull()
 						
 						t.primaryKey(["id"])
+						
 					}
 				}
 			}

@@ -50,13 +50,15 @@ class HostSettingExamples {
 			clientID: "",
 			limitTopic: limitTopic,
 			limitMessagesBatch: 1000,
-			deleted: false
+			deleted: false,
+			
+			category: "Examples"
 		)
 	}
 	
 	class func example1() -> SQLiteBrokerSetting {
 		return create(
-			alias: "Example: Revspace sensors",
+			alias: "Revspace sensors",
 			hostname: "test.mosquitto.org",
 			limitTopic: 400,
 			subscriptions: [
@@ -66,7 +68,7 @@ class HostSettingExamples {
 	
 	class func example2() -> SQLiteBrokerSetting {
 		return create(
-			alias: "Example: MQTTAnalyzer Mosquitto",
+			alias: "MQTTAnalyzer Mosquitto",
 			hostname: "test.mosquitto.org",
 			subscriptions: [
 				TopicSubscription(topic: "de/rnd7/mqtt-analyzer/#", qos: 0),

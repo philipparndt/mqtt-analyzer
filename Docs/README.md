@@ -90,8 +90,9 @@ see [mutual-tls](./examples/mutual-tls)
 
 # Developer notes
 
-| Description | Command |
-| --------------------- | ----------------- |
-| Update pod repos | `pod repo update` |
-| Install / update pods | `pod install` |
-| Execute test cases | `run-tests.sh` |
+| Description           | Command                                           |
+| --------------------- | ------------------------------------------------- |
+| Update pod repos      | `pod repo update`                                 |
+| Install / update pods | `pod install`                                     |
+| Execute test cases    | `run-tests.sh`                                    |
+| Set new version       | `fastlane increment_version version_number:1.2.3` |

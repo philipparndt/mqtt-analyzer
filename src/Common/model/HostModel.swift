@@ -169,6 +169,21 @@ class HostsModel: ObservableObject {
 			}
 		}
 	}
+	
+	var hostsGroupedByCategory: [String: [Host]] {
+		var groupedHosts: [String: [Host]] = [:]
+		
+		for host in hostsSorted {
+			let category = host.settings.category ?? "Uncategorized"
+			if groupedHosts[category] != nil {
+				groupedHosts[category]!.append(host)
+			} else {
+				groupedHosts[category] = [host]
+			}
+		}
+		
+		return groupedHosts
+	}
 		
 	init(hosts: [Host] = [], initMethod: InitHost) {
 		self.initMethod = initMethod
