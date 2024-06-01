@@ -111,7 +111,8 @@ class PersistenceTransformer {
 			clientID: settings.clientID ?? "",
 			limitTopic: Int(settings.limitTopic),
 			limitMessagesBatch: Int(settings.limitMessagesBatch),
-			deleted: settings.isDeleted
+			deleted: settings.isDeleted,
+			category: settings.category ?? ""
 		)
 	}
 }

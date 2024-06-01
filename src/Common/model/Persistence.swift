@@ -164,5 +164,6 @@ class PersistenceHelper {
 		broker.limitTopic = Int32(host.limitTopic)
 		
 		broker.subscriptions = Subscriptions(SubscriptionValueTransformer.decode(subscriptions: host.subscriptions))
+		broker.category = host.category
 	}
 }

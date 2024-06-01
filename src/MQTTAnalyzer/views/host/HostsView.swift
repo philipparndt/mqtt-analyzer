@@ -32,6 +32,12 @@ struct HostsView: View {
 		animation: .default)
 	private var brokers: FetchedResults<BrokerSetting>
 	
+	var categorizedBrokers: [String: [BrokerSetting]] {
+		Dictionary(grouping: searchBroker) { broker in
+			broker.category?.isEmpty == true ? "Uncategorized" : (broker.category ?? "Uncategorized")
+		}
+	}
+	
 	var body: some View {
 		buildView()
 	}
@@ -40,15 +46,34 @@ struct HostsView: View {
 		let view = NavigationView {
 			VStack(alignment: .leading) {
 				List {
-					ForEach(searchBroker) { broker in
-						HostCellView(host: model.getConnectionModel(broker: broker),
-									 hostsModel: hostsModel,
-									 messageModel: (
-										self.model.getMessageModel(model.getConnectionModel(broker: broker))
-									 ),
-									 cloneHostHandler: self.cloneHost)
-							.accessibilityLabel("broker: \(broker.aliasOrHost)")
+					if let uncategorizedBrokers = categorizedBrokers["Uncategorized"] {
+						ForEach(uncategorizedBrokers, id: \.self) { broker in
+							HostCellView(host: model.getConnectionModel(broker: broker),
+										 hostsModel: hostsModel,
+										 messageModel: (
+											self.model.getMessageModel(model.getConnectionModel(broker: broker))
+										 ),
+										 cloneHostHandler: self.cloneHost)
+								.accessibilityLabel("broker: \(broker.aliasOrHost)")
+						}
 					}
+					
+					ForEach(categorizedBrokers.keys.sorted().filter { $0 != "Uncategorized" }, id: \.self) { category in
+						Section(header: Text(category)) {
+							ForEach(categorizedBrokers[category] ?? [], id: \.self) { broker in
+								// Text(broker.alias)
+								HostCellView(host: model.getConnectionModel(broker: broker),
+											 hostsModel: hostsModel,
+											 messageModel: (
+												self.model.getMessageModel(model.getConnectionModel(broker: broker))
+											 ),
+											 cloneHostHandler: self.cloneHost)
+									.accessibilityLabel("broker: \(broker.aliasOrHost)")
+
+							}
+						}
+					}
+					
 				}.searchable(text: $searchText)
 			}
 			.navigationBarTitleDisplayMode(.inline)

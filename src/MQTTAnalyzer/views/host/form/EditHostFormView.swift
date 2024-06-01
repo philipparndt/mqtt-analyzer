@@ -26,6 +26,7 @@ struct EditHostFormView: View {
 			}
 
 			if self.advanced {
+				CategoryFormView(host: $host)
 				ClientIDFormView(host: $host)
 				LimitsFormView(host: $host)
 			}
