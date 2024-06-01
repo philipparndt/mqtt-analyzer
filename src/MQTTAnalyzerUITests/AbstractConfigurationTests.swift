@@ -11,7 +11,7 @@ import XCTest
 class AbstractConfigurationTests: AbstractUITests {
 	let hostname = TestServer.getTestServer()
 
-	@MainActor func assertWithBroker(_ broker: Broker, credentials: Credentials? = nil) {
+	@MainActor func assertWithBroker(_ broker: Broker, tc: XCTestCase, credentials: Credentials? = nil) {
 		let id = Navigation.id()
 		let brokers = Brokers(app: app)
 
@@ -19,7 +19,7 @@ class AbstractConfigurationTests: AbstractUITests {
 		
 		let nav = Navigation(app: app, alias: broker.alias!)
 		
-		brokers.create(broker: broker)
+		brokers.create(broker: broker, tc: tc)
 		brokers.start(alias: broker.alias!, waitConnected: false)
 		
 		if let credentials = credentials {

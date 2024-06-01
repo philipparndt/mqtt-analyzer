@@ -17,7 +17,8 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 				port: 443,
 				connectionProtocol: .websocket,
 				tls: true
-			)
+			),
+			tc: self
 		)
 	}
 	
@@ -29,7 +30,8 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 				port: 9001,
 				connectionProtocol: .websocket,
 				protocolVersion: .mqtt5
-			)
+			),
+			tc: self
 		)
 	}
 	
@@ -40,7 +42,8 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 				hostname: hostname,
 				port: 9001,
 				connectionProtocol: .websocket
-			)
+			),
+			tc: self
 		)
 	}
 	
@@ -54,7 +57,8 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 				authType: .userPassword,
 				username: "admin",
 				password: "password"
-			)
+			),
+			tc: self
 		)
 	}
 	
@@ -68,6 +72,7 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 				authType: .userPassword,
 				username: "admin"
 			),
+			tc: self,
 			credentials: Credentials(username: nil, password: "password")
 		)
 	}

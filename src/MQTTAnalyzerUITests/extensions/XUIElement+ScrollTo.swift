@@ -11,7 +11,7 @@ extension XCUIElement {
 
 	func scrollToElement(element: XCUIElement) {
 		while !element.isHittable {
-			swipeUp()
+			swipeUp(velocity: .slow)
 		}
 	}
 

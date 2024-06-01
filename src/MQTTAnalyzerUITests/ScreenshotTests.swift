@@ -27,7 +27,7 @@ class ScreenshotTests: AbstractUITests {
 		brokers.delete(alias: alias)
 		brokers.confirmDelete()
 		
-		brokers.create(broker: Broker(alias: alias, hostname: hostname))
+		brokers.create(broker: Broker(alias: alias, hostname: hostname), tc: self)
 		brokers.start(alias: alias)
 
 		examples.publish(prefix: id)

@@ -15,7 +15,8 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 				alias: "1883",
 				hostname: hostname,
 				port: 1883
-			)
+			),
+			tc: self
 		)
 	}
 	
@@ -26,7 +27,8 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 				hostname: hostname,
 				port: 1883,
 				protocolVersion: .mqtt5
-			)
+			),
+			tc: self
 		)
 	}
 	
@@ -39,7 +41,8 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 				authType: .userPassword,
 				username: "admin",
 				password: "password"
-			)
+			),
+			tc: self
 		)
 	}
 	
@@ -52,6 +55,7 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 				authType: .userPassword,
 				username: "admin"
 			),
+			tc: self,
 			credentials: Credentials(username: nil, password: "password")
 		)
 	}
@@ -64,7 +68,8 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 				port: 8883,
 				connectionProtocol: .mqtt,
 				tls: true
-			)
+			),
+			tc: self
 		)
 	}
 }

@@ -48,7 +48,7 @@ class Brokers {
 		app.buttons["Cancel"].tap()
 	}
 	
-	@MainActor func create(broker: Broker) {
+	@MainActor func create(broker: Broker, tc: XCTestCase) {
 		app.buttons["Add Broker"].tap()
 		
 		if let alias = broker.alias {
@@ -94,8 +94,9 @@ class Brokers {
 		}
 		
 		if let authType = broker.authType {
-			let field = app.buttons["\(authType)-auth"]
-			field.tap()
+			let field = app.switches["\(authType)-auth"]
+			app.switches["tls"].scrollToElement(element: field)
+			tc.turnSwitchOn(field)
 			
 			if authType == .userPassword {
 				if let username = broker.username {
