@@ -43,4 +43,15 @@ class TreeUtilsTests: XCTestCase {
 		]))
 	}
 
+	func testPlusWildcard() {
+		XCTAssertEqual("", TreeUtils.commomPrefix(subscriptions: [
+			"+/light/#"
+		]))
+		XCTAssertEqual("some/topic", TreeUtils.commomPrefix(subscriptions: [
+			"some/topic/a/#",
+			"some/topic/+/#",
+			"some/topic/c/#"
+		]))
+	}
+	
 }

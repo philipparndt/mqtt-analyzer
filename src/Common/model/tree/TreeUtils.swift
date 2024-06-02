@@ -9,8 +9,8 @@
 import Foundation
 
 class TreeUtils {
-	private class func removeAfterWildcard(_ subscription: String) -> String {
-		if let idx = subscription.firstIndex(of: "#") {
+	private class func remove(after wildcard: String.Element, _ subscription: String) -> String {
+		if let idx = subscription.firstIndex(of: wildcard) {
 			return String(subscription[...idx])
 		}
 		else {
@@ -18,6 +18,10 @@ class TreeUtils {
 		}
 	}
 	
+	private class func removeAfterWildcard(_ subscription: String) -> String {
+		return remove(after: "+", remove(after: "#", subscription))
+	}
+		
 	private class func commonPath(_ left: [String], _ right: [String]) -> [String] {
 		var result: [String] = []
 		for i in 0 ..< min(left.count, right.count) {
@@ -33,7 +37,7 @@ class TreeUtils {
 	
 	class func commomPrefix(subscriptions: [String]) -> String {
 		return subscriptions.map { TreeUtils.removeAfterWildcard($0) }
-		.map { $0.replacingOccurrences(of: "[/#]+$", with: "", options: .regularExpression) }
+		.map { $0.replacingOccurrences(of: "[/#+]+$", with: "", options: .regularExpression) }
 		.map { $0.split(separator: "/").map { String($0)} }
 		.reduce(nil as [String]?, {
 			if $0 == nil {
