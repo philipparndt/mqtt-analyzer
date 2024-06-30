@@ -21,7 +21,7 @@ def shared_pods
 	
 	pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git', :tag => '2.1.2'
 	
-	pod 'CodeEditor', :git => 'https://github.com/ZeeZide/CodeEditor.git', :tag => '1.2.4'
+	pod 'CodeEditor', :git => 'https://github.com/ZeeZide/CodeEditor.git', :tag => '1.2.6'
 	
 	pod 'swift-petitparser'
 	
