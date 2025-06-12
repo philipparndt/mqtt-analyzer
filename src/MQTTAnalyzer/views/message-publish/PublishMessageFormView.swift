@@ -91,11 +91,11 @@ struct PublishMessageFormModalView: View {
 	let closeCallback: () -> Void
 	let root: RootModel
 	let host: Host
-	@Binding var model: PublishMessageFormModel
+	@ObservedObject var model: PublishMessageFormModel
 
 	var body: some View {
 		NavigationView {
-			PublishMessageFormView(message: self.$model, type: self.$model.messageType)
+			PublishMessageFormView(model: self.model, type: self.$model.messageType)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
 				.navigationTitle("Publish message")
@@ -145,57 +145,45 @@ struct PublishMessageFormModalView: View {
 }
 
 struct PublishMessageFormView: View {
-	@Binding var message: PublishMessageFormModel
+	@ObservedObject var model: PublishMessageFormModel
 	@Binding var type: PublishMessageType
 
 	var body: some View {
 		Form {
 			Section(header: Text("Topic")) {
-				/*
-				LabeledContent("Label") {
-					TextField("", text: $message.topic)
-						.disableAutocorrection(true)
-						.autocapitalization(.none)
-						.font(.body)
-						.accessibilityLabel("topic")
-				}
-				*/
-				TextField("", text: $message.topic)
+				TextField("", text: $model.topic)
 					.disableAutocorrection(true)
 					.autocapitalization(.none)
 					.font(.body)
 					.accessibilityLabel("topic")
-				
-				TopicSuffixPickerView(suffix: $message.topicSuffix)
+				TopicSuffixPickerView(suffix: $model.topicSuffix)
 			}
 
 			Section(header: Text("Settings")) {
 				HStack {
 					Text("QoS")
-					
-					QOSPicker(qos: $message.qos)
+					QOSPicker(qos: $model.qos)
 				}
-				
-				Toggle(isOn: $message.retain) {
+				Toggle(isOn: $model.retain) {
 					Text("Retain")
 					Text("keep this message")
 				}
 			}
-			
+
 			Section(header: Text("Message")) {
 				PublishMessageTypeView(type: self.$type)
-				
 				if type == .json {
-					PublishMessageFormJSONView(message: $message)
+					PublishMessageFormJSONView(model: model)
 				}
 				else {
-					PublishMessageFormPlainTextView(message: $message.message)
+					PublishMessageFormPlainTextView(message: $model.message)
 				}
 			}
 		}
 		.formStyle(.grouped)
 	}
 }
+
 enum PublishMessageType {
 	case plain
 	case jsonText
@@ -229,15 +217,14 @@ struct PublishMessageFormPlainTextView: View {
 }
 
 struct PublishMessageFormJSONView: View {
-	@Binding var message: PublishMessageFormModel
-	
+	@ObservedObject var model: PublishMessageFormModel
 	var body: some View {
 		Group {
-			ForEach(message.properties.indices, id: \.self) { index in
+			ForEach(model.properties.indices, id: \.self) { index in
 				HStack {
-					Text(self.message.properties[index].pathName)
+					Text(self.model.properties[index].pathName)
 					Spacer()
-					MessageProperyView(property: self.$message.properties[index])
+					MessageProperyView(property: self.$model.properties[index])
 				}
 			}
 		}

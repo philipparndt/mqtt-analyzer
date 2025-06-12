@@ -12,7 +12,7 @@ struct MessageView: View {
 	@EnvironmentObject var rootModel: RootModel
 
 	@ObservedObject var node: TopicTree
-	@State var publishMessageFormModel = PublishMessageFormModel()
+	@StateObject var publishMessageFormModel = PublishMessageFormModel()
 
 	let host: Host
 
@@ -24,9 +24,9 @@ struct MessageView: View {
 								host: self.host)
 					.sheet(isPresented: $publishMessageFormModel.isPresented, onDismiss: cancelPublishMessageCreation, content: {
 						PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
-											 root: self.rootModel,
-											 host: self.host,
-											 model: self.$publishMessageFormModel)
+							 root: self.rootModel,
+							 host: self.host,
+							 model: self.publishMessageFormModel)
 					})
 					.accessibilityLabel("message")
 			}
@@ -35,8 +35,11 @@ struct MessageView: View {
 	}
 	
 	func selectMessage(message: MsgMessage) {
-		self.publishMessageFormModel = of(message: message)
-		self.publishMessageFormModel.isPresented = true
+		publishMessageFormModel.topic = message.topic.nameQualified
+		publishMessageFormModel.message = message.payload.dataString
+		publishMessageFormModel.qos = Int(message.metadata.qos)
+		publishMessageFormModel.retain = message.metadata.retain
+		publishMessageFormModel.isPresented = true
 	}
 	
 	func cancelPublishMessageCreation() {

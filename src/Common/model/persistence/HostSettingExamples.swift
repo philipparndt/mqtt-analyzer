@@ -28,7 +28,7 @@ class HostSettingExamples {
 		setWritten()
 	}
 		
-	class func create(alias: String, hostname: String, limitTopic: Int = 0, subscriptions: [TopicSubscription]) -> SQLiteBrokerSetting {
+	class func create(alias: String, hostname: String, limitTopic: Int = 0, category: String, subscriptions: [TopicSubscription]) -> SQLiteBrokerSetting {
 		return SQLiteBrokerSetting(
 			id: UUID().uuidString,
 			alias: alias,
@@ -52,7 +52,7 @@ class HostSettingExamples {
 			limitMessagesBatch: 1000,
 			deleted: false,
 			
-			category: "Examples"
+			category: category
 		)
 	}
 	
@@ -61,6 +61,7 @@ class HostSettingExamples {
 			alias: "Revspace sensors",
 			hostname: "test.mosquitto.org",
 			limitTopic: 400,
+			category: "Examples",
 			subscriptions: [
 				TopicSubscription(topic: "revspace/sensors/#", qos: 0)
 		 ])
@@ -70,6 +71,7 @@ class HostSettingExamples {
 		return create(
 			alias: "MQTTAnalyzer Mosquitto",
 			hostname: "test.mosquitto.org",
+			category: "Examples",
 			subscriptions: [
 				TopicSubscription(topic: "de/rnd7/mqtt-analyzer/#", qos: 0),
 				TopicSubscription(topic: "$SYS/#", qos: 0)
@@ -81,6 +83,7 @@ class HostSettingExamples {
 		return create(
 			alias: "Example",
 			hostname: "test.mqtt.rnd7.de",
+			category: "Tests",
 			subscriptions: [
 				TopicSubscription(topic: "#", qos: 0)
 			]
@@ -91,6 +94,7 @@ class HostSettingExamples {
 		return create(
 			alias: "localhost",
 			hostname: "localhost",
+			category: "Tests",
 			subscriptions: [
 				TopicSubscription(topic: "#", qos: 0)
 			]
