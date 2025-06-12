@@ -69,6 +69,7 @@ class RootModel: ObservableObject {
 	func reconnect() {
 		for host in hostsModel.hosts {
 			if host.wasConnected && host.state == .disconnected {
+				Logger(level: .debug).info("Reconnecting to \(host)")
 				connect(to: host)
 			}
 		}
