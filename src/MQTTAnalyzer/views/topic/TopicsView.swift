@@ -13,7 +13,7 @@ struct TopicsView: View {
 	@ObservedObject var model: TopicTree
 	@ObservedObject var host: Host
 	
-	@State private var publishMessageModel = PublishMessageFormModel()
+	@StateObject private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
 	
 	var body: some View {
@@ -24,7 +24,7 @@ struct TopicsView: View {
 					PublishMessageFormModalView(closeCallback: self.cancelDialog,
 												root: self.rootModel,
 												host: self.host,
-												model: self.$publishMessageModel)
+												model: publishMessageModel)
 				})
 			}
 			else {
@@ -125,7 +125,7 @@ struct TopicsView: View {
 					PublishMessageFormModalView(closeCallback: self.cancelDialog,
 												root: self.rootModel,
 												host: self.host,
-												model: self.$publishMessageModel)
+												model: publishMessageModel)
 				})
 				.listStyle(GroupedListStyle())
 			}
@@ -232,9 +232,8 @@ struct TopicsView: View {
 	}
 	
 	func createTopic() {
-		self.publishMessageModel = PublishMessageFormModel()
-		self.publishMessageModel.topic = model.nameQualified
-		self.publishMessageModel.isPresented = true
+		publishMessageModel.topic = model.nameQualified
+		publishMessageModel.isPresented = true
 	}
 
 	func pauseConnection() {
@@ -252,7 +251,11 @@ struct TopicsView: View {
 	}
 	
 	func selectMessage(message: MsgMessage) {
-		publishMessageModel = of(message: message)
+		publishMessageModel.topic = message.topic.nameQualified
+		publishMessageModel.message = message.payload.dataString
+		publishMessageModel.qos = Int(message.metadata.qos)
+		publishMessageModel.retain = message.metadata.retain
+		publishMessageModel.isPresented = true
 	}
 
 }

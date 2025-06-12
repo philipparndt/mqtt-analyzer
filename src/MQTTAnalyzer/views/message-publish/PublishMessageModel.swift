@@ -18,8 +18,8 @@ enum TopicSuffix: String, CaseIterable {
 	case sstate = "/state"
 }
 
-struct PublishMessageFormModel {
-	var isPresented = false
+class PublishMessageFormModel: ObservableObject {
+    @Published var isPresented = false
 	
 	var _topicSuffix: TopicSuffix = .none
 	var topicSuffix: TopicSuffix {
@@ -60,7 +60,7 @@ struct PublishMessageFormModel {
 	
 	var messageType: PublishMessageType = .plain
 	
-	mutating func updateMessageFromJsonData() {
+	func updateMessageFromJsonData() {
 		if var json = jsonData {
 			for property in properties {
 				json[property.path] = JSON(property.value.getTypedValue())
