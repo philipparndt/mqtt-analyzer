@@ -15,40 +15,62 @@ func isInMemory() -> Bool {
 	#endif
 }
 
-struct PersistenceController {
+class PersistenceController: ObservableObject {
     static let shared = PersistenceController()
 
-    let container: NSPersistentCloudKitContainer
+	@Published var isLoaded = false
+	private var _container: NSPersistentCloudKitContainer?
+
+	var container: NSPersistentCloudKitContainer {
+		_container!
+	}
 
 	static var path: URL? {
 		let directoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.de.rnd7.mqttanalyzer")
 		return directoryUrl?.appendingPathComponent("data")
 	}
-	
+
     init(inMemory: Bool = isInMemory()) {
-		
-        container = NSPersistentCloudKitContainer(name: "MQTTAnalyzer")
-		initInMemory()
-		
-        if !inMemory {
+		DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+			self?.initializeContainer(inMemory: inMemory)
+		}
+    }
+
+	private func initializeContainer(inMemory: Bool) {
+		let container = NSPersistentCloudKitContainer(name: "MQTTAnalyzer")
+
+        if inMemory {
+			let storeDescription = NSPersistentStoreDescription(url: URL(fileURLWithPath: "/dev/null"))
+			storeDescription.shouldAddStoreAsynchronously = true
+			container.persistentStoreDescriptions = [storeDescription]
+		} else {
 			if let storeURL = PersistenceController.path {
 				let storeDescription = NSPersistentStoreDescription(url: storeURL)
-				
+				storeDescription.shouldAddStoreAsynchronously = true
+
 				if isCloudEnabled() {
 					storeDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.de.rnd7.MQTTAnalyzer")
 				}
 				container.persistentStoreDescriptions = [storeDescription]
 
-				handleCloudInit()
+				handleCloudInit(container: container)
 			}
 			else {
 				NSLog("no storeURL, stick with in memory db")
+				let storeDescription = NSPersistentStoreDescription(url: URL(fileURLWithPath: "/dev/null"))
+				storeDescription.shouldAddStoreAsynchronously = true
+				container.persistentStoreDescriptions = [storeDescription]
 			}
 		}
-		
-        container.loadPersistentStores(completionHandler: completeLoadPersistentStores)
-		
-        container.viewContext.automaticallyMergesChangesFromParent = true
+
+        container.loadPersistentStores { [weak self] description, error in
+			self?.completeLoadPersistentStores(description: description, error: error)
+			DispatchQueue.main.async {
+				container.viewContext.automaticallyMergesChangesFromParent = true
+				self?._container = container
+				self?.isLoaded = true
+			}
+		}
     }
 	
 	func isCloudEnabled() -> Bool {
@@ -58,12 +80,8 @@ struct PersistenceController {
 			return false
 		}
 	}
-	
-	func initInMemory() {
-		container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
-	}
 
-	func handleCloudInit() {
+	func handleCloudInit(container: NSPersistentCloudKitContainer) {
 		#if DEBUG
 		do {
 			// Use the container to initialize the development schema.
