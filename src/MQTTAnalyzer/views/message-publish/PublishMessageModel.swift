@@ -74,7 +74,7 @@ class PublishMessageFormModel: ObservableObject {
 }
 
 func of(message: MsgMessage) -> PublishMessageFormModel {
-	var model = PublishMessageFormModel()
+	let model = PublishMessageFormModel()
 	model.message = message.payload.dataString
 	model.topic = message.topic.nameQualified
 	model.qos = Int(message.metadata.qos)

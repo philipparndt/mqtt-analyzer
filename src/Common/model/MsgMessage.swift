@@ -25,4 +25,3 @@ extension MsgMessage: Equatable {
 		return lhs.id == rhs.id
 	}
 }
-

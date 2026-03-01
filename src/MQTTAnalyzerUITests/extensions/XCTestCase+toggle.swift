@@ -18,8 +18,7 @@ extension XCTestCase {
   
   /// Check if an element's value is "0"
   static let switchIsOffPredicate = NSPredicate(format: "value == '0'")
-  
-  
+
   // MARK: Checks and actions on toggle/switch widgets
   
   /// Wait until the toggle/switch state is _on_.
@@ -38,7 +37,6 @@ extension XCTestCase {
 	
 	wait(for: [expectation], timeout: timeOut)
   }
-  
 
   /// Wait until the toggle/switch state is _off_.
   ///
@@ -116,8 +114,7 @@ extension XCTestCase {
 	
 	waitForSwitchToBeOff(toggle, timeOut: 5)
   }
-  
-  
+
   // MARK: Internal utilities
   
   /// Internal function to verify an element's `String` value.
@@ -153,9 +150,9 @@ extension XCTestCase {
   /// - Returns: A coordinate object to the center of the first matching descendant.
   ///
   public func tapCoordinate(for element: XCUIElement,
-							descendantType: XCUIElement.ElementType) -> XCUICoordinate {
+                            descendantType: XCUIElement.ElementType) -> XCUICoordinate {
 	let descendant = element.descendants(matching: descendantType).firstMatch
-	let center = descendant.coordinate(withNormalizedOffset: CGVectorMake(0.5, 0.5))
+	let center = descendant.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
 	return center
   }
   

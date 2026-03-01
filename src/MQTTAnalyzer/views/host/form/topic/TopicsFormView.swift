@@ -28,16 +28,11 @@ struct TopicsFormView: View {
 			}
 			.font(.body)
 			.accessibilityLabel("add-subscription")
-			.background(
-				NavigationLink(destination: Group {
-					if let subscription = selectedSubscription {
-						SubscriptionDetailsView(subscription: subscription, deletionHandler: deleteSubscription)
-					}
-				}, isActive: $isNavigating) {
-					EmptyView()
+			.navigationDestination(isPresented: $isNavigating) {
+				if let subscription = selectedSubscription {
+					SubscriptionDetailsView(subscription: subscription, deletionHandler: deleteSubscription)
 				}
-				.hidden()
-			)
+			}
 		}
 	}
 

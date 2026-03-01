@@ -14,7 +14,7 @@ struct Message: Codable, FetchableRecord, PersistableRecord {
 }
 
 class SearchIndex {
-	var inMemoryDBQueue: DatabaseQueue? = nil
+	var inMemoryDBQueue: DatabaseQueue?
 	let availabe: Bool
 	
 	init() {
