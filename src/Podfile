@@ -19,7 +19,7 @@ def shared_pods
 	#pod 'CocoaMQTT', :path => '~/dev/oss/CocoaMQTT'
 	#pod 'CocoaMQTT/WebSockets', :path => '~/dev/oss/CocoaMQTT'
 	
-	pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git', :tag => '2.1.2'
+	pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git', :tag => '2.3.0'
 	
 	pod 'CodeEditor', :git => 'https://github.com/ZeeZide/CodeEditor.git', :tag => '1.2.4'
 	
