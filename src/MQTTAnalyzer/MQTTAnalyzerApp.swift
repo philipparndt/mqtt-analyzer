@@ -40,7 +40,10 @@ struct MQTTAnalyzerApp: App {
 				.environment(\.managedObjectContext, persistenceController.container.viewContext)
 				.environmentObject(root)
 		}
-		.onChange(of: scenePhase) { _ in
+		.onChange(of: scenePhase) { newPhase in
+			if newPhase == .active {
+				root.reconnect()
+			}
 			persistenceController.save()
 		}
 	}
