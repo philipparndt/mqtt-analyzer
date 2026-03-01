@@ -43,7 +43,7 @@ struct HostsView: View {
 	}
 	
 	func buildView() -> some View {
-		let view = NavigationView {
+		NavigationStack {
 			VStack(alignment: .leading) {
 				List {
 					if let uncategorizedBrokers = categorizedBrokers["Uncategorized"] {
@@ -57,7 +57,7 @@ struct HostsView: View {
 								.accessibilityLabel("broker: \(broker.aliasOrHost)")
 						}
 					}
-					
+
 					ForEach(categorizedBrokers.keys.sorted().filter { $0 != "Uncategorized" }, id: \.self) { category in
 						Section(header: Text(category)) {
 							ForEach(categorizedBrokers[category] ?? [], id: \.self) { broker in
@@ -73,7 +73,7 @@ struct HostsView: View {
 							}
 						}
 					}
-					
+
 				}.searchable(text: $searchText)
 			}
 			.navigationBarTitleDisplayMode(.inline)
@@ -84,7 +84,7 @@ struct HostsView: View {
 						Text("About")
 					}
 				}
-				
+
 				ToolbarItemGroup(placement: .navigationBarTrailing) {
 					Button(action: createHost) {
 						Image(systemName: "plus")
@@ -99,12 +99,6 @@ struct HostsView: View {
 								   sheetType: self.$sheetType,
 								   selectedHost: self.$selectedHost)
 		})
-		
-		#if targetEnvironment(macCatalyst)
-		return view
-		#else
-		return view.navigationViewStyle(StackNavigationViewStyle())
-		#endif
 	}
 	
 	var searchBroker: [BrokerSetting] {

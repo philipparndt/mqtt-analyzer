@@ -11,7 +11,8 @@ import SwiftUI
 struct SubscriptionDetailsView: View {
 	@ObservedObject var subscription: TopicSubscriptionFormModel
 	var deletionHandler: (TopicSubscriptionFormModel) -> Void
-	
+	@Environment(\.dismiss) private var dismiss
+
 	var body: some View {
 		return Group {
 			List {
@@ -36,7 +37,7 @@ struct SubscriptionDetailsView: View {
 
 					QOSPicker(qos: $subscription.qos)
 				}
-				
+
 				Section(header: Text("")) {
 					Button(action: close) {
 						HStack(alignment: .center) {
@@ -53,8 +54,9 @@ struct SubscriptionDetailsView: View {
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationTitle("Update subscription")
 	}
-	
+
 	func close() {
+		dismiss()
 		deletionHandler(subscription)
 	}
 }

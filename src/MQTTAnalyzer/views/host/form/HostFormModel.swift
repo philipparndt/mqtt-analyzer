@@ -8,15 +8,23 @@
 
 import Foundation
 
-class TopicSubscriptionFormModel: Identifiable, ObservableObject {
+class TopicSubscriptionFormModel: Identifiable, ObservableObject, Hashable {
 	var id = NSUUID().uuidString
-	
+
 	@Published var topic: String
 	@Published var qos: Int
-	
+
 	init(topic: String, qos: Int) {
 		self.topic = topic
 		self.qos = qos
+	}
+
+	static func == (lhs: TopicSubscriptionFormModel, rhs: TopicSubscriptionFormModel) -> Bool {
+		lhs.id == rhs.id
+	}
+
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(id)
 	}
 }
 

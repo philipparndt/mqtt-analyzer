@@ -11,49 +11,60 @@ import SwiftUI
 
 struct TopicsFormView: View {
 	@Binding var host: HostFormModel
-
-	@State private var selection: String?
+	@State private var selectedSubscription: TopicSubscriptionFormModel?
+	@State private var isNavigating = false
 
 	var body: some View {
-		return Section(header: Text("Subscribe to")) {
-			List {
-				ForEach(host.subscriptions) { subscription in
-					NavigationLink(destination: SubscriptionDetailsView(subscription: subscription, deletionHandler: deleteSubscription),
-						   tag: subscription.id,
-						   selection: $selection) {
-						Group {
-							Text(subscription.topic)
-								.font(.body)
-								.foregroundColor(.secondary)
-						}
-					}
-					
+		Section(header: Text("Subscribe to")) {
+			ForEach(host.subscriptions) { subscription in
+				NavigationLink(destination: SubscriptionDetailsView(subscription: subscription, deletionHandler: deleteSubscription)) {
+					SubscriptionLabelView(subscription: subscription)
 				}
-				.onDelete(perform: self.delete)
-				
-				Button(action: addSubscription) {
-					Text("Add subscription")
-				}
-				.font(.body)
-				.accessibilityLabel("add-subscription")
 			}
+			.onDelete(perform: self.delete)
+
+			Button(action: addSubscription) {
+				Text("Add subscription")
+			}
+			.font(.body)
+			.accessibilityLabel("add-subscription")
+			.background(
+				NavigationLink(destination: Group {
+					if let subscription = selectedSubscription {
+						SubscriptionDetailsView(subscription: subscription, deletionHandler: deleteSubscription)
+					}
+				}, isActive: $isNavigating) {
+					EmptyView()
+				}
+				.hidden()
+			)
 		}
 	}
-	
+
 	func deleteSubscription(subscription: TopicSubscriptionFormModel) {
-		host.subscriptions = host.subscriptions.filter { $0.id != subscription.id}
+		host.subscriptions = host.subscriptions.filter { $0.id != subscription.id }
 	}
-	
+
 	func delete(at offsets: IndexSet) {
 		host.subscriptions.remove(atOffsets: offsets)
 	}
-	
+
 	func addSubscription() {
 		let model = TopicSubscriptionFormModel(topic: "", qos: 0)
 		host.subscriptions.append(model)
-		
-		ViewSelection.update(newValue: model.id) { id in
-			selection = id
+		selectedSubscription = model
+		ViewSelection.update(newValue: model.id) { _ in
+			isNavigating = true
 		}
+	}
+}
+
+struct SubscriptionLabelView: View {
+	@ObservedObject var subscription: TopicSubscriptionFormModel
+
+	var body: some View {
+		Text(subscription.topic.isEmpty ? "(empty)" : subscription.topic)
+			.font(.body)
+			.foregroundColor(.secondary)
 	}
 }
