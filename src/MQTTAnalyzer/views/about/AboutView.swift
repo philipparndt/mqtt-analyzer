@@ -23,7 +23,7 @@ struct AboutView: View {
 	@Binding var isPresented: Bool
 	
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			VStack(alignment: .leading) {
 				AboutTitleView().padding([.top, .bottom])
 				Text("""
@@ -55,7 +55,7 @@ Thank you! This project would not be possible without your great work! Thanks fo
 					}
 				}
 			}
-		}.navigationViewStyle(StackNavigationViewStyle())
+		}
 	}
 	
 	func close() {

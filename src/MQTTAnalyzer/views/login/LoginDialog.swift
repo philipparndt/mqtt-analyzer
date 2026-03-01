@@ -20,13 +20,12 @@ struct LoginDialogView: View {
 	@ObservedObject var host: Host
 
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			LoginFormView(username: host.settings.username ?? "", password: host.settings.password ?? "", loginCallback: login)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
 				.navigationTitle("Login")
 		}
-		.navigationViewStyle(StackNavigationViewStyle())
 	}
 	
 	func login(username: String, password: String) {

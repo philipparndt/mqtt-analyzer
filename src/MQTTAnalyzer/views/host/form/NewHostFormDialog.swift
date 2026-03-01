@@ -27,11 +27,11 @@ struct NewHostFormModalView: View {
 	}
 	
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			if let message = errorMessage {
 				Text(message).foregroundColor(.red)
 			}
-			
+
 			EditHostFormView(onDelete: closeHandler, host: $host)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
@@ -48,7 +48,7 @@ struct NewHostFormModalView: View {
 						}.disabled(disableSave)
 					}
 				}
-		}.navigationViewStyle(StackNavigationViewStyle())
+		}
 	}
 	
 	func save() {

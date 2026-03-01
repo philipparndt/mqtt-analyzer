@@ -94,7 +94,7 @@ struct PublishMessageFormModalView: View {
 	@ObservedObject var model: PublishMessageFormModel
 
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			PublishMessageFormView(model: self.model, type: self.$model.messageType)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
@@ -105,7 +105,7 @@ struct PublishMessageFormModalView: View {
 							Text("Cancel")
 						}
 					}
-					
+
 					ToolbarItemGroup(placement: .navigationBarTrailing) {
 						Button(action: publish) {
 							Text("Publish")
@@ -113,7 +113,6 @@ struct PublishMessageFormModalView: View {
 					}
 				}
 		}
-		.navigationViewStyle(StackNavigationViewStyle())
 	}
 		
 	func publish() {

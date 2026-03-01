@@ -26,7 +26,7 @@ struct EditHostFormModalView: View {
 	}
 
 	var body: some View {
-		NavigationView {
+		NavigationStack {
 			EditHostFormView(onDelete: delete, host: $host)
 				.font(.caption)
 				.navigationBarTitleDisplayMode(.inline)
@@ -43,7 +43,7 @@ struct EditHostFormModalView: View {
 					   }.disabled(disableSave)
 				   }
 				}
-		}.navigationViewStyle(StackNavigationViewStyle())
+		}
 	}
 	
 	func save() {
