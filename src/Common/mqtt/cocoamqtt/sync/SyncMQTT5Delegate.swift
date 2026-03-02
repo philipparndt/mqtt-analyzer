@@ -6,6 +6,8 @@
 //  Copyright © 2022 Philipp Arndt. All rights reserved.
 //
 
+import Foundation
+import Security
 import CocoaMQTT
 
 class SyncMQTT5Delegate: CocoaMQTT5Delegate, SyncListener {
@@ -35,7 +37,7 @@ class SyncMQTT5Delegate: CocoaMQTT5Delegate, SyncListener {
 		delegate.subscribed()
 	}
 
-	func mqtt5(_ mqtt5: CocoaMQTT5, didUnsubscribeTopics topics: [String], UnsubAckData: MqttDecodeUnsubAck?) {
+	func mqtt5(_ mqtt5: CocoaMQTT5, didUnsubscribeTopics topics: [String], unsubAckData: MqttDecodeUnsubAck?) {
 		// currently not necessary, but required by protocol
 	}
 	

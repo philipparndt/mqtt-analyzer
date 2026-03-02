@@ -34,7 +34,7 @@ class MQTT5Delegate: CocoaMQTT5Delegate {
 		// currently not necessary, but required by protocol
 	}
 
-	func mqtt5(_ mqtt5: CocoaMQTT5, didUnsubscribeTopics topics: [String], UnsubAckData: MqttDecodeUnsubAck?) {
+	func mqtt5(_ mqtt5: CocoaMQTT5, didUnsubscribeTopics topics: [String], unsubAckData: MqttDecodeUnsubAck?) {
 		// currently not necessary, but required by protocol
 	}
 	

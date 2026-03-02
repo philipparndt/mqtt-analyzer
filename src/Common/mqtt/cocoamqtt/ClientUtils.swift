@@ -6,6 +6,7 @@
 //  Copyright © 2022 Philipp Arndt. All rights reserved.
 //
 
+import Foundation
 import CocoaMQTT
 
 class ClientUtils<T, M> {

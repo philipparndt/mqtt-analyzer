@@ -1,6 +1,15 @@
 {
-  "originHash" : "84f50fcf1bf874108f3ea95491ce7aa79c839e45fece211cd4838ffce719fd6d",
+  "originHash" : "6045e2bc4437bc5ed2c8d2b6c535647e979f97d442d7fcdd760f9130fe3d1eb7",
   "pins" : [
+    {
+      "identity" : "cocoamqtt",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/philipparndt/CocoaMQTT.git",
+      "state" : {
+        "revision" : "a555809aa23898830b85c77c6275cb5d1ff376f1",
+        "version" : "2.2.2-apple-netowrk"
+      }
+    },
     {
       "identity" : "codeeditor",
       "kind" : "remoteSourceControl",

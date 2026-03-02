@@ -8,6 +8,7 @@
 
 import Foundation
 import CocoaMQTT
+import CocoaMQTTWebSocket
 import XCTest
 
 func randomClientId() -> String {
