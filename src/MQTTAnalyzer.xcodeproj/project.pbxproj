@@ -15,6 +15,7 @@
 		22PETIT0327C20000PARSER3 /* swift-petitparser in Frameworks */ = {isa = PBXBuildFile; productRef = 22PETIT0227C20000PARSER2 /* swift-petitparser */; };
 		22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0227C30000JSON02 /* SwiftyJSON */; };
 		22SWIFTY0427C30000JSON04 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0527C30000JSON05 /* SwiftyJSON */; };
+		22CODEED0327C40000EDIT03 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 22CODEED0227C40000EDIT02 /* CodeEditor */; };
 		2200D97827C237EF00E63E89 /* AWSIOTHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97727C237EF00E63E89 /* AWSIOTHelpView.swift */; };
 		2200D97B27C2675300E63E89 /* AbstractUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97A27C2675300E63E89 /* AbstractUITests.swift */; };
 		2200D97E27C91B5300E63E89 /* SearchIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97D27C91B5300E63E89 /* SearchIndexTests.swift */; };
@@ -630,6 +631,7 @@
 				2200D97027C124FD00E63E89 /* Dynamic in Frameworks */,
 				22PETIT0327C20000PARSER3 /* swift-petitparser in Frameworks */,
 				22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */,
+				22CODEED0327C40000EDIT03 /* CodeEditor in Frameworks */,
 				223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */,
 				B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */,
 			);
@@ -1360,6 +1362,7 @@
 				2200D96F27C124FD00E63E89 /* Dynamic */,
 				22PETIT0227C20000PARSER2 /* swift-petitparser */,
 				22SWIFTY0227C30000JSON02 /* SwiftyJSON */,
+				22CODEED0227C40000EDIT02 /* CodeEditor */,
 			);
 			productName = MQTTAnalyzer;
 			productReference = 2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */;
@@ -1508,6 +1511,7 @@
 				2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */,
 				22PETIT0127C20000PARSER1 /* XCRemoteSwiftPackageReference "swift-petitparser" */,
 				22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				22CODEED0127C40000EDIT01 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
 			projectDirPath = "";
@@ -2637,6 +2641,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		22CODEED0127C40000EDIT01 /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ZeeZide/CodeEditor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2659,6 +2671,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		22CODEED0227C40000EDIT02 /* CodeEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22CODEED0127C40000EDIT01 /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			productName = CodeEditor;
 		};
 /* End XCSwiftPackageProductDependency section */
 
