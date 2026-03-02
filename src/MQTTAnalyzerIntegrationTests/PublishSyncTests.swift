@@ -13,11 +13,7 @@ import CocoaMQTT
 private let host = "test.mqtt.rnd7.de"
 
 class PublishSyncTests: XCTestCase {
-	
-	override func setUp() {
-		super.setUp()
-	}
-	
+
 	func assertPublish(with broker: Host) throws {
 		let topic = "integration/publish/\(String.random(length: 8))"
 		

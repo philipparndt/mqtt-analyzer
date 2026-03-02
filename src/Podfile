@@ -7,14 +7,6 @@ post_install do |installer|
 	 config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
 	end
  end
-
- # Fix GRDB.swift umbrella header double-quote issue
- grdb_umbrella = 'Pods/Target Support Files/GRDB.swift/GRDB.swift-umbrella.h'
- if File.exist?(grdb_umbrella)
-   content = File.read(grdb_umbrella)
-   content.gsub!('"grdb_config.h"', '<grdb_config.h>')
-   File.write(grdb_umbrella, content)
- end
 end
 
 def shared_pods
@@ -26,8 +18,6 @@ def shared_pods
 	
 	#pod 'CocoaMQTT', :path => '~/dev/oss/CocoaMQTT'
 	#pod 'CocoaMQTT/WebSockets', :path => '~/dev/oss/CocoaMQTT'
-	
-	pod 'GRDB.swift', :git => 'https://github.com/groue/GRDB.swift', :tag => 'v6.27.0'
 end
 
 target 'MQTTAnalyzer' do

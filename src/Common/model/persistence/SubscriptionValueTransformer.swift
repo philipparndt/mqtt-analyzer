@@ -19,10 +19,12 @@ public class Subscriptions: NSObject {
 
 @objc(SubscriptionValueTransformer)
 public final class SubscriptionValueTransformer: ValueTransformer {
+	// swiftlint:disable:next static_over_final_class
 	public override class func transformedValueClass() -> AnyClass {
 		return Subscriptions.self
 	}
-	
+
+	// swiftlint:disable:next static_over_final_class
 	public override class func allowsReverseTransformation() -> Bool {
 		return true
 	}

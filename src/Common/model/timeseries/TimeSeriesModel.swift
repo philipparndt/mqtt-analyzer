@@ -50,7 +50,7 @@ class TimeSeriesModel: ObservableObject {
 	func canPlot(_ path: DiagramPath) -> Bool {
 		let values = get(path)
 		if !values.isEmpty {
-			if values[0].value as? NSNumber != nil {
+			if values[0].value is NSNumber {
 				return true
 			}
 		}

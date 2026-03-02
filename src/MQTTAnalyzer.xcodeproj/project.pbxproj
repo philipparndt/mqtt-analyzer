@@ -16,6 +16,8 @@
 		22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0227C30000JSON02 /* SwiftyJSON */; };
 		22SWIFTY0427C30000JSON04 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0527C30000JSON05 /* SwiftyJSON */; };
 		22CODEED0327C40000EDIT03 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 22CODEED0227C40000EDIT02 /* CodeEditor */; };
+		22GRDB00327C50000SWIFT03 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00227C50000SWIFT02 /* GRDB */; };
+		22GRDB00527C50000SWIFT05 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00427C50000SWIFT04 /* GRDB */; };
 		2200D97827C237EF00E63E89 /* AWSIOTHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97727C237EF00E63E89 /* AWSIOTHelpView.swift */; };
 		2200D97B27C2675300E63E89 /* AbstractUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97A27C2675300E63E89 /* AbstractUITests.swift */; };
 		2200D97E27C91B5300E63E89 /* SearchIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D97D27C91B5300E63E89 /* SearchIndexTests.swift */; };
@@ -632,6 +634,7 @@
 				22PETIT0327C20000PARSER3 /* swift-petitparser in Frameworks */,
 				22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */,
 				22CODEED0327C40000EDIT03 /* CodeEditor in Frameworks */,
+				22GRDB00327C50000SWIFT03 /* GRDB in Frameworks */,
 				223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */,
 				B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */,
 			);
@@ -650,6 +653,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22SWIFTY0427C30000JSON04 /* SwiftyJSON in Frameworks */,
+				22GRDB00527C50000SWIFT05 /* GRDB in Frameworks */,
 				2282D9DF28102EB100F79E65 /* Intents.framework in Frameworks */,
 				B871A48F9CF9EC8FD5CD46F5 /* Pods_MQTTAnalyzerIntent.framework in Frameworks */,
 			);
@@ -1363,6 +1367,7 @@
 				22PETIT0227C20000PARSER2 /* swift-petitparser */,
 				22SWIFTY0227C30000JSON02 /* SwiftyJSON */,
 				22CODEED0227C40000EDIT02 /* CodeEditor */,
+				22GRDB00227C50000SWIFT02 /* GRDB */,
 			);
 			productName = MQTTAnalyzer;
 			productReference = 2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */;
@@ -1404,6 +1409,7 @@
 			name = MQTTAnalyzerIntent;
 			packageProductDependencies = (
 				22SWIFTY0527C30000JSON05 /* SwiftyJSON */,
+				22GRDB00427C50000SWIFT04 /* GRDB */,
 			);
 			productName = MQTTAnalyzerIntent;
 			productReference = 2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */;
@@ -1512,6 +1518,7 @@
 				22PETIT0127C20000PARSER1 /* XCRemoteSwiftPackageReference "swift-petitparser" */,
 				22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				22CODEED0127C40000EDIT01 /* XCRemoteSwiftPackageReference "CodeEditor" */,
+				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
 			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
 			projectDirPath = "";
@@ -1593,7 +1600,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, install via: brew install swiftlint\"\nfi\n";
+			shellScript = "export PATH=\"/opt/homebrew/bin:$PATH\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, install via: brew install swiftlint\"\nfi\n";
 		};
 		6A9287672066301386910718 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2649,6 +2656,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2676,6 +2691,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 22CODEED0127C40000EDIT01 /* XCRemoteSwiftPackageReference "CodeEditor" */;
 			productName = CodeEditor;
+		};
+		22GRDB00227C50000SWIFT02 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+		22GRDB00427C50000SWIFT04 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
 		};
 /* End XCSwiftPackageProductDependency section */
 
