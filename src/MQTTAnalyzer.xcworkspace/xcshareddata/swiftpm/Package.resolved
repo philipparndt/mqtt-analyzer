@@ -1,6 +1,24 @@
 {
-  "originHash" : "ae06855734e8a77dd89dc03ab3865c34de86be0507b412a4e6d18c90190d3435",
+  "originHash" : "6045e2bc4437bc5ed2c8d2b6c535647e979f97d442d7fcdd760f9130fe3d1eb7",
   "pins" : [
+    {
+      "identity" : "cocoamqtt",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/philipparndt/CocoaMQTT.git",
+      "state" : {
+        "revision" : "a555809aa23898830b85c77c6275cb5d1ff376f1",
+        "version" : "2.2.2-apple-netowrk"
+      }
+    },
+    {
+      "identity" : "codeeditor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ZeeZide/CodeEditor",
+      "state" : {
+        "revision" : "f5c076b94f4ceb05abff88ba91d75a8d57143f0c",
+        "version" : "1.2.6"
+      }
+    },
     {
       "identity" : "dynamic",
       "kind" : "remoteSourceControl",
@@ -8,6 +26,42 @@
       "state" : {
         "revision" : "ab9a2570862d54aed2663691bb767f881226a12f",
         "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "grdb.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDB.swift",
+      "state" : {
+        "revision" : "36e30a6f1ef10e4194f6af0cff90888526f0c115",
+        "version" : "7.10.0"
+      }
+    },
+    {
+      "identity" : "highlightr",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/helje5/Highlightr",
+      "state" : {
+        "revision" : "bd0358056ff1f12ea83833a9fc1b3b5a396a9da0",
+        "version" : "3.0.2"
+      }
+    },
+    {
+      "identity" : "swift-petitparser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/philipparndt/swift-petitparser",
+      "state" : {
+        "revision" : "0988dd0285a85e99fdc747d99bc8147239f7ad63",
+        "version" : "1.3.0"
+      }
+    },
+    {
+      "identity" : "swiftyjson",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftyJSON/SwiftyJSON",
+      "state" : {
+        "revision" : "af76cf3ef710b6ca5f8c05f3a31307d44a3c5828",
+        "version" : "5.0.2"
       }
     }
   ],

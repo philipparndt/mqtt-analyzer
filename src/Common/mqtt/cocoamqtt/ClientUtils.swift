@@ -6,6 +6,7 @@
 //  Copyright © 2022 Philipp Arndt. All rights reserved.
 //
 
+import Foundation
 import CocoaMQTT
 
 class ClientUtils<T, M> {
@@ -129,7 +130,7 @@ class ClientUtils<T, M> {
 		mqtt = nil
 	}
 	
-	func installMessageDispatch(metadata: @escaping ((M) -> MsgMetadata), payload: @escaping((M) -> MsgPayload), topic: @escaping ((M) -> String)) {
+	func installMessageDispatch(metadata: @escaping ((M) -> MsgMetadata), payload: @escaping ((M) -> MsgPayload), topic: @escaping ((M) -> String)) {
 		let queue = DispatchQueue(label: "Message Dispatch queue")
 		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
 			.collect(.byTime(queue, 0.5))

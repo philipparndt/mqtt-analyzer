@@ -19,10 +19,12 @@ public class Certificates: NSObject {
 
 @objc(CertificateValueTransformer)
 public final class CertificateValueTransformer: ValueTransformer {
+	// swiftlint:disable:next static_over_final_class
 	public override class func transformedValueClass() -> AnyClass {
 		return Certificates.self
 	}
-	
+
+	// swiftlint:disable:next static_over_final_class
 	public override class func allowsReverseTransformation() -> Bool {
 		return true
 	}

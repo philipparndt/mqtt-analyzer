@@ -6,6 +6,8 @@
 //  Copyright © 2022 Philipp Arndt. All rights reserved.
 //
 
+import Foundation
+import Security
 import CocoaMQTT
 
 class SyncDelegate {

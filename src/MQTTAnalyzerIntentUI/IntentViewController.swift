@@ -10,11 +10,7 @@ import IntentsUI
 
 class IntentViewController: UIViewController, INUIHostedViewControlling {
 	@IBOutlet weak var contentLabel: UILabel!
-	
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-        
+
     // MARK: - INUIHostedViewControlling
     
     // Prepare your view controller for the interaction to handle.

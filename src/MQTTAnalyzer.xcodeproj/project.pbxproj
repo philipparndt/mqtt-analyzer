@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A6B19EC7DAB8540135183CF /* Pods_MQTTAnalyzerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771859B939F07AF34A710F07 /* Pods_MQTTAnalyzerTests.framework */; };
 		2200D96627C0C3BF00E63E89 /* PublishTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96527C0C3BF00E63E89 /* PublishTests.swift */; };
 		2200D96B27C1123000E63E89 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96A27C1123000E63E89 /* Logger.swift */; };
 		2200D96D27C1149300E63E89 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96C27C1149300E63E89 /* LoggerTests.swift */; };
@@ -272,6 +271,11 @@
 		22C9F73A23B8CCCC00892C4B /* QOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73923B8CCCC00892C4B /* QOSView.swift */; };
 		22C9F73E23BB5E5C00892C4B /* HostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73D23BB5E5C00892C4B /* HostModel.swift */; };
 		22CFA3042896A6290003125D /* XUIElement+ScrollTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CFA3032896A6290003125D /* XUIElement+ScrollTo.swift */; };
+		22COCOA0327C60000MQTT03 /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0227C60000MQTT02 /* CocoaMQTT */; };
+		22COCOA0527C60000MQTT05 /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0427C60000MQTT04 /* CocoaMQTTWebSocket */; };
+		22COCOA0727C60000MQTT07 /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0627C60000MQTT06 /* CocoaMQTT */; };
+		22COCOA0927C60000MQTT09 /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0827C60000MQTT08 /* CocoaMQTTWebSocket */; };
+		22CODEED0327C40000EDIT03 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 22CODEED0227C40000EDIT02 /* CodeEditor */; };
 		22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F223FEF86E0003D87F /* MultimapTests.swift */; };
 		22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F423FEF9C50003D87F /* ReadstateTests.swift */; };
 		22D236F923FEFBA10003D87F /* HostFormValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */; };
@@ -292,10 +296,11 @@
 		22FD7D0222C8D2660078795F /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFB22C8D2650078795F /* RootModel.swift */; };
 		22FD7D0322C8D2660078795F /* HostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFC22C8D2660078795F /* HostsView.swift */; };
 		22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */; };
-		2AE8251194EBB8CC035DA34E /* Pods_MQTTAnalyzerIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5F55157FC8D3BA60850F96 /* Pods_MQTTAnalyzerIntegrationTests.framework */; };
-		458A44A5726DF316EE6004E8 /* Pods_MQTTAnalyzerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE6D91479F36479741E6FCC /* Pods_MQTTAnalyzerUITests.framework */; };
-		B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA00F32BE18033F923EAEA0 /* Pods_MQTTAnalyzer.framework */; };
-		B871A48F9CF9EC8FD5CD46F5 /* Pods_MQTTAnalyzerIntent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A97398D1A8868944BA1F5E2 /* Pods_MQTTAnalyzerIntent.framework */; };
+		22GRDB00327C50000SWIFT03 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00227C50000SWIFT02 /* GRDB */; };
+		22GRDB00527C50000SWIFT05 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00427C50000SWIFT04 /* GRDB */; };
+		22PETIT0327C20000PARSER3 /* swift-petitparser in Frameworks */ = {isa = PBXBuildFile; productRef = 22PETIT0227C20000PARSER2 /* swift-petitparser */; };
+		22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0227C30000JSON02 /* SwiftyJSON */; };
+		22SWIFTY0427C30000JSON04 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0527C30000JSON05 /* SwiftyJSON */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -362,8 +367,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		01671CB030544C85ED77188C /* Pods-MQTTAnalyzer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.debug.xcconfig"; sourceTree = "<group>"; };
-		10309D143F9F34802A2586F6 /* Pods-MQTTAnalyzerIntent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerIntent.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerIntent/Pods-MQTTAnalyzerIntent.debug.xcconfig"; sourceTree = "<group>"; };
 		2200D96527C0C3BF00E63E89 /* PublishTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTests.swift; sourceTree = "<group>"; };
 		2200D96727C0CA0100E63E89 /* PublishDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishDialog.swift; sourceTree = "<group>"; };
 		2200D96A27C1123000E63E89 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -496,7 +499,6 @@
 		2282D9F528102EB100F79E65 /* MQTTAnalyzerIntentUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzerIntentUI.entitlements; sourceTree = "<group>"; };
 		2282D9F928102EB100F79E65 /* MQTTAnalyzerIntent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTAnalyzerIntent.entitlements; sourceTree = "<group>"; };
 		2282DA0128102ED700F79E65 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
-		2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_MQTTAnalyzer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2282DA0928103DF200F79E65 /* CocoaMQTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaMQTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2282DA0E2810738900F79E65 /* PublishSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishSyncTests.swift; sourceTree = "<group>"; };
 		2282DA522811276000F79E65 /* HostModel+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HostModel+Delete.swift"; sourceTree = "<group>"; };
@@ -604,19 +606,6 @@
 		22FD7CFB22C8D2650078795F /* RootModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModel.swift; sourceTree = "<group>"; };
 		22FD7CFC22C8D2660078795F /* HostsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsView.swift; sourceTree = "<group>"; };
 		22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSeriesDetailsView.swift; sourceTree = "<group>"; };
-		4ADA38A28345B5524D23563B /* Pods-MQTTAnalyzerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerUITests.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests.release.xcconfig"; sourceTree = "<group>"; };
-		6EA00F32BE18033F923EAEA0 /* Pods_MQTTAnalyzer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		771859B939F07AF34A710F07 /* Pods_MQTTAnalyzerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		92AF6D7587A8674FE6DBEE42 /* Pods-MQTTAnalyzerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerUITests.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		9A97398D1A8868944BA1F5E2 /* Pods_MQTTAnalyzerIntent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerIntent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AEE6D91479F36479741E6FCC /* Pods_MQTTAnalyzerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC5F55157FC8D3BA60850F96 /* Pods_MQTTAnalyzerIntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MQTTAnalyzerIntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD79B0138F517C71F6255C4C /* Pods-MQTTAnalyzerIntent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerIntent.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerIntent/Pods-MQTTAnalyzerIntent.release.xcconfig"; sourceTree = "<group>"; };
-		C1D6B6244A390AA6C066AB20 /* Pods-MQTTAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzer.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
-		CCEE79FFC156E6A7A3EB4B17 /* Pods-MQTTAnalyzerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerTests.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerTests/Pods-MQTTAnalyzerTests.release.xcconfig"; sourceTree = "<group>"; };
-		D7D50319E94CFEFF222234D3 /* Pods-MQTTAnalyzerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerTests.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerTests/Pods-MQTTAnalyzerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E50A774628E437B5F7D7AEB2 /* Pods-MQTTAnalyzerIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerIntegrationTests/Pods-MQTTAnalyzerIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F65F6D9A5916738C9013A85E /* Pods-MQTTAnalyzerIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTAnalyzerIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-MQTTAnalyzerIntegrationTests/Pods-MQTTAnalyzerIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -625,8 +614,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2200D97027C124FD00E63E89 /* Dynamic in Frameworks */,
+				22PETIT0327C20000PARSER3 /* swift-petitparser in Frameworks */,
+				22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */,
+				22CODEED0327C40000EDIT03 /* CodeEditor in Frameworks */,
+				22GRDB00327C50000SWIFT03 /* GRDB in Frameworks */,
+				22COCOA0327C60000MQTT03 /* CocoaMQTT in Frameworks */,
+				22COCOA0527C60000MQTT05 /* CocoaMQTTWebSocket in Frameworks */,
 				223EF00823870AA5002ADF3E /* CloudKit.framework in Frameworks */,
-				B1418521773D3286B7115614 /* Pods_MQTTAnalyzer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,7 +628,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A6B19EC7DAB8540135183CF /* Pods_MQTTAnalyzerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,8 +635,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22SWIFTY0427C30000JSON04 /* SwiftyJSON in Frameworks */,
+				22GRDB00527C50000SWIFT05 /* GRDB in Frameworks */,
+				22COCOA0727C60000MQTT07 /* CocoaMQTT in Frameworks */,
+				22COCOA0927C60000MQTT09 /* CocoaMQTTWebSocket in Frameworks */,
 				2282D9DF28102EB100F79E65 /* Intents.framework in Frameworks */,
-				B871A48F9CF9EC8FD5CD46F5 /* Pods_MQTTAnalyzerIntent.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -659,7 +655,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				458A44A5726DF316EE6004E8 /* Pods_MQTTAnalyzerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,7 +662,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AE8251194EBB8CC035DA34E /* Pods_MQTTAnalyzerIntegrationTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,7 +772,6 @@
 				2282D9E028102EB100F79E65 /* MQTTAnalyzerIntent */,
 				2282D9EB28102EB100F79E65 /* MQTTAnalyzerIntentUI */,
 				2253F8D322C8C007007E35A2 /* Products */,
-				B2BAC619436C49079AC0498E /* Pods */,
 				45E8AFAA8B14B8DFB865D13B /* Frameworks */,
 				22B46BCB27CA640A0077FB83 /* Recovered References */,
 			);
@@ -1166,7 +1159,6 @@
 				2240834A27AD68CE00AA4A42 /* Brokers.swift */,
 				224AFEB427B2C3FA00DFD09F /* Broker.swift */,
 				2240834E27AD6F1800AA4A42 /* ExampleMessages.swift */,
-				2282DA0528103DB400F79E65 /* Pods_MQTTAnalyzer.framework */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1300,32 +1292,10 @@
 				223EF00723870AA5002ADF3E /* CloudKit.framework */,
 				229D30C923197D8200632896 /* CocoaAsyncSocket.framework */,
 				229D30CA23197D8200632896 /* CocoaMQTT.framework */,
-				6EA00F32BE18033F923EAEA0 /* Pods_MQTTAnalyzer.framework */,
-				771859B939F07AF34A710F07 /* Pods_MQTTAnalyzerTests.framework */,
-				AEE6D91479F36479741E6FCC /* Pods_MQTTAnalyzerUITests.framework */,
 				2282D9DE28102EB000F79E65 /* Intents.framework */,
 				2282D9E928102EB100F79E65 /* IntentsUI.framework */,
-				9A97398D1A8868944BA1F5E2 /* Pods_MQTTAnalyzerIntent.framework */,
-				BC5F55157FC8D3BA60850F96 /* Pods_MQTTAnalyzerIntegrationTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		B2BAC619436C49079AC0498E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				01671CB030544C85ED77188C /* Pods-MQTTAnalyzer.debug.xcconfig */,
-				C1D6B6244A390AA6C066AB20 /* Pods-MQTTAnalyzer.release.xcconfig */,
-				D7D50319E94CFEFF222234D3 /* Pods-MQTTAnalyzerTests.debug.xcconfig */,
-				CCEE79FFC156E6A7A3EB4B17 /* Pods-MQTTAnalyzerTests.release.xcconfig */,
-				92AF6D7587A8674FE6DBEE42 /* Pods-MQTTAnalyzerUITests.debug.xcconfig */,
-				4ADA38A28345B5524D23563B /* Pods-MQTTAnalyzerUITests.release.xcconfig */,
-				10309D143F9F34802A2586F6 /* Pods-MQTTAnalyzerIntent.debug.xcconfig */,
-				BD79B0138F517C71F6255C4C /* Pods-MQTTAnalyzerIntent.release.xcconfig */,
-				E50A774628E437B5F7D7AEB2 /* Pods-MQTTAnalyzerIntegrationTests.debug.xcconfig */,
-				F65F6D9A5916738C9013A85E /* Pods-MQTTAnalyzerIntegrationTests.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1335,12 +1305,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2253F8FF22C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzer" */;
 			buildPhases = (
-				A3F8F84469AB1B4601D0C5D3 /* [CP] Check Pods Manifest.lock */,
 				2253F8CE22C8C007007E35A2 /* Sources */,
 				2253F8CF22C8C007007E35A2 /* Frameworks */,
 				2253F8D022C8C007007E35A2 /* Resources */,
 				22C9F72D23B747E800892C4B /* ShellScript */,
-				E5E6333FBC9D713242D1C693 /* [CP] Embed Pods Frameworks */,
 				2282D9FA28102EB100F79E65 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
@@ -1352,6 +1320,12 @@
 			name = MQTTAnalyzer;
 			packageProductDependencies = (
 				2200D96F27C124FD00E63E89 /* Dynamic */,
+				22PETIT0227C20000PARSER2 /* swift-petitparser */,
+				22SWIFTY0227C30000JSON02 /* SwiftyJSON */,
+				22CODEED0227C40000EDIT02 /* CodeEditor */,
+				22GRDB00227C50000SWIFT02 /* GRDB */,
+				22COCOA0227C60000MQTT02 /* CocoaMQTT */,
+				22COCOA0427C60000MQTT04 /* CocoaMQTTWebSocket */,
 			);
 			productName = MQTTAnalyzer;
 			productReference = 2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */;
@@ -1361,7 +1335,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2253F90222C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerTests" */;
 			buildPhases = (
-				6A9287672066301386910718 /* [CP] Check Pods Manifest.lock */,
 				2253F8E722C8C008007E35A2 /* Sources */,
 				2253F8E822C8C008007E35A2 /* Frameworks */,
 				2253F8E922C8C008007E35A2 /* Resources */,
@@ -1380,7 +1353,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2282DA0028102EB100F79E65 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerIntent" */;
 			buildPhases = (
-				6B08FEE4E1DF7FC7F71DEBB2 /* [CP] Check Pods Manifest.lock */,
 				2282D9D928102EB000F79E65 /* Sources */,
 				2282D9DA28102EB000F79E65 /* Frameworks */,
 				2282D9DB28102EB000F79E65 /* Resources */,
@@ -1391,6 +1363,12 @@
 			dependencies = (
 			);
 			name = MQTTAnalyzerIntent;
+			packageProductDependencies = (
+				22SWIFTY0527C30000JSON05 /* SwiftyJSON */,
+				22GRDB00427C50000SWIFT04 /* GRDB */,
+				22COCOA0627C60000MQTT06 /* CocoaMQTT */,
+				22COCOA0827C60000MQTT08 /* CocoaMQTTWebSocket */,
+			);
 			productName = MQTTAnalyzerIntent;
 			productReference = 2282D9DD28102EB000F79E65 /* MQTTAnalyzerIntent.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1416,11 +1394,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22C7F0D72416A16600534880 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerUITests" */;
 			buildPhases = (
-				CAB5DD3055552642C965C0DC /* [CP] Check Pods Manifest.lock */,
 				22C7F0CC2416A16600534880 /* Sources */,
 				22C7F0CD2416A16600534880 /* Frameworks */,
 				22C7F0CE2416A16600534880 /* Resources */,
-				A135683D35F54EB2DBA70F65 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1436,7 +1412,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22C96E2F28141B9900A4F627 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerIntegrationTests" */;
 			buildPhases = (
-				EF93E293677953FCDB7D770A /* [CP] Check Pods Manifest.lock */,
 				22C96E2328141B9900A4F627 /* Sources */,
 				22C96E2428141B9900A4F627 /* Frameworks */,
 				22C96E2528141B9900A4F627 /* Resources */,
@@ -1495,6 +1470,11 @@
 			mainGroup = 2253F8C922C8C007007E35A2;
 			packageReferences = (
 				2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */,
+				22PETIT0127C20000PARSER1 /* XCRemoteSwiftPackageReference "swift-petitparser" */,
+				22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				22CODEED0127C40000EDIT01 /* XCRemoteSwiftPackageReference "CodeEditor" */,
+				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */,
 			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
 			projectDirPath = "";
@@ -1576,151 +1556,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		6A9287672066301386910718 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MQTTAnalyzerTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6B08FEE4E1DF7FC7F71DEBB2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MQTTAnalyzerIntent-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A135683D35F54EB2DBA70F65 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzerUITests/Pods-MQTTAnalyzerUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A3F8F84469AB1B4601D0C5D3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MQTTAnalyzer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CAB5DD3055552642C965C0DC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MQTTAnalyzerUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E5E6333FBC9D713242D1C693 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MQTTAnalyzer/Pods-MQTTAnalyzer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EF93E293677953FCDB7D770A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MQTTAnalyzerIntegrationTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "export PATH=\"/opt/homebrew/bin:$PATH\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, install via: brew install swiftlint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2209,7 +2045,6 @@
 		};
 		2253F90022C8C008007E35A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01671CB030544C85ED77188C /* Pods-MQTTAnalyzer.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2226,7 +2061,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2239,7 +2074,6 @@
 		};
 		2253F90122C8C008007E35A2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1D6B6244A390AA6C066AB20 /* Pods-MQTTAnalyzer.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2256,7 +2090,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2269,7 +2103,6 @@
 		};
 		2253F90322C8C008007E35A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D7D50319E94CFEFF222234D3 /* Pods-MQTTAnalyzerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2294,7 +2127,6 @@
 		};
 		2253F90422C8C008007E35A2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCEE79FFC156E6A7A3EB4B17 /* Pods-MQTTAnalyzerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2319,7 +2151,6 @@
 		};
 		2282D9FB28102EB100F79E65 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 10309D143F9F34802A2586F6 /* Pods-MQTTAnalyzerIntent.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntent/MQTTAnalyzerIntent.entitlements;
@@ -2336,7 +2167,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2349,7 +2180,6 @@
 		};
 		2282D9FC28102EB100F79E65 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD79B0138F517C71F6255C4C /* Pods-MQTTAnalyzerIntent.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntent/MQTTAnalyzerIntent.entitlements;
@@ -2366,7 +2196,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2395,7 +2225,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2424,7 +2254,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2437,7 +2267,6 @@
 		};
 		22C7F0D82416A16600534880 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92AF6D7587A8674FE6DBEE42 /* Pods-MQTTAnalyzerUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -2461,7 +2290,6 @@
 		};
 		22C7F0D92416A16600534880 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4ADA38A28345B5524D23563B /* Pods-MQTTAnalyzerUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 643R6YSRER;
@@ -2485,7 +2313,6 @@
 		};
 		22C96E2D28141B9900A4F627 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E50A774628E437B5F7D7AEB2 /* Pods-MQTTAnalyzerIntegrationTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -2494,7 +2321,7 @@
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd.MQTTAnalyzerIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2509,7 +2336,6 @@
 		};
 		22C96E2E28141B9900A4F627 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F65F6D9A5916738C9013A85E /* Pods-MQTTAnalyzerIntegrationTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -2518,7 +2344,7 @@
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd.MQTTAnalyzerIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2608,6 +2434,46 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/philipparndt/CocoaMQTT.git";
+			requirement = {
+				kind = exactVersion;
+				version = "2.2.2-apple-netowrk";
+			};
+		};
+		22CODEED0127C40000EDIT01 /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ZeeZide/CodeEditor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		22PETIT0127C20000PARSER1 /* XCRemoteSwiftPackageReference "swift-petitparser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/philipparndt/swift-petitparser";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2615,6 +2481,56 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */;
 			productName = Dynamic;
+		};
+		22COCOA0227C60000MQTT02 /* CocoaMQTT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTT;
+		};
+		22COCOA0427C60000MQTT04 /* CocoaMQTTWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTTWebSocket;
+		};
+		22COCOA0627C60000MQTT06 /* CocoaMQTT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTT;
+		};
+		22COCOA0827C60000MQTT08 /* CocoaMQTTWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTTWebSocket;
+		};
+		22CODEED0227C40000EDIT02 /* CodeEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22CODEED0127C40000EDIT01 /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			productName = CodeEditor;
+		};
+		22GRDB00227C50000SWIFT02 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+		22GRDB00427C50000SWIFT04 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+		22PETIT0227C20000PARSER2 /* swift-petitparser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22PETIT0127C20000PARSER1 /* XCRemoteSwiftPackageReference "swift-petitparser" */;
+			productName = "swift-petitparser";
+		};
+		22SWIFTY0227C30000JSON02 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		22SWIFTY0527C30000JSON05 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 /* End XCSwiftPackageProductDependency section */
 

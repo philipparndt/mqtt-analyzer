@@ -7,6 +7,7 @@
 //
 
 import CocoaMQTT
+import CocoaMQTTWebSocket
 
 extension MQTT5ClientCocoaMQTT {
 	func createClient(host: Host) -> CocoaMQTT5 {

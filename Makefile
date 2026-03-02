@@ -1,10 +1,11 @@
-.PHONY: help install lint build test clean mqtt-service mqtt-service-down open
+.PHONY: help install lint lint-fix build test clean mqtt-service mqtt-service-down open
 
 # Default target
 help:
 	@echo "Available targets:"
-	@echo "  install          - Install CocoaPods dependencies"
+	@echo "  install          - Resolve Swift Package dependencies"
 	@echo "  lint             - Run SwiftLint"
+	@echo "  lint-fix         - Run SwiftLint with auto-fix"
 	@echo "  build            - Build the app for iOS simulator"
 	@echo "  test             - Run unit tests"
 	@echo "  clean            - Clean build artifacts"
@@ -17,13 +18,17 @@ WORKSPACE = src/MQTTAnalyzer.xcworkspace
 SCHEME = MQTTAnalyzer
 SIMULATOR = platform=iOS Simulator,name=iPhone 15,OS=latest
 
-# Install dependencies
+# Resolve Swift Package dependencies
 install:
-	cd src && pod install
+	xcodebuild -resolvePackageDependencies -workspace $(WORKSPACE) -scheme $(SCHEME)
 
 # Run SwiftLint
 lint:
 	cd src && swiftlint
+
+# Run SwiftLint with auto-fix
+lint-fix:
+	cd src && swiftlint --fix
 
 # Build for simulator
 build:
