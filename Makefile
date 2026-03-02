@@ -1,9 +1,10 @@
-.PHONY: help install lint build test clean mqtt-service mqtt-service-down open
+.PHONY: help install update-packages lint build test clean mqtt-service mqtt-service-down open
 
 # Default target
 help:
 	@echo "Available targets:"
 	@echo "  install          - Install CocoaPods dependencies"
+	@echo "  update-packages  - Update Swift Package dependencies"
 	@echo "  lint             - Run SwiftLint"
 	@echo "  build            - Build the app for iOS simulator"
 	@echo "  test             - Run unit tests"
@@ -20,6 +21,10 @@ SIMULATOR = platform=iOS Simulator,name=iPhone 15,OS=latest
 # Install dependencies
 install:
 	cd src && pod install
+
+# Update Swift Package dependencies
+update-packages:
+	xcodebuild -resolvePackageDependencies -workspace $(WORKSPACE) -scheme $(SCHEME)
 
 # Run SwiftLint
 lint:

@@ -31,8 +31,6 @@ def shared_pods
 	
 	pod 'CodeEditor', :git => 'https://github.com/ZeeZide/CodeEditor.git', :tag => '1.2.4'
 	
-	pod 'SwiftyJSON'
-
 	pod 'SwiftLint'
 	
 	pod 'GRDB.swift', :git => 'https://github.com/groue/GRDB.swift', :tag => 'v6.27.0'
