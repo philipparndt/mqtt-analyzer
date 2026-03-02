@@ -1,4 +1,4 @@
-.PHONY: help install update-packages lint build test clean mqtt-service mqtt-service-down open
+.PHONY: help install update-packages lint lint-fix build test clean mqtt-service mqtt-service-down open
 
 # Default target
 help:
@@ -6,6 +6,7 @@ help:
 	@echo "  install          - Install CocoaPods dependencies"
 	@echo "  update-packages  - Update Swift Package dependencies"
 	@echo "  lint             - Run SwiftLint"
+	@echo "  lint-fix         - Run SwiftLint with auto-fix"
 	@echo "  build            - Build the app for iOS simulator"
 	@echo "  test             - Run unit tests"
 	@echo "  clean            - Clean build artifacts"
@@ -29,6 +30,10 @@ update-packages:
 # Run SwiftLint
 lint:
 	cd src && swiftlint
+
+# Run SwiftLint with auto-fix
+lint-fix:
+	cd src && swiftlint --fix
 
 # Build for simulator
 build:

@@ -27,8 +27,6 @@ def shared_pods
 	#pod 'CocoaMQTT', :path => '~/dev/oss/CocoaMQTT'
 	#pod 'CocoaMQTT/WebSockets', :path => '~/dev/oss/CocoaMQTT'
 	
-	pod 'SwiftLint'
-	
 	pod 'GRDB.swift', :git => 'https://github.com/groue/GRDB.swift', :tag => 'v6.27.0'
 end
 

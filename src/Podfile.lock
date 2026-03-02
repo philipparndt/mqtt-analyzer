@@ -7,17 +7,11 @@ PODS:
   - GRDB.swift (6.27.0):
     - GRDB.swift/standard (= 6.27.0)
   - GRDB.swift/standard (6.27.0)
-  - SwiftLint (0.49.1)
 
 DEPENDENCIES:
   - CocoaMQTT (from `https://github.com/philipparndt/CocoaMQTT.git`, branch `apple-network`)
   - CocoaMQTT/WebSockets (from `https://github.com/philipparndt/CocoaMQTT.git`, branch `apple-network`)
   - GRDB.swift (from `https://github.com/groue/GRDB.swift`, tag `v6.27.0`)
-  - SwiftLint
-
-SPEC REPOS:
-  trunk:
-    - SwiftLint
 
 EXTERNAL SOURCES:
   CocoaMQTT:
@@ -38,8 +32,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   CocoaMQTT: 8c7af7e0a76f81428eb7b8bd9ce8e4fba84afb33
   GRDB.swift: 384773f598284a05f230fe796dfc646d1925669e
-  SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: de4ac6edbffb67e9fcf7b06f3c6858d787789893
+PODFILE CHECKSUM: 4e600d86943f0db9a48711d88f5264fce738bfd0
 
 COCOAPODS: 1.16.2
