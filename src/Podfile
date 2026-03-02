@@ -7,6 +7,14 @@ post_install do |installer|
 	 config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
 	end
  end
+
+ # Fix GRDB.swift umbrella header double-quote issue
+ grdb_umbrella = 'Pods/Target Support Files/GRDB.swift/GRDB.swift-umbrella.h'
+ if File.exist?(grdb_umbrella)
+   content = File.read(grdb_umbrella)
+   content.gsub!('"grdb_config.h"', '<grdb_config.h>')
+   File.write(grdb_umbrella, content)
+ end
 end
 
 def shared_pods
@@ -22,8 +30,6 @@ def shared_pods
 	pod 'Highlightr', :git => 'https://github.com/raspu/Highlightr.git', :tag => '2.1.2'
 	
 	pod 'CodeEditor', :git => 'https://github.com/ZeeZide/CodeEditor.git', :tag => '1.2.4'
-	
-	pod 'swift-petitparser'
 	
 	pod 'SwiftyJSON'
 
