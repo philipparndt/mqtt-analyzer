@@ -53,7 +53,8 @@ struct HostsView: View {
 								 messageModel: (
 									self.model.getMessageModel(model.getConnectionModel(broker: broker))
 								 ),
-								 cloneHostHandler: self.cloneHost)
+								 cloneHostHandler: self.cloneHost,
+								 isSelected: selectedBroker == broker)
 						.accessibilityLabel("broker: \(broker.aliasOrHost)")
 						.tag(broker)
 				}
@@ -67,7 +68,8 @@ struct HostsView: View {
 									 messageModel: (
 										self.model.getMessageModel(model.getConnectionModel(broker: broker))
 									 ),
-									 cloneHostHandler: self.cloneHost)
+									 cloneHostHandler: self.cloneHost,
+									 isSelected: selectedBroker == broker)
 							.accessibilityLabel("broker: \(broker.aliasOrHost)")
 							.tag(broker)
 					}

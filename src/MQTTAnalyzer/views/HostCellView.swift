@@ -30,12 +30,13 @@ struct HostCellView: View {
 	@ObservedObject var host: Host
 	@ObservedObject var hostsModel: HostsModel
 	@ObservedObject var messageModel: TopicTree
-	
+
 	@State private var sheetState = ServerPageSheetState()
-	
+
 	@State private var loginData = LoginData()
-	
+
 	var cloneHostHandler: (Host) -> Void
+	var isSelected: Bool
 	
 	var connectionColor: Color {
 		host.state == .connected ? .green : .gray
@@ -57,14 +58,34 @@ struct HostCellView: View {
 
 			Spacer()
 
-			if host.state != .disconnected {
+			if host.state == .disconnected {
+				if isSelected {
+					Button(action: connect) {
+						Image(systemName: "play.circle.fill")
+							.font(.title2)
+							.foregroundColor(.white)
+					}
+					.buttonStyle(.plain)
+					.accessibilityLabel("Connect")
+				}
+			} else {
 				Text("\(messageModel.messageCountDisplay)")
 					.font(.system(size: 14, design: .monospaced))
-					.foregroundColor(.secondary)
+					.foregroundColor(isSelected ? .white : .secondary)
 
-				Image(systemName: host.pause ? "pause.fill" : "circle.fill" )
-					.font(.subheadline)
-					.foregroundColor(host.pause ? .gray : connectionColor)
+				if isSelected {
+					Button(action: togglePause) {
+						Image(systemName: host.pause ? "play.circle.fill" : "pause.circle.fill")
+							.font(.title2)
+							.foregroundColor(.white)
+					}
+					.buttonStyle(.plain)
+					.accessibilityLabel(host.pause ? "Resume" : "Pause")
+				} else {
+					Image(systemName: host.pause ? "pause.fill" : "circle.fill")
+						.font(.subheadline)
+						.foregroundColor(host.pause ? .gray : connectionColor)
+				}
 			}
 
 			contextMenu()
@@ -145,7 +166,11 @@ struct HostCellView: View {
 	func disconnect() {
 		host.disconnect()
 	}
-	
+
+	func togglePause() {
+		host.pause.toggle()
+	}
+
 	func disconnectClean() {
 		host.disconnect()
 		messageModel.clear()

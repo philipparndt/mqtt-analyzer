@@ -305,6 +305,8 @@
 		22PETIT0327C20000PARSER3 /* swift-petitparser in Frameworks */ = {isa = PBXBuildFile; productRef = 22PETIT0227C20000PARSER2 /* swift-petitparser */; };
 		22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0227C30000JSON02 /* SwiftyJSON */; };
 		22SWIFTY0427C30000JSON04 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0527C30000JSON05 /* SwiftyJSON */; };
+		LO5P8FMNKVL0WKEFRIUUGXKJ /* BrokerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */; };
+		RR65MCCZZA7QVSR10NJBRPEI /* BrokerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -610,6 +612,8 @@
 		22FD7CFB22C8D2650078795F /* RootModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModel.swift; sourceTree = "<group>"; };
 		22FD7CFC22C8D2660078795F /* HostsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsView.swift; sourceTree = "<group>"; };
 		22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSeriesDetailsView.swift; sourceTree = "<group>"; };
+		031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerDetailsView.swift; sourceTree = "<group>"; };
+		ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -994,6 +998,8 @@
 				226A6B5B2445740C00ACDFC3 /* form */,
 				2205E5E0238A7EE2001638DF /* ButtonStyle.swift */,
 				22FD7CFC22C8D2660078795F /* HostsView.swift */,
+				031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */,
+				ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */,
 				228104972381796B00112F24 /* HostCellView.swift */,
 			);
 			path = host;
@@ -1648,6 +1654,8 @@
 				229FCAED247D67BC00490628 /* DocumentPickerView.swift in Sources */,
 				221C571E2466C9CD00C0DD02 /* HostFormModel+AWS.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
+				LO5P8FMNKVL0WKEFRIUUGXKJ /* BrokerDetailsView.swift in Sources */,
+				RR65MCCZZA7QVSR10NJBRPEI /* BrokerContentView.swift in Sources */,
 				22B38939280E885A00D23022 /* ClientUtils.swift in Sources */,
 				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
 				2285C81A27842176008DA37D /* DisconnectedView.swift in Sources */,

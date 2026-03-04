@@ -26,7 +26,7 @@ struct RootView: View {
 				if let broker = selectedBroker {
 					let host = model.getConnectionModel(broker: broker)
 					let messageModel = model.getMessageModel(host)
-					TopicsView(model: messageModel, host: host)
+					BrokerContentView(host: host, messageModel: messageModel)
 				} else {
 					ContentUnavailableView(
 						"No Broker Selected",
