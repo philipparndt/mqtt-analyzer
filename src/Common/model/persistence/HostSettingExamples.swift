@@ -15,8 +15,8 @@ class HostSettingExamples {
 		}
 		
 		let controller = PersistenceController.shared
-		let container = controller.container
-		
+		guard let container = controller.container else { return }
+
 		let existing = PersistenceHelper.loadAllExistingIDs(context: container.viewContext)
 		if existing.isEmpty {
 			PersistenceHelper.createAll(hosts: [

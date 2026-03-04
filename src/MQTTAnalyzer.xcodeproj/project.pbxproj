@@ -275,6 +275,10 @@
 		22COCOA0527C60000MQTT05 /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0427C60000MQTT04 /* CocoaMQTTWebSocket */; };
 		22COCOA0727C60000MQTT07 /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0627C60000MQTT06 /* CocoaMQTT */; };
 		22COCOA0927C60000MQTT09 /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0827C60000MQTT08 /* CocoaMQTTWebSocket */; };
+		22COCOA0B27C60000MQTT0B /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0A27C60000MQTT0A /* CocoaMQTT */; };
+		22COCOA0D27C60000MQTT0D /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0C27C60000MQTT0C /* CocoaMQTTWebSocket */; };
+		22COCOA0F27C60000MQTT0F /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0E27C60000MQTT0E /* CocoaMQTT */; };
+		22COCOA1127C60000MQTT11 /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA1027C60000MQTT10 /* CocoaMQTTWebSocket */; };
 		22CODEED0327C40000EDIT03 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 22CODEED0227C40000EDIT02 /* CodeEditor */; };
 		22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F223FEF86E0003D87F /* MultimapTests.swift */; };
 		22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F423FEF9C50003D87F /* ReadstateTests.swift */; };
@@ -628,6 +632,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22COCOA0B27C60000MQTT0B /* CocoaMQTT in Frameworks */,
+				22COCOA0D27C60000MQTT0D /* CocoaMQTTWebSocket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +661,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22COCOA0F27C60000MQTT0F /* CocoaMQTT in Frameworks */,
+				22COCOA1127C60000MQTT11 /* CocoaMQTTWebSocket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1345,6 +1353,10 @@
 				2253F8ED22C8C008007E35A2 /* PBXTargetDependency */,
 			);
 			name = MQTTAnalyzerTests;
+			packageProductDependencies = (
+				22COCOA0A27C60000MQTT0A /* CocoaMQTT */,
+				22COCOA0C27C60000MQTT0C /* CocoaMQTTWebSocket */,
+			);
 			productName = MQTTAnalyzerTests;
 			productReference = 2253F8EB22C8C008007E35A2 /* MQTTAnalyzerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1404,6 +1416,10 @@
 				22C7F0D62416A16600534880 /* PBXTargetDependency */,
 			);
 			name = MQTTAnalyzerUITests;
+			packageProductDependencies = (
+				22COCOA0E27C60000MQTT0E /* CocoaMQTT */,
+				22COCOA1027C60000MQTT10 /* CocoaMQTTWebSocket */,
+			);
 			productName = MQTTAnalyzerUITests;
 			productReference = 22C7F0D02416A16600534880 /* MQTTAnalyzerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -2498,6 +2514,26 @@
 			productName = CocoaMQTT;
 		};
 		22COCOA0827C60000MQTT08 /* CocoaMQTTWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTTWebSocket;
+		};
+		22COCOA0A27C60000MQTT0A /* CocoaMQTT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTT;
+		};
+		22COCOA0C27C60000MQTT0C /* CocoaMQTTWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTTWebSocket;
+		};
+		22COCOA0E27C60000MQTT0E /* CocoaMQTT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTT;
+		};
+		22COCOA1027C60000MQTT10 /* CocoaMQTTWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
 			productName = CocoaMQTTWebSocket;

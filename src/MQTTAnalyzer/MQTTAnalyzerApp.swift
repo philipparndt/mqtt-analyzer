@@ -38,7 +38,7 @@ struct MQTTAnalyzerApp: App {
 		WindowGroup {
 			if persistenceController.isLoaded {
 				RootView()
-					.environment(\.managedObjectContext, persistenceController.container.viewContext)
+					.environment(\.managedObjectContext, persistenceController.container!.viewContext)
 					.environmentObject(root)
 			} else {
 				LoadingView()

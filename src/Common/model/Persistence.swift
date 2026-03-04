@@ -21,8 +21,8 @@ class PersistenceController: ObservableObject {
 	@Published var isLoaded = false
 	private var _container: NSPersistentCloudKitContainer?
 
-	var container: NSPersistentCloudKitContainer {
-		_container!
+	var container: NSPersistentCloudKitContainer? {
+		_container
 	}
 
 	static var path: URL? {
@@ -120,7 +120,7 @@ class PersistenceController: ObservableObject {
 	}
 	
 	func save() {
-		let context = container.viewContext
+		guard let context = container?.viewContext else { return }
 
 		if context.hasChanges {
 			do {
@@ -135,14 +135,14 @@ class PersistenceController: ObservableObject {
 class PersistenceHelper {
 	class func createAll(hosts: [SQLiteBrokerSetting]) {
 		let controller = PersistenceController.shared
-		let container = controller.container
-		
+		guard let container = controller.container else { return }
+
 		let existing = loadAllExistingIDs(context: container.viewContext)
-		
+
 		for host in hosts where !existing.contains(host.id) {
 			create(host: host, setting: BrokerSetting(context: container.viewContext))
 		}
-		
+
 		controller.save()
 	}
 	

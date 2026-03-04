@@ -10,7 +10,7 @@ import Foundation
 
 func loadBrokers() -> [NSString] {
 	let controller = PersistenceController.shared
-	let container = controller.container
+	guard let container = controller.container else { return [] }
 	let fetchRequest = BrokerSetting.fetchRequest()
 	do {
 		let objects = try container.viewContext.fetch(fetchRequest)
@@ -26,11 +26,11 @@ func loadBrokers() -> [NSString] {
 
 func firstBroker(by name: String) -> BrokerSetting? {
 	let controller = PersistenceController.shared
-	let container = controller.container
+	guard let container = controller.container else { return nil }
 	let fetchRequest = BrokerSetting.fetchRequest()
 	do {
 		let objects = try container.viewContext.fetch(fetchRequest)
-		
+
 		if let first = objects.first(where: { $0.aliasOrHost == name }) {
 			return first
 		}
@@ -38,6 +38,6 @@ func firstBroker(by name: String) -> BrokerSetting? {
 	catch {
 		NSLog("Error loading all existingIDs from CoreData")
 	}
-	
+
 	return nil
 }
