@@ -24,72 +24,70 @@ struct HostsView: View {
 	@State var selectedHost: Host?
 	@State var sheetState = ServerPageSheetState()
 	@State var searchText: String = ""
-	
+
+	@Binding var selectedBroker: BrokerSetting?
+
 	@Environment(\.managedObjectContext) private var viewContext
 
 	@FetchRequest(
 		sortDescriptors: [NSSortDescriptor(keyPath: \BrokerSetting.alias, ascending: true)],
 		animation: .default)
 	private var brokers: FetchedResults<BrokerSetting>
-	
+
 	var categorizedBrokers: [String: [BrokerSetting]] {
 		Dictionary(grouping: searchBroker) { broker in
 			broker.category?.isEmpty == true ? "Uncategorized" : (broker.category ?? "Uncategorized")
 		}
 	}
-	
+
 	var body: some View {
 		buildView()
 	}
-	
+
 	func buildView() -> some View {
-		NavigationStack {
-			VStack(alignment: .leading) {
-				List {
-					if let uncategorizedBrokers = categorizedBrokers["Uncategorized"] {
-						ForEach(uncategorizedBrokers, id: \.self) { broker in
-							HostCellView(host: model.getConnectionModel(broker: broker),
-										 hostsModel: hostsModel,
-										 messageModel: (
-											self.model.getMessageModel(model.getConnectionModel(broker: broker))
-										 ),
-										 cloneHostHandler: self.cloneHost)
-								.accessibilityLabel("broker: \(broker.aliasOrHost)")
-						}
-					}
-
-					ForEach(categorizedBrokers.keys.sorted().filter { $0 != "Uncategorized" }, id: \.self) { category in
-						Section(header: Text(category)) {
-							ForEach(categorizedBrokers[category] ?? [], id: \.self) { broker in
-								// Text(broker.alias)
-								HostCellView(host: model.getConnectionModel(broker: broker),
-											 hostsModel: hostsModel,
-											 messageModel: (
-												self.model.getMessageModel(model.getConnectionModel(broker: broker))
-											 ),
-											 cloneHostHandler: self.cloneHost)
-									.accessibilityLabel("broker: \(broker.aliasOrHost)")
-
-							}
-						}
-					}
-
-				}.searchable(text: $searchText)
+		List(selection: $selectedBroker) {
+			if let uncategorizedBrokers = categorizedBrokers["Uncategorized"] {
+				ForEach(uncategorizedBrokers, id: \.self) { broker in
+					HostCellView(host: model.getConnectionModel(broker: broker),
+								 hostsModel: hostsModel,
+								 messageModel: (
+									self.model.getMessageModel(model.getConnectionModel(broker: broker))
+								 ),
+								 cloneHostHandler: self.cloneHost)
+						.accessibilityLabel("broker: \(broker.aliasOrHost)")
+						.tag(broker)
+				}
 			}
-			.navigationBarTitleDisplayMode(.inline)
-			.navigationTitle("Brokers")
-			.toolbar {
-				ToolbarItemGroup(placement: .navigationBarLeading) {
-					Button(action: showAbout) {
-						Text("About")
+
+			ForEach(categorizedBrokers.keys.sorted().filter { $0 != "Uncategorized" }, id: \.self) { category in
+				Section(header: Text(category)) {
+					ForEach(categorizedBrokers[category] ?? [], id: \.self) { broker in
+						HostCellView(host: model.getConnectionModel(broker: broker),
+									 hostsModel: hostsModel,
+									 messageModel: (
+										self.model.getMessageModel(model.getConnectionModel(broker: broker))
+									 ),
+									 cloneHostHandler: self.cloneHost)
+							.accessibilityLabel("broker: \(broker.aliasOrHost)")
+							.tag(broker)
 					}
 				}
-
-				ToolbarItemGroup(placement: .navigationBarTrailing) {
-					Button(action: createHost) {
-						Image(systemName: "plus")
-					}.accessibility(label: Text("Add Broker"))
+			}
+		}
+		.searchable(text: $searchText)
+		.navigationBarTitleDisplayMode(.inline)
+		.navigationTitle("Brokers")
+		.toolbar {
+			ToolbarItemGroup(placement: .navigationBarLeading) {
+				Button(action: showAbout) {
+					Text("About")
 				}
+			}
+
+			ToolbarItemGroup(placement: .navigationBarTrailing) {
+				Button(action: createHost) {
+					Image(systemName: "plus")
+				}.accessibility(label: Text("Add Broker"))
 			}
 		}
 		.sheet(isPresented: $presented, onDismiss: { self.presented=false}, content: {

@@ -133,39 +133,33 @@ struct TopicsView: View {
 		}
 		.navigationTitle(title())
 		.toolbar {
-			ToolbarItemGroup(placement: .navigationBarTrailing) {
+			ToolbarItem(placement: .primaryAction) {
+				ControlGroup {
+					Button(action: model.markRead) {
+						Label("Mark read", systemImage: "circlebadge")
+					}
+					.accessibilityLabel("Mark all as read")
 
-				Button(action: createTopic) {
-					Image(systemName: "paperplane.fill")
+					Button(role: .destructive, action: model.clear) {
+						Label("Clear", systemImage: "trash")
+					}
+					.accessibilityLabel("Clear all messages")
 				}
-				#if !targetEnvironment(macCatalyst)
-				Button(action: model.markRead) {
-					Image(systemName: "circle")
-					.font(.subheadline)
-					.foregroundColor(.blue)
-				}
-				#endif
-				Button(action: pauseConnection) {
-					Image(systemName: host.pause ? "play.fill" : "pause.fill")
-				}.frame(width: 25, alignment: .leading)
 			}
-			#if targetEnvironment(macCatalyst)
-			ToolbarItemGroup(placement: .navigationBarLeading) {
-				Button(action: model.markRead) {
-					Image(systemName: "circle")
-					.font(.subheadline)
-					.foregroundColor(.blue)
+
+			ToolbarItem(placement: .secondaryAction) {
+				ControlGroup {
+					Button(action: createTopic) {
+						Label("Publish", systemImage: "paperplane.fill")
+					}
+					.accessibilityLabel("Publish message")
+
+					Button(action: pauseConnection) {
+						Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
+					}
+					.accessibilityLabel(host.pause ? "Resume connection" : "Pause connection")
 				}
-				.accessibilityLabel("Mark all as read")
-				
-				Button(action: model.clear) {
-					Image(systemName: "clear")
-					.font(.subheadline)
-					.foregroundColor(.red)
-				}
-				.accessibilityLabel("Clear")
 			}
-			#endif
 		}
 		.navigationBarTitleDisplayMode(.inline)
 		.safeAreaInset(edge: .bottom) {

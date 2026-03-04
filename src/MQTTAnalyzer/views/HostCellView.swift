@@ -42,35 +42,35 @@ struct HostCellView: View {
 	}
 	
 	var body: some View {
-		NavigationLink(destination: TopicsView(model: messageModel, host: host)) {
-			HStack {
-				VStack(alignment: .leading) {
-					Text(host.settings.aliasOrHost)
+		HStack {
+			VStack(alignment: .leading) {
+				Text(host.settings.aliasOrHost)
 
-					Spacer()
-					Group {
-						Text(host.settings.hostname)
-						Text(host.subscriptionsReadable)
-					}
-					.font(.footnote)
-					.foregroundColor(.secondary)
-				}
-				
 				Spacer()
-
-				if host.state != .disconnected {
-					Text("\(messageModel.messageCountDisplay)")
-						.font(.system(size: 14, design: .monospaced))
-						.foregroundColor(.secondary)
-
-					Image(systemName: host.pause ? "pause.fill" : "circle.fill" )
-						.font(.subheadline)
-						.foregroundColor(host.pause ? .gray : connectionColor)
+				Group {
+					Text(host.settings.hostname)
+					Text(host.subscriptionsReadable)
 				}
+				.font(.footnote)
+				.foregroundColor(.secondary)
+			}
 
-				contextMenu()
-			}.padding([.top, .bottom], 5)
+			Spacer()
+
+			if host.state != .disconnected {
+				Text("\(messageModel.messageCountDisplay)")
+					.font(.system(size: 14, design: .monospaced))
+					.foregroundColor(.secondary)
+
+				Image(systemName: host.pause ? "pause.fill" : "circle.fill" )
+					.font(.subheadline)
+					.foregroundColor(host.pause ? .gray : connectionColor)
+			}
+
+			contextMenu()
 		}
+		.padding([.top, .bottom], 5)
+		.contentShape(Rectangle())
 		.sheet(isPresented: $sheetState.isPresented, onDismiss: cancelEditCreation, content: {
 			if self.sheetState.type == .edit {
 				EditHostFormModalView(closeHandler: self.cancelEditCreation,
