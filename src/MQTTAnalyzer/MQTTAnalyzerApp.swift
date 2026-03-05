@@ -44,6 +44,10 @@ struct MQTTAnalyzerApp: App {
 				LoadingView()
 			}
 		}
+		#if os(macOS)
+		.windowStyle(.automatic)
+		.windowToolbarStyle(.unified)
+		#endif
 		.onChange(of: scenePhase) { newPhase in
 			if newPhase == .active {
 				root.reconnect()

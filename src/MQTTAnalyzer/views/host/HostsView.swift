@@ -76,7 +76,12 @@ struct HostsView: View {
 				}
 			}
 		}
-		.searchable(text: $searchText)
+		.listStyle(.sidebar)
+		.scrollContentBackground(.hidden)
+		.background(.ultraThinMaterial)
+		.toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+		.toolbarBackgroundVisibility(.visible, for: .navigationBar)
+		.searchable(text: $searchText, placement: .sidebar)
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationTitle("Brokers")
 		.toolbar {

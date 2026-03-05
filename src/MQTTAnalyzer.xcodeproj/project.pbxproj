@@ -92,6 +92,7 @@
 		224AFEB327B2C07A00DFD09F /* XCTestCase+Disappear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB227B2C07A00DFD09F /* XCTestCase+Disappear.swift */; };
 		224AFEB727B2C67900DFD09F /* XCUIElement+ClearText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB627B2C67900DFD09F /* XCUIElement+ClearText.swift */; };
 		224AFEBA27B2CE8F00DFD09F /* XCUIElement+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB927B2CE8F00DFD09F /* XCUIElement+Menu.swift */; };
+		2250D7612F58B59C003938FF /* TopicTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2250D7602F58B59C003938FF /* TopicTreeView.swift */; };
 		2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8DC22C8C007007E35A2 /* TopicsView.swift */; };
 		2253F8DF22C8C008007E35A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8DE22C8C008007E35A2 /* Assets.xcassets */; };
 		2253F8E222C8C008007E35A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E122C8C008007E35A2 /* Preview Assets.xcassets */; };
@@ -373,6 +374,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerDetailsView.swift; sourceTree = "<group>"; };
 		2200D96527C0C3BF00E63E89 /* PublishTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTests.swift; sourceTree = "<group>"; };
 		2200D96727C0CA0100E63E89 /* PublishDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishDialog.swift; sourceTree = "<group>"; };
 		2200D96A27C1123000E63E89 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 		224AFEB427B2C3FA00DFD09F /* Broker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Broker.swift; sourceTree = "<group>"; };
 		224AFEB627B2C67900DFD09F /* XCUIElement+ClearText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+ClearText.swift"; sourceTree = "<group>"; };
 		224AFEB927B2CE8F00DFD09F /* XCUIElement+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Menu.swift"; sourceTree = "<group>"; };
+		2250D7602F58B59C003938FF /* TopicTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTreeView.swift; sourceTree = "<group>"; };
 		2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2253F8DC22C8C007007E35A2 /* TopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsView.swift; sourceTree = "<group>"; };
 		2253F8DE22C8C008007E35A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -612,7 +615,6 @@
 		22FD7CFB22C8D2650078795F /* RootModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModel.swift; sourceTree = "<group>"; };
 		22FD7CFC22C8D2660078795F /* HostsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsView.swift; sourceTree = "<group>"; };
 		22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSeriesDetailsView.swift; sourceTree = "<group>"; };
-		031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerDetailsView.swift; sourceTree = "<group>"; };
 		ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -982,6 +984,7 @@
 		2281048E2381769700112F24 /* topic */ = {
 			isa = PBXGroup;
 			children = (
+				2250D7602F58B59C003938FF /* TopicTreeView.swift */,
 				2253F8DC22C8C007007E35A2 /* TopicsView.swift */,
 				228104922381773100112F24 /* TopicCellView.swift */,
 				228104942381779000112F24 /* TopicToolsView.swift */,
@@ -1495,7 +1498,7 @@
 				22PETIT0127C20000PARSER1 /* XCRemoteSwiftPackageReference "swift-petitparser" */,
 				22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				22CODEED0127C40000EDIT01 /* XCRemoteSwiftPackageReference "CodeEditor" */,
-				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */,
 				22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */,
 			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
@@ -1675,6 +1678,7 @@
 				2230FF0C27A57DF500D4327F /* TopicTree+ReadState.swift in Sources */,
 				2202F0E6285867E100AEAE4C /* CertificateValueTransformer.swift in Sources */,
 				228104932381773100112F24 /* TopicCellView.swift in Sources */,
+				2250D7612F58B59C003938FF /* TopicTreeView.swift in Sources */,
 				2210939A2C0B469100290825 /* CategoryFormView.swift in Sources */,
 				2202F0FB285B4F9B00AEAE4C /* Host+AliasOrHost.swift in Sources */,
 				228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */,
@@ -2002,7 +2006,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2057,7 +2061,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -2080,7 +2084,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MQTTAnalyzer/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2109,7 +2113,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MQTTAnalyzer/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2185,7 +2189,7 @@
 				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntent;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2214,7 +2218,7 @@
 				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntent;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2243,7 +2247,7 @@
 				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntentUI;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2272,7 +2276,7 @@
 				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntentUI;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Philipp Arndt. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2295,7 +2299,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2318,7 +2322,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2344,7 +2348,7 @@
 				CURRENT_PROJECT_VERSION = 161;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd.MQTTAnalyzerIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2367,7 +2371,7 @@
 				CURRENT_PROJECT_VERSION = 161;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd.MQTTAnalyzerIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2474,7 +2478,7 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/GRDB.swift";
 			requirement = {
@@ -2553,12 +2557,12 @@
 		};
 		22GRDB00227C50000SWIFT02 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
 		};
 		22GRDB00427C50000SWIFT04 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
 		};
 		22PETIT0227C20000PARSER2 /* swift-petitparser */ = {

@@ -79,7 +79,7 @@ struct TopicsView: View {
 							.accessibilityLabel("flatview")
 
 						if !self.model.flatView {
-							FolderNavigationView(host: host, model: model)
+							TreeNavigationView(host: host, model: model)
 						}
 						
 						if self.model.flatView {
