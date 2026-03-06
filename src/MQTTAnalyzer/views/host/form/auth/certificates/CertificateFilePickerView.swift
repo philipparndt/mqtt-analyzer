@@ -48,7 +48,9 @@ struct CertificateFilePickerView: View {
 				PKCS12HelpView()
 			}
 		}
-		.navigationBarTitleDisplayMode(.inline)
+		#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 		.navigationTitle("Select \(type.getName())")
 	}
 	

@@ -31,9 +31,13 @@ struct MetadataTextView: View {
 
 extension View {
 	func hasScrollEnabled(_ value: Bool) -> some View {
+		#if os(iOS)
 		self.onAppear {
 			UITableView.appearance().isScrollEnabled = value
 		}
+		#else
+		self
+		#endif
 	}
 }
 

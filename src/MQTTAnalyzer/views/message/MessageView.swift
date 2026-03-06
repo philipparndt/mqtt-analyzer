@@ -94,11 +94,11 @@ struct MessageCellView: View {
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = message.topic.nameQualified
+		Pasteboard.copy(message.topic.nameQualified)
 	}
 	
 	func copyMessage() {
-		UIPasteboard.general.string = message.payload.dataString
+		Pasteboard.copy(message.payload.dataString)
 	}
 	
 	func publish() {

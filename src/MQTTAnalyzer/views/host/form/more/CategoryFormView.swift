@@ -22,7 +22,9 @@ struct CategoryFormView: View {
 			
 				TextField("No category", text: $host.category)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 			}

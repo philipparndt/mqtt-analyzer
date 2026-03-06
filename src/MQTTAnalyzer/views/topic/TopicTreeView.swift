@@ -52,13 +52,22 @@ struct TopicTreeSidebarView: View {
 					TreeNodeCellView(model: node, host: host)
 						.tag(node)
 				}
+				.animation(nil, value: model.childrenDisplay.count)
 			}
 		}
 		.listStyle(.sidebar)
+		.transaction { transaction in
+			transaction.animation = nil
+		}
+		#if os(iOS)
 		.scrollContentBackground(.hidden)
 		.background(.ultraThinMaterial)
 		.toolbarBackground(.ultraThinMaterial, for: .navigationBar)
 		.toolbarBackgroundVisibility(.visible, for: .navigationBar)
+		#elseif os(macOS)
+		.scrollContentBackground(.hidden)
+		.visualEffectBackground(material: .sidebar)
+		#endif
 		.navigationTitle(host.settings.aliasOrHost)
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
@@ -95,24 +104,59 @@ struct TopicTreeSidebarView: View {
 
 	@ViewBuilder
 	var connectionStatusView: some View {
-		VStack(spacing: 0) {
-			if host.state == .connecting {
-				ConnectingView(host: host)
-			} else if host.state == .disconnected {
-				if host.reconnectDelegate != nil {
-					DisconnectedView(host: host)
-				} else {
-					Button("Connect") {
-						rootModel.connect(to: host)
-					}
-					.buttonStyle(.borderedProminent)
-					.padding()
+		if host.state == .connecting {
+			ConnectionStatusBanner(
+				message: host.connectionMessage ?? "Connecting...",
+				icon: "antenna.radiowaves.left.and.right",
+				color: .blue,
+				action: nil
+			)
+		} else if host.state == .disconnected && host.reconnectDelegate != nil {
+			ConnectionStatusBanner(
+				message: host.connectionMessage ?? "Disconnected",
+				icon: "exclamationmark.triangle.fill",
+				color: .orange,
+				action: { host.reconnect() }
+			)
+		}
+	}
+}
+
+// MARK: - Modern Connection Status Banner
+struct ConnectionStatusBanner: View {
+	let message: String
+	let icon: String
+	let color: Color
+	let action: (() -> Void)?
+
+	var body: some View {
+		HStack(spacing: 8) {
+			Image(systemName: icon)
+				.foregroundStyle(color)
+
+			Text(message)
+				.font(.callout)
+				.lineLimit(1)
+
+			Spacer()
+
+			if let action = action {
+				Button(action: action) {
+					Image(systemName: "arrow.clockwise.circle.fill")
+						.font(.title2)
+						.foregroundStyle(color)
 				}
-			} else if host.pause {
-				ResumeConnectionView(host: host)
+				.buttonStyle(.plain)
+			} else {
+				ProgressView()
+					.controlSize(.small)
 			}
 		}
-		.background(.ultraThinMaterial)
+		.padding(.horizontal, 12)
+		.padding(.vertical, 8)
+		.background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
+		.padding(.horizontal, 8)
+		.padding(.bottom, 8)
 	}
 }
 
@@ -196,11 +240,11 @@ struct TreeNodeCellView: View {
 	}
 
 	func copyTopic() {
-		UIPasteboard.general.string = model.nameQualified
+		Pasteboard.copy(model.nameQualified)
 	}
 
 	func copyName() {
-		UIPasteboard.general.string = model.name
+		Pasteboard.copy(model.name)
 	}
 
 	func deleteAllRetained() {

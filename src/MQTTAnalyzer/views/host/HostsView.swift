@@ -61,7 +61,10 @@ struct HostsView: View {
 			}
 
 			ForEach(categorizedBrokers.keys.sorted().filter { $0 != "Uncategorized" }, id: \.self) { category in
-				Section(header: Text(category)) {
+				Section(header: VStack(alignment: .leading, spacing: 4) {
+					Text(category)
+					Divider()
+				}) {
 					ForEach(categorizedBrokers[category] ?? [], id: \.self) { broker in
 						HostCellView(host: model.getConnectionModel(broker: broker),
 									 hostsModel: hostsModel,
@@ -78,23 +81,35 @@ struct HostsView: View {
 		}
 		.listStyle(.sidebar)
 		.scrollContentBackground(.hidden)
+		#if os(iOS)
 		.background(.ultraThinMaterial)
 		.toolbarBackground(.ultraThinMaterial, for: .navigationBar)
 		.toolbarBackgroundVisibility(.visible, for: .navigationBar)
+		#elseif os(macOS)
+		.background(.clear)
+		#endif
 		.searchable(text: $searchText, placement: .sidebar)
+		#if os(iOS)
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationTitle("Brokers")
+		#elseif os(macOS)
+		.toolbar(removing: .title)
+		#endif
 		.toolbar {
-			ToolbarItemGroup(placement: .navigationBarLeading) {
+			#if os(iOS)
+			ToolbarItem(placement: .cancellationAction) {
 				Button(action: showAbout) {
-					Text("About")
+					Image(systemName: "info.circle")
 				}
+				.accessibilityLabel("About")
 			}
+			#endif
 
-			ToolbarItemGroup(placement: .navigationBarTrailing) {
+			ToolbarItem(placement: .primaryAction) {
 				Button(action: createHost) {
 					Image(systemName: "plus")
-				}.accessibility(label: Text("Add Broker"))
+				}
+				.accessibilityLabel("Add Broker")
 			}
 		}
 		.sheet(isPresented: $presented, onDismiss: { self.presented=false}, content: {

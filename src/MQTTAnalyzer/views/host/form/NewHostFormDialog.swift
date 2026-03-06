@@ -34,15 +34,17 @@ struct NewHostFormModalView: View {
 
 			EditHostFormView(onDelete: closeHandler, host: $host)
 				.font(.caption)
-				.navigationBarTitleDisplayMode(.inline)
+				#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 				.navigationTitle("New broker")
 				.toolbar {
-					ToolbarItemGroup(placement: .navigationBarLeading) {
+					ToolbarItemGroup(placement: .cancellationAction) {
 						Button(action: cancel) {
 							Text("Cancel")
 						}
 					}
-					ToolbarItemGroup(placement: .navigationBarTrailing) {
+					ToolbarItemGroup(placement: .confirmationAction) {
 						Button(action: save) {
 							Text("Save")
 						}.disabled(disableSave)

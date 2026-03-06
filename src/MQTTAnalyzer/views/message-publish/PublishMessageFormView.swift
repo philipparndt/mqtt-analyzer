@@ -97,16 +97,18 @@ struct PublishMessageFormModalView: View {
 		NavigationStack {
 			PublishMessageFormView(model: self.model, type: self.$model.messageType)
 				.font(.caption)
-				.navigationBarTitleDisplayMode(.inline)
+				#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 				.navigationTitle("Publish message")
 				.toolbar {
-					ToolbarItemGroup(placement: .navigationBarLeading) {
+					ToolbarItemGroup(placement: .cancellationAction) {
 						Button(action: cancel) {
 							Text("Cancel")
 						}
 					}
 
-					ToolbarItemGroup(placement: .navigationBarTrailing) {
+					ToolbarItemGroup(placement: .confirmationAction) {
 						Button(action: publish) {
 							Text("Publish")
 						}
@@ -152,7 +154,9 @@ struct PublishMessageFormView: View {
 			Section(header: Text("Topic")) {
 				TextField("", text: $model.topic)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.font(.body)
 					.accessibilityLabel("topic")
 				TopicSuffixPickerView(suffix: $model.topicSuffix)
@@ -208,7 +212,9 @@ struct PublishMessageFormPlainTextView: View {
 		Group {
 			MessageTextView(text: $message)
 			.disableAutocorrection(true)
-			.autocapitalization(.none)
+			#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 			.font(.system(.body, design: .monospaced))
 			.frame(height: 250)
 		}
@@ -246,14 +252,18 @@ struct MessageProperyView: View {
 				TextField("", text: self.$property.value.valueText)
 					.disableAutocorrection(true)
 					.multilineTextAlignment(.trailing)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.font(.body)
 			}
 			else if property.value.type() == .number {
 				TextField("", text: self.$property.value.valueText)
 					.disableAutocorrection(true)
 					.multilineTextAlignment(.trailing)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.font(.body)
 			}
 			else {

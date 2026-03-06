@@ -25,6 +25,6 @@ struct MessageTopicView: View {
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = node.nameQualified
+		Pasteboard.copy(node.nameQualified)
 	}
 }

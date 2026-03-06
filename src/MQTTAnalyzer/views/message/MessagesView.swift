@@ -22,15 +22,19 @@ struct MessagesView: View {
 				MessageView(node: node, host: host)
 			}
 		}
-		.navigationBarTitleDisplayMode(.inline)
+		#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 		.navigationTitle(node.name)
-		.listStyle(GroupedListStyle())
+		#if os(iOS)
+		.listStyle(.insetGrouped)
+		#endif
 		.onAppear {
 			self.node.markRead()
 		}
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = node.nameQualified
+		Pasteboard.copy(node.nameQualified)
 	}
 }

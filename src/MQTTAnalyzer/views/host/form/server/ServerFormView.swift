@@ -47,7 +47,9 @@ struct ServerFormView: View {
 				TextField("ip address / name", text: $host.hostname)
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.accessibilityLabel("hostname")
 					.font(.body)
 			}
@@ -104,7 +106,9 @@ struct ServerFormView: View {
 					TextField("/", text: $host.basePath)
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.font(.body)
 				}
 			}

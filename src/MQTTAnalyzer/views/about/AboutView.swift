@@ -46,10 +46,12 @@ Thank you! This project would not be possible without your great work! Thanks fo
 			.padding()
 			.frame(maxWidth: .infinity, alignment: .leading)
 			.multilineTextAlignment(.leading)
-			.navigationBarTitleDisplayMode(.inline)
+			#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 			.navigationTitle("About")
 			.toolbar {
-				ToolbarItemGroup(placement: .navigationBarLeading) {
+				ToolbarItemGroup(placement: .cancellationAction) {
 					Button(action: close) {
 						Text("Close")
 					}

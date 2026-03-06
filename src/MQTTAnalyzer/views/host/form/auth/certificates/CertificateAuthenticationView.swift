@@ -28,7 +28,9 @@ struct CertificateAuthenticationView: View {
 				
 				SecureField("password", text: $host.certClientKeyPassword)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 			}

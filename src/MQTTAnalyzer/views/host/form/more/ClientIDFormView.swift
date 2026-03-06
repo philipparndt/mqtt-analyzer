@@ -22,7 +22,9 @@ struct ClientIDFormView: View {
 			
 				TextField("Random by default", text: $host.clientID)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 			}

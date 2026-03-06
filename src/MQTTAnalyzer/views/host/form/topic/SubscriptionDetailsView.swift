@@ -24,7 +24,9 @@ struct SubscriptionDetailsView: View {
 					TextField("e.g. #", text: $subscription.topic)
 						.multilineTextAlignment(.trailing)
 						.disableAutocorrection(true)
-						.autocapitalization(.none)
+						#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 						.font(.body)
 						.accessibilityLabel("subscription-topic")
 				}
@@ -51,7 +53,9 @@ struct SubscriptionDetailsView: View {
 				}
 			}
 		}
-		.navigationBarTitleDisplayMode(.inline)
+		#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 		.navigationTitle("Update subscription")
 	}
 

@@ -32,7 +32,9 @@ struct LimitsFormView: View {
 			
 				TextField("250", text: $host.limitTopic)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 			}
@@ -47,7 +49,9 @@ struct LimitsFormView: View {
 			
 				TextField("1000", text: $host.limitMessagesBatch)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 			}

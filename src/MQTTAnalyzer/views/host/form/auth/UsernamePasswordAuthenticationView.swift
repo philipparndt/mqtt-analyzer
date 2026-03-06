@@ -23,7 +23,9 @@ struct UsernamePasswordAuthenticationView: View {
 			
 				TextField("username", text: $host.username)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 					.accessibilityLabel("your username")
@@ -37,7 +39,9 @@ struct UsernamePasswordAuthenticationView: View {
 				
 				SecureField("your password", text: $host.password)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 					.accessibilityLabel("password")

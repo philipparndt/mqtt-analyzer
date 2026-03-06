@@ -20,17 +20,17 @@ struct RootView: View {
 	@State private var selectedTopic: TopicTree?
 	@State private var columnVisibility: NavigationSplitViewVisibility = .all
 
-	var isCompact: Bool {
-		horizontalSizeClass == .compact
-	}
-
 	var body: some View {
 		Group {
-			if isCompact {
+			#if os(macOS)
+			threeColumnLayout
+			#else
+			if horizontalSizeClass == .compact {
 				twoColumnLayout
 			} else {
 				threeColumnLayout
 			}
+			#endif
 		}
 		.sheet(isPresented: $welcome, onDismiss: closeWelcome, content: {
 			WelcomeView(closeHandler: closeWelcome)
@@ -62,6 +62,9 @@ struct RootView: View {
 	var threeColumnLayout: some View {
 		NavigationSplitView(columnVisibility: $columnVisibility) {
 			HostsView(hostsModel: model.hostsModel, selectedBroker: $selectedBroker)
+				#if os(macOS)
+				.navigationSplitViewColumnWidth(min: 200, ideal: 250, max: 350)
+				#endif
 		} content: {
 			if let broker = selectedBroker {
 				let host = model.getConnectionModel(broker: broker)

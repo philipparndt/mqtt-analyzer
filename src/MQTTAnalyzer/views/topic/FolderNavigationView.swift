@@ -69,11 +69,11 @@ struct FolderCellView: View {
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = model.nameQualified
+		Pasteboard.copy(model.nameQualified)
 	}
 
 	func copyName() {
-		UIPasteboard.general.string = model.name
+		Pasteboard.copy(model.name)
 	}
 	
 	func deleteAllReatined() {

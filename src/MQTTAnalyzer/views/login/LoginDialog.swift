@@ -16,31 +16,33 @@ struct LoginData {
 
 struct LoginDialogView: View {
 	let loginCallback: () -> Void
-	
+
 	@ObservedObject var host: Host
 
 	var body: some View {
 		NavigationStack {
 			LoginFormView(username: host.settings.username ?? "", password: host.settings.password ?? "", loginCallback: login)
 				.font(.caption)
+				#if !os(macOS)
 				.navigationBarTitleDisplayMode(.inline)
+				#endif
 				.navigationTitle("Login")
 		}
 	}
-	
+
 	func login(username: String, password: String) {
 		host.usernameNonpersistent = username
 		host.passwordNonpersistent = password
 		loginCallback()
 	}
-	
+
 }
 
 struct LoginFormView: View {
 	@State var username: String
 	@State var password: String
 	let loginCallback: (String, String) -> Void
-	
+
 	var body: some View {
 		Group {
 			Form {
@@ -48,32 +50,36 @@ struct LoginFormView: View {
 					HStack {
 						Text("Username")
 							.font(.headline)
-						
+
 						Spacer()
-					
+
 						TextField("username", text: $username)
 							.disableAutocorrection(true)
-							.autocapitalization(.none)
+							#if !os(macOS)
+							.textInputAutocapitalization(.never)
+							#endif
 							.multilineTextAlignment(.trailing)
 							.font(.body)
 							.accessibilityLabel("username")
 					}
-					
+
 					HStack {
 						Text("Password")
 							.font(.headline)
-						
+
 							Spacer()
-						
+
 						SecureField("password", text: $password)
 							.disableAutocorrection(true)
-							.autocapitalization(.none)
+							#if !os(macOS)
+							.textInputAutocapitalization(.never)
+							#endif
 							.multilineTextAlignment(.trailing)
 							.font(.body)
 							.accessibilityLabel("password")
 					}
 				}
-				
+
 				Section {
 					Button(action: self.login) {
 						Text("Login")
@@ -88,7 +94,7 @@ struct LoginFormView: View {
 			}
 		}
 	}
-	
+
 	func login() {
 		self.loginCallback(self.username, self.password)
 	}

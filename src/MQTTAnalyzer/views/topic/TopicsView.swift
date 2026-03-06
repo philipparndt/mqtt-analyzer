@@ -127,7 +127,9 @@ struct TopicsView: View {
 												host: self.host,
 												model: publishMessageModel)
 				})
-				.listStyle(GroupedListStyle())
+				#if os(iOS)
+		.listStyle(.insetGrouped)
+		#endif
 			}
 
 		}
@@ -161,7 +163,9 @@ struct TopicsView: View {
 				}
 			}
 		}
-		.navigationBarTitleDisplayMode(.inline)
+		#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 		.safeAreaInset(edge: .bottom) {
 			createToolInset()
 		}

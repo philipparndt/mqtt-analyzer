@@ -85,11 +85,11 @@ struct TopicCellView: View {
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = messages.nameQualified
+		Pasteboard.copy(messages.nameQualified)
 	}
 	
 	func copyMessage() {
-		UIPasteboard.general.string = messages.messages.first?.payload.dataString ?? ""
+		Pasteboard.copy(messages.messages.first?.payload.dataString ?? "")
 	}
 	
 }
