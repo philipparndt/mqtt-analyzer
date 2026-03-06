@@ -82,7 +82,7 @@ struct AboutTitleView: View {
 						.font(.title)
 						.accessibilityLabel("about-label")
 
-					Text("[© 2024 Philipp Arndt](https://github.com/philipparndt)")
+					Text("[© 2026 Philipp Arndt](https://github.com/philipparndt)")
 						.font(.caption)
 						.foregroundColor(.blue)
 					

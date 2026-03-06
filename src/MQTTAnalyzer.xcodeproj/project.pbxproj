@@ -2783,6 +2783,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MQTTAnalyzer-macOS/MQTTAnalyzer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 161;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				INFOPLIST_FILE = "MQTTAnalyzer-macOS/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
@@ -2791,6 +2792,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.2020-11.philipp.MQTTAnalyzer.macos";
 				PRODUCT_NAME = MQTTAnalyzer;
 				SDKROOT = macosx;
@@ -2806,6 +2808,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MQTTAnalyzer-macOS/MQTTAnalyzer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 161;
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				INFOPLIST_FILE = "MQTTAnalyzer-macOS/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
@@ -2814,6 +2817,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 2.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.2020-11.philipp.MQTTAnalyzer.macos";
 				PRODUCT_NAME = MQTTAnalyzer;
 				SDKROOT = macosx;

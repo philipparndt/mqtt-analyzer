@@ -118,7 +118,7 @@ struct AboutWindowView: View {
 						.font(.title)
 						.fontWeight(.semibold)
 
-					Text("[© 2024 Philipp Arndt](https://github.com/philipparndt)")
+					Text("[© 2026 Philipp Arndt](https://github.com/philipparndt)")
 						.font(.callout)
 
 					Text("Version \(getVersion())")
