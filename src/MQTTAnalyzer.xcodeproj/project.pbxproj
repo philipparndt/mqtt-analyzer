@@ -107,6 +107,7 @@
 		224AFEB727B2C67900DFD09F /* XCUIElement+ClearText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB627B2C67900DFD09F /* XCUIElement+ClearText.swift */; };
 		224AFEBA27B2CE8F00DFD09F /* XCUIElement+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB927B2CE8F00DFD09F /* XCUIElement+Menu.swift */; };
 		2250D7612F58B59C003938FF /* TopicTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2250D7602F58B59C003938FF /* TopicTreeView.swift */; };
+		2250D7632F59E8A0003938FF /* StatisticsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2250D7622F59E8A0003938FF /* StatisticsPanel.swift */; };
 		2253F8DD22C8C007007E35A2 /* TopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8DC22C8C007007E35A2 /* TopicsView.swift */; };
 		2253F8DF22C8C008007E35A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8DE22C8C008007E35A2 /* Assets.xcassets */; };
 		2253F8E222C8C008007E35A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E122C8C008007E35A2 /* Preview Assets.xcassets */; };
@@ -406,6 +407,7 @@
 		A733E63E37F27795DB8FE561 /* Readstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D6237FC03500D72BD6 /* Readstate.swift */; };
 		A7E78ABF876CCA5447A45516 /* SubscriptionValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0E228585D8400AEAE4C /* SubscriptionValueTransformer.swift */; };
 		A8CF5B3CFE9305FF511C859E /* TopicTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2250D7602F58B59C003938FF /* TopicTreeView.swift */; };
+		A8CF5B3CFE9305FF511C8600 /* StatisticsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2250D7622F59E8A0003938FF /* StatisticsPanel.swift */; };
 		AF1AC67DFE744BA6E2623386 /* CertificateFilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */; };
 		AF35CF14B786A1B7F76BCEC9 /* TopicToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104942381779000112F24 /* TopicToolsView.swift */; };
 		B07144E15D105BCB8C486783 /* TopicTree+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1927A6678B00D4327F /* TopicTree+Filter.swift */; };
@@ -626,6 +628,7 @@
 		224AFEB627B2C67900DFD09F /* XCUIElement+ClearText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+ClearText.swift"; sourceTree = "<group>"; };
 		224AFEB927B2CE8F00DFD09F /* XCUIElement+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Menu.swift"; sourceTree = "<group>"; };
 		2250D7602F58B59C003938FF /* TopicTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTreeView.swift; sourceTree = "<group>"; };
+		2250D7622F59E8A0003938FF /* StatisticsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsPanel.swift; sourceTree = "<group>"; };
 		2253F8D222C8C007007E35A2 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2253F8DC22C8C007007E35A2 /* TopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsView.swift; sourceTree = "<group>"; };
 		2253F8DE22C8C008007E35A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1169,6 +1172,7 @@
 			isa = PBXGroup;
 			children = (
 				2250D7602F58B59C003938FF /* TopicTreeView.swift */,
+				2250D7622F59E8A0003938FF /* StatisticsPanel.swift */,
 				2253F8DC22C8C007007E35A2 /* TopicsView.swift */,
 				228104922381773100112F24 /* TopicCellView.swift */,
 				228104942381779000112F24 /* TopicToolsView.swift */,
@@ -1909,6 +1913,7 @@
 				2202F0E6285867E100AEAE4C /* CertificateValueTransformer.swift in Sources */,
 				228104932381773100112F24 /* TopicCellView.swift in Sources */,
 				2250D7612F58B59C003938FF /* TopicTreeView.swift in Sources */,
+				2250D7632F59E8A0003938FF /* StatisticsPanel.swift in Sources */,
 				2210939A2C0B469100290825 /* CategoryFormView.swift in Sources */,
 				2202F0FB285B4F9B00AEAE4C /* Host+AliasOrHost.swift in Sources */,
 				228104832381723D00112F24 /* MessageDetailsJsonView.swift in Sources */,
@@ -2229,6 +2234,7 @@
 				F652AB68BC4442C2B1A0D65F /* CertificateValueTransformer.swift in Sources */,
 				F251227E8B4315ABF6875199 /* TopicCellView.swift in Sources */,
 				A8CF5B3CFE9305FF511C859E /* TopicTreeView.swift in Sources */,
+				A8CF5B3CFE9305FF511C8600 /* StatisticsPanel.swift in Sources */,
 				FD8DF0A731981C72C5969FDB /* CategoryFormView.swift in Sources */,
 				FFA3CFD88C9426ACDFEAB57E /* Host+AliasOrHost.swift in Sources */,
 				890D51938E74D6437ABED1EF /* MessageDetailsJsonView.swift in Sources */,

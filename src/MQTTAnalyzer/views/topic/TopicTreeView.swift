@@ -39,36 +39,53 @@ struct TopicTreeSidebarView: View {
 	var body: some View {
 		List(selection: $selectedTopic) {
 			if model.childrenDisplay.isEmpty && model.children.isEmpty {
-				ContentUnavailableView(
-					"No Topics",
-					systemImage: "antenna.radiowaves.left.and.right",
-					description: Text(host.state == .connected ? "Waiting for messages..." : "Connect to receive messages.")
-				)
-			} else {
-				OutlineGroup(
-					model.childrenDisplay.sorted { $0.name < $1.name },
-					children: \.treeChildren
-				) { node in
-					TreeNodeCellView(model: node, host: host)
-						.tag(node)
+					ContentUnavailableView(
+						"No Topics",
+						systemImage: "antenna.radiowaves.left.and.right",
+						description: Text(host.state == .connected ? "Waiting for messages..." : "Connect to receive messages.")
+					)
+				} else {
+					OutlineGroup(
+						model.childrenDisplay.sorted { $0.name < $1.name },
+						children: \.treeChildren
+					) { node in
+						TreeNodeCellView(model: node, host: host)
+							.tag(node)
+					}
+					.animation(nil, value: model.childrenDisplay.count)
 				}
-				.animation(nil, value: model.childrenDisplay.count)
+			}
+			.listStyle(.sidebar)
+			.transaction { transaction in
+				transaction.animation = nil
+			}
+			#if os(iOS)
+			.scrollContentBackground(.hidden)
+			.background(.ultraThinMaterial)
+			.toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+			.toolbarBackgroundVisibility(.visible, for: .navigationBar)
+			#elseif os(macOS)
+			.scrollContentBackground(.hidden)
+			.visualEffectBackground(material: .sidebar)
+			#endif
+		.safeAreaInset(edge: .bottom) {
+			connectionStatusView
+		}
+		.navigationTitle(host.settings.aliasOrHost)
+		#if os(macOS)
+		.toolbar(removing: .title)
+		.toolbar {
+			ToolbarItem(placement: .principal) {
+				StatisticsPanel(model: model)
+			}
+
+			ToolbarItem(placement: .secondaryAction) {
+				Button(action: togglePause) {
+					Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
+				}
 			}
 		}
-		.listStyle(.sidebar)
-		.transaction { transaction in
-			transaction.animation = nil
-		}
-		#if os(iOS)
-		.scrollContentBackground(.hidden)
-		.background(.ultraThinMaterial)
-		.toolbarBackground(.ultraThinMaterial, for: .navigationBar)
-		.toolbarBackgroundVisibility(.visible, for: .navigationBar)
-		#elseif os(macOS)
-		.scrollContentBackground(.hidden)
-		.visualEffectBackground(material: .sidebar)
-		#endif
-		.navigationTitle(host.settings.aliasOrHost)
+		#else
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				ControlGroup {
@@ -88,9 +105,7 @@ struct TopicTreeSidebarView: View {
 				}
 			}
 		}
-		.safeAreaInset(edge: .bottom) {
-			connectionStatusView
-		}
+		#endif
 		.onAppear {
 			if !host.needsAuth && host.state == .disconnected {
 				rootModel.connect(to: host)
