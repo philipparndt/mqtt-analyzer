@@ -20,6 +20,11 @@ struct TopicsFormView: View {
 				NavigationLink(destination: SubscriptionDetailsView(subscription: subscription, deletionHandler: deleteSubscription)) {
 					SubscriptionLabelView(subscription: subscription)
 				}
+				.contextMenu {
+					Button(role: .destructive, action: { deleteSubscription(subscription: subscription) }) {
+						Label("Delete", systemImage: "trash")
+					}
+				}
 			}
 			.onDelete(perform: self.delete)
 

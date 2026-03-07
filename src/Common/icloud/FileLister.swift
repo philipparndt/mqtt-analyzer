@@ -66,8 +66,8 @@ class FileLister {
 			}
 		} catch {
 			FileLister.logger.error("<\(error.localizedDescription)>")
-			
-			return [CertificateFileModel(name: error.localizedDescription, location: location)]
+			// Return empty array on error instead of showing error as a selectable file
+			return []
 		}
 	}
 }

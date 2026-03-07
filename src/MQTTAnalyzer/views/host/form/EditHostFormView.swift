@@ -19,7 +19,7 @@ struct EditHostFormView: View {
 			ServerFormView(host: $host)
 			AuthFormView(host: $host)
 			TopicsFormView(host: $host)
-			
+
 			Toggle(isOn: $advanced) {
 				Text("More settings")
 					.font(.headline)
@@ -30,7 +30,7 @@ struct EditHostFormView: View {
 				ClientIDFormView(host: $host)
 				LimitsFormView(host: $host)
 			}
-			
+
 			Section(header: Text("")) {
 				Button(action: delete) {
 					HStack(alignment: .center) {
@@ -49,6 +49,7 @@ struct EditHostFormView: View {
 				})
 			}
 		}
+		.formStyle(.grouped)
 	}
 	
 	func delete() {

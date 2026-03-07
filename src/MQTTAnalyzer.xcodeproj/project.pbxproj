@@ -232,6 +232,7 @@
 		22A351DE24A76463001B8AEE /* PublishMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A351DD24A76463001B8AEE /* PublishMessageModel.swift */; };
 		22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */; };
 		22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */; };
+		22A386FE2409404600DFAA01 /* CertificatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FE2409404600DFAA00 /* CertificatePickerView.swift */; };
 		22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */; };
 		22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FC2409440F00DF8F94 /* InfoBox.swift */; };
 		22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */; };
@@ -464,6 +465,7 @@
 		F404EADDAE6369F546B295A7 /* FolderNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0727A56BDE00D4327F /* FolderNavigationView.swift */; };
 		F4D81D0D40AEDCC4E18D8145 /* String+RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C0E280076CB00E88875 /* String+RegExp.swift */; };
 		F50ADC55176E635354922072 /* CertificateAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */; };
+		22A386FE2409404600DFAA02 /* CertificatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FE2409404600DFAA00 /* CertificatePickerView.swift */; };
 		F581EFE0491E9FD0803A8C6E /* PlatformCompat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904C1B7391A959D0C8D1FF3 /* PlatformCompat.swift */; };
 		F652AB68BC4442C2B1A0D65F /* CertificateValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0E5285867E100AEAE4C /* CertificateValueTransformer.swift */; };
 		F98274C4089E43D902D4D355 /* TopicSuffixPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82427887F79008DA37D /* TopicSuffixPickerView.swift */; };
@@ -711,6 +713,7 @@
 		22A351DD24A76463001B8AEE /* PublishMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishMessageModel.swift; sourceTree = "<group>"; };
 		22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernamePasswordAuthenticationView.swift; sourceTree = "<group>"; };
 		22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateAuthenticationView.swift; sourceTree = "<group>"; };
+		22A386FE2409404600DFAA00 /* CertificatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePickerView.swift; sourceTree = "<group>"; };
 		22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFilePickerView.swift; sourceTree = "<group>"; };
 		22A386FC2409440F00DF8F94 /* InfoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBox.swift; sourceTree = "<group>"; };
 		22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesValueUtil.swift; sourceTree = "<group>"; };
@@ -920,6 +923,7 @@
 			isa = PBXGroup;
 			children = (
 				22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */,
+				22A386FE2409404600DFAA00 /* CertificatePickerView.swift */,
 				22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */,
 				22C2856124759FD40000C1E8 /* CertificateLocationPicker.swift */,
 				223AF5D22477D5CA009810E6 /* FileListView.swift */,
@@ -1897,6 +1901,7 @@
 				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
 				2285C81A27842176008DA37D /* DisconnectedView.swift in Sources */,
 				22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */,
+				22A386FE2409404600DFAA01 /* CertificatePickerView.swift in Sources */,
 				2202F0E328585D8400AEAE4C /* SubscriptionValueTransformer.swift in Sources */,
 				2263C1D924813B0C00FF14E8 /* CertificateFilesModel.swift in Sources */,
 				22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */,
@@ -2218,6 +2223,7 @@
 				69B15EA2C74D90AE7D2EBE09 /* UsernamePasswordAuthenticationView.swift in Sources */,
 				F1E27A61C9B2167924B7C51A /* DisconnectedView.swift in Sources */,
 				F50ADC55176E635354922072 /* CertificateAuthenticationView.swift in Sources */,
+				22A386FE2409404600DFAA02 /* CertificatePickerView.swift in Sources */,
 				A7E78ABF876CCA5447A45516 /* SubscriptionValueTransformer.swift in Sources */,
 				5B4FE3B5A5AF4F03968BD69D /* CertificateFilesModel.swift in Sources */,
 				E0E6B82C1C963B234001B42E /* DataSeriesDetailsView.swift in Sources */,

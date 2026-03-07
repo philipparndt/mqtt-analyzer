@@ -8,12 +8,25 @@
 
 import Foundation
 
-struct CertificateFileModel: Identifiable, Comparable {
+struct CertificateFileModel: Identifiable, Comparable, Hashable {
 	let name: String
-	let id = UUID.init()
 	let location: CertificateLocation
-	
+
+	/// Stable ID based on name and location to ensure SwiftUI list identity is preserved
+	var id: String {
+		"\(location.rawValue):\(name)"
+	}
+
 	static func < (lhs: CertificateFileModel, rhs: CertificateFileModel) -> Bool {
 		return lhs.name < rhs.name
-    }
+	}
+
+	static func == (lhs: CertificateFileModel, rhs: CertificateFileModel) -> Bool {
+		return lhs.name == rhs.name && lhs.location == rhs.location
+	}
+
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(name)
+		hasher.combine(location)
+	}
 }

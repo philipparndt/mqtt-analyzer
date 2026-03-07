@@ -1,5 +1,5 @@
 //
-//  AuthPicker.swift
+//  CertificateAuthenticationView.swift
 //  MQTTAnalyzer
 //
 //  Created by Philipp Arndt on 2020-02-25.
@@ -7,73 +7,57 @@
 //
 
 import Foundation
-
 import SwiftUI
 
 struct CertificateAuthenticationView: View {
+    @Binding var host: HostFormModel
+    @State private var showHelp = false
 
-	@Binding var host: HostFormModel
-	
-	var body: some View {
-		Group {
-			List {
-				CertificateFileItemView(type: .p12, file: $host.certP12)
-			}
-			
-			HStack {
-				Text("Password")
-					.font(.headline)
-				
-					Spacer()
-				
-				SecureField("password", text: $host.certClientKeyPassword)
-					.disableAutocorrection(true)
-					#if !os(macOS)
-.textInputAutocapitalization(.never)
-#endif
-					.multilineTextAlignment(.trailing)
-					.font(.body)
-			}
-		}
-	}
-}
+    var body: some View {
+        Group {
+            CertificatePickerView(
+                label: "Client PKCS#12",
+                file: $host.certP12,
+                type: .p12
+            )
 
-struct CertificateFileItemView: View {
-	let type: CertificateFileType
-	@Binding var file: CertificateFile?
-	
-	var body: some View {
-		NavigationLink(destination: CertificateFilePickerView(type: type,
-															  file: $file,
-															  location: getSelectedLocation())) {
-			HStack {
-				Text("\(type.getName())")
-				.font(.headline)
-				
-				Spacer()
-				
-				Group {
-					if !isSelected() {
-						Text("select")
-							.foregroundColor(.gray)
-					}
-					else {
-						Text(getFilename())
-					}
-				}.font(.body)
-			}
-		}
-	}
-	
-	func getSelectedLocation() -> CertificateLocation {
-		return file?.location ?? .local
-	}
-	
-	func isSelected() -> Bool {
-		return file != nil
-	}
-	
-	func getFilename() -> String {
-		return file?.name ?? ""
-	}
+            HStack {
+                Text("Password")
+                    .font(.headline)
+
+                Spacer()
+
+                SecureField("Certificate password", text: $host.certClientKeyPassword)
+                    .disableAutocorrection(true)
+                    #if !os(macOS)
+                    .textInputAutocapitalization(.never)
+                    #endif
+                    .multilineTextAlignment(.trailing)
+                    .font(.body)
+            }
+
+            if host.certP12 != nil && host.certClientKeyPassword.isEmpty {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.orange)
+                    Text("Password is required for PKCS#12 files")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            }
+
+            Button(action: { showHelp = true }) {
+                HStack {
+                    Image(systemName: "questionmark.circle")
+                    Text("How to create certificates")
+                }
+                .foregroundColor(.accentColor)
+                .font(.subheadline)
+            }
+            .buttonStyle(.plain)
+        }
+        .sheet(isPresented: $showHelp) {
+            CertificateHelpSheet()
+        }
+    }
 }

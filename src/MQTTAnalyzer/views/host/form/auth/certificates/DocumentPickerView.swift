@@ -60,17 +60,25 @@ struct DocumentPickerView: View {
 
 	var body: some View {
 		Button("Select File...") {
+			openPanel()
+		}
+	}
+
+	private func openPanel() {
+		DispatchQueue.main.async {
 			let panel = NSOpenPanel()
 			panel.allowedContentTypes = documentTypes
 			panel.allowsMultipleSelection = true
 			panel.canChooseDirectories = false
 			panel.canChooseFiles = true
 
-			if panel.runModal() == .OK {
-				for url in panel.urls {
-					CloudDataManager.instance.copyFileToLocal(file: url)
+			panel.begin { response in
+				if response == .OK {
+					for url in panel.urls {
+						CloudDataManager.instance.copyFileToLocal(file: url)
+					}
+					refresh.refresh()
 				}
-				refresh.refresh()
 			}
 		}
 	}

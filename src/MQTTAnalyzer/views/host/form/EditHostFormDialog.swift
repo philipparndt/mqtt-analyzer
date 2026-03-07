@@ -46,6 +46,9 @@ struct EditHostFormModalView: View {
 				   }
 				}
 		}
+		#if os(macOS)
+		.frame(minWidth: 500, idealWidth: 550, minHeight: 500, idealHeight: 600)
+		#endif
 	}
 	
 	func save() {
