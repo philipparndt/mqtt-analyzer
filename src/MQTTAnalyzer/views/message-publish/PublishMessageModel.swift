@@ -19,46 +19,49 @@ enum TopicSuffix: String, CaseIterable {
 }
 
 class PublishMessageFormModel: ObservableObject {
-    @Published var isPresented = false
-	
-	var _topicSuffix: TopicSuffix = .none
+	@Published var isPresented = false
+	@Published var message: String = ""
+	@Published var qos: Int = 0
+	@Published var retain: Bool = false
+	@Published var messageType: PublishMessageType = .plain
+	@Published var properties: [PublishMessageProperty] = []
+
+	var jsonData: JSON?
+
+	private var _topicSuffix: TopicSuffix = .none
 	var topicSuffix: TopicSuffix {
 		get {
 			return _topicSuffix
 		}
 
 		set {
+			objectWillChange.send()
 			var newTopic = topic
 			for suffix in TopicSuffix.allCases where newTopic.hasSuffix(suffix.rawValue) {
 				newTopic = String(newTopic.dropLast(suffix.rawValue.count))
 			}
-			
+
 			newTopic = String(newTopic + newValue.rawValue)
-			
+
 			_topicSuffix = newValue
 			_topic = newTopic
 		}
 	}
-	var _topic: String = ""
+
+	private var _topic: String = ""
 	var topic: String {
 		get {
 			return _topic
 		}
 
 		set {
+			objectWillChange.send()
 			for suffix in TopicSuffix.allCases where newValue.hasSuffix(suffix.rawValue) {
 				_topicSuffix = suffix
 			}
 			_topic = newValue
 		}
 	}
-	var message: String = ""
-	var qos: Int = 0
-	var retain: Bool = false
-	var jsonData: JSON?
-	var properties: [PublishMessageProperty] = []
-	
-	var messageType: PublishMessageType = .plain
 	
 	func updateMessageFromJsonData() {
 		if var json = jsonData {

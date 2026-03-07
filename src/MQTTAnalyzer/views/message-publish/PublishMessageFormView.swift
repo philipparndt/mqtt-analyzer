@@ -163,9 +163,12 @@ struct PublishMessageFormView: View {
 			}
 
 			Section(header: Text("Settings")) {
-				HStack {
-					Text("QoS")
-					QOSPicker(qos: $model.qos)
+				VStack(alignment: .leading, spacing: 8) {
+					HStack {
+						Text("QoS")
+						QOSPicker(qos: $model.qos)
+					}
+					QoSDescriptionView(qos: model.qos, compact: true)
 				}
 				Toggle(isOn: $model.retain) {
 					Text("Retain")
