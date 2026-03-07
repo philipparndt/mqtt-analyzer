@@ -98,8 +98,10 @@ struct CounterCellView: View {
 
 	var body: some View {
 		Text("\(model.topicCountDisplay)/\(model.messageCountDisplay)")
-			.font(.system(size: 12, design: .monospaced))
-			.foregroundColor(.secondary)
-			.opacity(0.5)
+			.font(.caption2)
+			.padding(.horizontal, 5)
+			.padding(.vertical, 2)
+			.background(Color.accentColor.opacity(0.15))
+			.cornerRadius(6)
 	}
 }

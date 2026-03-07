@@ -300,16 +300,6 @@ struct TreeNodeCellView: View {
 
 			Spacer()
 
-			// Message count badge
-			if !model.messages.isEmpty {
-				Text("\(model.messages.count)")
-					.font(.caption2)
-					.padding(.horizontal, 5)
-					.padding(.vertical, 2)
-					.background(Color.accentColor.opacity(0.15))
-					.cornerRadius(6)
-			}
-
 			CounterCellView(model: model)
 		}
 		.contextMenu {
