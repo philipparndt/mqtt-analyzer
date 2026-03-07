@@ -13,11 +13,11 @@ struct MessageDetailsPlainTextView: View {
 	
 	var body: some View {
 		VStack {
-			Text(message.payload.dataString)
+			AnsiTextView(text: message.payload.dataString)
 				.lineLimit(nil)
 				.padding(10)
 				.font(.system(.body, design: .monospaced))
-			
+
 			Spacer()
 		}
 	}

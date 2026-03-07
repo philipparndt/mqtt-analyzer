@@ -60,10 +60,9 @@ struct MessageCellView: View {
 				Image(systemName: "radiowaves.right")
 					.font(.subheadline)
 					.foregroundColor(message.payload.isJSON ? .green : .gray)
-				
+
 				VStack(alignment: .leading) {
-					Text(message.payload.dataString)
-						.lineLimit(8)
+					AnsiTextView(text: message.payload.dataString, lineLimit: 8)
 					Text(message.metadata.localDate)
 						.font(.subheadline)
 						.foregroundColor(.secondary)

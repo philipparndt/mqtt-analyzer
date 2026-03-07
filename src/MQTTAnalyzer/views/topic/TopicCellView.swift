@@ -23,10 +23,9 @@ struct TopicCellView: View {
 				
 				VStack(alignment: .leading) {
 					Text(messages.nameQualified)
-					Text(messagePreview())
+					AnsiTextView(text: messagePreview(), lineLimit: 8)
 						.font(.subheadline)
 						.foregroundColor(.secondary)
-						.lineLimit(8)
 					Spacer()
 					Text("\(messages.messages.count) message\(messages.messages.count == 1 ? "" : "s")")
 						.font(.footnote)

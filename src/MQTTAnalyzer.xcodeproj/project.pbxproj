@@ -235,6 +235,7 @@
 		22A386FE2409404600DFAA01 /* CertificatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FE2409404600DFAA00 /* CertificatePickerView.swift */; };
 		22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */; };
 		22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FC2409440F00DF8F94 /* InfoBox.swift */; };
+		22A386FD2409440F00DFAA10 /* AnsiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FD2409440F00DFAA11 /* AnsiTextView.swift */; };
 		22A38707240BD9E600DF8F94 /* TimeSeriesValueUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */; };
 		22AB2C0F280076CB00E88875 /* String+RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C0E280076CB00E88875 /* String+RegExp.swift */; };
 		22AB2C132800854700E88875 /* MqttClientCocoaMQTTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2C122800854700E88875 /* MqttClientCocoaMQTTTests.swift */; };
@@ -430,6 +431,7 @@
 		C78BBA30D41522F02B34E209 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
 		C9071E17F373B85ADAE2F823 /* MessageDetailsPlainTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */; };
 		C9960426213B5B870E4991E4 /* InfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FC2409440F00DF8F94 /* InfoBox.swift */; };
+		22A386FD2409440F00DFAA12 /* AnsiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FD2409440F00DFAA11 /* AnsiTextView.swift */; };
 		C9DC6F4F692849C19F60E558 /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA56281127C800F79E65 /* Handlers.swift */; };
 		CCA3D504133CD2BB0062A1D0 /* TopicLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */; };
 		CDA6977521FF0B9791F7D5CE /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
@@ -716,6 +718,7 @@
 		22A386FE2409404600DFAA00 /* CertificatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePickerView.swift; sourceTree = "<group>"; };
 		22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFilePickerView.swift; sourceTree = "<group>"; };
 		22A386FC2409440F00DF8F94 /* InfoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBox.swift; sourceTree = "<group>"; };
+		22A386FD2409440F00DFAA11 /* AnsiTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsiTextView.swift; sourceTree = "<group>"; };
 		22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesValueUtil.swift; sourceTree = "<group>"; };
 		22AB2C0E280076CB00E88875 /* String+RegExp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RegExp.swift"; sourceTree = "<group>"; };
 		22AB2C122800854700E88875 /* MqttClientCocoaMQTTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttClientCocoaMQTTTests.swift; sourceTree = "<group>"; };
@@ -1345,6 +1348,7 @@
 			children = (
 				228104902381770000112F24 /* FillingText.swift */,
 				22A386FC2409440F00DF8F94 /* InfoBox.swift */,
+				22A386FD2409440F00DFAA11 /* AnsiTextView.swift */,
 				2291424E23C0C0370086C251 /* MenuButton.swift */,
 				224AFEAA27AEF98700DFD09F /* CustomListView.swift */,
 				224AFEAC27AEF9BB00DFD09F /* TupleView+GetChildren.swift */,
@@ -1858,6 +1862,7 @@
 				22AF3AE72388858B001D9F87 /* NewHostFormDialog.swift in Sources */,
 				226A6B5224445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift in Sources */,
 				22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */,
+				22A386FD2409440F00DFAA10 /* AnsiTextView.swift in Sources */,
 				2285C82127872D46008DA37D /* JSONUtils.swift in Sources */,
 				22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */,
 				22FD7D0222C8D2660078795F /* RootModel.swift in Sources */,
@@ -2180,6 +2185,7 @@
 				B4C4C252606C28AD8FEB1657 /* NewHostFormDialog.swift in Sources */,
 				781234C01BE05CA1E349D950 /* MQTTClientCocoaMQTT.swift in Sources */,
 				C9960426213B5B870E4991E4 /* InfoBox.swift in Sources */,
+				22A386FD2409440F00DFAA12 /* AnsiTextView.swift in Sources */,
 				BCB62E58381EF7427EB2FB8C /* JSONUtils.swift in Sources */,
 				AF1AC67DFE744BA6E2623386 /* CertificateFilePickerView.swift in Sources */,
 				C2B3DB8DBF213B0E43337C56 /* RootModel.swift in Sources */,
