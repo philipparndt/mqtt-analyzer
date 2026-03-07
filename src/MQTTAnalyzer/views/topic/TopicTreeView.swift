@@ -36,38 +36,81 @@ struct TopicTreeSidebarView: View {
 	@ObservedObject var model: TopicTree
 	@Binding var selectedTopic: TopicTree?
 
+	@StateObject private var publishMessageModel = PublishMessageFormModel()
+
+	var isSearching: Bool {
+		!model.filterText.trimmingCharacters(in: .whitespaces).isEmpty
+	}
+
 	var body: some View {
 		List(selection: $selectedTopic) {
-			if model.childrenDisplay.isEmpty && model.children.isEmpty {
+			if isSearching {
+				// Show search results
+				if model.searchResultDisplay.isEmpty {
 					ContentUnavailableView(
-						"No Topics",
-						systemImage: "antenna.radiowaves.left.and.right",
-						description: Text(host.state == .connected ? "Waiting for messages..." : "Connect to receive messages.")
+						"No Results",
+						systemImage: "magnifyingglass",
+						description: Text("No topics match '\(model.filterText)'")
 					)
 				} else {
-					OutlineGroup(
-						model.childrenDisplay.sorted { $0.name < $1.name },
-						children: \.treeChildren
-					) { node in
-						TreeNodeCellView(model: node, host: host)
-							.tag(node)
+					ForEach(model.searchResultDisplay) { node in
+						TreeNodeCellView(
+							model: node,
+							host: host,
+							publishMessagePresented: $publishMessageModel.isPresented,
+							selectMessage: selectMessage,
+							createNewTopic: setTopic,
+							showFullPath: true
+						)
+						.tag(node)
 					}
-					.animation(nil, value: model.childrenDisplay.count)
 				}
+			} else if model.childrenDisplay.isEmpty && model.children.isEmpty {
+				ContentUnavailableView(
+					"No Topics",
+					systemImage: "antenna.radiowaves.left.and.right",
+					description: Text(host.state == .connected ? "Waiting for messages..." : "Connect to receive messages.")
+				)
+			} else {
+				OutlineGroup(
+					model.childrenDisplay.sorted { $0.name < $1.name },
+					children: \.treeChildren
+				) { node in
+					TreeNodeCellView(
+						model: node,
+						host: host,
+						publishMessagePresented: $publishMessageModel.isPresented,
+						selectMessage: selectMessage,
+						createNewTopic: setTopic
+					)
+						.tag(node)
+				}
+				.animation(nil, value: model.childrenDisplay.count)
 			}
-			.listStyle(.sidebar)
-			.transaction { transaction in
-				transaction.animation = nil
-			}
-			#if os(iOS)
-			.scrollContentBackground(.hidden)
-			.background(.ultraThinMaterial)
-			.toolbarBackground(.ultraThinMaterial, for: .navigationBar)
-			.toolbarBackgroundVisibility(.visible, for: .navigationBar)
-			#elseif os(macOS)
-			.scrollContentBackground(.hidden)
-			.visualEffectBackground(material: .sidebar)
-			#endif
+		}
+		.listStyle(.sidebar)
+		.searchable(text: $model.filterText)
+		.disableAutocorrection(true)
+		.transaction { transaction in
+			transaction.animation = nil
+		}
+		#if os(iOS)
+		.scrollContentBackground(.hidden)
+		.background(.ultraThinMaterial)
+		.toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+		.toolbarBackgroundVisibility(.visible, for: .navigationBar)
+		#elseif os(macOS)
+		.scrollContentBackground(.hidden)
+		.visualEffectBackground(material: .sidebar)
+		#endif
+		.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelPublishDialog, content: {
+			PublishMessageFormModalView(
+				closeCallback: self.cancelPublishDialog,
+				root: self.rootModel,
+				host: self.host,
+				model: publishMessageModel
+			)
+		})
 		.safeAreaInset(edge: .bottom) {
 			connectionStatusView
 		}
@@ -76,7 +119,7 @@ struct TopicTreeSidebarView: View {
 		.toolbar(removing: .title)
 		.toolbar {
 			ToolbarItem(placement: .principal) {
-				StatisticsPanel(model: model)
+				StatisticsPanel(model: model, onPublish: createTopic)
 			}
 
 			ToolbarItem(placement: .secondaryAction) {
@@ -115,6 +158,27 @@ struct TopicTreeSidebarView: View {
 
 	func togglePause() {
 		host.pause.toggle()
+	}
+
+	func createTopic() {
+		publishMessageModel.topic = model.nameQualified
+		publishMessageModel.isPresented = true
+	}
+
+	func setTopic(_ topic: String) {
+		publishMessageModel.topic = topic
+	}
+
+	func selectMessage(message: MsgMessage) {
+		publishMessageModel.topic = message.topic.nameQualified
+		publishMessageModel.message = message.payload.dataString
+		publishMessageModel.qos = Int(message.metadata.qos)
+		publishMessageModel.retain = message.metadata.retain
+		publishMessageModel.isPresented = true
+	}
+
+	func cancelPublishDialog() {
+		publishMessageModel.isPresented = false
 	}
 
 	@ViewBuilder
@@ -214,12 +278,24 @@ struct TreeNodeCellView: View {
 	@ObservedObject var model: TopicTree
 	@EnvironmentObject var root: RootModel
 	let host: Host
+	var publishMessagePresented: Binding<Bool>?
+	var selectMessage: ((MsgMessage) -> Void)?
+	var createNewTopic: ((String) -> Void)?
+	var showFullPath: Bool = false
+
+	var displayName: String {
+		if showFullPath {
+			return model.nameQualified.isEmpty ? "<empty>" : model.nameQualified
+		} else {
+			return model.name.isBlank ? "<empty>" : model.name
+		}
+	}
 
 	var body: some View {
 		HStack {
 			FolderReadMarkerView(read: model.readState)
 
-			Text(model.name.isBlank ? "<empty>" : model.name)
+			Text(displayName)
 				.foregroundColor(model.name.isBlank ? .gray : .primary)
 
 			Spacer()
@@ -239,6 +315,19 @@ struct TreeNodeCellView: View {
 		.contextMenu {
 			MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
 			MenuButton(title: "Copy name", systemImage: "doc.on.doc", action: copyName)
+
+			if createNewTopic != nil {
+				Menu {
+					if !model.messages.isEmpty {
+						MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
+					}
+					MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishNew)
+						.accessibilityLabel("publish new")
+				} label: {
+					Label("Publish", systemImage: "paperplane.fill")
+				}
+				.accessibilityLabel("publish")
+			}
 
 			Menu {
 				DestructiveMenuButton(
@@ -260,6 +349,17 @@ struct TreeNodeCellView: View {
 
 	func copyName() {
 		Pasteboard.copy(model.name)
+	}
+
+	func publish() {
+		if let first = model.messages.first {
+			root.publish(message: first, on: host)
+		}
+	}
+
+	func publishNew() {
+		createNewTopic?(model.nameQualified)
+		publishMessagePresented?.wrappedValue = true
 	}
 
 	func deleteAllRetained() {

@@ -11,7 +11,7 @@ import SwiftUI
 struct MessagesView: View {
 	@ObservedObject var node: TopicTree
 	let host: Host
-	
+
 	var body: some View {
 		VStack(alignment: .leading) {
 			List {
@@ -33,7 +33,7 @@ struct MessagesView: View {
 			self.node.markRead()
 		}
 	}
-	
+
 	func copyTopic() {
 		Pasteboard.copy(node.nameQualified)
 	}

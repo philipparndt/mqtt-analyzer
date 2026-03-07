@@ -11,6 +11,7 @@ import SwiftUI
 // MARK: - Statistics Panel with Glass Effect
 struct StatisticsPanel: View {
 	@ObservedObject var model: TopicTree
+	var onPublish: (() -> Void)?
 
 	var body: some View {
 		HStack(spacing: 14) {
@@ -20,6 +21,9 @@ struct StatisticsPanel: View {
 			Divider()
 				.frame(height: 24)
 
+			if let onPublish = onPublish {
+				ToolButton(icon: "paperplane.fill", help: "Publish message", action: onPublish)
+			}
 			ToolButton(icon: "circlebadge", help: "Mark all as read", action: model.markRead)
 			ToolButton(icon: "trash", help: "Clear all", action: model.clear)
 		}

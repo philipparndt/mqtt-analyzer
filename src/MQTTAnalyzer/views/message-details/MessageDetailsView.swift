@@ -9,10 +9,28 @@
 import SwiftUI
 
 struct MessageDetailsView: View {
+	@Environment(\.dismiss) private var dismiss
 	let message: MsgMessage
-	
+
 	var body: some View {
 		VStack {
+			#if os(macOS)
+			HStack {
+				Button(action: { dismiss() }) {
+					HStack(spacing: 4) {
+						Image(systemName: "chevron.left")
+						Text("Back")
+					}
+				}
+				.buttonStyle(.plain)
+				.foregroundStyle(Color.accentColor)
+
+				Spacer()
+			}
+			.padding(.horizontal)
+			.padding(.top, 8)
+			#endif
+
 			VStack {
 				MetadataView(message: message)
 
@@ -27,5 +45,8 @@ struct MessageDetailsView: View {
 				}
 			}
 		}
+		#if os(macOS)
+		.navigationBarBackButtonHidden(true)
+		#endif
 	}
 }
