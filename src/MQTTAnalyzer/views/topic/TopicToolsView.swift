@@ -17,6 +17,11 @@ struct TopicsToolsView: View {
 				Text("Topics/Messages")
 				Spacer()
 				Text("\(model.topicCount)/\(model.messageCount)")
+					.font(.system(.subheadline, design: .monospaced))
+					.padding(.horizontal, 8)
+					.padding(.vertical, 4)
+					.background(Color.accentColor.opacity(0.15))
+					.cornerRadius(8)
 				
 				#if !targetEnvironment(macCatalyst)
 				Button(action: model.markRead) {
