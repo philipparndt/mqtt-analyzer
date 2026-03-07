@@ -11,8 +11,8 @@ import SwiftUI
 
 struct TopicsFormView: View {
 	@Binding var host: HostFormModel
-	@State private var selectedSubscription: TopicSubscriptionFormModel?
-	@State private var isNavigating = false
+	@Binding var selectedSubscription: TopicSubscriptionFormModel?
+	@Binding var isNavigatingToSubscription: Bool
 
 	var body: some View {
 		Section(header: Text("Subscribe to")) {
@@ -21,23 +21,22 @@ struct TopicsFormView: View {
 					SubscriptionLabelView(subscription: subscription)
 				}
 				.contextMenu {
-					Button(role: .destructive, action: { deleteSubscription(subscription: subscription) }) {
+					Button(role: .destructive) {
+						deleteSubscription(subscription: subscription)
+					} label: {
 						Label("Delete", systemImage: "trash")
 					}
 				}
 			}
 			.onDelete(perform: self.delete)
 
-			Button(action: addSubscription) {
+			Button {
+				addSubscription()
+			} label: {
 				Text("Add subscription")
 			}
 			.font(.body)
 			.accessibilityLabel("add-subscription")
-			.navigationDestination(isPresented: $isNavigating) {
-				if let subscription = selectedSubscription {
-					SubscriptionDetailsView(subscription: subscription, deletionHandler: deleteSubscription)
-				}
-			}
 		}
 	}
 
@@ -54,7 +53,7 @@ struct TopicsFormView: View {
 		host.subscriptions.append(model)
 		selectedSubscription = model
 		ViewSelection.update(newValue: model.id) { _ in
-			isNavigating = true
+			isNavigatingToSubscription = true
 		}
 	}
 }

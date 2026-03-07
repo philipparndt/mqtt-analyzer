@@ -11,9 +11,10 @@ import SwiftUI
 
 struct AuthFormView: View {
 	@Binding var host: HostFormModel
+	@Binding var showCertificateHelp: Bool
 
 	var body: some View {
-		return Section(header: Text("Authentication")) {
+		Section(header: Text("Authentication")) {
 			Toggle(isOn: $host.usernamePasswordAuth) {
 				Text("Username/password")
 					.font(.headline)
@@ -29,7 +30,7 @@ struct AuthFormView: View {
 					.accessibilityLabel("certificate-auth")
 			}
 			if host.certificateAuth {
-				CertificateAuthenticationView(host: $host)
+				CertificateAuthenticationView(host: $host, showHelp: $showCertificateHelp)
 			}
 		}
 	}

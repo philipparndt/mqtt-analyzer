@@ -11,7 +11,7 @@ import SwiftUI
 
 struct CertificateAuthenticationView: View {
     @Binding var host: HostFormModel
-    @State private var showHelp = false
+    @Binding var showHelp: Bool
 
     var body: some View {
         Group {
@@ -46,7 +46,9 @@ struct CertificateAuthenticationView: View {
                 }
             }
 
-            Button(action: { showHelp = true }) {
+            Button {
+                showHelp = true
+            } label: {
                 HStack {
                     Image(systemName: "questionmark.circle")
                     Text("How to create certificates")
@@ -55,9 +57,6 @@ struct CertificateAuthenticationView: View {
                 .font(.subheadline)
             }
             .buttonStyle(.plain)
-        }
-        .sheet(isPresented: $showHelp) {
-            CertificateHelpSheet()
         }
     }
 }

@@ -13,12 +13,19 @@ struct EditHostFormView: View {
 	@Binding var host: HostFormModel
 	@State var advanced = false
 	@State var confirmDelete = false
-	
+	@State private var showCertificateHelp = false
+	@State private var selectedSubscription: TopicSubscriptionFormModel?
+	@State private var isNavigatingToSubscription = false
+
 	var body: some View {
 		Form {
 			ServerFormView(host: $host)
-			AuthFormView(host: $host)
-			TopicsFormView(host: $host)
+			AuthFormView(host: $host, showCertificateHelp: $showCertificateHelp)
+			TopicsFormView(
+				host: $host,
+				selectedSubscription: $selectedSubscription,
+				isNavigatingToSubscription: $isNavigatingToSubscription
+			)
 
 			Toggle(isOn: $advanced) {
 				Text("More settings")
@@ -32,7 +39,9 @@ struct EditHostFormView: View {
 			}
 
 			Section(header: Text("")) {
-				Button(action: delete) {
+				Button {
+					delete()
+				} label: {
 					HStack(alignment: .center) {
 						Spacer()
 						Text("Delete")
@@ -42,14 +51,26 @@ struct EditHostFormView: View {
 				.accessibilityLabel("delete-broker")
 				.foregroundColor(.red)
 				.font(.body)
-				.confirmationDialog("Are you shure you want to delete the broker setting?", isPresented: $confirmDelete, actions: {
+				.confirmationDialog("Are you shure you want to delete the broker setting?", isPresented: $confirmDelete) {
 					Button("Delete", role: .destructive) {
 						deleteNow()
 					}
-				})
+				}
 			}
 		}
 		.formStyle(.grouped)
+		.sheet(isPresented: $showCertificateHelp) {
+			CertificateHelpSheet()
+		}
+		.navigationDestination(isPresented: $isNavigatingToSubscription) {
+			if let subscription = selectedSubscription {
+				SubscriptionDetailsView(subscription: subscription, deletionHandler: deleteSubscription)
+			}
+		}
+	}
+
+	func deleteSubscription(subscription: TopicSubscriptionFormModel) {
+		host.subscriptions = host.subscriptions.filter { $0.id != subscription.id }
 	}
 	
 	func delete() {

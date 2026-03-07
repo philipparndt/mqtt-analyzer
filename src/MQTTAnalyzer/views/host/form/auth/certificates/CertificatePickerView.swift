@@ -59,7 +59,9 @@ struct CertificatePickerView: View {
     }
 
     private var selectButton: some View {
-        Button(action: { showFilePicker = true }) {
+        Button {
+            showFilePicker = true
+        } label: {
             HStack(spacing: 4) {
                 Image(systemName: "doc.badge.plus")
                 Text("Select")
@@ -241,6 +243,22 @@ struct CertificateHelpSheet: View {
                             by your MQTT broker.
                             """
                     )
+
+                    Divider()
+                        .padding(.vertical, 8)
+
+                    helpSection(
+                        title: "More information",
+                        content: "For detailed instructions and examples, visit the online documentation:"
+                    )
+
+                    Link(destination: URL(string: "https://github.com/philipparndt/mqtt-analyzer/blob/master/Docs/examples/client-certs/README.md")!) {
+                        HStack {
+                            Image(systemName: "book")
+                            Text("Client Certificates Documentation")
+                        }
+                        .foregroundColor(.accentColor)
+                    }
 
                     Spacer()
                 }

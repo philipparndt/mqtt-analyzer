@@ -16,7 +16,9 @@ struct MessageDetailsView: View {
 		VStack {
 			#if os(macOS)
 			HStack {
-				Button(action: { dismiss() }) {
+				Button {
+					dismiss()
+				} label: {
 					HStack(spacing: 4) {
 						Image(systemName: "chevron.left")
 						Text("Back")

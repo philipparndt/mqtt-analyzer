@@ -60,8 +60,8 @@ struct MQTTAnalyzerApp: App {
 			}
 		}
 		#endif
-		.onChange(of: scenePhase) { newPhase in
-			if newPhase == .active {
+		.onChange(of: scenePhase) {
+			if scenePhase == .active {
 				root.reconnect()
 			}
 			persistenceController.save()

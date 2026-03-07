@@ -57,9 +57,6 @@ struct ServerFormView: View {
 			if host.isAWS() {
 				AWSIoTHelpView(host: $host)
 			}
-			else if host.isClientCerts() {
-				ClientCertsHelpView(host: $host)
-			}
 			
 			HStack {
 				FormFieldInvalidMark(invalid: portInvalid)
