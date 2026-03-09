@@ -18,9 +18,11 @@ struct MessageDetailsJsonView: View {
 		VStack {
 			CodeEditor(source: $source,
 					   language: language,
-					   theme: colorScheme == .light ? CodeEditor.ThemeName.atelierSavannaLight : CodeEditor.ThemeName.atelierSavannaDark,
+					   theme: colorScheme == .light
+						   ? CodeEditor.ThemeName(rawValue: "github")
+						   : CodeEditor.ThemeName(rawValue: "atom-one-dark"),
 					   flags: CodeEditor.Flags.selectable)
-				.frame(minHeight: 100, alignment: Alignment.leading)
+				.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
 		}
 	}
 }

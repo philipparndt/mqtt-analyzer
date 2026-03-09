@@ -29,6 +29,17 @@ struct TopicsView: View {
 			}
 			else {
 				List {
+					#if os(iOS)
+					if model.parent != nil && !model.nameQualified.isEmpty {
+						Section {
+							TopicPathView(topic: model.nameQualified)
+								.listRowInsets(EdgeInsets())
+								.listRowBackground(Color.clear)
+								.listRowSeparator(.hidden)
+						}
+					}
+					#endif
+
 					if !self.model.filterText.isBlank {
 						HStack {
 							Text("Matches")

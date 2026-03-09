@@ -12,19 +12,11 @@ struct MessageTopicView: View {
 	@ObservedObject var node: TopicTree
 
 	var body: some View {
-		Section(header: Text("Topic")) {
-			Text(node.nameQualified)
-				.font(.subheadline)
-				.foregroundColor(.gray).contextMenu {
-					Button(action: copyTopic) {
-						Text("Copy topic")
-						Image(systemName: "doc.on.doc")
-					}
-				}
+		Section {
+			TopicPathView(topic: node.nameQualified)
+				.listRowInsets(EdgeInsets())
+				.listRowBackground(Color.clear)
+				.listRowSeparator(.hidden)
 		}
-	}
-	
-	func copyTopic() {
-		Pasteboard.copy(node.nameQualified)
 	}
 }
