@@ -10,11 +10,26 @@ import SwiftUI
 
 struct MessageDetailsView: View {
 	@Environment(\.dismiss) private var dismiss
+	@Environment(\.verticalSizeClass) private var verticalSizeClass
 	let message: MsgMessage
 	let host: Host
 
+	private var contentView: some View {
+		Group {
+			if message.payload.isBinary {
+				MessageDetailsJsonView(source: self.message.payload.data.hexBlockEncoded(len: 12))
+			}
+			else if message.payload.isJSON {
+				MessageDetailsJsonView(source: message.payload.prettyJSON)
+			}
+			else {
+				MessageDetailsJsonView(source: message.payload.dataString)
+			}
+		}
+	}
+
 	var body: some View {
-		VStack {
+		VStack(spacing: 0) {
 			#if os(macOS)
 			HStack {
 				Button {
@@ -34,19 +49,30 @@ struct MessageDetailsView: View {
 			.padding(.top, 8)
 			#endif
 
-			VStack {
-				MetadataView(message: message, host: host)
+			#if os(iOS)
+			if verticalSizeClass == .compact {
+				// Landscape: side-by-side layout
+				HStack(spacing: 0) {
+					ScrollView {
+						MetadataView(message: message, host: host)
+					}
+					.frame(width: 320)
 
-				if message.payload.isBinary {
-					MessageDetailsJsonView(source: self.message.payload.data.hexBlockEncoded(len: 12))
+					contentView
 				}
-				else if message.payload.isJSON {
-					MessageDetailsJsonView(source: message.payload.prettyJSON)
-				}
-				else {
-					MessageDetailsJsonView(source: message.payload.dataString)
+			} else {
+				// Portrait: stacked layout
+				VStack {
+					MetadataView(message: message, host: host)
+					contentView
 				}
 			}
+			#else
+			VStack {
+				MetadataView(message: message, host: host)
+				contentView
+			}
+			#endif
 		}
 		#if os(macOS)
 		.navigationBarBackButtonHidden(true)
