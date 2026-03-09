@@ -79,7 +79,13 @@ struct TopicsView: View {
 							.accessibilityLabel("flatview")
 
 						if !self.model.flatView {
-							TreeNavigationView(host: host, model: model)
+							TreeNavigationView(
+								host: host,
+								model: model,
+								publishMessagePresented: $publishMessageModel.isPresented,
+								selectMessage: selectMessage,
+								createNewTopic: setTopic
+							)
 						}
 						
 						if self.model.flatView {
@@ -232,6 +238,10 @@ struct TopicsView: View {
 	func createTopic() {
 		publishMessageModel.topic = model.nameQualified
 		publishMessageModel.isPresented = true
+	}
+
+	func setTopic(_ topic: String) {
+		publishMessageModel.topic = topic
 	}
 
 	func pauseConnection() {

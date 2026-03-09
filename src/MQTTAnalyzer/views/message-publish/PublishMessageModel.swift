@@ -21,7 +21,7 @@ enum TopicSuffix: String, CaseIterable {
 class PublishMessageFormModel: ObservableObject {
 	@Published var isPresented = false
 	@Published var message: String = ""
-	@Published var qos: Int = 0
+	@Published var qos: Int = 2
 	@Published var retain: Bool = false
 	@Published var messageType: PublishMessageType = .plain
 	@Published var properties: [PublishMessageProperty] = []

@@ -244,6 +244,9 @@ struct ConnectionStatusBanner: View {
 struct TreeNavigationView: View {
 	@ObservedObject var host: Host
 	@ObservedObject var model: TopicTree
+	var publishMessagePresented: Binding<Bool>?
+	var selectMessage: ((MsgMessage) -> Void)?
+	var createNewTopic: ((String) -> Void)?
 
 	var emptyTopicText: String {
 		if model.filterText.isEmpty {
@@ -264,7 +267,13 @@ struct TreeNavigationView: View {
 					children: \.treeChildren
 				) { node in
 					NavigationLink(destination: TopicsView(model: node, host: host)) {
-						TreeNodeCellView(model: node, host: host)
+						TreeNodeCellView(
+							model: node,
+							host: host,
+							publishMessagePresented: publishMessagePresented,
+							selectMessage: selectMessage,
+							createNewTopic: createNewTopic
+						)
 					}
 					.accessibilityLabel("topic: \(node.nameQualified)")
 				}
