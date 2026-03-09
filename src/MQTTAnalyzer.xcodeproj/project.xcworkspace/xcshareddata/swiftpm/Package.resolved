@@ -1,5 +1,5 @@
 {
-  "originHash" : "6045e2bc4437bc5ed2c8d2b6c535647e979f97d442d7fcdd760f9130fe3d1eb7",
+  "originHash" : "f6cf615eba0dc4413b23ea063666b32778b9b7e2ac4f2c61ebea94ff87a87e2c",
   "pins" : [
     {
       "identity" : "cocoamqtt",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "a555809aa23898830b85c77c6275cb5d1ff376f1",
         "version" : "2.2.2-apple-netowrk"
-      }
-    },
-    {
-      "identity" : "codeeditor",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ZeeZide/CodeEditor",
-      "state" : {
-        "revision" : "f5c076b94f4ceb05abff88ba91d75a8d57143f0c",
-        "version" : "1.2.6"
       }
     },
     {
@@ -35,15 +26,6 @@
       "state" : {
         "revision" : "36e30a6f1ef10e4194f6af0cff90888526f0c115",
         "version" : "7.10.0"
-      }
-    },
-    {
-      "identity" : "highlightr",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/helje5/Highlightr",
-      "state" : {
-        "revision" : "bd0358056ff1f12ea83833a9fc1b3b5a396a9da0",
-        "version" : "3.0.2"
       }
     },
     {

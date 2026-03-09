@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Highlightr
 
 struct RootView: View {
 	@EnvironmentObject var model: RootModel
