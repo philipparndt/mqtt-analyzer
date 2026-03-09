@@ -43,18 +43,55 @@ extension View {
 
 struct MetadataView: View {
 	let message: MsgMessage
+	let host: Host
 	@Environment(\.colorScheme) var colorScheme
-	
+
+	/// Find the QoS of the subscription that matches this message's topic
+	private func getSubscriptionQoS(for topic: String) -> Int? {
+		host.settings.subscriptions?.subscriptions
+			.first { TreeUtils.topicMatchesSubscription(topic: topic, subscription: $0.topic) }?
+			.qos
+	}
+
+	/// Determine if QoS may have been downgraded by subscription level
+	private var mayBeDowngraded: Bool {
+		guard let subscriptionQoS = getSubscriptionQoS(for: message.topic.nameQualified) else {
+			return false
+		}
+		// Show indicator when:
+		// - Received QoS equals subscription QoS (message was potentially capped)
+		// - Subscription QoS < 2 (QoS 2 subscriptions can't limit anything)
+		return Int(message.metadata.qos) == subscriptionQoS && subscriptionQoS < 2
+	}
+
 	var body: some View {
 		HStack {
 			VStack {
 				MetadataTextView(key: nil, value: message.topic.nameQualified)
-				
+
 				Divider()
 				MetadataTextView(key: "Timestamp", value: message.metadata.localDate)
-				
+
 				Divider()
-				MetadataTextView(key: "QoS", value: "\(message.metadata.qos)")
+				HStack {
+					Text("QoS")
+						.foregroundColor(.secondary)
+					Spacer()
+					QoSBadgeView(qos: message.metadata.qos, mayBeDowngraded: mayBeDowngraded)
+						.padding(.trailing)
+				}.font(.subheadline)
+
+				if mayBeDowngraded {
+					HStack {
+						Image(systemName: "info.circle")
+							.foregroundColor(.secondary)
+						Text("QoS may be limited by subscription level")
+							.foregroundColor(.secondary)
+						Spacer()
+					}
+					.font(.caption)
+					.padding(.top, 2)
+				}
 				
 				Divider()
 				MetadataTextView(key: "Retain", value: "\(message.metadata.retain ? "Yes" : "No")")

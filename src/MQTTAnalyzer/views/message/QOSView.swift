@@ -31,6 +31,29 @@ struct QOSPicker: View {
 	}
 }
 
+// MARK: - QoS Badge View
+
+struct QoSBadgeView: View {
+	let qos: Int32
+	let mayBeDowngraded: Bool
+
+	var body: some View {
+		HStack(spacing: 2) {
+			if mayBeDowngraded {
+				Text(">=")
+			}
+			Text("QoS \(qos)")
+		}
+		.font(.callout)
+		.fontWeight(.medium)
+		.monospacedDigit()
+		.padding(.horizontal, 5)
+		.padding(.vertical, 2)
+		.background(Color.accentColor.opacity(0.15))
+		.cornerRadius(6)
+	}
+}
+
 // MARK: - QoS Description
 
 struct QoSDescriptionView: View {

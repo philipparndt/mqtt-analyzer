@@ -11,6 +11,7 @@ import SwiftUI
 struct MessageDetailsView: View {
 	@Environment(\.dismiss) private var dismiss
 	let message: MsgMessage
+	let host: Host
 
 	var body: some View {
 		VStack {
@@ -34,7 +35,7 @@ struct MessageDetailsView: View {
 			#endif
 
 			VStack {
-				MetadataView(message: message)
+				MetadataView(message: message, host: host)
 
 				if message.payload.isBinary {
 					MessageDetailsJsonView(source: self.message.payload.data.hexBlockEncoded(len: 12))

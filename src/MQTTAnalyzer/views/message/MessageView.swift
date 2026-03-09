@@ -55,7 +55,7 @@ struct MessageCellView: View {
 	let host: Host
 	
 	var body: some View {
-		NavigationLink(destination: MessageDetailsView(message: message)) {
+		NavigationLink(destination: MessageDetailsView(message: message, host: host)) {
 			HStack {
 				Image(systemName: "radiowaves.right")
 					.font(.subheadline)
