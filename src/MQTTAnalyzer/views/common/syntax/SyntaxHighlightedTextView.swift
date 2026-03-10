@@ -53,7 +53,7 @@ struct SyntaxHighlightedTextView: View {
 			if showCopyButton {
 				copyButton
 					.padding(.top, 4)
-					.padding(.trailing, 8)
+					.padding(.trailing, 16)
 			}
 		}
 	}
@@ -80,8 +80,8 @@ struct SyntaxHighlightedTextView: View {
 		.overlay(alignment: .topTrailing) {
 			if showCopyButton {
 				copyButton
-					.padding(.top, 4)
-					.padding(.trailing, 8)
+					.padding(.top, 8)
+					.padding(.trailing, 28)
 			}
 		}
 	}
@@ -113,8 +113,12 @@ struct SyntaxHighlightedTextView: View {
 		Button(action: copySource) {
 			Image(systemName: showCopiedFeedback ? "checkmark" : "doc.on.doc")
 				.foregroundColor(showCopiedFeedback ? .green : .secondary)
+				#if os(iOS)
 				.font(.system(size: 14))
 				.frame(width: 44, height: 44)
+				#else
+				.frame(width: 28, height: 28)
+				#endif
 				.background(
 					ZStack {
 						Color.listItemBackground(colorScheme)
@@ -123,7 +127,11 @@ struct SyntaxHighlightedTextView: View {
 						}
 					}
 				)
+				#if os(iOS)
 				.cornerRadius(8)
+				#else
+				.cornerRadius(6)
+				#endif
 		}
 		.buttonStyle(.plain)
 		.contentShape(Rectangle())

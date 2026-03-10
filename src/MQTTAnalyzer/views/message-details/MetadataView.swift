@@ -141,16 +141,12 @@ struct MetadataView: View {
 				.padding(.vertical, 8)
 
 				if mayBeDowngraded {
-					HStack(spacing: 6) {
-						Image(systemName: "info.circle.fill")
-							.font(.system(size: 12))
-						Text("QoS may be limited by subscription level")
-							.font(.caption)
-					}
-					.foregroundColor(.orange)
-					.frame(maxWidth: .infinity, alignment: .leading)
-					.padding(.leading, 32)
-					.padding(.bottom, 8)
+					Text("May be limited by subscription level")
+						.font(.caption)
+						.foregroundColor(.secondary)
+						.frame(maxWidth: .infinity, alignment: .leading)
+						.padding(.leading, 32)
+						.padding(.bottom, 8)
 				}
 
 				Divider().padding(.leading, 32)
@@ -162,7 +158,7 @@ struct MetadataView: View {
 						.foregroundColor(message.metadata.retain ? .purple : .secondary)
 						.frame(width: 20)
 
-					Text("Retained")
+					Text("Delivered as retained")
 						.font(.subheadline)
 						.foregroundColor(.secondary)
 
@@ -212,7 +208,7 @@ struct MetadataView: View {
 			.padding(.horizontal, 12)
 			.padding(.vertical, 4)
 			.background(Color.listItemBackground(colorScheme))
-			.cornerRadius(12)
+			.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
 		}
 		.padding()
 		.background(Color.listBackground(colorScheme))

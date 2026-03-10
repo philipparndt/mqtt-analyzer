@@ -35,15 +35,9 @@ struct TopicPathView: View {
 			#endif
 		}
 		.padding(12)
-		.background(
-			ZStack {
-				Color.listItemBackground(colorScheme)
-				if showCopiedFeedback {
-					Color.green.opacity(0.15)
-				}
-			}
-		)
-		.cornerRadius(10)
+		.background(Color.listItemBackground(colorScheme))
+		.background(showCopiedFeedback ? Color.green.opacity(0.15) : Color.clear)
+		.clipShape(Capsule())
 		.animation(.easeInOut(duration: 0.2), value: showCopiedFeedback)
 		.contextMenu {
 			Button(action: copyTopic) {
