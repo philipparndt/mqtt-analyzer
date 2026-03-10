@@ -216,10 +216,15 @@ extension TopicTree {
 			if !node.canAccept(payload: payload) {
 				return nil
 			}
-			
+
+			// Drop duplicate retained messages (same payload as latest message on topic)
+			if metadata.retain, let latest = node.messages.first, latest.payload.data == payload.data {
+				return nil
+			}
+
 			let message = MsgMessage(topic: node, payload: payload, metadata: metadata)
 			node.addMessage(message: message)
-			
+
 			addToIndex(message: message)
 			return message
 		}
