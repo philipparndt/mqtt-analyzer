@@ -27,6 +27,7 @@ class AbstractUITests: XCTestCase {
 		#endif
 		app.launchArguments.append("--ui-testing")
 		app.launchArguments.append("--no-welcome")
+		app.launchArguments.append("--disable-animations")
 		app.launch()
 		AbstractUITests.currentApp = app
 

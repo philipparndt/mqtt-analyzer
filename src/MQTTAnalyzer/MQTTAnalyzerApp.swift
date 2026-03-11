@@ -14,6 +14,8 @@ struct MQTTAnalyzerApp: App {
 	let root = RootModel()
 	@Environment(\.scenePhase) var scenePhase
 
+	static let disableAnimations = CommandLine.arguments.contains("--disable-animations")
+
 	init() {
 		#if DEBUG
 		if CommandLine.arguments.contains("--ui-testing") {
@@ -22,6 +24,12 @@ struct MQTTAnalyzerApp: App {
 			#endif
 
 			PersistenceController.shared.createStubs()
+		}
+
+		if Self.disableAnimations {
+			#if os(iOS)
+			UIView.setAnimationsEnabled(false)
+			#endif
 		}
 		#endif
 
@@ -46,6 +54,16 @@ struct MQTTAnalyzerApp: App {
 				RootView()
 					.environment(\.managedObjectContext, persistenceController.container!.viewContext)
 					.environmentObject(root)
+					.onAppear {
+						#if os(iOS)
+						if Self.disableAnimations {
+							UIApplication.shared.connectedScenes
+								.compactMap { $0 as? UIWindowScene }
+								.flatMap { $0.windows }
+								.forEach { $0.layer.speed = 100 }
+						}
+						#endif
+					}
 			} else {
 				LoadingView()
 			}

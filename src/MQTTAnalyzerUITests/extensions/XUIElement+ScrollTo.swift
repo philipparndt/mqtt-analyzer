@@ -11,7 +11,7 @@ extension XCUIElement {
 
 	func scrollToElement(element: XCUIElement) {
 		while !element.isHittable {
-			swipeUp(velocity: .slow)
+			swipeUp(velocity: .fast)
 		}
 	}
 
@@ -19,7 +19,7 @@ extension XCUIElement {
 	/// This is useful on iPad where multiple scroll views may be visible
 	func scrollToElementInContainer(element: XCUIElement, container: XCUIElement) {
 		while !element.isHittable {
-			container.swipeUp(velocity: .slow)
+			container.swipeUp(velocity: .fast)
 		}
 	}
 

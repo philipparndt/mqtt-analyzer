@@ -169,7 +169,7 @@ class Navigation {
 	func folderCell(topic: String) -> XCUIElement {
 		let identifier = "folder: \(topic)"
 		let cell = app.descendants(matching: .any)[identifier].firstMatch
-		XCTAssertTrue(cell.waitForExistence(timeout: 10), "Expected folder cell \(topic) to exist")
+		XCTAssertTrue(cell.waitForExistence(timeout: 5), "Expected folder cell \(topic) to exist")
 		return cell
 	}
 
@@ -177,7 +177,7 @@ class Navigation {
 	func treeNodeCell(topic: String) -> XCUIElement {
 		let identifier = "tree-node: \(topic)"
 		let cell = app.descendants(matching: .any)[identifier].firstMatch
-		XCTAssertTrue(cell.waitForExistence(timeout: 10), "Expected tree node cell \(topic) to exist")
+		XCTAssertTrue(cell.waitForExistence(timeout: 5), "Expected tree node cell \(topic) to exist")
 		return cell
 	}
 
@@ -186,7 +186,7 @@ class Navigation {
 	func expandTreeNode(topic: String) {
 		let folderIdentifier = "folder: \(topic)"
 		let folder = app.descendants(matching: .any)[folderIdentifier].firstMatch
-		XCTAssertTrue(folder.waitForExistence(timeout: 10), "Expected folder \(topic) to exist")
+		XCTAssertTrue(folder.waitForExistence(timeout: 5), "Expected folder \(topic) to exist")
 
 		// Tap the chevron which is on the right side of the cell
 		let cellFrame = folder.frame
