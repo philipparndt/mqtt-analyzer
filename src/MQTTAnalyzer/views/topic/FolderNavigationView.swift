@@ -31,7 +31,7 @@ struct FolderNavigationView: View {
 					NavigationLink(destination: TopicsView(model: child, host: self.host)) {
 						FolderCellView(model: child, host: host)
 					}
-					.accessibilityLabel("folder: \(child.nameQualified)")
+					.accessibilityIdentifier("folder: \(child.nameQualified)")
 				}
 			}
 		}
@@ -60,11 +60,11 @@ struct FolderCellView: View {
 			
 			Menu {
 				DestructiveMenuButton(title: "Delete retained messages from broker", systemImage: "trash.fill", action: deleteAllReatined)
-					.accessibilityLabel("confirm-delete-retained")
+					.accessibilityIdentifier("confirm-delete-retained")
 			} label: {
 				Label("Delete", systemImage: "trash.fill")
 			}
-			.accessibilityLabel("delete-retained")
+			.accessibilityIdentifier("delete-retained")
 	    }
 	}
 	

@@ -9,148 +9,62 @@
 import XCTest
 
 extension XCUIElement {
-	
+
+	/// Checks if the text field is effectively empty (either actually empty or showing placeholder)
 	func isEmpty() -> Bool {
 		guard let stringValue = self.value as? String else {
-			XCTFail("Tried to clear and enter text into a non string value")
-			return false
-		}
-		
-		if stringValue.isEmpty {
 			return true
 		}
-		
-		// workaround for apple bug
-		if let placeholderString = self.placeholderValue, placeholderString == stringValue {
-			return true
-		}
-		
-		return false
-	}
-	
-	func isPlaceholderEqValue() -> Bool {
-		guard let stringValue = self.value as? String else {
-			XCTFail("Tried to clear and enter text into a non string value")
-			return false
-		}
-		
-		if stringValue.isEmpty {
-			return false
-		}
-		
-		// workaround for apple bug
-		if let placeholderString = self.placeholderValue, placeholderString == stringValue {
-			return true
-		}
-		
-		return false
-	}
-	
-	func clear() {
-		/*
-		#if targetEnvironment(macCatalyst)
-		self.tap()
-		#endif
 
-		if fastClearStrategy() || clearWithDeleteKeyStrategy() || clearWithSelectAllStrategy() {
-			return
+		if stringValue.isEmpty {
+			return true
 		}
-		
-		XCTFail("Failed to clear text field")*/
+
+		// When a text field is empty, iOS may return the placeholder as the value
+		if let placeholderString = self.placeholderValue, placeholderString == stringValue {
+			return true
+		}
+
+		return false
+	}
+
+	/// Clears the text in a text field using select-all and delete
+	func clear() {
 		guard self.exists, self.isHittable else {
 			return
 		}
 
-		// Tap on the element to make it active
-		self.tap()
-
-		// Select all text by sending the select all command
-		self.doubleTap()
-
-		// Wait briefly to ensure the select all command has been processed
-		let selectAllMenuItem = XCUIApplication().menuItems["Select All"]
-		if selectAllMenuItem.exists {
-			selectAllMenuItem.tap()
+		// Skip if already empty
+		if isEmpty() {
+			self.tap()
+			return
 		}
 
-		// Type the delete key
+		// Tap to focus the field
+		self.tap()
+
+		// Triple-tap to select all text (works reliably in iOS 15+)
+		self.tap(withNumberOfTaps: 3, numberOfTouches: 1)
+
+		// Delete the selected text
 		self.typeText(XCUIKeyboardKey.delete.rawValue)
 	}
-	
+
+	/// Clears the text field and enters new text
 	func clearAndEnterText(text: String) {
 		clear()
 		typeText(text)
 	}
-	
+
+	/// Only clears and enters text if the current value differs from the desired text
 	func enterTextIfNotAlreadySame(text: String) {
 		guard let stringValue = self.value as? String else {
-			XCTFail("Tried to clear and enter text into a non string value")
+			clearAndEnterText(text: text)
 			return
 		}
-		
+
 		if stringValue != text {
 			clearAndEnterText(text: text)
 		}
-	}
-}
-
-extension XCUIElement {
-	/*
-	 Try a fast clear by typing a single character, verify that it is the
-	 single character and delete it again.
-	 
-	 This is necessary as we cannot distinct between a placeholder value
-	 and the same value entered.
-	 */
-	func fastClearStrategy() -> Bool {
-		if isPlaceholderEqValue() {
-			self.typeText(".")
-			
-			guard let stringValue = self.value as? String else {
-				XCTFail("Tried to clear and enter text into a non string value")
-				return false
-			}
-			
-			if stringValue == "." {
-				self.typeText(XCUIKeyboardKey.delete.rawValue)
-			}
-			return isEmpty()
-		}
-		
-		return false
-	}
-}
-
-extension XCUIElement {
-	func alreadyClearStrategy() -> Bool {
-		return isEmpty()
-	}
-	
-	func clearWithDeleteKeyStrategy() -> Bool {
-		guard let stringValue = self.value as? String else {
-			XCTFail("Tried to clear and enter text into a non string value")
-			return false
-		}
-
-		self.tap()
-		
-		XCUIElement.perform(withKeyModifiers: .control) {
-			typeText(XCUIKeyboardKey.control.rawValue)
-		}
-		
-		let sometimesCharactersMissing = 5
-		let deleteString = String(repeating: XCUIKeyboardKey.delete.rawValue, count: stringValue.count + sometimesCharactersMissing)
-		self.typeText(deleteString)
-		
-		return isEmpty()
-	}
-	
-	func clearWithSelectAllStrategy() -> Bool {
-		// Use other strategy
-		self.press(forDuration: 1.2)
-		AbstractUITests.currentApp.menuItems["Select All"].tap()
-		self.typeText(XCUIKeyboardKey.delete.rawValue)
-		
-		return isEmpty()
 	}
 }

@@ -22,7 +22,7 @@ struct StatisticsPanel: View {
 				.frame(height: 24)
 
 			if let onPublish = onPublish {
-				ToolButton(icon: "paperplane.fill", help: "Publish message", action: onPublish)
+				ToolButton(icon: "paperplane.fill", help: "Publish message", action: onPublish, identifier: "Send")
 			}
 			ToolButton(icon: "circlebadge", help: "Mark all as read", action: model.markRead)
 			ToolButton(icon: "trash", help: "Clear all", action: model.clear)
@@ -62,6 +62,7 @@ struct ToolButton: View {
 	let icon: String
 	let help: String
 	let action: () -> Void
+	var identifier: String?
 
 	@State private var isHovered = false
 
@@ -82,6 +83,7 @@ struct ToolButton: View {
 			isHovered = hovering
 		}
 		.help(help)
+		.accessibilityIdentifier(identifier ?? help)
 	}
 }
 

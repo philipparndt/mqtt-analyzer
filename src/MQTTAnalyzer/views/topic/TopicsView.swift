@@ -48,7 +48,7 @@ struct TopicsView: View {
 						}
 						
 						Toggle("Whole word", isOn: self.$model.filterWholeWord)
-							.accessibilityLabel("whole-word")
+							.accessibilityIdentifier("whole-word")
 
 						Section(header: Text("Search result")) {
 							if model.searchResultDisplay.isEmpty {
@@ -87,7 +87,7 @@ struct TopicsView: View {
 						TopicsToolsView(model: self.model)
 
 						Toggle("Flat", isOn: self.$model.flatView)
-							.accessibilityLabel("flatview")
+							.accessibilityIdentifier("flatview")
 
 						if !self.model.flatView {
 							TreeNavigationView(
@@ -154,29 +154,24 @@ struct TopicsView: View {
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				ControlGroup {
+					Button(action: createTopic) {
+						Label("Send", systemImage: "paperplane.fill")
+					}
+					.accessibilityIdentifier("Send")
+
 					Button(action: model.markRead) {
 						Label("Mark read", systemImage: "circlebadge")
 					}
-					.accessibilityLabel("Mark all as read")
 
 					Button(role: .destructive, action: model.clear) {
 						Label("Clear", systemImage: "trash")
 					}
-					.accessibilityLabel("Clear all messages")
 				}
 			}
 
 			ToolbarItem(placement: .secondaryAction) {
-				ControlGroup {
-					Button(action: createTopic) {
-						Label("Publish", systemImage: "paperplane.fill")
-					}
-					.accessibilityLabel("Publish message")
-
-					Button(action: pauseConnection) {
-						Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
-					}
-					.accessibilityLabel(host.pause ? "Resume connection" : "Pause connection")
+				Button(action: pauseConnection) {
+					Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
 				}
 			}
 		}

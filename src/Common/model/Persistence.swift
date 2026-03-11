@@ -31,7 +31,10 @@ class PersistenceController: ObservableObject {
 	}
 
     init(inMemory: Bool = isInMemory(), synchronous: Bool = false) {
-		if synchronous {
+		// For UI testing (inMemory), always use synchronous initialization
+		// to ensure stubs are created before the app UI appears
+		let useSynchronous = synchronous || inMemory
+		if useSynchronous {
 			initializeContainer(inMemory: inMemory, synchronous: true)
 		} else {
 			DispatchQueue.global(qos: .userInitiated).async { [weak self] in

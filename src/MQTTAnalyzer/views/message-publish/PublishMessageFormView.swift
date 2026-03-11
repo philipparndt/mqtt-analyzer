@@ -158,7 +158,7 @@ struct PublishMessageFormView: View {
 .textInputAutocapitalization(.never)
 #endif
 					.font(.body)
-					.accessibilityLabel("topic")
+					.accessibilityIdentifier("topic")
 				TopicSuffixPickerView(suffix: $model.topicSuffix)
 			}
 

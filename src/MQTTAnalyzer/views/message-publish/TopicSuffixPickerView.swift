@@ -14,13 +14,13 @@ struct TopicSuffixPickerView: View {
     var body: some View {
 	  Picker(selection: $suffix, label: Text("Suffix")) {
 		  Text("none").tag(TopicSuffix.none)
-			  .accessibilityLabel("none")
+			  .accessibilityIdentifier("none")
 		  Text("set").tag(TopicSuffix.sset)
-			  .accessibilityLabel("set")
+			  .accessibilityIdentifier("set")
 		  Text("get").tag(TopicSuffix.sget)
-			  .accessibilityLabel("get")
+			  .accessibilityIdentifier("get")
 		  Text("state").tag(TopicSuffix.sstate)
-			  .accessibilityLabel("state")
+			  .accessibilityIdentifier("state")
 	  }.pickerStyle(SegmentedPickerStyle())
     }
 }

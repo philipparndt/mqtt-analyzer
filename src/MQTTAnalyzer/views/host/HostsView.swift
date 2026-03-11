@@ -55,7 +55,7 @@ struct HostsView: View {
 								 ),
 								 cloneHostHandler: self.cloneHost,
 								 isSelected: selectedBroker == broker)
-						.accessibilityLabel("broker: \(broker.aliasOrHost)")
+						.accessibilityIdentifier("broker: \(broker.aliasOrHost)")
 						.tag(broker)
 				}
 			}
@@ -73,7 +73,7 @@ struct HostsView: View {
 									 ),
 									 cloneHostHandler: self.cloneHost,
 									 isSelected: selectedBroker == broker)
-							.accessibilityLabel("broker: \(broker.aliasOrHost)")
+							.accessibilityIdentifier("broker: \(broker.aliasOrHost)")
 							.tag(broker)
 					}
 				}

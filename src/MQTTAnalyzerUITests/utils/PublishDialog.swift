@@ -16,7 +16,9 @@ class PublishDialog {
 	}
 	
 	func open() {
-		app.buttons["Send"].tap()
+		let sendButton = app.buttons["Send"]
+		XCTAssertTrue(sendButton.waitForExistence(timeout: 5), "Expected Send button to be visible")
+		sendButton.tap()
 	}
 	
 	func apply() {
@@ -25,6 +27,7 @@ class PublishDialog {
 	
 	func fill(topic: String, message: String) {
 		let topicText = app.textFields["topic"]
+		XCTAssertTrue(topicText.waitForExistence(timeout: 4), "Expected topic field to be visible in publish dialog")
 		topicText.tap()
 		topicText.enterTextIfNotAlreadySame(text: topic)
 		

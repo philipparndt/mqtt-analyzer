@@ -28,7 +28,7 @@ struct MessageView: View {
 							 host: self.host,
 							 model: self.publishMessageFormModel)
 					})
-					.accessibilityLabel("message")
+					.accessibilityIdentifier("message")
 			}
 			.onDelete(perform: node.delete)
 		}
@@ -75,19 +75,19 @@ struct MessageCellView: View {
 				Menu {
 					MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
 					MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishManually)
-						.accessibilityLabel("publish new")
+						.accessibilityIdentifier("publish new")
 				} label: {
 					Label("Publish", systemImage: "paperplane.fill")
 				}
-				.accessibilityLabel("publish")
+				.accessibilityIdentifier("publish")
 				
 				Menu {
 					DestructiveMenuButton(title: "Delete retained message from broker", systemImage: "trash.fill", action: deleteRetained)
-						.accessibilityLabel("confirm-delete-retained")
+						.accessibilityIdentifier("confirm-delete-retained")
 				} label: {
 					Label("Delete", systemImage: "trash.fill")
 				}
-				.accessibilityLabel("delete-retained")
+				.accessibilityIdentifier("delete-retained")
 			}
 		}
 	}

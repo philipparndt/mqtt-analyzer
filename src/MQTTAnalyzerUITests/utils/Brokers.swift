@@ -104,17 +104,27 @@ class Brokers {
 					field.tap()
 					field.typeText(username)
 				}
-				
+
 				if let password = broker.password {
 					let field = app.secureTextFields["password"]
 					field.tap()
 					field.typeText(password)
+					// Dismiss keyboard to ensure password is committed
+					app.keyboards.buttons["return"].tap()
 				}
 			}
 		}
-		
+
 		snapshot(ScreenshotIds.CONFIG)
+		// Give the form a moment to save field values
+		Thread.sleep(forTimeInterval: 0.5)
 		app.buttons["Save"].tap()
+
+		// Handle iOS password save dialog if it appears
+		let notNowButton = app.buttons["Not Now"]
+		if notNowButton.waitForExistence(timeout: 2) {
+			notNowButton.tap()
+		}
 	}
 	
 	func startEdit(alias oldName: String) {
@@ -211,20 +221,29 @@ class Brokers {
 		#else
 		flatView = app.switches["flatview"]
 		#endif
-		for _ in (0 ... 3) {
+		let waitMessages = app.staticTexts["wait_messages"]
+		let loginView = app.staticTexts["Login"]
+
+		// Wait up to 15 seconds for either flatview switch or wait_messages text
+		for _ in 0 ..< 5 {
 			if flatView.waitForExistence(timeout: 1) {
 				return
 			}
-			if self.app.staticTexts["wait_messages"]
-				.waitForExistence(timeout: 2) {
+			if waitMessages.waitForExistence(timeout: 2) {
+				return
+			}
+			// Check if login dialog appeared (credentials might not be saved properly)
+			if loginView.exists {
+				XCTFail("Login dialog appeared - credentials may not have been saved correctly")
 				return
 			}
 		}
+		XCTFail("Expected to be connected (flatview switch or wait_messages text should be visible)")
 	}
 	
 	func login(credentials: Credentials) {
 		XCTAssertTrue(app.staticTexts["Login"].waitForExistence(timeout: 2), "Expected Login to be there")
-		
+
 		if let username = credentials.username {
 			let field = app.textFields["username"]
 			field.tap()
@@ -236,13 +255,21 @@ class Brokers {
 			field.tap()
 			field.typeText(password)
 		}
-		
+
 		app.buttons["Login"].tap()
+
+		// Handle iOS password save dialog if it appears after login
+		let notNowButton = app.buttons["Not Now"]
+		if notNowButton.waitForExistence(timeout: 2) {
+			notNowButton.tap()
+		}
 	}
 	
 	func brokerCell(of alias: String) -> XCUIElement {
-		let cell = app.buttons["broker: \(alias)"]
-		XCTAssertTrue(cell.waitForExistence(timeout: 4), "Expected brokerCell \(alias) to be there")
-		return cell
+		let identifier = "broker: \(alias)"
+		// Use descendants query with firstMatch to find the element regardless of type
+		let element = app.descendants(matching: .any)[identifier].firstMatch
+		XCTAssertTrue(element.waitForExistence(timeout: 4), "Expected brokerCell \(alias) to be there")
+		return element
 	}
 }

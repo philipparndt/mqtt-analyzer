@@ -133,11 +133,11 @@ struct HostCellView: View {
 		
 			Menu {
 				DestructiveMenuButton(title: "Delete broker", systemImage: "trash.fill", action: deleteBroker)
-					.accessibilityLabel("confirm-delete-broker")
+					.accessibilityIdentifier("confirm-delete-broker")
 			} label: {
 				Label("Delete", systemImage: "trash.fill")
 			}
-			.accessibilityLabel("delete-broker")
+			.accessibilityIdentifier("delete-broker")
 		}
 		// WORKAROUND: random UUID identifier to force re-creation of the context menu.
 		// Otherwise, it will not toggle between connect and disconnect.

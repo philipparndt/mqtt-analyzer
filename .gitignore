@@ -8,6 +8,7 @@ build
 
 # Fastlane
 screenshots/
+screenshots_v2/
 test_output/
 
 ### Objective-C ###

@@ -20,7 +20,7 @@ struct TopicCellView: View {
 		NavigationLink(destination: MessagesView(node: messages, host: host)) {
 			HStack {
 				ReadMarkerView(read: messages.readState)
-				
+
 				VStack(alignment: .leading) {
 					Text(messages.nameQualified)
 					AnsiTextView(text: messagePreview(), lineLimit: 8)
@@ -32,29 +32,29 @@ struct TopicCellView: View {
 						.foregroundColor(.secondary)
 				}
 			}
-			.contextMenu {
-				MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
-				MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
-				
-				Menu {
-					MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
-					MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishManually)
-						.accessibilityLabel("publish new")
-				} label: {
-					Label("Publish", systemImage: "paperplane.fill")
-				}
-				.accessibilityLabel("publish")
-				
-				Menu {
-					DestructiveMenuButton(title: "Delete retained message from broker", systemImage: "trash.fill", action: deleteRetained)
-						.accessibilityLabel("confirm-delete-retained")
-				} label: {
-					Label("Delete", systemImage: "trash.fill")
-				}
-				.accessibilityLabel("delete-retained")
-			}
 		}
-		.accessibilityLabel("group: \(messages.nameQualified)")
+		.contextMenu {
+			MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
+			MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
+
+			Menu {
+				MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
+				MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishManually)
+					.accessibilityIdentifier("publish new")
+			} label: {
+				Label("Publish", systemImage: "paperplane.fill")
+			}
+			.accessibilityIdentifier("publish")
+
+			Menu {
+				DestructiveMenuButton(title: "Delete retained message from broker", systemImage: "trash.fill", action: deleteRetained)
+					.accessibilityIdentifier("confirm-delete-retained")
+			} label: {
+				Label("Delete", systemImage: "trash.fill")
+			}
+			.accessibilityIdentifier("delete-retained")
+		}
+		.accessibilityIdentifier("group: \(messages.nameQualified)")
 	}
 	
 	func publish() {

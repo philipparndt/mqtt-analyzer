@@ -4,9 +4,6 @@
    <FileRef
       location = "group:MQTTAnalyzer.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Pods/Pods.xcodeproj">
-   </FileRef>
    <Group
       location = "container:"
       name = "TestPlans">

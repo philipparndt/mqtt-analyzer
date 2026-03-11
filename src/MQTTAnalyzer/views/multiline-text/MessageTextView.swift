@@ -20,7 +20,7 @@ struct MessageTextView: UIViewRepresentable {
 
 	func makeUIView(context: Context) -> UITextView {
 		let text = UITextView(frame: CGRect.zero)
-		text.accessibilityLabel = "textbox"
+		text.accessibilityIdentifier = "textbox"
 		text.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
 		text.isScrollEnabled = true
 		text.isEditable = true

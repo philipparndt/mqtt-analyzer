@@ -132,6 +132,11 @@ struct TopicTreeSidebarView: View {
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				ControlGroup {
+					Button(action: createTopic) {
+						Label("Send", systemImage: "paperplane.fill")
+					}
+					.accessibilityIdentifier("Send")
+
 					Button(action: model.markRead) {
 						Label("Mark read", systemImage: "circlebadge")
 					}
@@ -275,7 +280,7 @@ struct TreeNavigationView: View {
 							createNewTopic: createNewTopic
 						)
 					}
-					.accessibilityLabel("topic: \(node.nameQualified)")
+					.accessibilityIdentifier("folder: \(node.nameQualified)")
 				}
 			}
 		}
@@ -321,11 +326,11 @@ struct TreeNodeCellView: View {
 						MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
 					}
 					MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishNew)
-						.accessibilityLabel("publish new")
+						.accessibilityIdentifier("publish new")
 				} label: {
 					Label("Publish", systemImage: "paperplane.fill")
 				}
-				.accessibilityLabel("publish")
+				.accessibilityIdentifier("publish")
 			}
 
 			Menu {
@@ -334,12 +339,13 @@ struct TreeNodeCellView: View {
 					systemImage: "trash.fill",
 					action: deleteAllRetained
 				)
-				.accessibilityLabel("confirm-delete-retained")
+				.accessibilityIdentifier("confirm-delete-retained")
 			} label: {
 				Label("Delete", systemImage: "trash.fill")
 			}
-			.accessibilityLabel("delete-retained")
+			.accessibilityIdentifier("delete-retained")
 		}
+		.accessibilityIdentifier("tree-node: \(model.nameQualified)")
 	}
 
 	func copyTopic() {
