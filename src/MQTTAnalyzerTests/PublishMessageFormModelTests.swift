@@ -12,7 +12,7 @@ import XCTest
 
 class PublishMessageFormModelTests: XCTestCase {
 	func testChangeToSetSuffix() {
-		var model = PublishMessageFormModel()
+		let model = PublishMessageFormModel()
 		model.topic = "hue/light/light1"
 		XCTAssertEqual(model.topicSuffix, TopicSuffix.none)
 		model.topicSuffix = .sset
@@ -21,7 +21,7 @@ class PublishMessageFormModelTests: XCTestCase {
 	}
 
 	func testChangeToGetSuffix() {
-		var model = PublishMessageFormModel()
+		let model = PublishMessageFormModel()
 		model.topic = "hue/light/light1"
 		XCTAssertEqual(model.topicSuffix, TopicSuffix.none)
 		model.topicSuffix = .sget
@@ -30,7 +30,7 @@ class PublishMessageFormModelTests: XCTestCase {
 	}
 
 	func testChangeToStateSuffix() {
-		var model = PublishMessageFormModel()
+		let model = PublishMessageFormModel()
 		model.topic = "hue/light/light1"
 		XCTAssertEqual(model.topicSuffix, TopicSuffix.none)
 		model.topicSuffix = .sstate
@@ -39,7 +39,7 @@ class PublishMessageFormModelTests: XCTestCase {
 	}
 
 	func testChangeToNoneSuffix() {
-		var model = PublishMessageFormModel()
+		let model = PublishMessageFormModel()
 		model.topic = "hue/light/light1/set"
 		XCTAssertEqual(model.topicSuffix, TopicSuffix.sset)
 		model.topicSuffix = .none

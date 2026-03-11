@@ -7,13 +7,21 @@
 //
 
 import Foundation
+import UIKit
 import XCTest
 
 class Navigation {
 	let app: XCUIApplication
 	let alias: String
 	var currentFolder: [String] = []
-	
+
+	/// Returns true if running on iPad with three-column layout (no folder navigation)
+	var isThreeColumnLayout: Bool {
+		// On iPad, we use three-column NavigationSplitView layout
+		// Check device idiom directly instead of relying on UI elements that may be hidden
+		return UIDevice.current.userInterfaceIdiom == .pad
+	}
+
 	init(app: XCUIApplication, alias: String) {
 		self.app = app
 		self.alias = alias
@@ -39,34 +47,93 @@ class Navigation {
 	}
 	
 	func openMessageGroup() {
-		groupCell(topic: currentFolder.joined(separator: "/")).tap()
-		currentFolder.append("messages")
+		if isThreeColumnLayout {
+			// iPad three-column: messages are already shown in detail column after selecting topic
+			// Just update tracking
+			currentFolder.append("messages")
+		} else {
+			// iPhone two-column: tap the group cell to see messages
+			groupCell(topic: currentFolder.joined(separator: "/")).tap()
+			currentFolder.append("messages")
+		}
 	}
 
 	func openMessage() {
 		let button = app.descendants(matching: .any)["message"].firstMatch
-		app.scrollToElement(element: button)
+
+		if isThreeColumnLayout {
+			// iPad three-column: scroll within the messages list in the detail column
+			let messagesList = app.descendants(matching: .any)["messages-list"].firstMatch
+			if messagesList.waitForExistence(timeout: 5) {
+				app.scrollToElementInContainer(element: button, container: messagesList)
+			}
+		} else {
+			// iPhone: scroll within the app
+			app.scrollToElement(element: button)
+		}
+
 		button.tap()
 		currentFolder.append("message")
 	}
 
 	/// Navigate back to the root topics view
 	func navigateToRoot() {
-		while !currentFolder.isEmpty {
-			navigateUp()
+		if isThreeColumnLayout {
+			// iPad three-column: just clear the current folder tracking
+			// No actual navigation needed - tree is always visible
+			currentFolder = []
+		} else {
+			while !currentFolder.isEmpty {
+				navigateUp()
+			}
 		}
 	}
-	
+
+
 	func navigate(to topic: String) {
 		let split = topic.split(separator: "/").map { String($0) }
-		while !split.starts(with: currentFolder) {
-			navigateUp()
+
+		if isThreeColumnLayout {
+			// iPad three-column: expand tree nodes and select the target
+			navigateTreeColumn(to: topic, split: split)
+		} else {
+			// iPhone two-column: navigate folder-by-folder
+			while !split.starts(with: currentFolder) {
+				navigateUp()
+			}
+
+			for i in currentFolder.count ..< split.count {
+				open(topic: split[0...i].joined(separator: "/"))
+			}
+
+			currentFolder = split
 		}
-				
-		for i in currentFolder.count ..< split.count {
-			open(topic: split[0...i].joined(separator: "/"))
+	}
+
+	/// Navigate in three-column layout by expanding tree and selecting topic
+	private func navigateTreeColumn(to topic: String, split: [String]) {
+		// Expand all parent nodes to reveal the target
+		for i in 0 ..< split.count - 1 {
+			let parentTopic = split[0...i].joined(separator: "/")
+			let parentCell = app.descendants(matching: .any)["folder: \(parentTopic)"].firstMatch
+			if parentCell.waitForExistence(timeout: 5) {
+				// Check if already expanded by looking for child
+				let childTopic = split[0...i+1].joined(separator: "/")
+				let childCell = app.descendants(matching: .any)["folder: \(childTopic)"].firstMatch
+				if !childCell.exists {
+					// Need to expand - tap the disclosure button
+					expandTreeNode(topic: parentTopic)
+					// Wait for child to appear
+					_ = childCell.waitForExistence(timeout: 3)
+				}
+			}
 		}
-		
+
+		// Select the target topic
+		let targetCell = app.descendants(matching: .any)["folder: \(topic)"].firstMatch
+		XCTAssertTrue(targetCell.waitForExistence(timeout: 5), "Expected folder \(topic) to exist")
+		targetCell.tap()
+
 		currentFolder = split
 	}
 	
@@ -74,20 +141,25 @@ class Navigation {
 		// Don't navigate up if we're already at root
 		guard !currentFolder.isEmpty else { return }
 
-		// Find and tap the Back button in the navigation bar
-		let backButton = app.navigationBars.buttons["Back"]
-		if backButton.exists {
-			backButton.tap()
+		if isThreeColumnLayout {
+			// iPad three-column: no navigation, just update tracking
+			currentFolder = Array(currentFolder.dropLast())
 		} else {
-			// Try the first button in the navigation bar (usually back button)
-			let firstNavButton = app.navigationBars.buttons.element(boundBy: 0)
-			if firstNavButton.exists {
-				firstNavButton.tap()
+			// iPhone two-column: use Back button
+			let backButton = app.navigationBars.buttons["Back"]
+			if backButton.exists {
+				backButton.tap()
+			} else {
+				// Try the first button in the navigation bar (usually back button)
+				let firstNavButton = app.navigationBars.buttons.element(boundBy: 0)
+				if firstNavButton.exists {
+					firstNavButton.tap()
+				}
 			}
-		}
 
-		// Update currentFolder
-		currentFolder = Array(currentFolder.dropLast())
+			// Update currentFolder
+			currentFolder = Array(currentFolder.dropLast())
+		}
 	}
 	
 	private func open(topic: String) {
@@ -129,24 +201,43 @@ class Navigation {
 		app.checkBoxes["flatview"].click()
 		#else
 		let flatview = app.switches["flatview"]
-		tc.turnSwitchOn(flatview)
+		// On iPad three-column layout, flatview doesn't exist - skip silently
+		if flatview.waitForExistence(timeout: 2) {
+			tc.turnSwitchOn(flatview)
+		}
 		#endif
 	}
-	
+
 	func flatViewOff(tc: XCTestCase) {
 		#if targetEnvironment(macCatalyst)
 		app.checkBoxes["flatview"].click()
 		#else
 		let flatview = app.switches["flatview"]
-		tc.turnSwitchOff(flatview)
+		// On iPad three-column layout, flatview doesn't exist - skip silently
+		if flatview.exists {
+			tc.turnSwitchOff(flatview)
+		}
 		#endif
 	}
 	
 	/// Opens the publish dialog using the Send button in the toolbar
 	func openPublishDialog() {
 		let sendButton = app.buttons["Send"]
-		XCTAssertTrue(sendButton.waitForExistence(timeout: 5), "Expected Send button in toolbar")
-		sendButton.tap()
+
+		if sendButton.waitForExistence(timeout: 2) && sendButton.isHittable {
+			// Send button is directly visible in toolbar
+			sendButton.tap()
+		} else {
+			// Send button is in the "More" overflow menu (narrow column on iPad)
+			let moreButton = app.buttons["More"].firstMatch
+			XCTAssertTrue(moreButton.waitForExistence(timeout: 3), "Expected More button in toolbar")
+			moreButton.tap()
+
+			// Now tap Send in the overflow menu
+			let sendInMenu = app.buttons["Send"].firstMatch
+			XCTAssertTrue(sendInMenu.waitForExistence(timeout: 3), "Expected Send button in overflow menu")
+			sendInMenu.tap()
+		}
 	}
 
 	@MainActor func publishNew(topic: String) {

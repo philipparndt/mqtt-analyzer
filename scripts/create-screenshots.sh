@@ -1,8 +1,11 @@
 #!/bin/bash
-cd "$(dirname)"
+cd "$(dirname "$0")/.."
 set -e
 
-fastlane frameit download_frames
+FRAMES_DIR="$HOME/.fastlane/frameit/latest"
+if [[ ! -d "$FRAMES_DIR" ]] || [[ "$1" == "--refresh-frames" ]]; then
+    fastlane frameit download_frames
+fi
 
 rm -rf ./screenshots
 mkdir ./screenshots
@@ -12,7 +15,7 @@ for i in "${array[@]}"
 do
     mkdir "./screenshots/$i"
     export APPEARANCE="$i"
-    ./ci/prepare-screenshots.mjs
+    ./scripts/prepare-screenshots.sh
 
     pushd src
         fastlane screenshots

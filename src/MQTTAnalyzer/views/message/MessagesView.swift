@@ -21,6 +21,7 @@ struct MessagesView: View {
 
 				MessageView(node: node, host: host)
 			}
+			.accessibilityIdentifier("messages-list")
 		}
 		#if !os(macOS)
 .navigationBarTitleDisplayMode(.inline)

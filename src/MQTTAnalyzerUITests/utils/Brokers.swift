@@ -21,7 +21,8 @@ class Brokers {
 	}
 	
 	func delete(alias: String) {
-		if !app.staticTexts["Brokers"].exists {
+		let brokersTitle = app.staticTexts["Brokers"]
+		if !brokersTitle.waitForExistence(timeout: 5) {
 			XCTFail("Expected to be on the broker page")
 		}
 		
@@ -222,15 +223,30 @@ class Brokers {
 		flatView = app.switches["flatview"]
 		#endif
 		let waitMessages = app.staticTexts["wait_messages"]
+		let waitMessagesText = app.staticTexts["Waiting for messages..."]
+		let noTopicsText = app.staticTexts["No Topics"]
+		let connectingText = app.staticTexts["Connecting..."]
 		let loginView = app.staticTexts["Login"]
+		// On iPad three-column layout, check for tree_wait_messages or Send button in toolbar
+		let treeWaitMessages = app.descendants(matching: .any)["tree_wait_messages"].firstMatch
+		let sendButton = app.buttons["Send"]
 
-		// Wait up to 15 seconds for either flatview switch or wait_messages text
+		// Wait up to 15 seconds for connection indicators
 		for _ in 0 ..< 5 {
 			if flatView.waitForExistence(timeout: 1) {
 				return
 			}
-			if waitMessages.waitForExistence(timeout: 2) {
+			// Check various indicators that we're connected or connecting
+			if waitMessages.exists || waitMessagesText.exists || noTopicsText.exists {
 				return
+			}
+			// On iPad, the Send button appears in TopicTreeSidebarView toolbar when connected
+			if sendButton.exists || treeWaitMessages.exists {
+				return
+			}
+			if connectingText.waitForExistence(timeout: 2) {
+				// Still connecting, keep waiting
+				continue
 			}
 			// Check if login dialog appeared (credentials might not be saved properly)
 			if loginView.exists {

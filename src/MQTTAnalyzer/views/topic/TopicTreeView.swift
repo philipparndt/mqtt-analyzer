@@ -71,6 +71,7 @@ struct TopicTreeSidebarView: View {
 					systemImage: "antenna.radiowaves.left.and.right",
 					description: Text(host.state == .connected ? "Waiting for messages..." : "Connect to receive messages.")
 				)
+				.accessibilityIdentifier(host.state == .connected ? "tree_wait_messages" : "tree_not_connected")
 			} else {
 				OutlineGroup(
 					model.childrenDisplay.sorted { $0.name < $1.name },
@@ -131,23 +132,25 @@ struct TopicTreeSidebarView: View {
 		#else
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
-				ControlGroup {
-					Button(action: createTopic) {
-						Label("Send", systemImage: "paperplane.fill")
-					}
-					.accessibilityIdentifier("Send")
+				Button(action: createTopic) {
+					Label("Send", systemImage: "paperplane.fill")
+				}
+				.accessibilityIdentifier("Send")
+			}
 
-					Button(action: model.markRead) {
-						Label("Mark read", systemImage: "circlebadge")
-					}
-
-					Button(role: .destructive, action: model.clear) {
-						Label("Clear", systemImage: "trash")
-					}
+			ToolbarItem(placement: .primaryAction) {
+				Button(action: model.markRead) {
+					Label("Mark read", systemImage: "circlebadge")
 				}
 			}
 
-			ToolbarItem(placement: .secondaryAction) {
+			ToolbarItem(placement: .primaryAction) {
+				Button(role: .destructive, action: model.clear) {
+					Label("Clear", systemImage: "trash")
+				}
+			}
+
+			ToolbarItem(placement: .primaryAction) {
 				Button(action: togglePause) {
 					Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
 				}
@@ -345,7 +348,7 @@ struct TreeNodeCellView: View {
 			}
 			.accessibilityIdentifier("delete-retained")
 		}
-		.accessibilityIdentifier("tree-node: \(model.nameQualified)")
+		.accessibilityIdentifier("folder: \(model.nameQualified)")
 	}
 
 	func copyTopic() {

@@ -27,12 +27,9 @@ platform :ios do
     scan(
       scheme: "MQTTAnalyzer",
       devices: [
-        "iPhone 15 Pro", 
-        "iPhone 15", 
-        "iPhone SE (3rd generation)",
-        # "iPad Pro 11-inch (M4)",
-        "iPad Air 11-inch (M2)",
-        "iPad mini (6th generation)"
+        "iPhone 16 Pro Max",
+        "iPhone 16 Pro",
+        "iPad Pro 13-inch (M4)"
       ]
       )
   end

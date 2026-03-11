@@ -53,9 +53,12 @@ class ScreenshotTests: AbstractUITests {
 		// Take screenshot of the tree view with expanded nodes
 		snapshot(ScreenshotIds.TREE_VIEW)
 
-		// Collapse the tree before navigating (tap chevrons again)
-		nav.expandTreeNode(topic: "\(id)home/dishwasher")
-		nav.expandTreeNode(topic: "\(id)home")
+		// On iPhone, collapse the tree before navigating (tap chevrons again)
+		// On iPad, the tree stays visible in the sidebar, no need to collapse
+		if !nav.isThreeColumnLayout {
+			nav.expandTreeNode(topic: "\(id)home/dishwasher")
+			nav.expandTreeNode(topic: "\(id)home")
+		}
 
 		// Now navigate normally using folder-by-folder approach
 		nav.navigate(to: "\(id)home/dishwasher/000123456789")
