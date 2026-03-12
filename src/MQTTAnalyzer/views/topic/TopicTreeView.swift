@@ -213,7 +213,7 @@ struct TopicTreeSidebarView: View {
 
 	@ViewBuilder
 	var connectionStatusView: some View {
-		if model.topicLimitExceeded && !host.pause {
+		if model.rootTopicLimitExceeded && !host.pause {
 			TopicLimitReachedView(
 				onDismiss: dismissLimitWarning,
 				onOpenSettings: { openLimitsSettings(type: .topicLimit) }
@@ -221,7 +221,7 @@ struct TopicTreeSidebarView: View {
 			.background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
 			.padding(.horizontal, 8)
 			.padding(.bottom, 8)
-		} else if model.messageLimitExceeded && !host.pause {
+		} else if model.rootMessageLimitExceeded && !host.pause {
 			MessageLimitReachedView(
 				onDismiss: dismissLimitWarning,
 				onOpenSettings: { openLimitsSettings(type: .messageBatchLimit) }
@@ -247,8 +247,9 @@ struct TopicTreeSidebarView: View {
 	}
 
 	func dismissLimitWarning() {
-		model.topicLimitExceeded = false
-		model.messageLimitExceeded = false
+		let root = model.findRoot()
+		root.topicLimitExceeded = false
+		root.messageLimitExceeded = false
 	}
 
 	func openLimitsSettings(type: LimitType) {

@@ -226,13 +226,13 @@ struct TopicsView: View {
 			if host.needsAuth {
 				LoginView(loginDialogPresented: self.$loginData.isPresented, host: host)
 			}
-			else if model.topicLimitExceeded && !host.pause {
+			else if model.rootTopicLimitExceeded && !host.pause {
 				TopicLimitReachedView(
 					onDismiss: dismissLimitWarning,
 					onOpenSettings: { openLimitsSettings(type: .topicLimit) }
 				)
 			}
-			else if model.messageLimitExceeded && !host.pause {
+			else if model.rootMessageLimitExceeded && !host.pause {
 				MessageLimitReachedView(
 					onDismiss: dismissLimitWarning,
 					onOpenSettings: { openLimitsSettings(type: .messageBatchLimit) }
@@ -301,8 +301,9 @@ struct TopicsView: View {
 	}
 
 	func dismissLimitWarning() {
-		model.topicLimitExceeded = false
-		model.messageLimitExceeded = false
+		let root = model.findRoot()
+		root.topicLimitExceeded = false
+		root.messageLimitExceeded = false
 	}
 
 	func openLimitsSettings(type: LimitType) {

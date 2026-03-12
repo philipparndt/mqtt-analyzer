@@ -91,6 +91,14 @@ class TopicTree: Identifiable, ObservableObject {
 	@Published var topicLimitExceeded = false
 	@Published var messageLimitExceeded = false
 
+	var rootTopicLimitExceeded: Bool {
+		findRoot().topicLimitExceeded
+	}
+
+	var rootMessageLimitExceeded: Bool {
+		findRoot().messageLimitExceeded
+	}
+
 	@Published var flatView = false
 	
 	@Published var filterWholeWord = true {

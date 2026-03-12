@@ -116,8 +116,9 @@ struct LimitsSettingsDialog: View {
 		}
 
 		// Reset exceeded flags so new limits take effect
-		model.topicLimitExceeded = false
-		model.messageLimitExceeded = false
+		let root = model.findRoot()
+		root.topicLimitExceeded = false
+		root.messageLimitExceeded = false
 
 		onDismiss()
 	}
