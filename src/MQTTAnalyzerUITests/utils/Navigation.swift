@@ -241,8 +241,8 @@ class Navigation {
 	}
 
 	@MainActor func publishNew(topic: String) {
-		let groupCell = app.descendants(matching: .any)["group: \(topic)"].firstMatch
-		XCTAssertTrue(groupCell.waitForExistence(timeout: 5), "Expected group cell \(topic) to exist")
+		let groupCell = app.descendants(matching: .any)["folder: \(topic)"].firstMatch
+		XCTAssertTrue(groupCell.waitForExistence(timeout: 5), "Expected folder cell \(topic) to exist")
 
 		// Scroll to make sure the cell is visible
 		app.scrollToElement(element: groupCell)
@@ -251,8 +251,12 @@ class Navigation {
 		groupCell.rightClick()
 		app.menuItems["Publish new message"].tap()
 		#else
-		// Long press to open context menu
-		groupCell.press(forDuration: 1.0)
+		// Long press on the LEFT side of the cell to avoid hitting the chevron (which would collapse the tree)
+		let cellFrame = groupCell.frame
+		let pressPoint = CGPoint(x: cellFrame.minX + 50, y: cellFrame.midY)
+		let coordinate = app.coordinate(withNormalizedOffset: .zero)
+			.withOffset(CGVector(dx: pressPoint.x, dy: pressPoint.y))
+		coordinate.press(forDuration: 1.0)
 
 		// Small wait for context menu animation
 		Thread.sleep(forTimeInterval: 0.5)

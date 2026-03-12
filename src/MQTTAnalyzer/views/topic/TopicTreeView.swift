@@ -182,6 +182,18 @@ struct TopicTreeSidebarView: View {
 		publishMessageModel.message = message.payload.dataString
 		publishMessageModel.qos = Int(message.metadata.qos)
 		publishMessageModel.retain = message.metadata.retain
+		publishMessageModel.messageType = message.payload.isJSON ? .json : .plain
+
+		// Populate JSON form properties if message is JSON
+		if let json = message.payload.jsonData {
+			publishMessageModel.jsonData = json
+			publishMessageModel.properties = createJsonProperties(json: json, path: [])
+				.sorted(by: { $0.pathName < $1.pathName })
+		} else {
+			publishMessageModel.jsonData = nil
+			publishMessageModel.properties = []
+		}
+
 		publishMessageModel.isPresented = true
 	}
 
@@ -366,8 +378,13 @@ struct TreeNodeCellView: View {
 	}
 
 	func publishNew() {
-		createNewTopic?(model.nameQualified)
-		publishMessagePresented?.wrappedValue = true
+		// Use the last message as a template if available
+		if let first = model.messages.first {
+			selectMessage?(first)
+		} else {
+			createNewTopic?(model.nameQualified)
+			publishMessagePresented?.wrappedValue = true
+		}
 	}
 
 	func deleteAllRetained() {

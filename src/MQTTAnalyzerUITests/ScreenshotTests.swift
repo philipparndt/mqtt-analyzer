@@ -79,8 +79,13 @@ class ScreenshotTests: AbstractUITests {
 		nav.navigate(to: "\(id)hue/light/kitchen")
 		snapshot(ScreenshotIds.LIGHTS)
 
-		// Use the Send button in the toolbar to open publish dialog
-		nav.openPublishDialog()
-		snapshot(ScreenshotIds.PUBLISH)
+		// Expand tree to reveal coffee-spot (needed for iPad tree view)
+		if nav.isThreeColumnLayout {
+			let coffeeSpot = app.descendants(matching: .any)["folder: \(id)hue/light/kitchen/coffee-spot"].firstMatch
+			XCTAssertTrue(coffeeSpot.waitForExistence(timeout: 5), "Expected coffee-spot to appear after expanding")
+		}
+
+		// Long press on coffee-spot to show context menu and open publish dialog with prefilled data
+		nav.publishNew(topic: "\(id)hue/light/kitchen/coffee-spot")
 	}
 }

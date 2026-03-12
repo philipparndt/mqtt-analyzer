@@ -269,6 +269,18 @@ struct TopicsView: View {
 		publishMessageModel.message = message.payload.dataString
 		publishMessageModel.qos = Int(message.metadata.qos)
 		publishMessageModel.retain = message.metadata.retain
+		publishMessageModel.messageType = message.payload.isJSON ? .json : .plain
+
+		// Populate JSON form properties if message is JSON
+		if let json = message.payload.jsonData {
+			publishMessageModel.jsonData = json
+			publishMessageModel.properties = createJsonProperties(json: json, path: [])
+				.sorted(by: { $0.pathName < $1.pathName })
+		} else {
+			publishMessageModel.jsonData = nil
+			publishMessageModel.properties = []
+		}
+
 		publishMessageModel.isPresented = true
 	}
 
