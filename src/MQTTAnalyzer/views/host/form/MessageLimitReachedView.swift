@@ -9,9 +9,16 @@
 import SwiftUI
 
 struct MessageLimitReachedView: View {
-	
+
+	var onDismiss: (() -> Void)?
+	var onOpenSettings: (() -> Void)?
+
 	var body: some View {
-		LimitReachedView(message: "Messages per batch limit exceeded.")
+		LimitReachedView(
+			message: "Messages per batch limit exceeded.",
+			onDismiss: onDismiss,
+			onOpenSettings: onOpenSettings
+		)
 	}
-	
+
 }

@@ -9,30 +9,42 @@
 import SwiftUI
 
 struct LimitReachedView: View {
-	
+
 	let message: String
-	
+	var onDismiss: (() -> Void)?
+	var onOpenSettings: (() -> Void)?
+
 	var body: some View {
 		HStack {
 			Image(systemName: "exclamationmark.triangle.fill")
 				.foregroundColor(.yellow)
 
-			VStack {
-				HStack {
-					Text(message)
-					Spacer()
+			VStack(alignment: .leading, spacing: 4) {
+				Text(message)
+					.font(.subheadline)
+
+				if let onOpenSettings = onOpenSettings {
+					Button(action: onOpenSettings) {
+						Text("Change limit")
+							.font(.caption)
+					}
+					.buttonStyle(.bordered)
+					.controlSize(.small)
 				}
-				HStack {
-					Text("Hint: Reduce the subscription topic.")
-						.foregroundColor(.secondary)
-						.opacity(0.8)
-					Spacer()
-				}
-			}.font(.subheadline)
+			}
 
 			Spacer()
+
+			if let onDismiss = onDismiss {
+				Button(action: onDismiss) {
+					Image(systemName: "xmark.circle.fill")
+						.foregroundColor(.secondary)
+						.font(.title2)
+				}
+				.buttonStyle(.plain)
+			}
 		}
 		.padding()
 	}
-	
+
 }

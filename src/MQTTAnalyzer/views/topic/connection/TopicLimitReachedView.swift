@@ -9,9 +9,16 @@
 import SwiftUI
 
 struct TopicLimitReachedView: View {
-	
+
+	var onDismiss: (() -> Void)?
+	var onOpenSettings: (() -> Void)?
+
 	var body: some View {
-		LimitReachedView(message: "Topic limit exceeded.")
+		LimitReachedView(
+			message: "Topic limit exceeded.",
+			onDismiss: onDismiss,
+			onOpenSettings: onOpenSettings
+		)
 	}
-	
+
 }

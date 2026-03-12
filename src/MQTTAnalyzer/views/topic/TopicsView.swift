@@ -15,6 +15,7 @@ struct TopicsView: View {
 	
 	@StateObject private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
+	@State private var editSettingsPresented = false
 	
 	var body: some View {
 		VStack {
@@ -184,6 +185,14 @@ struct TopicsView: View {
 		.sheet(isPresented: $loginData.isPresented, onDismiss: cancelDialog, content: {
 			LoginDialogView(loginCallback: self.login, host: self.host)
 		})
+		.sheet(isPresented: $editSettingsPresented) {
+			EditHostFormModalView(
+				closeHandler: { editSettingsPresented = false },
+				root: rootModel,
+				original: host.settings,
+				host: transformHost(source: host)
+			)
+		}
 		.onAppear {
 			#if !targetEnvironment(macCatalyst)
 			if self.host.needsAuth {
@@ -217,10 +226,16 @@ struct TopicsView: View {
 				LoginView(loginDialogPresented: self.$loginData.isPresented, host: host)
 			}
 			else if model.topicLimitExceeded && !host.pause {
-				TopicLimitReachedView()
+				TopicLimitReachedView(
+					onDismiss: dismissLimitWarning,
+					onOpenSettings: openSettings
+				)
 			}
 			else if model.messageLimitExceeded && !host.pause {
-				MessageLimitReachedView()
+				MessageLimitReachedView(
+					onDismiss: dismissLimitWarning,
+					onOpenSettings: openSettings
+				)
 			}
 			else if host.state == .connected && host.pause {
 				ResumeConnectionView(host: host)
@@ -282,6 +297,15 @@ struct TopicsView: View {
 		}
 
 		publishMessageModel.isPresented = true
+	}
+
+	func dismissLimitWarning() {
+		model.topicLimitExceeded = false
+		model.messageLimitExceeded = false
+	}
+
+	func openSettings() {
+		editSettingsPresented = true
 	}
 
 }

@@ -37,6 +37,7 @@ struct TopicTreeSidebarView: View {
 	@Binding var selectedTopic: TopicTree?
 
 	@StateObject private var publishMessageModel = PublishMessageFormModel()
+	@State private var editSettingsPresented = false
 
 	var isSearching: Bool {
 		!model.filterText.trimmingCharacters(in: .whitespaces).isEmpty
@@ -112,6 +113,14 @@ struct TopicTreeSidebarView: View {
 				model: publishMessageModel
 			)
 		})
+		.sheet(isPresented: $editSettingsPresented) {
+			EditHostFormModalView(
+				closeHandler: { editSettingsPresented = false },
+				root: rootModel,
+				original: host.settings,
+				host: transformHost(source: host)
+			)
+		}
 		.safeAreaInset(edge: .bottom) {
 			connectionStatusView
 		}
@@ -203,7 +212,23 @@ struct TopicTreeSidebarView: View {
 
 	@ViewBuilder
 	var connectionStatusView: some View {
-		if host.state == .connecting {
+		if model.topicLimitExceeded && !host.pause {
+			TopicLimitReachedView(
+				onDismiss: dismissLimitWarning,
+				onOpenSettings: openSettings
+			)
+			.background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
+			.padding(.horizontal, 8)
+			.padding(.bottom, 8)
+		} else if model.messageLimitExceeded && !host.pause {
+			MessageLimitReachedView(
+				onDismiss: dismissLimitWarning,
+				onOpenSettings: openSettings
+			)
+			.background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
+			.padding(.horizontal, 8)
+			.padding(.bottom, 8)
+		} else if host.state == .connecting {
 			ConnectionStatusBanner(
 				message: host.connectionMessage ?? "Connecting...",
 				icon: "antenna.radiowaves.left.and.right",
@@ -218,6 +243,15 @@ struct TopicTreeSidebarView: View {
 				action: { host.reconnect() }
 			)
 		}
+	}
+
+	func dismissLimitWarning() {
+		model.topicLimitExceeded = false
+		model.messageLimitExceeded = false
+	}
+
+	func openSettings() {
+		editSettingsPresented = true
 	}
 }
 
