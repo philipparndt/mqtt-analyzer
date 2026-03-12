@@ -73,7 +73,13 @@ class TopicTree: Identifiable, ObservableObject {
 			parent?.recomputeReadState()
 		}
 	}
-	@Published var timeSeries = TimeSeriesModel()
+	private var _timeSeries = TimeSeriesModel()
+	private var timeSeriesProcessedCount = 0
+
+	var timeSeries: TimeSeriesModel {
+		updateTimeSeriesIfNeeded()
+		return _timeSeries
+	}
 	@Published var readState = Readstate(read: false) {
 		didSet {
 			if readState.read {
@@ -131,17 +137,28 @@ class TopicTree: Identifiable, ObservableObject {
 		messages.append(message)
 		markUnread()
 		markMessageCountDirty()
+	}
 
-		if let json = message.payload.jsonData {
-			let date = message.metadata.date
-			let dateFormatted = message.metadata.localDate
-			DispatchQueue.global(qos: .utility).async { [weak self] in
-				guard let self = self else { return }
-				DispatchQueue.main.async {
-					self.timeSeries.collect(date: date, json: json, path: [], dateFormatted: dateFormatted)
-				}
+	private func updateTimeSeriesIfNeeded() {
+		guard timeSeriesProcessedCount < messages.count else { return }
+
+		for i in timeSeriesProcessedCount..<messages.count {
+			let message = messages[i]
+			if let json = message.payload.jsonData {
+				_timeSeries.collect(
+					date: message.metadata.date,
+					json: json,
+					path: [],
+					dateFormatted: message.metadata.localDate
+				)
 			}
 		}
+		timeSeriesProcessedCount = messages.count
+	}
+
+	func resetTimeSeries() {
+		_timeSeries = TimeSeriesModel()
+		timeSeriesProcessedCount = 0
 	}
 	
 	private func markMessageCountDirty() {

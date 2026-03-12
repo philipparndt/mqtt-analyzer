@@ -16,20 +16,22 @@ extension TopicTree {
 		topicCountDisplay = 0
 		childrenDisplay = []
 		messages = []
-		timeSeries = TimeSeriesModel()
+		resetTimeSeries()
 		readState = Readstate(read: true)
 		index?.clear(topicStartsWith: nameQualified)
 		topicLimitExceeded = false
 	}
-	
+
 	func delete(at offsets: IndexSet) {
 		messages.remove(atOffsets: offsets)
+		resetTimeSeries()
 	}
-	
+
 	func delete(message: MsgMessage) {
 		if let index = messages.firstIndex(of: message) {
 			messages.remove(at: index)
 		}
+		resetTimeSeries()
 		
 		var node: TopicTree? = self
 		while node != nil {
