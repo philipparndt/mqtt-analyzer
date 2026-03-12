@@ -133,7 +133,7 @@ class ClientUtils<T, M> {
 	func installMessageDispatch(metadata: @escaping ((M) -> MsgMetadata), payload: @escaping ((M) -> MsgPayload), topic: @escaping ((M) -> String)) {
 		let queue = DispatchQueue(label: "Message Dispatch queue")
 		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
-			.collect(.byTime(queue, 0.5))
+			.collect(.byTime(queue, 0.1))
 			.receive(on: DispatchQueue.main)
 			.sink(receiveValue: {
 				self.onMessages(messages: $0, metadata: metadata, payload: payload, topic: topic)

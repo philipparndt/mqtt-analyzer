@@ -11,16 +11,26 @@ import SwiftyJSON
 
 class MsgPayload {
 	let data: [UInt8]
-	var jsonData: JSON?
+	private var _jsonData: JSON?
+	private var jsonParsed = false
+
+	var jsonData: JSON? {
+		if !jsonParsed {
+			jsonParsed = true
+			_jsonData = MsgPayload.toJson(str: dataStringCache)
+		}
+		return _jsonData
+	}
+
 	var isJSON: Bool {
 		return jsonData != nil
 	}
 	var isBinary: Bool {
 		return dataStringCache == nil
 	}
-	
+
 	var contentType: String?
-	
+
 	private let dataStringCache: String?
 	var dataString: String {
 		return dataStringCache ?? "[\(data.count) bytes]"
@@ -29,7 +39,6 @@ class MsgPayload {
 	init(data: [UInt8]) {
 		self.data = data
 		self.dataStringCache = MsgPayload.toOptionalString(data: data)
-		self.jsonData = MsgPayload.toJson(str: dataStringCache)
 	}
 }
 

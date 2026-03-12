@@ -130,17 +130,17 @@ class TopicTree: Identifiable, ObservableObject {
 	private func addMessage(message: MsgMessage) {
 		messages.insert(message, at: 0)
 		markUnread()
-		
-		childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
 		markMessageCountDirty()
-		 
+
 		if let json = message.payload.jsonData {
-			timeSeries.collect(
-				date: message.metadata.date,
-				json: json,
-				path: [],
-				dateFormatted: message.metadata.localDate
-			)
+			let date = message.metadata.date
+			let dateFormatted = message.metadata.localDate
+			DispatchQueue.global(qos: .utility).async { [weak self] in
+				guard let self = self else { return }
+				DispatchQueue.main.async {
+					self.timeSeries.collect(date: date, json: json, path: [], dateFormatted: dateFormatted)
+				}
+			}
 		}
 	}
 	
