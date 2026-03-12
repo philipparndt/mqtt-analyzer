@@ -372,14 +372,14 @@ struct TreeNodeCellView: View {
 	}
 
 	func publish() {
-		if let first = model.messages.first {
+		if let first = model.messages.last {
 			root.publish(message: first, on: host)
 		}
 	}
 
 	func publishNew() {
 		// Use the last message as a template if available
-		if let first = model.messages.first {
+		if let first = model.messages.last {
 			selectMessage?(first)
 		} else {
 			createNewTopic?(model.nameQualified)

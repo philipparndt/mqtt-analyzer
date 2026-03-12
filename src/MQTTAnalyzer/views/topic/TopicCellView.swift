@@ -58,13 +58,13 @@ struct TopicCellView: View {
 	}
 	
 	func publish() {
-		if let first = messages.messages.first {
+		if let first = messages.messages.last {
 			root.publish(message: first, on: host)
 		}
 	}
 	
 	func deleteRetained() {
-		if let first = messages.messages.first {
+		if let first = messages.messages.last {
 			root.publish(message: MsgMessage(
 				topic: first.topic,
 				payload: MsgPayload(data: []),
@@ -73,14 +73,14 @@ struct TopicCellView: View {
 	}
 	
 	func publishManually() {
-		if let first = messages.messages.first {
+		if let first = messages.messages.last {
 			selectMessage(first)
 			publishMessagePresented = true
 		}
 	}
 	
 	func messagePreview() -> String {
-		return messages.messages.first?.payload.dataString ?? "<no message>"
+		return messages.messages.last?.payload.dataString ?? "<no message>"
 	}
 	
 	func copyTopic() {
@@ -88,7 +88,7 @@ struct TopicCellView: View {
 	}
 	
 	func copyMessage() {
-		Pasteboard.copy(messages.messages.first?.payload.dataString ?? "")
+		Pasteboard.copy(messages.messages.last?.payload.dataString ?? "")
 	}
 	
 }

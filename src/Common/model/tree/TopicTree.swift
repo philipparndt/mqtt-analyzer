@@ -128,7 +128,7 @@ class TopicTree: Identifiable, ObservableObject {
 	}
 	
 	private func addMessage(message: MsgMessage) {
-		messages.insert(message, at: 0)
+		messages.append(message)
 		markUnread()
 		markMessageCountDirty()
 
@@ -218,7 +218,7 @@ extension TopicTree {
 			}
 
 			// Drop duplicate retained messages (same payload as latest message on topic)
-			if metadata.retain, let latest = node.messages.first, latest.payload.data == payload.data {
+			if metadata.retain, let latest = node.messages.last, latest.payload.data == payload.data {
 				return nil
 			}
 

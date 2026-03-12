@@ -74,7 +74,7 @@ class MQTT5ClientSync {
 			throw messageTimeoutError(topic: topic)
 		}
 		
-		return delegate.delegate.messages.first?.dataString
+		return delegate.delegate.messages.last?.dataString
 	}
 	
 	class func requestResponse(host: Host, requestTopic: String, requestPayload: String, qos: Int, responseTopic: String, timeout: Int) throws -> String? {
@@ -101,6 +101,6 @@ class MQTT5ClientSync {
 			throw messageTimeoutError(topic: responseTopic)
 		}
 		
-		return delegate.delegate.messages.first?.dataString
+		return delegate.delegate.messages.last?.dataString
 	}
 }

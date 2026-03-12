@@ -18,7 +18,7 @@ struct MessageView: View {
 
 	var body: some View {
 		Section(header: Text("Messages")) {
-			ForEach(node.messages) {
+			ForEach(node.messages.reversed()) {
 				MessageCellView(message: $0,
 								selectMessage: self.selectMessage,
 								host: self.host)
@@ -30,7 +30,10 @@ struct MessageView: View {
 					})
 					.accessibilityIdentifier("message")
 			}
-			.onDelete(perform: node.delete)
+			.onDelete { offsets in
+				let reversedOffsets = IndexSet(offsets.map { node.messages.count - 1 - $0 })
+				node.delete(at: reversedOffsets)
+			}
 		}
 	}
 	
