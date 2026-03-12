@@ -37,7 +37,8 @@ struct TopicTreeSidebarView: View {
 	@Binding var selectedTopic: TopicTree?
 
 	@StateObject private var publishMessageModel = PublishMessageFormModel()
-	@State private var editSettingsPresented = false
+	@State private var limitsSettingsPresented = false
+	@State private var limitsSettingsType: LimitType = .topicLimit
 
 	var isSearching: Bool {
 		!model.filterText.trimmingCharacters(in: .whitespaces).isEmpty
@@ -113,12 +114,12 @@ struct TopicTreeSidebarView: View {
 				model: publishMessageModel
 			)
 		})
-		.sheet(isPresented: $editSettingsPresented) {
-			EditHostFormModalView(
-				closeHandler: { editSettingsPresented = false },
-				root: rootModel,
-				original: host.settings,
-				host: transformHost(source: host)
+		.sheet(isPresented: $limitsSettingsPresented) {
+			LimitsSettingsDialog(
+				host: host,
+				model: model,
+				limitType: limitsSettingsType,
+				onDismiss: { limitsSettingsPresented = false }
 			)
 		}
 		.safeAreaInset(edge: .bottom) {
@@ -215,7 +216,7 @@ struct TopicTreeSidebarView: View {
 		if model.topicLimitExceeded && !host.pause {
 			TopicLimitReachedView(
 				onDismiss: dismissLimitWarning,
-				onOpenSettings: openSettings
+				onOpenSettings: { openLimitsSettings(type: .topicLimit) }
 			)
 			.background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
 			.padding(.horizontal, 8)
@@ -223,7 +224,7 @@ struct TopicTreeSidebarView: View {
 		} else if model.messageLimitExceeded && !host.pause {
 			MessageLimitReachedView(
 				onDismiss: dismissLimitWarning,
-				onOpenSettings: openSettings
+				onOpenSettings: { openLimitsSettings(type: .messageBatchLimit) }
 			)
 			.background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
 			.padding(.horizontal, 8)
@@ -250,8 +251,9 @@ struct TopicTreeSidebarView: View {
 		model.messageLimitExceeded = false
 	}
 
-	func openSettings() {
-		editSettingsPresented = true
+	func openLimitsSettings(type: LimitType) {
+		limitsSettingsType = type
+		limitsSettingsPresented = true
 	}
 }
 

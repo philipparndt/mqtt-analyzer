@@ -368,6 +368,7 @@
 		5C37D462EC50166EFCA47931 /* DiagramPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64332412636300C2C4FE /* DiagramPath.swift */; };
 		5C7399A6C8F75A003633AE8C /* PersistenceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* PersistenceImpl.swift */; };
 		5D426A6DED209F1F57023DE5 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA6B2811297200F79E65 /* Certificate.swift */; };
+		5E0B0B484E0525E5D2092A73 /* LimitsSettingsDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA45D7313076E1A74E2C02D4 /* LimitsSettingsDialog.swift */; };
 		60193002974979DB5789F6D8 /* NoFilesHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D82477D620009810E6 /* NoFilesHelpView.swift */; };
 		618CFC08C7EF55423A48D5E4 /* SyntaxTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E99CEB15F647436B4E790C /* SyntaxTokenizer.swift */; };
 		673953FAB23CE81B1780645C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
@@ -409,6 +410,7 @@
 		95E1055E01DC50E3D8FA22B0 /* MessageDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF722C8D2650078795F /* MessageDetailsView.swift */; };
 		96FD0EF3BA48770898A3F2F6 /* SyntaxTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5535CC828E69F9EAAD569C /* SyntaxTheme.swift */; };
 		9718BF5DD3C4D6C3535FFA7A /* AuthenticationTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202FFE124059D2A00161AD9 /* AuthenticationTypePicker.swift */; };
+		9D8F9FF68706417C636D55A3 /* LimitsSettingsDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA45D7313076E1A74E2C02D4 /* LimitsSettingsDialog.swift */; };
 		A13FCE87A90ABEB0B2A00CD9 /* SyntaxToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE5B5FB7C1A4F3595D574E5 /* SyntaxToken.swift */; };
 		A25FC4AD04F07DE51FD59F97 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81327841CA1008DA37D /* LoginView.swift */; };
 		A26362C1731B2DBB9C05F582 /* PKCS12HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */; };
@@ -807,6 +809,7 @@
 		63BF177AE777375FBC115DB4 /* TopicPathView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TopicPathView.swift; sourceTree = "<group>"; };
 		9904C1B7391A959D0C8D1FF3 /* PlatformCompat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlatformCompat.swift; path = ../../platform/PlatformCompat.swift; sourceTree = "<group>"; };
 		9F511F20AD2C23A782996AC1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		DA45D7313076E1A74E2C02D4 /* LimitsSettingsDialog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LimitsSettingsDialog.swift; sourceTree = "<group>"; };
 		ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1131,6 +1134,7 @@
 				226A6B64244575AF00ACDFC3 /* LimitsFormView.swift */,
 				226A6B622445759600ACDFC3 /* ClientIDFormView.swift */,
 				221093992C0B469100290825 /* CategoryFormView.swift */,
+				DA45D7313076E1A74E2C02D4 /* LimitsSettingsDialog.swift */,
 			);
 			path = more;
 			sourceTree = "<group>";
@@ -2020,6 +2024,7 @@
 				DFC8E7E7BA2122014DB3547B /* JsonTokenizer.swift in Sources */,
 				96FD0EF3BA48770898A3F2F6 /* SyntaxTheme.swift in Sources */,
 				B9E0DF1A48485106827C0051 /* SyntaxHighlightedTextView.swift in Sources */,
+				9D8F9FF68706417C636D55A3 /* LimitsSettingsDialog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2349,6 +2354,7 @@
 				6E96B01EDB2EDB62A9F157A8 /* JsonTokenizer.swift in Sources */,
 				148B5E1341154AAAED68FE93 /* SyntaxTheme.swift in Sources */,
 				FCB0F13D4310962C7A8BD794 /* SyntaxHighlightedTextView.swift in Sources */,
+				5E0B0B484E0525E5D2092A73 /* LimitsSettingsDialog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
