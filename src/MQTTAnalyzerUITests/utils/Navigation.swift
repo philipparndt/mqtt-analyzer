@@ -89,7 +89,6 @@ class Navigation {
 		}
 	}
 
-
 	func navigate(to topic: String) {
 		let split = topic.split(separator: "/").map { String($0) }
 
