@@ -11,6 +11,7 @@ import SwiftUI
 struct TopicPathView: View {
 	@Environment(\.colorScheme) var colorScheme
 	@State private var showCopiedFeedback = false
+	@State private var isMultiLine = false
 	let topic: String
 
 	var body: some View {
@@ -23,6 +24,16 @@ struct TopicPathView: View {
 				.font(.system(.body, design: .monospaced))
 				.textSelection(.enabled)
 				.frame(maxWidth: .infinity, alignment: .leading)
+				.background(
+					GeometryReader { geometry in
+						Color.clear.onAppear {
+							isMultiLine = geometry.size.height > 24
+						}
+						.onChange(of: geometry.size.height) { _, newHeight in
+							isMultiLine = newHeight > 24
+						}
+					}
+				)
 
 			#if os(macOS)
 			Button(action: copyTopic) {
@@ -37,7 +48,7 @@ struct TopicPathView: View {
 		.padding(12)
 		.background(Color.listItemBackground(colorScheme))
 		.background(showCopiedFeedback ? Color.green.opacity(0.15) : Color.clear)
-		.clipShape(Capsule())
+		.clipShape(isMultiLine ? AnyShape(RoundedRectangle(cornerRadius: 12)) : AnyShape(Capsule()))
 		.animation(.easeInOut(duration: 0.2), value: showCopiedFeedback)
 		.contextMenu {
 			Button(action: copyTopic) {
