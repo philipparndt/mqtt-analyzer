@@ -42,7 +42,8 @@ struct TopicsToolsView: View {
 				}
 				#endif
 			}
-			
+
+			#if os(macOS)
 			if model.parent != nil {
 				HStack {
 					Text("Topic")
@@ -51,6 +52,7 @@ struct TopicsToolsView: View {
 						.textSelection(.enabled)
 				}
 			}
+			#endif
 		}
 	}
 	
