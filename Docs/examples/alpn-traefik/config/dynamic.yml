@@ -1,0 +1,10 @@
+tls:
+  certificates:
+    - certFile: /etc/traefik/certs/server.crt
+      keyFile: /etc/traefik/certs/server.key
+
+  options:
+    default:
+      minVersion: VersionTLS12
+      alpnProtocols:
+        - mqtt

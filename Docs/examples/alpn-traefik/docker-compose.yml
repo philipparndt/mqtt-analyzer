@@ -1,0 +1,25 @@
+services:
+  traefik:
+    image: traefik:v3.3
+    ports:
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./config/dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - ./config/certs:/etc/traefik/certs:ro
+    depends_on:
+      - mosquitto
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.mqtt.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.mqtt.entrypoints=mqtts"
+      - "traefik.tcp.routers.mqtt.tls=true"
+      - "traefik.tcp.routers.mqtt.service=mqtt"
+      - "traefik.tcp.services.mqtt.loadbalancer.server.port=1883"
