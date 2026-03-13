@@ -64,15 +64,19 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 		mqtt.enableSSL = host.settings.ssl
 		mqtt.allowUntrustCACertificate = host.settings.untrustedSSL
 
+		if let alpn = host.settings.alpn, !alpn.isEmpty {
+			mqtt.alpnProtocols = [alpn]
+		}
+
 		if host.settings.authType == .usernamePassword || host.settings.authType == .both {
 			mqtt.username = host.actualUsername
 			mqtt.password = host.actualPassword
 		}
-		
+
 		if host.settings.authType == .certificate || host.settings.authType == .both {
 			try mqtt.sslSettings = createSSLSettings(host: host)
 		}
-		
+
 		mqtt.keepAlive = 60
 		mqtt.autoReconnect = false
 	}

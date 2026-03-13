@@ -120,6 +120,22 @@ struct ServerFormView: View {
 					Text("Allow untrusted")
 						.font(.headline)
 				}
+
+				HStack {
+					Text("ALPN")
+						.font(.headline)
+
+					Spacer()
+
+					TextField("optional", text: $host.alpn)
+						.multilineTextAlignment(.trailing)
+						.disableAutocorrection(true)
+						#if !os(macOS)
+						.textInputAutocapitalization(.never)
+						#endif
+						.accessibilityLabel("alpn")
+						.font(.body)
+				}
 			}
 		}
 	}

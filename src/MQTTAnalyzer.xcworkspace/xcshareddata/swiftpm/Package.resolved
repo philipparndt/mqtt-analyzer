@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/philipparndt/CocoaMQTT.git",
       "state" : {
-        "revision" : "a555809aa23898830b85c77c6275cb5d1ff376f1",
-        "version" : "2.2.2-apple-netowrk"
+        "revision" : "9ecebc2549c8ded24f583bcbaf57a96e0ce9c7ad",
+        "version" : "2.2.3-apple-network"
       }
     },
     {
