@@ -8,6 +8,28 @@
 
 import SwiftUI
 
+#if os(iOS)
+import UIKit
+typealias PlatformFont = UIFont
+typealias PlatformColor = UIColor
+#else
+import AppKit
+typealias PlatformFont = NSFont
+typealias PlatformColor = NSColor
+#endif
+
+// MARK: - Cross-platform font
+
+private let codeFont: PlatformFont = {
+	#if os(iOS)
+	return PlatformFont.monospacedSystemFont(ofSize: PlatformFont.smallSystemFontSize, weight: .regular)
+	#else
+	return PlatformFont.monospacedSystemFont(ofSize: PlatformFont.systemFontSize, weight: .regular)
+	#endif
+}()
+
+// MARK: - SyntaxHighlightedTextView
+
 /// A view that displays syntax-highlighted text with native SwiftUI rendering
 struct SyntaxHighlightedTextView: View {
 	let source: String
@@ -23,22 +45,12 @@ struct SyntaxHighlightedTextView: View {
 	}
 
 	var body: some View {
-		#if os(iOS)
-		iOSBody
-		#else
-		macOSBody
-		#endif
-	}
-
-	#if os(iOS)
-	private var iOSBody: some View {
 		ScrollView(.vertical) {
 			SelectableTextWithLineNumbers(
 				source: source,
-				tokens: tokenizer.tokenize(source),
+				tokenizer: tokenizer,
 				theme: SyntaxTheme.forColorScheme(colorScheme),
-				showLineNumbers: showLineNumbers,
-				tokenize: { tokenizer.tokenize($0) }
+				showLineNumbers: showLineNumbers
 			)
 			.frame(maxWidth: .infinity, alignment: .topLeading)
 			.padding(12)
@@ -46,33 +58,16 @@ struct SyntaxHighlightedTextView: View {
 		.overlay(alignment: .topTrailing) {
 			if showCopyButton {
 				copyButton
+					#if os(iOS)
 					.padding(.top, 4)
 					.padding(.trailing, 16)
-			}
-		}
-	}
-	#endif
-
-	#if os(macOS)
-	private var macOSBody: some View {
-		ScrollView(.vertical) {
-			MacOSSelectableTextWithLineNumbers(
-				source: source,
-				tokenizer: tokenizer,
-				theme: SyntaxTheme.forColorScheme(colorScheme),
-				showLineNumbers: showLineNumbers
-			)
-			.padding(12)
-		}
-		.overlay(alignment: .topTrailing) {
-			if showCopyButton {
-				copyButton
+					#else
 					.padding(.top, 8)
 					.padding(.trailing, 28)
+					#endif
 			}
 		}
 	}
-	#endif
 
 	private var lineNumberWidth: Int {
 		max(2, String(lines.count).count)
@@ -150,128 +145,101 @@ struct PlainTextTokenizer: SyntaxTokenizer {
 	}
 }
 
-// MARK: - iOS Selectable Text with Line Numbers
+// MARK: - Shared Line Numbers View
 
-#if os(iOS)
-private let iOSCodeFont = UIFont.monospacedSystemFont(ofSize: UIFont.smallSystemFontSize, weight: .regular)
-
-struct SelectableTextWithLineNumbers: View {
-	let source: String
-	let tokens: [SyntaxToken]
-	let theme: SyntaxTheme
-	let showLineNumbers: Bool
-	var tokenize: ((String) -> [SyntaxToken])?
-
-	@State private var calculatedHeight: CGFloat = 100
+private struct LineNumbersView: View {
+	let lineHeights: [CGFloat]
+	let lineNumberWidth: Int
+	let selectedLines: Set<Int>
+	@Environment(\.colorScheme) var colorScheme
 
 	var body: some View {
-		GeometryReader { geometry in
-			SelectableTextView(
-				source: source,
-				theme: theme,
-				showLineNumbers: showLineNumbers,
-				tokenize: tokenize,
-				availableWidth: geometry.size.width,
-				calculatedHeight: $calculatedHeight
-			)
+		VStack(alignment: .trailing, spacing: 0) {
+			ForEach(Array(lineHeights.enumerated()), id: \.offset) { index, height in
+				let isSelected = selectedLines.contains(index)
+
+				Text(String(index + 1).leftPadding(toLength: lineNumberWidth))
+					.font(Font(codeFont))
+					.foregroundColor(isSelected ? selectedColor : .secondary.opacity(0.6))
+					.frame(height: height, alignment: .topLeading)
+					.frame(maxWidth: .infinity, alignment: .trailing)
+					.padding(.trailing, 8)
+			}
 		}
-		.frame(height: calculatedHeight)
+		.drawingGroup()
+	}
+
+	private var selectedColor: Color {
+		colorScheme == .dark ? .white : .accentColor
 	}
 }
 
-private struct SelectableTextView: UIViewRepresentable {
-	let source: String
-	let theme: SyntaxTheme
-	let showLineNumbers: Bool
-	var tokenize: ((String) -> [SyntaxToken])?
-	let availableWidth: CGFloat
-	@Binding var calculatedHeight: CGFloat
+// MARK: - Shared Selection Helper
 
-	private var lines: [String] {
-		source.components(separatedBy: "\n")
-	}
+private func calculateSelectedLines(source: String, selectedRange: NSRange) -> Set<Int> {
+	let lines = source.components(separatedBy: "\n")
+	var selectedLineIndices = Set<Int>()
 
-	private var lineNumberWidth: Int {
-		max(2, String(lines.count).count)
-	}
+	if selectedRange.length > 0 {
+		var charIndex = 0
 
-	func makeUIView(context: Context) -> UITextView {
-		let textView = UITextView()
-		textView.isEditable = false
-		textView.isSelectable = true
-		textView.isScrollEnabled = false
-		textView.backgroundColor = .clear
-		textView.textContainerInset = .zero
-		textView.textContainer.lineFragmentPadding = 0
-		textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-		return textView
-	}
-
-	func updateUIView(_ textView: UITextView, context: Context) {
-		let result = NSMutableAttributedString()
-		let lineNumberColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
-
-		// Calculate the width of line number prefix in points for indentation
-		let sampleLineNum = String(repeating: "0", count: lineNumberWidth) + "  "
-		let lineNumPrefixWidth = (sampleLineNum as NSString).size(withAttributes: [.font: iOSCodeFont]).width
-
-		// Build attributed string line by line
 		for (index, line) in lines.enumerated() {
-			let paragraphStyle = NSMutableParagraphStyle()
-			if showLineNumbers {
-				paragraphStyle.headIndent = lineNumPrefixWidth
+			let lineLength = line.count
+			let hasNewline = index < lines.count - 1
+			let lineEnd = charIndex + lineLength + (hasNewline ? 1 : 0)
+
+			let selectionEnd = selectedRange.location + selectedRange.length
+			if charIndex < selectionEnd && lineEnd > selectedRange.location {
+				selectedLineIndices.insert(index)
 			}
 
-			// Add line number if enabled
-			if showLineNumbers {
-				let lineNum = String(index + 1).leftPadding(toLength: lineNumberWidth) + "  "
-				let lineNumAttrs: [NSAttributedString.Key: Any] = [
-					.font: iOSCodeFont,
-					.foregroundColor: lineNumberColor,
-					.paragraphStyle: paragraphStyle
-				]
-				result.append(NSAttributedString(string: lineNum, attributes: lineNumAttrs))
-			}
-
-			// Tokenize and add this line's content
-			let lineTokens = tokenize?(line) ?? [SyntaxToken(line, .plain)]
-			for token in lineTokens {
-				let color = UIColor(theme.color(for: token.type))
-				let attrs: [NSAttributedString.Key: Any] = [
-					.font: iOSCodeFont,
-					.foregroundColor: color,
-					.paragraphStyle: paragraphStyle
-				]
-				result.append(NSAttributedString(string: token.text, attributes: attrs))
-			}
-
-			// Add newline except for last line
-			if index < lines.count - 1 {
-				result.append(NSAttributedString(string: "\n"))
-			}
-		}
-
-		textView.attributedText = result
-
-		// Calculate actual height needed for the content with wrapping
-		DispatchQueue.main.async {
-			let size = textView.sizeThatFits(CGSize(width: availableWidth, height: .greatestFiniteMagnitude))
-			if size.height != calculatedHeight && size.height > 0 {
-				calculatedHeight = size.height
-			}
+			charIndex = lineEnd
 		}
 	}
+
+	return selectedLineIndices
 }
-#endif
 
-// MARK: - macOS Selectable Text with Line Numbers
+// MARK: - Shared Line Height Calculator
 
-#if os(macOS)
-import AppKit
+private func calculateLineHeights(
+	lines: [String],
+	layoutManager: NSLayoutManager,
+	textContainer: NSTextContainer,
+	defaultLineHeight: CGFloat
+) -> [CGFloat] {
+	layoutManager.ensureLayout(for: textContainer)
 
-private let macOSCodeFont = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
+	var heights: [CGFloat] = []
+	var charIndex = 0
 
-struct MacOSSelectableTextWithLineNumbers: View {
+	for (index, line) in lines.enumerated() {
+		let lineLength = line.count
+		let hasNewline = index < lines.count - 1
+
+		let charRange = NSRange(location: charIndex, length: max(1, lineLength))
+		let glyphRange = layoutManager.glyphRange(forCharacterRange: charRange, actualCharacterRange: nil)
+
+		if glyphRange.length > 0 {
+			let boundingRect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
+			heights.append(ceil(max(boundingRect.height, defaultLineHeight)))
+		} else {
+			heights.append(ceil(defaultLineHeight))
+		}
+
+		charIndex += lineLength + (hasNewline ? 1 : 0)
+	}
+
+	if heights.isEmpty {
+		heights = [defaultLineHeight]
+	}
+
+	return heights
+}
+
+// MARK: - Selectable Text with Line Numbers (Unified)
+
+struct SelectableTextWithLineNumbers: View {
 	let source: String
 	let tokenizer: any SyntaxTokenizer
 	let theme: SyntaxTheme
@@ -289,21 +257,27 @@ struct MacOSSelectableTextWithLineNumbers: View {
 		max(2, String(lines.count).count)
 	}
 
-	// Calculate approximate line number gutter width
 	private var gutterWidth: CGFloat {
 		let sampleText = String(repeating: "0", count: lineNumberWidth)
-		let size = (sampleText as NSString).size(withAttributes: [.font: macOSCodeFont])
-		return size.width + 16 // Add padding
+		let size = (sampleText as NSString).size(withAttributes: [.font: codeFont])
+		return size.width + 16
 	}
 
 	var body: some View {
 		GeometryReader { geometry in
 			HStack(alignment: .top, spacing: 0) {
 				if showLineNumbers {
-					lineNumbersView
+					LineNumbersView(
+						lineHeights: lineHeights,
+						lineNumberWidth: lineNumberWidth,
+						selectedLines: selectedLines
+					)
+					.frame(width: gutterWidth)
+					.contentShape(Rectangle())
+					.clipped()
 				}
 
-				MacOSSelectableTextView(
+				PlatformSelectableTextView(
 					source: source,
 					tokenizer: tokenizer,
 					theme: theme,
@@ -318,47 +292,155 @@ struct MacOSSelectableTextWithLineNumbers: View {
 		}
 		.frame(height: totalHeight)
 	}
-
-	private var lineNumbersView: some View {
-		MacOSLineNumbersView(
-			lineHeights: lineHeights,
-			lineNumberWidth: lineNumberWidth,
-			selectedLines: selectedLines
-		)
-		.frame(width: gutterWidth)
-		.contentShape(Rectangle())
-		.clipped()
-	}
 }
 
-private struct MacOSLineNumbersView: View {
-	let lineHeights: [CGFloat]
-	let lineNumberWidth: Int
-	let selectedLines: Set<Int>
-	@Environment(\.colorScheme) var colorScheme
+// MARK: - Platform-Specific Text View
 
-	var body: some View {
-		VStack(alignment: .trailing, spacing: 0) {
-			ForEach(Array(lineHeights.enumerated()), id: \.offset) { index, height in
-				let isSelected = selectedLines.contains(index)
+#if os(iOS)
 
-				Text(String(index + 1).leftPadding(toLength: lineNumberWidth))
-					.font(Font(macOSCodeFont))
-					.foregroundColor(isSelected ? selectedColor : .secondary.opacity(0.6))
-					.frame(height: height, alignment: .topLeading)
-					.frame(maxWidth: .infinity, alignment: .trailing)
-					.padding(.trailing, 8)
+private struct PlatformSelectableTextView: UIViewRepresentable {
+	let source: String
+	let tokenizer: any SyntaxTokenizer
+	let theme: SyntaxTheme
+	@Binding var lineHeights: [CGFloat]
+	@Binding var totalHeight: CGFloat
+	@Binding var selectedLines: Set<Int>
+	let availableWidth: CGFloat
+
+	private var lines: [String] {
+		source.components(separatedBy: "\n")
+	}
+
+	func makeUIView(context: Context) -> UITextView {
+		let textContainer = NSTextContainer()
+		textContainer.widthTracksTextView = true
+		textContainer.lineFragmentPadding = 0
+
+		let layoutManager = NSLayoutManager()
+		layoutManager.addTextContainer(textContainer)
+
+		let textStorage = NSTextStorage()
+		textStorage.addLayoutManager(layoutManager)
+
+		let textView = SelectionTrackingTextView(frame: .zero, textContainer: textContainer)
+		textView.isEditable = false
+		textView.isSelectable = true
+		textView.isScrollEnabled = false
+		textView.backgroundColor = .clear
+		textView.textContainerInset = .zero
+		textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
+		let coordinator = context.coordinator
+		textView.delegate = coordinator
+		textView.onSelectionChanged = { [weak coordinator] in
+			coordinator?.updateSelection()
+		}
+		coordinator.textView = textView
+		coordinator.onLinesSelected = { selectedLineIndices in
+			selectedLines = selectedLineIndices
+		}
+
+		return textView
+	}
+
+	func updateUIView(_ textView: UITextView, context: Context) {
+		let widthChanged = availableWidth > 0 && textView.textContainer.size.width != availableWidth
+		if widthChanged {
+			textView.textContainer.size = CGSize(width: availableWidth, height: CGFloat.greatestFiniteMagnitude)
+			textView.frame.size.width = availableWidth
+		}
+
+		let sourceChanged = context.coordinator.source != source
+		if sourceChanged {
+			context.coordinator.source = source
+			textView.textStorage.setAttributedString(buildAttributedString())
+		}
+
+		if sourceChanged || widthChanged {
+			DispatchQueue.main.async {
+				self.updateHeights(textView: textView)
 			}
 		}
-		.drawingGroup()
 	}
 
-	private var selectedColor: Color {
-		colorScheme == .dark ? .white : .accentColor
+	private func buildAttributedString() -> NSAttributedString {
+		let result = NSMutableAttributedString()
+
+		for (index, line) in lines.enumerated() {
+			let lineTokens = tokenizer.tokenize(line)
+			for token in lineTokens {
+				let color = PlatformColor(theme.color(for: token.type))
+				let attributes: [NSAttributedString.Key: Any] = [
+					.font: codeFont,
+					.foregroundColor: color
+				]
+				result.append(NSAttributedString(string: token.text, attributes: attributes))
+			}
+
+			if index < lines.count - 1 {
+				result.append(NSAttributedString(string: "\n", attributes: [.font: codeFont]))
+			}
+		}
+
+		return result
+	}
+
+	private func updateHeights(textView: UITextView) {
+		let defaultLineHeight = codeFont.ascender - codeFont.descender + codeFont.leading
+		let heights = calculateLineHeights(
+			lines: lines,
+			layoutManager: textView.layoutManager,
+			textContainer: textView.textContainer,
+			defaultLineHeight: defaultLineHeight
+		)
+
+		if heights != lineHeights {
+			lineHeights = heights
+		}
+
+		let newTotalHeight = heights.reduce(0, +)
+		if abs(newTotalHeight - totalHeight) > 1 && newTotalHeight > 0 {
+			totalHeight = newTotalHeight
+		}
+	}
+
+	func makeCoordinator() -> Coordinator {
+		Coordinator()
+	}
+
+	class Coordinator: NSObject, UITextViewDelegate {
+		weak var textView: UITextView?
+		var source: String = ""
+		var onLinesSelected: ((Set<Int>) -> Void)?
+
+		func updateSelection() {
+			guard let textView = textView else { return }
+			let selected = calculateSelectedLines(source: source, selectedRange: textView.selectedRange)
+			DispatchQueue.main.async { [weak self] in
+				self?.onLinesSelected?(selected)
+			}
+		}
+
+		func textViewDidChangeSelection(_ textView: UITextView) {
+			updateSelection()
+		}
 	}
 }
 
-private struct MacOSSelectableTextView: NSViewRepresentable {
+private class SelectionTrackingTextView: UITextView {
+	var onSelectionChanged: (() -> Void)?
+
+	override var selectedTextRange: UITextRange? {
+		didSet {
+			onSelectionChanged?()
+			setNeedsDisplay()
+		}
+	}
+}
+
+#else // macOS
+
+private struct PlatformSelectableTextView: NSViewRepresentable {
 	let source: String
 	let tokenizer: any SyntaxTokenizer
 	let theme: SyntaxTheme
@@ -372,7 +454,6 @@ private struct MacOSSelectableTextView: NSViewRepresentable {
 	}
 
 	func makeNSView(context: Context) -> NSScrollView {
-		// Create custom text view with selection tracking
 		let textContainer = NSTextContainer()
 		textContainer.widthTracksTextView = true
 		textContainer.lineFragmentPadding = 0
@@ -416,83 +497,58 @@ private struct MacOSSelectableTextView: NSViewRepresentable {
 	func updateNSView(_ scrollView: NSScrollView, context: Context) {
 		guard let textView = scrollView.documentView as? NSTextView else { return }
 
-		// Set the text container width for proper wrapping
 		let widthChanged = availableWidth > 0 && textView.textContainer?.containerSize.width != availableWidth
 		if widthChanged {
 			textView.textContainer?.containerSize = NSSize(width: availableWidth, height: CGFloat.greatestFiniteMagnitude)
 			textView.frame.size.width = availableWidth
 		}
 
-		// Only update text if source changed to preserve selection
 		let sourceChanged = context.coordinator.source != source
 		if sourceChanged {
 			context.coordinator.source = source
-
-			let result = NSMutableAttributedString()
-
-			for (index, line) in lines.enumerated() {
-				let lineTokens = tokenizer.tokenize(line)
-				for token in lineTokens {
-					let color = NSColor(theme.color(for: token.type))
-					let attributes: [NSAttributedString.Key: Any] = [
-						.font: macOSCodeFont,
-						.foregroundColor: color
-					]
-					result.append(NSAttributedString(string: token.text, attributes: attributes))
-				}
-
-				if index < lines.count - 1 {
-					result.append(NSAttributedString(string: "\n", attributes: [.font: macOSCodeFont]))
-				}
-			}
-
-			textView.textStorage?.setAttributedString(result)
+			textView.textStorage?.setAttributedString(buildAttributedString())
 		}
 
-		// Force layout and calculate heights if needed
 		if sourceChanged || widthChanged {
 			DispatchQueue.main.async {
-				self.calculateLineHeights(textView: textView)
+				self.updateHeights(textView: textView)
 			}
 		}
 	}
 
-	private func calculateLineHeights(textView: NSTextView) {
-		guard let layoutManager = textView.layoutManager,
-			  let textContainer = textView.textContainer,
-			  let textStorage = textView.textStorage else { return }
-
-		// Force complete layout
-		layoutManager.ensureLayout(for: textContainer)
-
-		var heights: [CGFloat] = []
-		var charIndex = 0
-		let defaultLineHeight = macOSCodeFont.ascender - macOSCodeFont.descender + macOSCodeFont.leading
+	private func buildAttributedString() -> NSAttributedString {
+		let result = NSMutableAttributedString()
 
 		for (index, line) in lines.enumerated() {
-			let lineLength = line.count
-			let hasNewline = index < lines.count - 1
-
-			// Get glyph range for this logical line (excluding newline for height calculation)
-			let charRange = NSRange(location: charIndex, length: max(1, lineLength))
-			let glyphRange = layoutManager.glyphRange(forCharacterRange: charRange, actualCharacterRange: nil)
-
-			if glyphRange.length > 0 {
-				// Get bounding rect for all glyphs in this line
-				let boundingRect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-				heights.append(ceil(max(boundingRect.height, defaultLineHeight)))
-			} else {
-				// Empty line
-				heights.append(ceil(defaultLineHeight))
+			let lineTokens = tokenizer.tokenize(line)
+			for token in lineTokens {
+				let color = PlatformColor(theme.color(for: token.type))
+				let attributes: [NSAttributedString.Key: Any] = [
+					.font: codeFont,
+					.foregroundColor: color
+				]
+				result.append(NSAttributedString(string: token.text, attributes: attributes))
 			}
 
-			charIndex += lineLength + (hasNewline ? 1 : 0)
+			if index < lines.count - 1 {
+				result.append(NSAttributedString(string: "\n", attributes: [.font: codeFont]))
+			}
 		}
 
-		// Ensure we have at least one height entry
-		if heights.isEmpty {
-			heights = [defaultLineHeight]
-		}
+		return result
+	}
+
+	private func updateHeights(textView: NSTextView) {
+		guard let layoutManager = textView.layoutManager,
+			  let textContainer = textView.textContainer else { return }
+
+		let defaultLineHeight = codeFont.ascender - codeFont.descender + codeFont.leading
+		let heights = calculateLineHeights(
+			lines: lines,
+			layoutManager: layoutManager,
+			textContainer: textContainer,
+			defaultLineHeight: defaultLineHeight
+		)
 
 		if heights != lineHeights {
 			lineHeights = heights
@@ -515,34 +571,9 @@ private struct MacOSSelectableTextView: NSViewRepresentable {
 
 		func updateSelection() {
 			guard let textView = textView else { return }
-
-			let selectedRange = textView.selectedRange()
-
-			// Find which lines are selected
-			let lines = source.components(separatedBy: "\n")
-			var selectedLineIndices = Set<Int>()
-
-			if selectedRange.length > 0 {
-				var charIndex = 0
-
-				for (index, line) in lines.enumerated() {
-					let lineLength = line.count
-					let hasNewline = index < lines.count - 1
-					let lineEnd = charIndex + lineLength + (hasNewline ? 1 : 0)
-
-					// Check if this line overlaps with selection
-					let selectionEnd = selectedRange.location + selectedRange.length
-					if charIndex < selectionEnd && lineEnd > selectedRange.location {
-						selectedLineIndices.insert(index)
-					}
-
-					charIndex = lineEnd
-				}
-			}
-
-			// Dispatch async to avoid "Modifying state during view update"
+			let selected = calculateSelectedLines(source: source, selectedRange: textView.selectedRange())
 			DispatchQueue.main.async { [weak self] in
-				self?.onLinesSelected?(selectedLineIndices)
+				self?.onLinesSelected?(selected)
 			}
 		}
 	}
@@ -553,9 +584,7 @@ private class SelectionTrackingTextView: NSTextView {
 
 	override var selectedTextAttributes: [NSAttributedString.Key: Any] {
 		get {
-			return [
-				.backgroundColor: NSColor.selectedTextBackgroundColor
-			]
+			return [.backgroundColor: NSColor.selectedTextBackgroundColor]
 		}
 		set { }
 	}
@@ -563,10 +592,10 @@ private class SelectionTrackingTextView: NSTextView {
 	override func setSelectedRange(_ charRange: NSRange, affinity: NSSelectionAffinity, stillSelecting stillSelectingFlag: Bool) {
 		super.setSelectedRange(charRange, affinity: affinity, stillSelecting: stillSelectingFlag)
 		onSelectionChanged?()
-		// Force redraw to clear any artifacts
 		needsDisplay = true
 	}
 }
+
 #endif
 
 // MARK: - String Helpers
