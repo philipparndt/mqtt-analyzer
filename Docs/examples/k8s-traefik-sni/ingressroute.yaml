@@ -1,0 +1,36 @@
+# Traefik IngressRouteTCP for SNI-based MQTT routing
+# This routes traffic on port 443 based on SNI hostname
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: mqtt-ingressroute
+  namespace: mqtt
+spec:
+  entryPoints:
+    - websecure  # Port 443
+  routes:
+    - match: HostSNI(`mqtt.example.com`)
+      services:
+        - name: hivemq
+          port: 8883
+  tls:
+    passthrough: true
+---
+# Alternative: Using HostSNI wildcard for any hostname
+# Useful if you want to route all MQTT traffic regardless of hostname
+#
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRouteTCP
+# metadata:
+#   name: mqtt-ingressroute-wildcard
+#   namespace: mqtt
+# spec:
+#   entryPoints:
+#     - websecure
+#   routes:
+#     - match: HostSNI(`*`)
+#       services:
+#         - name: hivemq
+#           port: 8883
+#   tls:
+#     passthrough: true

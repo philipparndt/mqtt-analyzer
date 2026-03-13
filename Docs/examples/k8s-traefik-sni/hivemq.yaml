@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hivemq-config
+  namespace: mqtt
+data:
+  config.xml: |
+    <?xml version="1.0"?>
+    <hivemq>
+        <listeners>
+            <!-- MQTT over TLS -->
+            <tls-tcp-listener>
+                <port>8883</port>
+                <bind-address>0.0.0.0</bind-address>
+                <tls>
+                    <keystore>
+                        <path>/opt/hivemq/certs/keystore.jks</path>
+                        <password>changeit</password>
+                        <private-key-password>changeit</private-key-password>
+                    </keystore>
+                    <protocols>
+                        <protocol>TLSv1.3</protocol>
+                        <protocol>TLSv1.2</protocol>
+                    </protocols>
+                </tls>
+            </tls-tcp-listener>
+        </listeners>
+        <anonymous-usage-statistics>
+            <enabled>false</enabled>
+        </anonymous-usage-statistics>
+    </hivemq>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hivemq
+  namespace: mqtt
+  labels:
+    app: hivemq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hivemq
+  template:
+    metadata:
+      labels:
+        app: hivemq
+    spec:
+      containers:
+        - name: hivemq
+          image: hivemq/hivemq-ce:latest
+          ports:
+            - containerPort: 8883
+              name: mqtts
+          volumeMounts:
+            - name: config
+              mountPath: /opt/hivemq/conf/config.xml
+              subPath: config.xml
+            - name: certs
+              mountPath: /opt/hivemq/certs
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: hivemq-config
+        - name: certs
+          secret:
+            secretName: hivemq-keystore
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hivemq
+  namespace: mqtt
+spec:
+  selector:
+    app: hivemq
+  ports:
+    - port: 8883
+      targetPort: 8883
+      name: mqtts
