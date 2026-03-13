@@ -14,3 +14,4 @@ services:
     image: eclipse-mosquitto:2
     volumes:
       - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./config/certs:/mosquitto/certs:ro

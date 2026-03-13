@@ -4,6 +4,24 @@ This example demonstrates how to set up an MQTT broker with TLS and ALPN support
 
 ALPN is a TLS extension that allows the client to indicate which application protocol it wants to use during the TLS handshake. This is commonly used with MQTT to specify the `mqtt` protocol, especially when connecting over port 443.
 
+## Architecture Options
+
+This example supports two modes (configured in `haproxy.cfg`):
+
+### Option 1: TLS Termination (default commented out)
+```
+Client <--TLS--> HAProxy <--plain--> Mosquitto
+       (ALPN)    (terminates)
+```
+
+### Option 2: Re-encryption (default enabled)
+```
+Client <--TLS--> HAProxy <--TLS--> Mosquitto
+       (ALPN)    (terminates)  (re-encrypts)
+```
+
+Both HAProxy and Mosquitto share the same certificates, providing end-to-end encryption while still allowing HAProxy to enforce ALPN.
+
 ## Setup
 
 1. Generate TLS certificates:
@@ -46,6 +64,14 @@ Expected output:
 ```
 ALPN protocol: mqtt
 ```
+
+Test that wrong ALPN is rejected:
+
+```bash
+openssl s_client -connect localhost:443 -alpn wrong
+```
+
+This should fail to connect.
 
 ## Common ALPN Values for MQTT
 
