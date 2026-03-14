@@ -155,25 +155,27 @@ struct TopicsView: View {
 		.navigationTitle(title())
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
-				ControlGroup {
-					Button(action: createTopic) {
-						Label("Publish", systemImage: "paperplane.fill")
-					}
-					.accessibilityIdentifier("Publish")
+				Button(action: createTopic) {
+					Label("Publish", systemImage: "paperplane.fill")
+				}
+				.accessibilityIdentifier("Publish")
+			}
 
-					Button(action: model.markRead) {
-						Label("Mark read", systemImage: "circlebadge")
-					}
-
-					Button(role: .destructive, action: model.clear) {
-						Label("Clear", systemImage: "trash")
-					}
+			ToolbarItem(placement: .primaryAction) {
+				Button(action: model.markRead) {
+					Label("Mark read", systemImage: "circlebadge")
 				}
 			}
 
 			ToolbarItem(placement: .secondaryAction) {
 				Button(action: pauseConnection) {
 					Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
+				}
+			}
+
+			ToolbarItem(placement: .secondaryAction) {
+				Button(role: .destructive, action: model.clear) {
+					Label("Clear", systemImage: "trash")
 				}
 			}
 		}
@@ -210,13 +212,11 @@ struct TopicsView: View {
 
 	func title() -> String {
 		if model.parent != nil {
-			// Don't show topic name in title - it's already visible in TopicPathView
-			return ""
+			return model.name
 		}
-		else {
-			return host.settings.aliasOrHost
-		}
+		return host.settings.aliasOrHost
 	}
+
 	
 	func connect() {
 		self.rootModel.connect(to: self.host)
