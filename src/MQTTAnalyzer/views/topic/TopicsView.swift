@@ -210,7 +210,8 @@ struct TopicsView: View {
 
 	func title() -> String {
 		if model.parent != nil {
-			return model.name
+			// Don't show topic name in title - it's already visible in TopicPathView
+			return ""
 		}
 		else {
 			return host.settings.aliasOrHost
