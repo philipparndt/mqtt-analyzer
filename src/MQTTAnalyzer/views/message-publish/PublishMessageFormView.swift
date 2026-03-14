@@ -152,11 +152,11 @@ struct PublishMessageFormView: View {
 	var body: some View {
 		Form {
 			Section(header: Text("Topic")) {
-				TextField("", text: $model.topic)
+				TextField("", text: $model.topic, prompt: Text("e.g. home/temperature").foregroundColor(.secondary))
 					.disableAutocorrection(true)
 					#if !os(macOS)
-.textInputAutocapitalization(.never)
-#endif
+					.textInputAutocapitalization(.never)
+					#endif
 					.font(.body)
 					.accessibilityIdentifier("topic")
 				TopicSuffixPickerView(suffix: $model.topicSuffix)
@@ -252,7 +252,7 @@ struct MessageProperyView: View {
 				Toggle("ON/OFF", isOn: self.$property.value.valueBool)
 			}
 			else if property.value.type() == .text {
-				TextField("", text: self.$property.value.valueText)
+				TextField("", text: self.$property.value.valueText, prompt: Text("value").foregroundColor(.secondary))
 					.disableAutocorrection(true)
 					.multilineTextAlignment(.trailing)
 					#if !os(macOS)
@@ -261,7 +261,7 @@ struct MessageProperyView: View {
 					.font(.body)
 			}
 			else if property.value.type() == .number {
-				TextField("", text: self.$property.value.valueText)
+				TextField("", text: self.$property.value.valueText, prompt: Text("0").foregroundColor(.secondary))
 					.disableAutocorrection(true)
 					.multilineTextAlignment(.trailing)
 					#if !os(macOS)

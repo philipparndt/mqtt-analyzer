@@ -80,7 +80,7 @@ struct TLSFormView: View {
 
 						Spacer()
 
-						TextField("e.g. mqtt", text: $host.alpn)
+						TextField("", text: $host.alpn, prompt: Text("e.g. mqtt").foregroundColor(.secondary))
 							.multilineTextAlignment(.trailing)
 							.disableAutocorrection(true)
 							#if !os(macOS)

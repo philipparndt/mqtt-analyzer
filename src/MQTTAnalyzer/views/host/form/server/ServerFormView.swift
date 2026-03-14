@@ -56,7 +56,7 @@ struct ServerFormView: View {
 				
 				Spacer()
 				
-				TextField("optional", text: $host.alias)
+				TextField("", text: $host.alias, prompt: Text("optional").foregroundColor(.secondary))
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
 					.accessibilityLabel("alias")
@@ -70,12 +70,12 @@ struct ServerFormView: View {
 
 				Spacer()
 
-				TextField("ip address / name", text: $host.hostname)
+				TextField("", text: $host.hostname, prompt: Text("ip address / name").foregroundColor(.secondary))
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
 					#if !os(macOS)
-.textInputAutocapitalization(.never)
-#endif
+					.textInputAutocapitalization(.never)
+					#endif
 					.accessibilityLabel("hostname")
 					.font(.body)
 			}
@@ -93,7 +93,7 @@ struct ServerFormView: View {
 
 					Spacer()
 
-					TextField("e.g. 1883", text: $host.port)
+					TextField("", text: $host.port, prompt: Text("e.g. 1883").foregroundColor(.secondary))
 						.multilineTextAlignment(.trailing)
 						.disableAutocorrection(true)
 						.accessibilityLabel("port")
@@ -152,12 +152,12 @@ struct ServerFormView: View {
 
 					Spacer()
 
-					TextField("/", text: $host.basePath)
+					TextField("", text: $host.basePath, prompt: Text("/").foregroundColor(.secondary))
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
 					#if !os(macOS)
-.textInputAutocapitalization(.never)
-#endif
+					.textInputAutocapitalization(.never)
+					#endif
 					.font(.body)
 				}
 			}

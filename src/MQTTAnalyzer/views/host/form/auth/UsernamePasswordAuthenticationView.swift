@@ -21,7 +21,7 @@ struct UsernamePasswordAuthenticationView: View {
 
 				Spacer()
 
-				TextField("username", text: $host.username)
+				TextField("", text: $host.username, prompt: Text("username").foregroundColor(.secondary))
 					.disableAutocorrection(true)
 					#if !os(macOS)
 					.textInputAutocapitalization(.never)
@@ -37,7 +37,7 @@ struct UsernamePasswordAuthenticationView: View {
 
 				Spacer()
 
-				SecureField("your password", text: $host.password)
+				SecureField("", text: $host.password, prompt: Text("password").foregroundColor(.secondary))
 					.disableAutocorrection(true)
 					#if !os(macOS)
 					.textInputAutocapitalization(.never)

@@ -53,7 +53,7 @@ struct LoginFormView: View {
 
 						Spacer()
 
-						TextField("username", text: $username)
+						TextField("", text: $username, prompt: Text("username").foregroundColor(.secondary))
 							.disableAutocorrection(true)
 							#if !os(macOS)
 							.textInputAutocapitalization(.never)
@@ -69,7 +69,7 @@ struct LoginFormView: View {
 
 							Spacer()
 
-						SecureField("password", text: $password)
+						SecureField("", text: $password, prompt: Text("password").foregroundColor(.secondary))
 							.disableAutocorrection(true)
 							#if !os(macOS)
 							.textInputAutocapitalization(.never)

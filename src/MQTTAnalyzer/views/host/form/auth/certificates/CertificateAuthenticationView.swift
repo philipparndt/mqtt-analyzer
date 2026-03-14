@@ -36,7 +36,7 @@ struct CertificateAuthenticationView: View {
 
                 Spacer()
 
-                SecureField("Certificate password", text: $host.certClientKeyPassword)
+                SecureField("", text: $host.certClientKeyPassword, prompt: Text("Certificate password").foregroundColor(.secondary))
                     .disableAutocorrection(true)
                     #if !os(macOS)
                     .textInputAutocapitalization(.never)

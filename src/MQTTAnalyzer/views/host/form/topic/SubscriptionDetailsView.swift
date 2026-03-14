@@ -23,7 +23,7 @@ struct SubscriptionDetailsView: View {
 
 					Spacer()
 
-					TextField("e.g. home/#", text: $subscription.topic)
+					TextField("", text: $subscription.topic, prompt: Text("e.g. home/#").foregroundColor(.secondary))
 						.multilineTextAlignment(.trailing)
 						.disableAutocorrection(true)
 						#if !os(macOS)
