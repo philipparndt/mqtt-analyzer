@@ -1,6 +1,6 @@
 # Kubernetes: Traefik SNI Routing to MQTT Broker
 
-This example shows how to use Traefik in Kubernetes to route MQTT traffic on port 443 using SNI (Server Name Indication) with TLS passthrough.
+This example shows how to use Traefik in Kubernetes to route MQTT traffic on port 443 using SNI (Server Name Indication) with TLS passthrough. It supports both standard TLS and mTLS (mutual TLS with client certificates).
 
 ## Architecture
 
@@ -12,6 +12,13 @@ Client <--TLS--> Traefik (K8s Ingress) <--TLS passthrough--> HiveMQ
 - **Port 443** is shared for HTTPS and MQTTS
 - **SNI** determines which backend receives traffic
 - **TLS passthrough** means Traefik doesn't decrypt - the broker handles TLS
+
+## Endpoints
+
+| Hostname | Port | Description |
+|----------|------|-------------|
+| `mqtt.local.rnd7.de` | 443 | TLS only (no client cert required) |
+| `mtls.local.rnd7.de` | 443 | mTLS (client cert required) |
 
 ## Quick Start with k3d
 
@@ -25,45 +32,15 @@ Client <--TLS--> Traefik (K8s Ingress) <--TLS passthrough--> HiveMQ
 ### Setup
 
 ```bash
-# Run the setup script
 ./setup.sh
 ```
 
 This will:
 1. Create k3d cluster with port 443 exposed
-2. Create a k3d cluster with port 443 bound to `127.0.0.2`
-3. Install Traefik via Helm
-4. Generate TLS certificates
-5. Deploy HiveMQ with TLS
-6. Configure SNI-based routing
-
-### Connect with MQTT Analyzer
-
-| Setting | Value |
-|---------|-------|
-| Host | mqtt.local.rnd7.de |
-| Port | 443 |
-| TLS | On |
-| Server CA | certs/ca.p12 (password: password) |
-
-### Test with OpenSSL
-
-```bash
-openssl s_client -connect mqtt.local.rnd7.de:443 -servername mqtt.local.rnd7.de
-```
-
-### Test with Mosquitto
-
-```bash
-# Subscribe to all topics
-mosquitto_sub -h mqtt.local.rnd7.de -p 443 --cafile certs/ca.crt -t "#" -v
-
-# Publish a message
-mosquitto_pub -h mqtt.local.rnd7.de -p 443 --cafile certs/ca.crt -t "test/hello" -m "Hello World"
-
-# Debug mode (verbose output)
-mosquitto_pub -h mqtt.local.rnd7.de -p 443 --cafile certs/ca.crt -t "test/hello" -m "Hello" -d
-```
+2. Install Traefik via Helm
+3. Generate TLS and client certificates
+4. Deploy HiveMQ with TLS and mTLS listeners
+5. Configure SNI-based routing
 
 ### Teardown
 
@@ -73,56 +50,134 @@ mosquitto_pub -h mqtt.local.rnd7.de -p 443 --cafile certs/ca.crt -t "test/hello"
 
 ---
 
-## Manual Setup (Existing Cluster)
+## Security Configuration
 
-### Prerequisites
+This example includes authentication:
 
-- Kubernetes cluster with Traefik installed
-- Traefik CRDs (IngressRouteTCP)
-- TLS certificates for your MQTT domain
+- **File-based RBAC authentication**: The HiveMQ File RBAC Extension is automatically downloaded and configured
+- **Hashed passwords**: Passwords are hashed at deployment time
+- **allow-all extension disabled**: The default permissive extension is disabled
 
-### Files
+The deployment uses init containers to:
+1. Copy existing HiveMQ extensions
+2. Download the [HiveMQ File RBAC Extension](https://github.com/hivemq/hivemq-file-rbac-extension)
+3. Generate password hashes and create `credentials.xml`
+4. Disable the `hivemq-allow-all-extension`
 
-| File | Description |
-|------|-------------|
-| `hivemq.yaml` | HiveMQ deployment with TLS |
-| `ingressroute.yaml` | Traefik IngressRouteTCP for SNI routing |
-| `create-keystore.sh` | Generate certs and Java keystore |
+## Authentication
 
-### Setup
+The broker requires authentication. Use these credentials:
 
-1. Create namespace:
+| Username | Password |
+|----------|----------|
+| `mqtt-user` | `mqtt-password` |
+| `admin` | `admin` |
+
+> **Note:** Passwords are automatically hashed during deployment. To change passwords, edit the init container script in `hivemq.yaml`.
+
+---
+
+## TLS Connection (Username/Password Auth)
+
+### Connect with MQTT Analyzer
+
+| Setting | Value |
+|---------|-------|
+| Host | mqtt.local.rnd7.de |
+| Port | 443 |
+| TLS | On |
+| Server CA | certs/ca.crt |
+| Username | mqtt-user |
+| Password | mqtt-password |
+
+> **Note:** The Server CA field validates the broker's certificate against your custom CA. This is different from the Client P12 field which is used for mTLS client authentication.
+
+### Test with Mosquitto
+
 ```bash
-kubectl create namespace mqtt
+# Subscribe
+mosquitto_sub -h mqtt.local.rnd7.de -p 443 --cafile certs/ca.crt -u mqtt-user -P mqtt-password -t "#" -v
+
+# Publish
+mosquitto_pub -h mqtt.local.rnd7.de -p 443 --cafile certs/ca.crt -u mqtt-user -P mqtt-password -t "test/hello" -m "Hello World"
 ```
 
-2. Generate certificates:
+### Test with OpenSSL
+
 ```bash
-./create-keystore.sh mqtt.example.com
+openssl s_client -connect mqtt.local.rnd7.de:443 -servername mqtt.local.rnd7.de
 ```
 
-3. Create secret:
+---
+
+## mTLS Connection (Client Certificate + Credentials)
+
+### Connect with MQTT Analyzer
+
+| Setting | Value |
+|---------|-------|
+| Host | mtls.local.rnd7.de |
+| Port | 443 |
+| TLS | On |
+| Server CA | certs/ca.crt |
+| Certificate Authentication | On |
+| Client PKCS#12 | certs/client.p12 (password: password) |
+| Username | mqtt-user |
+| Password | mqtt-password |
+
+> **Note:** This example requires both client certificate AND username/password for defense in depth.
+
+### Test with Mosquitto
+
 ```bash
-kubectl create secret generic hivemq-keystore \
-  --from-file=keystore.jks \
-  -n mqtt
+# Subscribe
+mosquitto_sub -h mtls.local.rnd7.de -p 443 \
+  --cafile certs/ca.crt \
+  --cert certs/client.crt \
+  --key certs/client.key \
+  -u mqtt-user -P mqtt-password \
+  -t "#" -v
+
+# Publish
+mosquitto_pub -h mtls.local.rnd7.de -p 443 \
+  --cafile certs/ca.crt \
+  --cert certs/client.crt \
+  --key certs/client.key \
+  -u mqtt-user -P mqtt-password \
+  -t "test/hello" -m "Hello mTLS"
 ```
 
-4. Apply manifests:
+### Test with OpenSSL
+
 ```bash
-kubectl apply -f hivemq.yaml
-kubectl apply -f ingressroute.yaml
+openssl s_client -connect mtls.local.rnd7.de:443 \
+  -servername mtls.local.rnd7.de \
+  -cert certs/client.crt \
+  -key certs/client.key
 ```
 
-5. Connect using:
-   - Host: `mqtt.example.com`
-   - Port: `443`
-   - TLS: On
+---
+
+## Generated Certificates
+
+| File | Purpose | Password |
+|------|---------|----------|
+| `certs/ca.crt` | CA certificate (PEM) | - |
+| `certs/ca.crt` | CA certificate for Server CA validation | - |
+| `certs/server.crt` | Server certificate (PEM) | - |
+| `certs/server.key` | Server private key (PEM) | - |
+| `certs/keystore.jks` | Server keystore for HiveMQ | changeit |
+| `certs/truststore.jks` | CA truststore for HiveMQ (client cert validation) | changeit |
+| `certs/client.crt` | Client certificate (PEM) | - |
+| `certs/client.key` | Client private key (PEM) | - |
+| `certs/client.p12` | Client bundle for mTLS | password |
+
+---
 
 ## How SNI Routing Works
 
-1. Client initiates TLS handshake to `mqtt.example.com:443`
-2. SNI extension in ClientHello contains `mqtt.example.com`
+1. Client initiates TLS handshake to `mqtt.local.rnd7.de:443`
+2. SNI extension in ClientHello contains the hostname
 3. Traefik reads SNI **before** TLS is established
 4. Traefik routes to HiveMQ based on SNI match
 5. HiveMQ completes TLS handshake with client
@@ -133,13 +188,9 @@ You can route different hostnames to different backends:
 
 | SNI Hostname | Backend |
 |--------------|---------|
-| `mqtt.example.com` | HiveMQ (MQTT) |
+| `mqtt.local.rnd7.de` | HiveMQ port 8883 (TLS) |
+| `mtls.local.rnd7.de` | HiveMQ port 8884 (mTLS) |
 | `api.example.com` | API Server (HTTPS) |
-| `app.example.com` | Web App (HTTPS) |
-
-## ALPN Consideration
-
-With TLS passthrough, ALPN negotiation happens between the client and HiveMQ directly. Since HiveMQ doesn't support ALPN, it will be ignored. This is fine for most use cases - ALPN is mainly needed for protocol multiplexing on the same port (like AWS IoT Core).
 
 ## Troubleshooting
 
@@ -155,5 +206,5 @@ kubectl logs -l app=hivemq -n mqtt
 
 Verify SNI routing:
 ```bash
-openssl s_client -connect mqtt.example.com:443 -servername mqtt.example.com
+openssl s_client -connect mqtt.local.rnd7.de:443 -servername mqtt.local.rnd7.de
 ```

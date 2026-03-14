@@ -8,7 +8,7 @@ data:
     <?xml version="1.0"?>
     <hivemq>
         <listeners>
-            <!-- MQTT over TLS -->
+            <!-- MQTT over TLS (username/password auth) -->
             <tls-tcp-listener>
                 <port>8883</port>
                 <bind-address>0.0.0.0</bind-address>
@@ -24,11 +24,45 @@ data:
                     </protocols>
                 </tls>
             </tls-tcp-listener>
+            <!-- MQTT over TLS with mTLS (client cert auth) -->
+            <tls-tcp-listener>
+                <port>8884</port>
+                <bind-address>0.0.0.0</bind-address>
+                <tls>
+                    <keystore>
+                        <path>/opt/hivemq/certs/keystore.jks</path>
+                        <password>changeit</password>
+                        <private-key-password>changeit</private-key-password>
+                    </keystore>
+                    <truststore>
+                        <path>/opt/hivemq/certs/truststore.jks</path>
+                        <password>changeit</password>
+                    </truststore>
+                    <client-authentication-mode>REQUIRED</client-authentication-mode>
+                    <protocols>
+                        <protocol>TLSv1.3</protocol>
+                        <protocol>TLSv1.2</protocol>
+                    </protocols>
+                </tls>
+            </tls-tcp-listener>
         </listeners>
+        <security>
+            <!-- Require authentication for all clients -->
+            <allow-empty-client-id>
+                <enabled>false</enabled>
+            </allow-empty-client-id>
+        </security>
         <anonymous-usage-statistics>
             <enabled>false</enabled>
         </anonymous-usage-statistics>
     </hivemq>
+  # File-based authentication extension config
+  extension-config.xml: |
+    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <extension-configuration>
+        <credentials-reload-interval>60</credentials-reload-interval>
+        <password-type>HASHED</password-type>
+    </extension-configuration>
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -47,12 +81,83 @@ spec:
       labels:
         app: hivemq
     spec:
+      initContainers:
+        # Copy existing extensions from HiveMQ image to shared volume
+        - name: copy-extensions
+          image: hivemq/hivemq-ce:latest
+          command:
+            - sh
+            - -c
+            - |
+              echo "Copying existing extensions..."
+              cp -r /opt/hivemq/extensions/* /extensions/
+              ls -la /extensions/
+          volumeMounts:
+            - name: extensions
+              mountPath: /extensions
+        # Download file-rbac extension, generate hashed passwords, disable allow-all
+        - name: setup-extensions
+          image: amazoncorretto:17-alpine
+          command:
+            - sh
+            - -c
+            - |
+              set -e
+              apk add --no-cache curl unzip > /dev/null
+
+              echo "Downloading HiveMQ File RBAC Extension..."
+              curl -fsSL -o /tmp/hivemq-file-rbac-extension.zip \
+                "https://github.com/hivemq/hivemq-file-rbac-extension/releases/download/4.6.11/hivemq-file-rbac-extension-4.6.11.zip"
+
+              echo "Extracting extension..."
+              unzip -q /tmp/hivemq-file-rbac-extension.zip -d /extensions/
+
+              echo "Generating password hashes..."
+              EXT_JAR="/extensions/hivemq-file-rbac-extension/hivemq-file-rbac-extension-4.6.11.jar"
+              HASH_MQTT=$(java -jar "$EXT_JAR" -p "mqtt-password" | tail -1)
+              HASH_ADMIN=$(java -jar "$EXT_JAR" -p "admin" | tail -1)
+
+              echo "Creating credentials.xml with hashed passwords..."
+              printf '%s\n' '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' \
+                '<file-rbac>' \
+                '  <users>' \
+                '    <user>' \
+                '      <name>mqtt-user</name>' \
+                "      <password>${HASH_MQTT}</password>" \
+                '      <roles><id>full-access</id></roles>' \
+                '    </user>' \
+                '    <user>' \
+                '      <name>admin</name>' \
+                "      <password>${HASH_ADMIN}</password>" \
+                '      <roles><id>full-access</id></roles>' \
+                '    </user>' \
+                '  </users>' \
+                '  <roles>' \
+                '    <role>' \
+                '      <id>full-access</id>' \
+                '      <permissions>' \
+                '        <permission><topic>#</topic></permission>' \
+                '      </permissions>' \
+                '    </role>' \
+                '  </roles>' \
+                '</file-rbac>' > /extensions/hivemq-file-rbac-extension/credentials.xml
+
+              echo "Disabling allow-all extension..."
+              touch /extensions/hivemq-allow-all-extension/DISABLED
+
+              echo "Extension setup complete"
+              ls -la /extensions/
+          volumeMounts:
+            - name: extensions
+              mountPath: /extensions
       containers:
         - name: hivemq
           image: hivemq/hivemq-ce:latest
           ports:
             - containerPort: 8883
               name: mqtts
+            - containerPort: 8884
+              name: mqtts-mtls
           volumeMounts:
             - name: config
               mountPath: /opt/hivemq/conf/config.xml
@@ -60,6 +165,11 @@ spec:
             - name: certs
               mountPath: /opt/hivemq/certs
               readOnly: true
+            - name: extensions
+              mountPath: /opt/hivemq/extensions
+            - name: auth-extension-config
+              mountPath: /opt/hivemq/extensions/hivemq-file-rbac-extension/extension-config.xml
+              subPath: extension-config.xml
       volumes:
         - name: config
           configMap:
@@ -67,6 +177,14 @@ spec:
         - name: certs
           secret:
             secretName: hivemq-keystore
+        - name: auth-extension-config
+          configMap:
+            name: hivemq-config
+            items:
+              - key: extension-config.xml
+                path: extension-config.xml
+        - name: extensions
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -80,3 +198,6 @@ spec:
     - port: 8883
       targetPort: 8883
       name: mqtts
+    - port: 8884
+      targetPort: 8884
+      name: mqtts-mtls
