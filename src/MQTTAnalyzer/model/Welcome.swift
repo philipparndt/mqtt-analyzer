@@ -9,5 +9,5 @@
 import Foundation
 
 class Welcome {
-	static let key = "welcome-2.11.0-1"
+	static let key = "welcome-3.0.0-1"
 }
