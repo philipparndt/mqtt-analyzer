@@ -1,0 +1,17 @@
+services:
+  haproxy:
+    image: haproxy:2.9
+    ports:
+      - "443:443"
+      - "8404:8404"
+    volumes:
+      - ./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./config/certs:/etc/ssl/certs:ro
+    depends_on:
+      - mosquitto
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./config/certs:/mosquitto/certs:ro

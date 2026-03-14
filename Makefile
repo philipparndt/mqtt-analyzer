@@ -1,65 +1,44 @@
-.PHONY: help install lint lint-fix build test clean mqtt-service mqtt-service-down open
+.PHONY: screenshots screenshots-refresh publish publish-skip-tests test test-ui help
 
-# Default target
 help:
 	@echo "Available targets:"
-	@echo "  install          - Resolve Swift Package dependencies"
-	@echo "  lint             - Run SwiftLint"
-	@echo "  lint-fix         - Run SwiftLint with auto-fix"
-	@echo "  build            - Build the app for iOS simulator"
-	@echo "  test             - Run unit tests"
-	@echo "  clean            - Clean build artifacts"
-	@echo "  mqtt-service     - Start MQTT stub service (Docker)"
-	@echo "  mqtt-service-down- Stop MQTT stub service"
-	@echo "  open             - Open Xcode workspace"
+	@echo "  screenshots        - Create screenshots for App Store (dark and light mode)"
+	@echo "  screenshots-refresh - Create screenshots and refresh device frames"
+	@echo "  publish            - Build and publish to App Store (with tests)"
+	@echo "  publish-skip-tests - Build and publish to App Store (without tests)"
+	@echo "  test               - Run unit tests"
+	@echo "  test-ui            - Run UI tests"
+	@echo "  test-integration   - Run integration tests"
 
-# Configuration
-WORKSPACE = src/MQTTAnalyzer.xcworkspace
-SCHEME = MQTTAnalyzer
-SIMULATOR = platform=iOS Simulator,name=iPhone 15,OS=latest
+screenshots:
+	./scripts/create-screenshots.sh
 
-# Resolve Swift Package dependencies
-install:
-	xcodebuild -resolvePackageDependencies -workspace $(WORKSPACE) -scheme $(SCHEME)
+screenshots-refresh:
+	./scripts/create-screenshots.sh --refresh-frames
 
-# Run SwiftLint
-lint:
-	cd src && swiftlint
+publish:
+	./scripts/publish.sh
 
-# Run SwiftLint with auto-fix
-lint-fix:
-	cd src && swiftlint --fix
+publish-skip-tests:
+	./scripts/publish-skip-tests.sh
 
-# Build for simulator
-build:
-	xcodebuild build \
-		-workspace $(WORKSPACE) \
-		-scheme $(SCHEME) \
-		-destination '$(SIMULATOR)'
-
-# Run tests
 test:
-	xcodebuild test \
-		-enableCodeCoverage YES \
-		-workspace $(WORKSPACE) \
-		-scheme $(SCHEME) \
-		-destination '$(SIMULATOR)'
+	cd src && xcodebuild test \
+		-workspace MQTTAnalyzer.xcworkspace \
+		-scheme MQTTAnalyzer \
+		-destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+		-testPlan UnitTestPlan
 
-# Clean build artifacts
-clean:
-	xcodebuild clean \
-		-workspace $(WORKSPACE) \
-		-scheme $(SCHEME)
-	rm -rf src/build
+test-ui:
+	cd src && xcodebuild test \
+		-workspace MQTTAnalyzer.xcworkspace \
+		-scheme MQTTAnalyzer \
+		-destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+		-only-testing:MQTTAnalyzerUITests
 
-# Start MQTT stub service
-mqtt-service:
-	cd mqtt-stub-service && docker-compose up -d
-
-# Stop MQTT stub service
-mqtt-service-down:
-	cd mqtt-stub-service && docker-compose down
-
-# Open Xcode workspace
-open:
-	open $(WORKSPACE)
+test-integration:
+	cd src && xcodebuild test \
+		-workspace MQTTAnalyzer.xcworkspace \
+		-scheme MQTTAnalyzer \
+		-destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+		-only-testing:MQTTAnalyzerIntegrationTests

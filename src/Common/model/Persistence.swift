@@ -30,23 +30,30 @@ class PersistenceController: ObservableObject {
 		return directoryUrl?.appendingPathComponent("data")
 	}
 
-    init(inMemory: Bool = isInMemory()) {
-		DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-			self?.initializeContainer(inMemory: inMemory)
+    init(inMemory: Bool = isInMemory(), synchronous: Bool = false) {
+		// For UI testing (inMemory), always use synchronous initialization
+		// to ensure stubs are created before the app UI appears
+		let useSynchronous = synchronous || inMemory
+		if useSynchronous {
+			initializeContainer(inMemory: inMemory, synchronous: true)
+		} else {
+			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+				self?.initializeContainer(inMemory: inMemory, synchronous: false)
+			}
 		}
     }
 
-	private func initializeContainer(inMemory: Bool) {
+	private func initializeContainer(inMemory: Bool, synchronous: Bool = false) {
 		let container = NSPersistentCloudKitContainer(name: "MQTTAnalyzer")
 
         if inMemory {
 			let storeDescription = NSPersistentStoreDescription(url: URL(fileURLWithPath: "/dev/null"))
-			storeDescription.shouldAddStoreAsynchronously = true
+			storeDescription.shouldAddStoreAsynchronously = !synchronous
 			container.persistentStoreDescriptions = [storeDescription]
 		} else {
 			if let storeURL = PersistenceController.path {
 				let storeDescription = NSPersistentStoreDescription(url: storeURL)
-				storeDescription.shouldAddStoreAsynchronously = true
+				storeDescription.shouldAddStoreAsynchronously = !synchronous
 
 				if isCloudEnabled() {
 					storeDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.de.rnd7.MQTTAnalyzer")
@@ -58,17 +65,23 @@ class PersistenceController: ObservableObject {
 			else {
 				NSLog("no storeURL, stick with in memory db")
 				let storeDescription = NSPersistentStoreDescription(url: URL(fileURLWithPath: "/dev/null"))
-				storeDescription.shouldAddStoreAsynchronously = true
+				storeDescription.shouldAddStoreAsynchronously = !synchronous
 				container.persistentStoreDescriptions = [storeDescription]
 			}
 		}
 
         container.loadPersistentStores { [weak self] description, error in
 			self?.completeLoadPersistentStores(description: description, error: error)
-			DispatchQueue.main.async {
+			if synchronous {
 				container.viewContext.automaticallyMergesChangesFromParent = true
 				self?._container = container
 				self?.isLoaded = true
+			} else {
+				DispatchQueue.main.async {
+					container.viewContext.automaticallyMergesChangesFromParent = true
+					self?._container = container
+					self?.isLoaded = true
+				}
 			}
 		}
     }

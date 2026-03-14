@@ -73,7 +73,13 @@ class TopicTree: Identifiable, ObservableObject {
 			parent?.recomputeReadState()
 		}
 	}
-	@Published var timeSeries = TimeSeriesModel()
+	private var _timeSeries = TimeSeriesModel()
+	private var timeSeriesProcessedCount = 0
+
+	var timeSeries: TimeSeriesModel {
+		updateTimeSeriesIfNeeded()
+		return _timeSeries
+	}
 	@Published var readState = Readstate(read: false) {
 		didSet {
 			if readState.read {
@@ -84,6 +90,14 @@ class TopicTree: Identifiable, ObservableObject {
 	
 	@Published var topicLimitExceeded = false
 	@Published var messageLimitExceeded = false
+
+	var rootTopicLimitExceeded: Bool {
+		findRoot().topicLimitExceeded
+	}
+
+	var rootMessageLimitExceeded: Bool {
+		findRoot().messageLimitExceeded
+	}
 
 	@Published var flatView = false
 	
@@ -128,20 +142,31 @@ class TopicTree: Identifiable, ObservableObject {
 	}
 	
 	private func addMessage(message: MsgMessage) {
-		messages.insert(message, at: 0)
+		messages.append(message)
 		markUnread()
-		
-		childrenDisplay = Array(children.values.sorted { $0.name < $1.name })
 		markMessageCountDirty()
-		 
-		if let json = message.payload.jsonData {
-			timeSeries.collect(
-				date: message.metadata.date,
-				json: json,
-				path: [],
-				dateFormatted: message.metadata.localDate
-			)
+	}
+
+	private func updateTimeSeriesIfNeeded() {
+		guard timeSeriesProcessedCount < messages.count else { return }
+
+		for i in timeSeriesProcessedCount..<messages.count {
+			let message = messages[i]
+			if let json = message.payload.jsonData {
+				_timeSeries.collect(
+					date: message.metadata.date,
+					json: json,
+					path: [],
+					dateFormatted: message.metadata.localDate
+				)
+			}
 		}
+		timeSeriesProcessedCount = messages.count
+	}
+
+	func resetTimeSeries() {
+		_timeSeries = TimeSeriesModel()
+		timeSeriesProcessedCount = 0
 	}
 	
 	private func markMessageCountDirty() {
@@ -216,10 +241,15 @@ extension TopicTree {
 			if !node.canAccept(payload: payload) {
 				return nil
 			}
-			
+
+			// Drop duplicate retained messages (same payload as latest message on topic)
+			if metadata.retain, let latest = node.messages.last, latest.payload.data == payload.data {
+				return nil
+			}
+
 			let message = MsgMessage(topic: node, payload: payload, metadata: metadata)
 			node.addMessage(message: message)
-			
+
 			addToIndex(message: message)
 			return message
 		}

@@ -10,7 +10,7 @@ import Foundation
 import CocoaMQTT
 
 class MQTTDelegate: CocoaMQTTDelegate {
-	
+
 	func mqtt(_ mqtt: CocoaMQTT, didReceive trust: SecTrust, completionHandler: @escaping (Bool) -> Void) {
 		completionHandler(true)
 	}
@@ -48,6 +48,6 @@ class MQTTDelegate: CocoaMQTTDelegate {
 	}
 	
 	func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
-		// currently not necessary, but required by protocol
+		// Required by protocol
 	}
 }

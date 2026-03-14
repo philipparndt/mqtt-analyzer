@@ -29,21 +29,26 @@ struct EditHostFormModalView: View {
 		NavigationStack {
 			EditHostFormView(onDelete: delete, host: $host)
 				.font(.caption)
-				.navigationBarTitleDisplayMode(.inline)
+				#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 				.navigationTitle("Edit broker")
 				.toolbar {
-				   ToolbarItemGroup(placement: .navigationBarLeading) {
+				   ToolbarItemGroup(placement: .cancellationAction) {
 					   Button(action: cancel) {
 						   Text("Cancel")
 					   }
 				   }
-				   ToolbarItemGroup(placement: .navigationBarTrailing) {
+				   ToolbarItemGroup(placement: .confirmationAction) {
 					   Button(action: save) {
 						   Text("Save")
 					   }.disabled(disableSave)
 				   }
 				}
 		}
+		#if os(macOS)
+		.frame(minWidth: 500, idealWidth: 550, minHeight: 500, idealHeight: 600)
+		#endif
 	}
 	
 	func save() {

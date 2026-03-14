@@ -12,16 +12,38 @@ struct DataSeriesView: View {
 	let topic: String
 	@ObservedObject var series: TimeSeriesModel
 
+	private let initialLimit = 8
+	@State private var isExpanded = false
+
 	var body: some View {
 		Group {
 			if series.hasTimeseries {
 				Section(header: Text("Data series")) {
-					ForEach(series.getDiagrams()) {
+					let diagrams = series.getDiagrams()
+					let displayedDiagrams = isExpanded ? diagrams : Array(diagrams.prefix(initialLimit))
+
+					ForEach(displayedDiagrams) {
 						DataSeriesCellView(
 							path: $0,
 							topic: self.topic,
 							series: self.series
 						)
+					}
+
+					if diagrams.count > initialLimit {
+						Button(action: {
+							withAnimation {
+								isExpanded.toggle()
+							}
+						}) {
+							HStack {
+								Spacer()
+								Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+								Text(isExpanded ? "Show less" : "Show \(diagrams.count - initialLimit) more")
+								Spacer()
+							}
+							.foregroundColor(.blue)
+						}
 					}
 				}
 			}

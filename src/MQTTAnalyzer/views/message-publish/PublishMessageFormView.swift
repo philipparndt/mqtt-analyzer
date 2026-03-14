@@ -97,16 +97,18 @@ struct PublishMessageFormModalView: View {
 		NavigationStack {
 			PublishMessageFormView(model: self.model, type: self.$model.messageType)
 				.font(.caption)
-				.navigationBarTitleDisplayMode(.inline)
+				#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 				.navigationTitle("Publish message")
 				.toolbar {
-					ToolbarItemGroup(placement: .navigationBarLeading) {
+					ToolbarItemGroup(placement: .cancellationAction) {
 						Button(action: cancel) {
 							Text("Cancel")
 						}
 					}
 
-					ToolbarItemGroup(placement: .navigationBarTrailing) {
+					ToolbarItemGroup(placement: .confirmationAction) {
 						Button(action: publish) {
 							Text("Publish")
 						}
@@ -150,18 +152,23 @@ struct PublishMessageFormView: View {
 	var body: some View {
 		Form {
 			Section(header: Text("Topic")) {
-				TextField("", text: $model.topic)
+				TextField("", text: $model.topic, prompt: Text("e.g. home/temperature").foregroundColor(.secondary))
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+					.textInputAutocapitalization(.never)
+					#endif
 					.font(.body)
-					.accessibilityLabel("topic")
+					.accessibilityIdentifier("topic")
 				TopicSuffixPickerView(suffix: $model.topicSuffix)
 			}
 
 			Section(header: Text("Settings")) {
-				HStack {
-					Text("QoS")
-					QOSPicker(qos: $model.qos)
+				VStack(alignment: .leading, spacing: 8) {
+					HStack {
+						Text("QoS")
+						QOSPicker(qos: $model.qos)
+					}
+					QoSDescriptionView(qos: model.qos, compact: true)
 				}
 				Toggle(isOn: $model.retain) {
 					Text("Retain")
@@ -208,7 +215,9 @@ struct PublishMessageFormPlainTextView: View {
 		Group {
 			MessageTextView(text: $message)
 			.disableAutocorrection(true)
-			.autocapitalization(.none)
+			#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 			.font(.system(.body, design: .monospaced))
 			.frame(height: 250)
 		}
@@ -243,17 +252,21 @@ struct MessageProperyView: View {
 				Toggle("ON/OFF", isOn: self.$property.value.valueBool)
 			}
 			else if property.value.type() == .text {
-				TextField("", text: self.$property.value.valueText)
+				TextField("", text: self.$property.value.valueText, prompt: Text("value").foregroundColor(.secondary))
 					.disableAutocorrection(true)
 					.multilineTextAlignment(.trailing)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.font(.body)
 			}
 			else if property.value.type() == .number {
-				TextField("", text: self.$property.value.valueText)
+				TextField("", text: self.$property.value.valueText, prompt: Text("0").foregroundColor(.secondary))
 					.disableAutocorrection(true)
 					.multilineTextAlignment(.trailing)
-					.autocapitalization(.none)
+					#if !os(macOS)
+.textInputAutocapitalization(.never)
+#endif
 					.font(.body)
 			}
 			else {

@@ -71,10 +71,11 @@ struct TopicSubscription: Codable {
 	var qos: Int
 }
 
-struct CertificateFile: Codable {
+struct CertificateFile: Codable, Equatable {
 	let name: String
 	let location: CertificateLocation
 	var type = CertificateFileType.undefined
+	var fileHash: String?  // SHA256 hash of file contents for identity verification
 }
 
 enum NavigationMode {

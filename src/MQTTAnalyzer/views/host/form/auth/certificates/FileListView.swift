@@ -56,12 +56,9 @@ struct FileListView: View {
 	}
 	
 	func cutLog() {
-		UIPasteboard.general.string = model
-			.logger
-			.messages
-			.map { $0.message }
-			.joined(separator: "\n")
-		
+		Pasteboard.copy(
+			model.logger.messages.map { $0.message }.joined(separator: "\n")
+		)
 		model.logger.messages = []
 	}
 	

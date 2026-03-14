@@ -37,7 +37,7 @@ Thank you! This project would not be possible without your great work! Thanks fo
 [Xploder](https://github.com/Xploder), [Ed Gauthier](https://github.com/edgauthier)
 
 **Dependencies**
-[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [Highlightr](https://github.com/raspu/Highlightr), [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), [swift-petitparser](https://github.com/philipparndt/swift-petitparser), [GRDB](https://github.com/groue/GRDB.swift)
+[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), [swift-petitparser](https://github.com/philipparndt/swift-petitparser), [GRDB](https://github.com/groue/GRDB.swift)
 
 """).foregroundColor(.secondary)
 					.font(.footnote)
@@ -46,10 +46,12 @@ Thank you! This project would not be possible without your great work! Thanks fo
 			.padding()
 			.frame(maxWidth: .infinity, alignment: .leading)
 			.multilineTextAlignment(.leading)
-			.navigationBarTitleDisplayMode(.inline)
+			#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 			.navigationTitle("About")
 			.toolbar {
-				ToolbarItemGroup(placement: .navigationBarLeading) {
+				ToolbarItemGroup(placement: .cancellationAction) {
 					Button(action: close) {
 						Text("Close")
 					}
@@ -80,7 +82,7 @@ struct AboutTitleView: View {
 						.font(.title)
 						.accessibilityLabel("about-label")
 
-					Text("[© 2024 Philipp Arndt](https://github.com/philipparndt)")
+					Text("[© 2026 Philipp Arndt](https://github.com/philipparndt)")
 						.font(.caption)
 						.foregroundColor(.blue)
 					

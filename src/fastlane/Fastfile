@@ -13,6 +13,11 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+require 'json'
+
+# Load devices from devices.json (single source of truth)
+DEVICES = JSON.parse(File.read(ENV['DEVICES_JSON_PATH'] || 'devices.json')).freeze
+
 default_platform(:ios)
 
 platform :ios do
@@ -26,14 +31,7 @@ platform :ios do
   lane :tests do
     scan(
       scheme: "MQTTAnalyzer",
-      devices: [
-        "iPhone 15 Pro", 
-        "iPhone 15", 
-        "iPhone SE (3rd generation)",
-        # "iPad Pro 11-inch (M4)",
-        "iPad Air 11-inch (M2)",
-        "iPad mini (6th generation)"
-      ]
+      devices: DEVICES
       )
   end
 

@@ -1,0 +1,21 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: mqtt-cluster
+servers: 1
+agents: 0
+ports:
+  # Map port 443 to all interfaces
+  - port: 443:443
+    nodeFilters:
+      - loadbalancer
+  # Traefik dashboard
+  - port: 8080:8080
+    nodeFilters:
+      - loadbalancer
+options:
+  k3s:
+    extraArgs:
+      - arg: --disable=traefik
+        nodeFilters:
+          - server:*

@@ -8,8 +8,12 @@
 
 import Foundation
 
+// Intent extensions need synchronous initialization because the data must be
+// available immediately when provideBrokerOptionsCollection is called
+private let intentPersistenceController = PersistenceController(synchronous: true)
+
 func loadBrokers() -> [NSString] {
-	let controller = PersistenceController.shared
+	let controller = intentPersistenceController
 	guard let container = controller.container else { return [] }
 	let fetchRequest = BrokerSetting.fetchRequest()
 	do {
@@ -25,7 +29,7 @@ func loadBrokers() -> [NSString] {
 }
 
 func firstBroker(by name: String) -> BrokerSetting? {
-	let controller = PersistenceController.shared
+	let controller = intentPersistenceController
 	guard let container = controller.container else { return nil }
 	let fetchRequest = BrokerSetting.fetchRequest()
 	do {

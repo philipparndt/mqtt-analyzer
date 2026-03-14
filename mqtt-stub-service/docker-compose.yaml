@@ -1,7 +1,6 @@
-version: '3'
 services:
   traefik:
-    image: traefik:v2.9
+    image: traefik:v3.6
     restart: "no"
 
     command:
@@ -9,7 +8,6 @@ services:
       - "--log.level=info"
       - "--api.dashboard=true"
       - "--api.insecure=true"
-      - "--pilot.dashboard=false"
 
       # Entrypoints
       - "--entrypoints.websecure.address=:443"
@@ -47,7 +45,7 @@ services:
       - IONOS_API_KEY=${IONOS_API_KEY}
 
   mosquitto:
-    image: eclipse-mosquitto:2.0.18
+    image: eclipse-mosquitto:2.0.22
     volumes:
       - ./config/mosquitto/config:/mosquitto/config:rw
     ports:

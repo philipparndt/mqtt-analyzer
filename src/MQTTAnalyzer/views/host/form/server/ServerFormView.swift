@@ -9,6 +9,11 @@
 import Foundation
 import SwiftUI
 
+struct PortSuggestion {
+	let port: String
+	let label: String
+}
+
 struct ServerFormView: View {
 	@Binding var host: HostFormModel
 
@@ -21,6 +26,27 @@ struct ServerFormView: View {
 		return HostFormValidator.validatePort(port: host.port) == nil
 	}
 
+	var suggestedPorts: [PortSuggestion] {
+		switch (host.protocolMethod, host.ssl) {
+		case (.mqtt, false):
+			return [PortSuggestion(port: "1883", label: "MQTT")]
+		case (.mqtt, true):
+			return [
+				PortSuggestion(port: "8883", label: "MQTTS"),
+				PortSuggestion(port: "443", label: "SNI/ALPN")
+			]
+		case (.websocket, false):
+			return [
+				PortSuggestion(port: "80", label: "HTTP"),
+				PortSuggestion(port: "8080", label: "Alt")
+			]
+		case (.websocket, true):
+			return [PortSuggestion(port: "443", label: "HTTPS")]
+		default:
+			return [PortSuggestion(port: "1883", label: "MQTT")]
+		}
+	}
+
 	var body: some View {
 		return Section(header: Text("Server")) {
 			HStack {
@@ -30,7 +56,7 @@ struct ServerFormView: View {
 				
 				Spacer()
 				
-				TextField("optional", text: $host.alias)
+				TextField("", text: $host.alias, prompt: Text("optional").foregroundColor(.secondary))
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
 					.accessibilityLabel("alias")
@@ -44,10 +70,12 @@ struct ServerFormView: View {
 
 				Spacer()
 
-				TextField("ip address / name", text: $host.hostname)
+				TextField("", text: $host.hostname, prompt: Text("ip address / name").foregroundColor(.secondary))
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+					.textInputAutocapitalization(.never)
+					#endif
 					.accessibilityLabel("hostname")
 					.font(.body)
 			}
@@ -55,23 +83,46 @@ struct ServerFormView: View {
 			if host.isAWS() {
 				AWSIoTHelpView(host: $host)
 			}
-			else if host.isClientCerts() {
-				ClientCertsHelpView(host: $host)
-			}
 			
-			HStack {
-				FormFieldInvalidMark(invalid: portInvalid)
+			VStack(alignment: .leading, spacing: 4) {
+				HStack {
+					FormFieldInvalidMark(invalid: portInvalid)
 
-				Text("Port")
-					.font(.headline)
+					Text("Port")
+						.font(.headline)
 
-				Spacer()
+					Spacer()
 
-				TextField("e.g. 1883", text: $host.port)
-					.multilineTextAlignment(.trailing)
-					.disableAutocorrection(true)
-					.accessibilityLabel("port")
-					.font(.body)
+					TextField("", text: $host.port, prompt: Text("e.g. 1883").foregroundColor(.secondary))
+						.multilineTextAlignment(.trailing)
+						.disableAutocorrection(true)
+						.accessibilityLabel("port")
+						.font(.body)
+						#if !os(macOS)
+						.keyboardType(.numberPad)
+						#endif
+				}
+
+				HStack(spacing: 8) {
+					Text("Common ports:")
+						.font(.caption)
+						.foregroundColor(.secondary)
+
+					ForEach(suggestedPorts, id: \.port) { suggestion in
+						Button {
+							host.port = suggestion.port
+						} label: {
+							Text(suggestion.port)
+								.font(.caption)
+								.padding(.horizontal, 8)
+								.padding(.vertical, 4)
+								.background(host.port == suggestion.port ? Color.accentColor : Color.secondary.opacity(0.2))
+								.foregroundColor(host.port == suggestion.port ? .white : .primary)
+								.cornerRadius(4)
+						}
+						.buttonStyle(.plain)
+					}
+				}
 			}
 			
 			HStack {
@@ -98,26 +149,16 @@ struct ServerFormView: View {
 				HStack {
 					Text("Basepath")
 						.font(.headline)
-					
+
 					Spacer()
-					
-					TextField("/", text: $host.basePath)
+
+					TextField("", text: $host.basePath, prompt: Text("/").foregroundColor(.secondary))
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+					.textInputAutocapitalization(.never)
+					#endif
 					.font(.body)
-				}
-			}
-			
-			Toggle(isOn: $host.ssl) {
-				Text("TLS")
-					.font(.headline)
-			}.accessibilityLabel("tls")
-
-			if host.ssl {
-				Toggle(isOn: $host.untrustedSSL) {
-					Text("Allow untrusted")
-						.font(.headline)
 				}
 			}
 		}

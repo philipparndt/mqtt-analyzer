@@ -11,26 +11,49 @@ import SwiftUI
 
 struct AuthFormView: View {
 	@Binding var host: HostFormModel
+	@Binding var showCertificateHelp: Bool
 
 	var body: some View {
-		return Section(header: Text("Authentication")) {
+		Section(header: Text("Authentication"), footer: authFooter) {
 			Toggle(isOn: $host.usernamePasswordAuth) {
-				Text("Username/password")
-					.font(.headline)
-					.accessibilityLabel("userPassword-auth")
+				VStack(alignment: .leading, spacing: 2) {
+					Text("Username/Password")
+						.font(.headline)
+					Text("Authenticate with credentials")
+						.font(.caption)
+						.foregroundColor(.secondary)
+				}
 			}
+			.accessibilityLabel("userPassword-auth")
+
 			if host.usernamePasswordAuth {
 				UsernamePasswordAuthenticationView(host: $host)
 			}
 
 			Toggle(isOn: $host.certificateAuth) {
-				Text("Certificate")
-					.font(.headline)
-					.accessibilityLabel("certificate-auth")
+				VStack(alignment: .leading, spacing: 2) {
+					Text("Client Certificate (mTLS)")
+						.font(.headline)
+					Text("Authenticate with a client certificate")
+						.font(.caption)
+						.foregroundColor(.secondary)
+				}
 			}
+			.accessibilityLabel("certificate-auth")
+
 			if host.certificateAuth {
-				CertificateAuthenticationView(host: $host)
+				CertificateAuthenticationView(host: $host, showHelp: $showCertificateHelp)
 			}
+		}
+	}
+
+	@ViewBuilder
+	private var authFooter: some View {
+		if !host.usernamePasswordAuth && !host.certificateAuth {
+			Text("Configure how to authenticate with the broker.")
+				.font(.caption)
+		} else {
+			EmptyView()
 		}
 	}
 }

@@ -10,6 +10,6 @@ import Foundation
 
 extension BrokerSetting {
 	class func stub() -> BrokerSetting {
-		return BrokerSetting(context: PersistenceController(inMemory: true).container!.viewContext)
+		return BrokerSetting(context: PersistenceController(inMemory: true, synchronous: true).container!.viewContext)
 	}
 }

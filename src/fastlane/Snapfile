@@ -1,27 +1,12 @@
 # Uncomment the lines below you want to change by removing the # in the beginning
 
 # A list of devices you want to take the screenshots from
- devices([
-#     "iPhone 13 Pro",
-#     "iPhone SE (3rd generation)",
- #    "iPad Pro (11-inch) (3rd generation)",
+# Loaded from devices.json (single source of truth)
+require 'json'
+devices(JSON.parse(File.read(ENV['DEVICES_JSON_PATH'] || 'devices.json')))
 
-     "iPhone 15 Pro", 
-     "iPhone SE (3rd generation)",
-     "iPad Pro 11-inch (M4)",
-#     "iPad mini (6th generation)"
-
-
- #    "iPad Air (4th generation)"
- #  "iPhone 8",
- #  "iPhone 8 Plus",
- #  "iPhone SE",
- #  "iPhone X",
- #  "iPad Pro (12.9-inch)",
- #  "iPad Pro (9.7-inch)",
- # "Apple TV 1080p",
- # "Apple Watch Series 6 - 44mm"
- ])
+# Run simulators sequentially (parallel disabled due to shared output directory)
+concurrent_simulators(false)
 
 languages([
    "en-US",

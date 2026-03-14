@@ -2,9 +2,11 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="BrokerSetting" representedClassName="BrokerSetting" syncable="YES">
         <attribute name="alias" attributeType="String" defaultValueString=""/>
+        <attribute name="alpn" optional="YES" attributeType="String"/>
         <attribute name="authType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="basePath" optional="YES" attributeType="String"/>
         <attribute name="category" optional="YES" attributeType="String"/>
+        <attribute name="certificateStorage" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="certClientKeyPassword" optional="YES" attributeType="String" allowsCloudEncryption="YES"/>
         <attribute name="certificates" optional="YES" attributeType="Transformable" valueTransformerName="CertificateValueTransformer" customClassName="Certificates"/>
         <attribute name="clientID" optional="YES" attributeType="String"/>

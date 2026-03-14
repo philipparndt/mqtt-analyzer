@@ -80,7 +80,7 @@ class MqttClientMoscapsule: MqttClient {
 		
 		let queue = DispatchQueue(label: "Message dispache queue")
 		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
-			.collect(.byTime(queue, 0.5))
+			.collect(.byTime(queue, 0.1))
 			.receive(on: DispatchQueue.main)
 			.sink(receiveValue: {
 				self.onMessageInMain(messages: $0)

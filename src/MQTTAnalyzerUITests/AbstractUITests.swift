@@ -21,16 +21,26 @@ class AbstractUITests: XCTestCase {
         // UI tests must launch the application that they test.
 		app = XCUIApplication()
 		setupSnapshot(app)
-		
+
 		#if targetEnvironment(macCatalyst)
 		Snapshot.cacheDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
 		#endif
 		app.launchArguments.append("--ui-testing")
 		app.launchArguments.append("--no-welcome")
+		app.launchArguments.append("--disable-animations")
 		app.launch()
 		AbstractUITests.currentApp = app
-		
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+
+		// Handle system alerts like password save dialogs
+		addUIInterruptionMonitor(withDescription: "Password Save Dialog") { alert in
+			if alert.buttons["Not Now"].exists {
+				alert.buttons["Not Now"].tap()
+				return true
+			}
+			return false
+		}
+
+        // In UI tests it's important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
     override func tearDown() {

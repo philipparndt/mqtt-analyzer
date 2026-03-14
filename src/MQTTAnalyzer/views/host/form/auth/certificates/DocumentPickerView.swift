@@ -10,10 +10,11 @@ import Foundation
 import SwiftUI
 import UniformTypeIdentifiers
 
+#if os(iOS)
 struct DocumentPickerView: UIViewControllerRepresentable {
 	var refresh: CertificateFilesRefresh
 	let documentTypes: [UTType]
-	
+
     class Coordinator: NSObject, UINavigationControllerDelegate, UIDocumentPickerDelegate {
 		var refresh: CertificateFilesRefresh
         var parent: DocumentPickerView
@@ -22,26 +23,26 @@ struct DocumentPickerView: UIViewControllerRepresentable {
             self.parent = parent
 			self.refresh = refresh
         }
-		
+
 		func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
 			for url in urls {
 				CloudDataManager.instance.copyFileToLocal(file: url)
 			}
-			
+
 			self.refresh.refresh()
 		}
     }
-	
+
 	func makeCoordinator() -> Coordinator {
 		Coordinator(self, refresh: self.refresh)
 	}
-	
+
 	func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentPickerView>) -> UIDocumentPickerViewController {
 		let picker = UIDocumentPickerViewController(forOpeningContentTypes: self.documentTypes)
-		
+
 		picker.shouldShowFileExtensions = true
 		picker.delegate = context.coordinator
-		
+
 		return picker
 	}
 
@@ -49,3 +50,37 @@ struct DocumentPickerView: UIViewControllerRepresentable {
 
 	}
 }
+
+#elseif os(macOS)
+import AppKit
+
+struct DocumentPickerView: View {
+	var refresh: CertificateFilesRefresh
+	let documentTypes: [UTType]
+
+	var body: some View {
+		Button("Select File...") {
+			openPanel()
+		}
+	}
+
+	private func openPanel() {
+		DispatchQueue.main.async {
+			let panel = NSOpenPanel()
+			panel.allowedContentTypes = documentTypes
+			panel.allowsMultipleSelection = true
+			panel.canChooseDirectories = false
+			panel.canChooseFiles = true
+
+			panel.begin { response in
+				if response == .OK {
+					for url in panel.urls {
+						CloudDataManager.instance.copyFileToLocal(file: url)
+					}
+					refresh.refresh()
+				}
+			}
+		}
+	}
+}
+#endif

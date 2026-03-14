@@ -35,7 +35,9 @@ struct DataSeriesDetailsView: View {
 						}
 					}
 				}
-				.listStyle(GroupedListStyle())
+				#if os(iOS)
+		.listStyle(.insetGrouped)
+		#endif
 			}
 		}
 	}

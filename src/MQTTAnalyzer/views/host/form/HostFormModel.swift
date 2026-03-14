@@ -55,6 +55,7 @@ struct HostFormModel {
 	
 	var ssl = false
 	var untrustedSSL = false
+	var alpn = ""
 	
 	var protocolMethod: HostProtocol = .mqtt
 	var usernamePasswordAuth = false
@@ -62,6 +63,7 @@ struct HostFormModel {
 	var protocolVersion: HostProtocolVersion = .mqtt3
 	
 	var category = ""
+	var certificateStorage: CertificateLocation = .local
 }
 
 func transform(subscriptions: [TopicSubscription]) -> [TopicSubscriptionFormModel] {
@@ -113,11 +115,13 @@ func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
 	target.protocolMethod = host.protocolMethod
 	target.ssl = host.ssl
 	target.untrustedSSL = host.ssl && host.untrustedSSL
+	target.alpn = host.ssl && !host.alpn.isEmpty ? host.alpn : nil
 	target.limitTopic = Int32(host.limitTopic) ?? 250
 	target.limitMessagesBatch = Int32(host.limitMessagesBatch) ?? 1000
 	target.protocolVersion = host.protocolVersion
 	target.category = host.category
-	
+	target.certificateStorageLocation = host.certificateStorage
+
 	if host.usernamePasswordAuth {
 		target.username = host.username
 		target.password = host.password
@@ -162,10 +166,12 @@ func transformHost(source host: Host) -> HostFormModel {
 		limitMessagesBatch: "\(host.settings.limitMessagesBatch)",
 		ssl: host.settings.ssl,
 		untrustedSSL: host.settings.untrustedSSL,
+		alpn: host.settings.alpn ?? "",
 		protocolMethod: host.settings.protocolMethod,
 		usernamePasswordAuth: host.settings.authType == .usernamePassword || host.settings.authType == .both,
 		certificateAuth: host.settings.authType == .certificate || host.settings.authType == .both,
 		protocolVersion: host.settings.protocolVersion,
-		category: host.settings.category ?? ""
+		category: host.settings.category ?? "",
+		certificateStorage: host.settings.certificateStorageLocation
 	)
 }

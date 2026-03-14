@@ -15,6 +15,8 @@ struct TopicsView: View {
 	
 	@StateObject private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
+	@State private var limitsSettingsPresented = false
+	@State private var limitsSettingsType: LimitType = .topicLimit
 	
 	var body: some View {
 		VStack {
@@ -29,6 +31,17 @@ struct TopicsView: View {
 			}
 			else {
 				List {
+					#if os(iOS)
+					if model.parent != nil && !model.nameQualified.isEmpty {
+						Section {
+							TopicPathView(topic: model.nameQualified)
+								.listRowInsets(EdgeInsets())
+								.listRowBackground(Color.clear)
+								.listRowSeparator(.hidden)
+						}
+					}
+					#endif
+
 					if !self.model.filterText.isBlank {
 						HStack {
 							Text("Matches")
@@ -37,7 +50,7 @@ struct TopicsView: View {
 						}
 						
 						Toggle("Whole word", isOn: self.$model.filterWholeWord)
-							.accessibilityLabel("whole-word")
+							.accessibilityIdentifier("whole-word")
 
 						Section(header: Text("Search result")) {
 							if model.searchResultDisplay.isEmpty {
@@ -76,10 +89,16 @@ struct TopicsView: View {
 						TopicsToolsView(model: self.model)
 
 						Toggle("Flat", isOn: self.$model.flatView)
-							.accessibilityLabel("flatview")
+							.accessibilityIdentifier("flatview")
 
 						if !self.model.flatView {
-							FolderNavigationView(host: host, model: model)
+							TreeNavigationView(
+								host: host,
+								model: model,
+								publishMessagePresented: $publishMessageModel.isPresented,
+								selectMessage: selectMessage,
+								createNewTopic: setTopic
+							)
 						}
 						
 						if self.model.flatView {
@@ -127,47 +146,56 @@ struct TopicsView: View {
 												host: self.host,
 												model: publishMessageModel)
 				})
-				.listStyle(GroupedListStyle())
+				#if os(iOS)
+		.listStyle(.insetGrouped)
+		#endif
 			}
 
 		}
 		.navigationTitle(title())
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
-				ControlGroup {
-					Button(action: model.markRead) {
-						Label("Mark read", systemImage: "circlebadge")
-					}
-					.accessibilityLabel("Mark all as read")
+				Button(action: createTopic) {
+					Label("Publish", systemImage: "paperplane.fill")
+				}
+				.accessibilityIdentifier("Publish")
+			}
 
-					Button(role: .destructive, action: model.clear) {
-						Label("Clear", systemImage: "trash")
-					}
-					.accessibilityLabel("Clear all messages")
+			ToolbarItem(placement: .primaryAction) {
+				Button(action: model.markRead) {
+					Label("Mark read", systemImage: "circlebadge")
 				}
 			}
 
 			ToolbarItem(placement: .secondaryAction) {
-				ControlGroup {
-					Button(action: createTopic) {
-						Label("Publish", systemImage: "paperplane.fill")
-					}
-					.accessibilityLabel("Publish message")
+				Button(action: pauseConnection) {
+					Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
+				}
+			}
 
-					Button(action: pauseConnection) {
-						Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
-					}
-					.accessibilityLabel(host.pause ? "Resume connection" : "Pause connection")
+			ToolbarItem(placement: .secondaryAction) {
+				Button(role: .destructive, action: model.clear) {
+					Label("Clear", systemImage: "trash")
 				}
 			}
 		}
-		.navigationBarTitleDisplayMode(.inline)
+		#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 		.safeAreaInset(edge: .bottom) {
 			createToolInset()
 		}
 		.sheet(isPresented: $loginData.isPresented, onDismiss: cancelDialog, content: {
 			LoginDialogView(loginCallback: self.login, host: self.host)
 		})
+		.sheet(isPresented: $limitsSettingsPresented) {
+			LimitsSettingsDialog(
+				host: host,
+				model: model,
+				limitType: limitsSettingsType,
+				onDismiss: { limitsSettingsPresented = false }
+			)
+		}
 		.onAppear {
 			#if !targetEnvironment(macCatalyst)
 			if self.host.needsAuth {
@@ -175,7 +203,7 @@ struct TopicsView: View {
 				self.loginData.password = self.host.settings.password ?? ""
 				self.loginData.isPresented = true
 			}
-			else {
+			else if host.state == .disconnected {
 				self.rootModel.connect(to: self.host)
 			}
 			#endif
@@ -186,10 +214,9 @@ struct TopicsView: View {
 		if model.parent != nil {
 			return model.name
 		}
-		else {
-			return host.settings.aliasOrHost
-		}
+		return host.settings.aliasOrHost
 	}
+
 	
 	func connect() {
 		self.rootModel.connect(to: self.host)
@@ -200,11 +227,17 @@ struct TopicsView: View {
 			if host.needsAuth {
 				LoginView(loginDialogPresented: self.$loginData.isPresented, host: host)
 			}
-			else if model.topicLimitExceeded && !host.pause {
-				TopicLimitReachedView()
+			else if model.rootTopicLimitExceeded && !host.pause {
+				TopicLimitReachedView(
+					onDismiss: dismissLimitWarning,
+					onOpenSettings: { openLimitsSettings(type: .topicLimit) }
+				)
 			}
-			else if model.messageLimitExceeded && !host.pause {
-				MessageLimitReachedView()
+			else if model.rootMessageLimitExceeded && !host.pause {
+				MessageLimitReachedView(
+					onDismiss: dismissLimitWarning,
+					onOpenSettings: { openLimitsSettings(type: .messageBatchLimit) }
+				)
 			}
 			else if host.state == .connected && host.pause {
 				ResumeConnectionView(host: host)
@@ -230,6 +263,10 @@ struct TopicsView: View {
 		publishMessageModel.isPresented = true
 	}
 
+	func setTopic(_ topic: String) {
+		publishMessageModel.topic = topic
+	}
+
 	func pauseConnection() {
 		host.pause.toggle()
 	}
@@ -249,7 +286,30 @@ struct TopicsView: View {
 		publishMessageModel.message = message.payload.dataString
 		publishMessageModel.qos = Int(message.metadata.qos)
 		publishMessageModel.retain = message.metadata.retain
+		publishMessageModel.messageType = message.payload.isJSON ? .json : .plain
+
+		// Populate JSON form properties if message is JSON
+		if let json = message.payload.jsonData {
+			publishMessageModel.jsonData = json
+			publishMessageModel.properties = createJsonProperties(json: json, path: [])
+				.sorted(by: { $0.pathName < $1.pathName })
+		} else {
+			publishMessageModel.jsonData = nil
+			publishMessageModel.properties = []
+		}
+
 		publishMessageModel.isPresented = true
+	}
+
+	func dismissLimitWarning() {
+		let root = model.findRoot()
+		root.topicLimitExceeded = false
+		root.messageLimitExceeded = false
+	}
+
+	func openLimitsSettings(type: LimitType) {
+		limitsSettingsType = type
+		limitsSettingsPresented = true
 	}
 
 }

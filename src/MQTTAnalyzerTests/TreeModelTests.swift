@@ -108,11 +108,11 @@ class TreeModelTests: XCTestCase {
 
 		let msg1 = root.addMessage(metadata: MsgMetadata.stub(),
 						payload: MsgPayload.from(text: "val1"), to: topic)
-		XCTAssertIdentical(msg1, node.messages.first)
+		XCTAssertIdentical(msg1, node.messages.last)
 
 		let msg2 = root.addMessage(metadata: MsgMetadata.stub(),
 						payload: MsgPayload.from(text: "val2"), to: topic)
-		XCTAssertIdentical(msg2, node.messages.first)
+		XCTAssertIdentical(msg2, node.messages.last)
 	}
 	
 	func testMessageCount() throws {

@@ -20,9 +20,11 @@ struct CategoryFormView: View {
 				
 				Spacer()
 			
-				TextField("No category", text: $host.category)
+				TextField("", text: $host.category, prompt: Text("No category").foregroundColor(.secondary))
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+					.textInputAutocapitalization(.never)
+					#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 			}

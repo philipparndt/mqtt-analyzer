@@ -14,22 +14,29 @@ struct FileItemView: View {
 	@Binding var selection: CertificateFile?
 	
 	var body: some View {
-		HStack {
-			Image(systemName: isSelected() ? "largecircle.fill.circle" : "circle")
-				.foregroundColor(.blue)
-			
-			Image(systemName: "doc.text.fill")
-				.foregroundColor(.secondary)
-			
-			Text(fileName.name)
-			Spacer()
+		Button(action: selectFile) {
+			HStack {
+				Image(systemName: isSelected() ? "largecircle.fill.circle" : "circle")
+					.foregroundColor(.blue)
+
+				Image(systemName: "doc.text.fill")
+					.foregroundColor(.secondary)
+
+				Text(fileName.name)
+					.foregroundColor(.primary)
+				Spacer()
+			}
+			.contentShape(Rectangle())
 		}
-		.onTapGesture {
-			self.selection = CertificateFile(name: self.fileName.name,
-											 location: self.fileName.location,
-											 type: self.type
-			)
-		}
+		.buttonStyle(.plain)
+	}
+
+	func selectFile() {
+		self.selection = CertificateFile(
+			name: self.fileName.name,
+			location: self.fileName.location,
+			type: self.type
+		)
 	}
 	
 	func isSelected() -> Bool {

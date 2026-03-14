@@ -31,7 +31,7 @@ struct FolderNavigationView: View {
 					NavigationLink(destination: TopicsView(model: child, host: self.host)) {
 						FolderCellView(model: child, host: host)
 					}
-					.accessibilityLabel("folder: \(child.nameQualified)")
+					.accessibilityIdentifier("folder: \(child.nameQualified)")
 				}
 			}
 		}
@@ -60,20 +60,20 @@ struct FolderCellView: View {
 			
 			Menu {
 				DestructiveMenuButton(title: "Delete retained messages from broker", systemImage: "trash.fill", action: deleteAllReatined)
-					.accessibilityLabel("confirm-delete-retained")
+					.accessibilityIdentifier("confirm-delete-retained")
 			} label: {
 				Label("Delete", systemImage: "trash.fill")
 			}
-			.accessibilityLabel("delete-retained")
+			.accessibilityIdentifier("delete-retained")
 	    }
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = model.nameQualified
+		Pasteboard.copy(model.nameQualified)
 	}
 
 	func copyName() {
-		UIPasteboard.general.string = model.name
+		Pasteboard.copy(model.name)
 	}
 	
 	func deleteAllReatined() {
@@ -98,8 +98,10 @@ struct CounterCellView: View {
 
 	var body: some View {
 		Text("\(model.topicCountDisplay)/\(model.messageCountDisplay)")
-			.font(.system(size: 12, design: .monospaced))
-			.foregroundColor(.secondary)
-			.opacity(0.5)
+			.font(.system(.caption2, design: .monospaced))
+			.padding(.horizontal, 5)
+			.padding(.vertical, 2)
+			.background(Color.accentColor.opacity(0.15))
+			.cornerRadius(6)
 	}
 }

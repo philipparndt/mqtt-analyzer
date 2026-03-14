@@ -11,7 +11,7 @@ import SwiftUI
 struct MessagesView: View {
 	@ObservedObject var node: TopicTree
 	let host: Host
-	
+
 	var body: some View {
 		VStack(alignment: .leading) {
 			List {
@@ -21,16 +21,21 @@ struct MessagesView: View {
 
 				MessageView(node: node, host: host)
 			}
+			.accessibilityIdentifier("messages-list")
 		}
-		.navigationBarTitleDisplayMode(.inline)
+		#if !os(macOS)
+.navigationBarTitleDisplayMode(.inline)
+#endif
 		.navigationTitle(node.name)
-		.listStyle(GroupedListStyle())
+		#if os(iOS)
+		.listStyle(.insetGrouped)
+		#endif
 		.onAppear {
 			self.node.markRead()
 		}
 	}
-	
+
 	func copyTopic() {
-		UIPasteboard.general.string = node.nameQualified
+		Pasteboard.copy(node.nameQualified)
 	}
 }

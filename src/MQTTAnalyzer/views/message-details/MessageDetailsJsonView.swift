@@ -7,20 +7,12 @@
 //
 
 import SwiftUI
-import CodeEditor
 
 struct MessageDetailsJsonView: View {
-	@Environment(\.colorScheme) var colorScheme
-	@State var source: String
-	@State private var language = CodeEditor.Language.json
+	let source: String
 
 	var body: some View {
-		VStack {
-			CodeEditor(source: $source,
-					   language: language,
-					   theme: colorScheme == .light ? CodeEditor.ThemeName.atelierSavannaLight : CodeEditor.ThemeName.atelierSavannaDark,
-					   flags: CodeEditor.Flags.selectable)
-				.frame(minHeight: 100, alignment: Alignment.leading)
-		}
+		SyntaxHighlightedTextView(json: source)
+			.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
 	}
 }

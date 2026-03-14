@@ -20,9 +20,11 @@ struct ClientIDFormView: View {
 				
 				Spacer()
 			
-				TextField("Random by default", text: $host.clientID)
+				TextField("", text: $host.clientID, prompt: Text("Random by default").foregroundColor(.secondary))
 					.disableAutocorrection(true)
-					.autocapitalization(.none)
+					#if !os(macOS)
+					.textInputAutocapitalization(.never)
+					#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 			}

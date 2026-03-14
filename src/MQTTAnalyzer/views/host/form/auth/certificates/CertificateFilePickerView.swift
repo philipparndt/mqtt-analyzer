@@ -7,17 +7,16 @@
 //
 
 import Foundation
-
 import SwiftUI
 import Combine
 
 struct CertificateFilePickerView: View {
 	let type: CertificateFileType
-	
+
 	@Binding var file: CertificateFile?
 	let model = CertificateFilesModel.instance
 	@State var location: CertificateLocation
-	
+
 	var body: some View {
 		Group {
 			List {
@@ -32,24 +31,25 @@ struct CertificateFilePickerView: View {
 							self.model.refresh()
 						}))
 					}
-					
+
 					if location == .local {
 						ImportCertificatePickerView(refreshHandler: model)
 					}
 				}
-				
+
 				FileListView(refreshHandler: model.refresh,
 							 type: self.type,
 							 model: model,
 							 logger: model.logger,
 							 file: $file,
 							 certificateLocation: $location)
-	
+
 				PKCS12HelpView()
 			}
 		}
+		#if !os(macOS)
 		.navigationBarTitleDisplayMode(.inline)
+		#endif
 		.navigationTitle("Select \(type.getName())")
 	}
-	
 }

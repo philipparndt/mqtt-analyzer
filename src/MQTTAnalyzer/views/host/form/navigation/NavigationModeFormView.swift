@@ -35,7 +35,7 @@ struct NavigationModeFormView: View {
 
 					Spacer()
 
-					TextField("10", text: $host.maxMessagesOfSubFolders)
+					TextField("", text: $host.maxMessagesOfSubFolders, prompt: Text("10").foregroundColor(.secondary))
 						.multilineTextAlignment(.trailing)
 						.disableAutocorrection(true)
 						.font(.body)

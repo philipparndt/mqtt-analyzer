@@ -20,52 +20,51 @@ struct TopicCellView: View {
 		NavigationLink(destination: MessagesView(node: messages, host: host)) {
 			HStack {
 				ReadMarkerView(read: messages.readState)
-				
+
 				VStack(alignment: .leading) {
 					Text(messages.nameQualified)
-					Text(messagePreview())
+					AnsiTextView(text: messagePreview(), lineLimit: 8)
 						.font(.subheadline)
 						.foregroundColor(.secondary)
-						.lineLimit(8)
 					Spacer()
 					Text("\(messages.messages.count) message\(messages.messages.count == 1 ? "" : "s")")
 						.font(.footnote)
 						.foregroundColor(.secondary)
 				}
 			}
-			.contextMenu {
-				MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
-				MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
-				
-				Menu {
-					MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
-					MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishManually)
-						.accessibilityLabel("publish new")
-				} label: {
-					Label("Publish", systemImage: "paperplane.fill")
-				}
-				.accessibilityLabel("publish")
-				
-				Menu {
-					DestructiveMenuButton(title: "Delete retained message from broker", systemImage: "trash.fill", action: deleteRetained)
-						.accessibilityLabel("confirm-delete-retained")
-				} label: {
-					Label("Delete", systemImage: "trash.fill")
-				}
-				.accessibilityLabel("delete-retained")
-			}
 		}
-		.accessibilityLabel("group: \(messages.nameQualified)")
+		.contextMenu {
+			MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
+			MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
+
+			Menu {
+				MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
+				MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishManually)
+					.accessibilityIdentifier("publish new")
+			} label: {
+				Label("Publish", systemImage: "paperplane.fill")
+			}
+			.accessibilityIdentifier("publish")
+
+			Menu {
+				DestructiveMenuButton(title: "Delete retained message from broker", systemImage: "trash.fill", action: deleteRetained)
+					.accessibilityIdentifier("confirm-delete-retained")
+			} label: {
+				Label("Delete", systemImage: "trash.fill")
+			}
+			.accessibilityIdentifier("delete-retained")
+		}
+		.accessibilityIdentifier("group: \(messages.nameQualified)")
 	}
 	
 	func publish() {
-		if let first = messages.messages.first {
+		if let first = messages.messages.last {
 			root.publish(message: first, on: host)
 		}
 	}
 	
 	func deleteRetained() {
-		if let first = messages.messages.first {
+		if let first = messages.messages.last {
 			root.publish(message: MsgMessage(
 				topic: first.topic,
 				payload: MsgPayload(data: []),
@@ -74,22 +73,22 @@ struct TopicCellView: View {
 	}
 	
 	func publishManually() {
-		if let first = messages.messages.first {
+		if let first = messages.messages.last {
 			selectMessage(first)
 			publishMessagePresented = true
 		}
 	}
 	
 	func messagePreview() -> String {
-		return messages.messages.first?.payload.dataString ?? "<no message>"
+		return messages.messages.last?.payload.dataString ?? "<no message>"
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = messages.nameQualified
+		Pasteboard.copy(messages.nameQualified)
 	}
 	
 	func copyMessage() {
-		UIPasteboard.general.string = messages.messages.first?.payload.dataString ?? ""
+		Pasteboard.copy(messages.messages.last?.payload.dataString ?? "")
 	}
 	
 }

@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "$(dirname "$0")/.."
 set -e
 
 # Archive Location:
@@ -10,7 +11,7 @@ pushd src
     fastlane ios incbuild # increment build number
 popd
 
-## macOS ################################ 
+## macOS ################################
 
 ### Create macOS Archive
 pushd src

@@ -18,7 +18,7 @@ struct MessageView: View {
 
 	var body: some View {
 		Section(header: Text("Messages")) {
-			ForEach(node.messages) {
+			ForEach(node.messages.reversed()) {
 				MessageCellView(message: $0,
 								selectMessage: self.selectMessage,
 								host: self.host)
@@ -28,9 +28,12 @@ struct MessageView: View {
 							 host: self.host,
 							 model: self.publishMessageFormModel)
 					})
-					.accessibilityLabel("message")
+					.accessibilityIdentifier("message")
 			}
-			.onDelete(perform: node.delete)
+			.onDelete { offsets in
+				let reversedOffsets = IndexSet(offsets.map { node.messages.count - 1 - $0 })
+				node.delete(at: reversedOffsets)
+			}
 		}
 	}
 	
@@ -55,15 +58,14 @@ struct MessageCellView: View {
 	let host: Host
 	
 	var body: some View {
-		NavigationLink(destination: MessageDetailsView(message: message)) {
+		NavigationLink(destination: MessageDetailsView(message: message, host: host)) {
 			HStack {
 				Image(systemName: "radiowaves.right")
 					.font(.subheadline)
 					.foregroundColor(message.payload.isJSON ? .green : .gray)
-				
+
 				VStack(alignment: .leading) {
-					Text(message.payload.dataString)
-						.lineLimit(8)
+					AnsiTextView(text: message.payload.dataString, lineLimit: 8)
 					Text(message.metadata.localDate)
 						.font(.subheadline)
 						.foregroundColor(.secondary)
@@ -76,29 +78,29 @@ struct MessageCellView: View {
 				Menu {
 					MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
 					MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishManually)
-						.accessibilityLabel("publish new")
+						.accessibilityIdentifier("publish new")
 				} label: {
 					Label("Publish", systemImage: "paperplane.fill")
 				}
-				.accessibilityLabel("publish")
+				.accessibilityIdentifier("publish")
 				
 				Menu {
 					DestructiveMenuButton(title: "Delete retained message from broker", systemImage: "trash.fill", action: deleteRetained)
-						.accessibilityLabel("confirm-delete-retained")
+						.accessibilityIdentifier("confirm-delete-retained")
 				} label: {
 					Label("Delete", systemImage: "trash.fill")
 				}
-				.accessibilityLabel("delete-retained")
+				.accessibilityIdentifier("delete-retained")
 			}
 		}
 	}
 	
 	func copyTopic() {
-		UIPasteboard.general.string = message.topic.nameQualified
+		Pasteboard.copy(message.topic.nameQualified)
 	}
 	
 	func copyMessage() {
-		UIPasteboard.general.string = message.payload.dataString
+		Pasteboard.copy(message.payload.dataString)
 	}
 	
 	func publish() {

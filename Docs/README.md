@@ -4,27 +4,39 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=philipparndt_mqtt-analyzer&metric=alert_status)](https://sonarcloud.io/dashboard?id=philipparndt_mqtt-analyzer)
 
-MQTTAnalyzer is an iOS App that allows you to connect to your MQTT Broker and
-subscribe to a topic. It is written in Swift using SwiftUI.
+MQTTAnalyzer is an iOS and macOS App that allows you to connect to your MQTT Broker and
+subscribe to topics. It is written in Swift using SwiftUI.
 
 This App is open source, and contributions are welcome.
 
 ### Features:
+- Native macOS and iOS app
 - Authentication with username/password and/or client certificates
 - Connect using MQTT or Websocket
-- Support for SSL/TLS
+- Support for SSL/TLS with ALPN
 - Support for self-signed certificates
+- Server CA certificate validation
 - MQTT 3.1.1 and MQTT 5.0
 - Siri shortcuts for publishing and receiving messages
 - Create multiple broker settings
+- Clone existing broker configurations
 - Subscribe to multiple topics
+- Topic tree view with hierarchical navigation
 - Folder and flat view
 - Messages are grouped by topic
+- Read state tracking with unread indicators
+- Statistics panel with topic and message counts
 - Fulltext search for topics and payload
 - JSON highlighting and pretty-printing
-- Publish messages
+- ANSI escape code color rendering
+- Time series charts for numeric payloads
+- Publish messages with QoS and retain flag
 - Publish JSON messages with a form
-- Sync settings using a private iCloud database
+- Delete retained messages from broker
+- Copy topics and payloads to clipboard
+- Configurable message and topic limits
+- Local and iCloud certificate storage
+- Sync settings and certificates using iCloud
 - Pause the connection
 - Connect to multiple brokers at once
 - Hex view for binary payload
@@ -87,6 +99,18 @@ see [Traefik + Mosquitto + Let's Encrypt](./examples/traefik-tls)
 ## Mutual TLS (mTLS)
 
 see [mutual-tls](./examples/mutual-tls)
+
+## ALPN with HAProxy
+
+see [ALPN with HAProxy](./examples/alpn)
+
+## ALPN with Traefik
+
+see [ALPN with Traefik](./examples/alpn-traefik)
+
+## Kubernetes with Traefik SNI
+
+see [Kubernetes with Traefik SNI](./examples/k8s-traefik-sni)
 
 # Developer notes
 
