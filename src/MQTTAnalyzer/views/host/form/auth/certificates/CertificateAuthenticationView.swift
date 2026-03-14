@@ -108,16 +108,12 @@ struct CertificateAuthenticationView: View {
             return
         }
 
-        let fileManager = FileManager.default
-        guard let localDocumentsURL = fileManager.urls(
-            for: .documentDirectory,
-            in: .userDomainMask
-        ).first else {
-            p12ValidationResult = .invalid("Cannot access documents")
-            return
+        do {
+            var fileURL = try certFile.getBaseUrl(certificate: certFile)
+            fileURL.appendPathComponent(certFile.name)
+            p12ValidationResult = validateCertificateFile(url: fileURL, type: .p12, password: host.certClientKeyPassword)
+        } catch {
+            p12ValidationResult = .invalid("Cannot access certificate file")
         }
-
-        let fileURL = localDocumentsURL.appendingPathComponent(certFile.name)
-        p12ValidationResult = validateCertificateFile(url: fileURL, type: .p12, password: host.certClientKeyPassword)
     }
 }

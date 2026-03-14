@@ -100,25 +100,24 @@ struct CertificatePickerView: View {
     }
 
     private func validateExistingFile(_ selectedFile: CertificateFile) {
-        let fileManager = FileManager.default
-        guard let localDocumentsURL = fileManager.urls(
-            for: .documentDirectory,
-            in: .userDomainMask
-        ).first else {
-            return
-        }
+        do {
+            var fileURL = try selectedFile.getBaseUrl(certificate: selectedFile)
+            fileURL.appendPathComponent(selectedFile.name)
+            let result = validateCertificateFile(url: fileURL, type: type, password: password)
 
-        let fileURL = localDocumentsURL.appendingPathComponent(selectedFile.name)
-        let result = validateCertificateFile(url: fileURL, type: type, password: password)
-
-        if result.isValid {
-            successMessage = result.message
-            detailsMessage = result.details
-            errorMessage = nil
-        } else {
-            errorMessage = result.message
-            detailsMessage = result.details
+            if result.isValid {
+                successMessage = result.message
+                detailsMessage = result.details
+                errorMessage = nil
+            } else {
+                errorMessage = result.message
+                detailsMessage = result.details
+                successMessage = nil
+            }
+        } catch {
+            errorMessage = "Cannot access certificate file"
             successMessage = nil
+            detailsMessage = nil
         }
     }
 
