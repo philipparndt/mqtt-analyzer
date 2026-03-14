@@ -20,6 +20,7 @@ struct EditHostFormView: View {
 	var body: some View {
 		Form {
 			ServerFormView(host: $host)
+			TLSFormView(host: $host)
 			AuthFormView(host: $host, showCertificateHelp: $showCertificateHelp)
 			TopicsFormView(
 				host: $host,

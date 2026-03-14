@@ -18,36 +18,43 @@ struct UsernamePasswordAuthenticationView: View {
 			HStack {
 				Text("Username")
 					.font(.headline)
-				
+
 				Spacer()
-			
+
 				TextField("username", text: $host.username)
 					.disableAutocorrection(true)
 					#if !os(macOS)
-.textInputAutocapitalization(.never)
-#endif
+					.textInputAutocapitalization(.never)
+					#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 					.accessibilityLabel("your username")
 			}
-			
+
 			HStack {
 				Text("Password")
 					.font(.headline)
-				
-					Spacer()
-				
+
+				Spacer()
+
 				SecureField("your password", text: $host.password)
 					.disableAutocorrection(true)
 					#if !os(macOS)
-.textInputAutocapitalization(.never)
-#endif
+					.textInputAutocapitalization(.never)
+					#endif
 					.multilineTextAlignment(.trailing)
 					.font(.body)
 					.accessibilityLabel("password")
 			}
-			
-			InfoBox(text: "Leave username and/or password empty. In order to not persist them. You will get a login dialog.")
+
+			HStack(alignment: .top, spacing: 6) {
+				Image(systemName: "info.circle")
+					.foregroundColor(.blue)
+					.font(.caption)
+				Text("Leave username and/or password empty to avoid storing them. You will be prompted to enter credentials when connecting.")
+					.font(.caption)
+					.foregroundColor(.secondary)
+			}
 		}
 	}
 }

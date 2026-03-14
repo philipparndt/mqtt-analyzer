@@ -97,9 +97,9 @@ struct ServerFormView: View {
 				HStack {
 					Text("Basepath")
 						.font(.headline)
-					
+
 					Spacer()
-					
+
 					TextField("/", text: $host.basePath)
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
@@ -107,34 +107,6 @@ struct ServerFormView: View {
 .textInputAutocapitalization(.never)
 #endif
 					.font(.body)
-				}
-			}
-			
-			Toggle(isOn: $host.ssl) {
-				Text("TLS")
-					.font(.headline)
-			}.accessibilityLabel("tls")
-
-			if host.ssl {
-				Toggle(isOn: $host.untrustedSSL) {
-					Text("Allow untrusted")
-						.font(.headline)
-				}
-
-				HStack {
-					Text("ALPN")
-						.font(.headline)
-
-					Spacer()
-
-					TextField("optional", text: $host.alpn)
-						.multilineTextAlignment(.trailing)
-						.disableAutocorrection(true)
-						#if !os(macOS)
-						.textInputAutocapitalization(.never)
-						#endif
-						.accessibilityLabel("alpn")
-						.font(.body)
 				}
 			}
 		}

@@ -12,14 +12,25 @@ import UniformTypeIdentifiers
 
 /// A simplified certificate file picker using native file importers.
 /// Handles iOS and macOS platforms properly.
+/// Note: For P12 files, validation is handled by the parent view (CertificateAuthenticationView)
+/// since it requires the password. This picker only validates non-P12 files (Server CA, etc.)
 struct CertificatePickerView: View {
     let label: String
     @Binding var file: CertificateFile?
     let type: CertificateFileType
+    var password: String = ""
 
     @State private var showFilePicker = false
     @State private var errorMessage: String?
+    @State private var successMessage: String?
+    @State private var detailsMessage: String?
     @State private var showError = false
+
+    /// Whether to show validation status in this picker
+    /// P12 validation is handled by parent view with password
+    private var showValidationStatus: Bool {
+        type != .p12
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -36,10 +47,34 @@ struct CertificatePickerView: View {
                 }
             }
 
-            if let error = errorMessage {
-                Text(error)
-                    .font(.caption)
-                    .foregroundColor(.red)
+            // Only show validation status for non-P12 types
+            if showValidationStatus {
+                if let success = successMessage {
+                    HStack(spacing: 4) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.green)
+                        Text(success)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
+
+                if let details = detailsMessage {
+                    Text(details)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .lineLimit(2)
+                }
+
+                if let error = errorMessage {
+                    HStack(spacing: 4) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.orange)
+                        Text(error)
+                            .font(.caption)
+                            .foregroundColor(.red)
+                    }
+                }
             }
         }
         .fileImporter(
@@ -55,6 +90,35 @@ struct CertificatePickerView: View {
             }
         } message: {
             Text(errorMessage ?? "An unknown error occurred")
+        }
+        .onAppear {
+            // Validate existing file on appear (for Server CA files)
+            if showValidationStatus, let selectedFile = file {
+                validateExistingFile(selectedFile)
+            }
+        }
+    }
+
+    private func validateExistingFile(_ selectedFile: CertificateFile) {
+        let fileManager = FileManager.default
+        guard let localDocumentsURL = fileManager.urls(
+            for: .documentDirectory,
+            in: .userDomainMask
+        ).first else {
+            return
+        }
+
+        let fileURL = localDocumentsURL.appendingPathComponent(selectedFile.name)
+        let result = validateCertificateFile(url: fileURL, type: type, password: password)
+
+        if result.isValid {
+            successMessage = result.message
+            detailsMessage = result.details
+            errorMessage = nil
+        } else {
+            errorMessage = result.message
+            detailsMessage = result.details
+            successMessage = nil
         }
     }
 
@@ -92,11 +156,18 @@ struct CertificatePickerView: View {
     private var allowedTypes: [UTType] {
         switch type {
         case .p12:
-            return [.pkcs12]
+            var types: [UTType] = [.pkcs12]
+            if let pfx = UTType(filenameExtension: "pfx") { types.append(pfx) }
+            return types
         case .serverCA, .client:
             var types: [UTType] = [.x509Certificate]
             if let crt = UTType(filenameExtension: "crt") { types.append(crt) }
             if let pem = UTType(filenameExtension: "pem") { types.append(pem) }
+            // Also allow P12 for Server CA
+            if type == .serverCA {
+                types.append(.pkcs12)
+                if let pfx = UTType(filenameExtension: "pfx") { types.append(pfx) }
+            }
             return types
         case .clientKey:
             var types: [UTType] = []
@@ -122,6 +193,19 @@ struct CertificatePickerView: View {
 
             defer { url.stopAccessingSecurityScopedResource() }
 
+            // Validate the certificate before copying
+            let validationResult = validateCertificateFile(url: url, type: type, password: password)
+
+            // For client P12 without password, skip validation (will be validated when password is entered)
+            let skipValidation = type == .p12 && password.isEmpty
+
+            if !skipValidation && !validationResult.isValid {
+                errorMessage = validationResult.message
+                detailsMessage = validationResult.details
+                successMessage = nil
+                // Still copy the file so user can fix the issue (e.g., enter password)
+            }
+
             // Copy to local documents
             if copyToLocalDocuments(url: url) {
                 file = CertificateFile(
@@ -129,7 +213,17 @@ struct CertificatePickerView: View {
                     location: .local,
                     type: type
                 )
-                errorMessage = nil
+
+                if validationResult.isValid {
+                    successMessage = validationResult.message
+                    detailsMessage = validationResult.details
+                    errorMessage = nil
+                } else if skipValidation {
+                    // P12 without password - show neutral message
+                    successMessage = nil
+                    detailsMessage = nil
+                    errorMessage = nil
+                }
             }
 
         case .failure(let error):
@@ -175,6 +269,8 @@ struct CertificatePickerView: View {
     private func clearSelection() {
         file = nil
         errorMessage = nil
+        successMessage = nil
+        detailsMessage = nil
     }
 }
 

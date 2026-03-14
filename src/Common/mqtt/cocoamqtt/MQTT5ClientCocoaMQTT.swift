@@ -77,6 +77,17 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 			try mqtt.sslSettings = createSSLSettings(host: host)
 		}
 
+		// Check for Server CA configuration
+		if host.settings.ssl, let serverCA = getCertificate(host, type: .serverCA) {
+			// Server CA is configured - load and configure if supported
+			if let certs = try? loadServerCACertificates(host: host), !certs.isEmpty {
+				// Set the server CA certificates for validation
+				mqtt.serverCACertificates = certs
+			} else {
+				NSLog("Warning: Server CA certificate '\(serverCA.name)' could not be loaded")
+			}
+		}
+
 		mqtt.keepAlive = 60
 		mqtt.autoReconnect = false
 	}

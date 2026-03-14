@@ -120,6 +120,7 @@
 		226A6B5624449F5400ACDFC3 /* ProtocolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */; };
 		226A6B5D2445748500ACDFC3 /* HostFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5C2445748500ACDFC3 /* HostFormModel.swift */; };
 		226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */; };
+		22TLS00100000000000001 /* TLSFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22TLS00000000000000001 /* TLSFormView.swift */; };
 		226A6B612445757900ACDFC3 /* TopicsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B602445757900ACDFC3 /* TopicsFormView.swift */; };
 		226A6B632445759600ACDFC3 /* ClientIDFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B622445759600ACDFC3 /* ClientIDFormView.swift */; };
 		226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B64244575AF00ACDFC3 /* LimitsFormView.swift */; };
@@ -354,6 +355,7 @@
 		3E32D973321A8850F9890E82 /* HostFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5C2445748500ACDFC3 /* HostFormModel.swift */; };
 		3F456163536D45E94E375FAF /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2627A6BB7C00D4327F /* WelcomeView.swift */; };
 		41AF0C36599150F7FD7B41A2 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */; };
+		22TLS00200000000000002 /* TLSFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22TLS00000000000000001 /* TLSFormView.swift */; };
 		42E1B57D5F6AD856A6C1FAD3 /* HostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73D23BB5E5C00892C4B /* HostModel.swift */; };
 		497F89689D302BA8C9B4CD34 /* PropertyImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB227A31849000E37AF /* PropertyImageProvider.swift */; };
 		4A322F5BE372628E6EDAD5D7 /* InformationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2A27A6BC1C00D4327F /* InformationDetailView.swift */; };
@@ -661,6 +663,7 @@
 		226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolPicker.swift; sourceTree = "<group>"; };
 		226A6B5C2445748500ACDFC3 /* HostFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormModel.swift; sourceTree = "<group>"; };
 		226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
+		22TLS00000000000000001 /* TLSFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSFormView.swift; sourceTree = "<group>"; };
 		226A6B602445757900ACDFC3 /* TopicsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsFormView.swift; sourceTree = "<group>"; };
 		226A6B622445759600ACDFC3 /* ClientIDFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientIDFormView.swift; sourceTree = "<group>"; };
 		226A6B64244575AF00ACDFC3 /* LimitsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitsFormView.swift; sourceTree = "<group>"; };
@@ -1101,6 +1104,7 @@
 			children = (
 				2209C86B23B720E7007C1D93 /* HostValidator.swift */,
 				226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */,
+				22TLS00000000000000001 /* TLSFormView.swift */,
 				226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */,
 				22B38946280ED79000D23022 /* ProtocolVersionPicker.swift */,
 			);
@@ -1993,6 +1997,7 @@
 				2200D97827C237EF00E63E89 /* AWSIOTHelpView.swift in Sources */,
 				226A6B65244575AF00ACDFC3 /* LimitsFormView.swift in Sources */,
 				226A6B5F2445754D00ACDFC3 /* ServerFormView.swift in Sources */,
+				22TLS00100000000000001 /* TLSFormView.swift in Sources */,
 				22C96E14281177B600A4F627 /* PersistenceTransformer.swift in Sources */,
 				2291424C23BF78000086C251 /* AboutView.swift in Sources */,
 				22AE64362412637A00C2C4FE /* TimeSeriesValue.swift in Sources */,
@@ -2323,6 +2328,7 @@
 				32032EAF0C9EAFDF75DAA3F2 /* AWSIOTHelpView.swift in Sources */,
 				D7DFFE4C72F23150D9C8606F /* LimitsFormView.swift in Sources */,
 				41AF0C36599150F7FD7B41A2 /* ServerFormView.swift in Sources */,
+				22TLS00200000000000002 /* TLSFormView.swift in Sources */,
 				D4E39296FC6C4C1BF184D8A6 /* PersistenceTransformer.swift in Sources */,
 				084B2DFD1C363EBD4BC7B9C4 /* AboutView.swift in Sources */,
 				67D2EE36E94E186F0D474EE3 /* TimeSeriesValue.swift in Sources */,
@@ -2979,7 +2985,7 @@
 			repositoryURL = "https://github.com/philipparndt/CocoaMQTT.git";
 			requirement = {
 				kind = exactVersion;
-				version = "2.2.3-apple-network";
+				version = "2.2.4-apple-network";
 			};
 		};
 		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
