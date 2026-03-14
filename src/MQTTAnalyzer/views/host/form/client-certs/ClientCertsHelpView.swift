@@ -1,5 +1,5 @@
 //
-//  AWSIoTHelpView.swift
+//  ClientCertsHelpView.swift
 //  MQTTAnalyzer
 //
 //  Created by Philipp Arndt on 2022-02-20.
@@ -10,37 +10,41 @@ import SwiftUI
 
 struct ClientCertsHelpView: View {
 	@Binding var host: HostFormModel
-	
-    var body: some View {
-		HStack {
-			VStack {
-				HStack {
-					Text("[Client certificates documentation](https://github.com/philipparndt/mqtt-analyzer/blob/master/Docs/examples/client-certs/README.md)")
-						.foregroundColor(.blue)
-					Spacer()
-				}
-				
-				if host.suggestClientCertsTLSChanges() {
-					Text("") // Space
-					HStack {
-						Button(action: self.updateSettings) {
-							Text("Apply default values")
-						}
-						Spacer()
-					}
-				}
+
+	var body: some View {
+		VStack(alignment: .leading, spacing: 8) {
+			HStack(alignment: .top, spacing: 6) {
+				Image(systemName: "info.circle")
+					.foregroundColor(.blue)
+					.font(.caption)
+				Text("Client certificate authentication (mTLS) requires TLS to be enabled.")
+					.font(.caption)
+					.foregroundColor(.secondary)
 			}
-			
-			Spacer()
-			
-			Image(systemName: "questionmark.circle.fill")
+
+			if host.suggestClientCertsTLSChanges() {
+				Button(action: updateSettings) {
+					HStack(spacing: 4) {
+						Image(systemName: "wand.and.stars")
+						Text("Enable TLS")
+					}
+					.foregroundColor(.accentColor)
+					.font(.subheadline)
+				}
+				.buttonStyle(.plain)
+			}
+
+			Link(destination: URL(string: "https://github.com/philipparndt/mqtt-analyzer/blob/master/Docs/examples/client-certs/README.md")!) {
+				HStack(spacing: 4) {
+					Image(systemName: "book")
+					Text("Client Certificates Documentation")
+				}
+				.foregroundColor(.accentColor)
+				.font(.subheadline)
+			}
 		}
-		.padding()
-		.font(.body)
-		.background(Color.green.opacity(0.1))
-		.cornerRadius(10)
-    }
-	
+	}
+
 	func updateSettings() {
 		self.host.updateSettingsForClientCertsTLS()
 	}

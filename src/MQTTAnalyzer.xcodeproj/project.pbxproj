@@ -137,7 +137,6 @@
 		22810488238173BB00112F24 /* DataSeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22810487238173BB00112F24 /* DataSeriesView.swift */; };
 		2281048A2381740000112F24 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104892381740000112F24 /* MessageView.swift */; };
 		2281048C2381744300112F24 /* TopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281048B2381744300112F24 /* TopicView.swift */; };
-		228104912381770000112F24 /* FillingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104902381770000112F24 /* FillingText.swift */; };
 		228104932381773100112F24 /* TopicCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104922381773100112F24 /* TopicCellView.swift */; };
 		228104952381779000112F24 /* TopicToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104942381779000112F24 /* TopicToolsView.swift */; };
 		228104982381796B00112F24 /* HostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104972381796B00112F24 /* HostCellView.swift */; };
@@ -235,7 +234,6 @@
 		22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */; };
 		22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */; };
 		22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */; };
-		22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FC2409440F00DF8F94 /* InfoBox.swift */; };
 		22A386FD2409440F00DFAA10 /* AnsiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FD2409440F00DFAA11 /* AnsiTextView.swift */; };
 		22A386FD2409440F00DFAA12 /* AnsiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FD2409440F00DFAA11 /* AnsiTextView.swift */; };
 		22A386FE2409404600DFAA01 /* CertificatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FE2409404600DFAA00 /* CertificatePickerView.swift */; };
@@ -444,7 +442,6 @@
 		C5F384BF87778EA834BA2CEE /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */; };
 		C78BBA30D41522F02B34E209 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
 		C9071E17F373B85ADAE2F823 /* MessageDetailsPlainTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104842381727B00112F24 /* MessageDetailsPlainTextView.swift */; };
-		C9960426213B5B870E4991E4 /* InfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FC2409440F00DF8F94 /* InfoBox.swift */; };
 		C9DC6F4F692849C19F60E558 /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA56281127C800F79E65 /* Handlers.swift */; };
 		CCA3D504133CD2BB0062A1D0 /* TopicLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */; };
 		CDA6977521FF0B9791F7D5CE /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
@@ -488,7 +485,6 @@
 		FD8DF0A731981C72C5969FDB /* CategoryFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221093992C0B469100290825 /* CategoryFormView.swift */; };
 		FD94D9FB4F59284753025487 /* HostFormModel+ClientCerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B30280A9206000F8F37 /* HostFormModel+ClientCerts.swift */; };
 		FE5E781E3ECE9035C6F86B44 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96A27C1123000E63E89 /* Logger.swift */; };
-		FF8CFF8DD50341B92BACAD8A /* FillingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104902381770000112F24 /* FillingText.swift */; };
 		FFA3CFD88C9426ACDFEAB57E /* Host+AliasOrHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0FA285B4F9B00AEAE4C /* Host+AliasOrHost.swift */; };
 		LO5P8FMNKVL0WKEFRIUUGXKJ /* BrokerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */; };
 		RR65MCCZZA7QVSR10NJBRPEI /* BrokerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */; };
@@ -680,7 +676,6 @@
 		22810487238173BB00112F24 /* DataSeriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSeriesView.swift; sourceTree = "<group>"; };
 		228104892381740000112F24 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		2281048B2381744300112F24 /* TopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicView.swift; sourceTree = "<group>"; };
-		228104902381770000112F24 /* FillingText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillingText.swift; sourceTree = "<group>"; };
 		228104922381773100112F24 /* TopicCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCellView.swift; sourceTree = "<group>"; };
 		228104942381779000112F24 /* TopicToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicToolsView.swift; sourceTree = "<group>"; };
 		228104972381796B00112F24 /* HostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HostCellView.swift; path = MQTTAnalyzer/views/HostCellView.swift; sourceTree = SOURCE_ROOT; };
@@ -733,7 +728,6 @@
 		22A386F624093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernamePasswordAuthenticationView.swift; sourceTree = "<group>"; };
 		22A386F82409404600DF8F94 /* CertificateAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateAuthenticationView.swift; sourceTree = "<group>"; };
 		22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateFilePickerView.swift; sourceTree = "<group>"; };
-		22A386FC2409440F00DF8F94 /* InfoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBox.swift; sourceTree = "<group>"; };
 		22A386FD2409440F00DFAA11 /* AnsiTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsiTextView.swift; sourceTree = "<group>"; };
 		22A386FE2409404600DFAA00 /* CertificatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePickerView.swift; sourceTree = "<group>"; };
 		22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesValueUtil.swift; sourceTree = "<group>"; };
@@ -1368,8 +1362,6 @@
 		2291424D23C0C0270086C251 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				228104902381770000112F24 /* FillingText.swift */,
-				22A386FC2409440F00DF8F94 /* InfoBox.swift */,
 				22A386FD2409440F00DFAA11 /* AnsiTextView.swift */,
 				2291424E23C0C0370086C251 /* MenuButton.swift */,
 				224AFEAA27AEF98700DFD09F /* CustomListView.swift */,
@@ -1896,7 +1888,6 @@
 				2285C80D2781E89B008DA37D /* TopicLimitReachedView.swift in Sources */,
 				22AF3AE72388858B001D9F87 /* NewHostFormDialog.swift in Sources */,
 				226A6B5224445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift in Sources */,
-				22A386FD2409440F00DF8F94 /* InfoBox.swift in Sources */,
 				22A386FD2409440F00DFAA10 /* AnsiTextView.swift in Sources */,
 				2285C82127872D46008DA37D /* JSONUtils.swift in Sources */,
 				22A386FB240941B600DF8F94 /* CertificateFilePickerView.swift in Sources */,
@@ -1904,7 +1895,6 @@
 				2230FF1E27A6981900D4327F /* MessageLimitReachedView.swift in Sources */,
 				224AFEAF27B0600D00DFD09F /* StubPersistence.swift in Sources */,
 				22C2856224759FD40000C1E8 /* CertificateLocationPicker.swift in Sources */,
-				228104912381770000112F24 /* FillingText.swift in Sources */,
 				223AF5D32477D5CA009810E6 /* FileListView.swift in Sources */,
 				2230FF1827A666C600D4327F /* MsgMessage.swift in Sources */,
 				22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */,
@@ -2227,7 +2217,6 @@
 				CCA3D504133CD2BB0062A1D0 /* TopicLimitReachedView.swift in Sources */,
 				B4C4C252606C28AD8FEB1657 /* NewHostFormDialog.swift in Sources */,
 				781234C01BE05CA1E349D950 /* MQTTClientCocoaMQTT.swift in Sources */,
-				C9960426213B5B870E4991E4 /* InfoBox.swift in Sources */,
 				22A386FD2409440F00DFAA12 /* AnsiTextView.swift in Sources */,
 				BCB62E58381EF7427EB2FB8C /* JSONUtils.swift in Sources */,
 				AF1AC67DFE744BA6E2623386 /* CertificateFilePickerView.swift in Sources */,
@@ -2235,7 +2224,6 @@
 				89AC2804B33AD98483FDE677 /* MessageLimitReachedView.swift in Sources */,
 				BAC6C6EAD03F30F6A7212933 /* StubPersistence.swift in Sources */,
 				C0D7EEC63C681BCAC26B0C83 /* CertificateLocationPicker.swift in Sources */,
-				FF8CFF8DD50341B92BACAD8A /* FillingText.swift in Sources */,
 				21E1DBF06305285D3F3D8844 /* FileListView.swift in Sources */,
 				DA92807DDBDF6BCC372E0795 /* MsgMessage.swift in Sources */,
 				CDA6977521FF0B9791F7D5CE /* Multimap.swift in Sources */,

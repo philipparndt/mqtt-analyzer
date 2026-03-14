@@ -9,6 +9,11 @@
 import Foundation
 import SwiftUI
 
+struct PortSuggestion {
+	let port: String
+	let label: String
+}
+
 struct ServerFormView: View {
 	@Binding var host: HostFormModel
 
@@ -19,6 +24,27 @@ struct ServerFormView: View {
 
 	var portInvalid: Bool {
 		return HostFormValidator.validatePort(port: host.port) == nil
+	}
+
+	var suggestedPorts: [PortSuggestion] {
+		switch (host.protocolMethod, host.ssl) {
+		case (.mqtt, false):
+			return [PortSuggestion(port: "1883", label: "MQTT")]
+		case (.mqtt, true):
+			return [
+				PortSuggestion(port: "8883", label: "MQTTS"),
+				PortSuggestion(port: "443", label: "SNI/ALPN")
+			]
+		case (.websocket, false):
+			return [
+				PortSuggestion(port: "80", label: "HTTP"),
+				PortSuggestion(port: "8080", label: "Alt")
+			]
+		case (.websocket, true):
+			return [PortSuggestion(port: "443", label: "HTTPS")]
+		default:
+			return [PortSuggestion(port: "1883", label: "MQTT")]
+		}
 	}
 
 	var body: some View {
@@ -58,19 +84,45 @@ struct ServerFormView: View {
 				AWSIoTHelpView(host: $host)
 			}
 			
-			HStack {
-				FormFieldInvalidMark(invalid: portInvalid)
+			VStack(alignment: .leading, spacing: 4) {
+				HStack {
+					FormFieldInvalidMark(invalid: portInvalid)
 
-				Text("Port")
-					.font(.headline)
+					Text("Port")
+						.font(.headline)
 
-				Spacer()
+					Spacer()
 
-				TextField("e.g. 1883", text: $host.port)
-					.multilineTextAlignment(.trailing)
-					.disableAutocorrection(true)
-					.accessibilityLabel("port")
-					.font(.body)
+					TextField("e.g. 1883", text: $host.port)
+						.multilineTextAlignment(.trailing)
+						.disableAutocorrection(true)
+						.accessibilityLabel("port")
+						.font(.body)
+						#if !os(macOS)
+						.keyboardType(.numberPad)
+						#endif
+				}
+
+				HStack(spacing: 8) {
+					Text("Common ports:")
+						.font(.caption)
+						.foregroundColor(.secondary)
+
+					ForEach(suggestedPorts, id: \.port) { suggestion in
+						Button {
+							host.port = suggestion.port
+						} label: {
+							Text(suggestion.port)
+								.font(.caption)
+								.padding(.horizontal, 8)
+								.padding(.vertical, 4)
+								.background(host.port == suggestion.port ? Color.accentColor : Color.secondary.opacity(0.2))
+								.foregroundColor(host.port == suggestion.port ? .white : .primary)
+								.cornerRadius(4)
+						}
+						.buttonStyle(.plain)
+					}
+				}
 			}
 			
 			HStack {
