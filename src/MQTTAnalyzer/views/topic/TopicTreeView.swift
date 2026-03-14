@@ -143,9 +143,9 @@ struct TopicTreeSidebarView: View {
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				Button(action: createTopic) {
-					Label("Send", systemImage: "paperplane.fill")
+					Label("Publish", systemImage: "paperplane.fill")
 				}
-				.accessibilityIdentifier("Send")
+				.accessibilityIdentifier("Publish")
 			}
 
 			ToolbarItem(placement: .primaryAction) {

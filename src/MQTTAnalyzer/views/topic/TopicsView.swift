@@ -157,9 +157,9 @@ struct TopicsView: View {
 			ToolbarItem(placement: .primaryAction) {
 				ControlGroup {
 					Button(action: createTopic) {
-						Label("Send", systemImage: "paperplane.fill")
+						Label("Publish", systemImage: "paperplane.fill")
 					}
-					.accessibilityIdentifier("Send")
+					.accessibilityIdentifier("Publish")
 
 					Button(action: model.markRead) {
 						Label("Mark read", systemImage: "circlebadge")

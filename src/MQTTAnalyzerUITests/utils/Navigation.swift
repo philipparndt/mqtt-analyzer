@@ -219,23 +219,23 @@ class Navigation {
 		#endif
 	}
 	
-	/// Opens the publish dialog using the Send button in the toolbar
+	/// Opens the publish dialog using the Publish button in the toolbar
 	func openPublishDialog() {
-		let sendButton = app.buttons["Send"]
+		let publishButton = app.buttons["Publish"]
 
-		if sendButton.waitForExistence(timeout: 2) && sendButton.isHittable {
-			// Send button is directly visible in toolbar
-			sendButton.tap()
+		if publishButton.waitForExistence(timeout: 2) && publishButton.isHittable {
+			// Publish button is directly visible in toolbar
+			publishButton.tap()
 		} else {
-			// Send button is in the "More" overflow menu (narrow column on iPad)
+			// Publish button is in the "More" overflow menu (narrow column on iPad)
 			let moreButton = app.buttons["More"].firstMatch
 			XCTAssertTrue(moreButton.waitForExistence(timeout: 3), "Expected More button in toolbar")
 			moreButton.tap()
 
-			// Now tap Send in the overflow menu
-			let sendInMenu = app.buttons["Send"].firstMatch
-			XCTAssertTrue(sendInMenu.waitForExistence(timeout: 3), "Expected Send button in overflow menu")
-			sendInMenu.tap()
+			// Now tap Publish in the overflow menu
+			let publishInMenu = app.buttons["Publish"].firstMatch
+			XCTAssertTrue(publishInMenu.waitForExistence(timeout: 3), "Expected Publish button in overflow menu")
+			publishInMenu.tap()
 		}
 	}
 

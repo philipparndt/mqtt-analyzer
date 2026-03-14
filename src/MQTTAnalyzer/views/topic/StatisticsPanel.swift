@@ -22,7 +22,7 @@ struct StatisticsPanel: View {
 				.frame(height: 24)
 
 			if let onPublish = onPublish {
-				ToolButton(icon: "paperplane.fill", help: "Publish message", action: onPublish, identifier: "Send")
+				ToolButton(icon: "paperplane.fill", help: "Publish message", action: onPublish, identifier: "Publish")
 			}
 			ToolButton(icon: "circlebadge", help: "Mark all as read", action: model.markRead)
 			ToolButton(icon: "trash", help: "Clear all", action: model.clear)

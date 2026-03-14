@@ -227,9 +227,9 @@ class Brokers {
 		let noTopicsText = app.staticTexts["No Topics"]
 		let connectingText = app.staticTexts["Connecting..."]
 		let loginView = app.staticTexts["Login"]
-		// On iPad three-column layout, check for tree_wait_messages or Send button in toolbar
+		// On iPad three-column layout, check for tree_wait_messages or Publish button in toolbar
 		let treeWaitMessages = app.descendants(matching: .any)["tree_wait_messages"].firstMatch
-		let sendButton = app.buttons["Send"]
+		let publishButton = app.buttons["Publish"]
 
 		// Wait up to 15 seconds for connection indicators
 		for _ in 0 ..< 5 {
@@ -240,8 +240,8 @@ class Brokers {
 			if waitMessages.exists || waitMessagesText.exists || noTopicsText.exists {
 				return
 			}
-			// On iPad, the Send button appears in TopicTreeSidebarView toolbar when connected
-			if sendButton.exists || treeWaitMessages.exists {
+			// On iPad, the Publish button appears in TopicTreeSidebarView toolbar when connected
+			if publishButton.exists || treeWaitMessages.exists {
 				return
 			}
 			if connectingText.waitForExistence(timeout: 2) {

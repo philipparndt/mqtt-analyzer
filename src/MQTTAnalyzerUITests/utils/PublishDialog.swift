@@ -16,9 +16,9 @@ class PublishDialog {
 	}
 	
 	func open() {
-		let sendButton = app.buttons["Send"]
-		XCTAssertTrue(sendButton.waitForExistence(timeout: 5), "Expected Send button to be visible")
-		sendButton.tap()
+		let publishButton = app.buttons["Publish"]
+		XCTAssertTrue(publishButton.waitForExistence(timeout: 5), "Expected Publish button to be visible")
+		publishButton.tap()
 	}
 	
 	func apply() {
