@@ -108,9 +108,94 @@ class CloudDataManager {
 			else {
 				CloudDataManager.logger.error("Local URL not found")
 			}
-			
+
 		} catch let error as NSError {
 			CloudDataManager.logger.error("Failed to delete file: \(error)")
 		}
+	}
+
+	/// Copies a file to the iCloud Documents directory
+	/// - Parameters:
+	///   - file: The source file URL to copy
+	///   - sourceHash: Optional hash of the source file (computed if not provided)
+	/// - Returns: The resulting filename if successful, nil otherwise
+	func copyFileToCloud(file: URL, sourceHash: String? = nil) -> String? {
+		let fileManager = FileManager.default
+		do {
+			guard let url = DocumentsDirectory.iCloudDocumentsURL else {
+				CloudDataManager.logger.error("iCloud URL not found")
+				return nil
+			}
+
+			// Ensure the iCloud Documents directory exists
+			if !fileManager.fileExists(atPath: url.path) {
+				try fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+			}
+
+			let originalName = file.lastPathComponent
+			var target = url.appendingPathComponent(originalName)
+
+			// Check if source and target are the same file (already in iCloud)
+			if file.standardizedFileURL == target.standardizedFileURL {
+				CloudDataManager.logger.debug("File \(originalName) is already in iCloud")
+				return originalName
+			}
+
+			// Also check if the file is inside the iCloud container (different path representation)
+			if file.path.contains("/Mobile Documents/") && file.lastPathComponent == target.lastPathComponent {
+				// Check if it's the same file by comparing resolved paths
+				let sourcePath = file.resolvingSymlinksInPath().path
+				let targetPath = target.resolvingSymlinksInPath().path
+				if sourcePath == targetPath {
+					CloudDataManager.logger.debug("File \(originalName) is already in iCloud (resolved)")
+					return originalName
+				}
+			}
+
+			// If a file with the same name exists, check if it's the same content
+			if fileManager.fileExists(atPath: target.path) {
+				let hash = sourceHash ?? computeFileHash(url: file)
+				let existingHash = computeFileHash(url: target)
+
+				if hash != nil && hash == existingHash {
+					// Same content, no need to copy
+					CloudDataManager.logger.debug("File \(originalName) already exists in iCloud with same content")
+					return originalName
+				}
+
+				// Different content - generate a unique filename
+				let uniqueName = generateUniqueFilename(originalName: originalName, inDirectory: url)
+				target = url.appendingPathComponent(uniqueName)
+				CloudDataManager.logger.debug("File conflict: renaming to \(uniqueName)")
+			}
+
+			try fileManager.copyItem(at: file, to: target)
+			CloudDataManager.logger.debug("Copied \(file) to iCloud dir as \(target.lastPathComponent)")
+			return target.lastPathComponent
+		} catch let error as NSError {
+			CloudDataManager.logger.error("Failed to copy file to iCloud directory: \(error)")
+			return nil
+		}
+	}
+
+	/// Generates a unique filename by appending a number suffix
+	private func generateUniqueFilename(originalName: String, inDirectory directory: URL) -> String {
+		let fileManager = FileManager.default
+		let nameWithoutExtension = (originalName as NSString).deletingPathExtension
+		let fileExtension = (originalName as NSString).pathExtension
+
+		var counter = 1
+		var newName = originalName
+
+		while fileManager.fileExists(atPath: directory.appendingPathComponent(newName).path) {
+			if fileExtension.isEmpty {
+				newName = "\(nameWithoutExtension)-\(counter)"
+			} else {
+				newName = "\(nameWithoutExtension)-\(counter).\(fileExtension)"
+			}
+			counter += 1
+		}
+
+		return newName
 	}
 }

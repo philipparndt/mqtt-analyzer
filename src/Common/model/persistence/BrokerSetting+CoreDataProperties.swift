@@ -36,9 +36,21 @@ extension BrokerSetting {
     @NSManaged public var subscriptions: Subscriptions?
     @NSManaged public var untrustedSSL: Bool
     @NSManaged public var username: String?
-
+    @NSManaged public var certificateStorage: Int32
 }
 
 extension BrokerSetting: Identifiable {
 
+}
+
+extension BrokerSetting {
+    /// Certificate storage location as CertificateLocation enum
+    var certificateStorageLocation: CertificateLocation {
+        get {
+            CertificateLocation(rawValue: Int(certificateStorage)) ?? .local
+        }
+        set {
+            certificateStorage = Int32(newValue.rawValue)
+        }
+    }
 }

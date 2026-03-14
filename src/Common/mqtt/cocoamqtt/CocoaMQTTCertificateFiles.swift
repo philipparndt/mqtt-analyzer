@@ -50,9 +50,25 @@ func validateCertificateFile(url: URL, type: CertificateFileType, password: Stri
 	}
 }
 
+/// Creates import options for SecPKCS12Import
+/// On macOS 15+, uses kSecImportToMemoryOnly to prevent keychain storage during validation
+private func createP12ImportOptions(password: String) -> NSDictionary {
+	var optionsDict: [String: Any] = [kSecImportExportPassphrase as String: password]
+
+	// On macOS 15+, use kSecImportToMemoryOnly to prevent keychain storage
+	// This avoids the "wants to access key" keychain prompt during validation
+	#if os(macOS)
+	if #available(macOS 15.0, *) {
+		optionsDict[kSecImportToMemoryOnly as String] = kCFBooleanTrue as Any
+	}
+	#endif
+
+	return optionsDict as NSDictionary
+}
+
 /// Validates a Client P12 file (must contain identity: certificate + private key)
 private func validateClientP12(data: Data, password: String) -> CertificateValidationResult {
-	let options: NSDictionary = [kSecImportExportPassphrase as String: password]
+	let options = createP12ImportOptions(password: password)
 	var items: CFArray?
 	let status = SecPKCS12Import(data as CFData, options, &items)
 
@@ -106,7 +122,7 @@ private func validateServerCAP12(data: Data, password: String) -> CertificateVal
 	let passwords = password.isEmpty ? ["password", ""] : [password]
 
 	for pwd in passwords {
-		let options: NSDictionary = [kSecImportExportPassphrase as String: pwd]
+		let options = createP12ImportOptions(password: pwd)
 		var items: CFArray?
 		let status = SecPKCS12Import(data as CFData, options, &items)
 
@@ -275,7 +291,7 @@ private func loadCertificatesFromP12(url: URL, password: String) throws -> [SecC
 		throw CertificateError.serverCAOpenError
 	}
 
-	let options: NSDictionary = [kSecImportExportPassphrase as String: password]
+	let options = createP12ImportOptions(password: password)
 	var items: CFArray?
 	let securityError = SecPKCS12Import(p12Data, options, &items)
 
@@ -382,6 +398,41 @@ enum CertificateError: String, Error {
 	case serverCANoCertificate = "Server CA file contains no certificates"
 	case serverCAInvalidFormat = "Server CA file format is invalid. Use PEM, CRT, DER, or P12 format."
 	case serverCANotSupported = "Server CA validation requires CocoaMQTT with serverCACertificates support. Use 'Allow untrusted' as a workaround."
+
+	// Certificate availability errors (for multi-device sync)
+	case clientCertMissing = "Client certificate not available on this device. Import the certificate in the broker settings."
+	case clientCertMismatch = "Different client certificate on this device. The certificate file has changed. Import the correct certificate."
+	case serverCAMissing = "Server CA certificate not available on this device. Import the certificate in the broker settings."
+	case serverCAMismatch = "Different Server CA certificate on this device. The certificate file has changed. Import the correct certificate."
+}
+
+/// Validates that all configured certificates are available and match their expected hashes
+/// - Parameter host: The host configuration to validate
+/// - Throws: CertificateError if any certificate is missing or mismatched
+func validateCertificateAvailability(host: Host) throws {
+	// Check client P12 certificate
+	if host.settings.authType == .certificate || host.settings.authType == .both {
+		if let clientCert = getCertificate(host, type: .p12) {
+			if clientCert.existsButDifferent() {
+				throw CertificateError.clientCertMismatch
+			}
+			if !clientCert.exists() {
+				throw CertificateError.clientCertMissing
+			}
+		}
+	}
+
+	// Check Server CA certificate (only when TLS is enabled and not allowing untrusted)
+	if host.settings.ssl && !host.settings.untrustedSSL {
+		if let serverCA = getCertificate(host, type: .serverCA) {
+			if serverCA.existsButDifferent() {
+				throw CertificateError.serverCAMismatch
+			}
+			if !serverCA.exists() {
+				throw CertificateError.serverCAMissing
+			}
+		}
+	}
 }
 
 private func getClientCertFromP12File(certificate: CertificateFile, certPassword: String) throws -> CFArray? {
@@ -392,9 +443,11 @@ private func getClientCertFromP12File(certificate: CertificateFile, certPassword
 		throw CertificateError.errorOpenFile
 	}
 
-	// create key dictionary for reading p12 file
-	let key = kSecImportExportPassphrase as String
-	let options: NSDictionary = [key: certPassword]
+	// Use kSecImportToMemoryOnly on macOS 15+ to avoid keychain issues on Mac Catalyst.
+	// The identity stays in memory and can be used directly for TLS without keychain access.
+	// Without this, errSecItemNotFound (-65554) occurs because the Network framework
+	// can't find the identity in the keychain on Mac Catalyst.
+	let options = createP12ImportOptions(password: certPassword)
 
 	var items: CFArray?
 	let securityError = SecPKCS12Import(p12Data, options, &items)

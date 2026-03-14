@@ -20,16 +20,17 @@ struct BrokerContentView: View {
 	}
 
 	var body: some View {
-		if host.state == .disconnected && messageModel.messageCount == 0 {
-			if isCompact {
-				// iPhone: show TopicsView which will auto-connect
-				TopicsView(model: messageModel, host: host)
-			} else {
-				// iPad/Mac: show broker details, connect via sidebar
-				BrokerDetailsView(host: host)
-			}
-		} else {
+		// Use consistent view structure to avoid view identity changes during state transitions
+		if isCompact {
+			// iPhone: always show TopicsView (it handles all states internally)
 			TopicsView(model: messageModel, host: host)
+		} else {
+			// iPad/Mac: show details only when disconnected with no messages
+			if host.state == .disconnected && messageModel.messageCount == 0 {
+				BrokerDetailsView(host: host)
+			} else {
+				TopicsView(model: messageModel, host: host)
+			}
 		}
 	}
 }

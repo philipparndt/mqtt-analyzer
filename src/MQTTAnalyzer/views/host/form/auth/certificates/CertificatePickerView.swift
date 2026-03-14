@@ -19,12 +19,24 @@ struct CertificatePickerView: View {
     @Binding var file: CertificateFile?
     let type: CertificateFileType
     var password: String = ""
+    var alwaysUseCloud: Bool = false  // For Server CA, always use iCloud
 
     @State private var showFilePicker = false
     @State private var errorMessage: String?
     @State private var successMessage: String?
     @State private var detailsMessage: String?
     @State private var showError = false
+    @State private var fileStatus: FileStatus = .exists
+
+    // For storage location choice dialog
+    @State private var showStorageChoice = false
+    @State private var pendingFileURL: URL?
+
+    private enum FileStatus {
+        case exists
+        case missing
+        case differentCertificate
+    }
 
     /// Whether to show validation status in this picker
     /// P12 validation is handled by parent view with password
@@ -47,8 +59,20 @@ struct CertificatePickerView: View {
                 }
             }
 
-            // Only show validation status for non-P12 types
-            if showValidationStatus {
+            // Show warnings based on file status
+            if file != nil {
+                switch fileStatus {
+                case .missing:
+                    missingFileWarning
+                case .differentCertificate:
+                    differentCertificateWarning
+                case .exists:
+                    EmptyView()
+                }
+            }
+
+            // Only show validation status for non-P12 types when file exists
+            if showValidationStatus && fileStatus == .exists {
                 if let success = successMessage {
                     HStack(spacing: 4) {
                         Image(systemName: "checkmark.circle.fill")
@@ -84,6 +108,27 @@ struct CertificatePickerView: View {
         ) { result in
             handleFileImportResult(result)
         }
+        .confirmationDialog(
+            "Where should this certificate be stored?",
+            isPresented: $showStorageChoice,
+            titleVisibility: .visible
+        ) {
+            Button("This Device Only") {
+                if let url = pendingFileURL {
+                    completeImport(url: url, location: .local)
+                }
+            }
+            Button("iCloud (sync to all devices)") {
+                if let url = pendingFileURL {
+                    completeImport(url: url, location: .cloud)
+                }
+            }
+            Button("Cancel", role: .cancel) {
+                pendingFileURL = nil
+            }
+        } message: {
+            Text("Local is more secure for certificates with private keys. iCloud syncs across devices but stores the private key in the cloud.")
+        }
         .alert("Error", isPresented: $showError) {
             Button("OK", role: .cancel) {
                 errorMessage = nil
@@ -92,10 +137,85 @@ struct CertificatePickerView: View {
             Text(errorMessage ?? "An unknown error occurred")
         }
         .onAppear {
+            checkFileStatus()
             // Validate existing file on appear (for Server CA files)
-            if showValidationStatus, let selectedFile = file {
+            if showValidationStatus, let selectedFile = file, fileStatus == .exists {
                 validateExistingFile(selectedFile)
             }
+        }
+        .onChange(of: file) { _, _ in
+            checkFileStatus()
+        }
+    }
+
+    private var missingFileWarning: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 4) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(.orange)
+                Text("Certificate not available on this device")
+                    .font(.caption)
+                    .foregroundColor(.orange)
+            }
+
+            Text("This certificate was configured on another device.")
+                .font(.caption2)
+                .foregroundColor(.secondary)
+
+            Button {
+                showFilePicker = true
+            } label: {
+                HStack(spacing: 4) {
+                    Image(systemName: "square.and.arrow.down")
+                    Text("Import Certificate")
+                }
+                .font(.caption)
+                .foregroundColor(.accentColor)
+            }
+            .buttonStyle(.plain)
+        }
+    }
+
+    private var differentCertificateWarning: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 4) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(.red)
+                Text("Different certificate on this device")
+                    .font(.caption)
+                    .foregroundColor(.red)
+            }
+
+            Text("A file with the same name exists but it's not the same certificate. Import the correct certificate.")
+                .font(.caption2)
+                .foregroundColor(.secondary)
+
+            Button {
+                showFilePicker = true
+            } label: {
+                HStack(spacing: 4) {
+                    Image(systemName: "square.and.arrow.down")
+                    Text("Import Correct Certificate")
+                }
+                .font(.caption)
+                .foregroundColor(.accentColor)
+            }
+            .buttonStyle(.plain)
+        }
+    }
+
+    private func checkFileStatus() {
+        guard let selectedFile = file else {
+            fileStatus = .exists
+            return
+        }
+
+        if selectedFile.exists() {
+            fileStatus = .exists
+        } else if selectedFile.existsButDifferent() {
+            fileStatus = .differentCertificate
+        } else {
+            fileStatus = .missing
         }
     }
 
@@ -136,8 +256,9 @@ struct CertificatePickerView: View {
 
     private func selectedFileView(_ selectedFile: CertificateFile) -> some View {
         HStack(spacing: 8) {
-            Image(systemName: "doc.fill")
-                .foregroundColor(.accentColor)
+            // Show cloud icon for iCloud storage, document icon for local
+            Image(systemName: selectedFile.location == .cloud ? "icloud.fill" : "doc.fill")
+                .foregroundColor(selectedFile.location == .cloud ? .blue : .accentColor)
 
             Text(selectedFile.name)
                 .foregroundColor(.primary)
@@ -190,39 +311,13 @@ struct CertificatePickerView: View {
                 return
             }
 
-            defer { url.stopAccessingSecurityScopedResource() }
-
-            // Validate the certificate before copying
-            let validationResult = validateCertificateFile(url: url, type: type, password: password)
-
-            // For client P12 without password, skip validation (will be validated when password is entered)
-            let skipValidation = type == .p12 && password.isEmpty
-
-            if !skipValidation && !validationResult.isValid {
-                errorMessage = validationResult.message
-                detailsMessage = validationResult.details
-                successMessage = nil
-                // Still copy the file so user can fix the issue (e.g., enter password)
-            }
-
-            // Copy to local documents
-            if copyToLocalDocuments(url: url) {
-                file = CertificateFile(
-                    name: url.lastPathComponent,
-                    location: .local,
-                    type: type
-                )
-
-                if validationResult.isValid {
-                    successMessage = validationResult.message
-                    detailsMessage = validationResult.details
-                    errorMessage = nil
-                } else if skipValidation {
-                    // P12 without password - show neutral message
-                    successMessage = nil
-                    detailsMessage = nil
-                    errorMessage = nil
-                }
+            // For Server CA or when alwaysUseCloud is set, import directly to iCloud
+            if alwaysUseCloud {
+                completeImport(url: url, location: .cloud)
+            } else {
+                // Show choice dialog for client certificates
+                pendingFileURL = url
+                showStorageChoice = true
             }
 
         case .failure(let error):
@@ -234,7 +329,64 @@ struct CertificatePickerView: View {
         }
     }
 
-    private func copyToLocalDocuments(url: URL) -> Bool {
+    private func completeImport(url: URL, location: CertificateLocation) {
+        defer {
+            url.stopAccessingSecurityScopedResource()
+            pendingFileURL = nil
+        }
+
+        // Compute hash before copying
+        let hash = computeFileHash(url: url)
+
+        // Validate the certificate before copying
+        let validationResult = validateCertificateFile(url: url, type: type, password: password)
+
+        // For client P12 without password, skip validation (will be validated when password is entered)
+        let skipValidation = type == .p12 && password.isEmpty
+
+        if !skipValidation && !validationResult.isValid {
+            errorMessage = validationResult.message
+            detailsMessage = validationResult.details
+            successMessage = nil
+            // Still copy the file so user can fix the issue (e.g., enter password)
+        }
+
+        // Copy to documents based on storage location
+        // The returned filename may differ from the original if a conflict was resolved
+        if let resultFilename = copyToDocuments(url: url, location: location, hash: hash) {
+            var newFile = CertificateFile(
+                name: resultFilename,
+                location: location,
+                type: type
+            )
+            newFile.fileHash = hash
+            file = newFile
+            fileStatus = .exists
+
+            if validationResult.isValid {
+                successMessage = validationResult.message
+                detailsMessage = validationResult.details
+                errorMessage = nil
+            } else if skipValidation {
+                // P12 without password - show neutral message
+                successMessage = nil
+                detailsMessage = nil
+                errorMessage = nil
+            }
+        }
+    }
+
+    /// Copies the file to the appropriate documents directory
+    /// - Returns: The resulting filename if successful, nil otherwise
+    private func copyToDocuments(url: URL, location: CertificateLocation, hash: String?) -> String? {
+        if location == .cloud {
+            return copyToCloudDocuments(url: url, hash: hash)
+        } else {
+            return copyToLocalDocuments(url: url)
+        }
+    }
+
+    private func copyToLocalDocuments(url: URL) -> String? {
         let fileManager = FileManager.default
 
         guard let localDocumentsURL = fileManager.urls(
@@ -243,25 +395,46 @@ struct CertificatePickerView: View {
         ).first else {
             errorMessage = "Cannot access local documents directory"
             showError = true
-            return false
+            return nil
         }
 
         let destinationURL = localDocumentsURL.appendingPathComponent(url.lastPathComponent)
 
+        // Check if source and target are the same file (already in local documents)
+        if url.standardizedFileURL == destinationURL.standardizedFileURL {
+            return url.lastPathComponent
+        }
+
         do {
-            // Remove existing file if present
+            // Remove existing file if present (local storage is per-app, so overwriting is fine)
             if fileManager.fileExists(atPath: destinationURL.path) {
                 try fileManager.removeItem(at: destinationURL)
             }
 
             // Copy the file
             try fileManager.copyItem(at: url, to: destinationURL)
-            return true
+            return url.lastPathComponent
 
         } catch {
             errorMessage = "Failed to copy file: \(error.localizedDescription)"
             showError = true
-            return false
+            return nil
+        }
+    }
+
+    private func copyToCloudDocuments(url: URL, hash: String?) -> String? {
+        guard CloudDataManager.instance.isCloudEnabled() else {
+            errorMessage = "iCloud is not available. Please enable iCloud Drive in Settings."
+            showError = true
+            return nil
+        }
+
+        if let resultFilename = CloudDataManager.instance.copyFileToCloud(file: url, sourceHash: hash) {
+            return resultFilename
+        } else {
+            errorMessage = "Failed to copy file to iCloud"
+            showError = true
+            return nil
         }
     }
 

@@ -108,6 +108,12 @@ struct CertificateAuthenticationView: View {
             return
         }
 
+        // Skip validation if file doesn't exist (handled by CertificatePickerView)
+        guard certFile.exists() else {
+            p12ValidationResult = nil
+            return
+        }
+
         do {
             var fileURL = try certFile.getBaseUrl(certificate: certFile)
             fileURL.appendPathComponent(certFile.name)

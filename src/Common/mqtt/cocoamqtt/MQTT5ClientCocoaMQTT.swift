@@ -24,8 +24,20 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 	}
 		
 	func connect() {
+		// Signal that we're starting a connection attempt
 		utils.initConnect()
-		
+
+		// Validate certificates are available before attempting connection
+		do {
+			try validateCertificateAvailability(host: host)
+		} catch let error as CertificateError {
+			utils.failConnection(reason: "\(error.rawValue)")
+			return
+		} catch {
+			utils.failConnection(reason: "\(error)")
+			return
+		}
+
 		let mqtt = createClient(host: host)
 		do {
 			try configureClient(client: mqtt)
@@ -81,7 +93,6 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 		if host.settings.ssl, let serverCA = getCertificate(host, type: .serverCA) {
 			// Server CA is configured - load and configure if supported
 			if let certs = try? loadServerCACertificates(host: host), !certs.isEmpty {
-				// Set the server CA certificates for validation
 				mqtt.serverCACertificates = certs
 			} else {
 				NSLog("Warning: Server CA certificate '\(serverCA.name)' could not be loaded")

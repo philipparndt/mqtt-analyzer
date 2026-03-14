@@ -45,7 +45,8 @@ struct TLSFormView: View {
 						CertificatePickerView(
 							label: "Server CA",
 							file: $host.certServerCA,
-							type: .serverCA
+							type: .serverCA,
+							alwaysUseCloud: true  // Server CA is public, always sync to iCloud
 						)
 
 						if host.certServerCA == nil {

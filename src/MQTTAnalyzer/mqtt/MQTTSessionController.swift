@@ -61,12 +61,16 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 		if model == nil {
 			NSLog("model must be set in order to connect")
 		}
-		
+
+		// Prevent multiple concurrent connection attempts
+		if let existing = sessions[host.ID], existing.connectionState.state == .connecting {
+			return
+		}
+
 		var session = sessions[host.ID]
-		
+
 		if session?.host !== host {
 			disconnect(host: host)
-			
 			session = createClient(host)
 		}
 		else if session?.connectionAlive ?? false {
@@ -74,9 +78,11 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 			return
 		}
 		else {
+			// Previous session exists but is not alive - create a fresh client
 			disconnect(host: host)
+			session = createClient(host)
 		}
-		
+
 		if let current = session {
 			if current.connectionAlive {
 				return
@@ -84,7 +90,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 			current.connect()
 			host.reconnectDelegate = self
 			host.disconnectDelegate = self
-			
+
 			sessions[host.ID] = current
 		}
 	}

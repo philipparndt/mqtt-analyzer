@@ -24,7 +24,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: HostSNI(`mtls.local.rnd7.de`)
+    - match: HostSNI(`mtls.local.rnd7.de`) || HostSNI(`test.mqtt.rnd7.de`)
       services:
         - name: hivemq
           port: 8884

@@ -24,8 +24,20 @@ class MQTTClientCocoaMQTT: MqttClient {
 	}
 		
 	func connect() {
+		// Signal that we're starting a connection attempt
 		utils.initConnect()
-		
+
+		// Validate certificates are available before attempting connection
+		do {
+			try validateCertificateAvailability(host: host)
+		} catch let error as CertificateError {
+			utils.failConnection(reason: "\(error.rawValue)")
+			return
+		} catch {
+			utils.failConnection(reason: "\(error)")
+			return
+		}
+
 		let mqtt = createClient(host: host)
 		do {
 			try configureClient(client: mqtt)
@@ -43,7 +55,7 @@ class MQTTClientCocoaMQTT: MqttClient {
 		mqtt.didReceiveMessage = self.didReceiveMessage
 		mqtt.didDisconnect = utils.didDisconnect(_:withError:)
 		mqtt.didConnectAck = self.didConnect
-		
+
 		if !mqtt.connect() {
 			utils.failConnection(reason: "Connection to port \(host.settings.port) failed")
 			return
@@ -73,14 +85,13 @@ class MQTTClientCocoaMQTT: MqttClient {
 		}
 
 		if host.settings.authType == .certificate || host.settings.authType == .both {
-			try mqtt.sslSettings = createSSLSettings(host: host)
+			mqtt.sslSettings = try createSSLSettings(host: host)
 		}
 
 		// Check for Server CA configuration
 		if host.settings.ssl, let serverCA = getCertificate(host, type: .serverCA) {
 			// Server CA is configured - load and configure if supported
 			if let certs = try? loadServerCACertificates(host: host), !certs.isEmpty {
-				// Set the server CA certificates for validation
 				mqtt.serverCACertificates = certs
 			} else {
 				NSLog("Warning: Server CA certificate '\(serverCA.name)' could not be loaded")

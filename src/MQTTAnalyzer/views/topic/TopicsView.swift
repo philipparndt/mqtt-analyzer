@@ -203,7 +203,7 @@ struct TopicsView: View {
 				self.loginData.password = self.host.settings.password ?? ""
 				self.loginData.isPresented = true
 			}
-			else {
+			else if host.state == .disconnected {
 				self.rootModel.connect(to: self.host)
 			}
 			#endif

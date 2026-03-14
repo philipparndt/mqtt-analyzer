@@ -1,19 +1,25 @@
 #!/bin/bash
 
 # This script creates a Java keystore for HiveMQ from PEM certificates
-# Usage: ./create-keystore.sh <hostname>
+# Usage: ./create-keystore.sh <hostname> [additional_hostnames...]
 
 if [ $# -eq 0 ]; then
-    echo "Usage: ./create-keystore.sh <hostname>"
-    echo "Example: ./create-keystore.sh mqtt.example.com"
+    echo "Usage: ./create-keystore.sh <hostname> [additional_hostnames...]"
+    echo "Example: ./create-keystore.sh mqtt.example.com mtls.example.com"
     exit 1
 fi
 
 hostname=$1
+shift
+additional_hosts=("$@")
 password="changeit"
 target="certs"
 
-echo "Generating certificates for $hostname..."
+all_hosts="$hostname"
+for host in "${additional_hosts[@]}"; do
+    all_hosts="$all_hosts, $host"
+done
+echo "Generating certificates for: $all_hosts"
 
 rm -rf ./$target
 mkdir -p $target
@@ -28,12 +34,18 @@ openssl req -new -x509 -days 3650 -key ca.key -subj "/CN=MQTT-CA" -out ca.crt
 openssl genrsa -out server.key 2048
 openssl req -new -key server.key -subj "/CN=$hostname" -out server.csr
 
+# Build SAN list from all hostnames
+san_list="DNS:$hostname"
+for host in "${additional_hosts[@]}"; do
+    san_list="$san_list, DNS:$host"
+done
+
 cat > server.ext << EOF
 authorityKeyIdentifier=keyid,issuer
 basicConstraints=CA:FALSE
 keyUsage = digitalSignature, keyEncipherment
 extendedKeyUsage = serverAuth
-subjectAltName = DNS:$hostname, DNS:mtls.local.rnd7.de
+subjectAltName = $san_list
 EOF
 
 openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial \
@@ -82,7 +94,7 @@ popd > /dev/null
 echo ""
 echo "Files created in $target/:"
 echo ""
-echo "Server certificates:"
+echo "Server certificates (SAN: $all_hosts):"
 echo "  - keystore.jks: Java keystore for HiveMQ (password: $password)"
 echo "  - server.crt, server.key: Server PEM files"
 echo ""
