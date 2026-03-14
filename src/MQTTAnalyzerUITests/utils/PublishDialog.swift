@@ -22,7 +22,7 @@ class PublishDialog {
 	}
 	
 	func apply() {
-		app.buttons["Publish"].tap()
+		app.navigationBars["Publish message"].buttons["Publish"].tap()
 	}
 	
 	func fill(topic: String, message: String) {

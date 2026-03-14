@@ -304,6 +304,6 @@ class Navigation {
 		snapshot(ScreenshotIds.PUBLISH)
 
 		// Submit the publish dialog
-		app.buttons["Publish"].tap()
+		app.navigationBars["Publish message"].buttons["Publish"].tap()
 	}
 }
