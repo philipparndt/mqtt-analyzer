@@ -17,7 +17,7 @@ struct MessageDetailsView: View {
 	private var contentView: some View {
 		Group {
 			if message.payload.isBinary {
-				MessageDetailsJsonView(source: self.message.payload.data.hexBlockEncoded(len: 12), isJSON: false)
+				BinaryPayloadView(data: message.payload.data)
 			}
 			else if message.payload.isJSON {
 				MessageDetailsJsonView(payload: message.payload)
