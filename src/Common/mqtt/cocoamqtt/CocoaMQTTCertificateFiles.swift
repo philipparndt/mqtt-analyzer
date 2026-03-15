@@ -318,9 +318,8 @@ private func loadCertificatesFromP12(url: URL, password: String) throws -> [SecC
 		// Also try to get the trust and extract certificates from it
 		if let trust = item[kSecImportItemTrust as String] {
 			let secTrust = trust as! SecTrust
-			let certCount = SecTrustGetCertificateCount(secTrust)
-			for i in 0..<certCount {
-				if let cert = SecTrustGetCertificateAtIndex(secTrust, i) {
+			if let certChainFromTrust = SecTrustCopyCertificateChain(secTrust) as? [SecCertificate] {
+				for cert in certChainFromTrust {
 					if !certificates.contains(where: { SecCertificateCopyData($0) == SecCertificateCopyData(cert) }) {
 						certificates.append(cert)
 					}
