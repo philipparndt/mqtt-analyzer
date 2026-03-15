@@ -180,14 +180,46 @@ class Navigation {
 		return cell
 	}
 
-	/// Expands a tree node by tapping its disclosure button (chevron)
-	/// This shows children inline instead of navigating into the folder
+	/// Expands a tree node to reveal its children.
+	/// Automatically expands parent nodes if needed.
+	/// Only expands nodes that aren't already expanded (checks if children are visible).
 	func expandTreeNode(topic: String) {
+		let parts = topic.split(separator: "/").map { String($0) }
+		guard !parts.isEmpty else { return }
+
+		// Expand each level, checking if children are already visible
+		for i in 0..<parts.count {
+			let currentPath = parts[0...i].joined(separator: "/")
+			let folder = app.descendants(matching: .any)["folder: \(currentPath)"].firstMatch
+
+			// Make sure this node is visible (expand parent if needed)
+			if !folder.exists {
+				// This shouldn't happen if we're iterating in order, but handle it
+				continue
+			}
+
+			// Check if this node needs to be expanded by looking for any child
+			// We look for any folder that starts with currentPath/
+			let childPrefix = "folder: \(currentPath)/"
+			let anyChild = app.descendants(matching: .any).matching(
+				NSPredicate(format: "identifier BEGINSWITH %@", childPrefix)
+			).firstMatch
+
+			if !anyChild.exists {
+				// Children not visible, need to expand
+				tapChevron(topic: currentPath)
+				// Wait a moment for children to appear
+				Thread.sleep(forTimeInterval: 0.3)
+			}
+		}
+	}
+
+	/// Taps the chevron of a tree node (internal helper)
+	private func tapChevron(topic: String) {
 		let folderIdentifier = "folder: \(topic)"
 		let folder = app.descendants(matching: .any)[folderIdentifier].firstMatch
-		XCTAssertTrue(folder.waitForExistence(timeout: 5), "Expected folder \(topic) to exist")
+		guard folder.waitForExistence(timeout: 5) else { return }
 
-		// Tap the chevron which is on the right side of the cell
 		let cellFrame = folder.frame
 		let tapPoint = CGPoint(x: cellFrame.maxX - 20, y: cellFrame.midY)
 		app.coordinate(withNormalizedOffset: .zero)

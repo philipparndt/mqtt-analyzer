@@ -32,6 +32,7 @@ class ScreenshotTests: AbstractUITests {
 		brokers.start(alias: alias)
 
 		examples.publish(prefix: id)
+		examples.publishBinary(prefix: id)
 
 		// Wait for messages to be received before navigating
 		// The first folder cell should appear once messages arrive
@@ -70,6 +71,20 @@ class ScreenshotTests: AbstractUITests {
 		nav.openMessage()
 		snapshot(ScreenshotIds.JSON_DETAILS)
 
+		// Binary/Image screenshots
+		nav.navigateToRoot()
+		nav.navigate(to: "\(id)test/binary/logo")
+		nav.openMessageGroup()
+		nav.openMessage()
+		snapshot(ScreenshotIds.IMAGE_VIEW)
+
+		nav.navigateToRoot()
+		nav.navigate(to: "\(id)test/binary/raw")
+		nav.openMessageGroup()
+		nav.openMessage()
+		snapshot(ScreenshotIds.BINARY_HEX)
+
+		// Navigate to the hue section
 		nav.navigateToRoot()
 		nav.navigate(to: "\(id)hue")
 		nav.flatView(tc: self)
@@ -79,13 +94,15 @@ class ScreenshotTests: AbstractUITests {
 		nav.navigate(to: "\(id)hue/light/kitchen")
 		snapshot(ScreenshotIds.LIGHTS)
 
-		// Expand tree to reveal coffee-spot (needed for iPad tree view)
+		// Long press on coffee-spot to show context menu and open publish dialog with prefilled data
+		// On iPad, we need to expand the tree to reveal coffee-spot
 		if nav.isThreeColumnLayout {
+			nav.expandTreeNode(topic: "\(id)hue/light/kitchen")
+
 			let coffeeSpot = app.descendants(matching: .any)["folder: \(id)hue/light/kitchen/coffee-spot"].firstMatch
 			XCTAssertTrue(coffeeSpot.waitForExistence(timeout: 5), "Expected coffee-spot to appear after expanding")
 		}
 
-		// Long press on coffee-spot to show context menu and open publish dialog with prefilled data
 		nav.publishNew(topic: "\(id)hue/light/kitchen/coffee-spot")
 	}
 }

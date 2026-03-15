@@ -490,6 +490,7 @@
 		FFA3CFD88C9426ACDFEAB57E /* Host+AliasOrHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0FA285B4F9B00AEAE4C /* Host+AliasOrHost.swift */; };
 		LO5P8FMNKVL0WKEFRIUUGXKJ /* BrokerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */; };
 		RR65MCCZZA7QVSR10NJBRPEI /* BrokerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */; };
+		TESTLOGO00227CA682F00FFF92 /* TestLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = TESTLOGO00127CA682F00FFF91 /* TestLogo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -811,6 +812,7 @@
 		9F511F20AD2C23A782996AC1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		DA45D7313076E1A74E2C02D4 /* LimitsSettingsDialog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LimitsSettingsDialog.swift; sourceTree = "<group>"; };
 		ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerContentView.swift; sourceTree = "<group>"; };
+		TESTLOGO00127CA682F00FFF91 /* TestLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestLogo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1431,6 +1433,7 @@
 				22117B702805C95A00D0117D /* ConfigurationWebSocketTests.swift */,
 				22C7F0D42416A16600534880 /* Info.plist */,
 				222AC32F2803350600D66334 /* TestServer.swift */,
+				TESTLOGO00127CA682F00FFF91 /* TestLogo.png */,
 			);
 			path = MQTTAnalyzerUITests;
 			sourceTree = "<group>";
@@ -1815,6 +1818,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				TESTLOGO00227CA682F00FFF92 /* TestLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

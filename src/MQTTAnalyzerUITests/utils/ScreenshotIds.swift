@@ -19,4 +19,6 @@ struct ScreenshotIds {
 	static let PUBLISH = "Publish"
 	static let JSON_DATA = "JSON Data"
 	static let JSON_DETAILS = "JSON Details"
+	static let BINARY_HEX = "Binary Hex"
+	static let IMAGE_VIEW = "Image View"
 }

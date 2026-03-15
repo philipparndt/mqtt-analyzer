@@ -3,6 +3,9 @@
 # Publish binary and image messages for testing
 # Requires mosquitto_pub (brew install mosquitto)
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
 BROKER="${1:-test.mqtt.rnd7.de}"
 PORT="${2:-1883}"
 
@@ -11,6 +14,9 @@ echo "Publishing binary and image messages to $BROKER:$PORT..."
 # Create a temporary directory for generated files
 TEMP_DIR=$(mktemp -d)
 trap "rm -rf $TEMP_DIR" EXIT
+
+# Path to the MQTTAnalyzer logo
+LOGO_PATH="$PROJECT_ROOT/src/MQTTAnalyzer/Assets.xcassets/AppIcon.appiconset/App-Store-iOS.png"
 
 # Generate a simple PNG image (1x1 red pixel)
 generate_png() {
@@ -128,13 +134,34 @@ publish_file() {
 # Generate test files
 echo "Generating test files..."
 
-# PNG images
-generate_test_png 16 "$TEMP_DIR/small.png"
-generate_test_png 100 "$TEMP_DIR/medium.png"
-generate_test_png 500 "$TEMP_DIR/large.png"
+# Use MQTTAnalyzer logo if available, otherwise generate test images
+if [ -f "$LOGO_PATH" ]; then
+    echo "Using MQTTAnalyzer logo: $LOGO_PATH"
+    cp "$LOGO_PATH" "$TEMP_DIR/logo.png"
 
-# JPEG images
-generate_test_jpeg 100 "$TEMP_DIR/test.jpg"
+    # Create smaller versions using sips
+    if command -v sips &> /dev/null; then
+        sips -z 16 16 "$LOGO_PATH" --out "$TEMP_DIR/small.png" &> /dev/null
+        sips -z 100 100 "$LOGO_PATH" --out "$TEMP_DIR/medium.png" &> /dev/null
+        sips -z 500 500 "$LOGO_PATH" --out "$TEMP_DIR/large.png" &> /dev/null
+
+        # Create JPEG version
+        sips -s format jpeg -z 100 100 "$LOGO_PATH" --out "$TEMP_DIR/test.jpg" &> /dev/null
+    else
+        cp "$LOGO_PATH" "$TEMP_DIR/small.png"
+        cp "$LOGO_PATH" "$TEMP_DIR/medium.png"
+        cp "$LOGO_PATH" "$TEMP_DIR/large.png"
+    fi
+else
+    echo "Logo not found, generating test images..."
+    # PNG images
+    generate_test_png 16 "$TEMP_DIR/small.png"
+    generate_test_png 100 "$TEMP_DIR/medium.png"
+    generate_test_png 500 "$TEMP_DIR/large.png"
+
+    # JPEG images
+    generate_test_jpeg 100 "$TEMP_DIR/test.jpg"
+fi
 
 # Binary data
 generate_binary 64 "$TEMP_DIR/small.bin"
@@ -145,7 +172,12 @@ generate_binary 10240 "$TEMP_DIR/10kb.bin"
 echo ""
 echo "Publishing messages..."
 
-# Images
+# MQTTAnalyzer logo (full size)
+if [ -f "$TEMP_DIR/logo.png" ]; then
+    publish_file "test/binary/logo" "$TEMP_DIR/logo.png" "MQTTAnalyzer Logo PNG"
+fi
+
+# Images (resized versions)
 publish_file "test/binary/png/small" "$TEMP_DIR/small.png" "16x16 PNG"
 publish_file "test/binary/png/medium" "$TEMP_DIR/medium.png" "100x100 PNG"
 publish_file "test/binary/png/large" "$TEMP_DIR/large.png" "500x500 PNG"

@@ -176,29 +176,27 @@ struct ImagePayloadView: View {
 	var body: some View {
 		VStack(spacing: 0) {
 			if let image = image {
-				ScrollView([.horizontal, .vertical]) {
-					#if os(iOS)
-					Image(uiImage: image)
-						.resizable()
-						.aspectRatio(contentMode: .fit)
-						.frame(maxWidth: .infinity, maxHeight: .infinity)
-						.padding(12)
-					#else
-					Image(nsImage: image)
-						.resizable()
-						.aspectRatio(contentMode: .fit)
-						.frame(maxWidth: .infinity, maxHeight: .infinity)
-						.padding(12)
-					#endif
-				}
-				.overlay(alignment: .topTrailing) {
-					HStack(spacing: 8) {
-						exportButton
-						copyButton
+				#if os(iOS)
+				ZoomableImageView(image: image)
+					.overlay(alignment: .topTrailing) {
+						HStack(spacing: 8) {
+							exportButton
+							copyButton
+						}
+						.padding(.top, 8)
+						.padding(.trailing, 16)
 					}
-					.padding(.top, 8)
-					.padding(.trailing, 16)
-				}
+				#else
+				ZoomableImageViewMac(image: image)
+					.overlay(alignment: .topTrailing) {
+						HStack(spacing: 8) {
+							exportButton
+							copyButton
+						}
+						.padding(.top, 8)
+						.padding(.trailing, 16)
+					}
+				#endif
 			} else {
 				ContentUnavailableView(
 					"Cannot Display Image",
@@ -320,6 +318,172 @@ struct ImageDocument: FileDocument {
 	}
 }
 
+// MARK: - Zoomable Image View (iOS)
+
+#if os(iOS)
+struct ZoomableImageView: UIViewRepresentable {
+	let image: UIImage
+
+	func makeUIView(context: Context) -> UIScrollView {
+		let scrollView = UIScrollView()
+		scrollView.delegate = context.coordinator
+		scrollView.minimumZoomScale = 0.1
+		scrollView.maximumZoomScale = 5.0
+		scrollView.showsHorizontalScrollIndicator = false
+		scrollView.showsVerticalScrollIndicator = false
+		scrollView.bouncesZoom = true
+
+		let imageView = UIImageView(image: image)
+		imageView.contentMode = .scaleAspectFit
+		imageView.isUserInteractionEnabled = true
+		scrollView.addSubview(imageView)
+
+		context.coordinator.imageView = imageView
+		context.coordinator.scrollView = scrollView
+
+		// Double tap to toggle between fit and 1:1
+		let doubleTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleDoubleTap(_:)))
+		doubleTap.numberOfTapsRequired = 2
+		scrollView.addGestureRecognizer(doubleTap)
+
+		return scrollView
+	}
+
+	func updateUIView(_ scrollView: UIScrollView, context: Context) {
+		guard let imageView = context.coordinator.imageView else { return }
+
+		imageView.image = image
+		imageView.frame = CGRect(origin: .zero, size: image.size)
+		scrollView.contentSize = image.size
+
+		// Calculate scale to fit the image in the view
+		DispatchQueue.main.async {
+			let scrollViewSize = scrollView.bounds.size
+			guard scrollViewSize.width > 0 && scrollViewSize.height > 0 else { return }
+
+			let widthScale = scrollViewSize.width / image.size.width
+			let heightScale = scrollViewSize.height / image.size.height
+			let minScale = min(widthScale, heightScale, 1.0) // Don't scale up small images
+
+			scrollView.minimumZoomScale = min(minScale, 0.1)
+			scrollView.zoomScale = minScale
+
+			context.coordinator.centerImage()
+		}
+	}
+
+	func makeCoordinator() -> Coordinator {
+		Coordinator()
+	}
+
+	class Coordinator: NSObject, UIScrollViewDelegate {
+		weak var imageView: UIImageView?
+		weak var scrollView: UIScrollView?
+
+		func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+			imageView
+		}
+
+		func scrollViewDidZoom(_ scrollView: UIScrollView) {
+			centerImage()
+		}
+
+		func centerImage() {
+			guard let scrollView = scrollView, let imageView = imageView else { return }
+
+			let scrollViewSize = scrollView.bounds.size
+			let imageViewSize = imageView.frame.size
+
+			let horizontalPadding = max(0, (scrollViewSize.width - imageViewSize.width) / 2)
+			let verticalPadding = max(0, (scrollViewSize.height - imageViewSize.height) / 2)
+
+			scrollView.contentInset = UIEdgeInsets(
+				top: verticalPadding,
+				left: horizontalPadding,
+				bottom: verticalPadding,
+				right: horizontalPadding
+			)
+		}
+
+		@objc func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
+			guard let scrollView = scrollView else { return }
+
+			if scrollView.zoomScale > scrollView.minimumZoomScale {
+				// Zoom out to fit
+				scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
+			} else {
+				// Zoom in to 1:1 or 2x, centered on tap point
+				let location = gesture.location(in: scrollView)
+				let zoomScale = min(1.0, scrollView.maximumZoomScale)
+				let size = CGSize(
+					width: scrollView.bounds.width / zoomScale,
+					height: scrollView.bounds.height / zoomScale
+				)
+				let origin = CGPoint(
+					x: location.x - size.width / 2,
+					y: location.y - size.height / 2
+				)
+				scrollView.zoom(to: CGRect(origin: origin, size: size), animated: true)
+			}
+		}
+	}
+}
+#endif
+
+// MARK: - Zoomable Image View (macOS)
+
+#if os(macOS)
+struct ZoomableImageViewMac: NSViewRepresentable {
+	let image: NSImage
+
+	func makeNSView(context: Context) -> NSScrollView {
+		let scrollView = NSScrollView()
+		scrollView.hasHorizontalScroller = true
+		scrollView.hasVerticalScroller = true
+		scrollView.allowsMagnification = true
+		scrollView.minMagnification = 0.1
+		scrollView.maxMagnification = 5.0
+		scrollView.backgroundColor = .clear
+
+		let imageView = NSImageView(image: image)
+		imageView.imageScaling = .scaleProportionallyUpOrDown
+		imageView.setFrameSize(image.size)
+
+		scrollView.documentView = imageView
+		context.coordinator.scrollView = scrollView
+
+		return scrollView
+	}
+
+	func updateNSView(_ scrollView: NSScrollView, context: Context) {
+		guard let imageView = scrollView.documentView as? NSImageView else { return }
+
+		imageView.image = image
+		imageView.setFrameSize(image.size)
+
+		// Calculate scale to fit
+		DispatchQueue.main.async {
+			let scrollViewSize = scrollView.contentSize
+			guard scrollViewSize.width > 0 && scrollViewSize.height > 0 else { return }
+
+			let widthScale = scrollViewSize.width / image.size.width
+			let heightScale = scrollViewSize.height / image.size.height
+			let minScale = min(widthScale, heightScale, 1.0)
+
+			scrollView.magnification = minScale
+		}
+	}
+
+	func makeCoordinator() -> Coordinator {
+		Coordinator()
+	}
+
+	class Coordinator {
+		weak var scrollView: NSScrollView?
+	}
+}
+#endif
+
 // MARK: - Hex Payload View
 
 struct HexPayloadView: View {
@@ -330,7 +494,11 @@ struct HexPayloadView: View {
 	@State private var exportDocument: BinaryDocument?
 	@Environment(\.colorScheme) var colorScheme
 
+	#if os(iOS)
+	private let bytesPerRow = 8
+	#else
 	private let bytesPerRow = 16
+	#endif
 
 	var body: some View {
 		VStack(spacing: 0) {
@@ -348,7 +516,6 @@ struct HexPayloadView: View {
 					}
 				}
 				.padding(12)
-				.frame(maxWidth: .infinity, alignment: .leading)
 			}
 			.overlay(alignment: .topTrailing) {
 				HStack(spacing: 8) {
@@ -447,6 +614,8 @@ private struct HexRowView: View {
 	let bytesPerRow: Int
 	let totalBytes: Int
 
+	@Environment(\.colorScheme) var colorScheme
+
 	private var offset: Int {
 		rowIndex * bytesPerRow
 	}
@@ -458,7 +627,6 @@ private struct HexRowView: View {
 	}
 
 	private var offsetWidth: Int {
-		// Calculate width needed for largest offset
 		let maxOffset = totalBytes - 1
 		if maxOffset < 0x10000 {
 			return 4
@@ -470,66 +638,73 @@ private struct HexRowView: View {
 	}
 
 	var body: some View {
-		HStack(spacing: 0) {
-			// Offset column
-			Text(String(format: "%0\(offsetWidth)X", offset))
-				.font(.system(size: 12, design: .monospaced))
-				.foregroundColor(.secondary)
-				.frame(width: CGFloat(offsetWidth) * 8, alignment: .leading)
+		Text(buildAttributedRow())
+			.font(.system(size: 11, design: .monospaced))
+	}
 
-			Text("  ")
-				.font(.system(size: 12, design: .monospaced))
+	private func buildAttributedRow() -> AttributedString {
+		var result = AttributedString()
 
-			// Hex bytes
-			HStack(spacing: 4) {
-				ForEach(0..<bytesPerRow, id: \.self) { byteIndex in
-					if byteIndex < rowBytes.count {
-						Text(String(format: "%02X", rowBytes[offset + byteIndex]))
-							.font(.system(size: 12, design: .monospaced))
-							.foregroundColor(byteColor(rowBytes[offset + byteIndex]))
-					} else {
-						Text("  ")
-							.font(.system(size: 12, design: .monospaced))
-					}
+		// Offset
+		var offsetStr = AttributedString(String(format: "%0\(offsetWidth)X  ", offset))
+		offsetStr.foregroundColor = .secondary
+		result.append(offsetStr)
 
-					// Add extra space after 8 bytes for readability
-					if byteIndex == 7 {
-						Text(" ")
-							.font(.system(size: 12, design: .monospaced))
-					}
-				}
+		// Hex bytes with pair grouping
+		for i in 0..<bytesPerRow {
+			if i < rowBytes.count {
+				let byte = rowBytes[offset + i]
+				var byteStr = AttributedString(String(format: "%02X", byte))
+				byteStr.foregroundColor = byteColor(byte)
+				result.append(byteStr)
+			} else {
+				result.append(AttributedString("  "))
 			}
 
-			Text("  ")
-				.font(.system(size: 12, design: .monospaced))
-
-			// ASCII representation
-			Text("|")
-				.font(.system(size: 12, design: .monospaced))
-				.foregroundColor(.secondary)
-
-			HStack(spacing: 0) {
-				ForEach(0..<rowBytes.count, id: \.self) { byteIndex in
-					Text(asciiChar(rowBytes[offset + byteIndex]))
-						.font(.system(size: 12, design: .monospaced))
-						.foregroundColor(isPrintable(rowBytes[offset + byteIndex]) ? .primary : .secondary)
+			// Spacing after byte
+			if i < bytesPerRow - 1 {
+				if i == bytesPerRow / 2 - 1 {
+					// Extra space at halfway point
+					result.append(AttributedString("  "))
+				} else if i % 2 == 1 {
+					// Space between pairs
+					result.append(AttributedString(" "))
 				}
+				// No space within pairs (after even indices)
 			}
-
-			Text("|")
-				.font(.system(size: 12, design: .monospaced))
-				.foregroundColor(.secondary)
-
-			Spacer()
 		}
-		.frame(maxWidth: .infinity, alignment: .leading)
+
+		// Separator
+		var separator = AttributedString("  |")
+		separator.foregroundColor = .secondary
+		result.append(separator)
+
+		// ASCII
+		for i in 0..<rowBytes.count {
+			let byte = rowBytes[offset + i]
+			let char = isPrintable(byte) ? String(UnicodeScalar(byte)) : "."
+			var charStr = AttributedString(char)
+			charStr.foregroundColor = isPrintable(byte) ? .primary : .secondary
+			result.append(charStr)
+		}
+
+		// Padding for incomplete rows
+		if rowBytes.count < bytesPerRow {
+			result.append(AttributedString(String(repeating: " ", count: bytesPerRow - rowBytes.count)))
+		}
+
+		var endPipe = AttributedString("|")
+		endPipe.foregroundColor = .secondary
+		result.append(endPipe)
+
+		return result
 	}
 
 	private func byteColor(_ byte: UInt8) -> Color {
 		if byte == 0x00 {
 			return .secondary.opacity(0.5)
 		} else if byte >= 0x20 && byte < 0x7F {
-			return .primary
+			return colorScheme == .dark ? .white : .black
 		} else {
 			return .blue
 		}
@@ -537,14 +712,6 @@ private struct HexRowView: View {
 
 	private func isPrintable(_ byte: UInt8) -> Bool {
 		byte >= 0x20 && byte < 0x7F
-	}
-
-	private func asciiChar(_ byte: UInt8) -> String {
-		if isPrintable(byte) {
-			return String(UnicodeScalar(byte))
-		} else {
-			return "."
-		}
 	}
 }
 
