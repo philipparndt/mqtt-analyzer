@@ -39,7 +39,9 @@ This App is open source, and contributions are welcome.
 - Sync settings and certificates using iCloud
 - Pause the connection
 - Connect to multiple brokers at once
-- Hex view for binary payload
+- Hex view for binary payloads with byte pairing
+- Image viewer for binary payloads (PNG, JPEG, GIF, WebP, BMP, TIFF, HEIC) with pinch-to-zoom
+- Large payload support with export functionality
 - Predefined settings for AWS IoT
 - Free and without any ADs
 - Open source

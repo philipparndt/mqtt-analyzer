@@ -26,9 +26,14 @@ screenshots-mac:
 		-configuration Debug \
 		-derivedDataPath build/DerivedData-macOS \
 		-quiet
-	@echo "Launching app with Example broker (--no-welcome)..."
+	@echo "Launching app with Example broker..."
 	@echo "After connecting, run 'make screenshots-mac-messages' to publish example data"
-	@open "src/build/DerivedData-macOS/Build/Products/Debug/MQTTAnalyzer.app" --args --no-welcome
+	@-killall MQTTAnalyzer 2>/dev/null || true
+	@sleep 0.5
+	@open "src/build/DerivedData-macOS/Build/Products/Debug/MQTTAnalyzer.app" --args --ui-testing --no-welcome
+	@sleep 1
+	@osascript -e 'tell application "System Events" to tell process "MQTTAnalyzer" to set position of window 1 to {0, 0}' \
+		-e 'tell application "System Events" to tell process "MQTTAnalyzer" to set size of window 1 to {1200, 720}'
 
 screenshots-mac-messages:
 	@./scripts/publish-example-messages.sh
