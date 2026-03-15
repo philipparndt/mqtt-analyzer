@@ -41,8 +41,12 @@ class SearchIndex {
 	// Not thread safe - just for unit testing
 	var execSync = false
 	
+	/// Maximum payload size to index (skip large payloads for performance)
+	private let maxIndexSize = 50_000
+
 	func add(message: MsgMessage, completion: @escaping (() -> Void)) {
-		if !message.payload.isBinary {
+		// Skip binary and very large payloads
+		if !message.payload.isBinary && message.payload.size <= maxIndexSize {
 			if execSync {
 				self.addToIndexNow(message: message)
 			}
@@ -53,7 +57,6 @@ class SearchIndex {
 					completion()
 				})
 			}
-			
 		}
 	}
 	

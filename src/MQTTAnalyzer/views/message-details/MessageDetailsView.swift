@@ -17,13 +17,13 @@ struct MessageDetailsView: View {
 	private var contentView: some View {
 		Group {
 			if message.payload.isBinary {
-				MessageDetailsJsonView(source: self.message.payload.data.hexBlockEncoded(len: 12))
+				MessageDetailsJsonView(source: self.message.payload.data.hexBlockEncoded(len: 12), isJSON: false)
 			}
 			else if message.payload.isJSON {
-				MessageDetailsJsonView(source: message.payload.prettyJSON)
+				MessageDetailsJsonView(payload: message.payload)
 			}
 			else {
-				MessageDetailsJsonView(source: message.payload.dataString)
+				MessageDetailsJsonView(source: message.payload.dataString, isJSON: false)
 			}
 		}
 	}

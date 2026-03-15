@@ -13,6 +13,7 @@ class MsgPayload {
 	let data: [UInt8]
 	private var _jsonData: JSON?
 	private var jsonParsed = false
+	private var _prettyJSON: String?
 
 	var jsonData: JSON? {
 		if !jsonParsed {
@@ -36,15 +37,25 @@ class MsgPayload {
 		return dataStringCache ?? "[\(data.count) bytes]"
 	}
 
+	/// Size of the payload in bytes
+	var size: Int {
+		return data.count
+	}
+
+	/// Formatted JSON string (cached)
+	var prettyJSON: String {
+		if let cached = _prettyJSON {
+			return cached
+		}
+		guard let dataString = dataStringCache else { return "" }
+		let formatted = JSONUtils.format(json: dataString)
+		_prettyJSON = formatted
+		return formatted
+	}
+
 	init(data: [UInt8]) {
 		self.data = data
 		self.dataStringCache = MsgPayload.toOptionalString(data: data)
-	}
-}
-
-extension MsgPayload {
-	var prettyJSON: String {
-		return dataStringCache != nil ? JSONUtils.format(json: dataStringCache!) : ""
 	}
 }
 
