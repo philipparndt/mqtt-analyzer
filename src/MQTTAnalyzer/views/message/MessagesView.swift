@@ -12,12 +12,24 @@ struct MessagesView: View {
 	@ObservedObject var node: TopicTree
 	let host: Host
 
+	/// Skip data series for payloads larger than 50KB
+	private let dataSeriesSizeThreshold = 50_000
+
+	private var shouldShowDataSeries: Bool {
+		guard let lastMessage = node.messages.last else { return true }
+		return lastMessage.payload.size <= dataSeriesSizeThreshold
+	}
+
 	var body: some View {
 		VStack(alignment: .leading) {
 			List {
 				MessageTopicView(node: node)
 
-				DataSeriesView(topic: node.nameQualified, series: node.timeSeries)
+				if shouldShowDataSeries {
+					DataSeriesView(topic: node.nameQualified, series: node.timeSeries)
+				} else if node.timeSeries.hasTimeseries {
+					DataSeriesSkippedView()
+				}
 
 				MessageView(node: node, host: host)
 			}

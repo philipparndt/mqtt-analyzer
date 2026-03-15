@@ -12,9 +12,12 @@ struct TopicCellView: View {
 	@EnvironmentObject var root: RootModel
 	var messages: TopicTree
 	@Binding var publishMessagePresented: Bool
-	
+
 	let host: Host
 	let selectMessage: (MsgMessage) -> Void
+
+	/// Maximum characters for preview
+	private let previewLimit = 5_000
 
 	var body: some View {
 		NavigationLink(destination: MessagesView(node: messages, host: host)) {
@@ -80,15 +83,32 @@ struct TopicCellView: View {
 	}
 	
 	func messagePreview() -> String {
-		return messages.messages.last?.payload.dataString ?? "<no message>"
+		guard let payload = messages.messages.last?.payload else {
+			return "<no message>"
+		}
+		let text = payload.dataString
+		if text.count <= previewLimit {
+			return text
+		}
+		let endIndex = text.index(text.startIndex, offsetBy: previewLimit)
+		return String(text[..<endIndex]) + "… [\(formatBytes(payload.size))]"
 	}
-	
+
 	func copyTopic() {
 		Pasteboard.copy(messages.nameQualified)
 	}
-	
+
 	func copyMessage() {
 		Pasteboard.copy(messages.messages.last?.payload.dataString ?? "")
 	}
-	
+
+	private func formatBytes(_ bytes: Int) -> String {
+		if bytes < 1024 {
+			return "\(bytes) B"
+		} else if bytes < 1024 * 1024 {
+			return String(format: "%.1f KB", Double(bytes) / 1024)
+		} else {
+			return String(format: "%.1f MB", Double(bytes) / (1024 * 1024))
+		}
+	}
 }

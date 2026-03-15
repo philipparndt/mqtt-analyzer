@@ -8,6 +8,18 @@
 
 import SwiftUI
 
+// MARK: - Helpers
+
+private func formatBytes(_ bytes: Int) -> String {
+	if bytes < 1024 {
+		return "\(bytes) B"
+	} else if bytes < 1024 * 1024 {
+		return String(format: "%.1f KB", Double(bytes) / 1024)
+	} else {
+		return String(format: "%.1f MB", Double(bytes) / (1024 * 1024))
+	}
+}
+
 // MARK: - Modern Metadata Row
 
 struct MetadataRow: View {
@@ -114,6 +126,16 @@ struct MetadataView: View {
 					label: "Received",
 					value: message.metadata.localDate,
 					iconColor: .blue
+				)
+
+				Divider().padding(.leading, 32)
+
+				// Payload size
+				MetadataRow(
+					icon: "doc.text",
+					label: "Payload size",
+					value: formatBytes(message.payload.size),
+					iconColor: .cyan
 				)
 
 				Divider().padding(.leading, 32)

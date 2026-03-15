@@ -52,11 +52,23 @@ struct MessageView: View {
 
 struct MessageCellView: View {
 	@EnvironmentObject var model: RootModel
-	
+
 	let message: MsgMessage
 	let selectMessage: (MsgMessage) -> Void
 	let host: Host
-	
+
+	/// Maximum characters to show in preview (prevents slow rendering of large payloads)
+	private let previewLimit = 5_000
+
+	private var previewText: String {
+		let text = message.payload.dataString
+		if text.count <= previewLimit {
+			return text
+		}
+		let endIndex = text.index(text.startIndex, offsetBy: previewLimit)
+		return String(text[..<endIndex]) + "… [\(formatBytes(message.payload.size))]"
+	}
+
 	var body: some View {
 		NavigationLink(destination: MessageDetailsView(message: message, host: host)) {
 			HStack {
@@ -65,7 +77,7 @@ struct MessageCellView: View {
 					.foregroundColor(message.payload.isJSON ? .green : .gray)
 
 				VStack(alignment: .leading) {
-					AnsiTextView(text: message.payload.dataString, lineLimit: 8)
+					AnsiTextView(text: previewText, lineLimit: 8)
 					Text(message.metadata.localDate)
 						.font(.subheadline)
 						.foregroundColor(.secondary)
@@ -116,5 +128,15 @@ struct MessageCellView: View {
 			topic: message.topic,
 			payload: MsgPayload(data: []),
 			metadata: MsgMetadata(qos: message.metadata.qos, retain: true)), on: host)
+	}
+
+	private func formatBytes(_ bytes: Int) -> String {
+		if bytes < 1024 {
+			return "\(bytes) B"
+		} else if bytes < 1024 * 1024 {
+			return String(format: "%.1f KB", Double(bytes) / 1024)
+		} else {
+			return String(format: "%.1f MB", Double(bytes) / (1024 * 1024))
+		}
 	}
 }

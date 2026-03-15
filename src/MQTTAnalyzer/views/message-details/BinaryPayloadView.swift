@@ -1,0 +1,569 @@
+//
+//  BinaryPayloadView.swift
+//  MQTTAnalyzer
+//
+//  Created by Philipp Arndt on 2024-01-01.
+//  Copyright © 2024 Philipp Arndt. All rights reserved.
+//
+
+import SwiftUI
+import UniformTypeIdentifiers
+
+struct BinaryPayloadView: View {
+	let data: [UInt8]
+
+	@State private var viewMode: ViewMode = .auto
+	@Environment(\.colorScheme) var colorScheme
+
+	private enum ViewMode: String, CaseIterable {
+		case auto = "Auto"
+		case hex = "Hex"
+		case image = "Image"
+	}
+
+	private var detectedType: PayloadType {
+		PayloadType.detect(from: data)
+	}
+
+	private var effectiveMode: ViewMode {
+		if viewMode == .auto {
+			return detectedType.isImage ? .image : .hex
+		}
+		return viewMode
+	}
+
+	var body: some View {
+		VStack(spacing: 0) {
+			// Mode picker for images (allow switching between image and hex)
+			if detectedType.isImage {
+				modePicker
+			}
+
+			// Content
+			switch effectiveMode {
+			case .image, .auto:
+				if detectedType.isImage {
+					ImagePayloadView(data: data, imageType: detectedType)
+				} else {
+					HexPayloadView(data: data)
+				}
+			case .hex:
+				HexPayloadView(data: data)
+			}
+		}
+	}
+
+	private var modePicker: some View {
+		HStack {
+			Picker("View", selection: $viewMode) {
+				ForEach([ViewMode.auto, ViewMode.image, ViewMode.hex], id: \.self) { mode in
+					Text(mode.rawValue).tag(mode)
+				}
+			}
+			.pickerStyle(.segmented)
+			.frame(maxWidth: 250)
+
+			Spacer()
+
+			Text(detectedType.description)
+				.font(.caption)
+				.foregroundColor(.secondary)
+		}
+		.padding(.horizontal, 12)
+		.padding(.vertical, 8)
+		.background(Color.secondary.opacity(0.1))
+	}
+}
+
+// MARK: - Payload Type Detection
+
+enum PayloadType {
+	case png
+	case jpeg
+	case gif
+	case webp
+	case bmp
+	case tiff
+	case heic
+	case unknown
+
+	var isImage: Bool {
+		switch self {
+		case .unknown: return false
+		default: return true
+		}
+	}
+
+	var description: String {
+		switch self {
+		case .png: return "PNG Image"
+		case .jpeg: return "JPEG Image"
+		case .gif: return "GIF Image"
+		case .webp: return "WebP Image"
+		case .bmp: return "BMP Image"
+		case .tiff: return "TIFF Image"
+		case .heic: return "HEIC Image"
+		case .unknown: return "Binary Data"
+		}
+	}
+
+	static func detect(from data: [UInt8]) -> PayloadType {
+		guard data.count >= 4 else { return .unknown }
+
+		// PNG: 89 50 4E 47
+		if data.starts(with: [0x89, 0x50, 0x4E, 0x47]) {
+			return .png
+		}
+
+		// JPEG: FF D8 FF
+		if data.starts(with: [0xFF, 0xD8, 0xFF]) {
+			return .jpeg
+		}
+
+		// GIF: 47 49 46 38 (GIF8)
+		if data.starts(with: [0x47, 0x49, 0x46, 0x38]) {
+			return .gif
+		}
+
+		// WebP: RIFF....WEBP
+		if data.count >= 12 &&
+		   data.starts(with: [0x52, 0x49, 0x46, 0x46]) &&
+		   data[8...11] == [0x57, 0x45, 0x42, 0x50] {
+			return .webp
+		}
+
+		// BMP: 42 4D (BM)
+		if data.starts(with: [0x42, 0x4D]) {
+			return .bmp
+		}
+
+		// TIFF: 49 49 2A 00 (little endian) or 4D 4D 00 2A (big endian)
+		if data.starts(with: [0x49, 0x49, 0x2A, 0x00]) ||
+		   data.starts(with: [0x4D, 0x4D, 0x00, 0x2A]) {
+			return .tiff
+		}
+
+		// HEIC: ....ftyp followed by heic, heix, mif1, etc.
+		if data.count >= 12 && data[4...7] == [0x66, 0x74, 0x79, 0x70] {
+			return .heic
+		}
+
+		return .unknown
+	}
+}
+
+// MARK: - Image Payload View
+
+struct ImagePayloadView: View {
+	let data: [UInt8]
+	let imageType: PayloadType
+
+	@State private var showCopiedFeedback = false
+	@State private var showExporter = false
+	@State private var exportDocument: ImageDocument?
+	@Environment(\.colorScheme) var colorScheme
+
+	#if os(iOS)
+	private var image: UIImage? {
+		UIImage(data: Data(data))
+	}
+	#else
+	private var image: NSImage? {
+		NSImage(data: Data(data))
+	}
+	#endif
+
+	var body: some View {
+		VStack(spacing: 0) {
+			if let image = image {
+				ScrollView([.horizontal, .vertical]) {
+					#if os(iOS)
+					Image(uiImage: image)
+						.resizable()
+						.aspectRatio(contentMode: .fit)
+						.frame(maxWidth: .infinity, maxHeight: .infinity)
+						.padding(12)
+					#else
+					Image(nsImage: image)
+						.resizable()
+						.aspectRatio(contentMode: .fit)
+						.frame(maxWidth: .infinity, maxHeight: .infinity)
+						.padding(12)
+					#endif
+				}
+				.overlay(alignment: .topTrailing) {
+					HStack(spacing: 8) {
+						exportButton
+						copyButton
+					}
+					.padding(.top, 8)
+					.padding(.trailing, 16)
+				}
+			} else {
+				ContentUnavailableView(
+					"Cannot Display Image",
+					systemImage: "photo.badge.exclamationmark",
+					description: Text("The image data could not be decoded.")
+				)
+			}
+		}
+		.fileExporter(
+			isPresented: $showExporter,
+			document: exportDocument,
+			contentType: imageType.utType,
+			defaultFilename: "mqtt-image.\(imageType.fileExtension)"
+		) { _ in }
+	}
+
+	private var copyButton: some View {
+		Button {
+			#if os(iOS)
+			if let image = image {
+				UIPasteboard.general.image = image
+				showCopiedFeedback = true
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+					showCopiedFeedback = false
+				}
+			}
+			#else
+			if let image = image {
+				let pasteboard = NSPasteboard.general
+				pasteboard.clearContents()
+				pasteboard.writeObjects([image])
+				showCopiedFeedback = true
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+					showCopiedFeedback = false
+				}
+			}
+			#endif
+		} label: {
+			Image(systemName: showCopiedFeedback ? "checkmark" : "doc.on.doc")
+				.foregroundColor(showCopiedFeedback ? .green : .secondary)
+				#if os(iOS)
+				.font(.system(size: 14))
+				.frame(width: 44, height: 44)
+				#else
+				.frame(width: 28, height: 28)
+				#endif
+				.background(Color.listItemBackground(colorScheme))
+				.cornerRadius(6)
+		}
+		.buttonStyle(.plain)
+		.animation(.easeInOut(duration: 0.2), value: showCopiedFeedback)
+	}
+
+	private var exportButton: some View {
+		Button {
+			exportDocument = ImageDocument(data: Data(data))
+			showExporter = true
+		} label: {
+			Image(systemName: "square.and.arrow.up")
+				.foregroundColor(.secondary)
+				#if os(iOS)
+				.font(.system(size: 14))
+				.frame(width: 44, height: 44)
+				#else
+				.frame(width: 28, height: 28)
+				#endif
+				.background(Color.listItemBackground(colorScheme))
+				.cornerRadius(6)
+		}
+		.buttonStyle(.plain)
+	}
+}
+
+extension PayloadType {
+	var utType: UTType {
+		switch self {
+		case .png: return .png
+		case .jpeg: return .jpeg
+		case .gif: return .gif
+		case .webp: return UTType(filenameExtension: "webp") ?? .data
+		case .bmp: return .bmp
+		case .tiff: return .tiff
+		case .heic: return .heic
+		case .unknown: return .data
+		}
+	}
+
+	var fileExtension: String {
+		switch self {
+		case .png: return "png"
+		case .jpeg: return "jpg"
+		case .gif: return "gif"
+		case .webp: return "webp"
+		case .bmp: return "bmp"
+		case .tiff: return "tiff"
+		case .heic: return "heic"
+		case .unknown: return "bin"
+		}
+	}
+}
+
+// MARK: - Image Document for Export
+
+struct ImageDocument: FileDocument {
+	static var readableContentTypes: [UTType] { [.png, .jpeg, .gif, .bmp, .tiff, .heic, .data] }
+
+	var data: Data
+
+	init(data: Data) {
+		self.data = data
+	}
+
+	init(configuration: ReadConfiguration) throws {
+		data = configuration.file.regularFileContents ?? Data()
+	}
+
+	func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+		FileWrapper(regularFileWithContents: data)
+	}
+}
+
+// MARK: - Hex Payload View
+
+struct HexPayloadView: View {
+	let data: [UInt8]
+
+	@State private var showCopiedFeedback = false
+	@State private var showExporter = false
+	@State private var exportDocument: BinaryDocument?
+	@Environment(\.colorScheme) var colorScheme
+
+	private let bytesPerRow = 16
+
+	var body: some View {
+		VStack(spacing: 0) {
+			headerBanner
+
+			ScrollView(.vertical) {
+				LazyVStack(alignment: .leading, spacing: 0) {
+					ForEach(0..<numberOfRows, id: \.self) { rowIndex in
+						HexRowView(
+							data: data,
+							rowIndex: rowIndex,
+							bytesPerRow: bytesPerRow,
+							totalBytes: data.count
+						)
+					}
+				}
+				.padding(12)
+				.frame(maxWidth: .infinity, alignment: .leading)
+			}
+			.overlay(alignment: .topTrailing) {
+				HStack(spacing: 8) {
+					exportButton
+					copyButton
+				}
+				.padding(.top, 8)
+				.padding(.trailing, 16)
+			}
+		}
+		.fileExporter(
+			isPresented: $showExporter,
+			document: exportDocument,
+			contentType: .data,
+			defaultFilename: "mqtt-payload.bin"
+		) { _ in }
+	}
+
+	private var numberOfRows: Int {
+		(data.count + bytesPerRow - 1) / bytesPerRow
+	}
+
+	private var headerBanner: some View {
+		HStack(spacing: 6) {
+			Image(systemName: "number")
+				.foregroundColor(.secondary)
+			Text("Binary data: \(formatBytes(data.count))")
+				.font(.caption)
+				.foregroundColor(.secondary)
+			Spacer()
+		}
+		.padding(.horizontal, 12)
+		.padding(.vertical, 6)
+		.background(Color.secondary.opacity(0.1))
+	}
+
+	private var copyButton: some View {
+		Button {
+			let hexString = data.map { String(format: "%02X", $0) }.joined(separator: " ")
+			Pasteboard.copy(hexString)
+			showCopiedFeedback = true
+			DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+				showCopiedFeedback = false
+			}
+		} label: {
+			Image(systemName: showCopiedFeedback ? "checkmark" : "doc.on.doc")
+				.foregroundColor(showCopiedFeedback ? .green : .secondary)
+				#if os(iOS)
+				.font(.system(size: 14))
+				.frame(width: 44, height: 44)
+				#else
+				.frame(width: 28, height: 28)
+				#endif
+				.background(Color.listItemBackground(colorScheme))
+				.cornerRadius(6)
+		}
+		.buttonStyle(.plain)
+		.animation(.easeInOut(duration: 0.2), value: showCopiedFeedback)
+	}
+
+	private var exportButton: some View {
+		Button {
+			exportDocument = BinaryDocument(data: Data(data))
+			showExporter = true
+		} label: {
+			Image(systemName: "square.and.arrow.up")
+				.foregroundColor(.secondary)
+				#if os(iOS)
+				.font(.system(size: 14))
+				.frame(width: 44, height: 44)
+				#else
+				.frame(width: 28, height: 28)
+				#endif
+				.background(Color.listItemBackground(colorScheme))
+				.cornerRadius(6)
+		}
+		.buttonStyle(.plain)
+	}
+
+	private func formatBytes(_ bytes: Int) -> String {
+		if bytes < 1024 {
+			return "\(bytes) bytes"
+		} else if bytes < 1024 * 1024 {
+			return String(format: "%.1f KB", Double(bytes) / 1024)
+		} else {
+			return String(format: "%.1f MB", Double(bytes) / (1024 * 1024))
+		}
+	}
+}
+
+// MARK: - Hex Row View
+
+private struct HexRowView: View {
+	let data: [UInt8]
+	let rowIndex: Int
+	let bytesPerRow: Int
+	let totalBytes: Int
+
+	private var offset: Int {
+		rowIndex * bytesPerRow
+	}
+
+	private var rowBytes: ArraySlice<UInt8> {
+		let start = offset
+		let end = min(start + bytesPerRow, totalBytes)
+		return data[start..<end]
+	}
+
+	private var offsetWidth: Int {
+		// Calculate width needed for largest offset
+		let maxOffset = totalBytes - 1
+		if maxOffset < 0x10000 {
+			return 4
+		} else if maxOffset < 0x1000000 {
+			return 6
+		} else {
+			return 8
+		}
+	}
+
+	var body: some View {
+		HStack(spacing: 0) {
+			// Offset column
+			Text(String(format: "%0\(offsetWidth)X", offset))
+				.font(.system(size: 12, design: .monospaced))
+				.foregroundColor(.secondary)
+				.frame(width: CGFloat(offsetWidth) * 8, alignment: .leading)
+
+			Text("  ")
+				.font(.system(size: 12, design: .monospaced))
+
+			// Hex bytes
+			HStack(spacing: 4) {
+				ForEach(0..<bytesPerRow, id: \.self) { byteIndex in
+					if byteIndex < rowBytes.count {
+						Text(String(format: "%02X", rowBytes[offset + byteIndex]))
+							.font(.system(size: 12, design: .monospaced))
+							.foregroundColor(byteColor(rowBytes[offset + byteIndex]))
+					} else {
+						Text("  ")
+							.font(.system(size: 12, design: .monospaced))
+					}
+
+					// Add extra space after 8 bytes for readability
+					if byteIndex == 7 {
+						Text(" ")
+							.font(.system(size: 12, design: .monospaced))
+					}
+				}
+			}
+
+			Text("  ")
+				.font(.system(size: 12, design: .monospaced))
+
+			// ASCII representation
+			Text("|")
+				.font(.system(size: 12, design: .monospaced))
+				.foregroundColor(.secondary)
+
+			HStack(spacing: 0) {
+				ForEach(0..<rowBytes.count, id: \.self) { byteIndex in
+					Text(asciiChar(rowBytes[offset + byteIndex]))
+						.font(.system(size: 12, design: .monospaced))
+						.foregroundColor(isPrintable(rowBytes[offset + byteIndex]) ? .primary : .secondary)
+				}
+			}
+
+			Text("|")
+				.font(.system(size: 12, design: .monospaced))
+				.foregroundColor(.secondary)
+
+			Spacer()
+		}
+		.frame(maxWidth: .infinity, alignment: .leading)
+	}
+
+	private func byteColor(_ byte: UInt8) -> Color {
+		if byte == 0x00 {
+			return .secondary.opacity(0.5)
+		} else if byte >= 0x20 && byte < 0x7F {
+			return .primary
+		} else {
+			return .blue
+		}
+	}
+
+	private func isPrintable(_ byte: UInt8) -> Bool {
+		byte >= 0x20 && byte < 0x7F
+	}
+
+	private func asciiChar(_ byte: UInt8) -> String {
+		if isPrintable(byte) {
+			return String(UnicodeScalar(byte))
+		} else {
+			return "."
+		}
+	}
+}
+
+// MARK: - Binary Document for Export
+
+struct BinaryDocument: FileDocument {
+	static var readableContentTypes: [UTType] { [.data] }
+
+	var data: Data
+
+	init(data: Data) {
+		self.data = data
+	}
+
+	init(configuration: ReadConfiguration) throws {
+		data = configuration.file.regularFileContents ?? Data()
+	}
+
+	func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+		FileWrapper(regularFileWithContents: data)
+	}
+}

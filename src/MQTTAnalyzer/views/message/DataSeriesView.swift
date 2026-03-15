@@ -8,6 +8,25 @@
 
 import SwiftUI
 
+struct DataSeriesSkippedView: View {
+	var body: some View {
+		Section(header: Text("Data series")) {
+			HStack(spacing: 8) {
+				Image(systemName: "chart.line.uptrend.xyaxis")
+					.foregroundColor(.secondary)
+				VStack(alignment: .leading, spacing: 2) {
+					Text("Charts disabled for large payloads")
+						.font(.subheadline)
+					Text("Payload exceeds 50KB threshold")
+						.font(.caption)
+						.foregroundColor(.secondary)
+				}
+			}
+			.padding(.vertical, 4)
+		}
+	}
+}
+
 struct DataSeriesView: View {
 	let topic: String
 	@ObservedObject var series: TimeSeriesModel
