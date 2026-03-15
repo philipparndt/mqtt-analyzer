@@ -217,7 +217,6 @@ struct TopicsView: View {
 		return host.settings.aliasOrHost
 	}
 
-	
 	func connect() {
 		self.rootModel.connect(to: self.host)
 	}

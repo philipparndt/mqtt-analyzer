@@ -69,6 +69,7 @@ struct MQTTAnalyzerApp: App {
 			}
 		}
 		#if os(macOS)
+		.defaultSize(width: 1100, height: 700)
 		.windowToolbarStyle(.unified(showsTitle: false))
 		.commands {
 			CommandGroup(replacing: .appInfo) {

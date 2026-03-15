@@ -31,11 +31,11 @@ struct DataSeriesView: View {
 					}
 
 					if diagrams.count > initialLimit {
-						Button(action: {
+						Button {
 							withAnimation {
 								isExpanded.toggle()
 							}
-						}) {
+						} label: {
 							HStack {
 								Spacer()
 								Image(systemName: isExpanded ? "chevron.up" : "chevron.down")

@@ -79,16 +79,14 @@ private func validateClientP12(data: Data, password: String) -> CertificateValid
 		}
 
 		// Check for identity (certificate + private key)
-		for item in array {
-			if item[kSecImportItemIdentity as String] != nil {
-				// Extract certificate info for display
-				if let certChain = item[kSecImportItemCertChain as String] as? [SecCertificate],
-				   let cert = certChain.first {
-					let subject = SecCertificateCopySubjectSummary(cert) as String? ?? "Unknown"
-					return .valid("Certificate and password verified", details: "Subject: \(subject)")
-				}
-				return .valid("Certificate and password verified")
+		for item in array where item[kSecImportItemIdentity as String] != nil {
+			// Extract certificate info for display
+			if let certChain = item[kSecImportItemCertChain as String] as? [SecCertificate],
+			   let cert = certChain.first {
+				let subject = SecCertificateCopySubjectSummary(cert) as String? ?? "Unknown"
+				return .valid("Certificate and password verified", details: "Subject: \(subject)")
 			}
+			return .valid("Certificate and password verified")
 		}
 		let details = "This file contains certificates but no private key. " +
 			"For mTLS client authentication, use a P12 file that includes both certificate and private key."
@@ -319,10 +317,9 @@ private func loadCertificatesFromP12(url: URL, password: String) throws -> [SecC
 		if let trust = item[kSecImportItemTrust as String] {
 			let secTrust = trust as! SecTrust
 			if let certChainFromTrust = SecTrustCopyCertificateChain(secTrust) as? [SecCertificate] {
-				for cert in certChainFromTrust {
-					if !certificates.contains(where: { SecCertificateCopyData($0) == SecCertificateCopyData(cert) }) {
-						certificates.append(cert)
-					}
+				for cert in certChainFromTrust
+					where !certificates.contains(where: { SecCertificateCopyData($0) == SecCertificateCopyData(cert) }) {
+					certificates.append(cert)
 				}
 			}
 		}

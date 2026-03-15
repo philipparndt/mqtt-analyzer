@@ -58,7 +58,8 @@ struct TLSFormView: View {
 										.font(.caption)
 										.foregroundColor(.secondary)
 								}
-								Text("The server certificate will be validated against the system's trusted certificate authorities. Add a custom CA for self-signed or private CA certificates.")
+								// swiftlint:disable:next line_length
+							Text("The server certificate will be validated against the system's trusted certificate authorities. Add a custom CA for self-signed or private CA certificates.")
 									.font(.caption)
 									.foregroundColor(.secondary)
 							}

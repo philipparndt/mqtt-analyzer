@@ -9,15 +9,35 @@
 import SwiftUI
 
 struct DataSeriesDetailsView: View {
-	
+	@Environment(\.dismiss) private var dismiss
+
 	let path: DiagramPath
 	let topic: String
 	@ObservedObject var series: TimeSeriesModel
 
 	@State var range: Int = 60
-	
+
 	var body: some View {
 		VStack {
+			#if os(macOS)
+			HStack {
+				Button {
+					dismiss()
+				} label: {
+					HStack(spacing: 4) {
+						Image(systemName: "chevron.left")
+						Text("Back")
+					}
+				}
+				.buttonStyle(.plain)
+				.foregroundStyle(Color.accentColor)
+
+				Spacer()
+			}
+			.padding(.horizontal)
+			.padding(.top, 8)
+			#endif
+
 			VStack(alignment: .leading) {
 				List {
 					Section(header: Text("Topic")) {
@@ -40,6 +60,9 @@ struct DataSeriesDetailsView: View {
 		#endif
 			}
 		}
+		#if os(macOS)
+		.navigationBarBackButtonHidden(true)
+		#endif
 	}
 }
 

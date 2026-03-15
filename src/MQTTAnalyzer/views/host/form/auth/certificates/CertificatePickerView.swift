@@ -14,6 +14,7 @@ import UniformTypeIdentifiers
 /// Handles iOS and macOS platforms properly.
 /// Note: For P12 files, validation is handled by the parent view (CertificateAuthenticationView)
 /// since it requires the password. This picker only validates non-P12 files (Server CA, etc.)
+// swiftlint:disable:next type_body_length
 struct CertificatePickerView: View {
     let label: String
     @Binding var file: CertificateFile?

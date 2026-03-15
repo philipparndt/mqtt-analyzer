@@ -33,6 +33,9 @@ struct RootView: View {
 		}
 		.sheet(isPresented: $welcome, onDismiss: closeWelcome, content: {
 			WelcomeView(closeHandler: closeWelcome)
+				#if os(macOS)
+				.frame(width: 500, height: 620)
+				#endif
 		})
 	}
 
@@ -95,6 +98,21 @@ struct RootView: View {
 			}
 			.id(selectedTopic?.id)
 		}
+		#if os(iOS)
+		.navigationSplitViewStyle(.balanced)
+		.onAppear {
+			if selectedBroker == nil {
+				DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+					columnVisibility = .all
+				}
+			}
+		}
+		.onChange(of: selectedBroker) {
+			if selectedBroker != nil {
+				columnVisibility = .doubleColumn
+			}
+		}
+		#endif
 	}
 
 	func closeWelcome() {
