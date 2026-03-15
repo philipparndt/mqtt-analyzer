@@ -8,18 +8,15 @@
 
 import SwiftUI
 
-enum HostCellViewSheetType {
+enum HostCellViewSheetType: Identifiable {
 	case edit
 	case login
-}
 
-struct ServerPageSheetState {
-	var isPresented = false
-	var type = HostCellViewSheetType.edit
-	
-	mutating func present(type: HostCellViewSheetType) {
-		self.type = type
-		self.isPresented = true
+	var id: String {
+		switch self {
+		case .edit: return "edit"
+		case .login: return "login"
+		}
 	}
 }
 
@@ -31,7 +28,7 @@ struct HostCellView: View {
 	@ObservedObject var hostsModel: HostsModel
 	@ObservedObject var messageModel: TopicTree
 
-	@State private var sheetState = ServerPageSheetState()
+	@State private var activeSheet: HostCellViewSheetType?
 
 	@State private var loginData = LoginData()
 
@@ -60,12 +57,18 @@ struct HostCellView: View {
 
 			if host.state == .disconnected {
 				if isSelected {
-					Button(action: connect) {
+					Button {
+						connect()
+					} label: {
 						Image(systemName: "play.circle.fill")
 							.font(.title2)
 							.foregroundColor(.white)
 					}
+					#if os(macOS)
+					.buttonStyle(.borderless)
+					#else
 					.buttonStyle(.plain)
+					#endif
 					.accessibilityLabel("Connect")
 				}
 			} else {
@@ -74,12 +77,18 @@ struct HostCellView: View {
 					.foregroundColor(isSelected ? .white : .secondary)
 
 				if isSelected {
-					Button(action: togglePause) {
+					Button {
+						togglePause()
+					} label: {
 						Image(systemName: host.pause ? "play.circle.fill" : "pause.circle.fill")
 							.font(.title2)
 							.foregroundColor(.white)
 					}
+					#if os(macOS)
+					.buttonStyle(.borderless)
+					#else
 					.buttonStyle(.plain)
+					#endif
 					.accessibilityLabel(host.pause ? "Resume" : "Pause")
 				} else {
 					Image(systemName: host.pause ? "pause.fill" : "circle.fill")
@@ -92,18 +101,18 @@ struct HostCellView: View {
 		}
 		.padding([.top, .bottom], 5)
 		.contentShape(Rectangle())
-		.sheet(isPresented: $sheetState.isPresented, onDismiss: cancelEditCreation, content: {
-			if self.sheetState.type == .edit {
-				EditHostFormModalView(closeHandler: self.cancelEditCreation,
+		.sheet(item: $activeSheet) { sheetType in
+			switch sheetType {
+			case .edit:
+				EditHostFormModalView(closeHandler: self.dismissSheet,
 									  root: self.model,
 									  hosts: self.model.hostsModel,
 									  original: self.host.settings,
 									  host: transformHost(source: self.host))
-			}
-			else {
+			case .login:
 				LoginDialogView(loginCallback: self.login, host: self.host)
 			}
-		})
+		}
 		.onAppear {
 			if self.host.needsAuth {
 				self.loginData.username = self.host.settings.username ?? ""
@@ -149,7 +158,7 @@ struct HostCellView: View {
 	}
 	
 	func editHost() {
-		sheetState.present(type: .edit)
+		activeSheet = .edit
 	}
 	
 	func deleteBroker() {
@@ -178,7 +187,7 @@ struct HostCellView: View {
 	
 	func connect() {
 		if self.host.needsAuth {
-			sheetState.present(type: .login)
+			activeSheet = .login
 		}
 		else {
 			model.connect(to: host)
@@ -186,11 +195,11 @@ struct HostCellView: View {
 	}
 	
 	func login() {
-		sheetState.isPresented = false
+		activeSheet = nil
 		model.connect(to: self.host)
 	}
-	
-	func cancelEditCreation() {
-		sheetState.isPresented = false
+
+	func dismissSheet() {
+		activeSheet = nil
 	}
 }

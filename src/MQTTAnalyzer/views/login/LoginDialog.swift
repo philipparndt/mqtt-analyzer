@@ -18,16 +18,15 @@ struct LoginDialogView: View {
 	let loginCallback: () -> Void
 
 	@ObservedObject var host: Host
+	@Environment(\.dismiss) private var dismiss
 
 	var body: some View {
-		NavigationStack {
-			LoginFormView(username: host.settings.username ?? "", password: host.settings.password ?? "", loginCallback: login)
-				.font(.caption)
-				#if !os(macOS)
-				.navigationBarTitleDisplayMode(.inline)
-				#endif
-				.navigationTitle("Login")
-		}
+		LoginFormView(
+			username: host.settings.username ?? "",
+			password: host.settings.password ?? "",
+			onLogin: login,
+			onCancel: { dismiss() }
+		)
 	}
 
 	func login(username: String, password: String) {
@@ -35,67 +34,105 @@ struct LoginDialogView: View {
 		host.passwordNonpersistent = password
 		loginCallback()
 	}
-
 }
 
 struct LoginFormView: View {
 	@State var username: String
 	@State var password: String
-	let loginCallback: (String, String) -> Void
+	let onLogin: (String, String) -> Void
+	let onCancel: () -> Void
+
+	@FocusState private var focusedField: Field?
+
+	private enum Field {
+		case username, password
+	}
 
 	var body: some View {
-		Group {
-			Form {
-				Section {
-					HStack {
-						Text("Username")
-							.font(.headline)
+		VStack(spacing: 0) {
+			// Header
+			VStack(spacing: 8) {
+				Image(systemName: "lock.shield")
+					.font(.system(size: 40))
+					.foregroundColor(.accentColor)
 
-						Spacer()
+				Text("Authentication Required")
+					.font(.headline)
 
-						TextField("", text: $username, prompt: Text("username").foregroundColor(.secondary))
-							.disableAutocorrection(true)
-							#if !os(macOS)
-							.textInputAutocapitalization(.never)
-							#endif
-							.multilineTextAlignment(.trailing)
-							.font(.body)
-							.accessibilityLabel("username")
-					}
+				Text("Enter your credentials to connect")
+					.font(.subheadline)
+					.foregroundColor(.secondary)
+			}
+			.padding(.top, 24)
+			.padding(.bottom, 20)
 
-					HStack {
-						Text("Password")
-							.font(.headline)
+			// Fields
+			VStack(spacing: 12) {
+				VStack(alignment: .leading, spacing: 4) {
+					Text("Username")
+						.font(.caption)
+						.foregroundColor(.secondary)
 
-							Spacer()
-
-						SecureField("", text: $password, prompt: Text("password").foregroundColor(.secondary))
-							.disableAutocorrection(true)
-							#if !os(macOS)
-							.textInputAutocapitalization(.never)
-							#endif
-							.multilineTextAlignment(.trailing)
-							.font(.body)
-							.accessibilityLabel("password")
-					}
+					TextField("", text: $username)
+						.textFieldStyle(.roundedBorder)
+						.disableAutocorrection(true)
+						#if os(iOS)
+						.textInputAutocapitalization(.never)
+						#endif
+						.focused($focusedField, equals: .username)
+						.onSubmit { focusedField = .password }
+						.accessibilityLabel("Username")
 				}
 
-				Section {
-					Button(action: self.login) {
-						Text("Login")
-						.padding()
-						.font(.headline)
-							.frame(minWidth: 250, maxWidth: .infinity, alignment: .center)
-						.foregroundColor(.white)
-						.background(Color.blue)
-						.cornerRadius(15)
-					}
+				VStack(alignment: .leading, spacing: 4) {
+					Text("Password")
+						.font(.caption)
+						.foregroundColor(.secondary)
+
+					SecureField("", text: $password)
+						.textFieldStyle(.roundedBorder)
+						.disableAutocorrection(true)
+						#if os(iOS)
+						.textInputAutocapitalization(.never)
+						#endif
+						.focused($focusedField, equals: .password)
+						.onSubmit { login() }
+						.accessibilityLabel("Password")
 				}
 			}
+			.padding(.horizontal, 24)
+
+			Spacer()
+				.frame(height: 24)
+
+			// Buttons
+			VStack(spacing: 10) {
+				Button(action: login) {
+					Text("Login")
+						.fontWeight(.semibold)
+						.frame(maxWidth: .infinity)
+				}
+				.buttonStyle(.borderedProminent)
+				.controlSize(.large)
+
+				Button("Cancel", action: onCancel)
+					.buttonStyle(.borderless)
+					.foregroundColor(.secondary)
+			}
+			.padding(.horizontal, 24)
+			.padding(.bottom, 24)
+		}
+		#if os(macOS)
+		.frame(width: 320, height: 340)
+		#else
+		.frame(maxWidth: 360)
+		#endif
+		.onAppear {
+			focusedField = username.isEmpty ? .username : .password
 		}
 	}
 
-	func login() {
-		self.loginCallback(self.username, self.password)
+	private func login() {
+		onLogin(username, password)
 	}
 }

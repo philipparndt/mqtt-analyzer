@@ -22,7 +22,6 @@ struct HostsView: View {
 	@State var sheetType: HostsSheetType = .none
 
 	@State var selectedHost: Host?
-	@State var sheetState = ServerPageSheetState()
 	@State var searchText: String = ""
 
 	@Binding var selectedBroker: BrokerSetting?
