@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0031B4429B91FFD077CFB8CD /* CertificateEKUChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B14C2D0D4C3322294C1D9ED /* CertificateEKUChecker.swift */; };
 		0332D470EDCC0893FCD4B886 /* TopicTree+ReadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0B27A57DF400D4327F /* TopicTree+ReadState.swift */; };
 		03E1FDBA129BE8C934FA61AC /* ClientCertsHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B32280A92D8000F8F37 /* ClientCertsHelpView.swift */; };
 		03FB8FA6E8281F226CF3AAE8 /* CustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAA27AEF98700DFD09F /* CustomListView.swift */; };
@@ -22,6 +23,7 @@
 		148B5E1341154AAAED68FE93 /* SyntaxTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5535CC828E69F9EAAD569C /* SyntaxTheme.swift */; };
 		1A2BA27016FD2F1BF32B1E71 /* MQTT5ClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E3D28142CDB00A4F627 /* MQTT5ClientSync.swift */; };
 		1A8957EAF2D466362FB7395C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F511F20AD2C23A782996AC1 /* Cocoa.framework */; };
+		1D418A929B374D45AFFBB9EC /* CertificateEKUChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B14C2D0D4C3322294C1D9ED /* CertificateEKUChecker.swift */; };
 		20189819B3FE6664FAF28312 /* CertificateDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D200612EE526A6BB47653F5 /* CertificateDiagnostics.swift */; };
 		20E695679AD4865C94B30CFB /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73623B79A1300892C4B /* MessageTextView.swift */; };
 		21E1DBF06305285D3F3D8844 /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D22477D5CA009810E6 /* FileListView.swift */; };
@@ -199,7 +201,6 @@
 		2282DA72281129F800F79E65 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA6B2811297200F79E65 /* Certificate.swift */; };
 		2282DA7328112A1900F79E65 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96A27C1123000E63E89 /* Logger.swift */; };
 		228466CD2F59586600027A13 /* Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 228466CC2F59586600027A13 /* Dynamic */; };
-		228466CF2F59586600027A13 /* swift-petitparser in Frameworks */ = {isa = PBXBuildFile; productRef = 228466CE2F59586600027A13 /* swift-petitparser */; };
 		228466D12F59586600027A13 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 228466D02F59586600027A13 /* SwiftyJSON */; };
 		228466D52F59586600027A13 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 228466D42F59586600027A13 /* GRDB */; };
 		228466D72F59586600027A13 /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 228466D62F59586600027A13 /* CocoaMQTT */; };
@@ -380,6 +381,7 @@
 		60193002974979DB5789F6D8 /* NoFilesHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D82477D620009810E6 /* NoFilesHelpView.swift */; };
 		618CFC08C7EF55423A48D5E4 /* SyntaxTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E99CEB15F647436B4E790C /* SyntaxTokenizer.swift */; };
 		673953FAB23CE81B1780645C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
+		675ED6BB900E53B7B15D5375 /* CertificateEKUChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B14C2D0D4C3322294C1D9ED /* CertificateEKUChecker.swift */; };
 		67D2EE36E94E186F0D474EE3 /* TimeSeriesValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */; };
 		687DDB8BBFB615F2F9D3588E /* ViewSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2231894A27F08BAB001177F4 /* ViewSelection.swift */; };
 		68DB8B552DC3EAFD63AE5F06 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424E23C0C0370086C251 /* MenuButton.swift */; };
@@ -574,7 +576,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		02E7660F41E62F20DC013185 /* CertificateValidator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CertificateValidator.swift; path = CertificateValidator.swift; sourceTree = "<group>"; };
+		02E7660F41E62F20DC013185 /* CertificateValidator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; };
 		031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerDetailsView.swift; sourceTree = "<group>"; };
 		04E99CEB15F647436B4E790C /* SyntaxTokenizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SyntaxTokenizer.swift; sourceTree = "<group>"; };
 		0DE5B5FB7C1A4F3595D574E5 /* SyntaxToken.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SyntaxToken.swift; sourceTree = "<group>"; };
@@ -823,18 +825,19 @@
 		22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSeriesDetailsView.swift; sourceTree = "<group>"; };
 		22TLS00000000000000001 /* TLSFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSFormView.swift; sourceTree = "<group>"; };
 		32EF7A4AFFE0320AD8ED7FE7 /* JsonTokenizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JsonTokenizer.swift; sourceTree = "<group>"; };
-		56F24C1164AEAF46601A3399 /* CertificateLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CertificateLoader.swift; path = CertificateLoader.swift; sourceTree = "<group>"; };
+		56F24C1164AEAF46601A3399 /* CertificateLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateLoader.swift; sourceTree = "<group>"; };
 		5ADE224B5E26468F48727D88 /* SyntaxHighlightedTextView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SyntaxHighlightedTextView.swift; sourceTree = "<group>"; };
-		5D200612EE526A6BB47653F5 /* CertificateDiagnostics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CertificateDiagnostics.swift; path = CertificateDiagnostics.swift; sourceTree = "<group>"; };
+		5B14C2D0D4C3322294C1D9ED /* CertificateEKUChecker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateEKUChecker.swift; sourceTree = "<group>"; };
+		5D200612EE526A6BB47653F5 /* CertificateDiagnostics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateDiagnostics.swift; sourceTree = "<group>"; };
 		5E5535CC828E69F9EAAD569C /* SyntaxTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SyntaxTheme.swift; sourceTree = "<group>"; };
 		630CEA549212E560C3771A48 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BF177AE777375FBC115DB4 /* TopicPathView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TopicPathView.swift; sourceTree = "<group>"; };
 		8DD3CFF7F0707B8959B422FF /* CertificateValidatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateValidatorTests.swift; sourceTree = "<group>"; };
 		9904C1B7391A959D0C8D1FF3 /* PlatformCompat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlatformCompat.swift; path = ../../platform/PlatformCompat.swift; sourceTree = "<group>"; };
-		9ECFB2BA522BD8D02D427F1B /* CertInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CertInfo.swift; path = CertInfo.swift; sourceTree = "<group>"; };
+		9ECFB2BA522BD8D02D427F1B /* CertInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertInfo.swift; sourceTree = "<group>"; };
 		9F511F20AD2C23A782996AC1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		BBD7069C065C2B3768088FC8 /* DERParserTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DERParserTests.swift; sourceTree = "<group>"; };
-		CEC394D0FF5E80E2C847C91E /* DERParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DERParser.swift; path = DERParser.swift; sourceTree = "<group>"; };
+		CEC394D0FF5E80E2C847C91E /* DERParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DERParser.swift; sourceTree = "<group>"; };
 		DA45D7313076E1A74E2C02D4 /* LimitsSettingsDialog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LimitsSettingsDialog.swift; sourceTree = "<group>"; };
 		TESTLOGO00127CA682F00FFF91 /* TestLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestLogo.png; sourceTree = "<group>"; };
 		ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerContentView.swift; sourceTree = "<group>"; };
@@ -905,7 +908,6 @@
 			files = (
 				228466CD2F59586600027A13 /* Dynamic in Frameworks */,
 				1A8957EAF2D466362FB7395C /* Cocoa.framework in Frameworks */,
-				228466CF2F59586600027A13 /* swift-petitparser in Frameworks */,
 				228466D92F59586600027A13 /* CocoaMQTTWebSocket in Frameworks */,
 				228466D12F59586600027A13 /* SwiftyJSON in Frameworks */,
 				228466D72F59586600027A13 /* CocoaMQTT in Frameworks */,
@@ -1578,8 +1580,8 @@
 				56F24C1164AEAF46601A3399 /* CertificateLoader.swift */,
 				02E7660F41E62F20DC013185 /* CertificateValidator.swift */,
 				5D200612EE526A6BB47653F5 /* CertificateDiagnostics.swift */,
+				5B14C2D0D4C3322294C1D9ED /* CertificateEKUChecker.swift */,
 			);
-			name = certs;
 			path = certs;
 			sourceTree = "<group>";
 		};
@@ -1588,7 +1590,6 @@
 			children = (
 				30F1288CEB4A1046C3C6E391 /* certs */,
 			);
-			name = utils;
 			path = utils;
 			sourceTree = "<group>";
 		};
@@ -1811,7 +1812,7 @@
 			packageReferences = (
 				2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */,
 				22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
-				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */,
 				22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */,
 			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
@@ -2081,6 +2082,7 @@
 				BC02E6D28EB4173852C8BD5A /* CertificateLoader.swift in Sources */,
 				DC5422135F246BB6BFE77F0E /* CertificateValidator.swift in Sources */,
 				20189819B3FE6664FAF28312 /* CertificateDiagnostics.swift in Sources */,
+				1D418A929B374D45AFFBB9EC /* CertificateEKUChecker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2194,6 +2196,7 @@
 				C240EAD6259BD9667F959BC5 /* CertificateLoader.swift in Sources */,
 				CDE32B14DF638BEE0C22B743 /* CertificateValidator.swift in Sources */,
 				5D45CB5AE08440B6198B6CF5 /* CertificateDiagnostics.swift in Sources */,
+				0031B4429B91FFD077CFB8CD /* CertificateEKUChecker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2424,6 +2427,7 @@
 				7E634F4ECBACD8CD7D40A254 /* CertificateLoader.swift in Sources */,
 				2ABF59A7D7CE790DB7682DCA /* CertificateValidator.swift in Sources */,
 				FB12455E67373F1787A25B58 /* CertificateDiagnostics.swift in Sources */,
+				675ED6BB900E53B7B15D5375 /* CertificateEKUChecker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3051,20 +3055,12 @@
 				version = "2.2.4-apple-network";
 			};
 		};
-		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/GRDB.swift";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 7.0.0;
-			};
-		};
-		22PETIT0127C20000PARSER1 /* XCRemoteSwiftPackageReference "swift-petitparser" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/philipparndt/swift-petitparser";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
 			};
 		};
 		22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
@@ -3088,11 +3084,6 @@
 			package = 2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */;
 			productName = Dynamic;
 		};
-		228466CE2F59586600027A13 /* swift-petitparser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 22PETIT0127C20000PARSER1 /* XCRemoteSwiftPackageReference "swift-petitparser" */;
-			productName = "swift-petitparser";
-		};
 		228466D02F59586600027A13 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
@@ -3100,7 +3091,7 @@
 		};
 		228466D42F59586600027A13 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
 		};
 		228466D62F59586600027A13 /* CocoaMQTT */ = {
@@ -3155,12 +3146,12 @@
 		};
 		22GRDB00227C50000SWIFT02 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
 		};
 		22GRDB00427C50000SWIFT04 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
 		};
 		22SWIFTY0227C30000JSON02 /* SwiftyJSON */ = {

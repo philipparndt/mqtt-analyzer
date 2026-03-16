@@ -12,25 +12,35 @@ import CocoaMQTT
 @testable import MQTTAnalyzer
 
 class MqttClientCocoaMQTTTests: XCTestCase {
-	 
-	func testInvalidHostname() throws {
-		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorMessage(error: NSError(domain: "", code: 8))
-		XCTAssertEqual("Invalid hostname.\nThe operation couldn’t be completed. ( error 8.)", msg)
+
+	func testInvalidHostname_summary() throws {
+		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorSummary(error: NSError(domain: "", code: 8))
+		XCTAssertEqual("Invalid hostname", msg)
 	}
-	
-    func testConnectionRefused() throws {
-		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorMessage(error: NWError.posix(POSIXErrorCode.ECONNREFUSED))
+
+	func testInvalidHostname_details() throws {
+		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorDetails(error: NSError(domain: "", code: 8))
+		XCTAssertTrue(msg.contains("hostname appears to be invalid"), msg)
+	}
+
+	func testConnectionRefused() throws {
+		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorSummary(error: NWError.posix(POSIXErrorCode.ECONNREFUSED))
 		XCTAssertTrue(msg.contains("Connection refused"), msg)
 	}
-	
+
 	func testConnectionTLS() throws {
-		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorMessage(error: NWError.tls(-9407))
-		XCTAssertTrue(msg.contains("OSStatus -9407"), msg)
+		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorDetails(error: NWError.tls(-9407))
+		XCTAssertTrue(msg.contains("-9407"), msg)
 	}
-	
-	func testConnectionTLSBadCertificate() throws {
-		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorMessage(error: NWError.tls(-9808))
-		XCTAssertTrue(msg.contains("-9808"), msg)
+
+	func testConnectionTLSBadCertificate_summary() throws {
+		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorSummary(error: NWError.tls(-9808))
+		XCTAssertTrue(msg.contains("Certificate validation failed"), msg)
+	}
+
+	func testConnectionTLSBadCertificate_details() throws {
+		let msg = ClientUtils<CocoaMQTT5, CocoaMQTT5Message>.extractErrorDetails(error: NWError.tls(-9808))
+		XCTAssertTrue(msg.contains("CERTIFICATE") || msg.contains("certificate"), msg)
 	}
 
 }

@@ -69,7 +69,7 @@ SGVsbG8gV29ybGQ=
 		XCTAssertNotNil(derData)
 	}
 
-	// MARK: - extractSANsHeuristic tests
+	// MARK: - HeuristicSANExtractor tests
 
 	func testExtractSANsHeuristic_withDNSNames() {
 		// Create a byte array with DNS name tag (0x82) followed by length and data
@@ -78,7 +78,7 @@ SGVsbG8gV29ybGQ=
 		var bytes: [UInt8] = [0x82, UInt8(dnsName.count)]
 		bytes.append(contentsOf: dnsName.utf8)
 
-		let sans = CertificateLoader.extractSANsHeuristic(bytes)
+		let sans = HeuristicSANExtractor.extract(from: bytes)
 		XCTAssertEqual(sans.count, 1)
 		XCTAssertEqual(sans.first, "example.com")
 	}
@@ -87,7 +87,7 @@ SGVsbG8gV29ybGQ=
 		// IP address tag (0x87) followed by length (4) and IPv4 bytes
 		let bytes: [UInt8] = [0x87, 0x04, 192, 168, 1, 1]
 
-		let sans = CertificateLoader.extractSANsHeuristic(bytes)
+		let sans = HeuristicSANExtractor.extract(from: bytes)
 		XCTAssertEqual(sans.count, 1)
 		XCTAssertEqual(sans.first, "192.168.1.1")
 	}
@@ -99,14 +99,14 @@ SGVsbG8gV29ybGQ=
 		bytes.append(contentsOf: [0x20, 0x01, 0x0d, 0xb8, 0x00, 0x00, 0x00, 0x00,
 								  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01])
 
-		let sans = CertificateLoader.extractSANsHeuristic(bytes)
+		let sans = HeuristicSANExtractor.extract(from: bytes)
 		XCTAssertEqual(sans.count, 1)
 		XCTAssertTrue(sans.first?.contains(":") ?? false)
 	}
 
 	func testExtractSANsHeuristic_empty() {
 		let bytes: [UInt8] = []
-		let sans = CertificateLoader.extractSANsHeuristic(bytes)
+		let sans = HeuristicSANExtractor.extract(from: bytes)
 		XCTAssertEqual(sans.count, 0)
 	}
 
@@ -125,13 +125,13 @@ SGVsbG8gV29ybGQ=
 		bytes.append(UInt8(name2.count))
 		bytes.append(contentsOf: name2.utf8)
 
-		let sans = CertificateLoader.extractSANsHeuristic(bytes)
+		let sans = HeuristicSANExtractor.extract(from: bytes)
 		XCTAssertEqual(sans.count, 2)
 		XCTAssertTrue(sans.contains("mqtt.example.com"))
 		XCTAssertTrue(sans.contains("api.example.com"))
 	}
 
-	// MARK: - parseSANSequence tests
+	// MARK: - SANSequenceParser tests
 
 	func testParseSANSequence_withDNSName() {
 		// SEQUENCE containing one dNSName
@@ -142,7 +142,7 @@ SGVsbG8gV29ybGQ=
 		data.append(UInt8(dnsName.count))
 		data.append(contentsOf: dnsName.utf8)
 
-		let sans = CertificateLoader.parseSANSequence(data)
+		let sans = SANSequenceParser.parse(data)
 		XCTAssertEqual(sans.count, 1)
 		XCTAssertEqual(sans.first, "example.com")
 	}
@@ -154,7 +154,7 @@ SGVsbG8gV29ybGQ=
 		data.append(0x04) // length 4
 		data.append(contentsOf: [10, 0, 0, 1]) // 10.0.0.1
 
-		let sans = CertificateLoader.parseSANSequence(data)
+		let sans = SANSequenceParser.parse(data)
 		XCTAssertEqual(sans.count, 1)
 		XCTAssertEqual(sans.first, "10.0.0.1")
 	}
@@ -163,7 +163,7 @@ SGVsbG8gV29ybGQ=
 		// Empty SEQUENCE
 		let data: [UInt8] = [0x30, 0x00]
 
-		let sans = CertificateLoader.parseSANSequence(data)
+		let sans = SANSequenceParser.parse(data)
 		XCTAssertEqual(sans.count, 0)
 	}
 
@@ -171,7 +171,7 @@ SGVsbG8gV29ybGQ=
 		// Invalid data (not a SEQUENCE)
 		let data: [UInt8] = [0x02, 0x01, 0x05] // INTEGER 5
 
-		let sans = CertificateLoader.parseSANSequence(data)
+		let sans = SANSequenceParser.parse(data)
 		XCTAssertEqual(sans.count, 0)
 	}
 

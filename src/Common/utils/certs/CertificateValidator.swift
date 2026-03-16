@@ -37,10 +37,15 @@ struct CertificateValidator {
 			return true
 		}
 
-		// Wildcard match: *.example.com matches mqtt.example.com
+		// Wildcard match: *.example.com matches mqtt.example.com but NOT deep.sub.example.com
+		// Standard wildcard only matches a single label
 		if pattern.starts(with: "*.") {
 			let suffix = String(pattern.dropFirst(2))
-			return hostname.hasSuffix("." + suffix)
+			// Check that hostname ends with .suffix AND has exactly one more label
+			guard hostname.hasSuffix("." + suffix) else { return false }
+			let prefix = String(hostname.dropLast(suffix.count + 1))
+			// The prefix should be a single label (no dots)
+			return !prefix.contains(".")
 		}
 
 		return false

@@ -37,10 +37,12 @@ struct CertificateLoader {
 		let lines = pem.split(separator: "\n")
 		var base64 = ""
 		var inCert = false
+		var foundBegin = false
 
 		for line in lines {
 			if line.contains("BEGIN CERTIFICATE") {
 				inCert = true
+				foundBegin = true
 				continue
 			}
 			if line.contains("END CERTIFICATE") {
@@ -50,6 +52,9 @@ struct CertificateLoader {
 				base64 += String(line)
 			}
 		}
+
+		// Return nil if no BEGIN CERTIFICATE marker was found
+		guard foundBegin else { return nil }
 
 		return Data(base64Encoded: base64)
 	}
@@ -232,6 +237,8 @@ struct HeuristicSANExtractor {
 		var names: [String] = []
 		var found82Tags = 0
 
+		guard bytes.count > 2 else { return names }
+
 		for i in 0..<(bytes.count - 2) where bytes[i] == 0x82 {
 			found82Tags += 1
 			if let name = extractDNSName(from: bytes, at: i) {
@@ -260,6 +267,8 @@ struct HeuristicSANExtractor {
 
 	private static func extractIPAddresses(from bytes: [UInt8]) -> [String] {
 		var addresses: [String] = []
+
+		guard bytes.count > 2 else { return addresses }
 
 		for i in 0..<(bytes.count - 2) where bytes[i] == 0x87 {
 			if let address = extractIPAddress(from: bytes, at: i) {
