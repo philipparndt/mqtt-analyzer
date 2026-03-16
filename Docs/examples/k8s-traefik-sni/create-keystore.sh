@@ -3,7 +3,7 @@
 # This script creates a Java keystore for HiveMQ from PEM certificates
 # Usage: ./create-keystore.sh <hostname> [additional_hostnames...]
 
-if [ $# -eq 0 ]; then
+if [[ $# -eq 0 ]]; then
     echo "Usage: ./create-keystore.sh <hostname> [additional_hostnames...]"
     echo "Example: ./create-keystore.sh mqtt.example.com mtls.example.com"
     exit 1

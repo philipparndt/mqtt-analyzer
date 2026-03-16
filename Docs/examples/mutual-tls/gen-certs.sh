@@ -1,4 +1,4 @@
-if [ $# -eq 0 ]
+if [[ $# -eq 0 ]]
   then
     echo "Expected hostname or ip address as first argument"
     exit 1

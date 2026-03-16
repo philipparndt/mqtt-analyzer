@@ -58,7 +58,7 @@ publish_large() {
     echo "  Generating and publishing $size_name message to $topic..."
     generate_json "$size" "$size_name" | mosquitto_pub -h "$BROKER" -p "$PORT" -t "$topic" -s -q 1
 
-    if [ $? -eq 0 ]; then
+    if [[ $? -eq 0 ]]; then
         echo "    ✓ Published $size_name"
     else
         echo "    ✗ Failed to publish $size_name"

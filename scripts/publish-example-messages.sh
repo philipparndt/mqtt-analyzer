@@ -91,7 +91,7 @@ publish "home/dishwasher/000123456789/full" '{
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOGO_FILE="$SCRIPT_DIR/../src/MQTTAnalyzerUITests/TestLogo.png"
 
-if [ -f "$LOGO_FILE" ]; then
+if [[ -f "$LOGO_FILE" ]]; then
     mosquitto_pub -h "$BROKER" -p "$PORT" -t "test/binary/logo" -f "$LOGO_FILE" -q 2
 else
     echo "Warning: TestLogo.png not found at $LOGO_FILE"

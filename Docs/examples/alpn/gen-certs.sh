@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]; then
+if [[ $# -eq 0 ]]; then
     echo "Expected hostname or ip address as first argument"
     echo "Usage: ./gen-certs.sh localhost"
     exit 1

@@ -81,10 +81,11 @@ spec:
       labels:
         app: hivemq
     spec:
+      automountServiceAccountToken: false
       initContainers:
         # Copy existing extensions from HiveMQ image to shared volume
         - name: copy-extensions
-          image: hivemq/hivemq-ce:latest
+          image: hivemq/hivemq-ce:2025.5
           command:
             - sh
             - -c
@@ -152,12 +153,19 @@ spec:
               mountPath: /extensions
       containers:
         - name: hivemq
-          image: hivemq/hivemq-ce:latest
+          image: hivemq/hivemq-ce:2025.5
           ports:
             - containerPort: 8883
               name: mqtts
             - containerPort: 8884
               name: mqtts-mtls
+          resources:
+            limits:
+              memory: "1Gi"
+              ephemeral-storage: "1Gi"
+            requests:
+              memory: "512Mi"
+              ephemeral-storage: "256Mi"
           volumeMounts:
             - name: config
               mountPath: /opt/hivemq/conf/config.xml

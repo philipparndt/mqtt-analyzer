@@ -117,11 +117,11 @@ publish_file() {
     local file=$2
     local description=$3
 
-    if [ -f "$file" ]; then
+    if [[ -f "$file" ]]; then
         local size=$(wc -c < "$file" | tr -d ' ')
         echo "  Publishing $description ($size bytes) to $topic..."
         mosquitto_pub -h "$BROKER" -p "$PORT" -t "$topic" -f "$file" -q 1
-        if [ $? -eq 0 ]; then
+        if [[ $? -eq 0 ]]; then
             echo "    ✓ Published"
         else
             echo "    ✗ Failed"
@@ -135,7 +135,7 @@ publish_file() {
 echo "Generating test files..."
 
 # Use MQTTAnalyzer logo if available, otherwise generate test images
-if [ -f "$LOGO_PATH" ]; then
+if [[ -f "$LOGO_PATH" ]]; then
     echo "Using MQTTAnalyzer logo: $LOGO_PATH"
     cp "$LOGO_PATH" "$TEMP_DIR/logo.png"
 
@@ -173,7 +173,7 @@ echo ""
 echo "Publishing messages..."
 
 # MQTTAnalyzer logo (full size)
-if [ -f "$TEMP_DIR/logo.png" ]; then
+if [[ -f "$TEMP_DIR/logo.png" ]]; then
     publish_file "test/binary/logo" "$TEMP_DIR/logo.png" "MQTTAnalyzer Logo PNG"
 fi
 
