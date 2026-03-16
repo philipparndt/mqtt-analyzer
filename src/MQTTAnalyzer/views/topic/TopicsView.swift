@@ -20,13 +20,6 @@ struct TopicsView: View {
 	
 	var body: some View {
 		VStack(spacing: 0) {
-			// Status bar at top - always visible when disconnected
-			if host.state == .disconnected {
-				DisconnectedView(host: host)
-					.background(Color.gray.opacity(0.05))
-					.border(Color.gray.opacity(0.2), width: 1)
-			}
-
 			if model.messageCount == 0 && model.children.keys.isEmpty {
 				AwaitMessagesView(model: model, host: host)
 				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
@@ -253,7 +246,7 @@ struct TopicsView: View {
 			}
 			else if host.state == .disconnected {
 				if host.reconnectDelegate != nil {
-					DisconnectedView(host: host)
+					DisconnectedToolbarView(host: host)
 				}
 				else {
 					ConnectBrokerView(connect: connect)
