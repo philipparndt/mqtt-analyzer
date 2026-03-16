@@ -9,7 +9,6 @@
 import Foundation
 import SwiftUI
 import SwiftyJSON
-import swift_petitparser
 
 enum PublishMessagePropertyType {
 	case boolean

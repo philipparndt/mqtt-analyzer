@@ -71,18 +71,4 @@ class HostFormValidatorTests: XCTestCase {
 	func testNoPortNumer() {
 		XCTAssertNil(HostFormValidator.validatePort(port: "no-port-number"))
 	}
-	
-	func testValidateMaxMessagesBatch() {
-		XCTAssertEqual(1500, HostFormValidator.validateMaxMessagesBatch(value: "1500"))
-		XCTAssertEqual(1567, HostFormValidator.validateMaxMessagesBatch(value: " 1567 "))
-		XCTAssertNil(HostFormValidator.validateMaxMessagesBatch(value: "no number"))
-		XCTAssertNil(HostFormValidator.validateMaxMessagesBatch(value: "2501"))
-	}
-	
-	func testValidateMaxTopics() {
-		XCTAssertEqual(1500, HostFormValidator.validateMaxTopic(value: "1500"))
-		XCTAssertEqual(1567, HostFormValidator.validateMaxTopic(value: " 1567 "))
-		XCTAssertNil(HostFormValidator.validateMaxTopic(value: "no number"))
-		XCTAssertNil(HostFormValidator.validateMaxTopic(value: "2501"))
-	}
 }

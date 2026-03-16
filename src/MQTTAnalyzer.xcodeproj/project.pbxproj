@@ -329,7 +329,6 @@
 		22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */; };
 		22GRDB00327C50000SWIFT03 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00227C50000SWIFT02 /* GRDB */; };
 		22GRDB00527C50000SWIFT05 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00427C50000SWIFT04 /* GRDB */; };
-		22PETIT0327C20000PARSER3 /* swift-petitparser in Frameworks */ = {isa = PBXBuildFile; productRef = 22PETIT0227C20000PARSER2 /* swift-petitparser */; };
 		22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0227C30000JSON02 /* SwiftyJSON */; };
 		22SWIFTY0427C30000JSON04 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0527C30000JSON05 /* SwiftyJSON */; };
 		22TLS00100000000000001 /* TLSFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22TLS00000000000000001 /* TLSFormView.swift */; };
@@ -811,8 +810,8 @@
 		9904C1B7391A959D0C8D1FF3 /* PlatformCompat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlatformCompat.swift; path = ../../platform/PlatformCompat.swift; sourceTree = "<group>"; };
 		9F511F20AD2C23A782996AC1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		DA45D7313076E1A74E2C02D4 /* LimitsSettingsDialog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LimitsSettingsDialog.swift; sourceTree = "<group>"; };
-		ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerContentView.swift; sourceTree = "<group>"; };
 		TESTLOGO00127CA682F00FFF91 /* TestLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestLogo.png; sourceTree = "<group>"; };
+		ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -821,7 +820,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2200D97027C124FD00E63E89 /* Dynamic in Frameworks */,
-				22PETIT0327C20000PARSER3 /* swift-petitparser in Frameworks */,
 				22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */,
 				22GRDB00327C50000SWIFT03 /* GRDB in Frameworks */,
 				22COCOA0327C60000MQTT03 /* CocoaMQTT in Frameworks */,
@@ -1587,7 +1585,6 @@
 			name = MQTTAnalyzer;
 			packageProductDependencies = (
 				2200D96F27C124FD00E63E89 /* Dynamic */,
-				22PETIT0227C20000PARSER2 /* swift-petitparser */,
 				22SWIFTY0227C30000JSON02 /* SwiftyJSON */,
 				22GRDB00227C50000SWIFT02 /* GRDB */,
 				22COCOA0227C60000MQTT02 /* CocoaMQTT */,
@@ -1761,7 +1758,6 @@
 			mainGroup = 2253F8C922C8C007007E35A2;
 			packageReferences = (
 				2200D96E27C124FD00E63E89 /* XCRemoteSwiftPackageReference "Dynamic" */,
-				22PETIT0127C20000PARSER1 /* XCRemoteSwiftPackageReference "swift-petitparser" */,
 				22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */,
 				22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */,
@@ -3096,11 +3092,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
-		};
-		22PETIT0227C20000PARSER2 /* swift-petitparser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 22PETIT0127C20000PARSER1 /* XCRemoteSwiftPackageReference "swift-petitparser" */;
-			productName = "swift-petitparser";
 		};
 		22SWIFTY0227C30000JSON02 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;

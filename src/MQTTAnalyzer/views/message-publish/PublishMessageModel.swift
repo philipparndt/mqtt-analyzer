@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftyJSON
-import swift_petitparser
 import SwiftUI
 
 enum TopicSuffix: String, CaseIterable {
@@ -119,7 +118,7 @@ func createProperty(json: JSON, path: [String]) -> PublishMessageProperty? {
 	let pathName = path.joined(separator: ".")
 	
 	let raw = json.rawString() ?? ""
-	let isInt = NumbersParser.int().trim().end().accept(raw)
+	let isInt = Int(raw.trimmingCharacters(in: .whitespaces)) != nil
 	let isOnOff = raw.lowercased() == "on" || raw.lowercased() == "off"
 	
 	if let value = json.bool {

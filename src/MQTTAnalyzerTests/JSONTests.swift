@@ -8,7 +8,6 @@
 
 import Foundation
 import XCTest
-import swift_petitparser
 
 @testable import MQTTAnalyzer
 

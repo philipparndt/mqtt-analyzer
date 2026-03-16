@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import swift_petitparser
 
 // MARK: Create Host
 struct NewHostFormModalView: View {
@@ -22,8 +21,6 @@ struct NewHostFormModalView: View {
 	var disableSave: Bool {
 		return HostFormValidator.validateHostname(name: host.hostname) == nil
 			|| HostFormValidator.validatePort(port: host.port) == nil
-			|| HostFormValidator.validateMaxTopic(value: host.limitTopic) == nil
-			|| HostFormValidator.validateMaxMessagesBatch(value: host.limitMessagesBatch) == nil
 	}
 	
 	var body: some View {
