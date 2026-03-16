@@ -21,7 +21,7 @@ public class HostFormValidator {
 	}
 	
 	public class func validateMaxTopic(value: String) -> Int32? {
-		return validateInt(value: value, max: 2500)
+		return validateInt(value: value, max: 5000)
 	}
 	
 	public class func validateMaxMessagesOfSubFolders(value: String) -> Int32? {

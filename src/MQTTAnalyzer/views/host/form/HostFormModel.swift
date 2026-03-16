@@ -71,7 +71,9 @@ func transform(subscriptions: [TopicSubscription]) -> [TopicSubscriptionFormMode
 }
 
 func transform(subscriptions: [TopicSubscriptionFormModel]) -> [TopicSubscription] {
-	return subscriptions.map { TopicSubscription(topic: $0.topic, qos: $0.qos)}
+	return subscriptions
+		.filter { !$0.topic.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+		.map { TopicSubscription(topic: $0.topic, qos: $0.qos)}
 }
 
 func validate(source host: HostFormModel) -> Bool {
