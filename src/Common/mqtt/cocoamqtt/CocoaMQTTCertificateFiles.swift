@@ -255,15 +255,21 @@ func createSSLSettings(host: Host) throws -> [String: NSObject] {
 /// - Returns: Array of SecCertificate objects, or nil if no Server CA is configured
 func loadServerCACertificates(host: Host) throws -> [SecCertificate]? {
 	guard let serverCA = getCertificate(host, type: .serverCA) else {
+		NSLog("loadServerCACertificates: No server CA certificate configured")
 		return nil
 	}
 
+	NSLog("loadServerCACertificates: Loading server CA: \(serverCA.name)")
 	var url = try serverCA.getBaseUrl(certificate: serverCA)
 	url.appendPathComponent(serverCA.name)
 
+	NSLog("loadServerCACertificates: Full path: \(url.path)")
+
 	let fileExtension = (serverCA.name as NSString).pathExtension.lowercased()
+	NSLog("loadServerCACertificates: File extension: \(fileExtension)")
 
 	if fileExtension == "p12" || fileExtension == "pfx" {
+		NSLog("loadServerCACertificates: Loading as P12")
 		// Try the provided password first, then common defaults
 		let providedPassword = host.settings.certClientKeyPassword ?? ""
 		let passwordsToTry = providedPassword.isEmpty
@@ -272,6 +278,7 @@ func loadServerCACertificates(host: Host) throws -> [SecCertificate]? {
 
 		for password in passwordsToTry {
 			if let certs = try? loadCertificatesFromP12(url: url, password: password), !certs.isEmpty {
+				NSLog("loadServerCACertificates: Loaded \(certs.count) certs from P12")
 				return certs
 			}
 		}
@@ -279,7 +286,10 @@ func loadServerCACertificates(host: Host) throws -> [SecCertificate]? {
 		return try loadCertificatesFromP12(url: url, password: providedPassword)
 	} else {
 		// Assume PEM/CRT/DER format
-		return try loadCertificatesFromPEM(url: url)
+		NSLog("loadServerCACertificates: Loading as PEM/CRT/DER")
+		let certs = try loadCertificatesFromPEM(url: url)
+		NSLog("loadServerCACertificates: Loaded \(certs.count) certificates total")
+		return certs
 	}
 }
 
@@ -334,46 +344,67 @@ private func loadCertificatesFromP12(url: URL, password: String) throws -> [SecC
 
 /// Load certificates from PEM/CRT/DER file
 private func loadCertificatesFromPEM(url: URL) throws -> [SecCertificate] {
+	NSLog("loadCertificatesFromPEM: Loading from \(url.path)")
 	guard let data = try? Data(contentsOf: url) else {
+		NSLog("loadCertificatesFromPEM: Failed to read file")
 		throw CertificateError.serverCAOpenError
 	}
 
+	NSLog("loadCertificatesFromPEM: File read successfully, size=\(data.count) bytes")
 	var certificates: [SecCertificate] = []
 
 	// Try as DER format first
 	if let cert = SecCertificateCreateWithData(nil, data as CFData) {
+		NSLog("loadCertificatesFromPEM: Successfully loaded as DER format")
 		certificates.append(cert)
 		return certificates
 	}
 
+	NSLog("loadCertificatesFromPEM: DER format failed, trying PEM")
+
 	// Try as PEM format
 	guard let pemString = String(data: data, encoding: .utf8) else {
+		NSLog("loadCertificatesFromPEM: Failed to decode as UTF-8 string")
 		throw CertificateError.serverCAInvalidFormat
 	}
 
 	// Extract all certificates from PEM
 	let certPattern = "-----BEGIN CERTIFICATE-----([\\s\\S]*?)-----END CERTIFICATE-----"
 	guard let regex = try? NSRegularExpression(pattern: certPattern, options: []) else {
+		NSLog("loadCertificatesFromPEM: Failed to create regex pattern")
 		throw CertificateError.serverCAInvalidFormat
 	}
 
 	let matches = regex.matches(in: pemString, options: [], range: NSRange(pemString.startIndex..., in: pemString))
+	NSLog("loadCertificatesFromPEM: Found \(matches.count) PEM certificate blocks")
 
-	for match in matches {
+	for (index, match) in matches.enumerated() {
 		if let range = Range(match.range(at: 1), in: pemString) {
 			let base64String = pemString[range]
 				.replacingOccurrences(of: "\n", with: "")
 				.replacingOccurrences(of: "\r", with: "")
 				.trimmingCharacters(in: .whitespaces)
 
-			if let certData = Data(base64Encoded: base64String),
-			   let cert = SecCertificateCreateWithData(nil, certData as CFData) {
-				certificates.append(cert)
+			NSLog("loadCertificatesFromPEM: Processing certificate \(index + 1), base64 length=\(base64String.count)")
+
+			if let certData = Data(base64Encoded: base64String) {
+				NSLog("loadCertificatesFromPEM: Decoded base64, DER size=\(certData.count) bytes")
+				if let cert = SecCertificateCreateWithData(nil, certData as CFData) {
+					NSLog("loadCertificatesFromPEM: Successfully created SecCertificate for cert \(index + 1)")
+					certificates.append(cert)
+				} else {
+					NSLog("loadCertificatesFromPEM: Failed to create SecCertificate for cert \(index + 1)")
+				}
+			} else {
+				NSLog("loadCertificatesFromPEM: Failed to decode base64 for cert \(index + 1)")
 			}
 		}
 	}
 
+	NSLog("loadCertificatesFromPEM: Total certificates loaded: \(certificates.count)")
+
 	if certificates.isEmpty {
+		NSLog("loadCertificatesFromPEM: No certificates were successfully loaded")
 		throw CertificateError.serverCANoCertificate
 	}
 

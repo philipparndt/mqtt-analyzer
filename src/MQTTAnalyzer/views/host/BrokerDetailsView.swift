@@ -10,10 +10,44 @@ import SwiftUI
 
 struct BrokerDetailsView: View {
 	@ObservedObject var host: Host
+	@State private var showErrorDetails = false
 
 	var body: some View {
-		List {
-			Section("Connection") {
+		VStack(spacing: 0) {
+			if host.state == .disconnected {
+				HStack {
+					VStack(alignment: .leading, spacing: 4) {
+						Text("Disconnected")
+							.font(.subheadline)
+							.fontWeight(.semibold)
+						if let msg = host.connectionMessage {
+							Text(msg)
+								.font(.caption)
+								.foregroundColor(.secondary)
+								.lineLimit(2)
+						}
+					}
+					Spacer()
+					Button {
+						showErrorDetails = true
+					} label: {
+						HStack(spacing: 6) {
+							Image(systemName: "info.circle.fill")
+							Text("Details")
+						}
+						.font(.caption)
+						.padding(8)
+						.background(Color.blue)
+						.foregroundColor(.white)
+						.cornerRadius(6)
+					}
+				}
+				.padding()
+				.background(Color.red.opacity(0.1))
+			}
+
+			List {
+				Section("Connection") {
 				LabeledContent("Host", value: host.settings.hostname)
 				LabeledContent("Port", value: "\(host.settings.port)")
 				LabeledContent("Protocol", value: protocolName)
@@ -37,14 +71,12 @@ struct BrokerDetailsView: View {
 				}
 			}
 
-			if let connectionMessage = host.connectionMessage {
-				Section("Status") {
-					Text(connectionMessage)
-						.foregroundColor(.secondary)
-				}
 			}
+			.navigationTitle(host.settings.aliasOrHost)
 		}
-		.navigationTitle(host.settings.aliasOrHost)
+		.sheet(isPresented: $showErrorDetails) {
+			ErrorDetailsSheet(host: host, isPresented: $showErrorDetails)
+		}
 	}
 
 	var protocolName: String {

@@ -76,10 +76,33 @@ class ClientUtils<T, M> {
 
 		DispatchQueue.main.async {
 			self.host.connectionMessage = reason
+			self.host.connectionErrorDetails = "Connection failed. Check your configuration and try again."
 			self.host.pause = false
 			self.host.state = .disconnected
 		}
-		
+
+	}
+
+	func buildErrorDetails(error: Error) -> String {
+		NSLog("buildErrorDetails called with error: \(error)")
+		let nsError = error as NSError
+		let errorDesc = nsError.description.lowercased()
+
+		NSLog("buildErrorDetails: domain=\(nsError.domain), description=\(nsError.description)")
+
+		// For certificate errors: include in-app cert diagnostics
+		if nsError.domain == "Network.NWError" &&
+		   (nsError.description.starts(with: "-9808") || errorDesc.contains("certificate")) {
+			NSLog("buildErrorDetails: Detected certificate error, calling CertificateDiagnostics.diagnose")
+			return CertificateDiagnostics.diagnose(
+				hostname: host.settings.hostname,
+				host: host
+			)
+		}
+
+		// For other errors: use existing static method
+		NSLog("buildErrorDetails: Using extractErrorDetails for non-certificate error")
+		return ClientUtils.extractErrorDetails(error: error)
 	}
 	
 	func initConnect() {
@@ -96,23 +119,27 @@ class ClientUtils<T, M> {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.settings.hostname)")
 
 		if err != nil {
-			let message = ClientUtils.extractErrorMessage(error: err!)
-			
+			let summary = ClientUtils.extractErrorSummary(error: err!)
+			let details = buildErrorDetails(error: err!)
+
 			self.connectionStateQueue.async {
-				self.connectionState.message = message
+				self.connectionState.message = summary
 			}
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
-				self.host.connectionMessage = self.connectionState.message
+				self.host.connectionMessage = summary
+				self.host.connectionErrorDetails = details
+				self.host.pause = false
+				self.host.state = .disconnected
+			}
+		} else {
+			DispatchQueue.main.async {
+				self.host.pause = false
+				self.host.state = .disconnected
 			}
 		}
-		
-		DispatchQueue.main.async {
-			self.host.pause = false
-			self.host.state = .disconnected
-		}
-		
+
 		setDisconnected()
 	}
 	
@@ -235,25 +262,68 @@ class ClientUtils<T, M> {
 		}
 	}
 	
-	class func extractErrorMessage(error: Error) -> String {
+	class func extractErrorSummary(error: Error) -> String {
 		let nsError = error as NSError
 		let code = nsError.code
-		
+		let errorDesc = nsError.description.lowercased()
+
 		if code == 8 {
-			return "Invalid hostname.\n\(error.localizedDescription)"
+			return "Invalid hostname"
 		}
 		else if nsError.domain == "Network.NWError" {
-			if nsError.description.starts(with: "-9808") {
-				return "Bad certificate format, check all properties, like SAN, ... (-9808)"
+			if nsError.description.starts(with: "-9808") || errorDesc.contains("certificate") {
+				if errorDesc.contains("not permitted for this usage") || errorDesc.contains("hostname") || errorDesc.contains("san") {
+					return "Certificate validation failed - hostname mismatch"
+				} else if errorDesc.contains("unknown") || errorDesc.contains("untrusted") {
+					return "Certificate validation failed - untrusted CA"
+				} else {
+					return "Certificate validation failed"
+				}
 			}
 			else {
 				let groups = nsError.description.groups(for: ".*\\(rawValue:.(\\d+)\\):.(.*)")
 				if groups.count == 1 && groups[0].count == 3 {
-					return "\(groups[0][2]) (NW: \(groups[0][1]))"
+					return "\(groups[0][2])"
+				}
+				return "Network error"
+			}
+		}
+
+		return "\(nsError.domain)"
+	}
+
+	class func extractErrorDetails(error: Error) -> String {
+		let nsError = error as NSError
+		let code = nsError.code
+		let errorDesc = nsError.description.lowercased()
+
+		if code == 8 {
+			return "The hostname appears to be invalid.\n\n\(error.localizedDescription)"
+		}
+		else if nsError.domain == "Network.NWError" {
+			if nsError.description.starts(with: "-9808") || errorDesc.contains("certificate") {
+				if errorDesc.contains("not permitted for this usage") || errorDesc.contains("hostname") || errorDesc.contains("san") {
+					return "HOSTNAME MISMATCH\n\nThe certificate's CN or Subject Alternative Names (SAN) don't match your configured hostname.\n\nSOLUTION:\n" +
+						"1. Verify your configured hostname matches the certificate's SAN/CN\n" +
+						"2. Check the certificate details in the diagnostics above\n" +
+						"3. If using a self-signed cert, ensure 'Allow Untrusted Certificates' is enabled in settings\n"
+				} else if errorDesc.contains("unknown") || errorDesc.contains("untrusted") {
+					return "UNTRUSTED CERTIFICATE\n\nThe Server CA certificate is missing, incorrect, or not trusted.\n\nSOLUTION:\n" +
+						"1. Verify CA certificate file is correct and readable\n" +
+						"2. Check certificate validity in the diagnostics above\n" +
+						"3. Ensure the complete certificate chain is provided\n" +
+						"4. If self-signed, enable 'Allow Untrusted Certificates' in settings\n"
+				} else {
+					return "CERTIFICATE VALIDATION ERROR\n\nCommon causes:\n" +
+						"• Hostname in certificate doesn't match your configured hostname\n" +
+						"• Missing or invalid CA certificate\n" +
+						"• Certificate expired or not yet valid\n" +
+						"• Certificate not in PEM format\n" +
+						"• Self-signed certificate (enable 'Allow Untrusted Certificates')\n"
 				}
 			}
 		}
-		
-		return "\(nsError.domain): \(nsError.description)"
+
+		return "Error: \(nsError.domain) - \(nsError.description)"
 	}
 }

@@ -233,15 +233,17 @@ struct TopicTreeSidebarView: View {
 			ConnectionStatusBanner(
 				message: host.connectionMessage ?? "Connecting...",
 				icon: "antenna.radiowaves.left.and.right",
-				color: .blue,
-				action: nil
+				color: Color.blue,
+				action: { },
+				host: host
 			)
 		} else if host.state == .disconnected && host.reconnectDelegate != nil {
 			ConnectionStatusBanner(
 				message: host.connectionMessage ?? "Disconnected",
 				icon: "exclamationmark.triangle.fill",
 				color: .orange,
-				action: { host.reconnect() }
+				action: { host.reconnect() },
+				host: host
 			)
 		}
 	}
@@ -264,6 +266,8 @@ struct ConnectionStatusBanner: View {
 	let icon: String
 	let color: Color
 	let action: (() -> Void)?
+	var host: Host?
+	@State private var showErrorDetails = false
 
 	var body: some View {
 		HStack(spacing: 8) {
@@ -275,6 +279,21 @@ struct ConnectionStatusBanner: View {
 				.lineLimit(1)
 
 			Spacer()
+
+			// Show Details button for disconnected state
+			if host?.state == .disconnected && host != nil {
+				Button {
+					showErrorDetails = true
+				} label: {
+					Image(systemName: "info.circle.fill")
+						.font(.callout)
+						.foregroundStyle(.blue)
+				}
+				.buttonStyle(.plain)
+				.sheet(isPresented: $showErrorDetails) {
+					ErrorDetailsSheet(host: host!, isPresented: $showErrorDetails)
+				}
+			}
 
 			if let action = action {
 				Button(action: action) {
