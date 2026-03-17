@@ -27,7 +27,9 @@ struct DisconnectedToolbarView: View {
 			.buttonStyle(.borderedProminent)
 			.tint(.red)
 
-			Button(action: { host.reconnect() }) {
+			Button {
+				host.reconnect()
+			} label: {
 				Image(systemName: "play.fill")
 			}
 			.buttonStyle(.borderedProminent)

@@ -17,7 +17,7 @@ struct TLSFormView: View {
 			Toggle(isOn: $host.ssl) {
 				Text("Enable TLS")
 					.font(.headline)
-			}.accessibilityLabel("tls")
+			}.accessibilityIdentifier("tls")
 
 			if host.ssl {
 				Toggle(isOn: $host.untrustedSSL) {

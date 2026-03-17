@@ -24,7 +24,7 @@ struct AuthFormView: View {
 						.foregroundColor(.secondary)
 				}
 			}
-			.accessibilityLabel("userPassword-auth")
+			.accessibilityIdentifier("userPassword-auth")
 
 			if host.usernamePasswordAuth {
 				UsernamePasswordAuthenticationView(host: $host)
@@ -39,7 +39,7 @@ struct AuthFormView: View {
 						.foregroundColor(.secondary)
 				}
 			}
-			.accessibilityLabel("certificate-auth")
+			.accessibilityIdentifier("certificate-auth")
 
 			if host.certificateAuth {
 				CertificateAuthenticationView(host: $host, showHelp: $showCertificateHelp)
