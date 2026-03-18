@@ -10,6 +10,7 @@ import SwiftUI
 
 struct DiagnosticPanelView: View {
 	@ObservedObject var check: BaseDiagnosticCheck
+	let context: DiagnosticContext
 	@State private var isExpanded = false
 
 	var body: some View {
@@ -67,7 +68,7 @@ struct DiagnosticPanelView: View {
 				Divider()
 					.padding(.leading, 48)
 
-				DiagnosticResultView(result: result)
+				DiagnosticResultView(result: result, context: context)
 					.padding(.horizontal, 12)
 					.padding(.vertical, 10)
 					.padding(.leading, 36)

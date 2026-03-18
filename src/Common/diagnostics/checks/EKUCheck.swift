@@ -33,44 +33,69 @@ final class EKUCheck: BaseDiagnosticCheck, @unchecked Sendable {
 		}
 
 		let duration = elapsed(since: start)
+		let ekuResult = CertificateEKUChecker.checkEKU(certData: certData)
 
-		// Use the existing CertificateEKUChecker
-		let hasServerAuth = CertificateEKUChecker.checkServerAuthExtension(certData: certData)
-
-		if hasServerAuth {
+		switch ekuResult {
+		case .serverAuthPresent:
 			return .success(
 				summary: "serverAuth present",
-				details: "Certificate includes 'TLS Web Server Authentication' (serverAuth) in Extended Key Usage.\n\nThis is required for server certificates.",
+				detailItems: [
+					.field(label: "TLS Web Server Authentication", value: "present")
+				],
+				duration: duration
+			)
+
+		case .noEKUExtension:
+			return .success(
+				summary: "No EKU extension (OK)",
+				detailItems: [
+					.text("Certificate has no Extended Key Usage extension."),
+					.text("Per RFC 5280, a certificate without EKU is valid "
+						+ "for all purposes including TLS server authentication.")
+				],
+				duration: duration
+			)
+
+		case .serverAuthMissing:
+			return .error(
+				summary: "Missing serverAuth",
+				message: "EKU present but serverAuth missing",
+				detailItems: [
+					.text("The certificate has an Extended Key Usage extension "
+						+ "but it does not include serverAuth."),
+					.text("Apple's TLS stack will reject this certificate.")
+				],
+				duration: duration,
+				solutions: [
+					"Regenerate the certificate with serverAuth in EKU",
+					"Add 'extendedKeyUsage = serverAuth' to the certificate config",
+					"Contact the certificate issuer to fix the certificate"
+				],
+				commands: ekuCommands(context: context)
+			)
+
+		case .parseError:
+			return .warning(
+				summary: "Could not check EKU",
+				message: "Failed to parse certificate extensions",
 				duration: duration
 			)
 		}
+	}
 
-		// Missing serverAuth
-		var details = "Certificate is missing 'TLS Web Server Authentication' (serverAuth) in Extended Key Usage.\n\n"
-		details += "This is a required extension for TLS server certificates. Without it, many TLS clients will reject the certificate.\n\n"
-		details += "The Extended Key Usage (EKU) extension specifies what purposes a certificate can be used for."
-
-		return .error(
-			summary: "Missing serverAuth",
-			message: "Certificate lacks serverAuth EKU",
-			details: details,
-			duration: duration,
-			solutions: [
-				"Regenerate the certificate with proper Extended Key Usage",
-				"Add 'extendedKeyUsage = serverAuth' to the certificate config",
-				"Contact the certificate issuer to fix the certificate",
-				"For self-signed certificates, regenerate with proper EKU"
-			],
-			commands: [
-				DiagnosticCommand(
-					label: "Show EKU",
-					command: "openssl s_client -connect \(context.hostname):\(context.port) < /dev/null 2>&1 | openssl x509 -noout -text | grep -A1 'Extended Key Usage'"
-				),
-				DiagnosticCommand(
-					label: "Full Cert Info",
-					command: "openssl s_client -connect \(context.hostname):\(context.port) < /dev/null 2>&1 | openssl x509 -noout -text"
-				)
-			]
-		)
+	private func ekuCommands(context: DiagnosticContext) -> [DiagnosticCommand] {
+		[
+			DiagnosticCommand(
+				label: "Show EKU",
+				command: "openssl s_client -connect \(context.hostname):\(context.port) "
+					+ "< /dev/null 2>&1 "
+					+ "| openssl x509 -noout -text | grep -A1 'Extended Key Usage'"
+			),
+			DiagnosticCommand(
+				label: "Full Cert Info",
+				command: "openssl s_client -connect \(context.hostname):\(context.port) "
+					+ "< /dev/null 2>&1 | openssl x509 -noout -text"
+			)
+		]
 	}
 }

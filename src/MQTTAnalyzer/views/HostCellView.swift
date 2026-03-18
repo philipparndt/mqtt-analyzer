@@ -35,87 +35,95 @@ struct HostCellView: View {
 
 	var cloneHostHandler: (Host) -> Void
 	var isSelected: Bool
-	
-	var connectionColor: Color {
-		host.state == .connected ? .green : .gray
-	}
-	
-	var body: some View {
-		HStack {
-			VStack(alignment: .leading) {
-				Text(host.settings.aliasOrHost)
 
-				Spacer()
-				Group {
-					Text(host.settings.hostname)
-					Text(host.subscriptionsReadable)
+	var body: some View {
+		HStack(spacing: 12) {
+			// Connection status indicator
+			statusIndicator
+
+			// Main content
+			VStack(alignment: .leading, spacing: 4) {
+				// Title row
+				HStack(alignment: .firstTextBaseline) {
+					Text(host.settings.aliasOrHost)
+						.font(.body.weight(.semibold))
+						.lineLimit(1)
+
+					Spacer()
+
+					if host.state != .disconnected {
+						messageCountBadge
+					}
 				}
-				.font(.footnote)
+
+				// Host + port info
+				HStack(spacing: 6) {
+					if host.settings.ssl {
+						Image(systemName: "shield.lefthalf.filled")
+							.font(.caption2)
+					}
+
+					if !host.settings.alias.isEmpty {
+						Text(host.settings.hostname)
+							.lineLimit(1)
+					}
+
+					Text(verbatim: ":\(host.settings.port)")
+				}
+				.font(.caption)
 				.foregroundColor(.secondary)
+
+				// Subscriptions
+				Text(host.subscriptionsReadable)
+					.font(.caption2)
+					.foregroundColor(.secondary)
+					.lineLimit(1)
 			}
 
-			Spacer()
-
-			if host.state == .disconnected {
-				if isSelected {
-					Button {
-						connect()
-					} label: {
-						Image(systemName: "play.circle.fill")
-							.font(.title2)
-							.foregroundColor(.white)
-					}
-					#if os(macOS)
-					.buttonStyle(.borderless)
-					#else
-					.buttonStyle(.plain)
-					#endif
-					.accessibilityLabel("Connect")
+			// Diagnose button for failed connections
+			if hasConnectionError {
+				Button(action: diagnose) {
+					Image(systemName: "stethoscope")
+						.font(.title3)
+						.foregroundColor(.orange)
 				}
-			} else {
-				Text("\(messageModel.messageCountDisplay)")
-					.font(.system(size: 14, design: .monospaced))
-					.foregroundColor(isSelected ? .white : .secondary)
+				#if os(macOS)
+				.buttonStyle(.borderless)
+				#else
+				.buttonStyle(.plain)
+				#endif
+				.accessibilityLabel("Diagnose")
+			}
 
-				if isSelected {
-					Button {
-						togglePause()
-					} label: {
-						Image(systemName: host.pause ? "play.circle.fill" : "pause.circle.fill")
-							.font(.title2)
-							.foregroundColor(.white)
-					}
-					#if os(macOS)
-					.buttonStyle(.borderless)
-					#else
-					.buttonStyle(.plain)
-					#endif
-					.accessibilityLabel(host.pause ? "Resume" : "Pause")
-				} else {
-					Image(systemName: host.pause ? "pause.fill" : "circle.fill")
-						.font(.subheadline)
-						.foregroundColor(host.pause ? .gray : connectionColor)
-				}
+			// Action button
+			if isSelected || host.state != .disconnected {
+				actionButton
 			}
 
 			contextMenu()
 		}
-		.padding([.top, .bottom], 5)
+		.padding(.vertical, 6)
 		.contentShape(Rectangle())
 		.sheet(item: $activeSheet) { sheetType in
 			switch sheetType {
 			case .edit:
-				EditHostFormModalView(closeHandler: self.dismissSheet,
-									  root: self.model,
-									  hosts: self.model.hostsModel,
-									  original: self.host.settings,
-									  host: transformHost(source: self.host))
+				EditHostFormModalView(
+					closeHandler: self.dismissSheet,
+					root: self.model,
+					hosts: self.model.hostsModel,
+					original: self.host.settings,
+					host: transformHost(source: self.host)
+				)
 			case .login:
 				LoginDialogView(loginCallback: self.login, host: self.host)
 			}
 		}
 		.sheet(isPresented: $showDiagnostics) {
-			DiagnosticsView(host: host, isPresented: $showDiagnostics, connectionError: host.connectionMessage)
+			DiagnosticsView(
+				host: host,
+				isPresented: $showDiagnostics,
+				connectionError: host.connectionMessage
+			)
 		}
 		.onAppear {
 			if self.host.needsAuth {
@@ -125,40 +133,121 @@ struct HostCellView: View {
 		}
 	}
 
+	// MARK: - Status Indicator
+
+	private var statusIndicator: some View {
+		RoundedRectangle(cornerRadius: 2)
+			.fill(statusColor)
+			.frame(width: 4, height: 36)
+	}
+
+	private var hasConnectionError: Bool {
+		host.state == .disconnected && host.connectionMessage != nil
+	}
+
+	private var statusColor: Color {
+		if hasConnectionError { return .red }
+		switch host.state {
+		case .connected:
+			return host.pause ? .orange : .green
+		case .connecting:
+			return .yellow
+		case .disconnected:
+			return .gray.opacity(0.3)
+		}
+	}
+
+	// MARK: - Message Count Badge
+
+	private var messageCountBadge: some View {
+		Text("\(messageModel.messageCountDisplay)")
+			.font(.caption2.weight(.medium).monospacedDigit())
+			.padding(.horizontal, 6)
+			.padding(.vertical, 2)
+			.background(
+				Capsule()
+					.fill(isSelected ? Color.white.opacity(0.2) : Color.primary.opacity(0.08))
+			)
+			.foregroundColor(isSelected ? .white : .secondary)
+	}
+
+	// MARK: - Action Button
+
+	private var actionButton: some View {
+		Group {
+			if host.state == .disconnected {
+				Button(action: connect) {
+					Image(systemName: "play.circle.fill")
+						.font(.title3)
+						.foregroundColor(.white)
+				}
+				.accessibilityLabel("Connect")
+			} else {
+				Button(action: disconnect) {
+					Image(systemName: "stop.circle.fill")
+						.font(.title3)
+						.foregroundColor(.white)
+				}
+				.accessibilityLabel("Disconnect")
+			}
+		}
+		#if os(macOS)
+		.buttonStyle(.borderless)
+		#else
+		.buttonStyle(.plain)
+		#endif
+	}
+
+	// MARK: - Context Menu
+
 	func contextMenu() -> some View {
 		return Text("").contextMenu {
 			MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
-			MenuButton(title: "Create new based on this", systemImage: "pencil.circle", action: cloneHost)
+			MenuButton(
+				title: "Create new based on this",
+				systemImage: "pencil.circle",
+				action: cloneHost
+			)
 			if host.state != .disconnected {
 				Menu {
-					MenuButton(title: "Disconnect", systemImage: "stop.circle", action: disconnect)
-					
-					DestructiveMenuButton(title: "Disconnect and clean", systemImage: "stop.circle", action: disconnectClean)
+					MenuButton(
+						title: "Disconnect",
+						systemImage: "stop.circle",
+						action: disconnect
+					)
+
+					DestructiveMenuButton(
+						title: "Disconnect and clean",
+						systemImage: "stop.circle",
+						action: disconnectClean
+					)
 				} label: {
 					Label("Disconnect", systemImage: "stop.circle")
 				}
-			}
-			else {
+			} else {
 				MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
 			}
-			
+
 			MenuButton(title: "Diagnose", systemImage: "stethoscope", action: diagnose)
 
 			Divider()
 
 			Menu {
-				DestructiveMenuButton(title: "Delete broker", systemImage: "trash.fill", action: deleteBroker)
-					.accessibilityIdentifier("confirm-delete-broker")
+				DestructiveMenuButton(
+					title: "Delete broker",
+					systemImage: "trash.fill",
+					action: deleteBroker
+				)
+				.accessibilityIdentifier("confirm-delete-broker")
 			} label: {
 				Label("Delete", systemImage: "trash.fill")
 			}
 			.accessibilityIdentifier("delete-broker")
 		}
-		// WORKAROUND: random UUID identifier to force re-creation of the context menu.
-		// Otherwise, it will not toggle between connect and disconnect.
-//		.id(UUID().uuidString)
 	}
-	
+
+	// MARK: - Actions
+
 	func diagnose() {
 		showDiagnostics = true
 	}
@@ -166,11 +255,11 @@ struct HostCellView: View {
 	func cloneHost() {
 		cloneHostHandler(host)
 	}
-	
+
 	func editHost() {
 		activeSheet = .edit
 	}
-	
+
 	func deleteBroker() {
 		let broker = host.settings
 		viewContext.delete(broker)
@@ -180,8 +269,8 @@ struct HostCellView: View {
 			let nsError = error as NSError
 			NSLog("Unresolved error \(nsError), \(nsError.userInfo)")
 		}
-}
-	
+	}
+
 	func disconnect() {
 		host.disconnect()
 	}
@@ -194,16 +283,15 @@ struct HostCellView: View {
 		host.disconnect()
 		messageModel.clear()
 	}
-	
+
 	func connect() {
 		if self.host.needsAuth {
 			activeSheet = .login
-		}
-		else {
+		} else {
 			model.connect(to: host)
 		}
 	}
-	
+
 	func login() {
 		activeSheet = nil
 		model.connect(to: self.host)

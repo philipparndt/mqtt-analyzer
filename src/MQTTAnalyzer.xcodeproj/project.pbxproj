@@ -316,6 +316,8 @@
 		22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F423FEF9C50003D87F /* ReadstateTests.swift */; };
 		22D236F923FEFBA10003D87F /* HostFormValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */; };
 		22D236FB23FF00E10003D87F /* StringUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236FA23FF00E10003D87F /* StringUtilsTests.swift */; };
+		22D236FB23FF00E10003D88F /* CertificateEKUCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236FA23FF00E10003D88F /* CertificateEKUCheckerTests.swift */; };
+		22D236FB23FF00E10003D89F /* CertificateSANTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236FA23FF00E10003D89F /* CertificateSANTests.swift */; };
 		22D50F9722CE4C4300F37EAF /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
 		22E04D2D2F68766300E0E3D1 /* PlatformCompat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E04D2C2F68766300E0E3D1 /* PlatformCompat.swift */; };
 		22E04D2E2F68766300E0E3D1 /* PlatformCompat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E04D2C2F68766300E0E3D1 /* PlatformCompat.swift */; };
@@ -377,11 +379,13 @@
 		4D8F5258D92433F7140E9A13 /* CertInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFB2BA522BD8D02D427F1B /* CertInfo.swift */; };
 		518041C85EDE75A52F6E3BCC /* MsgMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1527A6669C00D4327F /* MsgMetadata.swift */; };
 		53DB58CE54E57DF3452BE09F /* PortCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2C5A8D0C995C34B71B1563 /* PortCheck.swift */; };
+		53DB58CE54E57DF3452BE0A0 /* MQTTProtocolCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2C5A8D0C995C34B71B15A0 /* MQTTProtocolCheck.swift */; };
 		540F2B80CCA5683708ACB8C5 /* DataSeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22810487238173BB00112F24 /* DataSeriesView.swift */; };
 		5539B538B8AD19467DEE0593 /* ClientIDFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B622445759600ACDFC3 /* ClientIDFormView.swift */; };
 		55E31447AAB0CE922CA7A2FC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E122C8C008007E35A2 /* Preview Assets.xcassets */; };
 		560AA4838D5E375761AEC60C /* SyntaxToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE5B5FB7C1A4F3595D574E5 /* SyntaxToken.swift */; };
 		590CD6A71C6F2904B9CAA7C3 /* PortCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2C5A8D0C995C34B71B1563 /* PortCheck.swift */; };
+		590CD6A71C6F2904B9CAA7C4 /* MQTTProtocolCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2C5A8D0C995C34B71B15A0 /* MQTTProtocolCheck.swift */; };
 		5B4FE3B5A5AF4F03968BD69D /* CertificateFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263C1D824813B0C00FF14E8 /* CertificateFilesModel.swift */; };
 		5C37D462EC50166EFCA47931 /* DiagramPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64332412636300C2C4FE /* DiagramPath.swift */; };
 		5C7399A6C8F75A003633AE8C /* PersistenceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEB027B0602000DFD09F /* PersistenceImpl.swift */; };
@@ -406,6 +410,7 @@
 		6F33AB39AEE48924D3CFC2DE /* DiagnosticContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B97634C9E65F061AEEB225 /* DiagnosticContext.swift */; };
 		70C007131F1FABFCEF99FFC8 /* ReachabilityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BA556235C776AAF2BBA8B2 /* ReachabilityCheck.swift */; };
 		75F771C35B8B4FD160ECC07C /* DiagnosticRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9742F07336962E9F89430E0B /* DiagnosticRunner.swift */; };
+		75F771C35B8B4FD160ECC08A /* DiagnosticTLSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9742F07336962E9F89430E1A /* DiagnosticTLSHelper.swift */; };
 		7650D2B562FAC134C75F8D7D /* MQTTSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF822C8D2650078795F /* MQTTSessionController.swift */; };
 		781234C01BE05CA1E349D950 /* MQTTClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5124445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift */; };
 		79F58796A66D7CD24A02F341 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
@@ -514,6 +519,7 @@
 		E3AEBE55CFE24AB71B7067CD /* DERParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD7069C065C2B3768088FC8 /* DERParserTests.swift */; };
 		E4B6A061806E77D7CCDC17F5 /* CertificateFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */; };
 		E76EF6CFD835C27A05652332 /* DiagnosticRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9742F07336962E9F89430E0B /* DiagnosticRunner.swift */; };
+		E76EF6CFD835C27A0565234A /* DiagnosticTLSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9742F07336962E9F89430E1A /* DiagnosticTLSHelper.swift */; };
 		E78D6853903FF53AF91CB57A /* SANCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59488FF35D08E9E2C5F72ED /* SANCheck.swift */; };
 		EB84AAA8EDC3091775152B11 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38948280EEC6900D23022 /* ReceivedMessage.swift */; };
 		EED3AAAAB035EC5AAFC7C039 /* HostModel+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA522811276000F79E65 /* HostModel+Delete.swift */; };
@@ -836,6 +842,8 @@
 		22D236F423FEF9C50003D87F /* ReadstateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadstateTests.swift; sourceTree = "<group>"; };
 		22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormValidatorTests.swift; sourceTree = "<group>"; };
 		22D236FA23FF00E10003D87F /* StringUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtilsTests.swift; sourceTree = "<group>"; };
+		22D236FA23FF00E10003D88F /* CertificateEKUCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateEKUCheckerTests.swift; sourceTree = "<group>"; };
+		22D236FA23FF00E10003D89F /* CertificateSANTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateSANTests.swift; sourceTree = "<group>"; };
 		22D50F9622CE4C4300F37EAF /* Multimap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multimap.swift; sourceTree = "<group>"; };
 		22E04D2C2F68766300E0E3D1 /* PlatformCompat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformCompat.swift; sourceTree = "<group>"; };
 		22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMarkerView.swift; sourceTree = "<group>"; };
@@ -855,6 +863,7 @@
 		22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSeriesDetailsView.swift; sourceTree = "<group>"; };
 		22TLS00000000000000001 /* TLSFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSFormView.swift; sourceTree = "<group>"; };
 		2F2C5A8D0C995C34B71B1563 /* PortCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PortCheck.swift; sourceTree = "<group>"; };
+		2F2C5A8D0C995C34B71B15A0 /* MQTTProtocolCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MQTTProtocolCheck.swift; sourceTree = "<group>"; };
 		32EF7A4AFFE0320AD8ED7FE7 /* JsonTokenizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JsonTokenizer.swift; sourceTree = "<group>"; };
 		40379F8971C71DCE0104B948 /* CertificateChainCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateChainCheck.swift; sourceTree = "<group>"; };
 		47A9BFF17CFAC64C9602032B /* DiagnosticStatusIcon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticStatusIcon.swift; sourceTree = "<group>"; };
@@ -872,6 +881,7 @@
 		8E06AB3B855947B9B06841B6 /* DiagnosticsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticsView.swift; sourceTree = "<group>"; };
 		95B97634C9E65F061AEEB225 /* DiagnosticContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticContext.swift; sourceTree = "<group>"; };
 		9742F07336962E9F89430E0B /* DiagnosticRunner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticRunner.swift; sourceTree = "<group>"; };
+		9742F07336962E9F89430E1A /* DiagnosticTLSHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticTLSHelper.swift; sourceTree = "<group>"; };
 		9ECFB2BA522BD8D02D427F1B /* CertInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertInfo.swift; sourceTree = "<group>"; };
 		9F511F20AD2C23A782996AC1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		A84AF683FFDE3298F497D9D2 /* DiagnosticCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticCheck.swift; sourceTree = "<group>"; };
@@ -1133,6 +1143,8 @@
 				22D236F423FEF9C50003D87F /* ReadstateTests.swift */,
 				2200D97D27C91B5300E63E89 /* SearchIndexTests.swift */,
 				22D236FA23FF00E10003D87F /* StringUtilsTests.swift */,
+				22D236FA23FF00E10003D88F /* CertificateEKUCheckerTests.swift */,
+				22D236FA23FF00E10003D89F /* CertificateSANTests.swift */,
 				2230FF2327A6B80900D4327F /* TopicLimitTests.swift */,
 				2202F0FD285CAD7A00AEAE4C /* TimeSeriesTests.swift */,
 				2230FEF927A50C8000D4327F /* TreeModelTests.swift */,
@@ -1614,6 +1626,7 @@
 				490F02665AF738D4E8C4A75A /* DNSResolutionCheck.swift */,
 				C7BA556235C776AAF2BBA8B2 /* ReachabilityCheck.swift */,
 				2F2C5A8D0C995C34B71B1563 /* PortCheck.swift */,
+				2F2C5A8D0C995C34B71B15A0 /* MQTTProtocolCheck.swift */,
 				5107C93E04A7F0E74E74F58F /* TLSVersionCheck.swift */,
 				40379F8971C71DCE0104B948 /* CertificateChainCheck.swift */,
 				F5DC057D3443F349E9614A20 /* CertificateExpiryCheck.swift */,
@@ -1674,6 +1687,7 @@
 				A84AF683FFDE3298F497D9D2 /* DiagnosticCheck.swift */,
 				95B97634C9E65F061AEEB225 /* DiagnosticContext.swift */,
 				9742F07336962E9F89430E0B /* DiagnosticRunner.swift */,
+				9742F07336962E9F89430E1A /* DiagnosticTLSHelper.swift */,
 				2A48DA14221CDB26B745DFD7 /* checks */,
 			);
 			name = diagnostics;
@@ -2161,9 +2175,11 @@
 				8B6596119391E64101B2D108 /* DiagnosticCheck.swift in Sources */,
 				6F33AB39AEE48924D3CFC2DE /* DiagnosticContext.swift in Sources */,
 				E76EF6CFD835C27A05652332 /* DiagnosticRunner.swift in Sources */,
+				E76EF6CFD835C27A0565234A /* DiagnosticTLSHelper.swift in Sources */,
 				17F16BDD58325E6994E3909D /* DNSResolutionCheck.swift in Sources */,
 				01E3C0713F3E4C4350151A91 /* ReachabilityCheck.swift in Sources */,
 				590CD6A71C6F2904B9CAA7C3 /* PortCheck.swift in Sources */,
+				590CD6A71C6F2904B9CAA7C4 /* MQTTProtocolCheck.swift in Sources */,
 				B702D126D45F7C25C1CDD90B /* TLSVersionCheck.swift in Sources */,
 				1A63B5F45303158B337E5CEA /* CertificateChainCheck.swift in Sources */,
 				CF26EA3177BAE2C18EA9E06A /* CertificateExpiryCheck.swift in Sources */,
@@ -2197,6 +2213,8 @@
 				2200D97E27C91B5300E63E89 /* SearchIndexTests.swift in Sources */,
 				22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */,
 				22D236FB23FF00E10003D87F /* StringUtilsTests.swift in Sources */,
+				22D236FB23FF00E10003D88F /* CertificateEKUCheckerTests.swift in Sources */,
+				22D236FB23FF00E10003D89F /* CertificateSANTests.swift in Sources */,
 				2200D96D27C1149300E63E89 /* LoggerTests.swift in Sources */,
 				2285C81E2785CA2D008DA37D /* JSONTests.swift in Sources */,
 				222EAAB1279FC289000E37AF /* CocoaMQTTRegression.swift in Sources */,
@@ -2526,9 +2544,11 @@
 				AF9FDAD448C2EBD8EB9B1620 /* DiagnosticCheck.swift in Sources */,
 				7AE7BFD2D61E86E8C19404CA /* DiagnosticContext.swift in Sources */,
 				75F771C35B8B4FD160ECC07C /* DiagnosticRunner.swift in Sources */,
+				75F771C35B8B4FD160ECC08A /* DiagnosticTLSHelper.swift in Sources */,
 				C8588632D3546F6944A49FD6 /* DNSResolutionCheck.swift in Sources */,
 				70C007131F1FABFCEF99FFC8 /* ReachabilityCheck.swift in Sources */,
 				53DB58CE54E57DF3452BE09F /* PortCheck.swift in Sources */,
+				53DB58CE54E57DF3452BE0A0 /* MQTTProtocolCheck.swift in Sources */,
 				6200820DA5E8E3795A42C869 /* TLSVersionCheck.swift in Sources */,
 				AD6445F7529D3FBE2D6FAA46 /* CertificateChainCheck.swift in Sources */,
 				A7BD68B83FBB0632204BFB3E /* CertificateExpiryCheck.swift in Sources */,

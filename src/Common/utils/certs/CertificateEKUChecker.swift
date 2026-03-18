@@ -17,38 +17,60 @@ struct CertificateEKUChecker {
 	/// OID for serverAuth (1.3.6.1.5.5.7.3.1)
 	private static let serverAuthOID: [UInt8] = [0x06, 0x08, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01]
 
+	/// Result of the EKU check
+	enum EKUResult: Equatable {
+		/// EKU extension present with serverAuth
+		case serverAuthPresent
+		/// EKU extension present but serverAuth missing
+		case serverAuthMissing
+		/// No EKU extension in certificate (valid for all purposes per RFC 5280)
+		case noEKUExtension
+		/// Could not parse certificate
+		case parseError
+	}
+
 	/// Checks if certificate has Extended Key Usage extension with serverAuth
 	static func checkServerAuthExtension(certData: Data) -> Bool {
+		return checkEKU(certData: certData) == .serverAuthPresent
+	}
+
+	/// Detailed EKU check returning the specific result
+	static func checkEKU(certData: Data) -> EKUResult {
 		let bytes = [UInt8](certData)
 		var parser = DERParser(bytes: bytes)
 
 		let tbsEnd = parser.skipToExtensions()
-		guard tbsEnd > 0 else { return false }
+		guard tbsEnd > 0 else { return .parseError }
 
 		return findServerAuthInExtensions(parser: &parser, bytes: bytes, tbsEnd: tbsEnd)
 	}
 
-	private static func findServerAuthInExtensions(parser: inout DERParser, bytes: [UInt8], tbsEnd: Int) -> Bool {
+	private static func findServerAuthInExtensions(
+		parser: inout DERParser, bytes: [UInt8], tbsEnd: Int
+	) -> EKUResult {
 		// Look for extensions [3] EXPLICIT
-		guard parser.position < tbsEnd && parser.peek() == 0xa3 else { return false }
+		guard parser.position < tbsEnd && parser.peek() == 0xa3 else {
+			return .noEKUExtension
+		}
 
 		parser.position += 1
 		let extLength = parser.parseLength()
 		let extEnd = parser.position + extLength
 
 		// Extensions is a SEQUENCE
-		guard parser.parseTag(0x30) else { return false }
+		guard parser.parseTag(0x30) else { return .parseError }
 		let seqLength = parser.parseLength()
 		let seqEnd = parser.position + seqLength
 
 		// Parse each Extension
 		while parser.position < seqEnd && parser.position < extEnd {
 			if let found = parseExtensionForEKU(parser: &parser, bytes: bytes) {
-				return found
+				return found ? .serverAuthPresent : .serverAuthMissing
 			}
 		}
 
-		return false
+		// EKU extension not found among the extensions
+		return .noEKUExtension
 	}
 
 	private static func parseExtensionForEKU(parser: inout DERParser, bytes: [UInt8]) -> Bool? {
@@ -67,8 +89,9 @@ struct CertificateEKUChecker {
 			return checkEKUContent(parser: &parser, bytes: bytes)
 		}
 
+		// Not the EKU extension — skip and continue searching
 		parser.position = extnEnd
-		return false
+		return nil
 	}
 
 	private static func checkEKUContent(parser: inout DERParser, bytes: [UInt8]) -> Bool {

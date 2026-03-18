@@ -71,7 +71,7 @@ final class PortCheck: BaseDiagnosticCheck, @unchecked Sendable {
 
 					continuation.resume(returning: .success(
 						summary: "Port \(port) is open",
-						details: "Successfully established TCP connection to \(hostname):\(port)",
+						details: "Successfully established TCP connection to **\(hostname):\(port)**",
 						duration: duration
 					))
 
@@ -85,7 +85,7 @@ final class PortCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					continuation.resume(returning: .error(
 						summary: "Port \(port) unreachable",
 						message: errorMessage,
-						details: "Failed to connect to \(hostname):\(port)\n\nError: \(error.localizedDescription)",
+						details: "Failed to connect to **\(hostname):\(port)**\n\n**Error:** \(error.localizedDescription)",
 						duration: duration,
 						solutions: [
 							"Verify the port number is correct (common MQTT ports: 1883, 8883 for TLS)",
@@ -130,7 +130,7 @@ final class PortCheck: BaseDiagnosticCheck, @unchecked Sendable {
 				continuation.resume(returning: .error(
 					summary: "Connection timed out",
 					message: "TCP connection timed out after 10 seconds",
-					details: "Could not establish TCP connection to \(hostname):\(port) within 10 seconds.",
+					details: "Could not establish TCP connection to **\(hostname):\(port)** within 10 seconds.",
 					duration: checkSelf.elapsed(since: startTime),
 					solutions: [
 						"Check if the server is responding",

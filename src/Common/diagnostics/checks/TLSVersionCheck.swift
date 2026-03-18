@@ -31,20 +31,8 @@ final class TLSVersionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			let host = NWEndpoint.Host(hostname)
 			let nwPort = NWEndpoint.Port(integerLiteral: UInt16(port))
 
-			// Configure TLS
-			let tlsOptions = NWProtocolTLS.Options()
-
-			// Allow both TLS 1.2 and 1.3
-			sec_protocol_options_set_min_tls_protocol_version(tlsOptions.securityProtocolOptions, .TLSv12)
-			sec_protocol_options_set_max_tls_protocol_version(tlsOptions.securityProtocolOptions, .TLSv13)
-
-			// If untrusted is allowed, disable certificate verification
-			if context.allowUntrusted {
-				sec_protocol_options_set_verify_block(tlsOptions.securityProtocolOptions, { _, _, completion in
-					completion(true)
-				}, DispatchQueue.global())
-			}
-
+			// Configure TLS with client certificate support
+			let tlsOptions = DiagnosticTLSHelper.createTLSOptions(context: context)
 			let parameters = NWParameters(tls: tlsOptions)
 			let connection = NWConnection(host: host, port: nwPort, using: parameters)
 			self.connection = connection
@@ -107,20 +95,20 @@ final class TLSVersionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					if version.contains("1.3") {
 						continuation.resume(returning: .success(
 							summary: "TLS 1.3",
-							details: "Negotiated TLS 1.3 - modern and secure",
+							details: "Negotiated **TLS 1.3** — modern and secure",
 							duration: duration
 						))
 					} else if version.contains("1.2") {
 						continuation.resume(returning: .success(
 							summary: "TLS 1.2",
-							details: "Negotiated TLS 1.2 - secure but consider upgrading server to TLS 1.3",
+							details: "Negotiated **TLS 1.2** — secure, but consider upgrading to TLS 1.3",
 							duration: duration
 						))
 					} else if version.contains("1.1") || version.contains("1.0") {
 						continuation.resume(returning: .warning(
 							summary: version,
 							message: "Outdated TLS version",
-							details: "Server negotiated \(version) which is considered insecure.",
+							details: "Server negotiated **\(version)** which is considered *insecure*.",
 							duration: duration,
 							solutions: [
 								"Contact your broker administrator to enable TLS 1.2 or 1.3",
@@ -130,7 +118,7 @@ final class TLSVersionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					} else {
 						continuation.resume(returning: .success(
 							summary: "TLS Connected",
-							details: "TLS handshake successful. Version: \(version)",
+							details: "TLS handshake successful. Version: **\(version)**",
 							duration: duration
 						))
 					}
@@ -145,7 +133,7 @@ final class TLSVersionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					continuation.resume(returning: .error(
 						summary: "TLS handshake failed",
 						message: message,
-						details: "Failed to establish TLS connection to \(hostname):\(port)\n\nError: \(error.localizedDescription)",
+						details: "Failed to establish TLS connection to **\(hostname):\(port)**\n\n**Error:** \(error.localizedDescription)",
 						duration: duration,
 						solutions: solutions,
 						commands: [

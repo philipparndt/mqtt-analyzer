@@ -99,20 +99,102 @@ struct CertificateLoader {
 		// Extract SANs
 		info.subjectAltNames = SANExtractor.extractSANsFromDER(data)
 
-		// Extract validity dates using DER parsing
+		// Extract validity dates and issuer using DER parsing
 		let bytes = [UInt8](data)
 		var parser = DERParser(bytes: bytes)
 		let tbsEnd = parser.skipToExtensions()
 		if tbsEnd > 0 {
-			// Reparse to get validity
 			parser = DERParser(bytes: bytes)
 			if let (notBefore, notAfter) = extractValidityDates(parser: &parser, bytes: bytes) {
 				info.notBefore = notBefore
 				info.notAfter = notAfter
 			}
+
+			parser = DERParser(bytes: bytes)
+			info.issuer = extractIssuerCN(parser: &parser, bytes: bytes)
 		}
 
 		return info
+	}
+
+	/// Extract the issuer CN from the certificate
+	private static func extractIssuerCN(parser: inout DERParser, bytes: [UInt8]) -> String? {
+		// Skip outer SEQUENCE
+		guard parser.parseTag(0x30) else { return nil }
+		_ = parser.parseLength()
+
+		// Skip TBSCertificate SEQUENCE tag
+		guard parser.parseTag(0x30) else { return nil }
+		_ = parser.parseLength()
+
+		// Skip version [0] if present
+		if parser.peek() == 0xa0 {
+			parser.position += 1
+			let vLen = parser.parseLength()
+			parser.position += vLen
+		}
+
+		// Skip serialNumber
+		guard parser.parseTag(0x02) else { return nil }
+		let serialLen = parser.parseLength()
+		parser.position += serialLen
+
+		// Skip signature AlgorithmIdentifier
+		guard parser.parseTag(0x30) else { return nil }
+		let sigAlgLen = parser.parseLength()
+		parser.position += sigAlgLen
+
+		// Now at issuer — extract CN from the RDN sequence
+		guard parser.parseTag(0x30) else { return nil }
+		let issuerLen = parser.parseLength()
+		let issuerEnd = parser.position + issuerLen
+
+		return extractCNFromRDNSequence(
+			parser: &parser, bytes: bytes, end: issuerEnd
+		)
+	}
+
+	/// Extract CN value from an RDN SEQUENCE (used for both subject and issuer)
+	private static func extractCNFromRDNSequence(
+		parser: inout DERParser, bytes: [UInt8], end: Int
+	) -> String? {
+		// OID for CN: 2.5.4.3 = [0x55, 0x04, 0x03]
+		while parser.position < end {
+			// Each SET in the RDN sequence
+			guard parser.parseTag(0x31) else { break }
+			let setLen = parser.parseLength()
+			let setEnd = parser.position + setLen
+
+			// SEQUENCE inside the SET
+			guard parser.parseTag(0x30) else { break }
+			_ = parser.parseLength()
+
+			// OID
+			guard parser.parseTag(0x06) else { break }
+			let oidLen = parser.parseLength()
+			let oid = Array(bytes[parser.position..<parser.position + oidLen])
+			parser.position += oidLen
+
+			// Check if this is CN (2.5.4.3)
+			if oid == [0x55, 0x04, 0x03] {
+				// The value follows — could be UTF8String, PrintableString, etc.
+				let valueTag = parser.peek()
+				parser.position += 1
+				let valueLen = parser.parseLength()
+				guard parser.position + valueLen <= bytes.count else { return nil }
+
+				if valueTag == 0x0C || valueTag == 0x13 || valueTag == 0x16 {
+					// UTF8String, PrintableString, or IA5String
+					return String(
+						bytes: bytes[parser.position..<parser.position + valueLen],
+						encoding: .utf8
+					)
+				}
+			}
+
+			parser.position = setEnd
+		}
+		return nil
 	}
 
 	/// Extract validity dates from certificate

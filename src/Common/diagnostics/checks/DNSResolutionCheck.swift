@@ -30,7 +30,7 @@ final class DNSResolutionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			context.resolvedAddresses = [hostname]
 			return .success(
 				summary: "Using IP address directly",
-				details: "Hostname is an IP address: \(hostname)",
+				details: "Hostname is an IP address: **\(hostname)**",
 				duration: elapsed(since: start)
 			)
 		}
@@ -44,7 +44,7 @@ final class DNSResolutionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 				return .error(
 					summary: "No addresses found",
 					message: "DNS lookup returned no results",
-					details: "The hostname '\(hostname)' could not be resolved to any IP addresses.",
+					details: "The hostname **\(hostname)** could not be resolved to any IP addresses.",
 					duration: duration,
 					solutions: [
 						"Check the hostname spelling",
@@ -60,10 +60,10 @@ final class DNSResolutionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			}
 
 			context.resolvedAddresses = addresses
-			let addressList = addresses.joined(separator: ", ")
+			let addressList = addresses.map { "`\($0)`" }.joined(separator: ", ")
 			return .success(
 				summary: "Resolved to \(addresses.first ?? "unknown")",
-				details: "\(addresses.count) address\(addresses.count == 1 ? "" : "es") found: \(addressList)",
+				details: "**\(addresses.count)** address\(addresses.count == 1 ? "" : "es") found: \(addressList)",
 				duration: duration
 			)
 		} catch {
@@ -71,7 +71,7 @@ final class DNSResolutionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			return .error(
 				summary: "Resolution failed",
 				message: error.localizedDescription,
-				details: "Failed to resolve '\(hostname)': \(error.localizedDescription)",
+				details: "Failed to resolve **\(hostname)**: \(error.localizedDescription)",
 				duration: duration,
 				solutions: [
 					"Check your internet connection",

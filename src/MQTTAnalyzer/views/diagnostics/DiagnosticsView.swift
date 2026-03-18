@@ -126,16 +126,16 @@ struct DiagnosticsView: View {
 			}
 
 			HStack(spacing: 16) {
-				Label("\(port)", systemImage: "network")
+				Label(String(port), systemImage: "network")
 					.font(.subheadline)
 					.foregroundColor(.secondary)
 
 				if ssl {
-					Label("TLS", systemImage: "lock.fill")
+					Label("TLS", systemImage: "shield.lefthalf.filled")
 						.font(.subheadline)
 						.foregroundColor(.green)
 				} else {
-					Label("No TLS", systemImage: "lock.open")
+					Label("No TLS", systemImage: "shield.slash")
 						.font(.subheadline)
 						.foregroundColor(.orange)
 				}
@@ -223,7 +223,7 @@ struct DiagnosticsView: View {
 
 			ForEach(runner.checks, id: \.checkId) { check in
 				if let baseCheck = check as? BaseDiagnosticCheck {
-					DiagnosticPanelView(check: baseCheck)
+					DiagnosticPanelView(check: baseCheck, context: runner.context)
 				}
 			}
 		}

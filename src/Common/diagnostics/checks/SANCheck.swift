@@ -36,20 +36,15 @@ final class SANCheck: BaseDiagnosticCheck, @unchecked Sendable {
 		let duration = elapsed(since: start)
 
 		// Use the existing CertificateValidator
-		if CertificateValidator.hostnameMatches(hostname, certInfo: certInfo) {
-			var details = "Hostname '\(hostname)' matches the certificate.\n\n"
-			details += buildCertDetails(certInfo: certInfo, hostname: hostname)
+		let items = buildCertItems(certInfo: certInfo, hostname: hostname)
 
+		if CertificateValidator.hostnameMatches(hostname, certInfo: certInfo) {
 			return .success(
 				summary: "Hostname verified",
-				details: details,
+				detailItems: [.text("Hostname '\(hostname)' matches the certificate.")] + items,
 				duration: duration
 			)
 		}
-
-		// Hostname doesn't match - provide detailed error
-		var details = "Hostname '\(hostname)' does not match the certificate.\n\n"
-		details += buildCertDetails(certInfo: certInfo, hostname: hostname)
 
 		// Build suggestions based on SANs
 		var solutions = [
@@ -67,13 +62,14 @@ final class SANCheck: BaseDiagnosticCheck, @unchecked Sendable {
 		return .error(
 			summary: "Hostname mismatch",
 			message: "Certificate not valid for '\(hostname)'",
-			details: details,
+			detailItems: [.text("Hostname '\(hostname)' does not match the certificate.")] + items,
 			duration: duration,
 			solutions: solutions,
 			commands: [
 				DiagnosticCommand(
 					label: "Show SANs",
-					command: "openssl s_client -connect \(hostname):\(context.port) < /dev/null 2>&1 | openssl x509 -noout -text | grep -A1 'Subject Alternative Name'"
+					command: "openssl s_client -connect \(hostname):\(context.port) < /dev/null 2>&1 "
+						+ "| openssl x509 -noout -text | grep -A1 'Subject Alternative Name'"
 				),
 				DiagnosticCommand(
 					label: "Show Subject",
@@ -83,12 +79,14 @@ final class SANCheck: BaseDiagnosticCheck, @unchecked Sendable {
 		)
 	}
 
-	private func buildCertDetails(certInfo: CertInfo, hostname: String) -> String {
-		var details = ""
+	private func buildCertItems(certInfo: CertInfo, hostname: String) -> [DetailItem] {
+		var items: [DetailItem] = []
 
 		if let cn = certInfo.commonName {
-			let match = CertificateValidator.matchesPattern(hostname.lowercased(), pattern: cn.lowercased())
-			details += "Common Name (CN): \(cn) \(match ? "[MATCH]" : "")\n"
+			let match = CertificateValidator.matchesPattern(
+				hostname.lowercased(), pattern: cn.lowercased()
+			)
+			items.append(.fieldWithStatus(label: "Common Name", value: cn, ok: match))
 		}
 
 		let validSANs = certInfo.subjectAltNames
@@ -96,15 +94,18 @@ final class SANCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			.filter { CertificateValidator.isValidDomainOrIP($0) }
 
 		if !validSANs.isEmpty {
-			details += "\nSubject Alternative Names:\n"
+			var sanItems: [DetailItem] = []
 			for san in validSANs {
-				let match = CertificateValidator.matchesPattern(hostname.lowercased(), pattern: san.lowercased())
-				details += "  - \(san) \(match ? "[MATCH]" : "")\n"
+				let match = CertificateValidator.matchesPattern(
+					hostname.lowercased(), pattern: san.lowercased()
+				)
+				sanItems.append(.fieldWithStatus(label: san, value: "", ok: match))
 			}
+			items.append(.section(title: "Subject Alternative Names", items: sanItems))
 		} else {
-			details += "\nNo Subject Alternative Names found.\n"
+			items.append(.text("No Subject Alternative Names found."))
 		}
 
-		return details
+		return items
 	}
 }

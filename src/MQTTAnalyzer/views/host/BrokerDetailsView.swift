@@ -25,7 +25,7 @@ struct BrokerDetailsView: View {
 			List {
 				Section("Connection") {
 				LabeledContent("Host", value: host.settings.hostname)
-				LabeledContent("Port", value: "\(host.settings.port)")
+				LabeledContent("Port", value: String(host.settings.port))
 				LabeledContent("Protocol", value: protocolName)
 				LabeledContent("Version", value: versionName)
 				if host.settings.ssl {

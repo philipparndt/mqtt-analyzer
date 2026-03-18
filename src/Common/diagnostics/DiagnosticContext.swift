@@ -20,8 +20,12 @@ class DiagnosticContext {
 	/// Whether TLS is enabled
 	let tlsEnabled: Bool
 
-	/// Whether untrusted certificates are allowed
-	let allowUntrusted: Bool
+	/// Whether untrusted certificates are allowed.
+	/// Reads from the host settings if available, otherwise uses the stored value.
+	var allowUntrusted: Bool {
+		host?.settings.untrustedSSL ?? _allowUntrusted
+	}
+	private var _allowUntrusted: Bool
 
 	/// Reference to the host for certificate access
 	weak var host: Host?
@@ -51,7 +55,7 @@ class DiagnosticContext {
 		self.hostname = hostname
 		self.port = port
 		self.tlsEnabled = tlsEnabled
-		self.allowUntrusted = allowUntrusted
+		self._allowUntrusted = allowUntrusted
 		self.host = host
 	}
 

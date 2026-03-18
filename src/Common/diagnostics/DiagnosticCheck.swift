@@ -48,39 +48,111 @@ struct DiagnosticCommand: Sendable {
 	let command: String
 }
 
+/// Quick-fix action identifier for diagnostic solutions
+enum DiagnosticQuickFix: Sendable {
+	/// Enable "Allow Untrusted Certificates" on the broker
+	case enableUntrusted
+	/// Save the server's CA certificate chain to the broker settings
+	case saveServerCA
+}
+
+/// A solution with an optional quick-fix action
+struct DiagnosticSolution: Sendable {
+	let text: String
+	let quickFix: DiagnosticQuickFix?
+
+	init(_ text: String, quickFix: DiagnosticQuickFix? = nil) {
+		self.text = text
+		self.quickFix = quickFix
+	}
+}
+
+/// Structured content item for diagnostic detail display
+enum DetailItem: Sendable {
+	/// Plain text paragraph
+	case text(String)
+	/// Label-value pair (e.g. "Issuer" → "Let's Encrypt")
+	case field(label: String, value: String)
+	/// A value with a status indicator
+	case fieldWithStatus(label: String, value: String, ok: Bool)
+	/// Monospaced code/technical value
+	case code(String)
+	/// A titled section with nested items
+	case section(title: String, items: [DetailItem])
+	/// A list of values
+	case list(items: [String])
+}
+
 /// Result of a diagnostic check
 struct DiagnosticResult: Sendable {
 	let status: DiagnosticStatus
 	let summary: String
 	let details: String?
+	let detailItems: [DetailItem]
 	let duration: TimeInterval
-	let solutions: [String]
+	let solutions: [DiagnosticSolution]
 	let commands: [DiagnosticCommand]
+
+	/// When true, dependent checks should still run even if this check failed.
+	let continuable: Bool
 
 	init(
 		status: DiagnosticStatus,
 		summary: String,
 		details: String? = nil,
+		detailItems: [DetailItem] = [],
 		duration: TimeInterval = 0,
-		solutions: [String] = [],
-		commands: [DiagnosticCommand] = []
+		solutions: [DiagnosticSolution] = [],
+		commands: [DiagnosticCommand] = [],
+		continuable: Bool = false
 	) {
 		self.status = status
 		self.summary = summary
 		self.details = details
+		self.detailItems = detailItems
 		self.duration = duration
 		self.solutions = solutions
 		self.commands = commands
+		self.continuable = continuable
 	}
 
-	static func success(summary: String, details: String? = nil, duration: TimeInterval = 0) -> DiagnosticResult {
-		DiagnosticResult(status: .success, summary: summary, details: details, duration: duration)
+	/// Convenience initializer accepting plain string solutions
+	init(
+		status: DiagnosticStatus,
+		summary: String,
+		details: String? = nil,
+		detailItems: [DetailItem] = [],
+		duration: TimeInterval = 0,
+		solutions: [String],
+		commands: [DiagnosticCommand] = [],
+		continuable: Bool = false
+	) {
+		self.init(
+			status: status, summary: summary,
+			details: details, detailItems: detailItems,
+			duration: duration,
+			solutions: solutions.map { DiagnosticSolution($0) },
+			commands: commands, continuable: continuable
+		)
+	}
+
+	static func success(
+		summary: String,
+		details: String? = nil,
+		detailItems: [DetailItem] = [],
+		duration: TimeInterval = 0
+	) -> DiagnosticResult {
+		DiagnosticResult(
+			status: .success, summary: summary,
+			details: details, detailItems: detailItems, duration: duration
+		)
 	}
 
 	static func warning(
 		summary: String,
 		message: String,
 		details: String? = nil,
+		detailItems: [DetailItem] = [],
 		duration: TimeInterval = 0,
 		solutions: [String] = [],
 		commands: [DiagnosticCommand] = []
@@ -89,6 +161,7 @@ struct DiagnosticResult: Sendable {
 			status: .warning(message),
 			summary: summary,
 			details: details,
+			detailItems: detailItems,
 			duration: duration,
 			solutions: solutions,
 			commands: commands
@@ -99,6 +172,7 @@ struct DiagnosticResult: Sendable {
 		summary: String,
 		message: String,
 		details: String? = nil,
+		detailItems: [DetailItem] = [],
 		duration: TimeInterval = 0,
 		solutions: [String] = [],
 		commands: [DiagnosticCommand] = []
@@ -107,6 +181,7 @@ struct DiagnosticResult: Sendable {
 			status: .error(message),
 			summary: summary,
 			details: details,
+			detailItems: detailItems,
 			duration: duration,
 			solutions: solutions,
 			commands: commands

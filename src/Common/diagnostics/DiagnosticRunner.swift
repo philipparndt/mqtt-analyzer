@@ -35,6 +35,7 @@ class DiagnosticRunner: ObservableObject {
 		checks.append(DNSResolutionCheck())
 		checks.append(ReachabilityCheck())
 		checks.append(PortCheck())
+		checks.append(MQTTProtocolCheck())
 
 		// TLS layer checks (only when TLS enabled)
 		if context.tlsEnabled {
@@ -95,16 +96,17 @@ class DiagnosticRunner: ObservableObject {
 				remaining.removeAll { $0.checkId == check.checkId }
 			}
 
-			// Check if any dependency failed - skip dependent checks
+			// Check if any dependency failed hard — skip dependent checks
+			// (but allow continuation if the dependency is marked continuable)
 			for check in remaining {
-				let failedDeps = check.dependencies.filter { depId in
+				let blockedDeps = check.dependencies.filter { depId in
 					if let dep = checks.first(where: { $0.checkId == depId }) {
-						return dep.status.isError
+						return dep.status.isError && !(dep.result?.continuable ?? false)
 					}
 					return false
 				}
 
-				if !failedDeps.isEmpty {
+				if !blockedDeps.isEmpty {
 					check.status = .warning("Skipped")
 					check.result = .skipped(reason: "Dependency check failed")
 					completed.insert(check.checkId)

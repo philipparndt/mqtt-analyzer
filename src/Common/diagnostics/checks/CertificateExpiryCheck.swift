@@ -50,7 +50,7 @@ final class CertificateExpiryCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			return .error(
 				summary: "Expired \(expiredAgo) ago",
 				message: "Certificate has expired",
-				details: buildDetails(certInfo: certInfo, status: "EXPIRED"),
+				detailItems: buildDetails(certInfo: certInfo, status: "EXPIRED"),
 				duration: duration,
 				solutions: [
 					"Contact the broker administrator to renew the certificate",
@@ -72,7 +72,7 @@ final class CertificateExpiryCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			return .error(
 				summary: "Not yet valid",
 				message: "Certificate is not yet valid",
-				details: buildDetails(certInfo: certInfo, status: "NOT YET VALID"),
+				detailItems: buildDetails(certInfo: certInfo, status: "NOT YET VALID"),
 				duration: duration,
 				solutions: [
 					"Certificate becomes valid on \(formatDate(notBefore))",
@@ -89,7 +89,7 @@ final class CertificateExpiryCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			return .error(
 				summary: "Expires in \(daysUntilExpiry) day\(daysUntilExpiry == 1 ? "" : "s")",
 				message: "Certificate expires very soon",
-				details: buildDetails(certInfo: certInfo, status: "EXPIRING SOON"),
+				detailItems: buildDetails(certInfo: certInfo, status: "EXPIRING SOON"),
 				duration: duration,
 				solutions: [
 					"Certificate expires on \(formatDate(notAfter))",
@@ -103,7 +103,7 @@ final class CertificateExpiryCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			return .warning(
 				summary: "Expires in \(daysUntilExpiry) days",
 				message: "Certificate expiring soon",
-				details: buildDetails(certInfo: certInfo, status: "WARNING"),
+				detailItems: buildDetails(certInfo: certInfo, status: "WARNING"),
 				duration: duration,
 				solutions: [
 					"Certificate expires on \(formatDate(notAfter))",
@@ -127,33 +127,28 @@ final class CertificateExpiryCheck: BaseDiagnosticCheck, @unchecked Sendable {
 
 		return .success(
 			summary: validFor,
-			details: buildDetails(certInfo: certInfo, status: "VALID"),
+			detailItems: buildDetails(certInfo: certInfo, status: "VALID"),
 			duration: duration
 		)
 	}
 
-	private func buildDetails(certInfo: CertInfo, status: String) -> String {
-		var details = "Certificate Validity: \(status)\n\n"
+	private func buildDetails(certInfo: CertInfo, status: String) -> [DetailItem] {
+		var items: [DetailItem] = []
 
 		if let cn = certInfo.commonName {
-			details += "Subject: \(cn)\n"
+			items.append(.field(label: "Subject", value: cn))
 		}
-
 		if let issuer = certInfo.issuer {
-			details += "Issuer: \(issuer)\n"
+			items.append(.field(label: "Issuer", value: issuer))
 		}
-
-		details += "\n"
-
 		if let notBefore = certInfo.notBefore {
-			details += "Valid From: \(formatDate(notBefore))\n"
+			items.append(.field(label: "Valid from", value: formatDate(notBefore)))
 		}
-
 		if let notAfter = certInfo.notAfter {
-			details += "Valid Until: \(formatDate(notAfter))\n"
+			items.append(.field(label: "Valid until", value: formatDate(notAfter)))
 		}
 
-		return details
+		return items
 	}
 
 	private func formatDate(_ date: Date) -> String {

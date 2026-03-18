@@ -128,12 +128,14 @@ func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
 		target.username = host.username
 		target.password = host.password
 	}
+	// Always save certificates — Server CA is independent of auth type
+	var certificates: [CertificateFile] = []
+
+	if let cert = host.certServerCA {
+		certificates.append(cert)
+	}
+
 	if host.certificateAuth {
-		var certificates: [CertificateFile] = []
-		
-		if let cert = host.certServerCA {
-			certificates.append(cert)
-		}
 		if let cert = host.certClient {
 			certificates.append(cert)
 		}
@@ -143,10 +145,10 @@ func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
 		if let cert = host.certP12 {
 			certificates.append(cert)
 		}
-
-		target.certificates = Certificates(certificates)
 		target.certClientKeyPassword = host.certClientKeyPassword
 	}
+
+	target.certificates = Certificates(certificates)
 }
 
 func transformHost(source host: Host) -> HostFormModel {
