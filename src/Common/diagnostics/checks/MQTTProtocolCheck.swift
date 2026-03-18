@@ -13,6 +13,25 @@ import Network
 final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 	private var connection: NWConnection?
 
+	final class CompletionState: @unchecked Sendable {
+		private let lock = NSLock()
+		private var _completed = false
+
+		var completed: Bool {
+			lock.lock()
+			defer { lock.unlock() }
+			return _completed
+		}
+
+		func markCompleted() -> Bool {
+			lock.lock()
+			defer { lock.unlock() }
+			if _completed { return false }
+			_completed = true
+			return true
+		}
+	}
+
 	init() {
 		super.init(
 			checkId: "mqtt_protocol",
@@ -43,25 +62,6 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			let connection = NWConnection(host: host, port: nwPort, using: parameters)
 			self.connection = connection
 
-			final class CompletionState: @unchecked Sendable {
-				private let lock = NSLock()
-				private var _completed = false
-
-				var completed: Bool {
-					lock.lock()
-					defer { lock.unlock() }
-					return _completed
-				}
-
-				func markCompleted() -> Bool {
-					lock.lock()
-					defer { lock.unlock() }
-					if _completed { return false }
-					_completed = true
-					return true
-				}
-			}
-
 			let state = CompletionState()
 			let startTime = start
 			let checkSelf = self
@@ -69,59 +69,13 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			connection.stateUpdateHandler = { [weak self] connState in
 				switch connState {
 				case .ready:
-					// Connection established, send MQTT CONNECT packet
-					let connectPacket = checkSelf.buildMQTTConnectPacket()
-					connection.send(content: connectPacket, completion: .contentProcessed { sendError in
-						if let sendError = sendError {
-							guard state.markCompleted() else { return }
-							connection.cancel()
-							self?.connection = nil
-							continuation.resume(returning: .error(
-								summary: "Failed to send MQTT CONNECT",
-								message: sendError.localizedDescription,
-								duration: checkSelf.elapsed(since: startTime)
-							))
-							return
-						}
-
-						// Read CONNACK response (4 bytes for MQTT 3.1.1)
-						connection.receive(minimumIncompleteLength: 1, maximumLength: 256) { data, _, _, recvError in
-							guard state.markCompleted() else { return }
-							let duration = checkSelf.elapsed(since: startTime)
-							connection.cancel()
-							self?.connection = nil
-
-							if let recvError = recvError {
-								continuation.resume(returning: .error(
-									summary: "No MQTT response",
-									message: "Failed to receive CONNACK: \(recvError.localizedDescription)",
-									duration: duration,
-									solutions: [
-										"The service on this port may not be an MQTT broker",
-										"Check if the correct port is configured"
-									]
-								))
-								return
-							}
-
-							guard let data = data, !data.isEmpty else {
-								continuation.resume(returning: .error(
-									summary: "No MQTT response",
-									message: "Server closed connection without responding",
-									duration: duration,
-									solutions: [
-										"The service on this port may not be an MQTT broker",
-										"The broker may require authentication or client certificates",
-										"Check broker logs for connection rejection reasons"
-									]
-								))
-								return
-							}
-
-							let result = checkSelf.parseCONNACK(data, duration: duration, hostname: hostname, port: port)
-							continuation.resume(returning: result)
-						}
-					})
+					checkSelf.sendAndReceive(
+						connection: connection, state: state,
+						startTime: startTime, hostname: hostname, port: port
+					) { result in
+						self?.connection = nil
+						continuation.resume(returning: result)
+					}
 
 				case .failed(let error):
 					guard state.markCompleted() else { return }
@@ -157,20 +111,36 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 				connection.cancel()
 				self?.connection = nil
 
-				continuation.resume(returning: .error(
+				var solutions: [DiagnosticSolution] = [
+					DiagnosticSolution("Verify that an MQTT broker is running on this port"),
+					DiagnosticSolution("The port may be serving a different protocol (e.g. HTTPS)"),
+					DiagnosticSolution(
+						"If using a reverse proxy, check that it forwards MQTT traffic correctly"
+					)
+				]
+
+				if port != 1883 {
+					solutions.append(DiagnosticSolution(
+						"Try MQTT default port 1883",
+						quickFix: .changePort(1883)
+					))
+				}
+				if port != 8883 {
+					solutions.append(DiagnosticSolution(
+						"Try MQTT TLS port 8883",
+						quickFix: .changePort(8883)
+					))
+				}
+
+				continuation.resume(returning: DiagnosticResult(
+					status: .error("Server accepted connection but did not respond to MQTT"),
 					summary: "No MQTT broker found",
-					message: "Server accepted connection but did not respond to MQTT",
 					details: "The TCP connection was established but the server did not send "
-						+ "an MQTT CONNACK response within **10 seconds**.\n\n"
+						+ "an MQTT CONNACK response within 10 seconds.\n\n"
 						+ "This typically means the service on this port is "
-						+ "*not an MQTT broker* (e.g. a web server or reverse proxy).",
+						+ "not an MQTT broker (e.g. a web server or reverse proxy).",
 					duration: checkSelf.elapsed(since: startTime),
-					solutions: [
-						"Verify that an MQTT broker is running on this port",
-						"The port may be serving a different protocol (e.g. HTTPS)",
-						"If using a reverse proxy, check that it forwards MQTT traffic correctly",
-						"Common MQTT ports: 1883 (TCP), 8883 (TLS)"
-					],
+					solutions: solutions,
 					commands: [
 						DiagnosticCommand(label: "Test Port", command: "nc -zv \(hostname) \(port)"),
 						DiagnosticCommand(
@@ -189,43 +159,84 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 		super.cancel()
 	}
 
-	/// Build a minimal MQTT 3.1.1 CONNECT packet
-	///
-	/// Packet structure:
-	/// - Fixed header: 0x10 (CONNECT type) + remaining length
-	/// - Variable header: Protocol Name "MQTT", Protocol Level 4, Connect Flags (clean session), Keep Alive
-	/// - Payload: Empty client ID (allowed with clean session in 3.1.1)
-	private nonisolated func buildMQTTConnectPacket() -> Data {
-		var packet = Data()
+}
 
-		// Fixed header
+// MARK: - Packet Building, Parsing & Protocol Detection
+
+extension MQTTProtocolCheck {
+
+	func sendAndReceive(
+		connection: NWConnection, state: CompletionState,
+		startTime: CFAbsoluteTime, hostname: String, port: Int,
+		onComplete: @escaping (DiagnosticResult) -> Void
+	) {
+		let connectPacket = buildMQTTConnectPacket()
+		connection.send(content: connectPacket, completion: .contentProcessed { sendError in
+			if let sendError = sendError {
+				guard state.markCompleted() else { return }
+				connection.cancel()
+				onComplete(.error(
+					summary: "Failed to send MQTT CONNECT",
+					message: sendError.localizedDescription,
+					duration: self.elapsed(since: startTime)
+				))
+				return
+			}
+
+			connection.receive(minimumIncompleteLength: 1, maximumLength: 256) { data, _, _, recvError in
+				guard state.markCompleted() else { return }
+				let duration = self.elapsed(since: startTime)
+				connection.cancel()
+
+				if let recvError = recvError {
+					onComplete(.error(
+						summary: "No MQTT response",
+						message: "Failed to receive CONNACK: \(recvError.localizedDescription)",
+						duration: duration,
+						solutions: [
+							"The service on this port may not be an MQTT broker",
+							"Check if the correct port is configured"
+						]
+					))
+					return
+				}
+
+				guard let data = data, !data.isEmpty else {
+					onComplete(.error(
+						summary: "No MQTT response",
+						message: "Server closed connection without responding",
+						duration: duration,
+						solutions: [
+							"The service on this port may not be an MQTT broker",
+							"The broker may require authentication or client certificates",
+							"Check broker logs for connection rejection reasons"
+						]
+					))
+					return
+				}
+
+				onComplete(self.parseCONNACK(data, duration: duration, hostname: hostname, port: port))
+			}
+		})
+	}
+
+	/// Build a minimal MQTT 3.1.1 CONNECT packet
+	nonisolated func buildMQTTConnectPacket() -> Data {
+		var packet = Data()
 		packet.append(0x10) // CONNECT packet type
 		packet.append(0x10) // Remaining length: 16 bytes
-
-		// Variable header
-		// Protocol Name
-		packet.append(contentsOf: [0x00, 0x04])        // Length of "MQTT"
-		packet.append(contentsOf: [0x4D, 0x51, 0x54, 0x54]) // "MQTT"
-
-		// Protocol Level
-		packet.append(0x04) // MQTT 3.1.1
-
-		// Connect Flags: clean session only
-		packet.append(0x02)
-
-		// Keep Alive: 60 seconds
-		packet.append(contentsOf: [0x00, 0x3C])
-
-		// Payload
-		// Client ID: "diag" (short identifier for the diagnostic probe)
-		packet.append(contentsOf: [0x00, 0x04])        // Length of client ID
-		packet.append(contentsOf: [0x64, 0x69, 0x61, 0x67]) // "diag"
-
+		packet.append(contentsOf: [0x00, 0x04])              // Length of "MQTT"
+		packet.append(contentsOf: [0x4D, 0x51, 0x54, 0x54])  // "MQTT"
+		packet.append(0x04)                                   // Protocol Level (3.1.1)
+		packet.append(0x02)                                   // Connect Flags (clean session)
+		packet.append(contentsOf: [0x00, 0x3C])               // Keep Alive: 60s
+		packet.append(contentsOf: [0x00, 0x04])               // Client ID length
+		packet.append(contentsOf: [0x64, 0x69, 0x61, 0x67])  // "diag"
 		return packet
 	}
 
 	/// Parse a CONNACK response from the broker
-	private nonisolated func parseCONNACK(_ data: Data, duration: TimeInterval, hostname: String, port: Int) -> DiagnosticResult {
+	nonisolated func parseCONNACK(_ data: Data, duration: TimeInterval, hostname: String, port: Int) -> DiagnosticResult {
 		let bytes = [UInt8](data)
 
 		// CONNACK must be at least 4 bytes: fixed header (2) + variable header (2)
@@ -250,21 +261,18 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			let message = detected != nil
 				? "Server speaks \(detected!), not MQTT"
 				: "Unexpected response (packet type: 0x\(String(format: "%02X", bytes[0])))"
-			let rawHex = bytes.prefix(min(bytes.count, 32)).map { String(format: "0x%02X", $0) }.joined(separator: " ")
+			let rawHex = bytes.prefix(min(bytes.count, 32))
+				.map { String(format: "0x%02X", $0) }.joined(separator: " ")
 
-			return .error(
+			return DiagnosticResult(
+				status: .error(message),
 				summary: summary,
-				message: message,
 				detailItems: [
 					.text("Expected MQTT CONNACK, but received a \(detected ?? "unknown") response."),
 					.code(rawHex)
 				],
 				duration: duration,
-				solutions: [
-					"The service on this port is not an MQTT broker",
-					"Check if you're connecting to the correct port",
-					"Common MQTT ports: 1883 (TCP), 8883 (TLS)"
-				]
+				solutions: protocolMismatchSolutions(detected: detected, port: port)
 			)
 		}
 
@@ -339,7 +347,7 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 	}
 
 	/// Detect the protocol from response bytes
-	private nonisolated func detectProtocol(_ bytes: [UInt8]) -> String? {
+	nonisolated func detectProtocol(_ bytes: [UInt8]) -> String? {
 		let ascii = String(bytes: bytes.prefix(min(bytes.count, 64)), encoding: .ascii) ?? ""
 
 		// HTTP responses
@@ -391,5 +399,43 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 		if ascii.hasPrefix("AMQP") { return "AMQP" }
 
 		return nil
+	}
+
+	/// Build context-aware solutions for protocol mismatches
+	nonisolated func protocolMismatchSolutions(
+		detected: String?, port: Int
+	) -> [DiagnosticSolution] {
+		var solutions: [DiagnosticSolution] = []
+
+		// TLS detected on a plaintext connection
+		if let detected = detected, detected.contains("TLS") {
+			solutions.append(DiagnosticSolution(
+				"Enable TLS — the server requires an encrypted connection",
+				quickFix: .enableTLS
+			))
+		} else {
+			solutions.append(DiagnosticSolution(
+				"The service on this port is not an MQTT broker"
+			))
+		}
+
+		solutions.append(DiagnosticSolution(
+			"Check if you're connecting to the correct port"
+		))
+
+		if port != 1883 {
+			solutions.append(DiagnosticSolution(
+				"Try MQTT default port 1883",
+				quickFix: .changePort(1883)
+			))
+		}
+		if port != 8883 {
+			solutions.append(DiagnosticSolution(
+				"Try MQTT TLS port 8883",
+				quickFix: .changePort(8883)
+			))
+		}
+
+		return solutions
 	}
 }

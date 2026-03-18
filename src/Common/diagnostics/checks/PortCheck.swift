@@ -82,17 +82,29 @@ final class PortCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					self?.connection = nil
 
 					let errorMessage = checkSelf.describeError(error)
-					continuation.resume(returning: .error(
+					var solutions: [DiagnosticSolution] = [
+						DiagnosticSolution("Check if a firewall is blocking the connection"),
+						DiagnosticSolution("Ensure the MQTT broker is running")
+					]
+					if port != 1883 {
+						solutions.append(DiagnosticSolution(
+							"Try port 1883 (MQTT default)",
+							quickFix: .changePort(1883)
+						))
+					}
+					if port != 8883 {
+						solutions.append(DiagnosticSolution(
+							"Try port 8883 (MQTT over TLS)",
+							quickFix: .changePort(8883)
+						))
+					}
+
+					continuation.resume(returning: DiagnosticResult(
+						status: .error(errorMessage),
 						summary: "Port \(port) unreachable",
-						message: errorMessage,
-						details: "Failed to connect to **\(hostname):\(port)**\n\n**Error:** \(error.localizedDescription)",
+						details: "Failed to connect to \(hostname):\(port)\n\nError: \(error.localizedDescription)",
 						duration: duration,
-						solutions: [
-							"Verify the port number is correct (common MQTT ports: 1883, 8883 for TLS)",
-							"Check if a firewall is blocking the connection",
-							"Ensure the MQTT broker is running",
-							"Verify the broker accepts connections on this port"
-						],
+						solutions: solutions,
 						commands: [
 							DiagnosticCommand(label: "Test Port", command: "nc -zv \(hostname) \(port)"),
 							DiagnosticCommand(label: "Telnet Test", command: "telnet \(hostname) \(port)")

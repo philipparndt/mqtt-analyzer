@@ -202,7 +202,6 @@ final class CertificateChainCheck: BaseDiagnosticCheck, @unchecked Sendable {
 		super.cancel()
 	}
 
-	// swiftlint:disable:next function_parameter_count
 	private nonisolated func handleReady(
 		state: CaptureState, context: DiagnosticContext,
 		hostname: String, port: Int, duration: TimeInterval
@@ -305,7 +304,12 @@ final class CertificateChainCheck: BaseDiagnosticCheck, @unchecked Sendable {
 		)
 	}
 
-	private func buildChainItems(
+}
+
+// MARK: - Detail Builders & Helpers
+
+extension CertificateChainCheck {
+	func buildChainItems(
 		_ chain: [SecCertificate], trustResult: SecTrustResultType, hasCustomCA: Bool = false
 	) -> [DetailItem] {
 		let dateFormatter = DateFormatter()
@@ -319,7 +323,6 @@ final class CertificateChainCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			let summary = SecCertificateCopySubjectSummary(cert) as String? ?? "(Unknown)"
 
 			var certItems: [DetailItem] = []
-
 			let certData = SecCertificateCopyData(cert) as Data
 			if let info = CertificateLoader.parseCertInfo(from: certData) {
 				if let issuer = info.issuer {
@@ -331,7 +334,6 @@ final class CertificateChainCheck: BaseDiagnosticCheck, @unchecked Sendable {
 				if let notAfter = info.notAfter {
 					certItems.append(.field(label: "Expires", value: dateFormatter.string(from: notAfter)))
 				}
-
 				let validSANs = info.subjectAltNames.filter { san in
 					let trimmed = san.trimmingCharacters(in: .whitespacesAndNewlines)
 					guard !trimmed.isEmpty, trimmed.count >= 3 else { return false }
@@ -341,45 +343,36 @@ final class CertificateChainCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					certItems.append(.list(items: validSANs))
 				}
 			}
-
 			items.append(.section(title: "\(index + 1). \(summary) (\(role))", items: certItems))
 		}
 
-		items.append(.field(label: "Trust", value: describeTrustResult(trustResult, hasCustomCA: hasCustomCA)))
-
+		items.append(.field(
+			label: "Trust",
+			value: describeTrustResult(trustResult, hasCustomCA: hasCustomCA)
+		))
 		return items
 	}
 
-	private func describeTrustResult(_ result: SecTrustResultType, hasCustomCA: Bool = false) -> String {
+	func describeTrustResult(
+		_ result: SecTrustResultType, hasCustomCA: Bool = false
+	) -> String {
 		switch result {
-		case .invalid:
-			return "Invalid"
-		case .proceed:
-			return "Trusted (user approved)"
-		case .deny:
-			return "Denied (user rejected)"
+		case .invalid: return "Invalid"
+		case .proceed: return "Trusted (user approved)"
+		case .deny: return "Denied (user rejected)"
 		case .unspecified:
 			return hasCustomCA ? "Trusted (custom Server CA)" : "Trusted (system CA)"
-		case .recoverableTrustFailure:
-			return "Recoverable failure"
-		case .fatalTrustFailure:
-			return "Fatal failure"
-		case .otherError:
-			return "Other error"
-		@unknown default:
-			return "Unknown (\(result.rawValue))"
+		case .recoverableTrustFailure: return "Recoverable failure"
+		case .fatalTrustFailure: return "Fatal failure"
+		case .otherError: return "Other error"
+		@unknown default: return "Unknown (\(result.rawValue))"
 		}
 	}
 
-	private nonisolated func trustSolutions(
-		certs: [SecCertificate]
-	) -> [DiagnosticSolution] {
+	nonisolated func trustSolutions(certs: [SecCertificate]) -> [DiagnosticSolution] {
 		var solutions: [DiagnosticSolution] = []
 
-		// Check if the server cert meets Apple's requirements
-		let serverCertCompliant = isServerCertCompliant(certs.first)
-
-		if serverCertCompliant {
+		if isServerCertCompliant(certs.first) {
 			solutions.append(DiagnosticSolution(
 				"Save the broker's CA certificate as Server CA",
 				quickFix: .saveServerCA
@@ -396,40 +389,27 @@ final class CertificateChainCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			"Enable 'Allow Untrusted Certificates'",
 			quickFix: .enableUntrusted
 		))
-
 		solutions.append(DiagnosticSolution(
 			"The certificate may be self-signed or issued by a private CA"
 		))
-
 		return solutions
 	}
 
-	/// Check if the server certificate meets Apple's TLS requirements
-	private nonisolated func isServerCertCompliant(_ cert: SecCertificate?) -> Bool {
+	nonisolated func isServerCertCompliant(_ cert: SecCertificate?) -> Bool {
 		guard let cert = cert else { return false }
 		let certData = SecCertificateCopyData(cert) as Data
 		guard let info = CertificateLoader.parseCertInfo(from: certData) else { return false }
 
-		// Apple requires validity <= 825 days (since Sep 2020)
 		if let notBefore = info.notBefore, let notAfter = info.notAfter {
-			let validityDays = Calendar.current.dateComponents(
-				[.day], from: notBefore, to: notAfter
-			).day ?? 0
-			if validityDays > 825 {
-				return false
-			}
+			let days = Calendar.current.dateComponents([.day], from: notBefore, to: notAfter).day ?? 0
+			if days > 825 { return false }
 		}
 
-		// Apple requires SAN extension
 		let validSANs = info.subjectAltNames.filter { san in
 			let trimmed = san.trimmingCharacters(in: .whitespacesAndNewlines)
 			return !trimmed.isEmpty && trimmed.count >= 3
 				&& (trimmed.contains(".") || trimmed.contains(":"))
 		}
-		if validSANs.isEmpty {
-			return false
-		}
-
-		return true
+		return !validSANs.isEmpty
 	}
 }

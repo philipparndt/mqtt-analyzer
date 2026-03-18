@@ -49,11 +49,17 @@ struct DiagnosticCommand: Sendable {
 }
 
 /// Quick-fix action identifier for diagnostic solutions
-enum DiagnosticQuickFix: Sendable {
+enum DiagnosticQuickFix: Sendable, Equatable {
 	/// Enable "Allow Untrusted Certificates" on the broker
 	case enableUntrusted
 	/// Save the server's CA certificate chain to the broker settings
 	case saveServerCA
+	/// Enable TLS on the broker
+	case enableTLS
+	/// Change the broker port
+	case changePort(Int)
+	/// Change the broker hostname
+	case changeHostname(String)
 }
 
 /// A solution with an optional quick-fix action

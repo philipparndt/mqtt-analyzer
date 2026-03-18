@@ -46,22 +46,35 @@ final class SANCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			)
 		}
 
-		// Build suggestions based on SANs
-		var solutions = [
-			"Use one of the hostnames listed in the certificate's SANs",
-			"Update the certificate to include '\(hostname)' as a SAN",
-			"Check for typos in the hostname"
-		]
+		// Build suggestions with quick-fixes for matching SANs
+		var solutions: [DiagnosticSolution] = []
 
-		// If there's a wildcard that might work
-		if let cn = certInfo.commonName, cn.hasPrefix("*.") {
-			let domain = String(cn.dropFirst(2))
-			solutions.insert("For wildcard '*.domain.com', use 'subdomain.\(domain)' instead of '\(hostname)'", at: 0)
+		// Offer quick-fix for each valid SAN that could be used
+		let validSANs = certInfo.subjectAltNames
+			.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+			.filter { CertificateValidator.isValidDomainOrIP($0) && !$0.hasPrefix("*") }
+
+		for san in validSANs.prefix(3) {
+			solutions.append(DiagnosticSolution(
+				"Switch to '\(san)'",
+				quickFix: .changeHostname(san)
+			))
 		}
 
-		return .error(
+		if let cn = certInfo.commonName, cn.hasPrefix("*.") {
+			let domain = String(cn.dropFirst(2))
+			solutions.append(DiagnosticSolution(
+				"Use a subdomain of '\(domain)' matching the wildcard '\(cn)'"
+			))
+		}
+
+		solutions.append(DiagnosticSolution(
+			"Update the certificate to include '\(hostname)' as a SAN"
+		))
+
+		return DiagnosticResult(
+			status: .error("Certificate not valid for '\(hostname)'"),
 			summary: "Hostname mismatch",
-			message: "Certificate not valid for '\(hostname)'",
 			detailItems: [.text("Hostname '\(hostname)' does not match the certificate.")] + items,
 			duration: duration,
 			solutions: solutions,

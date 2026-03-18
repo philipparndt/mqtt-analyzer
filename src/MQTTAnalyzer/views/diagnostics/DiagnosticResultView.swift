@@ -123,7 +123,31 @@ struct DiagnosticResultView: View {
 			showTrustCertSheet = true
 		case .enableUntrusted:
 			showUntrustedAlert = true
+		case .enableTLS, .changePort, .changeHostname:
+			// Apply immediately — no confirmation needed for non-security changes
+			applySimpleFix(fix)
 		}
+	}
+
+	private func applySimpleFix(_ fix: DiagnosticQuickFix) {
+		guard let host = context.host else { return }
+
+		switch fix {
+		case .enableTLS:
+			host.settings.ssl = true
+			if host.settings.port == 1883 {
+				host.settings.port = 8883
+			}
+		case .changePort(let port):
+			host.settings.port = Int32(port)
+		case .changeHostname(let hostname):
+			host.settings.hostname = hostname
+		default:
+			return
+		}
+
+		saveContext()
+		appliedFix = fix
 	}
 
 	private func applyEnableUntrusted() {
@@ -492,15 +516,10 @@ struct TrustConfirmationView: View {
 		let data = SecCertificateCopyData(cert) as Data
 		let digest = SHA256.hash(data: data)
 		let bytes = Array(digest)
-		return bytes
-			.enumerated()
-			.map { String(format: "%02X", $0.element) }
+		let hexParts = bytes.map { String(format: "%02X", $0) }
+		return hexParts
 			.enumerated()
 			.map { $0.offset > 0 && $0.offset % 8 == 0 ? "\n\($0.element)" : $0.element }
 			.joined(separator: ":")
 	}
 }
-
-// MARK: - QuickFix Equatable
-
-extension DiagnosticQuickFix: Equatable {}
