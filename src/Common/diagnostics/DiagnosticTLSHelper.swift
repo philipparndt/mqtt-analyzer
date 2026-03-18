@@ -36,18 +36,26 @@ enum DiagnosticTLSHelper {
 		return tlsOptions
 	}
 
-	/// Load the client SecIdentity from the host's P12 certificate
+	/// Load the client SecIdentity from the host's P12 certificate.
+	/// Stores the reason for failure in `context.clientIdentityError`.
 	private static func loadClientIdentity(context: DiagnosticContext) -> sec_identity_t? {
 		guard let host = context.host else { return nil }
 
 		let authType = host.settings.authType
 		guard authType == .certificate || authType == .both else { return nil }
 
-		guard let p12Cert = getCertificate(host, type: .p12) else { return nil }
+		guard let p12Cert = getCertificate(host, type: .p12) else {
+			context.clientIdentityError = "No client certificate (P12) configured"
+			return nil
+		}
 
 		do {
 			let url = try p12Cert.getFullPath()
-			guard let p12Data = try? Data(contentsOf: url) else { return nil }
+
+			guard let p12Data = try? Data(contentsOf: url) else {
+				context.clientIdentityError = "Client certificate file not found: \(p12Cert.name)"
+				return nil
+			}
 
 			let password = host.settings.certClientKeyPassword ?? ""
 			var optionsDict: [String: Any] = [
@@ -62,10 +70,16 @@ enum DiagnosticTLSHelper {
 			var items: CFArray?
 			let status = SecPKCS12Import(p12Data as CFData, optionsDict as NSDictionary, &items)
 
+			if status == errSecAuthFailed {
+				context.clientIdentityError = "Wrong password for client certificate"
+				return nil
+			}
+
 			guard status == errSecSuccess,
 				  let array = items as? [[String: Any]],
 				  let first = array.first,
 				  let identityRef = first[kSecImportItemIdentity as String] else {
+				context.clientIdentityError = "Failed to load client identity from P12 (code: \(status))"
 				return nil
 			}
 
@@ -73,7 +87,7 @@ enum DiagnosticTLSHelper {
 			let secIdentity = identityRef as! SecIdentity
 			return sec_identity_create(secIdentity)
 		} catch {
-			NSLog("DiagnosticTLSHelper: Failed to load client identity: \(error)")
+			context.clientIdentityError = "Failed to access client certificate: \(error.localizedDescription)"
 			return nil
 		}
 	}

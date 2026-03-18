@@ -51,6 +51,9 @@ class DiagnosticContext {
 	/// Trust evaluation result (populated by Certificate Chain check)
 	var trustResult: SecTrustResultType?
 
+	/// Client identity loading issue (populated by DiagnosticTLSHelper)
+	var clientIdentityError: String?
+
 	init(hostname: String, port: Int, tlsEnabled: Bool, allowUntrusted: Bool = false, host: Host? = nil) {
 		self.hostname = hostname
 		self.port = port

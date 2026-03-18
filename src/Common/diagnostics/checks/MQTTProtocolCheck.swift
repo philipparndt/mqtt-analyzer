@@ -70,7 +70,7 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 				switch connState {
 				case .ready:
 					checkSelf.sendAndReceive(
-						connection: connection, state: state,
+						connection: connection, state: state, context: context,
 						startTime: startTime, hostname: hostname, port: port
 					) { result in
 						self?.connection = nil
@@ -81,10 +81,12 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					guard state.markCompleted() else { return }
 					connection.cancel()
 					self?.connection = nil
+					let solutions = checkSelf.mTLSSolutions(context: context)
 					continuation.resume(returning: .error(
 						summary: "Connection failed",
 						message: error.localizedDescription,
-						duration: checkSelf.elapsed(since: startTime)
+						duration: checkSelf.elapsed(since: startTime),
+						solutions: solutions
 					))
 
 				case .cancelled:
@@ -167,6 +169,7 @@ extension MQTTProtocolCheck {
 
 	func sendAndReceive(
 		connection: NWConnection, state: CompletionState,
+		context: DiagnosticContext,
 		startTime: CFAbsoluteTime, hostname: String, port: Int,
 		onComplete: @escaping (DiagnosticResult) -> Void
 	) {
@@ -175,10 +178,8 @@ extension MQTTProtocolCheck {
 			if let sendError = sendError {
 				guard state.markCompleted() else { return }
 				connection.cancel()
-				onComplete(.error(
-					summary: "Failed to send MQTT CONNECT",
-					message: sendError.localizedDescription,
-					duration: self.elapsed(since: startTime)
+				onComplete(self.buildConnectionError(
+					sendError, context: context, startTime: startTime
 				))
 				return
 			}
@@ -189,35 +190,104 @@ extension MQTTProtocolCheck {
 				connection.cancel()
 
 				if let recvError = recvError {
-					onComplete(.error(
-						summary: "No MQTT response",
-						message: "Failed to receive CONNACK: \(recvError.localizedDescription)",
-						duration: duration,
-						solutions: [
-							"The service on this port may not be an MQTT broker",
-							"Check if the correct port is configured"
-						]
+					onComplete(self.buildReceiveError(
+						recvError, context: context, duration: duration
 					))
 					return
 				}
 
 				guard let data = data, !data.isEmpty else {
-					onComplete(.error(
-						summary: "No MQTT response",
-						message: "Server closed connection without responding",
-						duration: duration,
-						solutions: [
-							"The service on this port may not be an MQTT broker",
-							"The broker may require authentication or client certificates",
-							"Check broker logs for connection rejection reasons"
-						]
+					onComplete(self.buildEmptyResponseError(
+						context: context, duration: duration
 					))
 					return
 				}
 
-				onComplete(self.parseCONNACK(data, duration: duration, hostname: hostname, port: port))
+				onComplete(self.parseCONNACK(
+					data, duration: duration, hostname: hostname, port: port
+				))
 			}
 		})
+	}
+
+	private func buildConnectionError(
+		_ error: NWError, context: DiagnosticContext, startTime: CFAbsoluteTime
+	) -> DiagnosticResult {
+		.error(
+			summary: "Failed to send MQTT CONNECT",
+			message: error.localizedDescription,
+			duration: elapsed(since: startTime),
+			solutions: mTLSSolutions(context: context)
+		)
+	}
+
+	private func buildReceiveError(
+		_ error: NWError, context: DiagnosticContext, duration: TimeInterval
+	) -> DiagnosticResult {
+		let solutions = mTLSSolutions(context: context, fallback: [
+			"The service on this port may not be an MQTT broker",
+			"Check if the correct port is configured"
+		])
+
+		let isReset = isConnectionReset(error)
+		let summary = isReset && context.tlsEnabled
+			? "Connection rejected"
+			: "No MQTT response"
+
+		return .error(
+			summary: summary,
+			message: error.localizedDescription,
+			duration: duration,
+			solutions: solutions
+		)
+	}
+
+	private func buildEmptyResponseError(
+		context: DiagnosticContext, duration: TimeInterval
+	) -> DiagnosticResult {
+		let solutions = mTLSSolutions(context: context, fallback: [
+			"The service on this port may not be an MQTT broker",
+			"Check broker logs for connection rejection reasons"
+		])
+
+		return .error(
+			summary: context.tlsEnabled ? "Connection rejected" : "No MQTT response",
+			message: "Server closed connection without responding",
+			duration: duration,
+			solutions: solutions
+		)
+	}
+
+	/// Build mTLS-aware solutions, falling back to generic ones
+	private func mTLSSolutions(
+		context: DiagnosticContext, fallback: [String] = []
+	) -> [String] {
+		let authType = context.host?.settings.authType ?? .none
+
+		// Client cert is configured but failed to load
+		if let identityError = context.clientIdentityError {
+			return [
+				"Client certificate error: \(identityError)",
+				"Check the certificate file and password in broker settings"
+			]
+		}
+
+		// TLS is enabled but no mTLS configured — server may require it
+		if context.tlsEnabled && authType != .certificate && authType != .both {
+			return [
+				"The broker may require a client certificate (mTLS)",
+				"Configure a client certificate in the broker's authentication settings"
+			] + fallback
+		}
+
+		return fallback
+	}
+
+	private func isConnectionReset(_ error: NWError) -> Bool {
+		if case .posix(let code) = error {
+			return code == .ECONNRESET
+		}
+		return error.localizedDescription.contains("reset")
 	}
 
 	/// Build a minimal MQTT 3.1.1 CONNECT packet

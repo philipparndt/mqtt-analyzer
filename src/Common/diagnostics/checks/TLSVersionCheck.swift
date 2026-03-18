@@ -129,11 +129,26 @@ final class TLSVersionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					connection.cancel()
 					self?.connection = nil
 
-					let (message, solutions) = checkSelf.describeTLSError(error, hostname: hostname, port: port)
+					var (message, solutions) = checkSelf.describeTLSError(error, hostname: hostname, port: port)
+
+					// Add mTLS context if client identity failed to load
+					if let identityError = context.clientIdentityError {
+						message += " — " + identityError
+						solutions.insert("Fix the client certificate: \(identityError)", at: 0)
+					} else if checkSelf.isMTLSHandshakeFailure(error), context.host != nil {
+						let authType = context.host?.settings.authType ?? .none
+						if authType != .certificate && authType != .both {
+							solutions.insert(
+								"The server may require mTLS — configure a client certificate in the connection settings",
+								at: 0
+							)
+						}
+					}
+
 					continuation.resume(returning: .error(
 						summary: "TLS handshake failed",
 						message: message,
-						details: "Failed to establish TLS connection to **\(hostname):\(port)**\n\n**Error:** \(error.localizedDescription)",
+						details: "Failed to establish TLS connection to \(hostname):\(port)\n\nError: \(error.localizedDescription)",
 						duration: duration,
 						solutions: solutions,
 						commands: [
@@ -242,10 +257,10 @@ final class TLSVersionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					"Check certificate Subject Alternative Names"
 				])
 			case errSSLPeerHandshakeFail:
-				return ("Server rejected handshake", [
-					"Server may require client certificate",
-					"TLS version mismatch",
-					"Cipher suite incompatibility"
+				return ("Server rejected TLS handshake", [
+					"Server may require a client certificate (mTLS)",
+					"Check that the correct client certificate is configured",
+					"TLS version or cipher suite incompatibility"
 				])
 			case errSSLConnectionRefused:
 				return ("TLS connection refused", [
@@ -264,5 +279,15 @@ final class TLSVersionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 				"Verify server is running"
 			])
 		}
+	}
+
+	private func isMTLSHandshakeFailure(_ error: NWError) -> Bool {
+		if case .tls(let status) = error {
+			// Errors commonly caused by missing/wrong client certificate
+			return status == errSSLPeerHandshakeFail
+				|| status == errSSLClosedAbort
+				|| status == -9825 // errSSLPeerCertRequired (not always available as constant)
+		}
+		return false
 	}
 }
