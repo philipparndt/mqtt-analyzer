@@ -246,7 +246,13 @@ struct TopicsView: View {
 			}
 			else if host.state == .disconnected {
 				if host.reconnectDelegate != nil {
-					DisconnectedToolbarView(host: host)
+					ConnectionStatusBanner(
+						message: host.connectionMessage ?? "Disconnected",
+						icon: "exclamationmark.triangle.fill",
+						color: .orange,
+						action: { host.reconnect() },
+						host: host
+					)
 				}
 				else {
 					ConnectBrokerView(connect: connect)

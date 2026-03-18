@@ -9,21 +9,49 @@
 import SwiftUI
 
 struct DiagnosticsView: View {
-	let host: Host
+	let hostname: String
+	let port: Int
+	let ssl: Bool
+	let untrustedSSL: Bool
+	let connectionError: String?
 	@Binding var isPresented: Bool
 	@StateObject private var runner: DiagnosticRunner
 	@State private var hasStarted = false
 
-	init(host: Host, isPresented: Binding<Bool>) {
-		self.host = host
+	init(host: Host, isPresented: Binding<Bool>, connectionError: String? = nil) {
+		self.hostname = host.settings.hostname
+		self.port = Int(host.settings.port)
+		self.ssl = host.settings.ssl
+		self.untrustedSSL = host.settings.untrustedSSL
+		self.connectionError = connectionError
 		self._isPresented = isPresented
 		self._runner = StateObject(wrappedValue: DiagnosticRunner(context: DiagnosticContext(host: host)))
+	}
+
+	init(hostname: String, port: Int, ssl: Bool, untrustedSSL: Bool, isPresented: Binding<Bool>) {
+		self.hostname = hostname
+		self.port = port
+		self.ssl = ssl
+		self.untrustedSSL = untrustedSSL
+		self.connectionError = nil
+		self._isPresented = isPresented
+		self._runner = StateObject(wrappedValue: DiagnosticRunner(context: DiagnosticContext(
+			hostname: hostname,
+			port: port,
+			tlsEnabled: ssl,
+			allowUntrusted: untrustedSSL
+		)))
 	}
 
 	var body: some View {
 		NavigationStack {
 			ScrollView {
 				VStack(alignment: .leading, spacing: 16) {
+					// Connection error (if provided)
+					if let connectionError {
+						connectionErrorSection(connectionError)
+					}
+
 					// Header info
 					headerSection
 
@@ -73,22 +101,36 @@ struct DiagnosticsView: View {
 		.frame(minWidth: 400, minHeight: 500)
 	}
 
+	private func connectionErrorSection(_ error: String) -> some View {
+		HStack(spacing: 10) {
+			Image(systemName: "exclamationmark.triangle.fill")
+				.foregroundColor(.red)
+			Text(error)
+				.font(.subheadline)
+				.textSelection(.enabled)
+		}
+		.padding()
+		.frame(maxWidth: .infinity, alignment: .leading)
+		.background(Color.red.opacity(0.1))
+		.cornerRadius(8)
+	}
+
 	private var headerSection: some View {
 		VStack(alignment: .leading, spacing: 8) {
 			HStack {
 				Image(systemName: "server.rack")
 					.foregroundColor(.secondary)
-				Text(host.settings.hostname)
+				Text(hostname)
 					.font(.headline)
 					.textSelection(.enabled)
 			}
 
 			HStack(spacing: 16) {
-				Label("\(host.settings.port)", systemImage: "network")
+				Label("\(port)", systemImage: "network")
 					.font(.subheadline)
 					.foregroundColor(.secondary)
 
-				if host.settings.ssl {
+				if ssl {
 					Label("TLS", systemImage: "lock.fill")
 						.font(.subheadline)
 						.foregroundColor(.green)
@@ -98,7 +140,7 @@ struct DiagnosticsView: View {
 						.foregroundColor(.orange)
 				}
 
-				if host.settings.untrustedSSL {
+				if untrustedSSL {
 					Label("Untrusted", systemImage: "exclamationmark.shield")
 						.font(.subheadline)
 						.foregroundColor(.orange)

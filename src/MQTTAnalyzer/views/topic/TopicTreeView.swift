@@ -267,7 +267,7 @@ struct ConnectionStatusBanner: View {
 	let color: Color
 	let action: (() -> Void)?
 	var host: Host?
-	@State private var showErrorDetails = false
+	@State private var showDiagnostics = false
 
 	var body: some View {
 		HStack(spacing: 8) {
@@ -280,18 +280,17 @@ struct ConnectionStatusBanner: View {
 
 			Spacer()
 
-			// Show Details button for disconnected state
-			if host?.state == .disconnected && host != nil {
+			if host?.state == .disconnected, let host {
 				Button {
-					showErrorDetails = true
+					showDiagnostics = true
 				} label: {
-					Image(systemName: "info.circle.fill")
+					Image(systemName: "stethoscope")
 						.font(.callout)
-						.foregroundStyle(.blue)
+						.foregroundStyle(.orange)
 				}
 				.buttonStyle(.plain)
-				.sheet(isPresented: $showErrorDetails) {
-					ErrorDetailsSheet(host: host!, isPresented: $showErrorDetails)
+				.sheet(isPresented: $showDiagnostics) {
+					DiagnosticsView(host: host, isPresented: $showDiagnostics, connectionError: host.connectionMessage)
 				}
 			}
 
@@ -309,7 +308,6 @@ struct ConnectionStatusBanner: View {
 		}
 		.padding(.horizontal, 12)
 		.padding(.vertical, 8)
-		.background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
 		.padding(.horizontal, 8)
 		.padding(.bottom, 8)
 	}

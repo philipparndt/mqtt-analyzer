@@ -29,6 +29,7 @@ struct HostCellView: View {
 	@ObservedObject var messageModel: TopicTree
 
 	@State private var activeSheet: HostCellViewSheetType?
+	@State private var showDiagnostics = false
 
 	@State private var loginData = LoginData()
 
@@ -113,6 +114,9 @@ struct HostCellView: View {
 				LoginDialogView(loginCallback: self.login, host: self.host)
 			}
 		}
+		.sheet(isPresented: $showDiagnostics) {
+			DiagnosticsView(host: host, isPresented: $showDiagnostics, connectionError: host.connectionMessage)
+		}
 		.onAppear {
 			if self.host.needsAuth {
 				self.loginData.username = self.host.settings.username ?? ""
@@ -138,8 +142,10 @@ struct HostCellView: View {
 				MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
 			}
 			
+			MenuButton(title: "Diagnose", systemImage: "stethoscope", action: diagnose)
+
 			Divider()
-		
+
 			Menu {
 				DestructiveMenuButton(title: "Delete broker", systemImage: "trash.fill", action: deleteBroker)
 					.accessibilityIdentifier("confirm-delete-broker")
@@ -153,6 +159,10 @@ struct HostCellView: View {
 //		.id(UUID().uuidString)
 	}
 	
+	func diagnose() {
+		showDiagnostics = true
+	}
+
 	func cloneHost() {
 		cloneHostHandler(host)
 	}

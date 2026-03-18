@@ -23,27 +23,28 @@ final class DNSResolutionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 
 	override func run(context: DiagnosticContext) async -> DiagnosticResult {
 		let start = startTiming()
+		let hostname = context.hostname
 
 		// Check if hostname is already an IP address
-		if isIPAddress(context.hostname) {
-			context.resolvedAddresses = [context.hostname]
+		if isIPAddress(hostname) {
+			context.resolvedAddresses = [hostname]
 			return .success(
 				summary: "Using IP address directly",
-				details: "Hostname is an IP address: \(context.hostname)",
+				details: "Hostname is an IP address: \(hostname)",
 				duration: elapsed(since: start)
 			)
 		}
 
-		// Resolve hostname using CFHost
+		// Resolve hostname using NWEndpoint for better async support
 		do {
-			let addresses = try await resolveHostname(context.hostname)
+			let addresses = try await resolveHostname(hostname)
 			let duration = elapsed(since: start)
 
 			if addresses.isEmpty {
 				return .error(
 					summary: "No addresses found",
 					message: "DNS lookup returned no results",
-					details: "The hostname '\(context.hostname)' could not be resolved to any IP addresses.",
+					details: "The hostname '\(hostname)' could not be resolved to any IP addresses.",
 					duration: duration,
 					solutions: [
 						"Check the hostname spelling",
@@ -52,8 +53,8 @@ final class DNSResolutionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 						"Check if the broker is on a private network requiring VPN"
 					],
 					commands: [
-						DiagnosticCommand(label: "DNS Lookup", command: "nslookup \(context.hostname)"),
-						DiagnosticCommand(label: "Dig Query", command: "dig \(context.hostname)")
+						DiagnosticCommand(label: "DNS Lookup", command: "nslookup \(hostname)"),
+						DiagnosticCommand(label: "Dig Query", command: "dig \(hostname)")
 					]
 				)
 			}
@@ -70,7 +71,7 @@ final class DNSResolutionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			return .error(
 				summary: "Resolution failed",
 				message: error.localizedDescription,
-				details: "Failed to resolve '\(context.hostname)': \(error.localizedDescription)",
+				details: "Failed to resolve '\(hostname)': \(error.localizedDescription)",
 				duration: duration,
 				solutions: [
 					"Check your internet connection",
@@ -79,14 +80,14 @@ final class DNSResolutionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					"Check if you need VPN access"
 				],
 				commands: [
-					DiagnosticCommand(label: "DNS Lookup", command: "nslookup \(context.hostname)"),
+					DiagnosticCommand(label: "DNS Lookup", command: "nslookup \(hostname)"),
 					DiagnosticCommand(label: "Check DNS Servers", command: "scutil --dns | head -20")
 				]
 			)
 		}
 	}
 
-	private func isIPAddress(_ string: String) -> Bool {
+	private nonisolated func isIPAddress(_ string: String) -> Bool {
 		// Check IPv4
 		var sin = sockaddr_in()
 		if inet_pton(AF_INET, string, &sin.sin_addr) == 1 {
@@ -103,57 +104,68 @@ final class DNSResolutionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 	}
 
 	private func resolveHostname(_ hostname: String) async throws -> [String] {
+		// Use a background task to avoid priority inversion
 		try await withCheckedThrowingContinuation { continuation in
-			let host = CFHostCreateWithName(nil, hostname as CFString).takeRetainedValue()
-
-			var error = CFStreamError()
-			let started = CFHostStartInfoResolution(host, .addresses, &error)
-
-			guard started else {
-				continuation.resume(throwing: NSError(
-					domain: "DNSResolution",
-					code: Int(error.error),
-					userInfo: [NSLocalizedDescriptionKey: "Failed to start DNS resolution"]
-				))
-				return
+			// Run DNS resolution on a utility QoS queue to match the system's DNS resolution QoS
+			DispatchQueue.global(qos: .utility).async {
+				self.performDNSResolution(hostname: hostname, continuation: continuation)
 			}
+		}
+	}
 
-			var resolved: DarwinBoolean = false
-			guard let addressesData = CFHostGetAddressing(host, &resolved)?.takeUnretainedValue() as? [Data],
-				  resolved.boolValue else {
-				continuation.resume(throwing: NSError(
-					domain: "DNSResolution",
-					code: -1,
-					userInfo: [NSLocalizedDescriptionKey: "DNS resolution did not complete"]
-				))
-				return
-			}
+	private nonisolated func performDNSResolution(
+		hostname: String,
+		continuation: CheckedContinuation<[String], Error>
+	) {
+		let host = CFHostCreateWithName(nil, hostname as CFString).takeRetainedValue()
 
-			var addresses: [String] = []
+		var error = CFStreamError()
+		let started = CFHostStartInfoResolution(host, .addresses, &error)
 
-			for addressData in addressesData {
-				addressData.withUnsafeBytes { ptr in
-					guard let sockaddr = ptr.baseAddress?.assumingMemoryBound(to: sockaddr.self) else { return }
+		guard started else {
+			continuation.resume(throwing: NSError(
+				domain: "DNSResolution",
+				code: Int(error.error),
+				userInfo: [NSLocalizedDescriptionKey: "Failed to start DNS resolution"]
+			))
+			return
+		}
 
-					if sockaddr.pointee.sa_family == sa_family_t(AF_INET) {
-						// IPv4
-						var addr = sockaddr.withMemoryRebound(to: sockaddr_in.self, capacity: 1) { $0.pointee }
-						var buffer = [CChar](repeating: 0, count: Int(INET_ADDRSTRLEN))
-						if inet_ntop(AF_INET, &addr.sin_addr, &buffer, socklen_t(INET_ADDRSTRLEN)) != nil {
-							addresses.append(String(cString: buffer))
-						}
-					} else if sockaddr.pointee.sa_family == sa_family_t(AF_INET6) {
-						// IPv6
-						var addr = sockaddr.withMemoryRebound(to: sockaddr_in6.self, capacity: 1) { $0.pointee }
-						var buffer = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
-						if inet_ntop(AF_INET6, &addr.sin6_addr, &buffer, socklen_t(INET6_ADDRSTRLEN)) != nil {
-							addresses.append(String(cString: buffer))
-						}
+		var resolved: DarwinBoolean = false
+		guard let addressesData = CFHostGetAddressing(host, &resolved)?.takeUnretainedValue() as? [Data],
+			  resolved.boolValue else {
+			continuation.resume(throwing: NSError(
+				domain: "DNSResolution",
+				code: -1,
+				userInfo: [NSLocalizedDescriptionKey: "DNS resolution did not complete"]
+			))
+			return
+		}
+
+		var addresses: [String] = []
+
+		for addressData in addressesData {
+			addressData.withUnsafeBytes { ptr in
+				guard let sockaddr = ptr.baseAddress?.assumingMemoryBound(to: sockaddr.self) else { return }
+
+				if sockaddr.pointee.sa_family == sa_family_t(AF_INET) {
+					// IPv4
+					var addr = sockaddr.withMemoryRebound(to: sockaddr_in.self, capacity: 1) { $0.pointee }
+					var buffer = [CChar](repeating: 0, count: Int(INET_ADDRSTRLEN))
+					if inet_ntop(AF_INET, &addr.sin_addr, &buffer, socklen_t(INET_ADDRSTRLEN)) != nil {
+						addresses.append(String(cString: buffer))
+					}
+				} else if sockaddr.pointee.sa_family == sa_family_t(AF_INET6) {
+					// IPv6
+					var addr = sockaddr.withMemoryRebound(to: sockaddr_in6.self, capacity: 1) { $0.pointee }
+					var buffer = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
+					if inet_ntop(AF_INET6, &addr.sin6_addr, &buffer, socklen_t(INET6_ADDRSTRLEN)) != nil {
+						addresses.append(String(cString: buffer))
 					}
 				}
 			}
-
-			continuation.resume(returning: addresses)
 		}
+
+		continuation.resume(returning: addresses)
 	}
 }

@@ -213,7 +213,6 @@
 		2285C81227841C72008DA37D /* ResumeConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81127841C72008DA37D /* ResumeConnectionView.swift */; };
 		2285C81427841CA1008DA37D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81327841CA1008DA37D /* LoginView.swift */; };
 		2285C81827842115008DA37D /* ConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81727842115008DA37D /* ConnectingView.swift */; };
-		2285C81A27842176008DA37D /* DisconnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81927842176008DA37D /* DisconnectedView.swift */; };
 		2285C81C27847786008DA37D /* MetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81B27847786008DA37D /* MetadataView.swift */; };
 		2285C81E2785CA2D008DA37D /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81D2785CA2D008DA37D /* JSONTests.swift */; };
 		2285C82127872D46008DA37D /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82027872D46008DA37D /* JSONUtils.swift */; };
@@ -313,7 +312,6 @@
 		22COCOA0D27C60000MQTT0D /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0C27C60000MQTT0C /* CocoaMQTTWebSocket */; };
 		22COCOA0F27C60000MQTT0F /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA0E27C60000MQTT0E /* CocoaMQTT */; };
 		22COCOA1127C60000MQTT11 /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA1027C60000MQTT10 /* CocoaMQTTWebSocket */; };
-		22D1SC02F78421770A8DA37D /* DisconnectedToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D1SC01F78421770A8DA37D /* DisconnectedToolbarView.swift */; };
 		22D236F323FEF86E0003D87F /* MultimapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F223FEF86E0003D87F /* MultimapTests.swift */; };
 		22D236F523FEF9C50003D87F /* ReadstateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F423FEF9C50003D87F /* ReadstateTests.swift */; };
 		22D236F923FEFBA10003D87F /* HostFormValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */; };
@@ -523,8 +521,6 @@
 		EF9CF343D0F67707FA01D6EE /* TimeSeriesValueUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */; };
 		EF9FCF17BEBC2640E908772B /* DataProtocol+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF3227A830C900D4327F /* DataProtocol+Hex.swift */; };
 		F092BB33F7C1375213F57A48 /* HostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209C86B23B720E7007C1D93 /* HostValidator.swift */; };
-		F1E27A61C9B2167924B7C51A /* DisconnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81927842176008DA37D /* DisconnectedView.swift */; };
-		F1E27A62C9B2167924B7C51B /* DisconnectedToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D1SC01F78421770A8DA37D /* DisconnectedToolbarView.swift */; };
 		F251227E8B4315ABF6875199 /* TopicCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104922381773100112F24 /* TopicCellView.swift */; };
 		F33CFB5644DC5BF7D4C27D3F /* CertInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFB2BA522BD8D02D427F1B /* CertInfo.swift */; };
 		F3B9FDFF4F0D7AFDD691800E /* Date+Iso.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEFD27A50E9000D4327F /* Date+Iso.swift */; };
@@ -758,7 +754,6 @@
 		2285C81127841C72008DA37D /* ResumeConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeConnectionView.swift; sourceTree = "<group>"; };
 		2285C81327841CA1008DA37D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2285C81727842115008DA37D /* ConnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingView.swift; sourceTree = "<group>"; };
-		2285C81927842176008DA37D /* DisconnectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectedView.swift; sourceTree = "<group>"; };
 		2285C81B27847786008DA37D /* MetadataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataView.swift; sourceTree = "<group>"; };
 		2285C81D2785CA2D008DA37D /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		2285C82027872D46008DA37D /* JSONUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
@@ -837,7 +832,6 @@
 		22C9F73923B8CCCC00892C4B /* QOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QOSView.swift; sourceTree = "<group>"; };
 		22C9F73D23BB5E5C00892C4B /* HostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostModel.swift; sourceTree = "<group>"; };
 		22CFA3032896A6290003125D /* XUIElement+ScrollTo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XUIElement+ScrollTo.swift"; sourceTree = "<group>"; };
-		22D1SC01F78421770A8DA37D /* DisconnectedToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectedToolbarView.swift; sourceTree = "<group>"; };
 		22D236F223FEF86E0003D87F /* MultimapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultimapTests.swift; sourceTree = "<group>"; };
 		22D236F423FEF9C50003D87F /* ReadstateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadstateTests.swift; sourceTree = "<group>"; };
 		22D236F823FEFBA10003D87F /* HostFormValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormValidatorTests.swift; sourceTree = "<group>"; };
@@ -1157,8 +1151,6 @@
 			children = (
 				22953B2F280A91DC000F8F37 /* client-certs */,
 				2200D97927C2381100E63E89 /* aws-iot */,
-				2285C81927842176008DA37D /* DisconnectedView.swift */,
-				22D1SC01F78421770A8DA37D /* DisconnectedToolbarView.swift */,
 				222EAAB627A3CDEB000E37AF /* ConnectBrokerView.swift */,
 				2285C81727842115008DA37D /* ConnectingView.swift */,
 				2285C81327841CA1008DA37D /* LoginView.swift */,
@@ -2070,8 +2062,6 @@
 				RR65MCCZZA7QVSR10NJBRPEI /* BrokerContentView.swift in Sources */,
 				22B38939280E885A00D23022 /* ClientUtils.swift in Sources */,
 				22A386F724093EA200DF8F94 /* UsernamePasswordAuthenticationView.swift in Sources */,
-				2285C81A27842176008DA37D /* DisconnectedView.swift in Sources */,
-				22D1SC02F78421770A8DA37D /* DisconnectedToolbarView.swift in Sources */,
 				22A386F92409404600DF8F94 /* CertificateAuthenticationView.swift in Sources */,
 				22A386FE2409404600DFAA01 /* CertificatePickerView.swift in Sources */,
 				2202F0E328585D8400AEAE4C /* SubscriptionValueTransformer.swift in Sources */,
@@ -2433,8 +2423,6 @@
 				3BE2D184CC5D120764E806FD /* BrokerContentView.swift in Sources */,
 				3AA4B28D8CC3FE26229A2AFD /* ClientUtils.swift in Sources */,
 				69B15EA2C74D90AE7D2EBE09 /* UsernamePasswordAuthenticationView.swift in Sources */,
-				F1E27A61C9B2167924B7C51A /* DisconnectedView.swift in Sources */,
-				F1E27A62C9B2167924B7C51B /* DisconnectedToolbarView.swift in Sources */,
 				F50ADC55176E635354922072 /* CertificateAuthenticationView.swift in Sources */,
 				22A386FE2409404600DFAA02 /* CertificatePickerView.swift in Sources */,
 				A7E78ABF876CCA5447A45516 /* SubscriptionValueTransformer.swift in Sources */,
