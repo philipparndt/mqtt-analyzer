@@ -82,6 +82,113 @@ struct CertificateLoader {
 	static func checkServerAuthExtension(certData: Data) -> Bool {
 		CertificateEKUChecker.checkServerAuthExtension(certData: certData)
 	}
+
+	/// Parse certificate info directly from DER data
+	static func parseCertInfo(from data: Data) -> CertInfo? {
+		guard let cert = SecCertificateCreateWithData(nil, data as CFData) else {
+			return nil
+		}
+
+		var info = CertInfo()
+
+		// Extract subject CN
+		if let summary = SecCertificateCopySubjectSummary(cert) as String? {
+			info.commonName = summary
+		}
+
+		// Extract SANs
+		info.subjectAltNames = SANExtractor.extractSANsFromDER(data)
+
+		// Extract validity dates using DER parsing
+		let bytes = [UInt8](data)
+		var parser = DERParser(bytes: bytes)
+		let tbsEnd = parser.skipToExtensions()
+		if tbsEnd > 0 {
+			// Reparse to get validity
+			parser = DERParser(bytes: bytes)
+			if let (notBefore, notAfter) = extractValidityDates(parser: &parser, bytes: bytes) {
+				info.notBefore = notBefore
+				info.notAfter = notAfter
+			}
+		}
+
+		return info
+	}
+
+	/// Extract validity dates from certificate
+	private static func extractValidityDates(parser: inout DERParser, bytes: [UInt8]) -> (Date?, Date?)? {
+		// Skip to TBSCertificate
+		guard parser.parseTag(0x30) else { return nil }
+		_ = parser.parseLength()
+
+		// Skip TBSCertificate SEQUENCE tag
+		guard parser.parseTag(0x30) else { return nil }
+		_ = parser.parseLength()
+
+		// Skip version [0] if present
+		if parser.peek() == 0xa0 {
+			parser.position += 1
+			let vLen = parser.parseLength()
+			parser.position += vLen
+		}
+
+		// Skip serialNumber
+		guard parser.parseTag(0x02) else { return nil }
+		let serialLen = parser.parseLength()
+		parser.position += serialLen
+
+		// Skip signature AlgorithmIdentifier
+		guard parser.parseTag(0x30) else { return nil }
+		let sigAlgLen = parser.parseLength()
+		parser.position += sigAlgLen
+
+		// Skip issuer
+		guard parser.parseTag(0x30) else { return nil }
+		let issuerLen = parser.parseLength()
+		parser.position += issuerLen
+
+		// Now we're at validity SEQUENCE
+		guard parser.parseTag(0x30) else { return nil }
+		_ = parser.parseLength()
+
+		// Parse notBefore
+		let notBefore = parseTime(parser: &parser, bytes: bytes)
+
+		// Parse notAfter
+		let notAfter = parseTime(parser: &parser, bytes: bytes)
+
+		return (notBefore, notAfter)
+	}
+
+	/// Parse UTCTime or GeneralizedTime
+	private static func parseTime(parser: inout DERParser, bytes: [UInt8]) -> Date? {
+		let tag = parser.peek()
+		parser.position += 1
+		let length = parser.parseLength()
+
+		guard parser.position + length <= bytes.count else { return nil }
+
+		let timeBytes = Array(bytes[parser.position..<parser.position + length])
+		parser.position += length
+
+		guard let timeStr = String(bytes: timeBytes, encoding: .ascii) else { return nil }
+
+		let formatter = DateFormatter()
+		formatter.locale = Locale(identifier: "en_US_POSIX")
+		formatter.timeZone = TimeZone(abbreviation: "UTC")
+
+		if tag == 0x17 { // UTCTime
+			// YYMMDDhhmmssZ
+			formatter.dateFormat = "yyMMddHHmmss'Z'"
+			return formatter.date(from: timeStr)
+		} else if tag == 0x18 { // GeneralizedTime
+			// YYYYMMDDhhmmssZ
+			formatter.dateFormat = "yyyyMMddHHmmss'Z'"
+			return formatter.date(from: timeStr)
+		}
+
+		return nil
+	}
 }
 
 // MARK: - SAN Extraction

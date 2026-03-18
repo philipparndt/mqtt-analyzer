@@ -11,6 +11,7 @@ import SwiftUI
 struct DisconnectedToolbarView: View {
 	@ObservedObject var host: Host
 	@State private var showErrorDetails = false
+	@State private var showDiagnostics = false
 
 	var body: some View {
 		HStack {
@@ -28,18 +29,32 @@ struct DisconnectedToolbarView: View {
 			.tint(.red)
 
 			Button {
+				showDiagnostics = true
+			} label: {
+				HStack {
+					Image(systemName: "stethoscope")
+					Text("Diagnose")
+				}
+			}
+			.buttonStyle(.borderedProminent)
+			.tint(.orange)
+
+			Button {
 				host.reconnect()
 			} label: {
 				Image(systemName: "play.fill")
 			}
 			.buttonStyle(.borderedProminent)
-			.tint(.orange)
+			.tint(.blue)
 
 			Spacer()
 		}
 		.padding()
 		.sheet(isPresented: $showErrorDetails) {
 			ErrorDetailsSheet(host: host, isPresented: $showErrorDetails)
+		}
+		.sheet(isPresented: $showDiagnostics) {
+			DiagnosticsView(host: host, isPresented: $showDiagnostics)
 		}
 	}
 }

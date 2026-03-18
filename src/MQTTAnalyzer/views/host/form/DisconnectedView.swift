@@ -11,6 +11,7 @@ import SwiftUI
 struct DisconnectedView: View {
 	@ObservedObject var host: Host
 	@State private var showErrorDetails = false
+	@State private var showDiagnostics = false
 
 	var body: some View {
 		VStack(spacing: 12) {
@@ -21,20 +22,36 @@ struct DisconnectedView: View {
 						.font(.body)
 						.fontWeight(.semibold)
 
-					Button {
-						showErrorDetails = true
-					} label: {
-						HStack(spacing: 4) {
-							Image(systemName: "info.circle.fill")
-							Text("Show Details")
-								.underline()
+					HStack(spacing: 8) {
+						Button {
+							showErrorDetails = true
+						} label: {
+							HStack(spacing: 4) {
+								Image(systemName: "info.circle.fill")
+								Text("Details")
+							}
+							.font(.caption)
+							.padding(.vertical, 4)
+							.padding(.horizontal, 8)
+							.background(Color.blue)
+							.foregroundColor(.white)
+							.cornerRadius(4)
 						}
-						.font(.caption)
-						.padding(.vertical, 4)
-						.padding(.horizontal, 8)
-						.background(Color.blue)
-						.foregroundColor(.white)
-						.cornerRadius(4)
+
+						Button {
+							showDiagnostics = true
+						} label: {
+							HStack(spacing: 4) {
+								Image(systemName: "stethoscope")
+								Text("Diagnose")
+							}
+							.font(.caption)
+							.padding(.vertical, 4)
+							.padding(.horizontal, 8)
+							.background(Color.orange)
+							.foregroundColor(.white)
+							.cornerRadius(4)
+						}
 					}
 				}
 
@@ -60,6 +77,9 @@ struct DisconnectedView: View {
 		.sheet(isPresented: $showErrorDetails) {
 			ErrorDetailsSheet(host: host, isPresented: $showErrorDetails)
 		}
+		.sheet(isPresented: $showDiagnostics) {
+			DiagnosticsView(host: host, isPresented: $showDiagnostics)
+		}
     }
 
 	func reconnect() {
@@ -70,6 +90,7 @@ struct DisconnectedView: View {
 struct ErrorDetailsSheet: View {
 	var host: Host
 	@Binding var isPresented: Bool
+	@State private var showDiagnostics = false
 
 	var body: some View {
 		VStack(alignment: .leading, spacing: 16) {
@@ -78,6 +99,18 @@ struct ErrorDetailsSheet: View {
 					.font(.headline)
 
 				Spacer()
+
+				Button {
+					showDiagnostics = true
+				} label: {
+					HStack(spacing: 4) {
+						Image(systemName: "stethoscope")
+						Text("Run Diagnostics")
+					}
+					.font(.subheadline)
+				}
+				.buttonStyle(.borderedProminent)
+				.tint(.orange)
 
 				Button {
 					isPresented = false
@@ -153,5 +186,8 @@ struct ErrorDetailsSheet: View {
 			Spacer()
 		}
 		.padding()
+		.sheet(isPresented: $showDiagnostics) {
+			DiagnosticsView(host: host, isPresented: $showDiagnostics)
+		}
 	}
 }
