@@ -317,9 +317,11 @@ extension CertificateChainCheck {
 		dateFormatter.timeStyle = .short
 
 		var items: [DetailItem] = []
+		let reversed = chain.reversed()
 
-		for (index, cert) in chain.enumerated() {
-			let role = index == 0 ? "Server" : (index == chain.count - 1 ? "Root" : "Intermediate")
+		for (index, cert) in reversed.enumerated() {
+			let originalIndex = chain.count - 1 - index
+			let role = originalIndex == 0 ? "Server" : (originalIndex == chain.count - 1 ? "Root" : "Intermediate")
 			let summary = SecCertificateCopySubjectSummary(cert) as String? ?? "(Unknown)"
 
 			var certItems: [DetailItem] = []
