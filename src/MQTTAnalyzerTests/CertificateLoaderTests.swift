@@ -85,11 +85,11 @@ SGVsbG8gV29ybGQ=
 
 	func testExtractSANsHeuristic_withIPv4() {
 		// IP address tag (0x87) followed by length (4) and IPv4 bytes
-		let bytes: [UInt8] = [0x87, 0x04, 192, 168, 1, 1] // NOSONAR — test IP address
+		let bytes: [UInt8] = [0x87, 0x04, 192, 168, 1, 1] // NOSONAR(S1313)
 
 		let sans = HeuristicSANExtractor.extract(from: bytes)
 		XCTAssertEqual(sans.count, 1)
-		XCTAssertEqual(sans.first, "192.168.1.1") // NOSONAR — test IP address
+		XCTAssertEqual(sans.first, "192.168.1.1") // NOSONAR(S1313)
 	}
 
 	func testExtractSANsHeuristic_withIPv6() {
@@ -152,11 +152,11 @@ SGVsbG8gV29ybGQ=
 		var data: [UInt8] = [0x30, 0x06] // SEQUENCE header (6 bytes content)
 		data.append(0x87) // iPAddress tag
 		data.append(0x04) // length 4
-		data.append(contentsOf: [10, 0, 0, 1]) // NOSONAR — test IP address
+		data.append(contentsOf: [10, 0, 0, 1]) // NOSONAR(S1313)
 
 		let sans = SANSequenceParser.parse(data)
 		XCTAssertEqual(sans.count, 1)
-		XCTAssertEqual(sans.first, "10.0.0.1") // NOSONAR — test IP address
+		XCTAssertEqual(sans.first, "10.0.0.1") // NOSONAR(S1313)
 	}
 
 	func testParseSANSequence_emptySequence() {
