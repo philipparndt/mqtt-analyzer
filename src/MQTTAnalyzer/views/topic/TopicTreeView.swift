@@ -168,9 +168,11 @@ struct TopicTreeSidebarView: View {
 		}
 		#endif
 		.onAppear {
+			#if os(iOS)
 			if !host.needsAuth && host.state == .disconnected {
 				rootModel.connect(to: host)
 			}
+			#endif
 		}
 	}
 
