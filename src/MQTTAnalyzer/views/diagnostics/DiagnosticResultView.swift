@@ -38,7 +38,7 @@ struct DiagnosticResultView: View {
 						.fontWeight(.semibold)
 						.foregroundColor(.secondary)
 
-					Text(details)
+					Text(markdownToAttributedString(details))
 						.font(.callout)
 						.textSelection(.enabled)
 						.fixedSize(horizontal: false, vertical: true)
@@ -234,6 +234,21 @@ struct DiagnosticResultView: View {
 		} catch {
 			NSLog("Failed to save: \(error)")
 		}
+	}
+
+	private func markdownToAttributedString(_ markdown: String) -> AttributedString {
+		guard var styled = try? AttributedString(
+			markdown: markdown,
+			options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+		) else {
+			return AttributedString(markdown)
+		}
+
+		for run in styled.runs where run.inlinePresentationIntent?.contains(.code) == true {
+			styled[run.range].font = .system(.caption, design: .monospaced)
+		}
+
+		return styled
 	}
 
 	private func formatDuration(_ duration: TimeInterval) -> String {
