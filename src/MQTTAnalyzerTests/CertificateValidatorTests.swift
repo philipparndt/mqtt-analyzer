@@ -111,14 +111,14 @@ class CertificateValidatorTests: XCTestCase {
 	}
 
 	func testIsValidDomainOrIP_validIPv4() {
-		XCTAssertTrue(CertificateValidator.isValidDomainOrIP("192.168.1.1"))
-		XCTAssertTrue(CertificateValidator.isValidDomainOrIP("10.0.0.1"))
+		XCTAssertTrue(CertificateValidator.isValidDomainOrIP("192.168.1.1")) // NOSONAR
+		XCTAssertTrue(CertificateValidator.isValidDomainOrIP("10.0.0.1")) // NOSONAR
 		XCTAssertTrue(CertificateValidator.isValidDomainOrIP("255.255.255.255"))
 	}
 
 	func testIsValidDomainOrIP_validIPv6() {
-		XCTAssertTrue(CertificateValidator.isValidDomainOrIP("2001:db8:85a3:0:0:8a2e:370:7334"))
-		XCTAssertTrue(CertificateValidator.isValidDomainOrIP("fe80:0:0:0:0:0:0:1"))
+		XCTAssertTrue(CertificateValidator.isValidDomainOrIP("2001:db8:85a3:0:0:8a2e:370:7334")) // NOSONAR
+		XCTAssertTrue(CertificateValidator.isValidDomainOrIP("fe80:0:0:0:0:0:0:1")) // NOSONAR
 	}
 
 	func testIsValidDomainOrIP_invalid() {
