@@ -10,12 +10,22 @@ import SwiftUI
 
 struct BrokerDetailsView: View {
 	@ObservedObject var host: Host
-
 	var body: some View {
-		List {
-			Section("Connection") {
+		VStack(spacing: 0) {
+			if host.state == .disconnected {
+				ConnectionStatusBanner(
+					message: host.connectionMessage ?? "Disconnected",
+					icon: "exclamationmark.triangle.fill",
+					color: .orange,
+					action: { host.reconnect() },
+					host: host
+				)
+			}
+
+			List {
+				Section("Connection") {
 				LabeledContent("Host", value: host.settings.hostname)
-				LabeledContent("Port", value: "\(host.settings.port)")
+				LabeledContent("Port", value: String(host.settings.port))
 				LabeledContent("Protocol", value: protocolName)
 				LabeledContent("Version", value: versionName)
 				if host.settings.ssl {
@@ -37,14 +47,9 @@ struct BrokerDetailsView: View {
 				}
 			}
 
-			if let connectionMessage = host.connectionMessage {
-				Section("Status") {
-					Text(connectionMessage)
-						.foregroundColor(.secondary)
-				}
 			}
+			.navigationTitle(host.settings.aliasOrHost)
 		}
-		.navigationTitle(host.settings.aliasOrHost)
 	}
 
 	var protocolName: String {

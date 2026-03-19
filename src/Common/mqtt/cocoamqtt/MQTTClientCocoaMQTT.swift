@@ -89,7 +89,7 @@ class MQTTClientCocoaMQTT: MqttClient {
 		}
 
 		// Check for Server CA configuration
-		if host.settings.ssl, let serverCA = getCertificate(host, type: .serverCA) {
+		if host.settings.ssl, !host.settings.untrustedSSL, let serverCA = getCertificate(host, type: .serverCA) {
 			// Server CA is configured - load and configure if supported
 			if let certs = try? loadServerCACertificates(host: host), !certs.isEmpty {
 				mqtt.serverCACertificates = certs

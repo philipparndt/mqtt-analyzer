@@ -14,6 +14,7 @@ struct EditHostFormView: View {
 	@State var advanced = false
 	@State var confirmDelete = false
 	@State private var showCertificateHelp = false
+	@State private var showDiagnostics = false
 	@State private var selectedSubscription: TopicSubscriptionFormModel?
 	@State private var isNavigatingToSubscription = false
 
@@ -39,6 +40,25 @@ struct EditHostFormView: View {
 				LimitsFormView(host: $host)
 			}
 
+			Section {
+				Button {
+					showDiagnostics = true
+				} label: {
+					HStack(alignment: .center) {
+						Spacer()
+						Image(systemName: "stethoscope")
+						Text("Test Connection")
+						Spacer()
+					}
+				}
+				.foregroundColor(.orange)
+				.font(.body)
+				.disabled(
+					HostFormValidator.validateHostname(name: host.hostname) == nil
+					|| HostFormValidator.validatePort(port: host.port) == nil
+				)
+			}
+
 			Section(header: Text("")) {
 				Button {
 					delete()
@@ -62,6 +82,15 @@ struct EditHostFormView: View {
 		.formStyle(.grouped)
 		.sheet(isPresented: $showCertificateHelp) {
 			CertificateHelpSheet()
+		}
+		.sheet(isPresented: $showDiagnostics) {
+			DiagnosticsView(
+				hostname: host.hostname,
+				port: Int(host.port) ?? 1883,
+				ssl: host.ssl,
+				untrustedSSL: host.untrustedSSL,
+				isPresented: $showDiagnostics
+			)
 		}
 		.navigationDestination(isPresented: $isNavigatingToSubscription) {
 			if let subscription = selectedSubscription {

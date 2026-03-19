@@ -76,10 +76,33 @@ class ClientUtils<T, M> {
 
 		DispatchQueue.main.async {
 			self.host.connectionMessage = reason
+			self.host.connectionErrorDetails = "Connection failed. Check your configuration and try again."
 			self.host.pause = false
 			self.host.state = .disconnected
 		}
-		
+
+	}
+
+	func buildErrorDetails(error: Error) -> String {
+		let nsError = error as NSError
+		let errorDesc = nsError.description.lowercased()
+
+		if nsError.domain == "Network.NWError" {
+			// Check mTLS first — before generic certificate error handling
+			if isMTLSFailureLikely(errorDesc) {
+				return Self.extractErrorDetails(error: error)
+			}
+
+			// For certificate errors: include in-app cert diagnostics
+			if nsError.description.starts(with: "-9808") || errorDesc.contains("certificate") {
+				return CertificateDiagnostics.diagnose(
+					hostname: host.settings.hostname,
+					host: host
+				)
+			}
+		}
+
+		return Self.extractErrorDetails(error: error)
 	}
 	
 	func initConnect() {
@@ -96,23 +119,29 @@ class ClientUtils<T, M> {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.settings.hostname)")
 
 		if err != nil {
-			let message = ClientUtils.extractErrorMessage(error: err!)
-			
+			let nsErr = err! as NSError
+			NSLog("CONNECTION ERROR: domain=\(nsErr.domain) code=\(nsErr.code) desc=\(nsErr.description)")
+			let summary = self.extractErrorSummary(error: err!)
+			let details = buildErrorDetails(error: err!)
+
 			self.connectionStateQueue.async {
-				self.connectionState.message = message
+				self.connectionState.message = summary
 			}
 			DispatchQueue.main.async {
 				self.host.usernameNonpersistent = nil
 				self.host.passwordNonpersistent = nil
-				self.host.connectionMessage = self.connectionState.message
+				self.host.connectionMessage = summary
+				self.host.connectionErrorDetails = details
+				self.host.pause = false
+				self.host.state = .disconnected
+			}
+		} else {
+			DispatchQueue.main.async {
+				self.host.pause = false
+				self.host.state = .disconnected
 			}
 		}
-		
-		DispatchQueue.main.async {
-			self.host.pause = false
-			self.host.state = .disconnected
-		}
-		
+
 		setDisconnected()
 	}
 	
@@ -235,25 +264,144 @@ class ClientUtils<T, M> {
 		}
 	}
 	
-	class func extractErrorMessage(error: Error) -> String {
+	/// Instance method with host context for better mTLS detection
+	func extractErrorSummary(error: Error) -> String {
+		let nsError = error as NSError
+		let errorDesc = nsError.description.lowercased()
+
+		// Check mTLS with host context first
+		if nsError.domain == "Network.NWError" && isMTLSFailureLikely(errorDesc) {
+			return "TLS handshake rejected — server may require client certificate (mTLS)"
+		}
+
+		return Self.extractErrorSummary(error: error)
+	}
+
+	class func extractErrorSummary(error: Error) -> String {
 		let nsError = error as NSError
 		let code = nsError.code
-		
+		let errorDesc = nsError.description.lowercased()
+
 		if code == 8 {
-			return "Invalid hostname.\n\(error.localizedDescription)"
-		}
-		else if nsError.domain == "Network.NWError" {
-			if nsError.description.starts(with: "-9808") {
-				return "Bad certificate format, check all properties, like SAN, ... (-9808)"
-			}
-			else {
+			return "Invalid hostname"
+		} else if nsError.domain == "Network.NWError" {
+			if isMTLSFailureLikely(errorDesc) {
+				return "TLS handshake rejected — server may require client certificate (mTLS)"
+			} else if nsError.description.starts(with: "-9808") || errorDesc.contains("certificate") {
+				return classifyCertError(errorDesc)
+			} else {
 				let groups = nsError.description.groups(for: ".*\\(rawValue:.(\\d+)\\):.(.*)")
 				if groups.count == 1 && groups[0].count == 3 {
-					return "\(groups[0][2]) (NW: \(groups[0][1]))"
+					return "\(groups[0][2])"
 				}
+				return "Network error"
 			}
 		}
-		
-		return "\(nsError.domain): \(nsError.description)"
+
+		return "\(nsError.domain)"
+	}
+
+	private class func classifyCertError(_ errorDesc: String) -> String {
+		let code = extractErrorCode(errorDesc)
+		let suffix = code != nil ? " (\(code!))" : ""
+
+		if errorDesc.contains("not permitted for this usage") || errorDesc.contains("hostname")
+			|| errorDesc.contains("san") {
+			return "Certificate hostname mismatch" + suffix
+		} else if errorDesc.contains("not standards compliant") {
+			return "Certificate does not meet Apple's requirements" + suffix
+		} else if errorDesc.contains("unknown") || errorDesc.contains("untrusted") {
+			return "Certificate not trusted — add Server CA or enable 'Allow Untrusted'" + suffix
+		} else if errorDesc.contains("expired") {
+			return "Certificate has expired" + suffix
+		} else {
+			return "Certificate validation failed" + suffix
+		}
+	}
+
+	private class func extractErrorCode(_ errorDesc: String) -> String? {
+		// NWError descriptions start with the code, e.g. "-9808: bad certificate format"
+		if let match = errorDesc.range(of: #"^-?\d+"#, options: .regularExpression) {
+			return String(errorDesc[match])
+		}
+		return nil
+	}
+
+	class func extractErrorDetails(error: Error) -> String {
+		let nsError = error as NSError
+		let code = nsError.code
+		let errorDesc = nsError.description.lowercased()
+
+		if code == 8 {
+			return "The hostname appears to be invalid."
+		} else if nsError.domain == "Network.NWError" {
+			if isMTLSFailureLikely(errorDesc) {
+				return "The server rejected the TLS handshake.\n\n"
+					+ "This usually means the server requires a client certificate (mTLS).\n\n"
+					+ "Configure a client certificate in the authentication settings, "
+					+ "or run diagnostics for more details."
+			} else if nsError.description.starts(with: "-9808") || errorDesc.contains("certificate") {
+				return buildCertErrorDetails(errorDesc)
+			}
+		}
+
+		return "Error: \(nsError.domain) - \(nsError.description)"
+	}
+
+	/// Detect if a TLS error is likely caused by missing client certificate (mTLS).
+	/// Uses host context: if TLS is enabled but no client cert is configured,
+	/// many TLS errors are likely mTLS rejections.
+	private func isMTLSFailureLikely(_ errorDesc: String) -> Bool {
+		// Explicit handshake failure indicators (always mTLS)
+		if errorDesc.contains("handshake") || errorDesc.contains("-9824") {
+			return true
+		}
+
+		// For other TLS errors: check if mTLS is expected but not configured
+		guard host.settings.ssl else { return false }
+		let authType = host.settings.authType
+		let hasMTLS = authType == .certificate || authType == .both
+		if hasMTLS { return false } // mTLS is configured, so the error is something else
+
+		// TLS enabled, no client cert configured — these errors suggest mTLS is required:
+		// -9829: "unknown certificate" — server rejected client (no cert presented)
+		// "certificate required" — explicit TLS alert 116
+		// Do NOT match -9808 here — that's a server cert validation error
+		if errorDesc.contains("-9829") || errorDesc.contains("certificate required") {
+			return true
+		}
+
+		return false
+	}
+
+	/// Static variant for class methods that don't have host context.
+	/// Only matches explicit handshake/mTLS indicators.
+	private class func isMTLSFailureLikely(_ errorDesc: String) -> Bool {
+		errorDesc.contains("handshake") || errorDesc.contains("-9824")
+			|| errorDesc.contains("certificate required")
+	}
+
+	private class func buildCertErrorDetails(_ errorDesc: String) -> String {
+		if errorDesc.contains("not permitted for this usage") || errorDesc.contains("hostname")
+			|| errorDesc.contains("san") {
+			return "The certificate's Subject Alternative Names (SAN) "
+				+ "don't match the configured hostname.\n\n"
+				+ "Run diagnostics to see the certificate details and matching hostnames."
+		} else if errorDesc.contains("not standards compliant") {
+			return "The server certificate does not meet Apple's requirements "
+				+ "(e.g. validity > 825 days or missing SAN extension).\n\n"
+				+ "Enable 'Allow Untrusted Certificates' to connect."
+		} else if errorDesc.contains("unknown") || errorDesc.contains("untrusted") {
+			return "The server certificate is not trusted.\n\n"
+				+ "Add the broker's CA certificate as 'Server CA' in the TLS settings, "
+				+ "or enable 'Allow Untrusted Certificates'.\n\n"
+				+ "Run diagnostics to inspect the certificate and apply a quick fix."
+		} else if errorDesc.contains("expired") {
+			return "The server certificate has expired.\n\n"
+				+ "Contact the broker administrator to renew the certificate."
+		} else {
+			return "Certificate validation failed.\n\n"
+				+ "Run diagnostics for detailed certificate analysis and quick fixes."
+		}
 	}
 }

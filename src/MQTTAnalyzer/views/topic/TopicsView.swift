@@ -19,7 +19,7 @@ struct TopicsView: View {
 	@State private var limitsSettingsType: LimitType = .topicLimit
 	
 	var body: some View {
-		VStack {
+		VStack(spacing: 0) {
 			if model.messageCount == 0 && model.children.keys.isEmpty {
 				AwaitMessagesView(model: model, host: host)
 				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
@@ -246,7 +246,13 @@ struct TopicsView: View {
 			}
 			else if host.state == .disconnected {
 				if host.reconnectDelegate != nil {
-					DisconnectedView(host: host)
+					ConnectionStatusBanner(
+						message: host.connectionMessage ?? "Disconnected",
+						icon: "exclamationmark.triangle.fill",
+						color: .orange,
+						action: { host.reconnect() },
+						host: host
+					)
 				}
 				else {
 					ConnectBrokerView(connect: connect)

@@ -110,7 +110,8 @@ class Host: Identifiable, ObservableObject {
 	@Published var passwordNonpersistent: String?
 	
 	@Published var connectionMessage: String?
-	
+	@Published var connectionErrorDetails: String?
+
 	weak var reconnectDelegate: ReconnectDelegate?
 	weak var disconnectDelegate: DisconnectDelegate?
 	
