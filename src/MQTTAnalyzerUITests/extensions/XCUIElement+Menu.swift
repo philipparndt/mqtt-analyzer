@@ -24,10 +24,23 @@ extension XCUIApplication {
 		buttons[label].tap()
 		#endif
 	}
-	
+
+	func tapMenuItem(identifier: String) {
+		#if targetEnvironment(macCatalyst)
+		menuItems[identifier].tap()
+		#else
+		buttons[identifier].tap()
+		#endif
+	}
+
 	func launchMenuAction(on element: XCUIElement, label: String) {
 		openMenu(on: element)
 		tapMenuItem(label: label)
+	}
+
+	func launchMenuAction(on element: XCUIElement, identifier: String) {
+		openMenu(on: element)
+		tapMenuItem(identifier: identifier)
 	}
 
 }

@@ -28,9 +28,9 @@ class Brokers {
 		
 		app.launchMenuAction(
 			on: brokerCell(of: alias),
-			label: "Edit"
+			identifier: "edit-broker"
 		)
-		
+
 		let button = app.buttons["delete-broker"]
 		app.scrollToElement(element: button)
 		button.tap()
@@ -89,7 +89,7 @@ class Brokers {
 				field.click()
 				#else
 				let field = app.switches["tls"]
-				field.tap()
+				tc.turnSwitchOn(field)
 				#endif
 			}
 		}
@@ -131,7 +131,7 @@ class Brokers {
 	func startEdit(alias oldName: String) {
 		app.launchMenuAction(
 			on: brokerCell(of: oldName),
-			label: "Edit"
+			identifier: "edit-broker"
 		)
 	}
 	

@@ -12,4 +12,12 @@ class TestServer {
 	static func getTestServer() -> String {
 		return "test.mqtt.rnd7.de"
 	}
+
+	static func getTestPort() -> UInt16 {
+		return 8884
+	}
+
+	static func isTLS() -> Bool {
+		return true
+	}
 }
