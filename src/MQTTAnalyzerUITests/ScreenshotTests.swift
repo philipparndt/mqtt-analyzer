@@ -12,11 +12,13 @@ class ScreenshotTests: AbstractUITests {
 	//  ~/Library/Containers/de.rnd7.MQTTAnalyzerUITests.xctrunner/Data/screenshots
 	@MainActor func testFullRoundtripScreenshots() {
 		let hostname = TestServer.getTestServer()
+		let port = TestServer.getTestPort()
+		let tls = TestServer.isTLS()
 		let alias = "Example"
 		// Use empty prefix for nice-looking screenshots (topics start with "home/", "hue/", etc.)
 		let id = ""
 
-		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname))
+		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname, port: port, tls: tls))
 		let brokers = Brokers(app: app)
 
 		app.launch()
@@ -28,7 +30,28 @@ class ScreenshotTests: AbstractUITests {
 		brokers.delete(alias: alias)
 		brokers.confirmDelete()
 
-		brokers.create(broker: Broker(alias: alias, hostname: hostname), tc: self)
+		brokers.create(broker: Broker(alias: alias, hostname: hostname, port: port, tls: tls), tc: self)
+
+		// Take diagnostics screenshot before connecting
+		brokers.openDiagnostics(alias: alias)
+
+		// Wait for all diagnostic checks to complete
+		let anyResult = [
+			app.staticTexts["All checks passed"].firstMatch,
+			app.staticTexts["Issues detected"].firstMatch,
+			app.staticTexts["Some warnings found"].firstMatch
+		]
+		for element in anyResult {
+			if element.waitForExistence(timeout: 30) {
+				break
+			}
+		}
+
+		snapshot(ScreenshotIds.DIAGNOSTICS)
+
+		// Close diagnostics sheet
+		app.buttons["Close"].tap()
+
 		brokers.start(alias: alias)
 
 		examples.publish(prefix: id)

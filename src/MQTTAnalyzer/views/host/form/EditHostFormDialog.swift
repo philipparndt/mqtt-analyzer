@@ -17,6 +17,8 @@ struct EditHostFormModalView: View {
 	@Environment(\.managedObjectContext) private var viewContext
 
 	@State var host: HostFormModel
+	@State private var showDiagnostics = false
+	@State private var confirmDelete = false
 
 	var disableSave: Bool {
 		return HostFormValidator.validateHostname(name: host.hostname) == nil
@@ -37,6 +39,22 @@ struct EditHostFormModalView: View {
 						   Text("Cancel")
 					   }
 				   }
+				   #if os(macOS)
+				   ToolbarItemGroup(placement: .automatic) {
+					   Button(role: .destructive) {
+						   confirmDelete = true
+					   } label: {
+						   Label("Delete", systemImage: "trash")
+					   }
+
+					   Button {
+						   showDiagnostics = true
+					   } label: {
+						   Label("Test Connection", systemImage: "stethoscope")
+					   }
+					   .disabled(disableSave)
+				   }
+				   #endif
 				   ToolbarItemGroup(placement: .confirmationAction) {
 					   Button(action: save) {
 						   Text("Save")
@@ -44,8 +62,25 @@ struct EditHostFormModalView: View {
 				   }
 				}
 		}
+		.confirmationDialog("Are you sure you want to delete the broker setting?",
+						   isPresented: $confirmDelete) {
+			Button("Delete", role: .destructive) {
+				delete()
+			}
+		}
 		#if os(macOS)
 		.frame(minWidth: 500, idealWidth: 550, minHeight: 500, idealHeight: 600)
+		.sheet(isPresented: $showDiagnostics) {
+			DiagnosticsView(
+				hostname: host.hostname,
+				port: Int(host.port) ?? 1883,
+				ssl: host.ssl,
+				untrustedSSL: host.untrustedSSL,
+				protocolMethod: host.protocolMethod,
+				isPresented: $showDiagnostics,
+				formModel: $host
+			)
+		}
 		#endif
 	}
 	

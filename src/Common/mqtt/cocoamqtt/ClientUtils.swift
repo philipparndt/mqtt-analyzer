@@ -100,6 +100,8 @@ class ClientUtils<T, M> {
 					host: host
 				)
 			}
+		} else if nsError.domain == NSURLErrorDomain {
+			return Self.buildURLErrorDetails(nsError)
 		}
 
 		return Self.extractErrorDetails(error: error)
@@ -296,9 +298,11 @@ class ClientUtils<T, M> {
 				}
 				return "Network error"
 			}
+		} else if nsError.domain == NSURLErrorDomain {
+			return classifyURLError(nsError)
 		}
 
-		return "\(nsError.domain)"
+		return "\(nsError.domain) (\(code))"
 	}
 
 	private class func classifyCertError(_ errorDesc: String) -> String {
@@ -343,6 +347,8 @@ class ClientUtils<T, M> {
 			} else if nsError.description.starts(with: "-9808") || errorDesc.contains("certificate") {
 				return buildCertErrorDetails(errorDesc)
 			}
+		} else if nsError.domain == NSURLErrorDomain {
+			return buildURLErrorDetails(nsError)
 		}
 
 		return "Error: \(nsError.domain) - \(nsError.description)"
@@ -379,6 +385,64 @@ class ClientUtils<T, M> {
 	private class func isMTLSFailureLikely(_ errorDesc: String) -> Bool {
 		errorDesc.contains("handshake") || errorDesc.contains("-9824")
 			|| errorDesc.contains("certificate required")
+	}
+
+	private class func classifyURLError(_ nsError: NSError) -> String {
+		switch nsError.code {
+		case -1200: // NSURLErrorSecureConnectionFailed
+			return "TLS connection failed"
+		case -1201: // NSURLErrorServerCertificateHasBadDate
+			return "Certificate has expired or is not yet valid"
+		case -1202: // NSURLErrorServerCertificateUntrusted
+			return "Certificate not trusted — add Server CA or enable 'Allow Untrusted'"
+		case -1203: // NSURLErrorServerCertificateHasUnknownRoot
+			return "Certificate has unknown root CA"
+		case -1204: // NSURLErrorServerCertificateNotYetValid
+			return "Certificate is not yet valid"
+		case -1205: // NSURLErrorClientCertificateRejected
+			return "Client certificate was rejected by the server"
+		case -1206: // NSURLErrorClientCertificateRequired
+			return "Server requires a client certificate (mTLS)"
+		case -1001: // NSURLErrorTimedOut
+			return "Connection timed out"
+		case -1003: // NSURLErrorCannotFindHost
+			return "Cannot find host"
+		case -1004: // NSURLErrorCannotConnectToHost
+			return "Cannot connect to host"
+		case -1005: // NSURLErrorNetworkConnectionLost
+			return "Connection lost"
+		default:
+			return "Connection failed (\(nsError.code))"
+		}
+	}
+
+	private class func buildURLErrorDetails(_ nsError: NSError) -> String {
+		switch nsError.code {
+		case -1200: // NSURLErrorSecureConnectionFailed
+			return "The TLS connection failed.\n\n"
+				+ "This often happens when WebSocket is selected but the server "
+				+ "expects raw MQTT, or vice versa.\n\n"
+				+ "Run diagnostics to check the protocol configuration, "
+				+ "or try switching between MQTT and WebSocket."
+		case -1201, -1204:
+			return "The server certificate date is invalid.\n\n"
+				+ "Contact the broker administrator to renew the certificate."
+		case -1202, -1203:
+			return "The server certificate is not trusted.\n\n"
+				+ "Add the broker's CA certificate as 'Server CA' in the TLS settings, "
+				+ "or enable 'Allow Untrusted Certificates'.\n\n"
+				+ "Run diagnostics to inspect the certificate and apply a quick fix."
+		case -1205:
+			return "The server rejected the client certificate.\n\n"
+				+ "Check that the correct client certificate is configured "
+				+ "and that the password is correct."
+		case -1206:
+			return "The server requires a client certificate (mTLS).\n\n"
+				+ "Configure a client certificate in the authentication settings."
+		default:
+			return "Connection failed: \(nsError.localizedDescription)\n\n"
+				+ "Run diagnostics for more details."
+		}
 	}
 
 	private class func buildCertErrorDetails(_ errorDesc: String) -> String {
