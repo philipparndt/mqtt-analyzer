@@ -113,13 +113,28 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 				connection.cancel()
 				self?.connection = nil
 
-				var solutions: [DiagnosticSolution] = [
-					DiagnosticSolution("Verify that an MQTT broker is running on this port"),
-					DiagnosticSolution("The port may be serving a different protocol (e.g. HTTPS)"),
-					DiagnosticSolution(
-						"If using a reverse proxy, check that it forwards MQTT traffic correctly"
-					)
-				]
+				var solutions: [DiagnosticSolution] = []
+
+				if context.useWebSocket {
+					solutions.append(DiagnosticSolution(
+						"WebSocket is configured — the server may only support raw MQTT on this port"
+					))
+					solutions.append(DiagnosticSolution(
+						"Switch to MQTT",
+						quickFix: .changeProtocolMethod(.mqtt)
+					))
+				} else {
+					solutions.append(DiagnosticSolution(
+						"Verify that an MQTT broker is running on this port"
+					))
+					solutions.append(DiagnosticSolution(
+						"The port may be serving a different protocol (e.g. HTTPS)"
+					))
+				}
+
+				solutions.append(DiagnosticSolution(
+					"If using a reverse proxy, check that it forwards MQTT traffic correctly"
+				))
 
 				if port != 1883 {
 					solutions.append(DiagnosticSolution(
@@ -139,8 +154,12 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					summary: "No MQTT broker found",
 					details: "The TCP connection was established but the server did not send "
 						+ "an MQTT CONNACK response within 10 seconds.\n\n"
-						+ "This typically means the service on this port is "
-						+ "not an MQTT broker (e.g. a web server or reverse proxy).",
+						+ (context.useWebSocket
+							? "Note: WebSocket is configured. The diagnostic sends a raw MQTT packet "
+							+ "to test the protocol. If the server only supports raw MQTT (not WebSocket), "
+							+ "try switching the protocol method."
+							: "This typically means the service on this port is "
+							+ "not an MQTT broker (e.g. a web server or reverse proxy)."),
 					duration: checkSelf.elapsed(since: startTime),
 					solutions: solutions,
 					commands: [
@@ -204,7 +223,7 @@ extension MQTTProtocolCheck {
 				}
 
 				onComplete(self.parseCONNACK(
-					data, duration: duration, hostname: hostname, port: port
+					data, context: context, duration: duration, hostname: hostname, port: port
 				))
 			}
 		})
@@ -306,7 +325,7 @@ extension MQTTProtocolCheck {
 	}
 
 	/// Parse a CONNACK response from the broker
-	nonisolated func parseCONNACK(_ data: Data, duration: TimeInterval, hostname: String, port: Int) -> DiagnosticResult {
+	nonisolated func parseCONNACK(_ data: Data, context: DiagnosticContext, duration: TimeInterval, hostname: String, port: Int) -> DiagnosticResult {
 		let bytes = [UInt8](data)
 
 		// CONNACK must be at least 4 bytes: fixed header (2) + variable header (2)
@@ -334,6 +353,30 @@ extension MQTTProtocolCheck {
 			let rawHex = bytes.prefix(min(bytes.count, 32))
 				.map { String(format: "0x%02X", $0) }.joined(separator: " ")
 
+			// If HTTP is detected and WebSocket is NOT configured, suggest switching
+			if detected == "HTTP" && !context.useWebSocket {
+				return DiagnosticResult(
+					status: .warning("Server responds with HTTP — may require WebSocket"),
+					summary: "HTTP detected — try WebSocket",
+					detailItems: [
+						.text("The server responded with HTTP instead of raw MQTT. "
+							+ "This port may serve MQTT over WebSocket."),
+						.code(rawHex)
+					],
+					duration: duration,
+					solutions: [
+						DiagnosticSolution(
+							"Switch to WebSocket",
+							quickFix: .changeProtocolMethod(.websocket)
+						),
+						DiagnosticSolution(
+							"Some brokers serve MQTT over WebSocket on HTTP ports. "
+							+ "Try switching the protocol method to WebSocket."
+						)
+					]
+				)
+			}
+
 			return DiagnosticResult(
 				status: .error(message),
 				summary: summary,
@@ -342,7 +385,7 @@ extension MQTTProtocolCheck {
 					.code(rawHex)
 				],
 				duration: duration,
-				solutions: protocolMismatchSolutions(detected: detected, port: port)
+				solutions: protocolMismatchSolutions(detected: detected, port: port, context: context)
 			)
 		}
 
@@ -350,6 +393,12 @@ extension MQTTProtocolCheck {
 		let returnCode = bytes[3]
 		switch returnCode {
 		case 0x00:
+			if let ws = webSocketMismatchResult(
+				context: context, hostname: hostname, port: port,
+				connackSummary: "Connection Accepted",
+				connackDetails: "The broker accepted the MQTT connection.",
+				duration: duration
+			) { return ws }
 			return .success(
 				summary: "MQTT broker confirmed",
 				detailItems: [
@@ -359,6 +408,12 @@ extension MQTTProtocolCheck {
 				duration: duration
 			)
 		case 0x01:
+			if let ws = webSocketMismatchResult(
+				context: context, hostname: hostname, port: port,
+				connackSummary: "Protocol version rejected",
+				connackDetails: "The broker rejected MQTT 3.1.1 but confirmed it speaks MQTT.",
+				duration: duration
+			) { return ws }
 			return .warning(
 				summary: "MQTT broker found (protocol version rejected)",
 				message: "Unacceptable protocol version",
@@ -371,12 +426,24 @@ extension MQTTProtocolCheck {
 				]
 			)
 		case 0x02:
+			if let ws = webSocketMismatchResult(
+				context: context, hostname: hostname, port: port,
+				connackSummary: "Client ID rejected",
+				connackDetails: "Broker rejected the client identifier but confirmed it speaks MQTT.",
+				duration: duration
+			) { return ws }
 			return .success(
 				summary: "MQTT broker confirmed",
 				details: "Broker rejected the client identifier but confirmed it speaks MQTT.\nThe MQTT broker at `\(hostname):\(port)` is operational.",
 				duration: duration
 			)
 		case 0x03:
+			if let ws = webSocketMismatchResult(
+				context: context, hostname: hostname, port: port,
+				connackSummary: "Server unavailable",
+				connackDetails: "The broker is running but reports itself as unavailable.",
+				duration: duration
+			) { return ws }
 			return .warning(
 				summary: "MQTT broker unavailable",
 				message: "Server unavailable",
@@ -389,12 +456,24 @@ extension MQTTProtocolCheck {
 				]
 			)
 		case 0x04:
+			if let ws = webSocketMismatchResult(
+				context: context, hostname: hostname, port: port,
+				connackSummary: "Auth required",
+				connackDetails: "Broker requires authentication.",
+				duration: duration
+			) { return ws }
 			return .success(
 				summary: "MQTT broker confirmed (auth required)",
 				details: "Broker requires authentication (bad username or password).\nThis confirms an MQTT broker is running at `\(hostname):\(port)`.",
 				duration: duration
 			)
 		case 0x05:
+			if let ws = webSocketMismatchResult(
+				context: context, hostname: hostname, port: port,
+				connackSummary: "Not authorized",
+				connackDetails: "Broker rejected authorization.",
+				duration: duration
+			) { return ws }
 			return .success(
 				summary: "MQTT broker confirmed (not authorized)",
 				details: "Broker rejected authorization.\nThis confirms an MQTT broker is running at `\(hostname):\(port)`.",
@@ -471,9 +550,40 @@ extension MQTTProtocolCheck {
 		return nil
 	}
 
+	/// Returns a WebSocket mismatch warning if WebSocket is configured but raw MQTT succeeded
+	nonisolated func webSocketMismatchResult(
+		context: DiagnosticContext, hostname: String, port: Int,
+		connackSummary: String, connackDetails: String, duration: TimeInterval
+	) -> DiagnosticResult? {
+		guard context.useWebSocket else { return nil }
+		return DiagnosticResult(
+			status: .warning("WebSocket is configured but server accepts raw MQTT"),
+			summary: "MQTT broker found — but WebSocket selected",
+			detailItems: [
+				.field(label: "MQTT Result", value: connackSummary),
+				.field(label: "Broker", value: "\(hostname):\(port)"),
+				.text(connackDetails + "\n\n"
+					+ "The server responded to a raw MQTT packet, "
+					+ "but the connection is configured to use WebSocket. "
+					+ "This is likely the cause of connection failures.")
+			],
+			duration: duration,
+			solutions: [
+				DiagnosticSolution(
+					"Switch to MQTT (recommended)",
+					quickFix: .changeProtocolMethod(.mqtt)
+				),
+				DiagnosticSolution(
+					"WebSocket connections use a different transport layer (HTTP upgrade). "
+					+ "If this port serves raw MQTT, switch the protocol method to MQTT."
+				)
+			]
+		)
+	}
+
 	/// Build context-aware solutions for protocol mismatches
 	nonisolated func protocolMismatchSolutions(
-		detected: String?, port: Int
+		detected: String?, port: Int, context: DiagnosticContext
 	) -> [DiagnosticSolution] {
 		var solutions: [DiagnosticSolution] = []
 
@@ -483,6 +593,17 @@ extension MQTTProtocolCheck {
 				"Enable TLS — the server requires an encrypted connection",
 				quickFix: .enableTLS
 			))
+		} else if let detected = detected, detected == "HTTP" {
+			if context.useWebSocket {
+				solutions.append(DiagnosticSolution(
+					"The HTTP response may indicate the WebSocket endpoint is not configured correctly"
+				))
+			} else {
+				solutions.append(DiagnosticSolution(
+					"Switch to WebSocket — server may use MQTT over WebSocket",
+					quickFix: .changeProtocolMethod(.websocket)
+				))
+			}
 		} else {
 			solutions.append(DiagnosticSolution(
 				"The service on this port is not an MQTT broker"

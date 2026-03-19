@@ -281,6 +281,13 @@ class Brokers {
 		}
 	}
 	
+	func openDiagnostics(alias: String) {
+		app.launchMenuAction(
+			on: brokerCell(of: alias),
+			label: "Diagnose"
+		)
+	}
+
 	func brokerCell(of alias: String) -> XCUIElement {
 		let identifier = "broker: \(alias)"
 		// Use descendants query with firstMatch to find the element regardless of type

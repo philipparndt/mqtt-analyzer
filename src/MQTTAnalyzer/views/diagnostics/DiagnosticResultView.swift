@@ -12,6 +12,8 @@ import CryptoKit
 struct DiagnosticResultView: View {
 	let result: DiagnosticResult
 	let context: DiagnosticContext
+	/// When set, quick fixes modify the form model instead of persisting to CoreData
+	var formModel: Binding<HostFormModel>?
 	@State private var copiedCommand: String?
 	@State private var appliedFix: DiagnosticQuickFix?
 	@State private var showTrustCertSheet = false
@@ -123,13 +125,20 @@ struct DiagnosticResultView: View {
 			showTrustCertSheet = true
 		case .enableUntrusted:
 			showUntrustedAlert = true
-		case .enableTLS, .changePort, .changeHostname:
+		case .enableTLS, .changePort, .changeHostname, .changeProtocolMethod:
 			// Apply immediately — no confirmation needed for non-security changes
 			applySimpleFix(fix)
 		}
 	}
 
 	private func applySimpleFix(_ fix: DiagnosticQuickFix) {
+		if var form = formModel?.wrappedValue {
+			applySimpleFixToForm(fix, form: &form)
+			formModel?.wrappedValue = form
+			appliedFix = fix
+			return
+		}
+
 		guard let host = context.host else { return }
 
 		switch fix {
@@ -142,6 +151,8 @@ struct DiagnosticResultView: View {
 			host.settings.port = Int32(port)
 		case .changeHostname(let hostname):
 			host.settings.hostname = hostname
+		case .changeProtocolMethod(let method):
+			host.settings.protocolMethod = method
 		default:
 			return
 		}
@@ -150,7 +161,31 @@ struct DiagnosticResultView: View {
 		appliedFix = fix
 	}
 
+	private func applySimpleFixToForm(_ fix: DiagnosticQuickFix, form: inout HostFormModel) {
+		switch fix {
+		case .enableTLS:
+			form.ssl = true
+			if form.port == "1883" {
+				form.port = "8883"
+			}
+		case .changePort(let port):
+			form.port = "\(port)"
+		case .changeHostname(let hostname):
+			form.hostname = hostname
+		case .changeProtocolMethod(let method):
+			form.protocolMethod = method
+		default:
+			break
+		}
+	}
+
 	private func applyEnableUntrusted() {
+		if formModel != nil {
+			formModel?.wrappedValue.untrustedSSL = true
+			appliedFix = .enableUntrusted
+			return
+		}
+
 		guard let host = context.host else { return }
 		host.settings.untrustedSSL = true
 		saveContext()
@@ -158,11 +193,63 @@ struct DiagnosticResultView: View {
 	}
 
 	private func applyServerCA() {
+		if formModel != nil {
+			applyServerCAToForm()
+			appliedFix = .saveServerCA
+			return
+		}
+
 		guard let host = context.host else { return }
 		saveServerCACertificate(host: host)
 		host.settings.untrustedSSL = false
 		saveContext()
 		appliedFix = .saveServerCA
+	}
+
+	private func applyServerCAToForm() {
+		guard !context.certificateChain.isEmpty else { return }
+
+		// Build PEM with the full certificate chain
+		var pemString = ""
+		for cert in context.certificateChain {
+			let derData = SecCertificateCopyData(cert) as Data
+			let base64 = derData.base64EncodedString(options: .lineLength76Characters)
+			pemString += "-----BEGIN CERTIFICATE-----\n"
+			pemString += base64
+			pemString += "\n-----END CERTIFICATE-----\n"
+		}
+
+		guard let pemData = pemString.data(using: .utf8) else { return }
+
+		let safeHostname = context.hostname
+			.replacingOccurrences(of: "/", with: "_")
+			.replacingOccurrences(of: ":", with: "_")
+		let fileName = "server-ca-\(safeHostname).pem"
+
+		do {
+			let tempDir = FileManager.default.temporaryDirectory
+			let tempFile = tempDir.appendingPathComponent(fileName)
+			try pemData.write(to: tempFile)
+
+			let hash = computeFileHash(url: tempFile)
+
+			guard let localURL = CloudDataManager.instance.getLocalDocumentDiretoryURL() else { return }
+			let targetURL = localURL.appendingPathComponent(fileName)
+
+			if FileManager.default.fileExists(atPath: targetURL.path) {
+				try FileManager.default.removeItem(at: targetURL)
+			}
+			try FileManager.default.copyItem(at: tempFile, to: targetURL)
+			try? FileManager.default.removeItem(at: tempFile)
+
+			var certFile = CertificateFile(name: fileName, location: .local, type: .serverCA)
+			certFile.fileHash = hash
+
+			formModel?.wrappedValue.certServerCA = certFile
+			formModel?.wrappedValue.untrustedSSL = false
+		} catch {
+			NSLog("Failed to save Server CA: \(error)")
+		}
 	}
 
 	private func saveServerCACertificate(host: Host) {

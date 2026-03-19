@@ -40,6 +40,7 @@ struct EditHostFormView: View {
 				LimitsFormView(host: $host)
 			}
 
+			#if !os(macOS)
 			Section {
 				Button {
 					showDiagnostics = true
@@ -58,7 +59,9 @@ struct EditHostFormView: View {
 					|| HostFormValidator.validatePort(port: host.port) == nil
 				)
 			}
+			#endif
 
+			#if !os(macOS)
 			Section(header: Text("")) {
 				Button {
 					delete()
@@ -78,6 +81,7 @@ struct EditHostFormView: View {
 					}
 				}
 			}
+			#endif
 		}
 		.formStyle(.grouped)
 		.sheet(isPresented: $showCertificateHelp) {
@@ -89,7 +93,9 @@ struct EditHostFormView: View {
 				port: Int(host.port) ?? 1883,
 				ssl: host.ssl,
 				untrustedSSL: host.untrustedSSL,
-				isPresented: $showDiagnostics
+				protocolMethod: host.protocolMethod,
+				isPresented: $showDiagnostics,
+				formModel: $host
 			)
 		}
 		.navigationDestination(isPresented: $isNavigatingToSubscription) {

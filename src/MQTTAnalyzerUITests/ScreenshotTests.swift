@@ -29,6 +29,27 @@ class ScreenshotTests: AbstractUITests {
 		brokers.confirmDelete()
 
 		brokers.create(broker: Broker(alias: alias, hostname: hostname), tc: self)
+
+		// Take diagnostics screenshot before connecting
+		brokers.openDiagnostics(alias: alias)
+
+		// Wait for all diagnostic checks to complete
+		let anyResult = [
+			app.staticTexts["All checks passed"].firstMatch,
+			app.staticTexts["Issues detected"].firstMatch,
+			app.staticTexts["Some warnings found"].firstMatch
+		]
+		for element in anyResult {
+			if element.waitForExistence(timeout: 30) {
+				break
+			}
+		}
+
+		snapshot(ScreenshotIds.DIAGNOSTICS)
+
+		// Close diagnostics sheet
+		app.buttons["Close"].tap()
+
 		brokers.start(alias: alias)
 
 		examples.publish(prefix: id)

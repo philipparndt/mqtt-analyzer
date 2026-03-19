@@ -17,6 +17,8 @@ struct DiagnosticsView: View {
 	@Binding var isPresented: Bool
 	@StateObject private var runner: DiagnosticRunner
 	@State private var hasStarted = false
+	/// When set, quick fixes modify the form model instead of persisting to CoreData
+	var formModel: Binding<HostFormModel>?
 
 	init(host: Host, isPresented: Binding<Bool>, connectionError: String? = nil) {
 		self.hostname = host.settings.hostname
@@ -26,20 +28,25 @@ struct DiagnosticsView: View {
 		self.connectionError = connectionError
 		self._isPresented = isPresented
 		self._runner = StateObject(wrappedValue: DiagnosticRunner(context: DiagnosticContext(host: host)))
+		self.formModel = nil
 	}
 
-	init(hostname: String, port: Int, ssl: Bool, untrustedSSL: Bool, isPresented: Binding<Bool>) {
+	init(hostname: String, port: Int, ssl: Bool, untrustedSSL: Bool,
+		 protocolMethod: HostProtocol = .mqtt,
+		 isPresented: Binding<Bool>, formModel: Binding<HostFormModel>? = nil) {
 		self.hostname = hostname
 		self.port = port
 		self.ssl = ssl
 		self.untrustedSSL = untrustedSSL
 		self.connectionError = nil
 		self._isPresented = isPresented
+		self.formModel = formModel
 		self._runner = StateObject(wrappedValue: DiagnosticRunner(context: DiagnosticContext(
 			hostname: hostname,
 			port: port,
 			tlsEnabled: ssl,
-			allowUntrusted: untrustedSSL
+			allowUntrusted: untrustedSSL,
+			useWebSocket: protocolMethod == .websocket
 		)))
 	}
 
@@ -71,23 +78,24 @@ struct DiagnosticsView: View {
 			#endif
 			.toolbar {
 				ToolbarItem(placement: .cancellationAction) {
-					Button("Close") {
-						runner.cancel()
-						isPresented = false
-					}
-				}
-
-				ToolbarItem(placement: .confirmationAction) {
 					if runner.isRunning {
 						Button("Cancel") {
 							runner.cancel()
 						}
 					} else {
 						Button("Re-run") {
+							syncContextFromFormModel()
 							Task {
 								await runner.runAll()
 							}
 						}
+					}
+				}
+
+				ToolbarItem(placement: .confirmationAction) {
+					Button("Close") {
+						runner.cancel()
+						isPresented = false
 					}
 				}
 			}
@@ -99,6 +107,18 @@ struct DiagnosticsView: View {
 			}
 		}
 		.frame(minWidth: 400, minHeight: 500)
+	}
+
+	/// Sync the runner's context with the current form model values before re-running
+	private func syncContextFromFormModel() {
+		guard let form = formModel?.wrappedValue else { return }
+		runner.updateContext(
+			hostname: form.hostname,
+			port: Int(form.port) ?? 1883,
+			tlsEnabled: form.ssl,
+			allowUntrusted: form.untrustedSSL,
+			useWebSocket: form.protocolMethod == .websocket
+		)
 	}
 
 	private func connectionErrorSection(_ error: String) -> some View {
@@ -223,7 +243,7 @@ struct DiagnosticsView: View {
 
 			ForEach(runner.checks, id: \.checkId) { check in
 				if let baseCheck = check as? BaseDiagnosticCheck {
-					DiagnosticPanelView(check: baseCheck, context: runner.context)
+					DiagnosticPanelView(check: baseCheck, context: runner.context, formModel: formModel)
 				}
 			}
 		}

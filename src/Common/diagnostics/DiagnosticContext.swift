@@ -12,13 +12,16 @@ import Network
 /// Shared context for diagnostic checks containing host information and cached results
 class DiagnosticContext {
 	/// Hostname to diagnose
-	let hostname: String
+	var hostname: String
 
 	/// Port number
-	let port: Int
+	var port: Int
 
 	/// Whether TLS is enabled
-	let tlsEnabled: Bool
+	var tlsEnabled: Bool
+
+	/// Whether the connection uses WebSocket transport
+	var useWebSocket: Bool
 
 	/// Whether untrusted certificates are allowed.
 	/// Reads from the host settings if available, otherwise uses the stored value.
@@ -54,12 +57,24 @@ class DiagnosticContext {
 	/// Client identity loading issue (populated by DiagnosticTLSHelper)
 	var clientIdentityError: String?
 
-	init(hostname: String, port: Int, tlsEnabled: Bool, allowUntrusted: Bool = false, host: Host? = nil) {
+	init(hostname: String, port: Int, tlsEnabled: Bool, allowUntrusted: Bool = false,
+		 useWebSocket: Bool = false, host: Host? = nil) {
 		self.hostname = hostname
 		self.port = port
 		self.tlsEnabled = tlsEnabled
 		self._allowUntrusted = allowUntrusted
+		self.useWebSocket = useWebSocket
 		self.host = host
+	}
+
+	/// Update context from a form model's current values
+	func update(hostname: String, port: Int, tlsEnabled: Bool,
+				allowUntrusted: Bool, useWebSocket: Bool) {
+		self.hostname = hostname
+		self.port = port
+		self.tlsEnabled = tlsEnabled
+		self._allowUntrusted = allowUntrusted
+		self.useWebSocket = useWebSocket
 	}
 
 	/// Create context from a Host object
@@ -69,6 +84,7 @@ class DiagnosticContext {
 			port: Int(host.settings.port),
 			tlsEnabled: host.settings.ssl,
 			allowUntrusted: host.settings.untrustedSSL,
+			useWebSocket: host.settings.protocolMethod == .websocket,
 			host: host
 		)
 	}

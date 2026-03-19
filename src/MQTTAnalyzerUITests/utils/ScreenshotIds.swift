@@ -21,4 +21,5 @@ struct ScreenshotIds {
 	static let JSON_DETAILS = "JSON Details"
 	static let BINARY_HEX = "Binary Hex"
 	static let IMAGE_VIEW = "Image View"
+	static let DIAGNOSTICS = "Diagnostics"
 }

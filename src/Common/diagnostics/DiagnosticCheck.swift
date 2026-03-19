@@ -60,6 +60,8 @@ enum DiagnosticQuickFix: Sendable, Equatable {
 	case changePort(Int)
 	/// Change the broker hostname
 	case changeHostname(String)
+	/// Switch between MQTT and WebSocket protocol method
+	case changeProtocolMethod(HostProtocol)
 }
 
 /// A solution with an optional quick-fix action
