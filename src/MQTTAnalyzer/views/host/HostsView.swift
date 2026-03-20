@@ -8,26 +8,6 @@
 
 import SwiftUI
 
-#if os(iOS)
-private struct GlassCircleModifier: ViewModifier {
-	func body(content: Content) -> some View {
-		if #available(iOS 26.0, *) {
-			content
-				.foregroundColor(.white)
-				.background(Color.accentColor)
-				.clipShape(Circle())
-				.glassEffect(.regular)
-		} else {
-			content
-				.foregroundColor(.white)
-				.background(Color.accentColor)
-				.clipShape(Circle())
-				.shadow(radius: 3, y: 2)
-		}
-	}
-}
-#endif
-
 enum HostsSheetType {
 	case none
 	case about
@@ -300,6 +280,11 @@ struct HostsView: View {
 					.accessibilityIdentifier("broker: \(broker.aliasOrHost)")
 					.tag(broker)
 			}
+			#if os(iOS)
+			.onDelete { offsets in
+				deleteBrokers(offsets, from: uncategorizedBrokers)
+			}
+			#endif
 		}
 
 		ForEach(categorizedBrokers.keys.sorted().filter { $0 != "Uncategorized" }, id: \.self) { category in
@@ -318,6 +303,11 @@ struct HostsView: View {
 						.accessibilityIdentifier("broker: \(broker.aliasOrHost)")
 						.tag(broker)
 				}
+				#if os(iOS)
+				.onDelete { offsets in
+					deleteBrokers(offsets, from: categorizedBrokers[category] ?? [])
+				}
+				#endif
 			}
 		}
 
@@ -354,6 +344,18 @@ struct HostsView: View {
 // MARK: - Actions
 
 extension HostsView {
+	func deleteBrokers(_ offsets: IndexSet, from brokers: [BrokerSetting]) {
+		for index in offsets {
+			viewContext.delete(brokers[index])
+		}
+		do {
+			try viewContext.save()
+		} catch {
+			let nsError = error as NSError
+			NSLog("Unresolved error \(nsError), \(nsError.userInfo)")
+		}
+	}
+
 	#if os(iOS)
 	func deleteSelectedBrokers() {
 		for broker in editSelection {

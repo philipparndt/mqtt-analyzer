@@ -23,8 +23,6 @@ class ScreenshotTests: AbstractUITests {
 
 		app.launch()
 
-		snapshot(ScreenshotIds.BROKERS)
-
 		let nav = Navigation(app: app, alias: alias)
 
 		brokers.delete(alias: alias)
@@ -125,5 +123,9 @@ class ScreenshotTests: AbstractUITests {
 		}
 
 		nav.publishNew(topic: "\(id)hue/light/kitchen/coffee-spot")
+
+		// Take brokers screenshot at the end when the broker is connected with messages
+		nav.navigateToBrokers()
+		snapshot(ScreenshotIds.BROKERS)
 	}
 }

@@ -339,6 +339,7 @@
 		22FD7D0022C8D2660078795F /* EditHostFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF922C8D2650078795F /* EditHostFormView.swift */; };
 		22FD7D0222C8D2660078795F /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFB22C8D2650078795F /* RootModel.swift */; };
 		22FD7D0322C8D2660078795F /* HostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFC22C8D2660078795F /* HostsView.swift */; };
+		GC1A2B3C4D5E6F7081920A1B /* GlassCircleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = GC1A2B3C4D5E6F7081920A1C /* GlassCircleModifier.swift */; };
 		22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */; };
 		22GRDB00327C50000SWIFT03 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00227C50000SWIFT02 /* GRDB */; };
 		22GRDB00527C50000SWIFT05 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00427C50000SWIFT04 /* GRDB */; };
@@ -453,6 +454,7 @@
 		A25FC4AD04F07DE51FD59F97 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81327841CA1008DA37D /* LoginView.swift */; };
 		A26362C1731B2DBB9C05F582 /* PKCS12HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */; };
 		A5551D4FFD154C37483FB26F /* HostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFC22C8D2660078795F /* HostsView.swift */; };
+		GC2A2B3C4D5E6F7081920A2B /* GlassCircleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = GC1A2B3C4D5E6F7081920A1C /* GlassCircleModifier.swift */; };
 		A58A9D13B2A54F1BB490C2F4 /* MQTTClientCocoaMQTT+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38940280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift */; };
 		A603AC8BF59D380565494F56 /* DiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E06AB3B855947B9B06841B6 /* DiagnosticsView.swift */; };
 		A6F5510CA69966BA49B42EBD /* TopicTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FEFB27A50C9700D4327F /* TopicTree.swift */; };
@@ -863,6 +865,7 @@
 		22FD7CF922C8D2650078795F /* EditHostFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHostFormView.swift; sourceTree = "<group>"; };
 		22FD7CFB22C8D2650078795F /* RootModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModel.swift; sourceTree = "<group>"; };
 		22FD7CFC22C8D2660078795F /* HostsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsView.swift; sourceTree = "<group>"; };
+		GC1A2B3C4D5E6F7081920A1C /* GlassCircleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCircleModifier.swift; sourceTree = "<group>"; };
 		22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSeriesDetailsView.swift; sourceTree = "<group>"; };
 		22TLS00000000000000001 /* TLSFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSFormView.swift; sourceTree = "<group>"; };
 		2F2C5A8D0C995C34B71B1563 /* PortCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PortCheck.swift; sourceTree = "<group>"; };
@@ -1306,6 +1309,7 @@
 				226A6B5B2445740C00ACDFC3 /* form */,
 				2205E5E0238A7EE2001638DF /* ButtonStyle.swift */,
 				22FD7CFC22C8D2660078795F /* HostsView.swift */,
+				GC1A2B3C4D5E6F7081920A1C /* GlassCircleModifier.swift */,
 				M0V3CAT0F1E2D3C4B5A6G7H8 /* MoveToCategoryView.swift */,
 				031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */,
 				ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */,
@@ -2076,6 +2080,7 @@
 				229FCAED247D67BC00490628 /* DocumentPickerView.swift in Sources */,
 				221C571E2466C9CD00C0DD02 /* HostFormModel+AWS.swift in Sources */,
 				22FD7D0322C8D2660078795F /* HostsView.swift in Sources */,
+				GC1A2B3C4D5E6F7081920A1B /* GlassCircleModifier.swift in Sources */,
 				M0V3CAT1A0B1C2D3E4F5G6H7 /* MoveToCategoryView.swift in Sources */,
 				LO5P8FMNKVL0WKEFRIUUGXKJ /* BrokerDetailsView.swift in Sources */,
 				RR65MCCZZA7QVSR10NJBRPEI /* BrokerContentView.swift in Sources */,
@@ -2442,6 +2447,7 @@
 				360020FDA8256FCC25626811 /* DocumentPickerView.swift in Sources */,
 				BA1A2FF9B70C6EF0CFF7BD28 /* HostFormModel+AWS.swift in Sources */,
 				A5551D4FFD154C37483FB26F /* HostsView.swift in Sources */,
+				GC2A2B3C4D5E6F7081920A2B /* GlassCircleModifier.swift in Sources */,
 				M0V3CAT2B1C2D3E4F5G6H7I8 /* MoveToCategoryView.swift in Sources */,
 				B58A8072D08B29E88E845ECA /* BrokerDetailsView.swift in Sources */,
 				3BE2D184CC5D120764E806FD /* BrokerContentView.swift in Sources */,

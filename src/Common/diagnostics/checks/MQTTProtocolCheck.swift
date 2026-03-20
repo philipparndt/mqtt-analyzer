@@ -358,7 +358,7 @@ extension MQTTProtocolCheck {
 			// If HTTP is detected and WebSocket is NOT configured, suggest switching
 			if detected == "HTTP" && !context.useWebSocket {
 				return DiagnosticResult(
-					status: .warning("Server responds with HTTP — may require WebSocket"),
+					status: .error("Server responds with HTTP — not MQTT"),
 					summary: "HTTP detected — try WebSocket",
 					detailItems: [
 						.text("The server responded with HTTP instead of raw MQTT. "
@@ -375,7 +375,8 @@ extension MQTTProtocolCheck {
 							"Some brokers serve MQTT over WebSocket on HTTP ports. "
 							+ "Try switching the protocol method to WebSocket."
 						)
-					]
+					],
+					continuable: true
 				)
 			}
 
