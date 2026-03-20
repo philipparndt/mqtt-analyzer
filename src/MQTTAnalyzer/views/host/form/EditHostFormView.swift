@@ -18,7 +18,23 @@ struct EditHostFormView: View {
 	@State private var selectedSubscription: TopicSubscriptionFormModel?
 	@State private var isNavigatingToSubscription = false
 
+	private var disableDiagnostics: Bool {
+		HostFormValidator.validateHostname(name: host.hostname) == nil
+		|| HostFormValidator.validatePort(port: host.port) == nil
+	}
+
 	var body: some View {
+		#if os(iOS)
+		ZStack(alignment: .bottom) {
+			formContent
+			floatingDiagnosticsButton
+		}
+		#else
+		formContent
+		#endif
+	}
+
+	private var formContent: some View {
 		Form {
 			ServerFormView(host: $host)
 			TLSFormView(host: $host)
@@ -41,27 +57,6 @@ struct EditHostFormView: View {
 			}
 
 			#if !os(macOS)
-			Section {
-				Button {
-					showDiagnostics = true
-				} label: {
-					HStack(alignment: .center) {
-						Spacer()
-						Image(systemName: "stethoscope")
-						Text("Test Connection")
-						Spacer()
-					}
-				}
-				.foregroundColor(.orange)
-				.font(.body)
-				.disabled(
-					HostFormValidator.validateHostname(name: host.hostname) == nil
-					|| HostFormValidator.validatePort(port: host.port) == nil
-				)
-			}
-			#endif
-
-			#if !os(macOS)
 			Section(header: Text("")) {
 				Button {
 					delete()
@@ -81,6 +76,13 @@ struct EditHostFormView: View {
 					}
 				}
 			}
+
+			Section {
+				Spacer()
+					.frame(height: 60)
+					.listRowBackground(Color.clear)
+			}
+			.listSectionSeparator(.hidden)
 			#endif
 		}
 		.formStyle(.grouped)
@@ -104,6 +106,27 @@ struct EditHostFormView: View {
 			}
 		}
 	}
+
+	#if os(iOS)
+	private var floatingDiagnosticsButton: some View {
+		HStack {
+			Spacer()
+			Button {
+				showDiagnostics = true
+			} label: {
+				Image(systemName: "stethoscope")
+					.font(.body.weight(.semibold))
+					.frame(width: 40, height: 40)
+					.modifier(GlassCircleModifier(color: .orange))
+			}
+			.disabled(disableDiagnostics)
+			.opacity(disableDiagnostics ? 0.4 : 1.0)
+			.accessibilityLabel("Test Connection")
+			.padding(.trailing, 40)
+		}
+		.padding(.bottom, 16)
+	}
+	#endif
 
 	func deleteSubscription(subscription: TopicSubscriptionFormModel) {
 		host.subscriptions = host.subscriptions.filter { $0.id != subscription.id }

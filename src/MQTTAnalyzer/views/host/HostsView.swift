@@ -8,25 +8,6 @@
 
 import SwiftUI
 
-#if os(iOS)
-private struct GlassCircleModifier: ViewModifier {
-	func body(content: Content) -> some View {
-		if #available(iOS 26.0, *) {
-			content
-				.foregroundColor(.white)
-				.background(Color.accentColor)
-				.clipShape(Circle())
-				.glassEffect(.regular)
-		} else {
-			content
-				.foregroundColor(.white)
-				.background(Color.accentColor)
-				.clipShape(Circle())
-				.shadow(radius: 3, y: 2)
-		}
-	}
-}
-#endif
 
 enum HostsSheetType {
 	case none
