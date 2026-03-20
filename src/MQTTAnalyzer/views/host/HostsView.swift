@@ -8,6 +8,26 @@
 
 import SwiftUI
 
+#if os(iOS)
+private struct GlassCircleModifier: ViewModifier {
+	func body(content: Content) -> some View {
+		if #available(iOS 26.0, *) {
+			content
+				.foregroundColor(.white)
+				.background(Color.accentColor)
+				.clipShape(Circle())
+				.glassEffect(.regular)
+		} else {
+			content
+				.foregroundColor(.white)
+				.background(Color.accentColor)
+				.clipShape(Circle())
+				.shadow(radius: 3, y: 2)
+		}
+	}
+}
+#endif
+
 enum HostsSheetType {
 	case none
 	case about
@@ -238,17 +258,14 @@ struct HostsView: View {
 			Spacer()
 			Button(action: createHost) {
 				Image(systemName: "plus")
-					.font(.title2.weight(.semibold))
-					.foregroundColor(.white)
-					.frame(width: 56, height: 56)
-					.background(Color.accentColor)
-					.clipShape(Circle())
-					.shadow(radius: 4, y: 2)
+					.font(.body.weight(.semibold))
+					.frame(width: 40, height: 40)
+					.modifier(GlassCircleModifier())
 			}
 			.accessibilityLabel("Add Broker")
-			.padding(.trailing, 20)
-			.padding(.bottom, 20)
+			.padding(.trailing, 40)
 		}
+		.padding(.bottom, 16)
 	}
 
 	private func toggleEditMode() {
@@ -295,6 +312,15 @@ struct HostsView: View {
 				}
 			}
 		}
+
+		#if os(iOS)
+		Section {
+			Spacer()
+				.frame(height: 60)
+				.listRowBackground(Color.clear)
+		}
+		.listSectionSeparator(.hidden)
+		#endif
 	}
 
 	private var existingCategories: [String] {
