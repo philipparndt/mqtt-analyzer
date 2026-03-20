@@ -280,6 +280,11 @@ struct HostsView: View {
 					.accessibilityIdentifier("broker: \(broker.aliasOrHost)")
 					.tag(broker)
 			}
+			#if os(iOS)
+			.onDelete { offsets in
+				deleteBrokers(offsets, from: uncategorizedBrokers)
+			}
+			#endif
 		}
 
 		ForEach(categorizedBrokers.keys.sorted().filter { $0 != "Uncategorized" }, id: \.self) { category in
@@ -298,6 +303,11 @@ struct HostsView: View {
 						.accessibilityIdentifier("broker: \(broker.aliasOrHost)")
 						.tag(broker)
 				}
+				#if os(iOS)
+				.onDelete { offsets in
+					deleteBrokers(offsets, from: categorizedBrokers[category] ?? [])
+				}
+				#endif
 			}
 		}
 
@@ -334,6 +344,18 @@ struct HostsView: View {
 // MARK: - Actions
 
 extension HostsView {
+	func deleteBrokers(_ offsets: IndexSet, from brokers: [BrokerSetting]) {
+		for index in offsets {
+			viewContext.delete(brokers[index])
+		}
+		do {
+			try viewContext.save()
+		} catch {
+			let nsError = error as NSError
+			NSLog("Unresolved error \(nsError), \(nsError.userInfo)")
+		}
+	}
+
 	#if os(iOS)
 	func deleteSelectedBrokers() {
 		for broker in editSelection {
