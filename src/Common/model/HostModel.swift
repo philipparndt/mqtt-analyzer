@@ -46,7 +46,7 @@ extension CertificateFileType {
 	case both = 3
 }
 
-@objc public enum HostProtocol: Int32 {
+@objc public enum HostProtocol: Int32, Sendable {
 	case mqtt = 0
 	case websocket = 1
 }

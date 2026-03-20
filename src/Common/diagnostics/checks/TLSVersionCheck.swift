@@ -91,37 +91,7 @@ final class TLSVersionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					let version = state.negotiatedVersion ?? "Unknown"
 					context.tlsVersion = version
 
-					// Check if version is acceptable
-					if version.contains("1.3") {
-						continuation.resume(returning: .success(
-							summary: "TLS 1.3",
-							details: "Negotiated **TLS 1.3** — modern and secure",
-							duration: duration
-						))
-					} else if version.contains("1.2") {
-						continuation.resume(returning: .success(
-							summary: "TLS 1.2",
-							details: "Negotiated **TLS 1.2** — secure, but consider upgrading to TLS 1.3",
-							duration: duration
-						))
-					} else if version.contains("1.1") || version.contains("1.0") {
-						continuation.resume(returning: .warning(
-							summary: version,
-							message: "Outdated TLS version",
-							details: "Server negotiated **\(version)** which is considered *insecure*.",
-							duration: duration,
-							solutions: [
-								"Contact your broker administrator to enable TLS 1.2 or 1.3",
-								"Update the broker software"
-							]
-						))
-					} else {
-						continuation.resume(returning: .success(
-							summary: "TLS Connected",
-							details: "TLS handshake successful. Version: **\(version)**",
-							duration: duration
-						))
-					}
+					continuation.resume(returning: checkSelf.buildReadyResult(version: version, duration: duration))
 
 				case .failed(let error):
 					guard state.markCompleted() else { return }
@@ -129,38 +99,8 @@ final class TLSVersionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					connection.cancel()
 					self?.connection = nil
 
-					var (message, solutions) = checkSelf.describeTLSError(error, hostname: hostname, port: port)
-
-					// Add mTLS context if client identity failed to load
-					if let identityError = context.clientIdentityError {
-						message += " — " + identityError
-						solutions.insert("Fix the client certificate: \(identityError)", at: 0)
-					} else if checkSelf.isMTLSHandshakeFailure(error), context.host != nil {
-						let authType = context.host?.settings.authType ?? .none
-						if authType != .certificate && authType != .both {
-							solutions.insert(
-								"The server may require mTLS — configure a client certificate in the connection settings",
-								at: 0
-							)
-						}
-					}
-
-					continuation.resume(returning: .error(
-						summary: "TLS handshake failed",
-						message: message,
-						details: "Failed to establish TLS connection to \(hostname):\(port)\n\nError: \(error.localizedDescription)",
-						duration: duration,
-						solutions: solutions,
-						commands: [
-							DiagnosticCommand(
-								label: "Test TLS",
-								command: "openssl s_client -connect \(hostname):\(port) -servername \(hostname)"
-							),
-							DiagnosticCommand(
-								label: "Show Certificate",
-								command: "openssl s_client -connect \(hostname):\(port) -showcerts < /dev/null"
-							)
-						]
+					continuation.resume(returning: checkSelf.buildFailedResult(
+						error: error, context: context, hostname: hostname, port: port, duration: duration
 					))
 
 				case .cancelled:
@@ -200,6 +140,77 @@ final class TLSVersionCheck: BaseDiagnosticCheck, @unchecked Sendable {
 				))
 			}
 		}
+	}
+
+	private func buildReadyResult(version: String, duration: TimeInterval) -> DiagnosticResult {
+		if version.contains("1.3") {
+			return .success(
+				summary: "TLS 1.3",
+				details: "Negotiated **TLS 1.3** — modern and secure",
+				duration: duration
+			)
+		} else if version.contains("1.2") {
+			return .success(
+				summary: "TLS 1.2",
+				details: "Negotiated **TLS 1.2** — secure, but consider upgrading to TLS 1.3",
+				duration: duration
+			)
+		} else if version.contains("1.1") || version.contains("1.0") {
+			return .warning(
+				summary: version,
+				message: "Outdated TLS version",
+				details: "Server negotiated **\(version)** which is considered *insecure*.",
+				duration: duration,
+				solutions: [
+					"Contact your broker administrator to enable TLS 1.2 or 1.3",
+					"Update the broker software"
+				]
+			)
+		} else {
+			return .success(
+				summary: "TLS Connected",
+				details: "TLS handshake successful. Version: **\(version)**",
+				duration: duration
+			)
+		}
+	}
+
+	private func buildFailedResult(
+		error: NWError, context: DiagnosticContext, hostname: String, port: Int, duration: TimeInterval
+	) -> DiagnosticResult {
+		var (message, solutions) = describeTLSError(error, hostname: hostname, port: port)
+
+		// Add mTLS context if client identity failed to load
+		if let identityError = context.clientIdentityError {
+			message += " — " + identityError
+			solutions.insert("Fix the client certificate: \(identityError)", at: 0)
+		} else if isMTLSHandshakeFailure(error), context.host != nil {
+			let authType = context.host?.settings.authType ?? .none
+			if authType != .certificate && authType != .both {
+				solutions.insert(
+					"The server may require mTLS — configure a client certificate in the connection settings",
+					at: 0
+				)
+			}
+		}
+
+		return .error(
+			summary: "TLS handshake failed",
+			message: message,
+			details: "Failed to establish TLS connection to \(hostname):\(port)\n\nError: \(error.localizedDescription)",
+			duration: duration,
+			solutions: solutions,
+			commands: [
+				DiagnosticCommand(
+					label: "Test TLS",
+					command: "openssl s_client -connect \(hostname):\(port) -servername \(hostname)"
+				),
+				DiagnosticCommand(
+					label: "Show Certificate",
+					command: "openssl s_client -connect \(hostname):\(port) -showcerts < /dev/null"
+				)
+			]
+		)
 	}
 
 	override func cancel() {

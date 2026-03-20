@@ -71,7 +71,7 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 				case .ready:
 					checkSelf.sendAndReceive(
 						connection: connection, state: state, context: context,
-						startTime: startTime, hostname: hostname, port: port
+						startTime: startTime
 					) { result in
 						self?.connection = nil
 						continuation.resume(returning: result)
@@ -108,6 +108,7 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 			connection.start(queue: DispatchQueue(label: "mqtt-protocol-check"))
 
 			// Timeout after 10 seconds
+			let useWebSocket = context.useWebSocket
 			DispatchQueue.global().asyncAfter(deadline: .now() + 10) { [weak self] in
 				guard state.markCompleted() else { return }
 				connection.cancel()
@@ -115,7 +116,7 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 
 				var solutions: [DiagnosticSolution] = []
 
-				if context.useWebSocket {
+				if useWebSocket {
 					solutions.append(DiagnosticSolution(
 						"WebSocket is configured — the server may only support raw MQTT on this port"
 					))
@@ -154,7 +155,7 @@ final class MQTTProtocolCheck: BaseDiagnosticCheck, @unchecked Sendable {
 					summary: "No MQTT broker found",
 					details: "The TCP connection was established but the server did not send "
 						+ "an MQTT CONNACK response within 10 seconds.\n\n"
-						+ (context.useWebSocket
+						+ (useWebSocket
 							? "Note: WebSocket is configured. The diagnostic sends a raw MQTT packet "
 							+ "to test the protocol. If the server only supports raw MQTT (not WebSocket), "
 							+ "try switching the protocol method."
@@ -189,7 +190,7 @@ extension MQTTProtocolCheck {
 	func sendAndReceive(
 		connection: NWConnection, state: CompletionState,
 		context: DiagnosticContext,
-		startTime: CFAbsoluteTime, hostname: String, port: Int,
+		startTime: CFAbsoluteTime,
 		onComplete: @escaping (DiagnosticResult) -> Void
 	) {
 		let connectPacket = buildMQTTConnectPacket()
@@ -223,7 +224,8 @@ extension MQTTProtocolCheck {
 				}
 
 				onComplete(self.parseCONNACK(
-					data, context: context, duration: duration, hostname: hostname, port: port
+					data, context: context, duration: duration,
+					hostname: context.hostname, port: context.port
 				))
 			}
 		})
@@ -391,6 +393,17 @@ extension MQTTProtocolCheck {
 
 		// Parse return code (byte index 3)
 		let returnCode = bytes[3]
+		return handleCONNACKReturnCode(
+			returnCode, context: context, duration: duration,
+			hostname: hostname, port: port
+		)
+	}
+
+	/// Handle the CONNACK return code, extracted to reduce cyclomatic complexity of parseCONNACK
+	nonisolated func handleCONNACKReturnCode(
+		_ returnCode: UInt8, context: DiagnosticContext, duration: TimeInterval,
+		hostname: String, port: Int
+	) -> DiagnosticResult {
 		switch returnCode {
 		case 0x00:
 			if let ws = webSocketMismatchResult(

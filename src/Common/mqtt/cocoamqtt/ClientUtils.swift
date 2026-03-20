@@ -13,7 +13,7 @@ class ClientUtils<T, M> {
 	let connectionStateQueue = DispatchQueue(label: "connection.state.lock.queue")
 	var connectionState = ConnectionState()
 	let messageSubject = MsgSubject<ReceivedMessage<M>>()
-	
+
 	var host: Host
 	let sessionNum: Int
 	let model: TopicTree
@@ -21,14 +21,14 @@ class ClientUtils<T, M> {
 	var connectionAlive: Bool {
 		self.mqtt != nil && connectionState.state == .connected
 	}
-	
+
 	init(host: Host, model: TopicTree) {
 		ConnectionState.sessionNum += 1
 		self.model = model
 		self.sessionNum = ConnectionState.sessionNum
 		self.host = host
 	}
-	
+
 	func sanitizeBasePath(_ basePath: String) -> String {
 		if basePath.starts(with: "/") {
 			return basePath
@@ -37,7 +37,7 @@ class ClientUtils<T, M> {
 			return "/\(basePath)"
 		}
 	}
-	
+
 	func convertQOS(qos: Int32) -> CocoaMQTTQoS {
 		switch qos {
 		case 1:
@@ -48,7 +48,10 @@ class ClientUtils<T, M> {
 			return CocoaMQTTQoS.qos0
 		}
 	}
-	
+}
+
+// MARK: - Connection Lifecycle
+extension ClientUtils {
 	func connectedSuccess() {
 		print("CONNECTION: onConnect \(sessionNum) \(host.settings.hostname)")
 		self.connectionStateQueue.async {
@@ -60,12 +63,12 @@ class ClientUtils<T, M> {
 			self.host.state = .connected
 		}
 	}
-	
+
 	func clearAuth() {
 		self.host.usernameNonpersistent = nil
 		self.host.passwordNonpersistent = nil
 	}
-	
+
 	func failConnection(reason: String) {
 		NSLog("Connection failed: " + reason)
 		self.connectionStateQueue.async {
@@ -83,30 +86,6 @@ class ClientUtils<T, M> {
 
 	}
 
-	func buildErrorDetails(error: Error) -> String {
-		let nsError = error as NSError
-		let errorDesc = nsError.description.lowercased()
-
-		if nsError.domain == "Network.NWError" {
-			// Check mTLS first — before generic certificate error handling
-			if isMTLSFailureLikely(errorDesc) {
-				return Self.extractErrorDetails(error: error)
-			}
-
-			// For certificate errors: include in-app cert diagnostics
-			if nsError.description.starts(with: "-9808") || errorDesc.contains("certificate") {
-				return CertificateDiagnostics.diagnose(
-					hostname: host.settings.hostname,
-					host: host
-				)
-			}
-		} else if nsError.domain == NSURLErrorDomain {
-			return Self.buildURLErrorDetails(nsError)
-		}
-
-		return Self.extractErrorDetails(error: error)
-	}
-	
 	func initConnect() {
 		print("CONNECTION: connect \(sessionNum) \(host.settings.hostname)")
 		host.connectionMessage = nil
@@ -116,7 +95,7 @@ class ClientUtils<T, M> {
 		model.messageLimitExceeded = false
 		model.topicLimitExceeded = false
 	}
-	
+
 	func didDisconnect(_ client: T, withError err: Error?) {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.settings.hostname)")
 
@@ -146,10 +125,10 @@ class ClientUtils<T, M> {
 
 		setDisconnected()
 	}
-	
+
 	func setDisconnected() {
 		print("CONNECTION: disconnected \(self.sessionNum) \(self.host.settings.hostname)")
-		
+
 		self.connectionStateQueue.async {
 			self.connectionState.state = .disconnected
 		}
@@ -157,87 +136,25 @@ class ClientUtils<T, M> {
 		DispatchQueue.main.async {
 			self.host.state = .disconnected
 		}
-		
+
 		mqtt = nil
 	}
-	
-	func installMessageDispatch(metadata: @escaping ((M) -> MsgMetadata), payload: @escaping ((M) -> MsgPayload), topic: @escaping ((M) -> String)) {
-		let queue = DispatchQueue(label: "Message Dispatch queue")
-		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
-			.collect(.byTime(queue, 0.1))
-			.receive(on: DispatchQueue.main)
-			.sink(receiveValue: {
-				self.onMessages(messages: $0, metadata: metadata, payload: payload, topic: topic)
-			})
-	}
-	
-	func didReceiveMessage(message: ReceivedMessage<M>) {
-		if !host.pause {
-			messageSubject.send(message)
-		}
-	}
-	
-	func receiveMessagePreflight(amount: Int) -> Bool {
-		if host.pause {
-			return false
-		}
-		
-		if amount > host.settings.limitMessagesBatch {
-			// Limit exceeded
-			self.model.messageLimitExceeded = true
-			return false
-		}
-		
-		return true
-	}
-	
-	func onMessages<MT>(messages: [ReceivedMessage<MT>], metadata: ((MT) -> MsgMetadata), payload: ((MT) -> MsgPayload), topic: ((MT) -> String)) {
-		if !receiveMessagePreflight(amount: messages.count) {
-			return
-		}
-		
-		for rmessage in messages {
-			if host.settings.limitTopic > 0 && self.model.totalTopicCounter >= host.settings.limitTopic {
-				// Limit exceeded
-				self.model.topicLimitExceeded = true
-			}
-			
-			let message = rmessage.message
-			let messageMetadata = metadata(message)
-			
-			if let properties = rmessage.userProperty {
-				for (key, value) in properties {
-					messageMetadata.userProperty.append(Property(key: key, value: value))
-				}
-			}
-			messageMetadata.responseTopic = rmessage.responseTopic
-			
-			let messagePayload = payload(message)
-			messagePayload.contentType = rmessage.contentType
-			
-			_ = self.model.addMessage(
-				metadata: messageMetadata,
-				payload: messagePayload,
-				to: topic(message)
-			)
-		}
-	}
-	
+
 	func waitConnected() {
 		let group = DispatchGroup()
 		group.enter()
 
 		DispatchQueue.global().async {
 			var i = 10
-			
+
 			var connecting = true
-			
+
 			while connecting && i > 0 {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.settings.hostname)")
 				sleep(1)
-				
+
 				i-=1
-				
+
 				self.connectionStateQueue.sync {
 					connecting = self.connectionState.state == .connecting
 				}
@@ -259,13 +176,105 @@ class ClientUtils<T, M> {
 			}
 		}
 	}
-	
+
 	func setConnectionMessage(message: String) {
 		DispatchQueue.main.async {
 			self.host.connectionMessage = message
 		}
 	}
-	
+}
+
+// MARK: - Message Handling
+extension ClientUtils {
+	func installMessageDispatch(metadata: @escaping ((M) -> MsgMetadata), payload: @escaping ((M) -> MsgPayload), topic: @escaping ((M) -> String)) {
+		let queue = DispatchQueue(label: "Message Dispatch queue")
+		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
+			.collect(.byTime(queue, 0.1))
+			.receive(on: DispatchQueue.main)
+			.sink(receiveValue: {
+				self.onMessages(messages: $0, metadata: metadata, payload: payload, topic: topic)
+			})
+	}
+
+	func didReceiveMessage(message: ReceivedMessage<M>) {
+		if !host.pause {
+			messageSubject.send(message)
+		}
+	}
+
+	func receiveMessagePreflight(amount: Int) -> Bool {
+		if host.pause {
+			return false
+		}
+
+		if amount > host.settings.limitMessagesBatch {
+			// Limit exceeded
+			self.model.messageLimitExceeded = true
+			return false
+		}
+
+		return true
+	}
+
+	func onMessages<MT>(messages: [ReceivedMessage<MT>], metadata: ((MT) -> MsgMetadata), payload: ((MT) -> MsgPayload), topic: ((MT) -> String)) {
+		if !receiveMessagePreflight(amount: messages.count) {
+			return
+		}
+
+		for rmessage in messages {
+			if host.settings.limitTopic > 0 && self.model.totalTopicCounter >= host.settings.limitTopic {
+				// Limit exceeded
+				self.model.topicLimitExceeded = true
+			}
+
+			let message = rmessage.message
+			let messageMetadata = metadata(message)
+
+			if let properties = rmessage.userProperty {
+				for (key, value) in properties {
+					messageMetadata.userProperty.append(Property(key: key, value: value))
+				}
+			}
+			messageMetadata.responseTopic = rmessage.responseTopic
+
+			let messagePayload = payload(message)
+			messagePayload.contentType = rmessage.contentType
+
+			_ = self.model.addMessage(
+				metadata: messageMetadata,
+				payload: messagePayload,
+				to: topic(message)
+			)
+		}
+	}
+}
+
+// MARK: - Error Handling
+extension ClientUtils {
+	func buildErrorDetails(error: Error) -> String {
+		let nsError = error as NSError
+		let errorDesc = nsError.description.lowercased()
+
+		if nsError.domain == "Network.NWError" {
+			// Check mTLS first — before generic certificate error handling
+			if isMTLSFailureLikely(errorDesc) {
+				return Self.extractErrorDetails(error: error)
+			}
+
+			// For certificate errors: include in-app cert diagnostics
+			if nsError.description.starts(with: "-9808") || errorDesc.contains("certificate") {
+				return CertificateDiagnostics.diagnose(
+					hostname: host.settings.hostname,
+					host: host
+				)
+			}
+		} else if nsError.domain == NSURLErrorDomain {
+			return Self.buildURLErrorDetails(nsError)
+		}
+
+		return Self.extractErrorDetails(error: error)
+	}
+
 	/// Instance method with host context for better mTLS detection
 	func extractErrorSummary(error: Error) -> String {
 		let nsError = error as NSError
@@ -279,6 +288,35 @@ class ClientUtils<T, M> {
 		return Self.extractErrorSummary(error: error)
 	}
 
+	/// Detect if a TLS error is likely caused by missing client certificate (mTLS).
+	/// Uses host context: if TLS is enabled but no client cert is configured,
+	/// many TLS errors are likely mTLS rejections.
+	private func isMTLSFailureLikely(_ errorDesc: String) -> Bool {
+		// Explicit handshake failure indicators (always mTLS)
+		if errorDesc.contains("handshake") || errorDesc.contains("-9824") {
+			return true
+		}
+
+		// For other TLS errors: check if mTLS is expected but not configured
+		guard host.settings.ssl else { return false }
+		let authType = host.settings.authType
+		let hasMTLS = authType == .certificate || authType == .both
+		if hasMTLS { return false } // mTLS is configured, so the error is something else
+
+		// TLS enabled, no client cert configured — these errors suggest mTLS is required:
+		// -9829: "unknown certificate" — server rejected client (no cert presented)
+		// "certificate required" — explicit TLS alert 116
+		// Do NOT match -9808 here — that's a server cert validation error
+		if errorDesc.contains("-9829") || errorDesc.contains("certificate required") {
+			return true
+		}
+
+		return false
+	}
+}
+
+// MARK: - Static Error Classification
+extension ClientUtils {
 	class func extractErrorSummary(error: Error) -> String {
 		let nsError = error as NSError
 		let code = nsError.code
@@ -352,32 +390,6 @@ class ClientUtils<T, M> {
 		}
 
 		return "Error: \(nsError.domain) - \(nsError.description)"
-	}
-
-	/// Detect if a TLS error is likely caused by missing client certificate (mTLS).
-	/// Uses host context: if TLS is enabled but no client cert is configured,
-	/// many TLS errors are likely mTLS rejections.
-	private func isMTLSFailureLikely(_ errorDesc: String) -> Bool {
-		// Explicit handshake failure indicators (always mTLS)
-		if errorDesc.contains("handshake") || errorDesc.contains("-9824") {
-			return true
-		}
-
-		// For other TLS errors: check if mTLS is expected but not configured
-		guard host.settings.ssl else { return false }
-		let authType = host.settings.authType
-		let hasMTLS = authType == .certificate || authType == .both
-		if hasMTLS { return false } // mTLS is configured, so the error is something else
-
-		// TLS enabled, no client cert configured — these errors suggest mTLS is required:
-		// -9829: "unknown certificate" — server rejected client (no cert presented)
-		// "certificate required" — explicit TLS alert 116
-		// Do NOT match -9808 here — that's a server cert validation error
-		if errorDesc.contains("-9829") || errorDesc.contains("certificate required") {
-			return true
-		}
-
-		return false
 	}
 
 	/// Static variant for class methods that don't have host context.

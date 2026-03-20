@@ -203,6 +203,7 @@ struct HostCellView: View {
 	func contextMenu() -> some View {
 		return Text("").contextMenu {
 			MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
+				.accessibilityIdentifier("edit-broker")
 			MenuButton(
 				title: "Create new based on this",
 				systemImage: "pencil.circle",

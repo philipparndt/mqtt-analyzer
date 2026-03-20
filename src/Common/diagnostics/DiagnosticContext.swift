@@ -57,8 +57,9 @@ class DiagnosticContext {
 	/// Client identity loading issue (populated by DiagnosticTLSHelper)
 	var clientIdentityError: String?
 
-	init(hostname: String, port: Int, tlsEnabled: Bool, allowUntrusted: Bool = false,
-		 useWebSocket: Bool = false, host: Host? = nil) {
+	init(hostname: String, port: Int, tlsEnabled: Bool,
+	     allowUntrusted: Bool = false, useWebSocket: Bool = false,
+	     host: Host? = nil) {
 		self.hostname = hostname
 		self.port = port
 		self.tlsEnabled = tlsEnabled
@@ -68,8 +69,9 @@ class DiagnosticContext {
 	}
 
 	/// Update context from a form model's current values
-	func update(hostname: String, port: Int, tlsEnabled: Bool,
-				allowUntrusted: Bool, useWebSocket: Bool) {
+	func update(hostname: String, port: Int,
+	            tlsEnabled: Bool, allowUntrusted: Bool,
+	            useWebSocket: Bool) {
 		self.hostname = hostname
 		self.port = port
 		self.tlsEnabled = tlsEnabled
