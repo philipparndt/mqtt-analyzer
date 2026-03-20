@@ -52,6 +52,19 @@ struct DiagnosticsView: View {
 		)))
 	}
 
+	init(runner: DiagnosticRunner,
+	     isPresented: Binding<Bool>,
+	     formModel: Binding<HostFormModel>? = nil) {
+		self.hostname = runner.context.hostname
+		self.port = runner.context.port
+		self.ssl = runner.context.tlsEnabled
+		self.untrustedSSL = runner.context.allowUntrusted
+		self.connectionError = nil
+		self._isPresented = isPresented
+		self.formModel = formModel
+		self._runner = StateObject(wrappedValue: runner)
+	}
+
 	var body: some View {
 		NavigationStack {
 			ScrollView {
@@ -80,6 +93,13 @@ struct DiagnosticsView: View {
 			#endif
 			.toolbar {
 				ToolbarItem(placement: .cancellationAction) {
+					Button("Close") {
+						runner.cancel()
+						isPresented = false
+					}
+				}
+
+				ToolbarItem(placement: .confirmationAction) {
 					if runner.isRunning {
 						Button("Cancel") {
 							runner.cancel()
@@ -93,18 +113,15 @@ struct DiagnosticsView: View {
 						}
 					}
 				}
-
-				ToolbarItem(placement: .confirmationAction) {
-					Button("Close") {
-						runner.cancel()
-						isPresented = false
-					}
-				}
 			}
 			.task {
 				if !hasStarted {
 					hasStarted = true
-					await runner.runAll()
+					// Skip auto-run if the runner already has results (e.g. from save diagnostics)
+					let hasResults = runner.checks.contains { $0.status.isTerminal }
+					if !hasResults {
+						await runner.runAll()
+					}
 				}
 			}
 		}
@@ -214,11 +231,12 @@ struct DiagnosticsView: View {
 
 	private var overallStatusDescription: String {
 		let total = runner.checks.count
-		let completed = runner.checks.filter { $0.status.isTerminal }.count
 
 		if runner.isRunning {
-			return "Completed \(completed) of \(total) checks"
+			return "Completed \(runner.completedCount) of \(total) checks"
 		}
+
+		let completed = runner.completedCount
 
 		let errors = runner.checks.filter { $0.status.isError }.count
 		let warnings = runner.checks.filter {

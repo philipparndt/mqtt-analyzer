@@ -9,6 +9,28 @@
 import Foundation
 import Combine
 
+/// Thread-safe tracker for check completion, enabling dependency-based parallel execution
+private actor CompletionTracker {
+	private var completed: Set<String> = []
+	private var waiters: [String: [CheckedContinuation<Void, Never>]] = [:]
+
+	func markCompleted(_ checkId: String) {
+		completed.insert(checkId)
+		if let continuations = waiters.removeValue(forKey: checkId) {
+			for continuation in continuations {
+				continuation.resume()
+			}
+		}
+	}
+
+	func waitForCompletion(of checkId: String) async {
+		if completed.contains(checkId) { return }
+		await withCheckedContinuation { continuation in
+			waiters[checkId, default: []].append(continuation)
+		}
+	}
+}
+
 /// Orchestrates the execution of diagnostic checks with dependency resolution
 @MainActor
 class DiagnosticRunner: ObservableObject {
@@ -58,10 +80,14 @@ class DiagnosticRunner: ObservableObject {
 		registerChecks()
 	}
 
-	/// Run all diagnostic checks respecting dependencies
+	/// Number of completed checks (for progress tracking)
+	@Published private(set) var completedCount = 0
+
+	/// Run all diagnostic checks, launching each as soon as its dependencies are met
 	func runAll() async {
 		isRunning = true
 		isCancelled = false
+		completedCount = 0
 
 		// Reset all checks to pending
 		for check in checks {
@@ -69,75 +95,62 @@ class DiagnosticRunner: ObservableObject {
 			check.result = nil
 		}
 
-		// Build dependency graph and run checks
-		var completed: Set<String> = []
-		var remaining = checks
+		// Track completed check IDs using an actor for thread-safe access
+		let tracker = CompletionTracker()
 
-		while !remaining.isEmpty && !isCancelled {
-			// Find checks whose dependencies are all satisfied
-			let ready = remaining.filter { check in
-				check.dependencies.allSatisfy { depId in
-					// Dependency is satisfied if completed (regardless of success/failure)
-					completed.contains(depId)
+		await withTaskGroup(of: Void.self) { group in
+			for check in checks {
+				group.addTask {
+					await self.awaitDependenciesAndRun(check, tracker: tracker)
 				}
 			}
-
-			if ready.isEmpty {
-				// No checks ready - might have circular dependencies or all remaining have failed deps
-				// Mark remaining as skipped
-				for check in remaining {
-					check.status = .warning("Skipped due to dependency failure")
-					check.result = .skipped(reason: "A required check failed or was skipped")
-				}
-				break
-			}
-
-			// Run ready checks (can run in parallel if they don't share dependencies)
-			await withTaskGroup(of: Void.self) { group in
-				for check in ready {
-					group.addTask {
-						await self.runCheck(check)
-					}
-				}
-			}
-
-			// Move completed checks
-			for check in ready {
-				completed.insert(check.checkId)
-				remaining.removeAll { $0.checkId == check.checkId }
-			}
-
-			// Check if any dependency failed hard — skip dependent checks
-			// (but allow continuation if the dependency is marked continuable)
-			for check in remaining {
-				let blockedDeps = check.dependencies.filter { depId in
-					if let dep = checks.first(where: { $0.checkId == depId }) {
-						return dep.status.isError && !(dep.result?.continuable ?? false)
-					}
-					return false
-				}
-
-				if !blockedDeps.isEmpty {
-					check.status = .warning("Skipped")
-					check.result = .skipped(reason: "Dependency check failed")
-					completed.insert(check.checkId)
-				}
-			}
-
-			remaining.removeAll { completed.contains($0.checkId) }
 		}
 
 		isRunning = false
 	}
 
-	/// Run a single check
-	private func runCheck(_ check: any DiagnosticCheck) async {
-		guard !isCancelled else { return }
+	/// Wait for a check's dependencies to complete, then run it
+	private func awaitDependenciesAndRun(_ check: any DiagnosticCheck, tracker: CompletionTracker) async {
+		// Wait for all dependencies to be completed
+		for depId in check.dependencies {
+			await tracker.waitForCompletion(of: depId)
+		}
 
+		guard !isCancelled else {
+			await tracker.markCompleted(check.checkId)
+			return
+		}
+
+		// Check if any dependency failed hard or was skipped — skip if so
+		let shouldSkip = check.dependencies.contains { depId in
+			if let dep = checks.first(where: { $0.checkId == depId }) {
+				let wasSkipped = dep.result?.summary == "Skipped"
+				let failedHard = dep.status.isError && !(dep.result?.continuable ?? false)
+				return failedHard || wasSkipped
+			}
+			return false
+		}
+
+		if shouldSkip {
+			check.status = .warning("Skipped")
+			check.result = .skipped(reason: "Dependency check failed")
+			completedCount += 1
+			objectWillChange.send()
+			await tracker.markCompleted(check.checkId)
+			return
+		}
+
+		// Run the check
 		check.status = .running
+		objectWillChange.send()
+
 		let result = await check.run(context: context)
 		check.result = result
 		check.status = result.status
+		completedCount += 1
+		objectWillChange.send()
+
+		await tracker.markCompleted(check.checkId)
 	}
 
 	/// Cancel all running checks

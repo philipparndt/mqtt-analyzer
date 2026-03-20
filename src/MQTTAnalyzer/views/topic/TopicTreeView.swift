@@ -45,6 +45,25 @@ struct TopicTreeSidebarView: View {
 	}
 
 	var body: some View {
+		#if os(macOS)
+		VStack(spacing: 0) {
+			topicList
+			connectionStatusView
+		}
+		#else
+		topicList
+			.safeAreaInset(edge: .bottom) {
+				connectionStatusView
+			}
+			.onAppear {
+				if !host.needsAuth && host.state == .disconnected {
+					rootModel.connect(to: host)
+				}
+			}
+		#endif
+	}
+
+	private var topicList: some View {
 		List(selection: $selectedTopic) {
 			if isSearching {
 				// Show search results
@@ -122,9 +141,6 @@ struct TopicTreeSidebarView: View {
 				onDismiss: { limitsSettingsPresented = false }
 			)
 		}
-		.safeAreaInset(edge: .bottom) {
-			connectionStatusView
-		}
 		.navigationTitle(host.settings.aliasOrHost)
 		#if os(macOS)
 		.toolbar(removing: .title)
@@ -167,13 +183,6 @@ struct TopicTreeSidebarView: View {
 			}
 		}
 		#endif
-		.onAppear {
-			#if os(iOS)
-			if !host.needsAuth && host.state == .disconnected {
-				rootModel.connect(to: host)
-			}
-			#endif
-		}
 	}
 
 	func togglePause() {

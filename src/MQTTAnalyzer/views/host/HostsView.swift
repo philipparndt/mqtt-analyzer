@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 enum HostsSheetType {
 	case none
 	case about

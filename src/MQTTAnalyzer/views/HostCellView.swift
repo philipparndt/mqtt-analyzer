@@ -51,7 +51,7 @@ struct HostCellView: View {
 
 					Spacer()
 
-					if host.state != .disconnected {
+					if host.state != .disconnected || messageModel.messageCount > 0 {
 						messageCountBadge
 					}
 				}
@@ -160,15 +160,42 @@ struct HostCellView: View {
 	// MARK: - Message Count Badge
 
 	private var messageCountBadge: some View {
-		Text("\(messageModel.messageCountDisplay)")
-			.font(.caption2.weight(.medium).monospacedDigit())
-			.padding(.horizontal, 6)
-			.padding(.vertical, 2)
-			.background(
-				Capsule()
-					.fill(isSelected ? Color.white.opacity(0.2) : Color.primary.opacity(0.08))
-			)
-			.foregroundColor(isSelected ? .white : .secondary)
+		Group {
+			if host.state == .disconnected && messageModel.messageCount > 0 {
+				Button(action: clearMessages) {
+					HStack(spacing: 3) {
+						Text("\(messageModel.messageCountDisplay)")
+						Image(systemName: "xmark")
+							.font(.system(size: 8, weight: .bold))
+					}
+					.font(.caption2.weight(.medium).monospacedDigit())
+					.padding(.leading, 6)
+					.padding(.trailing, 5)
+					.padding(.vertical, 2)
+					.background(
+						Capsule()
+							.fill(isSelected ? Color.white.opacity(0.2) : Color.primary.opacity(0.08))
+					)
+					.foregroundColor(isSelected ? .white : .secondary)
+				}
+				#if os(macOS)
+				.buttonStyle(.borderless)
+				#else
+				.buttonStyle(.plain)
+				#endif
+				.accessibilityLabel("Clear \(messageModel.messageCount) messages")
+			} else {
+				Text("\(messageModel.messageCountDisplay)")
+					.font(.caption2.weight(.medium).monospacedDigit())
+					.padding(.horizontal, 6)
+					.padding(.vertical, 2)
+					.background(
+						Capsule()
+							.fill(isSelected ? Color.white.opacity(0.2) : Color.primary.opacity(0.08))
+					)
+					.foregroundColor(isSelected ? .white : .secondary)
+			}
+		}
 	}
 
 	// MARK: - Action Button
@@ -282,6 +309,10 @@ struct HostCellView: View {
 
 	func disconnectClean() {
 		host.disconnect()
+		messageModel.clear()
+	}
+
+	func clearMessages() {
 		messageModel.clear()
 	}
 
