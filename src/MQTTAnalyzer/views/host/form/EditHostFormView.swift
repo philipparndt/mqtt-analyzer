@@ -28,6 +28,9 @@ struct EditHostFormView: View {
 	@State private var showDiagnostics = false
 	@State private var selectedSubscription: TopicSubscriptionFormModel?
 	@State private var isNavigatingToSubscription = false
+	#if os(iOS)
+	@State private var keyboardVisible = false
+	#endif
 
 	private var disableDiagnostics: Bool {
 		HostFormValidator.validateHostname(name: host.hostname) == nil
@@ -38,7 +41,17 @@ struct EditHostFormView: View {
 		#if os(iOS)
 		ZStack(alignment: .bottom) {
 			formContent
-			floatingDiagnosticsButton
+			if !keyboardVisible {
+				floatingDiagnosticsButton
+					.transition(.opacity)
+			}
+		}
+		.animation(.easeInOut(duration: 0.2), value: keyboardVisible)
+		.onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+			keyboardVisible = true
+		}
+		.onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+			keyboardVisible = false
 		}
 		#else
 		formContent
@@ -97,6 +110,16 @@ struct EditHostFormView: View {
 			#endif
 		}
 		.formStyle(.grouped)
+		#if os(iOS)
+		.toolbar {
+			ToolbarItemGroup(placement: .keyboard) {
+				Spacer()
+				Button("Done") {
+					UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+				}
+			}
+		}
+		#endif
 		.sheet(isPresented: $showCertificateHelp) {
 			CertificateHelpSheet()
 		}
