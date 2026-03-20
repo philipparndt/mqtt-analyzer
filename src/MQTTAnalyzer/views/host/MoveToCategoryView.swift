@@ -22,17 +22,17 @@ struct MoveToCategoryView: View {
 		NavigationStack {
 			List {
 				Section {
-					Button(action: { moveToCategory("") }) {
+					Button(action: { moveToCategory("") }, label: {
 						Label("Uncategorized", systemImage: "tray")
-					}
+					})
 				}
 
 				if !allCategories.isEmpty {
 					Section(header: Text("Existing Categories")) {
 						ForEach(allCategories, id: \.self) { category in
-							Button(action: { moveToCategory(category) }) {
+							Button(action: { moveToCategory(category) }, label: {
 								Label(category, systemImage: "folder")
-							}
+							})
 						}
 					}
 				}
@@ -45,9 +45,9 @@ struct MoveToCategoryView: View {
 							.textInputAutocapitalization(.never)
 							#endif
 
-						Button(action: { moveToCategory(newCategory) }) {
+						Button(action: { moveToCategory(newCategory) }, label: {
 							Text("Move")
-						}
+						})
 						.disabled(newCategory.trimmingCharacters(in: .whitespaces).isEmpty)
 					}
 				}

@@ -123,32 +123,34 @@ struct HostsView: View {
 				floatingAddButton
 			}
 		}
-		.sheet(isPresented: $presented, onDismiss: { self.presented=false}, content: {
+		.sheet(isPresented: $presented, onDismiss: { self.presented = false }, content: {
 			HostsViewSheetDelegate(model: self.model,
 								   hostsModel: self.hostsModel,
 								   presented: self.$presented,
 								   sheetType: self.$sheetType,
 								   selectedHost: self.$selectedHost)
 		})
-		.sheet(isPresented: $showMoveToCategory) {
+		.sheet(isPresented: $showMoveToCategory, content: {
 			MoveToCategoryView(
 				brokers: brokersToMove,
-				allCategories: existingCategories
-			) {
-				editSelection.removeAll()
-				brokersToMove.removeAll()
-				isEditing = false
-			}
-		}
+				allCategories: existingCategories,
+				onComplete: {
+					editSelection.removeAll()
+					brokersToMove.removeAll()
+					isEditing = false
+				}
+			)
+		})
 		.alert(
 			"Delete \(editSelection.count) broker\(editSelection.count == 1 ? "" : "s")?",
-			isPresented: $showDeleteConfirmation
-		) {
-			Button("Delete", role: .destructive, action: deleteSelectedBrokers)
-			Button("Cancel", role: .cancel) {}
-		} message: {
-			Text("This action cannot be undone.")
-		}
+			isPresented: $showDeleteConfirmation,
+			actions: {
+				Button("Delete", role: .destructive, action: deleteSelectedBrokers)
+				Button("Cancel", role: .cancel) {}
+			}, message: {
+				Text("This action cannot be undone.")
+			}
+		)
 		#else
 		List(selection: $macSelection) {
 			brokerListContent
@@ -168,10 +170,10 @@ struct HostsView: View {
 		}
 		.toolbar {
 			ToolbarItem(placement: .automatic) {
-				Button(action: {
+				Button {
 					brokersToMove = Array(macSelection)
 					showMoveToCategory = true
-				}) {
+				} label: {
 					Label("Move to Category", systemImage: "folder")
 				}
 				.disabled(macSelection.isEmpty)
@@ -179,7 +181,9 @@ struct HostsView: View {
 			}
 
 			ToolbarItem(placement: .automatic) {
-				Button(action: { showDeleteConfirmation = true }) {
+				Button {
+					showDeleteConfirmation = true
+				} label: {
 					Label("Delete", systemImage: "trash")
 				}
 				.disabled(macSelection.isEmpty)
@@ -198,41 +202,43 @@ struct HostsView: View {
 				showDeleteConfirmation = true
 			}
 		}
-		.sheet(isPresented: $presented, onDismiss: { self.presented=false}, content: {
+		.sheet(isPresented: $presented, onDismiss: { self.presented = false }, content: {
 			HostsViewSheetDelegate(model: self.model,
 								   hostsModel: self.hostsModel,
 								   presented: self.$presented,
 								   sheetType: self.$sheetType,
 								   selectedHost: self.$selectedHost)
 		})
-		.sheet(isPresented: $showMoveToCategory) {
+		.sheet(isPresented: $showMoveToCategory, content: {
 			MoveToCategoryView(
 				brokers: brokersToMove,
-				allCategories: existingCategories
-			) {
-				macSelection.removeAll()
-				brokersToMove.removeAll()
-			}
-		}
+				allCategories: existingCategories,
+				onComplete: {
+					macSelection.removeAll()
+					brokersToMove.removeAll()
+				}
+			)
+		})
 		.alert(
 			"Delete \(macSelection.count) broker\(macSelection.count == 1 ? "" : "s")?",
-			isPresented: $showDeleteConfirmation
-		) {
-			Button("Delete", role: .destructive, action: deleteMacSelectedBrokers)
-			Button("Cancel", role: .cancel) {}
-		} message: {
-			Text("This action cannot be undone.")
-		}
+			isPresented: $showDeleteConfirmation,
+			actions: {
+				Button("Delete", role: .destructive, action: deleteMacSelectedBrokers)
+				Button("Cancel", role: .cancel) {}
+			}, message: {
+				Text("This action cannot be undone.")
+			}
+		)
 		#endif
 	}
 
 	#if os(iOS)
 	private var editToolbar: some View {
 		HStack(spacing: 20) {
-			Button(action: {
+			Button {
 				brokersToMove = Array(editSelection)
 				showMoveToCategory = true
-			}) {
+			} label: {
 				Label("Move", systemImage: "folder")
 			}
 
@@ -244,7 +250,9 @@ struct HostsView: View {
 
 			Spacer()
 
-			Button(role: .destructive, action: { showDeleteConfirmation = true }) {
+			Button(role: .destructive) {
+				showDeleteConfirmation = true
+			} label: {
 				Label("Delete", systemImage: "trash")
 			}
 		}
@@ -328,12 +336,12 @@ struct HostsView: View {
 			.filter { !$0.isEmpty }
 		return Array(Set(categories)).sorted()
 	}
-	
+
 	var searchBroker: [BrokerSetting] {
 		let sorted = brokers.sorted {
 			$0.aliasOrHost.lowercased() < $1.aliasOrHost.lowercased()
 		}
-		
+
 		if searchText.isEmpty {
 			return sorted
 		} else {
@@ -341,7 +349,11 @@ struct HostsView: View {
 			return sorted.filter { $0.aliasOrHost.lowercased().contains(searchFor) }
 		}
 	}
-		
+}
+
+// MARK: - Actions
+
+extension HostsView {
 	#if os(iOS)
 	func deleteSelectedBrokers() {
 		for broker in editSelection {
@@ -377,13 +389,13 @@ struct HostsView: View {
 		selectedHost = nil
 		presented = true
 	}
-	
+
 	func cloneHost(host: Host) {
 		sheetType = .createHost
 		selectedHost = host
 		presented = true
 	}
-	
+
 	func showAbout() {
 		sheetType = .about
 		presented = true

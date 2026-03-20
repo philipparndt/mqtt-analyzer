@@ -41,10 +41,8 @@ class ScreenshotTests: AbstractUITests {
 			app.staticTexts["Issues detected"].firstMatch,
 			app.staticTexts["Some warnings found"].firstMatch
 		]
-		for element in anyResult {
-			if element.waitForExistence(timeout: 30) {
-				break
-			}
+		for element in anyResult where element.waitForExistence(timeout: 30) {
+			break
 		}
 
 		snapshot(ScreenshotIds.DIAGNOSTICS)

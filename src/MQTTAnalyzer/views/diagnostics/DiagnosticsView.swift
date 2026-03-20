@@ -31,9 +31,11 @@ struct DiagnosticsView: View {
 		self.formModel = nil
 	}
 
-	init(hostname: String, port: Int, ssl: Bool, untrustedSSL: Bool,
-		 protocolMethod: HostProtocol = .mqtt,
-		 isPresented: Binding<Bool>, formModel: Binding<HostFormModel>? = nil) {
+	init(hostname: String, port: Int,
+	     ssl: Bool, untrustedSSL: Bool,
+	     protocolMethod: HostProtocol = .mqtt,
+	     isPresented: Binding<Bool>,
+	     formModel: Binding<HostFormModel>? = nil) {
 		self.hostname = hostname
 		self.port = port
 		self.ssl = ssl
