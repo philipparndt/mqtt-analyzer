@@ -38,7 +38,7 @@ class Navigation {
 	func navigateToBrokers() {
 		navigate(to: "")
 		
-		navigateUp()
+		_navigateUp()
 	}
 	
 	func groupCell(topic: String) -> XCUIElement {
@@ -140,6 +140,10 @@ class Navigation {
 		// Don't navigate up if we're already at root
 		guard !currentFolder.isEmpty else { return }
 
+		_navigateUp()
+	}
+	
+	func _navigateUp() {
 		if isThreeColumnLayout {
 			// iPad three-column: no navigation, just update tracking
 			currentFolder = Array(currentFolder.dropLast())

@@ -69,6 +69,11 @@ class Brokers {
 				let field = app.textFields["port"]
 				field.tap()
 				field.clearAndEnterText(text: "\(port)")
+				// Dismiss the number pad keyboard via the Done button
+				let doneButton = app.toolbars.buttons["Done"]
+				if doneButton.exists {
+					doneButton.tap()
+				}
 			}
 		}
 		
