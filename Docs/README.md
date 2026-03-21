@@ -9,6 +9,27 @@ subscribe to topics. It is written in Swift using SwiftUI.
 
 This App is open source, and contributions are welcome.
 
+## Installation
+
+### Mac App Store
+
+MQTTAnalyzer is available on the [Mac App Store](https://apps.apple.com/us/app/mqttanalyzer/id1493015317).
+Note that App Store reviews can take some time, so the latest version may not always be available immediately.
+
+### Homebrew (macOS)
+
+For faster access to the latest version, you can install MQTTAnalyzer via Homebrew:
+
+```bash
+brew install philipparndt/mqtt-analyzer/mqtt-analyzer
+```
+
+To update to the latest version:
+
+```bash
+brew upgrade mqtt-analyzer
+```
+
 ### Features:
 - Native macOS and iOS app
 - Authentication with username/password and/or client certificates
@@ -116,9 +137,4 @@ see [Kubernetes with Traefik SNI](./examples/k8s-traefik-sni)
 
 # Developer notes
 
-| Description           | Command                   |
-| --------------------- | ------------------------- |
-| Update pod repos      | `pod repo update`         |
-| Install / update pods | `pod install`             |
-| Execute test cases    | `run-tests.sh`            |
-| Set new version       | `./set-version.sh 2.12.0` |
+See [DEVELOPMENT.md](./DEVELOPMENT.md)

@@ -1,0 +1,3 @@
+creation_rules:
+  - path_regex: ".*.(conf|yaml|plist)"
+    age: age1d36ec3gz0m6djc7vdqq03g3k89wz8el2ndzlnvswlwy0tjcm552s027ws8
