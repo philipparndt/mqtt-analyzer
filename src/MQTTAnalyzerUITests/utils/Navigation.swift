@@ -36,9 +36,17 @@ class Navigation {
 	}
 	
 	func navigateToBrokers() {
-		navigate(to: "")
-		
-		_navigateUp()
+		if isThreeColumnLayout {
+			// iPad three-column: show the sidebar (brokers list) by tapping the sidebar toggle
+			let sidebarButton = app.buttons["Show Sidebar"].firstMatch
+			if sidebarButton.waitForExistence(timeout: 3) && sidebarButton.isHittable {
+				sidebarButton.tap()
+			}
+			currentFolder = []
+		} else {
+			navigate(to: "")
+			_navigateUp()
+		}
 	}
 	
 	func groupCell(topic: String) -> XCUIElement {
@@ -111,6 +119,11 @@ class Navigation {
 
 	/// Navigate in three-column layout by expanding tree and selecting topic
 	private func navigateTreeColumn(to topic: String, split: [String]) {
+		guard !split.isEmpty else {
+			currentFolder = []
+			return
+		}
+
 		// Expand all parent nodes to reveal the target
 		for i in 0 ..< split.count - 1 {
 			let parentTopic = split[0...i].joined(separator: "/")

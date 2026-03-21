@@ -209,6 +209,13 @@ struct HostCellView: View {
 						.foregroundColor(.white)
 				}
 				.accessibilityLabel("Connect")
+			} else if host.pause {
+				Button(action: togglePause) {
+					Image(systemName: "play.circle.fill")
+						.font(.title3)
+						.foregroundColor(.orange)
+				}
+				.accessibilityLabel("Resume")
 			} else {
 				Button(action: disconnect) {
 					Image(systemName: "stop.circle.fill")
@@ -317,6 +324,7 @@ struct HostCellView: View {
 	}
 
 	func connect() {
+		guard host.state == .disconnected else { return }
 		if self.host.needsAuth {
 			activeSheet = .login
 		} else {

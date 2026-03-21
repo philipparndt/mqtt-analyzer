@@ -28,17 +28,17 @@ class HostSettingExamples {
 		setWritten()
 	}
 		
-	class func create(alias: String, hostname: String, limitTopic: Int = 0, category: String, subscriptions: [TopicSubscription]) -> SQLiteBrokerSetting {
+	class func create(alias: String, hostname: String, port: Int = 1883, limitTopic: Int = 0, category: String, ssl: Bool = false, subscriptions: [TopicSubscription]) -> SQLiteBrokerSetting {
 		return SQLiteBrokerSetting(
 			id: UUID().uuidString,
 			alias: alias,
 			hostname: hostname,
-			port: 1883,
+			port: port,
 			subscriptions: SubscriptionValueTransformer.encode(subscriptions: subscriptions),
 			protocolMethod: Int(ConnectionMethod.mqtt),
-			
+
 			basePath: "",
-			ssl: false,
+			ssl: ssl,
 			untrustedSSL: false,
 			protocolVersion: 0,
 			authType: 0,
@@ -83,7 +83,9 @@ class HostSettingExamples {
 		return create(
 			alias: "Example",
 			hostname: "test.mqtt.rnd7.de",
+			port: 8884,
 			category: "Tests",
+			ssl: true,
 			subscriptions: [
 				TopicSubscription(topic: "#", qos: 0)
 			]

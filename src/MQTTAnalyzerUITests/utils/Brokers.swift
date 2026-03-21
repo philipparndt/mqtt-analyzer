@@ -51,13 +51,13 @@ class Brokers {
 	
 	@MainActor func create(broker: Broker, tc: XCTestCase) {
 		app.buttons["Add Broker"].tap()
-		
+
 		if let alias = broker.alias {
 			let field = app.textFields["alias"]
 			field.tap()
 			field.typeText("\(alias)\n")
 		}
-		
+
 		if let hostname = broker.hostname {
 			let field = app.textFields["hostname"]
 			field.tap()

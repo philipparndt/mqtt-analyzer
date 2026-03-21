@@ -150,8 +150,14 @@ struct TopicTreeSidebarView: View {
 			}
 
 			ToolbarItem(placement: .secondaryAction) {
-				Button(action: togglePause) {
-					Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
+				if host.state == .disconnected {
+					Button(action: { host.reconnect() }) {
+						Label("Connect", systemImage: "play.fill")
+					}
+				} else {
+					Button(action: togglePause) {
+						Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
+					}
 				}
 			}
 		}
@@ -291,7 +297,7 @@ struct ConnectionStatusBanner: View {
 
 			Spacer()
 
-			if host?.state == .disconnected, let host {
+			if host?.state == .disconnected, host?.connectionMessage != nil, let host {
 				Button {
 					showDiagnostics = true
 				} label: {

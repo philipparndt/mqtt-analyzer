@@ -251,7 +251,7 @@ struct HostsView: View {
 					.modifier(GlassCircleModifier())
 			}
 			.accessibilityLabel("Add Broker")
-			.padding(.trailing, 40)
+			.padding(.trailing, UIDevice.current.userInterfaceIdiom == .pad ? 20 : 40)
 		}
 		.padding(.bottom, 16)
 	}
