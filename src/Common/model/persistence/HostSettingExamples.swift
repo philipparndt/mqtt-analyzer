@@ -83,7 +83,7 @@ class HostSettingExamples {
 		return create(
 			alias: "Example",
 			hostname: "test.mqtt.rnd7.de",
-			port: 8884,
+			port: 443,
 			category: "Tests",
 			ssl: true,
 			subscriptions: [

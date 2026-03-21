@@ -14,7 +14,7 @@ class TestServer {
 	}
 
 	static func getTestPort() -> UInt16 {
-		return 8884
+		return 443
 	}
 
 	static func isTLS() -> Bool {
