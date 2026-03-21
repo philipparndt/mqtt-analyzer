@@ -11,9 +11,9 @@ This App is open source, and contributions are welcome.
 
 ## Installation
 
-### Mac App Store
+### App Store (iOS and macOS)
 
-MQTTAnalyzer is available on the [Mac App Store](https://apps.apple.com/us/app/mqttanalyzer/id1493015317).
+MQTTAnalyzer is available on the [App Store](https://apps.apple.com/us/app/mqttanalyzer/id1493015317) for both iOS and macOS.
 Note that App Store reviews can take some time, so the latest version may not always be available immediately.
 
 ### Homebrew (macOS)
