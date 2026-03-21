@@ -25,10 +25,11 @@ class ScreenshotTests: AbstractUITests {
 
 		let nav = Navigation(app: app, alias: alias)
 
-		brokers.delete(alias: alias)
-		brokers.confirmDelete()
-
-		brokers.create(broker: Broker(alias: alias, hostname: hostname, port: port, tls: tls), tc: self)
+		// Open the edit dialog to take the CONFIG screenshot
+		// The broker is pre-configured via HostSettingExamples.exampleRnd7()
+		brokers.startEdit(alias: alias)
+		snapshot(ScreenshotIds.CONFIG)
+		brokers.save()
 
 		// Take diagnostics screenshot before connecting
 		brokers.openDiagnostics(alias: alias)
