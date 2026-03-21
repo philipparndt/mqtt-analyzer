@@ -38,3 +38,6 @@ DerivedData
 
 # CocoaPods
 Pods
+
+# Decrypted sops files
+*.dec

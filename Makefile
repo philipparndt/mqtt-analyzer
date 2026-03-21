@@ -1,4 +1,4 @@
-.PHONY: screenshots screenshots-refresh screenshots-mac screenshots-mac-messages publish publish-skip-tests test test-ui help
+.PHONY: screenshots screenshots-refresh screenshots-mac screenshots-mac-messages publish publish-skip-tests test test-ui release-brew help
 
 help:
 	@echo "Available targets:"
@@ -11,6 +11,7 @@ help:
 	@echo "  test                   - Run unit tests"
 	@echo "  test-ui                - Run UI tests"
 	@echo "  test-integration       - Run integration tests"
+	@echo "  release-brew TAG=v1.0  - Release to Homebrew tap (requires: Developer ID cert, notarytool profile, gh CLI)"
 
 screenshots:
 	./scripts/create-screenshots.sh
@@ -57,6 +58,12 @@ test-ui:
 		-scheme MQTTAnalyzer \
 		-destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
 		-only-testing:MQTTAnalyzerUITests
+
+release-brew:
+ifndef TAG
+	$(error TAG is required. Usage: make release-brew TAG=v3.0.0)
+endif
+	./scripts/release-brew.sh $(TAG)
 
 test-integration:
 	cd src && xcodebuild test \
