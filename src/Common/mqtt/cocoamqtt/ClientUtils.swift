@@ -71,6 +71,11 @@ extension ClientUtils {
 
 	func failConnection(reason: String) {
 		NSLog("Connection failed: " + reason)
+		if host.intentionalDisconnect {
+			setDisconnected()
+			return
+		}
+
 		self.connectionStateQueue.async {
 			self.connectionState.message = reason
 		}
@@ -88,6 +93,7 @@ extension ClientUtils {
 
 	func initConnect() {
 		print("CONNECTION: connect \(sessionNum) \(host.settings.hostname)")
+		host.intentionalDisconnect = false
 		host.connectionMessage = nil
 		host.state = .connecting
 		connectionState.state = .connecting
@@ -98,6 +104,12 @@ extension ClientUtils {
 
 	func didDisconnect(_ client: T, withError err: Error?) {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.settings.hostname)")
+
+		if host.intentionalDisconnect {
+			// User-initiated disconnect — ignore any errors from the MQTT library
+			setDisconnected()
+			return
+		}
 
 		if err != nil {
 			let nsErr = err! as NSError
@@ -163,6 +175,8 @@ extension ClientUtils {
 		}
 
 		group.notify(queue: .main) {
+			if self.host.intentionalDisconnect { return }
+
 			if let errorMessage = self.connectionState.message {
 				self.setDisconnected()
 				self.host.connectionMessage = errorMessage

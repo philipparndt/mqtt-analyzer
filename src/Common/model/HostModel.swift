@@ -126,15 +126,20 @@ class Host: Identifiable, ObservableObject {
 	@Published var pause = false
 	
 	var wasConnected = false
-	
+	/// Set to true during intentional disconnect to suppress error messages from the MQTT callback
+	var intentionalDisconnect = false
+
 	func reconnect() {
 		reconnectDelegate?.reconnect(host: self)
 	}
-	
+
 	func disconnect() {
+		intentionalDisconnect = true
 		disconnectDelegate?.disconnect(host: self)
 		state = .disconnected
-		
+
+		connectionMessage = nil
+		connectionErrorDetails = nil
 		usernameNonpersistent = nil
 		passwordNonpersistent = nil
 		wasConnected = false
