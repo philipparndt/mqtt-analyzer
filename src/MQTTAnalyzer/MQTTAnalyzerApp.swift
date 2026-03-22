@@ -50,7 +50,9 @@ struct MQTTAnalyzerApp: App {
 
 	var body: some Scene {
 		WindowGroup {
-			if persistenceController.isLoaded {
+			if let error = persistenceController.loadError {
+				DatabaseErrorView(message: error)
+			} else if persistenceController.isLoaded {
 				RootView()
 					.environment(\.managedObjectContext, persistenceController.container!.viewContext)
 					.environmentObject(root)
@@ -93,6 +95,33 @@ struct MQTTAnalyzerApp: App {
 		.windowResizability(.contentSize)
 		.windowStyle(.hiddenTitleBar)
 		#endif
+	}
+}
+
+struct DatabaseErrorView: View {
+	let message: String
+
+	var body: some View {
+		VStack(spacing: 20) {
+			Image(systemName: "exclamationmark.triangle")
+				.font(.system(size: 48))
+				.foregroundColor(.orange)
+
+			Text("Database Error")
+				.font(.title)
+
+			Text(message)
+				.font(.subheadline)
+				.foregroundColor(.secondary)
+				.multilineTextAlignment(.center)
+				.padding(.horizontal)
+
+			Text("Your data has been reset. Brokers synced via iCloud will reappear automatically.")
+				.font(.caption)
+				.foregroundColor(.secondary)
+				.multilineTextAlignment(.center)
+				.padding(.horizontal)
+		}
 	}
 }
 

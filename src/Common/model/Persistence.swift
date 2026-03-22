@@ -19,6 +19,7 @@ class PersistenceController: ObservableObject {
     static let shared = PersistenceController()
 
 	@Published var isLoaded = false
+	@Published var loadError: String?
 	private var _container: NSPersistentCloudKitContainer?
 
 	var container: NSPersistentCloudKitContainer? {
@@ -71,20 +72,92 @@ class PersistenceController: ObservableObject {
 		}
 
         container.loadPersistentStores { [weak self] description, error in
-			self?.completeLoadPersistentStores(description: description, error: error)
-			if synchronous {
+			if let error = error {
+				NSLog("Failed to load persistent store: \(error)")
+				self?.handleStoreLoadFailure(
+					container: container,
+					description: description,
+					error: error,
+					inMemory: inMemory,
+					synchronous: synchronous
+				)
+				return
+			}
+
+			self?.activateContainer(container, synchronous: synchronous)
+		}
+    }
+
+	private func activateContainer(_ container: NSPersistentCloudKitContainer, synchronous: Bool) {
+		if synchronous {
+			container.viewContext.automaticallyMergesChangesFromParent = true
+			_container = container
+			isLoaded = true
+		} else {
+			DispatchQueue.main.async { [weak self] in
 				container.viewContext.automaticallyMergesChangesFromParent = true
 				self?._container = container
 				self?.isLoaded = true
-			} else {
-				DispatchQueue.main.async {
-					container.viewContext.automaticallyMergesChangesFromParent = true
-					self?._container = container
-					self?.isLoaded = true
-				}
 			}
 		}
-    }
+	}
+
+	private func handleStoreLoadFailure(
+		container: NSPersistentCloudKitContainer,
+		description: NSPersistentStoreDescription,
+		error: Error,
+		inMemory: Bool,
+		synchronous: Bool
+	) {
+		guard !inMemory, let storeURL = description.url else {
+			setLoadError("Failed to load data: \(error.localizedDescription)", synchronous: synchronous)
+			return
+		}
+
+		NSLog("Attempting to recover by removing incompatible store at \(storeURL)")
+
+		// Remove the incompatible store files
+		let fileManager = FileManager.default
+		let storePath = storeURL.path
+		for suffix in ["", "-wal", "-shm"] {
+			let file = storePath + suffix
+			if fileManager.fileExists(atPath: file) {
+				try? fileManager.removeItem(atPath: file)
+			}
+		}
+
+		// Also remove any CloudKit metadata
+		let ckDirectory = storeURL.deletingLastPathComponent()
+			.appendingPathComponent("ckAssets")
+		if fileManager.fileExists(atPath: ckDirectory.path) {
+			try? fileManager.removeItem(at: ckDirectory)
+		}
+
+		// Retry loading with a fresh store
+		container.loadPersistentStores { [weak self] _, retryError in
+			if let retryError = retryError {
+				NSLog("Recovery failed: \(retryError)")
+				self?.setLoadError(
+					"Database could not be recovered. Please reinstall the app.",
+					synchronous: synchronous
+				)
+				return
+			}
+
+			NSLog("Successfully recovered with fresh store")
+			self?.activateContainer(container, synchronous: synchronous)
+		}
+	}
+
+	private func setLoadError(_ message: String, synchronous: Bool) {
+		if synchronous {
+			loadError = message
+		} else {
+			DispatchQueue.main.async { [weak self] in
+				self?.loadError = message
+			}
+		}
+	}
 	
 	func isCloudEnabled() -> Bool {
 		if FileManager.default.ubiquityIdentityToken != nil {
@@ -105,23 +178,6 @@ class PersistenceController: ObservableObject {
 		#endif
 	}
 	
-	func completeLoadPersistentStores(description: NSPersistentStoreDescription, error: Error?) {
-		if let error = error as NSError? {
-			/*
-			 Typical reasons for an error here include:
-			 * The parent directory does not exist, cannot be created, or disallows writing.
-			 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-			 * The device is out of space.
-			 * The store could not be migrated to the current model version.
-			 Check the error message to determine what the actual problem was.
-			 */
-			#if DEBUG
-			fatalError("Unresolved error \(error), \(error.userInfo)")
-			#else
-			NSLog("Unresolved error \(error), \(error.userInfo)")
-			#endif
-		}
-	}
 	
 	func createStubs() {
 		PersistenceHelper.createAll(hosts: [
