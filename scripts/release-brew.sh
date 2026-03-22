@@ -15,6 +15,18 @@ fi
 APP_NAME="MQTTAnalyzer"
 SCHEME="MQTTAnalyzer-macOS"
 WORKSPACE="src/MQTTAnalyzer.xcworkspace"
+PBXPROJ="src/MQTTAnalyzer.xcodeproj/project.pbxproj"
+
+# Verify TAG matches MARKETING_VERSION in the Xcode project
+PROJECT_VERSION=$(grep 'MARKETING_VERSION' "${PBXPROJ}" | head -1 | sed 's/.*= *\(.*\);/\1/' | tr -d ' ')
+TAG_VERSION="${TAG#v}"
+
+if [ "${TAG_VERSION}" != "${PROJECT_VERSION}" ]; then
+    echo "ERROR: Tag version (${TAG_VERSION}) does not match MARKETING_VERSION in project (${PROJECT_VERSION})"
+    echo "Update the version in Xcode before releasing."
+    exit 1
+fi
+echo "Version check passed: ${TAG_VERSION} matches project MARKETING_VERSION"
 ARCHIVE_PATH="build/brew/${APP_NAME}.xcarchive"
 EXPORT_PATH="build/brew/export"
 EXPORT_OPTIONS_ENC="scripts/ExportOptions-brew.plist"
