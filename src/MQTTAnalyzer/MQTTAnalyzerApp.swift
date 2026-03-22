@@ -83,9 +83,13 @@ struct MQTTAnalyzerApp: App {
 		#endif
 		.onChange(of: scenePhase) {
 			if scenePhase == .active {
+				root.cancelBackgroundDisconnect()
 				root.reconnect()
+			} else if scenePhase == .background {
+				root.scheduleBackgroundDisconnect {
+					persistenceController.save()
+				}
 			}
-			persistenceController.save()
 		}
 
 		#if os(macOS)

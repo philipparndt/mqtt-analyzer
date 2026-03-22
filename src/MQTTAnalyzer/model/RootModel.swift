@@ -8,6 +8,9 @@
 
 import SwiftUI
 import Combine
+#if os(iOS)
+import UIKit
+#endif
 
 class RootModel: ObservableObject {
 	static let controller = MQTTSessionController()
@@ -66,6 +69,47 @@ class RootModel: ObservableObject {
 		sessionController.publish(message: message, on: on)
 	}
 	
+	#if os(iOS)
+	private var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+	#endif
+
+	func scheduleBackgroundDisconnect(onDisconnect: @escaping () -> Void) {
+		#if os(iOS)
+		backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: "MQTTDisconnect") { [weak self] in
+			// iOS is about to suspend — disconnect now to release file locks
+			self?.disconnectAll()
+			onDisconnect()
+			self?.endBackgroundTask()
+		}
+		#else
+		// macOS doesn't need background task management
+		#endif
+	}
+
+	func cancelBackgroundDisconnect() {
+		#if os(iOS)
+		endBackgroundTask()
+		#endif
+	}
+
+	#if os(iOS)
+	private func endBackgroundTask() {
+		if backgroundTaskID != .invalid {
+			UIApplication.shared.endBackgroundTask(backgroundTaskID)
+			backgroundTaskID = .invalid
+		}
+	}
+	#endif
+
+	func disconnectAll() {
+		for host in hostModelsById.values {
+			if host.state != .disconnected {
+				host.wasConnected = true
+				disconnect(from: host)
+			}
+		}
+	}
+
 	func reconnect() {
 		for host in hostModelsById.values {
 			if host.wasConnected && host.state == .disconnected {
