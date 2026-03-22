@@ -9,10 +9,10 @@
 import XCTest
 
 class ReadStateTests: AbstractUITests {
-	
+
 	func testMarkRead() {
 		let brokers = Brokers(app: app)
-		
+
 		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
@@ -25,35 +25,31 @@ class ReadStateTests: AbstractUITests {
 
 		let nav = Navigation(app: app, alias: alias)
 		nav.navigate(to: "\(id)")
-		let home = nav.getReadMarker(topic: "\(id)home")
-		let hue = nav.getReadMarker(topic: "\(id)hue")
-		awaitAppear(element: home)
-		awaitAppear(element: hue)
+		let dishwasher = nav.getReadMarker(topic: "\(id)dishwasher")
+		let light = nav.getReadMarker(topic: "\(id)light")
+		awaitAppear(element: dishwasher)
+		awaitAppear(element: light)
 
-		nav.navigate(to: "\(id)hue/light")
-		let office = nav.getReadMarker(topic: "\(id)hue/light/office")
-		let kitchen = nav.getReadMarker(topic: "\(id)hue/light/office")
-		
+		nav.navigate(to: "\(id)light")
+		let office = nav.getReadMarker(topic: "\(id)light/office")
+		let kitchen = nav.getReadMarker(topic: "\(id)light/kitchen")
+
 		XCTAssertTrue(office.firstMatch.exists, "Expected office to be there")
-		XCTAssertTrue(kitchen.firstMatch.exists, "Expected kitche to be there")
-		
+		XCTAssertTrue(kitchen.firstMatch.exists, "Expected kitchen to be there")
+
 		MessageTopicUtils.markAllAsRead(app: app)
 
 		awaitDisappear(element: office)
 		awaitDisappear(element: kitchen)
 
-		nav.navigate(to: "\(id)hue")
-		let light = nav.getReadMarker(topic: "\(id)hue/light")
-		XCTAssertFalse(light.exists)
-		
 		nav.navigate(to: "\(id)")
-		XCTAssertTrue(home.exists, "Expected home to be there")
-		XCTAssertFalse(hue.exists, "Expected hue to be not there")
+		XCTAssertTrue(dishwasher.exists, "Expected dishwasher to be there")
+		XCTAssertFalse(light.exists, "Expected light to be not there")
 	}
-	
+
 	func testClear() {
 		let brokers = Brokers(app: app)
-		
+
 		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
@@ -66,15 +62,15 @@ class ReadStateTests: AbstractUITests {
 
 		let nav = Navigation(app: app, alias: alias)
 		nav.navigate(to: id)
-		let homeFolder = nav.folderCell(topic: "\(id)home")
-		awaitAppear(element: homeFolder.staticTexts["7/7"])
+		let dishwasherFolder = nav.folderCell(topic: "\(id)dishwasher")
+		awaitAppear(element: dishwasherFolder.staticTexts["2/2"])
 
-		nav.navigate(to: "\(id)home")
+		nav.navigate(to: "\(id)dishwasher")
 		MessageTopicUtils.clearAll(app: app)
-		
+
 		nav.navigate(to: id)
-		let home = nav.getReadMarker(topic: "\(id)home")
-		XCTAssertTrue(homeFolder.staticTexts["0/0"].exists, "Expected 0/0 to be there")
-		XCTAssertFalse(home.exists, "Expected brokerCell home to be not there")
+		let dishwasher = nav.getReadMarker(topic: "\(id)dishwasher")
+		XCTAssertTrue(dishwasherFolder.staticTexts["0/0"].exists, "Expected 0/0 to be there")
+		XCTAssertFalse(dishwasher.exists, "Expected brokerCell dishwasher to be not there")
 	}
 }

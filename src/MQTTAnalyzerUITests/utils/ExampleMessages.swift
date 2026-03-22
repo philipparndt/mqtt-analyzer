@@ -218,72 +218,17 @@ class ExampleMessages {
 		client.publish(topic, data: data)
 	}
 
-	/// Publishes binary test messages including the app logo as PNG
-	func publishBinary(prefix: String) {
-		// Publish the MQTTAnalyzer logo as PNG image
+	/// Publishes vacuum bot map as PNG image
+	func publishVacuumMap(prefix: String) {
 		let testBundle = Bundle(for: type(of: self))
 		if let logoData = LogoLoader.loadAppLogo(from: testBundle) {
-			publish("\(prefix)test/binary/logo", data: logoData)
+			publish("\(prefix)vacuum/map", data: logoData)
 		}
-
-		// Publish random binary data (256 bytes)
-		var binaryData = [UInt8](repeating: 0, count: 256)
-		for i in 0..<256 {
-			binaryData[i] = UInt8.random(in: 0...255)
-		}
-		publish("\(prefix)test/binary/raw", data: binaryData)
 	}
 
 	func publish(prefix: String) {
-		publish("\(prefix)home/sensors/water", "{\"temperature\":50.5}")
-
-		publish("\(prefix)hue/light/kitchen/coffee-spot",
-				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":366}")
-		publish("\(prefix)hue/light/kitchen/kitchen-1",
-				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
-		publish("\(prefix)hue/light/kitchen/kitchen-2",
-				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
-		publish("\(prefix)hue/light/kitchen/kitchen-3",
-				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
-		publish("\(prefix)hue/light/kitchen/kitchen-4",
-				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
-		publish("\(prefix)hue/light/kitchen/kitchen-5",
-				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
-
-		publish("\(prefix)hue/light/office/left",
-				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":230}")
-		publish("\(prefix)hue/light/office/center",
-				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":233}")
-		publish("\(prefix)hue/light/office/right",
-				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":230}")
-
-		publish("\(prefix)home/sensors/air/in",
-				"{\"temperature\":21.5625}")
-		publish("\(prefix)home/sensors/air/out",
-				"{\"temperature\":23.1875}")
-		publish("\(prefix)home/sensors/bathroom/temperature",
-"""
-{
-	"battery": 97,
-	"humidity": 37.17,
-	"linkquality": 31,
-	"pressure": 962,
-	"temperature": 22.58,
-	"voltage": 2995
-}
-""")
-		
-		publish("\(prefix)home/contacts/frontdoor",
-"""
-{
-	"battery": 91,
-	"contact": true,
-	"linkquality": 65,
-	"voltage": 2985
-}
-""")
-
-		publish("\(prefix)home/dishwasher/000123456789",
+		// Dishwasher
+		publish("\(prefix)dishwasher/000123456789",
 """
 {
 	"phase": "DRYING",
@@ -294,8 +239,8 @@ class ExampleMessages {
 	"timeCompleted": "10:20"
 }
 """)
-		
-		publish("\(prefix)home/dishwasher/000123456789/full",
+
+		publish("\(prefix)dishwasher/000123456789/full",
 """
 {
 	"ident": {
@@ -424,8 +369,74 @@ class ExampleMessages {
 	}
 }
 """)
+
+		// Doorbell
+		publish("\(prefix)doorbell/front",
+"""
+{
+	"battery": 85,
+	"status": "idle",
+	"lastRing": "2026-03-21T09:15:00Z",
+	"linkquality": 78
+}
+""")
+
+		// Garage
+		publish("\(prefix)garage/door",
+"""
+{
+	"state": "closed",
+	"lastChanged": "2026-03-21T08:30:00Z",
+	"temperature": 12.4
+}
+""")
+
+		// Light
+		publish("\(prefix)light/kitchen/coffee-spot",
+				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":366}")
+		publish("\(prefix)light/kitchen/kitchen-1",
+				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
+		publish("\(prefix)light/kitchen/kitchen-2",
+				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
+		publish("\(prefix)light/kitchen/kitchen-3",
+				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
+		publish("\(prefix)light/kitchen/kitchen-4",
+				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
+		publish("\(prefix)light/kitchen/kitchen-5",
+				"{\"state\":\"OFF\",\"brightness\":100,\"color_temp\":366}")
+
+		publish("\(prefix)light/office/left",
+				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":230}")
+		publish("\(prefix)light/office/center",
+				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":233}")
+		publish("\(prefix)light/office/right",
+				"{\"state\":\"ON\",\"brightness\":100,\"color_temp\":230}")
+
+		// Thermostat
+		publish("\(prefix)thermostat/living-room",
+"""
+{
+	"current_temperature": 21.5,
+	"target_temperature": 22.0,
+	"mode": "heat",
+	"state": "heating",
+	"battery": 72
+}
+""")
+
+		// Vacuum (status - map is published separately as binary)
+		publish("\(prefix)vacuum/status",
+"""
+{
+	"state": "docked",
+	"battery": 100,
+	"cleanedArea": 42.5,
+	"cleanTime": 35,
+	"lastClean": "2026-03-21T07:00:00Z"
+}
+""")
 	}
-	
+
 	func disconnect() {
 		self.client.client.disconnect()
 	}

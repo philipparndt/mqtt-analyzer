@@ -22,10 +22,10 @@ class FlatViewTests: AbstractUITests {
 		examples.publish(prefix: id)
 		
 		let nav = Navigation(app: app, alias: alias)
-		nav.navigate(to: "\(id)home")
-		
-		let cell = nav.groupCell(topic: "\(id)home/contacts/frontdoor")
-		
+		nav.navigate(to: "\(id)light")
+
+		let cell = nav.groupCell(topic: "\(id)light/kitchen/coffee-spot")
+
 		awaitDisappear(element: cell)
 		nav.flatView(tc: self)
 		awaitAppear(element: cell)

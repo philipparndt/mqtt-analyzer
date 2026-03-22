@@ -15,7 +15,7 @@ class ScreenshotTests: AbstractUITests {
 		let port = TestServer.getTestPort()
 		let tls = TestServer.isTLS()
 		let alias = "Example"
-		// Use empty prefix for nice-looking screenshots (topics start with "home/", "hue/", etc.)
+		// Use empty prefix for nice-looking screenshots
 		let id = ""
 
 		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname, port: port, tls: tls))
@@ -52,78 +52,75 @@ class ScreenshotTests: AbstractUITests {
 		brokers.start(alias: alias)
 
 		examples.publish(prefix: id)
-		examples.publishBinary(prefix: id)
+		examples.publishVacuumMap(prefix: id)
 
 		// Wait for messages to be received before navigating
-		// The first folder cell should appear once messages arrive
-		let firstTopic = app.descendants(matching: .any)["folder: \(id)home"].firstMatch
+		let firstTopic = app.descendants(matching: .any)["folder: \(id)dishwasher"].firstMatch
 		XCTAssertTrue(firstTopic.waitForExistence(timeout: 15), "Expected topics to appear after publishing")
 
 		// Expand tree nodes to demonstrate tree navigation
-		nav.expandTreeNode(topic: "\(id)home")
+		nav.expandTreeNode(topic: "\(id)dishwasher")
 
 		// Wait for children to appear after expansion
-		let dishwasherTopic = app.descendants(matching: .any)["folder: \(id)home/dishwasher"].firstMatch
-		XCTAssertTrue(dishwasherTopic.waitForExistence(timeout: 5), "Expected home/dishwasher to appear after expanding")
+		let dishwasherChild = app.descendants(matching: .any)["folder: \(id)dishwasher/000123456789"].firstMatch
+		XCTAssertTrue(dishwasherChild.waitForExistence(timeout: 5), "Expected dishwasher/000123456789 to appear after expanding")
 
-		// Also expand dishwasher for a bigger tree
-		nav.expandTreeNode(topic: "\(id)home/dishwasher")
-		let nestedTopic = app.descendants(matching: .any)["folder: \(id)home/dishwasher/000123456789"].firstMatch
+		// Also expand the nested topic for a bigger tree
+		nav.expandTreeNode(topic: "\(id)dishwasher/000123456789")
+		let nestedTopic = app.descendants(matching: .any)["folder: \(id)dishwasher/000123456789/full"].firstMatch
 		XCTAssertTrue(nestedTopic.waitForExistence(timeout: 5), "Expected nested topic to appear after expanding")
 
 		// Take screenshot of the tree view with expanded nodes
 		snapshot(ScreenshotIds.TREE_VIEW)
 
-		// On iPhone, collapse the tree before navigating (tap chevrons again)
-		// On iPad, the tree stays visible in the sidebar, no need to collapse
+		// On iPhone, collapse the tree before navigating
 		if !nav.isThreeColumnLayout {
-			nav.expandTreeNode(topic: "\(id)home/dishwasher")
-			nav.expandTreeNode(topic: "\(id)home")
+			nav.expandTreeNode(topic: "\(id)dishwasher/000123456789")
+			nav.expandTreeNode(topic: "\(id)dishwasher")
 		}
 
-		// Now navigate normally using folder-by-folder approach
-		nav.navigate(to: "\(id)home/dishwasher/000123456789")
+		// Navigate to dishwasher JSON data
+		nav.navigate(to: "\(id)dishwasher/000123456789")
 		nav.openMessageGroup()
 		snapshot(ScreenshotIds.JSON_DATA)
 
-		nav.navigate(to: "\(id)home/dishwasher/000123456789/full")
+		nav.navigate(to: "\(id)dishwasher/000123456789/full")
 		nav.openMessageGroup()
 		nav.openMessage()
 		snapshot(ScreenshotIds.JSON_DETAILS)
 
-		// Binary/Image screenshots
+		// Vacuum map - image view
 		nav.navigateToRoot()
-		nav.navigate(to: "\(id)test/binary/logo")
+		nav.navigate(to: "\(id)vacuum/map")
 		nav.openMessageGroup()
 		nav.openMessage()
 		snapshot(ScreenshotIds.IMAGE_VIEW)
 
-		nav.navigateToRoot()
-		nav.navigate(to: "\(id)test/binary/raw")
-		nav.openMessageGroup()
-		nav.openMessage()
+		// Switch to Hex tab on the same vacuum map image
+		let hexTab = app.buttons["Hex"].firstMatch
+		XCTAssertTrue(hexTab.waitForExistence(timeout: 5), "Expected Hex tab to exist")
+		hexTab.tap()
 		snapshot(ScreenshotIds.BINARY_HEX)
 
-		// Navigate to the hue section
+		// Navigate to the light section for flat view
 		nav.navigateToRoot()
-		nav.navigate(to: "\(id)hue")
+		nav.navigate(to: "\(id)light")
 		nav.flatView(tc: self)
 		snapshot(ScreenshotIds.FLAT_VIEW)
 		nav.flatViewOff(tc: self)
 
-		nav.navigate(to: "\(id)hue/light/kitchen")
+		nav.navigate(to: "\(id)light/kitchen")
 		snapshot(ScreenshotIds.LIGHTS)
 
 		// Long press on coffee-spot to show context menu and open publish dialog with prefilled data
-		// On iPad, we need to expand the tree to reveal coffee-spot
 		if nav.isThreeColumnLayout {
-			nav.expandTreeNode(topic: "\(id)hue/light/kitchen")
+			nav.expandTreeNode(topic: "\(id)light/kitchen")
 
-			let coffeeSpot = app.descendants(matching: .any)["folder: \(id)hue/light/kitchen/coffee-spot"].firstMatch
+			let coffeeSpot = app.descendants(matching: .any)["folder: \(id)light/kitchen/coffee-spot"].firstMatch
 			XCTAssertTrue(coffeeSpot.waitForExistence(timeout: 5), "Expected coffee-spot to appear after expanding")
 		}
 
-		nav.publishNew(topic: "\(id)hue/light/kitchen/coffee-spot")
+		nav.publishNew(topic: "\(id)light/kitchen/coffee-spot")
 
 		// Take brokers screenshot at the end when the broker is connected with messages
 		nav.navigateToBrokers()
