@@ -2,6 +2,7 @@
 
 # Publish example messages for screenshot testing
 # Requires mosquitto_pub (brew install mosquitto)
+# These messages match the ExampleMessages.swift UI test class
 
 BROKER="${1:-test.mqtt.rnd7.de}"
 PORT="${2:-1883}"
@@ -12,32 +13,10 @@ publish() {
     mosquitto_pub -h "$BROKER" -p "$PORT" -t "$1" -m "$2" -q 2
 }
 
-# Home sensors
-publish "home/sensors/water" '{"temperature":50.5}'
-publish "home/sensors/air/in" '{"temperature":21.5625}'
-publish "home/sensors/air/out" '{"temperature":23.1875}'
-publish "home/sensors/bathroom/temperature" '{"battery":97,"humidity":37.17,"linkquality":31,"pressure":962,"temperature":22.58,"voltage":2995}'
-
-# Contacts
-publish "home/contacts/frontdoor" '{"battery":91,"contact":true,"linkquality":65,"voltage":2985}'
-
-# Hue lights - kitchen
-publish "hue/light/kitchen/coffee-spot" '{"state":"ON","brightness":100,"color_temp":366}'
-publish "hue/light/kitchen/kitchen-1" '{"state":"OFF","brightness":100,"color_temp":366}'
-publish "hue/light/kitchen/kitchen-2" '{"state":"OFF","brightness":100,"color_temp":366}'
-publish "hue/light/kitchen/kitchen-3" '{"state":"OFF","brightness":100,"color_temp":366}'
-publish "hue/light/kitchen/kitchen-4" '{"state":"OFF","brightness":100,"color_temp":366}'
-publish "hue/light/kitchen/kitchen-5" '{"state":"OFF","brightness":100,"color_temp":366}'
-
-# Hue lights - office
-publish "hue/light/office/left" '{"state":"ON","brightness":100,"color_temp":230}'
-publish "hue/light/office/center" '{"state":"ON","brightness":100,"color_temp":233}'
-publish "hue/light/office/right" '{"state":"ON","brightness":100,"color_temp":230}'
-
 # Dishwasher
-publish "home/dishwasher/000123456789" '{"phase":"DRYING","phaseId":1799,"remainingDuration":"0:38","remainingDurationMinutes":38,"state":"RUNNING","timeCompleted":"10:20"}'
+publish "dishwasher/000123456789" '{"phase":"DRYING","phaseId":1799,"remainingDuration":"0:38","remainingDurationMinutes":38,"state":"RUNNING","timeCompleted":"10:20"}'
 
-publish "home/dishwasher/000123456789/full" '{
+publish "dishwasher/000123456789/full" '{
   "ident": {
     "deviceIdentLabel": {
       "fabIndex": "64",
@@ -87,12 +66,37 @@ publish "home/dishwasher/000123456789/full" '{
   }
 }'
 
-# Binary test messages
+# Doorbell
+publish "doorbell/front" '{"battery":85,"status":"idle","lastRing":"2026-03-21T09:15:00Z","linkquality":78}'
+
+# Garage
+publish "garage/door" '{"state":"closed","lastChanged":"2026-03-21T08:30:00Z","temperature":12.4}'
+
+# Lights - kitchen
+publish "light/kitchen/coffee-spot" '{"state":"ON","brightness":100,"color_temp":366}'
+publish "light/kitchen/kitchen-1" '{"state":"OFF","brightness":100,"color_temp":366}'
+publish "light/kitchen/kitchen-2" '{"state":"OFF","brightness":100,"color_temp":366}'
+publish "light/kitchen/kitchen-3" '{"state":"OFF","brightness":100,"color_temp":366}'
+publish "light/kitchen/kitchen-4" '{"state":"OFF","brightness":100,"color_temp":366}'
+publish "light/kitchen/kitchen-5" '{"state":"OFF","brightness":100,"color_temp":366}'
+
+# Lights - office
+publish "light/office/left" '{"state":"ON","brightness":100,"color_temp":230}'
+publish "light/office/center" '{"state":"ON","brightness":100,"color_temp":233}'
+publish "light/office/right" '{"state":"ON","brightness":100,"color_temp":230}'
+
+# Thermostat
+publish "thermostat/living-room" '{"current_temperature":21.5,"target_temperature":22.0,"mode":"heat","state":"heating","battery":72}'
+
+# Vacuum status
+publish "vacuum/status" '{"state":"docked","battery":100,"cleanedArea":42.5,"cleanTime":35,"lastClean":"2026-03-21T07:00:00Z"}'
+
+# Vacuum map (binary logo image)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOGO_FILE="$SCRIPT_DIR/../src/MQTTAnalyzerUITests/TestLogo.png"
 
 if [[ -f "$LOGO_FILE" ]]; then
-    mosquitto_pub -h "$BROKER" -p "$PORT" -t "test/binary/logo" -f "$LOGO_FILE" -q 2
+    mosquitto_pub -h "$BROKER" -p "$PORT" -t "vacuum/map" -f "$LOGO_FILE" -q 2
 else
     echo "Warning: TestLogo.png not found at $LOGO_FILE"
 fi
