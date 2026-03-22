@@ -2753,7 +2753,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2782,7 +2782,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2859,7 +2859,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2888,7 +2888,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2917,7 +2917,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2946,7 +2946,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.MQTTAnalyzerIntentUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3013,7 +3013,7 @@
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd.MQTTAnalyzerIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -3036,7 +3036,7 @@
 				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd.MQTTAnalyzerIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -3066,7 +3066,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.2020-11.philipp.MQTTAnalyzer.macos";
 				PRODUCT_NAME = MQTTAnalyzer;
 				SDKROOT = macosx;
@@ -3091,7 +3091,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 3.1.1;
+				MARKETING_VERSION = 3.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = MQTTAnalyzer;
 				SDKROOT = macosx;
@@ -3190,7 +3190,7 @@
 			repositoryURL = "https://github.com/philipparndt/CocoaMQTT.git";
 			requirement = {
 				kind = exactVersion;
-				version = "2.2.4-apple-network";
+				version = "2.2.5-apple-network";
 			};
 		};
 		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
