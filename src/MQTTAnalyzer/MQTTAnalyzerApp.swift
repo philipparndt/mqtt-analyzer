@@ -41,7 +41,9 @@ struct MQTTAnalyzerApp: App {
 		ModelMigration.migrateToCoreData()
 		HostSettingExamples.inititalize()
 
-		CloudDataManager.instance.initDocumentsDirectory()
+		DispatchQueue.global(qos: .utility).async {
+			CloudDataManager.instance.initDocumentsDirectory()
+		}
 	}
 
 	#if os(macOS)
