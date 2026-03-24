@@ -1,5 +1,5 @@
 {
-  "originHash" : "bce9ddf8adaa3bbc32d74d99878d8a69f37b6e5584dac6d6e10709a93cf1b0fd",
+  "originHash" : "0f7f938947f9b6d2b673609840061f7e06cc819502e0220b4d9b01f797cd2368",
   "pins" : [
     {
       "identity" : "cocoamqtt",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "38f197a7545bc923d0b01df6ca684e96350e616a",
         "version" : "2.2.5-apple-network"
-      }
-    },
-    {
-      "identity" : "dynamic",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mhdhejazi/Dynamic.git",
-      "state" : {
-        "revision" : "ab9a2570862d54aed2663691bb767f881226a12f",
-        "version" : "1.2.0"
       }
     },
     {
