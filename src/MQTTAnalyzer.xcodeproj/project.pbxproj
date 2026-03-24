@@ -202,7 +202,6 @@
 		2282DA71281129F800F79E65 /* CertificateFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */; };
 		2282DA72281129F800F79E65 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA6B2811297200F79E65 /* Certificate.swift */; };
 		2282DA7328112A1900F79E65 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D96A27C1123000E63E89 /* Logger.swift */; };
-		228466D12F59586600027A13 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 228466D02F59586600027A13 /* SwiftyJSON */; };
 		228466D52F59586600027A13 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 228466D42F59586600027A13 /* GRDB */; };
 		228466D72F59586600027A13 /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 228466D62F59586600027A13 /* CocoaMQTT */; };
 		228466D92F59586600027A13 /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 228466D82F59586600027A13 /* CocoaMQTTWebSocket */; };
@@ -961,7 +960,6 @@
 			files = (
 				1A8957EAF2D466362FB7395C /* Cocoa.framework in Frameworks */,
 				228466D92F59586600027A13 /* CocoaMQTTWebSocket in Frameworks */,
-				228466D12F59586600027A13 /* SwiftyJSON in Frameworks */,
 				228466D72F59586600027A13 /* CocoaMQTT in Frameworks */,
 				228466D52F59586600027A13 /* GRDB in Frameworks */,
 				673953FAB23CE81B1780645C /* CloudKit.framework in Frameworks */,
@@ -3177,22 +3175,9 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		228466D02F59586600027A13 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
 		228466D42F59586600027A13 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
