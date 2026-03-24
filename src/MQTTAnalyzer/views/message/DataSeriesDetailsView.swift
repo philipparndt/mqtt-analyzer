@@ -49,7 +49,7 @@ struct DataSeriesDetailsView: View {
 					Section(header: Text("Values")) {
 						DataSeriesChartView(path: path, series: series)
 							.frame(width: nil, height: 100)
-						
+
 						ForEach(series.getId(path).reversed()) {
 							DataSeriesCell(path: $0)
 						}
@@ -68,13 +68,13 @@ struct DataSeriesDetailsView: View {
 
 struct DataSeriesCell: View {
 	let path: TimeSeriesValue
-	
+
 	var body: some View {
 		HStack {
 			Image(systemName: "number.circle.fill")
 				.font(.subheadline)
 				.foregroundColor(.blue)
-			
+
 			Text(path.valueString)
 			Spacer()
 			Text("\(path.dateString)").foregroundColor(.secondary)

@@ -15,7 +15,7 @@ let context = JSContext()
 public class JSONUtils {
 	class func format(json: String) -> String {
 		context?.evaluateScript(jsSource)
-		
+
 		let function = context?.objectForKeyedSubscript("formatJSON")
 		if let result = function?.call(withArguments: [json]) {
 			return result.description

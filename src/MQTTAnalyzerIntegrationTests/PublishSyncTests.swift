@@ -16,7 +16,7 @@ class PublishSyncTests: XCTestCase {
 
 	func assertPublish(with broker: Host) throws {
 		let topic = "integration/publish/\(String.random(length: 8))"
-		
+
 		try MQTTClientSync.publish(
 			host: broker,
 			topic: topic,
@@ -24,7 +24,7 @@ class PublishSyncTests: XCTestCase {
 			retain: false,
 			qos: 1)
 	}
-	
+
 	func testMQTT3() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -41,7 +41,7 @@ class PublishSyncTests: XCTestCase {
 		let broker = Host(settings: setting)
 		try assertPublish(with: broker)
 	}
-	
+
 	func testMQTTPersistedAuth() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -53,7 +53,7 @@ class PublishSyncTests: XCTestCase {
 		let broker = Host(settings: setting)
 		try assertPublish(with: broker)
 	}
-	
+
 	func testMQTTLetsEncryptTraefik() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -63,7 +63,7 @@ class PublishSyncTests: XCTestCase {
 		let broker = Host(settings: setting)
 		try assertPublish(with: broker)
 	}
-	
+
 	func testWebSocket() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -73,7 +73,7 @@ class PublishSyncTests: XCTestCase {
 		let broker = Host(settings: setting)
 		try assertPublish(with: broker)
 	}
-	
+
 	func testWebSocketMQTT5() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -85,7 +85,7 @@ class PublishSyncTests: XCTestCase {
 
 		try assertPublish(with: broker)
 	}
-	
+
 	func testWebSocketPersistedAuth() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -99,7 +99,7 @@ class PublishSyncTests: XCTestCase {
 
 		try assertPublish(with: broker)
 	}
-	
+
 	func testWebSocketLetsEncryptTraefik() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host

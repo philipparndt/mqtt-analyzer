@@ -11,5 +11,5 @@ import XCTest
 @testable import MQTTAnalyzer
 
 class HostFormModelTests: XCTestCase {
-		
+
 }

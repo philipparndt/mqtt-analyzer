@@ -64,7 +64,7 @@ extension MsgPayload {
 		if str == nil {
 			return nil
 		}
-		
+
 		let json = JSON.init(parseJSON: str!)
 		if json.isEmpty {
 			return nil
@@ -73,7 +73,7 @@ extension MsgPayload {
 			return json
 		}
 	}
-	
+
 	class func toOptionalString(data: [UInt8]) -> String? {
 		return NSString(bytes: data, length: data.count, encoding: String.Encoding.utf8.rawValue) as String?
 	}

@@ -11,7 +11,7 @@ import SwiftUI
 import CocoaMQTT
 
 class IntentHandler: INExtension {
-	    
+
     override func handler(for intent: INIntent) -> Any {
 		if intent is PublishMQTTMessageIntent {
 			return PublishHandler()
@@ -22,8 +22,8 @@ class IntentHandler: INExtension {
 		else if intent is RequestResponseIntent {
 			return RequestResponseHandler()
 		}
-		
+
 		fatalError("Unhandled Intent error : \(intent)")
     }
-	
+
 }

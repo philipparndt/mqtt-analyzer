@@ -151,9 +151,10 @@ struct TopicTreeSidebarView: View {
 
 			ToolbarItem(placement: .secondaryAction) {
 				if host.state == .disconnected {
-					Button(action: { host.reconnect() }) {
-						Label("Connect", systemImage: "play.fill")
-					}
+					Button(
+						action: { host.reconnect() },
+						label: { Label("Connect", systemImage: "play.fill") }
+					)
 				} else {
 					Button(action: togglePause) {
 						Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")

@@ -11,15 +11,15 @@ import SwiftUI
 
 struct ClientIDFormView: View {
 	@Binding var host: HostFormModel
-	
+
 	var body: some View {
 		return Section(header: Text("Client ID")) {
 			HStack {
 				Text("Client ID")
 					.font(.headline)
-				
+
 				Spacer()
-			
+
 				TextField("", text: $host.clientID, prompt: Text("Random by default").foregroundColor(.secondary))
 					.disableAutocorrection(true)
 					#if !os(macOS)

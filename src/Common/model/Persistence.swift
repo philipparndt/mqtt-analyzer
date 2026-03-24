@@ -158,7 +158,7 @@ class PersistenceController: ObservableObject {
 			}
 		}
 	}
-	
+
 	func isCloudEnabled() -> Bool {
 		if FileManager.default.ubiquityIdentityToken != nil {
 			return true
@@ -177,8 +177,7 @@ class PersistenceController: ObservableObject {
 		}
 		#endif
 	}
-	
-	
+
 	func createStubs() {
 		PersistenceHelper.createAll(hosts: [
 			HostSettingExamples.example1(),
@@ -187,7 +186,7 @@ class PersistenceController: ObservableObject {
 			 HostSettingExamples.exampleLocalhost()
 		 ])
 	}
-	
+
 	func save() {
 		guard let context = container?.viewContext else { return }
 
@@ -214,7 +213,7 @@ class PersistenceHelper {
 
 		controller.save()
 	}
-	
+
 	class func loadAllExistingIDs(context: NSManagedObjectContext) -> Set<String> {
 		let fetchRequest = BrokerSetting.fetchRequest()
 		do {
@@ -226,7 +225,7 @@ class PersistenceHelper {
 			return []
 		}
 	}
-	
+
 	class func create(host: SQLiteBrokerSetting, setting broker: BrokerSetting) {
 		broker.id = UUID.init(uuidString: host.id)
 		broker.alias = host.alias
@@ -249,7 +248,7 @@ class PersistenceHelper {
 
 		broker.limitMessagesBatch = Int32(host.limitMessagesBatch)
 		broker.limitTopic = Int32(host.limitTopic)
-		
+
 		broker.subscriptions = Subscriptions(SubscriptionValueTransformer.decode(subscriptions: host.subscriptions))
 		broker.category = host.category
 	}

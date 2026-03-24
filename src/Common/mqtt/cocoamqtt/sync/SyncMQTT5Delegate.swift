@@ -40,11 +40,11 @@ class SyncMQTT5Delegate: CocoaMQTT5Delegate, SyncListener {
 	func mqtt5(_ mqtt5: CocoaMQTT5, didUnsubscribeTopics topics: [String], unsubAckData: MqttDecodeUnsubAck?) {
 		// currently not necessary, but required by protocol
 	}
-	
+
 	func mqtt5(_ mqtt5: CocoaMQTT5, didReceiveDisconnectReasonCode reasonCode: CocoaMQTTDISCONNECTReasonCode) {
 		// currently not necessary, but required by protocol
 	}
-	
+
 	func mqtt5(_ mqtt5: CocoaMQTT5, didReceiveAuthReasonCode reasonCode: CocoaMQTTAUTHReasonCode) {
 		// currently not necessary, but required by protocol
 	}
@@ -60,7 +60,7 @@ class SyncMQTT5Delegate: CocoaMQTT5Delegate, SyncListener {
 	func mqtt5DidDisconnect(_ mqtt5: CocoaMQTT5, withError err: Error?) {
 		delegate.connect(connected: false)
 	}
-	
+
 	/// Manually validate SSL/TLS server certificate.
 	///
 	/// This method will be called if enable  `allowUntrustCACertificate`

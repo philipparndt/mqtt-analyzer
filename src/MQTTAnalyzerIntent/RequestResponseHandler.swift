@@ -13,14 +13,14 @@ class RequestResponseHandler: INExtension, RequestResponseIntentHandling {
 	func provideBrokerOptionsCollection(for intent: RequestResponseIntent, with completion: @escaping (INObjectCollection<NSString>?, Error?) -> Void) {
 		completion(INObjectCollection(items: loadBrokers()), nil)
 	}
-	
+
 	func handle(intent: RequestResponseIntent, completion: @escaping (RequestResponseIntentResponse) -> Void) {
 		if let brokerName = intent.broker,
 		   let requestTopic = intent.requestTopic,
 		   let requestPayload = intent.requestPayload,
 		   let responseTopic = intent.responseTopic,
 		   let timeout = intent.timeoutSeconds {
-			
+
 			if let broker = firstBroker(by: brokerName) {
 				do {
 					let host = Host(settings: broker)
@@ -32,7 +32,7 @@ class RequestResponseHandler: INExtension, RequestResponseIntentHandling {
 						responseTopic: responseTopic,
 						timeout: Int(truncating: timeout)
 					)
-					
+
 					completion(response(from: result))
 				} catch MQTTError.runtimeError(let errorMessage) {
 					completion(fail(from: errorMessage))
@@ -46,7 +46,7 @@ class RequestResponseHandler: INExtension, RequestResponseIntentHandling {
 			}
 		}
 	}
-		
+
 	func response(from message: String?) -> RequestResponseIntentResponse {
 		let response = RequestResponseIntentResponse(
 			code: message != nil ? .success : .failure,
@@ -54,7 +54,7 @@ class RequestResponseHandler: INExtension, RequestResponseIntentHandling {
 		response.message = message
 		return response
 	}
-	
+
 	func fail(from error: String?) -> RequestResponseIntentResponse {
 		let response = RequestResponseIntentResponse(
 			code: .failure,

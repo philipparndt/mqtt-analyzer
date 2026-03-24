@@ -17,7 +17,7 @@ struct PKCS12HelpView: View {
 						.font(.system(size: 14, design: .monospaced))
 						.foregroundColor(.secondary)
 						.textSelection(.enabled)
-					
+
 					Spacer()
 				}
 			}

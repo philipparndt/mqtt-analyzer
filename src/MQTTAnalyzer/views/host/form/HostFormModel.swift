@@ -38,30 +38,30 @@ struct HostFormModel {
 	var port = "1883"
 	var basePath = ""
 	var subscriptions = [TopicSubscriptionFormModel(topic: "#", qos: 0)]
-	
+
 	var username = ""
 	var password = ""
-	
+
 	var certServerCA: CertificateFile?
 	var certClient: CertificateFile?
 	var certClientKey: CertificateFile?
 	var certP12: CertificateFile?
 	var certClientKeyPassword = ""
-	
+
 	var clientID = ""
-	
+
 	var limitTopic = "1000"
 	var limitMessagesBatch = "1000"
-	
+
 	var ssl = false
 	var untrustedSSL = false
 	var alpn = ""
-	
+
 	var protocolMethod: HostProtocol = .mqtt
 	var usernamePasswordAuth = false
 	var certificateAuth = false
 	var protocolVersion: HostProtocolVersion = .mqtt3
-	
+
 	var category = ""
 	var certificateStorage: CertificateLocation = .local
 }
@@ -79,25 +79,25 @@ func transform(subscriptions: [TopicSubscriptionFormModel]) -> [TopicSubscriptio
 func validate(source host: HostFormModel) -> Bool {
 	let newHostname = HostFormValidator.validateHostname(name: host.hostname)
 	let port = HostFormValidator.validatePort(port: host.port)
-	
+
 	if port == nil || newHostname == nil {
 		return false
 	}
-	
+
 	return true
 }
 
 func copyBroker(target: BrokerSetting, source host: HostFormModel) throws {
 	let newHostname = HostFormValidator.validateHostname(name: host.hostname)
 	let port = HostFormValidator.validatePort(port: host.port)
-	
+
 	if port == nil || newHostname == nil {
 		throw RuntineError.runtimeError("Validation failed")
 	}
-	
+
 	target.alias = host.alias
 	target.hostname = newHostname!
-	
+
 	if host.usernamePasswordAuth && host.certificateAuth {
 		target.authType = .both
 	}

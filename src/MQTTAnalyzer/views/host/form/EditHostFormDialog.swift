@@ -186,7 +186,7 @@ struct EditHostFormModalView: View {
 			self.closeHandler()
 		}
 	}
-	
+
 	func delete() {
 		DispatchQueue.main.async {
 			viewContext.delete(original)
@@ -200,7 +200,7 @@ struct EditHostFormModalView: View {
 			self.closeHandler()
 		}
 	}
-	
+
 	func cancel() {
 		closeHandler()
 	}

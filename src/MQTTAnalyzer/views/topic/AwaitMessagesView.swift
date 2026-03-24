@@ -22,19 +22,19 @@ struct AwaitMessagesView: View {
 			}
 			.padding([.horizontal, .top], 8)
 			.background(Color.listItemBackground(colorScheme))
-			
+
 			HStack {
 				if host.state == .connected {
 					ProgressView()
 					   .progressViewStyle(CircularProgressViewStyle())
-					
+
 					Text("Waiting for messages").padding([.leading])
 						.accessibilityIdentifier("wait_messages")
 				}
 				else if host.state == .connecting {
 					ProgressView()
 					   .progressViewStyle(CircularProgressViewStyle())
-					
+
 					Text("Connecting").padding([.leading])
 				}
 				else {

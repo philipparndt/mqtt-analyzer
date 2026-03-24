@@ -26,15 +26,15 @@ class Navigation {
 		self.app = app
 		self.alias = alias
 	}
-	
+
 	class func id(suffix: String = "/") -> String {
 		return String.random(length: 8) + suffix
 	}
-	
+
 	class func idSmall(suffix: String = "/") -> String {
 		return String.random(length: 3) + suffix
 	}
-	
+
 	func navigateToBrokers() {
 		if isThreeColumnLayout {
 			// iPad three-column: show the sidebar (brokers list) by tapping the sidebar toggle
@@ -48,12 +48,12 @@ class Navigation {
 			_navigateUp()
 		}
 	}
-	
+
 	func groupCell(topic: String) -> XCUIElement {
 		let identifier = "group: \(topic)"
 		return app.descendants(matching: .any)[identifier].firstMatch
 	}
-	
+
 	func openMessageGroup() {
 		if isThreeColumnLayout {
 			// iPad three-column: messages are already shown in detail column after selecting topic
@@ -148,14 +148,14 @@ class Navigation {
 
 		currentFolder = split
 	}
-	
+
 	func navigateUp() {
 		// Don't navigate up if we're already at root
 		guard !currentFolder.isEmpty else { return }
 
 		_navigateUp()
 	}
-	
+
 	func _navigateUp() {
 		if isThreeColumnLayout {
 			// iPad three-column: no navigation, just update tracking
@@ -177,11 +177,11 @@ class Navigation {
 			currentFolder = Array(currentFolder.dropLast())
 		}
 	}
-	
+
 	private func open(topic: String) {
 		folderCell(topic: topic).tap()
 	}
-	
+
 	func folderCell(topic: String) -> XCUIElement {
 		let identifier = "folder: \(topic)"
 		let cell = app.descendants(matching: .any)[identifier].firstMatch
@@ -243,7 +243,7 @@ class Navigation {
 			.withOffset(CGVector(dx: tapPoint.x, dy: tapPoint.y))
 			.tap()
 	}
-	
+
 	func flatView(tc: XCTestCase) {
 		#if targetEnvironment(macCatalyst)
 		app.checkBoxes["flatview"].click()
@@ -267,7 +267,7 @@ class Navigation {
 		}
 		#endif
 	}
-	
+
 	/// Opens the publish dialog using the Publish button in the toolbar
 	func openPublishDialog() {
 		let publishButton = app.buttons["Publish"]

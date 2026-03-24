@@ -9,10 +9,10 @@
 import XCTest
 
 class PublishTests: AbstractUITests {
-	
+
 	func testPublish() {
 		let brokers = Brokers(app: app)
-		
+
 		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
@@ -25,7 +25,7 @@ class PublishTests: AbstractUITests {
 
 		let nav = Navigation(app: app, alias: alias)
 		nav.navigate(to: id)
-		
+
 		XCTAssertTrue(app.staticTexts["hue"]
 						.waitForExistence(timeout: 4), "Expected hue to be there")
 
@@ -33,14 +33,14 @@ class PublishTests: AbstractUITests {
 		dialog.open()
 		dialog.fill(topic: "\(id)topic", message: "msg")
 		dialog.apply()
-		
+
 		XCTAssertTrue(app.staticTexts["INHERITED MESSAGE GROUPS"].waitForExistence(timeout: 4), "Expected Inherited Message Groups to be there")
 		XCTAssertTrue(app.staticTexts["msg"].waitForExistence(timeout: 4), "Expected msg to be there")
 	}
-	
+
 	func testPublishWhileWait() {
 		let brokers = Brokers(app: app)
-		
+
 		let hostname = TestServer.getTestServer()
 		let alias = "Example"
 		let id = Navigation.id()
@@ -53,16 +53,16 @@ class PublishTests: AbstractUITests {
 
 		let nav = Navigation(app: app, alias: alias)
 		nav.navigate(to: id)
-		
+
 		MessageTopicUtils.clearAll(app: app)
-		
+
 		XCTAssertTrue(app.staticTexts["Waiting for messages"].waitForExistence(timeout: 4), "Expected waiting for messages to be there")
-		
+
 		let dialog = PublishDialog(app: app)
 		dialog.open()
 		dialog.fill(topic: "\(id)topic", message: "msg")
 		dialog.apply()
-		
+
 		XCTAssertTrue(app.staticTexts["INHERITED MESSAGE GROUPS"].waitForExistence(timeout: 4), "Expected inherited messages groups to be there")
 		XCTAssertTrue(app.staticTexts["msg"].waitForExistence(timeout: 4), "Expected msg to be there")
 	}

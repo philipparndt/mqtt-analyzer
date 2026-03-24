@@ -11,17 +11,17 @@ import Foundation
 extension TopicTree {
 	func getIndex() -> SearchIndex? {
 		var current: TopicTree? = self
-		
+
 		while current != nil {
 			if let idx = current?.index {
 				return idx
 			}
 			current = current?.parent
 		}
-		
+
 		return nil
 	}
-	
+
 	func addToIndex(message: MsgMessage) {
 		if let idx = getIndex() {
 			idx.add(message: message, completion: {
@@ -29,7 +29,7 @@ extension TopicTree {
 			})
 		}
 	}
-	
+
 	func search(text: String) -> [String] {
 		if let idx = getIndex() {
 			let topic = nameQualified
@@ -37,10 +37,10 @@ extension TopicTree {
 			if !filterWholeWord && !searchText.contains("*") {
 				searchText += "*"
 			}
-			
+
 			return idx.search(text: searchText, topic: topic)
 		}
-		
+
 		return []
 	}
 }

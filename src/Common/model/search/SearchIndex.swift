@@ -17,11 +17,11 @@ struct Message: Codable, FetchableRecord, PersistableRecord {
 class SearchIndex {
 	var inMemoryDBQueue: DatabaseQueue?
 	let availabe: Bool
-	
+
 	init() {
 		do {
 			inMemoryDBQueue = try DatabaseQueue()
-			
+
 			// 2. Define the database schema
 			try inMemoryDBQueue?.write { db in
 				try db.create(virtualTable: "message", using: FTS4()) { t in
@@ -37,10 +37,10 @@ class SearchIndex {
 			availabe = false
 		}
 	}
-	
+
 	// Not thread safe - just for unit testing
 	var execSync = false
-	
+
 	/// Maximum payload size to index (skip large payloads for performance)
 	private let maxIndexSize = 50_000
 
@@ -59,17 +59,17 @@ class SearchIndex {
 			}
 		}
 	}
-	
+
 	func addToIndexNow(message: MsgMessage) {
 		let topic = message.topic.nameQualified
 		let payload = topic + " " + message.payload.dataString
-		
+
 		do {
 			try self.inMemoryDBQueue?.write { db in
 				try db.execute(sql: "DELETE FROM message WHERE topic = :topic",
 							   arguments: ["topic": topic])
 			}
-			
+
 			try self.inMemoryDBQueue?.write { db in
 				try Message(topic: topic, payload: payload).insert(db)
 			}
@@ -78,7 +78,7 @@ class SearchIndex {
 			NSLog("Error adding message to index \(error)")
 		}
 	}
-	
+
 	func clear(topicStartsWith topic: String) {
 		do {
 			try inMemoryDBQueue?.write { db in
@@ -90,7 +90,7 @@ class SearchIndex {
 			NSLog("Error adding message to index \(error)")
 		}
 	}
-	
+
 	func search(text: String, topic: String = "") -> [String] {
 		var result: [String] = []
 		do {
@@ -108,8 +108,8 @@ class SearchIndex {
 		catch {
 			NSLog("Error executing search", error.localizedDescription)
 		}
-		
+
 		return result
 	}
-	
+
 }

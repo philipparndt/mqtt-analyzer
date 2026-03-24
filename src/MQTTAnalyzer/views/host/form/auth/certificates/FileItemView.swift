@@ -12,7 +12,7 @@ struct FileItemView: View {
 	let fileName: CertificateFileModel
 	let type: CertificateFileType
 	@Binding var selection: CertificateFile?
-	
+
 	var body: some View {
 		Button(action: selectFile) {
 			HStack {
@@ -38,13 +38,13 @@ struct FileItemView: View {
 			type: self.type
 		)
 	}
-	
+
 	func isSelected() -> Bool {
 		if let sel = selection {
 			return sel.name == fileName.name
 				&& sel.location == fileName.location
 		}
-		
+
 		return false
 	}
 }

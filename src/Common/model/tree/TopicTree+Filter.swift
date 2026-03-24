@@ -17,13 +17,13 @@ extension TopicTree {
 	func updateChildrenToDisplay() {
 		return childrenDisplay = Array(children.values)
 	}
-	
+
 	func updateSearchResult() {
 		if filterTextCleaned.isBlank {
 			searchResultDisplay = []
 			return
 		}
-		
+
 		searchResultDisplay = search(text: filterTextCleaned)
 			.map {
 				if let topic = getTopic(topic: $0) {
@@ -34,5 +34,5 @@ extension TopicTree {
 			.filter { $0 != nil }
 			.map { $0! }
 	}
-	
+
 }

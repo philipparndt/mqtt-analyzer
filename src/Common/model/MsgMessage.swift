@@ -12,7 +12,7 @@ class MsgMessage: Identifiable {
 	let topic: TopicTree
 	let payload: MsgPayload
 	let metadata: MsgMetadata
-	
+
 	init(topic: TopicTree, payload: MsgPayload, metadata: MsgMetadata) {
 		self.topic = topic
 		self.payload = payload

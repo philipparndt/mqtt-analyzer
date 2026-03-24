@@ -13,7 +13,7 @@ extension Navigation {
 		return folderCell(topic: topic)
 			.images["Circle"]
 	}
-	
+
 	func getReadMarker(of element: XCUIElement) -> XCUIElement {
 		return element.images["Circle"]
 	}

@@ -21,7 +21,7 @@ func getVersion() -> String {
 // MARK: Create Host
 struct AboutView: View {
 	@Binding var isPresented: Bool
-	
+
 	var body: some View {
 		NavigationStack {
 			VStack(alignment: .leading) {
@@ -59,7 +59,7 @@ Thank you! This project would not be possible without your great work! Thanks fo
 			}
 		}
 	}
-	
+
 	func close() {
 		self.isPresented = false
 	}
@@ -76,7 +76,7 @@ struct AboutTitleView: View {
 					.shadow(radius: 10)
 					.padding(.trailing)
 					.accessibility(identifier: "about.logo")
-				
+
 				VStack(alignment: .leading) {
 					Text("MQTTAnalyzer")
 						.font(.title)
@@ -85,13 +85,13 @@ struct AboutTitleView: View {
 					Text("[© 2026 Philipp Arndt](https://github.com/philipparndt)")
 						.font(.caption)
 						.foregroundColor(.blue)
-					
+
 					Text(getVersion())
 						.font(.caption)
 						.foregroundColor(.secondary)
 				}
 			}
-			
+
 		}
 		.frame(maxWidth: .infinity, alignment: .center)
 		.multilineTextAlignment(.center)

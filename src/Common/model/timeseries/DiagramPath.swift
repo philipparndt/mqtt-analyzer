@@ -17,23 +17,23 @@ class DiagramPath: Hashable, Identifiable {
 		}
 		return path
 	}
-	
+
 	var parentPath: String {
 		return path.pathUp(".")
 	}
-	
+
 	var hasSubpath: Bool {
 		return path.contains(".")
 	}
-	
+
 	init(_ path: String) {
 		self.path = path
 	}
-	
+
 	static func == (lhs: DiagramPath, rhs: DiagramPath) -> Bool {
 		return lhs.path == rhs.path
 	}
-	
+
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(path)
 	}

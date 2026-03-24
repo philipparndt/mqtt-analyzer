@@ -148,7 +148,7 @@ struct EditHostFormView: View {
 			if let subscription = selectedSubscription {
 				SubscriptionDetailsView(subscription: subscription, deletionHandler: deleteSubscription)
 			}
-			
+
 		}
 	}
 
@@ -302,11 +302,11 @@ struct EditHostFormView: View {
 	func deleteSubscription(subscription: TopicSubscriptionFormModel) {
 		host.subscriptions = host.subscriptions.filter { $0.id != subscription.id }
 	}
-	
+
 	func delete() {
 		confirmDelete = true
 	}
-	
+
 	func deleteNow() {
 		onDelete()
 	}
@@ -314,7 +314,7 @@ struct EditHostFormView: View {
 
 struct FormFieldInvalidMark: View {
 	var invalid: Bool
-	
+
 	var body: some View {
 		Group {
 			if invalid {

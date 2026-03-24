@@ -16,7 +16,7 @@ struct CustomList: View {
 	init<Views>(@ViewBuilder content: @escaping () -> TupleView<Views>) {
 		views = content().getViews
 	}
-	
+
 	var body: some View {
 		HStack {
 			VStack {

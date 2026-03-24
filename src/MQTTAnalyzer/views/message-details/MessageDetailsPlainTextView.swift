@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MessageDetailsPlainTextView: View {
 	let message: MsgMessage
-	
+
 	var body: some View {
 		VStack {
 			AnsiTextView(text: message.payload.dataString)

@@ -18,11 +18,11 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 	var connectionState: ConnectionState { utils.connectionState }
 	var host: Host { utils.host }
 	var connectionAlive: Bool { utils.connectionAlive }
-		
+
 	init(host: Host, model: TopicTree) {
 		utils = ClientUtils(host: host, model: model)
 	}
-		
+
 	func connect() {
 		// Signal that we're starting a connection attempt
 		utils.initConnect()
@@ -50,12 +50,12 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 			utils.failConnection(reason: "\(error)")
 			return
 		}
-		
+
 		mqtt.delegate = self.delegate
 		mqtt.didReceiveMessage = self.didReceiveMessage
 		mqtt.didDisconnect = utils.didDisconnect
 		mqtt.didConnectAck = self.didConnect
-		
+
 		if !mqtt.connect() {
 			utils.failConnection(reason: "Connection to port \(host.settings.port) failed")
 			return
@@ -71,7 +71,7 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 			topic: topic(of:)
 		)
 	}
-	
+
 	func configureClient(client mqtt: CocoaMQTT5) throws {
 		mqtt.enableSSL = host.settings.ssl
 		mqtt.allowUntrustCACertificate = host.settings.untrustedSSL
@@ -102,10 +102,10 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 		mqtt.keepAlive = 60
 		mqtt.autoReconnect = false
 	}
-	
+
 	func disconnect() {
 		utils.messageSubject.cancel()
-		
+
 		if let mqtt = utils.mqtt {
 			DispatchQueue.global(qos: .background).async {
 				(self.host.settings.subscriptions?.subscriptions ?? []).forEach { mqtt.unsubscribe($0.topic)}
@@ -117,11 +117,11 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 			}
 		}
 	}
-	
+
 	func publish(message: MsgMessage) {
 		let properties: MqttPublishProperties = MqttPublishProperties()
 		properties.contentType = message.payload.contentType
-		
+
 		if !(message.metadata.userProperty.isEmpty) {
 			var props: [String: String] = [:]
 			for property in message.metadata.userProperty {
@@ -129,7 +129,7 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 			}
 			properties.userProperty = props
 		}
-		
+
 		let message = CocoaMQTT5Message(
 			topic: message.topic.nameQualified,
 			string: message.payload.dataString,
@@ -138,13 +138,13 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 		)
 		utils.mqtt?.publish(message, properties: properties)
 	}
-	
+
 	func subscribeToTopic(_ host: Host) {
 		(self.host.settings.subscriptions?.subscriptions ?? []).forEach {
 			utils.mqtt?.subscribe($0.topic, qos: utils.convertQOS(qos: Int32($0.qos)))
 		}
 	}
-	
+
 	func didConnect(_ mqtt: CocoaMQTT5, reasonCode: CocoaMQTTCONNACKReasonCode, didConnectAck ack: MqttDecodeConnAck?) {
 		switch reasonCode {
 		case .success:
@@ -160,14 +160,14 @@ class MQTT5ClientCocoaMQTT: MqttClient {
 			utils.failConnection(reason: String(describing: reasonCode))
 		}
 	}
-		
+
 	func didReceiveMessage(client: CocoaMQTT5, message: CocoaMQTT5Message, qos: UInt16, decode: MqttDecodePublish?) {
 		let rmessage = ReceivedMessage(
 			message: message,
 			responseTopic: decode?.responseTopic,
 			userProperty: decode?.userProperty,
 			contentType: decode?.contentType
-		)		
+		)
 		utils.didReceiveMessage(message: rmessage)
 	}
 }

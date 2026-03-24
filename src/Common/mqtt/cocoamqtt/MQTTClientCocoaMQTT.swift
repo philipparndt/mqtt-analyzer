@@ -18,11 +18,11 @@ class MQTTClientCocoaMQTT: MqttClient {
 	var connectionState: ConnectionState { utils.connectionState }
 	var host: Host { utils.host }
 	var connectionAlive: Bool { utils.connectionAlive }
-		
+
 	init(host: Host, model: TopicTree) {
 		utils = ClientUtils(host: host, model: model)
 	}
-		
+
 	func connect() {
 		// Signal that we're starting a connection attempt
 		utils.initConnect()
@@ -50,7 +50,7 @@ class MQTTClientCocoaMQTT: MqttClient {
 			utils.failConnection(reason: "\(error)")
 			return
 		}
-		
+
 		mqtt.delegate = self.delegate
 		mqtt.didReceiveMessage = self.didReceiveMessage
 		mqtt.didDisconnect = utils.didDisconnect(_:withError:)
@@ -70,7 +70,7 @@ class MQTTClientCocoaMQTT: MqttClient {
 			topic: topic(of:)
 		)
 	}
-	
+
 	func configureClient(client mqtt: CocoaMQTT) throws {
 		mqtt.enableSSL = host.settings.ssl
 		mqtt.allowUntrustCACertificate = host.settings.untrustedSSL
@@ -101,7 +101,7 @@ class MQTTClientCocoaMQTT: MqttClient {
 		mqtt.keepAlive = 60
 		mqtt.autoReconnect = false
 	}
-			
+
 	func disconnect() {
 		utils.messageSubject.cancel()
 
@@ -116,7 +116,7 @@ class MQTTClientCocoaMQTT: MqttClient {
 			}
 		}
 	}
-	
+
 	func publish(message: MsgMessage) {
 		utils.mqtt?.publish(CocoaMQTTMessage(
 			topic: message.topic.nameQualified,
@@ -124,13 +124,13 @@ class MQTTClientCocoaMQTT: MqttClient {
 			qos: utils.convertQOS(qos: message.metadata.qos),
 			retained: message.metadata.retain))
 	}
-	
+
 	func subscribeToTopic(_ host: Host) {
 		(self.host.settings.subscriptions?.subscriptions ?? []).forEach {
 			utils.mqtt?.subscribe($0.topic, qos: utils.convertQOS(qos: Int32($0.qos)))
 		}
 	}
-	
+
 	func didConnect(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
 		switch ack {
 		case .accept:
@@ -146,7 +146,7 @@ class MQTTClientCocoaMQTT: MqttClient {
 			utils.failConnection(reason: String(describing: ack))
 		}
 	}
-	
+
 	func didReceiveMessage(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, qos: UInt16) {
 		let rmessage = ReceivedMessage(
 			message: message

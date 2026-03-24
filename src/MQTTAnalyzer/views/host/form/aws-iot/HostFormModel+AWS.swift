@@ -13,7 +13,7 @@ extension HostFormModel {
 		return hostname.lowercased().hasSuffix("amazonaws.com")
 		&& hostname.lowercased().contains(".iot.")
 	}
-	
+
 	func suggestAWSIOTChanges() -> Bool {
 		if isAWS() {
 			// mqtt not ws
@@ -31,7 +31,7 @@ extension HostFormModel {
 		}
 		return false
 	}
-	
+
 	mutating func updateSettingsForAWSIOT() {
 		self.port = "8883"
 		self.ssl = true

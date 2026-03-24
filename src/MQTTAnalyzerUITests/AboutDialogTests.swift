@@ -11,7 +11,7 @@ import XCTest
 class AboutDialogTests: AbstractUITests {
 	func testAbout() {
 		app.launch()
-		
+
 		app.buttons["About"].tap()
 		awaitAppear(element: app.staticTexts["about-label"])
 		app.buttons["Close"].tap()

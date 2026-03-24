@@ -13,7 +13,7 @@ struct InformationDetailView: View {
 	var subTitle: String = "subTitle"
 	var imageName: String = "car"
 	let color: Color
-	
+
 	var body: some View {
 		HStack(alignment: .center) {
 			Image(systemName: imageName)

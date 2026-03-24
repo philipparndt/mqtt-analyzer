@@ -21,7 +21,7 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 			tc: self
 		)
 	}
-	
+
 	@MainActor func testMQTT5NoAuth() {
 		assertWithBroker(
 			Broker(
@@ -34,7 +34,7 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 			tc: self
 		)
 	}
-	
+
 	@MainActor func testWebSocket() {
 		assertWithBroker(
 			Broker(
@@ -46,7 +46,7 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 			tc: self
 		)
 	}
-	
+
 	@MainActor func testWebSocketPersistedAuth() {
 		assertWithBroker(
 			Broker(
@@ -61,7 +61,7 @@ class ConfigurationWebSocketTests: AbstractConfigurationTests {
 			tc: self
 		)
 	}
-	
+
 	@MainActor func testWebSocketPersistedUsername() {
 		assertWithBroker(
 			Broker(

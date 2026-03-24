@@ -11,7 +11,7 @@ import XCTest
 class AbstractUITests: XCTestCase {
 	var app: XCUIApplication!
 	static var currentApp: XCUIApplication!
-	
+
 	@MainActor override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 

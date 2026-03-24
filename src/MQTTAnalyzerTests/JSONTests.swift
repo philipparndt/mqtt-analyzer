@@ -33,7 +33,7 @@ class JSONTests: XCTestCase {
 		"""
 
 		let formatted = JSONUtils.format(json: content)
-		
+
 		let expected = """
 		{
 		  "currentEnergyConsumption": {
@@ -48,7 +48,7 @@ class JSONTests: XCTestCase {
 		  "waterForecast": 0.4
 		}
 		"""
-		
+
 		XCTAssertEqual(expected, formatted)
 	}
 }

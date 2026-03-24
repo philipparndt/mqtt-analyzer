@@ -16,7 +16,7 @@ extension XCUIApplication {
 		element.press(forDuration: 1)
 		#endif
 	}
-	
+
 	func tapMenuItem(label: String) {
 		#if targetEnvironment(macCatalyst)
 		menuItems[label].tap()

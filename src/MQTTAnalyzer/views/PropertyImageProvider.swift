@@ -36,15 +36,15 @@ var imageNames = [
 class PropertyImageProvider {
 	class func byName(property: String) -> String {
 		let lowercase = property.lowercased()
-		
+
 		if let result = imageNames[lowercase] {
 			return result
 		}
-		
+
 		let components = property.splitCamelCase()
 			.lowercased()
 			.components(separatedBy: CharacterSet(charactersIn: "-_[/, "))
-		
+
 		for component in components {
 			if let result = imageNames[component] {
 				imageNames[lowercase] = result // next time faster

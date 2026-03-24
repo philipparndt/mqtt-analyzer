@@ -13,45 +13,45 @@ import Moscapsule
 let connectionRefused = "Connection refused"
 
 class MqttClientMoscapsule: MqttClient {
-	
+
 	let utils = MqttClientSharedUtils()
 
 	let sessionNum: Int
 	let model: MessageModel
 	let host: Host
 	var mqtt: MQTTClient?
-	
+
 	var connectionState = ConnectionState()
-	
+
 	var connectionAlive: Bool {
 		self.mqtt != nil || connectionState.state == .connected
 	}
-	
+
 	let messageSubject = MsgSubject<MQTTMessage>()
-		
+
 	class func setup() {
 		// Init is necessary to provide SSL/TLS functions.
 		moscapsule_init()
 	}
-	
+
 	init(host: Host, model: MessageModel) {
 		ConnectionState.sessionNum += 1
-		
+
 		self.model = model
 		self.sessionNum = ConnectionState.sessionNum
 		self.host = host
 	}
-	
+
 	func connect() {
 		print("CONNECTION: connect \(sessionNum) \(host.hostname)")
 		host.connectionMessage = nil
 		host.state = .connecting
 		connectionState.message = nil
 		connectionState.state = .connecting
-		
+
 		model.limitMessagesPerBatch = host.limitMessagesBatch
 		model.limitTopics = host.limitTopic
-		
+
 		let mqttConfig = MQTTConfig(clientId: host.computeClientID, host: host.hostname, port: Int32(host.port), keepAlive: 60)
 		mqttConfig.onConnectCallback = onConnect
 		mqttConfig.onDisconnectCallback = onDisconnect
@@ -72,12 +72,12 @@ class MqttClientMoscapsule: MqttClient {
 				return
 			}
 		}
-		
+
 		// create new MQTT Connection
 		mqtt = MQTT.newConnection(mqttConfig)
 
 		waitConnected()
-		
+
 		let queue = DispatchQueue(label: "Message dispache queue")
 		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
 			.collect(.byTime(queue, 0.1))
@@ -86,21 +86,21 @@ class MqttClientMoscapsule: MqttClient {
 				self.onMessageInMain(messages: $0)
 			})
 	}
-	
+
 	func disconnect() {
 		print("CONNECTION: disconnect \(sessionNum) \(host.hostname)")
-		
+
 		messageSubject.cancel()
-		
+
 		if let mqtt = self.mqtt {
 			host.subscriptions.forEach { mqtt.unsubscribe($0.topic) }
 			mqtt.disconnect()
 		}
 		setDisconnected()
 	}
-		
+
 	func waitConnected() {
-		
+
 		let group = DispatchGroup()
 		group.enter()
 
@@ -109,7 +109,7 @@ class MqttClientMoscapsule: MqttClient {
 			while self.connectionState.state == .connecting && i > 0 {
 				print("CONNECTION: waiting... \(self.sessionNum) \(i) \(self.host.hostname)")
 				sleep(1)
-				
+
 				self.setConnectionMessage(message: "Connecting... \(i)")
 
 				i-=1
@@ -123,15 +123,15 @@ class MqttClientMoscapsule: MqttClient {
 				self.host.connectionMessage = errorMessage
 				return
 			}
-			
+
 			if self.host.state == .disconnected {
 				self.setDisconnected()
-				
+
 				self.setConnectionMessage(message: "Connection timeout")
 			}
 		}
 	}
-	
+
 	func setConnectionMessage(message: String) {
 		DispatchQueue.global(qos: .userInitiated).async {
 			DispatchQueue.main.async {
@@ -139,17 +139,17 @@ class MqttClientMoscapsule: MqttClient {
 			}
 		}
 	}
-		
+
 	func setDisconnected() {
 		connectionState.state = .disconnected
-		
+
 		DispatchQueue.main.async {
 			self.host.state = .disconnected
 		}
 		messageSubject.disconnected()
 		mqtt = nil
 	}
-	
+
 	func onConnect(_ returnCode: ReturnCode) {
 		print("CONNECTION: onConnect \(sessionNum) \(host.hostname)")
 		connectionState.state = .connected
@@ -157,13 +157,13 @@ class MqttClientMoscapsule: MqttClient {
 		DispatchQueue.main.async {
 			self.host.state = .connected
 		}
-		
+
 		subscribeToTopic(host)
 	}
-	
+
 	func onDisconnect(_ returnCode: ReasonCode) {
 		print("CONNECTION: onDisconnect \(sessionNum) \(host.hostname)")
-		
+
  		if returnCode == .mosq_conn_refused {
 			NSLog(connectionRefused)
 			connectionState.message = connectionRefused
@@ -181,20 +181,20 @@ class MqttClientMoscapsule: MqttClient {
 		}
 
 		self.setDisconnected()
-		
+
 		NSLog("Disconnected. Return Code is \(returnCode.description)")
 		DispatchQueue.main.async {
 			self.host.pause = false
 			self.host.state = .disconnected
 		}
 	}
-	
+
 	func onMessage(_ message: MQTTMessage) {
 		if !host.pause {
 			messageSubject.send(message)
 		}
 	}
-	
+
 	func onMessageInMain(messages: [MQTTMessage]) {
 		if host.pause {
 			return
@@ -211,11 +211,11 @@ class MqttClientMoscapsule: MqttClient {
 		})
 		self.model.append(messages: mapped)
 	}
-	
+
 	func subscribeToTopic(_ host: Host) {
 		host.subscriptions.forEach { mqtt?.subscribe($0.topic, qos: Int32($0.qos)) }
 	}
-	
+
 	func publish(message: Message) {
 		mqtt?.publish(string: message.data, topic: message.topic, qos: message.qos, retain: message.retain)
 	}

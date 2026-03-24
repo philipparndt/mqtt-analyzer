@@ -36,7 +36,7 @@ struct MessageView: View {
 			}
 		}
 	}
-	
+
 	func selectMessage(message: MsgMessage) {
 		publishMessageFormModel.topic = message.topic.nameQualified
 		publishMessageFormModel.message = message.payload.dataString
@@ -44,7 +44,7 @@ struct MessageView: View {
 		publishMessageFormModel.retain = message.metadata.retain
 		publishMessageFormModel.isPresented = true
 	}
-	
+
 	func cancelPublishMessageCreation() {
 		self.publishMessageFormModel.isPresented = false
 	}
@@ -86,7 +86,7 @@ struct MessageCellView: View {
 			.contextMenu {
 				MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
 				MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
-				
+
 				Menu {
 					MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
 					MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishManually)
@@ -95,7 +95,7 @@ struct MessageCellView: View {
 					Label("Publish", systemImage: "paperplane.fill")
 				}
 				.accessibilityIdentifier("publish")
-				
+
 				Menu {
 					DestructiveMenuButton(title: "Delete retained message from broker", systemImage: "trash.fill", action: deleteRetained)
 						.accessibilityIdentifier("confirm-delete-retained")
@@ -106,23 +106,23 @@ struct MessageCellView: View {
 			}
 		}
 	}
-	
+
 	func copyTopic() {
 		Pasteboard.copy(message.topic.nameQualified)
 	}
-	
+
 	func copyMessage() {
 		Pasteboard.copy(message.payload.dataString)
 	}
-	
+
 	func publish() {
 		model.publish(message: message, on: host)
 	}
-	
+
 	func publishManually() {
 		selectMessage(message)
 	}
-	
+
 	func deleteRetained() {
 		model.publish(message: MsgMessage(
 			topic: message.topic,

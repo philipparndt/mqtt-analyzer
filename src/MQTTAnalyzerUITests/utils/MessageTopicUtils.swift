@@ -18,12 +18,12 @@ class MessageTopicUtils {
 		app.launchMenuAction(on: cell, label: "Mark all as read")
 		#endif
 	}
-	
+
 	class func clearAll(app: XCUIApplication) {
 		#if targetEnvironment(macCatalyst)
 		app.buttons["Clear"].tap()
 		#else
-		
+
 		let cell = app.buttons["Filter"]
 		XCTAssertTrue(cell.waitForExistence(timeout: 4))
 		app.launchMenuAction(on: cell, label: "Clear")

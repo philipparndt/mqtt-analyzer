@@ -11,12 +11,12 @@ import XCTest
 
 class Search {
 	let WHOLE_WORD = "Whole word, whole-word"
-	
+
 	let app: XCUIApplication
 	init(app: XCUIApplication) {
 		self.app = app
 	}
-	
+
 	func searchFor(text: String) {
 		#if targetEnvironment(macCatalyst)
 		let searchField = app.searchFields.firstMatch
@@ -29,7 +29,7 @@ class Search {
 		searchField.typeText(text)
 		#endif
 	}
-	
+
 	func disableWholeWord() {
 		#if targetEnvironment(macCatalyst)
 		let whole = app.checkBoxes[WHOLE_WORD]
@@ -43,7 +43,7 @@ class Search {
 		}
 		#endif
 	}
-	
+
 	func enableWholeWord() {
 		#if targetEnvironment(macCatalyst)
 		let whole = app.checkBoxes[WHOLE_WORD]

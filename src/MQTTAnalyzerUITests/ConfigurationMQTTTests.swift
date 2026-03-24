@@ -19,7 +19,7 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 			tc: self
 		)
 	}
-	
+
 	@MainActor func testMQTT5NoAuth() {
 		assertWithBroker(
 			Broker(
@@ -31,7 +31,7 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 			tc: self
 		)
 	}
-	
+
 	@MainActor func testMQTTPersistedAuth() {
 		assertWithBroker(
 			Broker(
@@ -45,7 +45,7 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 			tc: self
 		)
 	}
-	
+
 	@MainActor func testMQTTPersistedUsername() {
 		assertWithBroker(
 			Broker(
@@ -59,7 +59,7 @@ class ConfigurationMQTTTests: AbstractConfigurationTests {
 			credentials: Credentials(username: nil, password: "password")
 		)
 	}
-	
+
 	@MainActor func testMQTTLetsEncryptTraefik() {
 		assertWithBroker(
 			Broker(

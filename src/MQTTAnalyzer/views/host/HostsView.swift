@@ -410,9 +410,9 @@ struct HostsViewSheetDelegate: View {
 
 	@Binding var presented: Bool
 	@Binding var sheetType: HostsSheetType
-	
+
 	@Binding var selectedHost: Host?
-	
+
 	var body: some View {
 		Group {
 			if self.sheetType == .createHost {
@@ -426,7 +426,7 @@ struct HostsViewSheetDelegate: View {
 			}
 		}
 	}
-	
+
 	func createModel() -> HostFormModel {
 		if let host = selectedHost {
 			return transformHost(source: host)

@@ -13,7 +13,7 @@ struct DataSeriesChartView: View {
 	var axis: Visibility = .visible
 	let path: DiagramPath
 	@ObservedObject var series: TimeSeriesModel
-	
+
     var body: some View {
 		if !series.canPlot(path) {
 			EmptyView()
@@ -28,7 +28,7 @@ struct DataSeriesChartView: View {
 				.interpolationMethod(.monotone)
 				.foregroundStyle(.blue)
 				.opacity(0.3)
-				
+
 				LineMark(
 					x: .value("time", $0.date, unit: .minute),
 					y: .value("value", $0.average),

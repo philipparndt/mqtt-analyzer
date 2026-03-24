@@ -11,7 +11,7 @@ import CoreData
 
 class ModelMigration {
 	static let migratedToCoreData = "migratedToCoreData"
-	
+
 	class func migrateToCoreData() {
 		let defaults = UserDefaults.standard
 		if !defaults.bool(forKey: migratedToCoreData) {

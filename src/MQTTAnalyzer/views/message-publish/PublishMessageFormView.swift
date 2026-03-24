@@ -20,7 +20,7 @@ enum PublishMessagePropertyType {
 class PublishMessagePropertyValue {
 	var valueText: String
 	var valueBool: Bool
-	
+
 	init(value: Any) {
 		if let v = value as? String {
 			self.valueText = v
@@ -35,11 +35,11 @@ class PublishMessagePropertyValue {
 			self.valueBool = false
 		}
 	}
-	
+
 	func type() -> PublishMessagePropertyType {
 		return .text
 	}
-	
+
 	func getTypedValue() -> Any {
 		return valueText
 	}
@@ -49,7 +49,7 @@ class PublishMessagePropertyValueBoolean: PublishMessagePropertyValue {
 	override func type() -> PublishMessagePropertyType {
 		return .boolean
 	}
-	
+
 	override func getTypedValue() -> Any {
 		return valueBool
 	}
@@ -59,7 +59,7 @@ class PublishMessagePropertyValueOnOff: PublishMessagePropertyValue {
 	override func type() -> PublishMessagePropertyType {
 		return .onoff
 	}
-	
+
 	override func getTypedValue() -> Any {
 		return valueBool ? "ON" : "OFF"
 	}
@@ -69,7 +69,7 @@ class PublishMessagePropertyValueNumber: PublishMessagePropertyValue {
 	override func type() -> PublishMessagePropertyType {
 		return .number
 	}
-	
+
 	override func getTypedValue() -> Any {
 		return Double(valueText) ?? 0
 	}
@@ -115,19 +115,19 @@ struct PublishMessageFormModalView: View {
 				}
 		}
 	}
-		
+
 	func publish() {
 		if model.messageType == .json {
 			model.updateMessageFromJsonData()
 		}
-		
+
 		if let topic = TopicTree().addTopic(topic: model.topic) {
 			let payload = MsgPayload(data: Array(model.message.utf8))
 			payload.contentType = model.messageType == .plain ? "text/plain" : "application/json"
-			
+
 			let metadata = MsgMetadata(qos: Int32(model.qos), retain: model.retain)
 			// metadata.userProperty = ["hi": "there", "foo": "bar"]
-			
+
 			let msg = MsgMessage(
 				topic: topic,
 				payload: payload,
@@ -135,10 +135,10 @@ struct PublishMessageFormModalView: View {
 			)
 			root.publish(message: msg, on: self.host)
 		}
-		
+
 		closeCallback()
 	}
-	
+
 	func cancel() {
 		closeCallback()
 	}
@@ -209,7 +209,7 @@ struct PublishMessageTypeView: View {
 
 struct PublishMessageFormPlainTextView: View {
 	@Binding var message: String
-	
+
 	var body: some View {
 		Group {
 			MessageTextView(text: $message)
@@ -240,7 +240,7 @@ struct PublishMessageFormJSONView: View {
 
 struct MessageProperyView: View {
 	@Binding var property: PublishMessageProperty
-	
+
 	var body: some View {
 
 		HStack {

@@ -19,7 +19,7 @@ class CloudDataManager {
         static let localDocumentsURL = FileManager.default
 			.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: .userDomainMask)
 			.last
-		
+
         static let iCloudDocumentsURL = FileManager.default
 			.url(forUbiquityContainerIdentifier: nil)?
 			.appendingPathComponent("Documents")
@@ -30,7 +30,7 @@ class CloudDataManager {
 			CloudDataManager.logger.info("Cloud disabled")
 			return
 		}
-		
+
 		if let url = DocumentsDirectory.iCloudDocumentsURL {
 			if !FileManager.default.fileExists(atPath: url.path, isDirectory: nil) {
 				CloudDataManager.logger.trace("initDocumentsDirectory")
@@ -40,7 +40,7 @@ class CloudDataManager {
 				catch {
 					CloudDataManager.logger.error("initDocumentsDirectory: \(error.localizedDescription)")
 				}
-				
+
 				initDescriptionFile(url: url)
 			}
 		}
@@ -55,19 +55,19 @@ class CloudDataManager {
 			+ "Use openssl to create this files:\n"
 			+ "`pkcs12 -export -in user.crt -inkey user.key -out user.p12`"
 			try text.write(to: fileURL, atomically: false, encoding: .utf8)
-			
+
 			try FileManager.default.startDownloadingUbiquitousItem(at: url)
 		}
 		catch {
 			CloudDataManager.logger.error(error.localizedDescription)
 		}
 	}
-	
+
     // Return true if iCloud is enabled
     func isCloudEnabled() -> Bool {
         return DocumentsDirectory.iCloudDocumentsURL != nil
     }
-	
+
 	func getCloudDocumentDiretoryURL() -> URL? {
 		return DocumentsDirectory.iCloudDocumentsURL
     }
@@ -75,17 +75,17 @@ class CloudDataManager {
 	func getLocalDocumentDiretoryURL() -> URL? {
 		return DocumentsDirectory.localDocumentsURL
     }
-	
+
 	func copyFileToLocal(file: URL) {
 		let fileManager = FileManager.default
 		do {
 			if let url = DocumentsDirectory.localDocumentsURL {
 				let target = url.appendingPathComponent(file.lastPathComponent)
-				
+
 				if fileManager.fileExists(atPath: target.path) {
 					try fileManager.removeItem(at: target)
 				}
-				
+
 				try fileManager.copyItem(at: file,
 										 to: url.appendingPathComponent(file.lastPathComponent))
 				CloudDataManager.logger.debug("Copied \(file) to local dir")
@@ -97,7 +97,7 @@ class CloudDataManager {
 			CloudDataManager.logger.error("Failed to copy file to local directory: \(error)")
 		}
 	}
-	
+
 	func deleteLocalFile(fileName: String) {
 		let fileManager = FileManager.default
 		do {

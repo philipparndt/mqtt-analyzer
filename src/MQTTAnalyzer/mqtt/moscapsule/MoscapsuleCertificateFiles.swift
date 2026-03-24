@@ -15,18 +15,18 @@ func initCertificates(host: Host, config: MQTTConfig) -> (Bool, String?) {
 		let usercertFile = documents + "/\(getCertificate(host, type: .client)?.name ?? "")"
 		let userkeyFile = documents + "/\(getCertificate(host, type: .clientKey)?.name ?? "")"
 		let fm = FileManager.default
-		
+
 		for file in [certFile, usercertFile, userkeyFile] where !fm.fileExists(atPath: file) {
             return (false, "\"\((file as NSString).lastPathComponent)\" not found")
 		}
-		
+
 		config.mqttServerCert = MQTTServerCert(cafile: certFile, capath: nil)
 		config.mqttClientCert = MQTTClientCert(certfile: usercertFile,
 											   keyfile: userkeyFile,
 											   keyfile_passwd: host.certClientKeyPassword.isBlank ? nil : host.certClientKeyPassword)
-		
+
 		return (true, nil)
 	}
-	
+
 	return (false, "document directory file not found")
 }

@@ -32,7 +32,7 @@ extension TopicTree {
 			messages.remove(at: index)
 		}
 		resetTimeSeries()
-		
+
 		var node: TopicTree? = self
 		while node != nil {
 			let current = node!

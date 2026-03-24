@@ -14,7 +14,7 @@ extension TopicTree {
 			.map { $0.topicCount }
 			   .reduce(0, +)
 	}
-		
+
 	var messageCount: Int {
 		return messages.count + children.values
 			.map { $0.messageCount }

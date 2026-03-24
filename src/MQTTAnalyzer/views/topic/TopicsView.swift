@@ -12,12 +12,12 @@ struct TopicsView: View {
 	@EnvironmentObject var rootModel: RootModel
 	@ObservedObject var model: TopicTree
 	@ObservedObject var host: Host
-	
+
 	@StateObject private var publishMessageModel = PublishMessageFormModel()
 	@State private var loginData = LoginData()
 	@State private var limitsSettingsPresented = false
 	@State private var limitsSettingsType: LimitType = .topicLimit
-	
+
 	var body: some View {
 		VStack(spacing: 0) {
 			if model.messageCount == 0 && model.children.keys.isEmpty {
@@ -48,7 +48,7 @@ struct TopicsView: View {
 							Spacer()
 							Text("\(model.searchResultDisplay.count)")
 						}
-						
+
 						Toggle("Whole word", isOn: self.$model.filterWholeWord)
 							.accessibilityIdentifier("whole-word")
 
@@ -58,11 +58,11 @@ struct TopicsView: View {
 									Image(systemName: "magnifyingglass")
 										.font(.largeTitle)
 										.foregroundColor(.secondary)
-									
+
 									VStack(alignment: .leading) {
 										Text("No matches with the current filter")
 										Text("")
-										
+
 										VStack(alignment: .leading) {
 											Text("Did you know, that by default only whole words are matching?" +
 												 "You can turn this off or use * as wildcard. With this, it is possible to distinct between 'on' and 'online'.")
@@ -100,7 +100,7 @@ struct TopicsView: View {
 								createNewTopic: setTopic
 							)
 						}
-						
+
 						if self.model.flatView {
 							Section(header: Text("Messages (flat)")) {
 								ForEach(model.recusiveAllMessages) { messages in
@@ -123,7 +123,7 @@ struct TopicsView: View {
 								)
 							}
 						}
-						
+
 						if !self.model.flatView && !model.childrenWithMessages.isEmpty {
 							Section(header: Text("Inherited Message Groups")) {
 								ForEach(model.childrenWithMessages) { messages in
@@ -220,7 +220,7 @@ struct TopicsView: View {
 	func connect() {
 		self.rootModel.connect(to: self.host)
 	}
-	
+
 	func createToolInset() -> some View {
 		return VStack(spacing: 0) {
 			if host.needsAuth {
@@ -262,7 +262,7 @@ struct TopicsView: View {
 		.background(.ultraThinMaterial)
 		.controlSize(.large)
 	}
-	
+
 	func createTopic() {
 		publishMessageModel.topic = model.nameQualified
 		publishMessageModel.isPresented = true
@@ -275,17 +275,17 @@ struct TopicsView: View {
 	func pauseConnection() {
 		host.pause.toggle()
 	}
-	
+
 	func cancelDialog() {
 		self.publishMessageModel.isPresented = false
 		self.loginData.isPresented = false
 	}
-		
+
 	func login() {
 		self.loginData.isPresented = false
 		rootModel.connect(to: self.host)
 	}
-	
+
 	func selectMessage(message: MsgMessage) {
 		publishMessageModel.topic = message.topic.nameQualified
 		publishMessageModel.message = message.payload.dataString

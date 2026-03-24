@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TopicSuffixPickerView: View {
 	@Binding var suffix: TopicSuffix
-	
+
     var body: some View {
 	  Picker(selection: $suffix, label: Text("Suffix")) {
 		  Text("none").tag(TopicSuffix.none)

@@ -59,13 +59,13 @@ struct TopicCellView: View {
 		}
 		.accessibilityIdentifier("group: \(messages.nameQualified)")
 	}
-	
+
 	func publish() {
 		if let first = messages.messages.last {
 			root.publish(message: first, on: host)
 		}
 	}
-	
+
 	func deleteRetained() {
 		if let first = messages.messages.last {
 			root.publish(message: MsgMessage(
@@ -74,14 +74,14 @@ struct TopicCellView: View {
 				metadata: MsgMetadata(qos: first.metadata.qos, retain: true)), on: host)
 		}
 	}
-	
+
 	func publishManually() {
 		if let first = messages.messages.last {
 			selectMessage(first)
 			publishMessagePresented = true
 		}
 	}
-	
+
 	func messagePreview() -> String {
 		guard let payload = messages.messages.last?.payload else {
 			return "<no message>"

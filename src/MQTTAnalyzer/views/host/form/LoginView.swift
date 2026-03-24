@@ -13,7 +13,7 @@ struct LoginView: View {
 	var loginDialogPresented: Bool
 
 	var host: Host
-	
+
 	var body: some View {
 		HStack {
 			Text("Authentication required!")
@@ -23,7 +23,7 @@ struct LoginView: View {
 			Button(action: authenticate) {
 				HStack {
 					Image(systemName: "exclamationmark.octagon.fill")
-					
+
 					Text("Authenticate")
 				}
 			}

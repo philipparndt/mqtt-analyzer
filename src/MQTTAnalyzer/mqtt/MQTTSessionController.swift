@@ -10,16 +10,16 @@ import Foundation
 import Combine
 
 class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
-	
+
 	var model: TopicTree?
 	var sessions: [String: MqttClient] = [:]
-	
+
 	private var messageSubjectCancellable: Cancellable? {
 		didSet {
 			oldValue?.cancel()
 		}
 	}
-		
+
 	deinit {
 		for session in self.sessions.values {
 			session.host.state = .disconnected
@@ -27,7 +27,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 
 		NSLog("MQTTController deinit")
 	}
-	
+
 	func initHost(host: Host) {
 		if let session = sessions[host.ID] {
 			host.disconnectDelegate = self
@@ -35,19 +35,19 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 			host.state = session.connectionState.state
 		}
 	}
-	
+
 	func reconnect(host: Host) {
 		DispatchQueue.main.async {
 			host.state = .connecting
 		}
-		
+
 		if sessions[host.ID]?.connectionAlive ?? false {
 			disconnect(host: host)
 		}
 
 		connect(host: host)
 	}
-	
+
 	fileprivate func createClient(_ host: Host) -> MqttClient {
 		switch host.settings.protocolVersion {
 		case .mqtt5:
@@ -56,7 +56,7 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 			return MQTTClientCocoaMQTT(host: host, model: model!)
 		}
 	}
-	
+
 	func connect(host: Host) {
 		if model == nil {
 			NSLog("model must be set in order to connect")
@@ -94,12 +94,12 @@ class MQTTSessionController: ReconnectDelegate, DisconnectDelegate, InitHost {
 			sessions[host.ID] = current
 		}
 	}
-	
+
 	func disconnect(host: Host) {
 		sessions[host.ID]?.disconnect()
 		sessions.removeValue(forKey: host.ID)
 	}
-	
+
 	func publish(message: MsgMessage, on: Host) {
 		sessions[on.ID]?.publish(message: message)
 	}

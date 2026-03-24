@@ -11,15 +11,15 @@ import SwiftUI
 
 struct CategoryFormView: View {
 	@Binding var host: HostFormModel
-	
+
 	var body: some View {
 		return Section(header: Text("Category")) {
 			HStack {
 				Text("Category")
 					.font(.headline)
-				
+
 				Spacer()
-			
+
 				TextField("", text: $host.category, prompt: Text("No category").foregroundColor(.secondary))
 					.disableAutocorrection(true)
 					#if !os(macOS)

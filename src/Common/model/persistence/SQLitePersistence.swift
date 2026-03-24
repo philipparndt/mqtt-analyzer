@@ -16,7 +16,7 @@ struct SQLiteBrokerSetting: Codable, FetchableRecord, PersistableRecord {
 	var port: Int
 	var subscriptions: Data
 	var protocolMethod: Int
-	
+
 	var basePath: String
 	var ssl: Bool
 	var untrustedSSL: Bool
@@ -31,7 +31,7 @@ struct SQLiteBrokerSetting: Codable, FetchableRecord, PersistableRecord {
 	var limitTopic: Int
 	var limitMessagesBatch: Int
 	var deleted: Bool
-	
+
 	var category: String
 }
 
@@ -67,7 +67,7 @@ class SQLitePersistence {
 		catch {
 			NSLog("Unable to create database file. Using in memory database.")
 		}
-		
+
 		do {
 			return try DatabaseQueue()
 		}
@@ -76,7 +76,7 @@ class SQLitePersistence {
 			return nil
 		}
 	}
-		
+
 	init(model: HostsModel? = nil) {
 		self.model = model
 		self.queue = SQLitePersistence.createQueue()
@@ -90,29 +90,29 @@ class SQLitePersistence {
 						t.column("alias", .text)
 						t.column("hostname", .text).notNull()
 						t.column("port", .integer).notNull()
-						
+
 						t.column("subscriptions", .blob).notNull()
 						t.column("protocolMethod", .integer).notNull()
 						t.column("basePath", .text).notNull()
-						
+
 						t.column("ssl", .boolean).notNull()
 						t.column("untrustedSSL", .boolean).notNull()
 						t.column("protocolVersion", .integer).notNull()
-						
+
 						t.column("authType", .integer).notNull()
 
 						t.column("username", .text).notNull()
 						t.column("password", .text).notNull()
 						t.column("certificates", .blob).notNull()
 						t.column("certClientKeyPassword", .text).notNull()
-						
+
 						t.column("clientID", .text).notNull()
 
 						t.column("limitTopic", .integer).notNull()
 						t.column("limitMessagesBatch", .integer).notNull()
 						t.column("deleted", .boolean).notNull()
 						t.column("category", .text).notNull()
-						
+
 						t.primaryKey(["id"])
 					}
 				}
@@ -125,7 +125,7 @@ class SQLitePersistence {
 			availabe = false
 		}
 	}
-	
+
 	func deleteAll() {
 		if !availabe {
 			return
@@ -140,12 +140,12 @@ class SQLitePersistence {
 			NSLog("Error deleting all records")
 		}
 	}
-	
+
 	func add(setting: SQLiteBrokerSetting) {
 		if !availabe {
 			return
 		}
-		
+
 		do {
 			try queue?.write { db in
 				try setting.insert(db)
@@ -155,7 +155,7 @@ class SQLitePersistence {
 			NSLog("Error inserting setting")
 		}
 	}
-	
+
 	func close() {
 		if !availabe {
 			return
@@ -173,22 +173,22 @@ class SQLitePersistence {
 extension SQLitePersistence {
 	func insert(hosts: [Host]) {
 		deleteAll()
-		
+
 		hosts
 			.map { PersistenceTransformer.transformToSQLite(from: $0.settings)}
 			.forEach { add(setting: $0) }
 	}
-	
+
 	func first(by name: String) -> SQLiteBrokerSetting? {
 		if !availabe {
 			return nil
 		}
-		
+
 		return all()
 			.filter { $0.aliasOrHost.lowercased() == name.lowercased() }
 			.first
 	}
-	
+
 	func all() -> [SQLiteBrokerSetting] {
 		if !availabe {
 			return []
@@ -197,7 +197,7 @@ extension SQLitePersistence {
 			let settings: [SQLiteBrokerSetting] = try queue!.read { db in
 				try SQLiteBrokerSetting.fetchAll(db)
 			}
-			
+
 			return settings
 		}
 		catch {
@@ -205,7 +205,7 @@ extension SQLitePersistence {
 			return []
 		}
 	}
-	
+
 	func allNames() -> [String] {
 		if !availabe {
 			return []
@@ -214,7 +214,7 @@ extension SQLitePersistence {
 			let settings: [SQLiteBrokerSetting] = try queue!.read { db in
 				try SQLiteBrokerSetting.fetchAll(db)
 			}
-			
+
 			return settings
 				.map { $0.aliasOrHost }
 		}

@@ -16,11 +16,11 @@ extension XCTestCase {
 		let setting = BrokerSetting.stub()
 		setting.hostname = "localhost"
 		let host = Host(settings: setting)
-		
+
 		hostsModel.hosts += [host]
 		return (model, host)
 	}
-	
+
 	func modelWithOneMessage(messageData: String) -> (RootModel, TopicTree) {
 		return modelWithMessages(messageData: messageData)
 	}
@@ -36,7 +36,7 @@ extension XCTestCase {
 				to: "topic"
 			)
 		}
-		
+
 		// addTopic will actually get the topic here, as it is already created
 		return (model, messageModel.addTopic(topic: "topic")!)
 	}
@@ -89,7 +89,7 @@ class ModelTests: XCTestCase {
 		let onlyValue = series.get(series.getDiagrams()[0])[0]
 		XCTAssertEqual("offline", onlyValue.value as! String)
 	}
-	
+
 	func testJSONPath() {
 		let (_, messages) = modelWithOneMessage(messageData: """
 		{

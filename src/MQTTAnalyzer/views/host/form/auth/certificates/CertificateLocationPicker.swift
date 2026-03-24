@@ -11,7 +11,7 @@ import SwiftUI
 
 struct CertificateLocationSectionView: View {
 	@Binding var type: CertificateLocation
-	
+
 	var body: some View {
 		Section(header: Text("Location")) {
 			CertificateLocationPicker(type: $type)

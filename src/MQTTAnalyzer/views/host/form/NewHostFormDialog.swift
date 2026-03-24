@@ -14,7 +14,7 @@ struct NewHostFormModalView: View {
 	let root: RootModel
 	var hosts: HostsModel
 	@State var errorMessage: String?
-	
+
 	@Environment(\.managedObjectContext) private var viewContext
 	@State var host: HostFormModel
 	@State private var showDiagnostics = false
@@ -178,7 +178,7 @@ struct NewHostFormModalView: View {
 			errorMessage = "Unresolved error \(nsError), \(nsError.userInfo)"
 		}
 	}
-	
+
 	func cancel() {
 		closeHandler()
 	}

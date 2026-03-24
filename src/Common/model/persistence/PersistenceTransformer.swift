@@ -19,7 +19,7 @@ class PersistenceTransformer {
 			return AuthenticationType.none
 		}
 	}
-	
+
 	class func transformAuth(_ type: Int8) -> HostAuthenticationType {
 		switch type {
 		case AuthenticationType.usernamePassword:
@@ -30,7 +30,7 @@ class PersistenceTransformer {
 			return HostAuthenticationType.none
 		}
 	}
-	
+
 	class func transformConnectionMethod(_ type: HostProtocol) -> Int8 {
 		switch type {
 		case .websocket:
@@ -39,7 +39,7 @@ class PersistenceTransformer {
 			return ConnectionMethod.mqtt
 		}
 	}
-	
+
 	class func transformConnectionMethod(_ type: Int8) -> HostProtocol {
 		switch type {
 		case ConnectionMethod.mqtt:
@@ -50,7 +50,7 @@ class PersistenceTransformer {
 			return .mqtt
 		}
 	}
-	
+
 	class func transformNavigationMode(_ type: NavigationMode) -> Int8 {
 		switch type {
 		case .folders:
@@ -59,7 +59,7 @@ class PersistenceTransformer {
 			return NavigationModeType.classic
 		}
 	}
-	
+
 	private class func transformNavigationMode(_ type: Int8) -> NavigationMode {
 		switch type {
 		case NavigationModeType.folders:
@@ -70,7 +70,7 @@ class PersistenceTransformer {
 			return .folders
 		}
 	}
-	
+
 	class func transformProtocolVersion(_ type: HostProtocolVersion) -> Int8 {
 		switch type {
 		case .mqtt5:
@@ -79,7 +79,7 @@ class PersistenceTransformer {
 			return HostProtocolVersionType.mqtt3
 		}
 	}
-	
+
 	class func transformProtocolVersion(_ type: Int8) -> HostProtocolVersion {
 		switch type {
 		case HostProtocolVersionType.mqtt5:
@@ -90,7 +90,7 @@ class PersistenceTransformer {
 			return .mqtt3
 		}
 	}
-		
+
 	class func transformToSQLite(from settings: BrokerSetting) -> SQLiteBrokerSetting {
 		return SQLiteBrokerSetting(
 			id: settings.id?.uuidString ?? "",

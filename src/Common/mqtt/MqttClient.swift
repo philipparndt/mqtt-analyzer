@@ -29,15 +29,15 @@ class MsgSubject<T> {
 			oldValue?.cancel()
 		}
 	}
-	
+
 	func send(_ message: T) {
 		subject.send(message)
 	}
-	
+
 	func cancel() {
 		cancellable?.cancel()
 	}
-	
+
 	func disconnected() {
 		cancel()
 		cancellable = nil
@@ -49,10 +49,10 @@ protocol MqttClient {
 	var host: Host { get }
 	var connectionAlive: Bool { get }
 	var connectionState: ConnectionState { get }
-	
+
 	func connect()
-	
+
 	func disconnect()
-	
+
 	func publish(message: MsgMessage)
 }

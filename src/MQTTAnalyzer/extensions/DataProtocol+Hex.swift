@@ -18,25 +18,25 @@ extension DataProtocol {
 			if i % 2 == 0 {
 				result.append(" ")
 			}
-			
+
 			i += 1
 		}).trimmingCharacters(in: [" "])
 	}
-	
+
 	func hexBlockEncoded(len n: Int) -> String {
 		var result: String = ""
 		let array = Array(self)
-		
+
 		for i in stride(from: 0, to: self.count, by: n) {
 			result += String(format: "%04X", i)
 			result += ": "
 			let x = Swift.min(i + n, self.count)
 			let sub = array[i..<x]
-			
+
 			result += sub.hexStringEncoded()
 			result += "\n"
 		}
-		
+
 		return result
 	}
 }

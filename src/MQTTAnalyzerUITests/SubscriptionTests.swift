@@ -11,7 +11,7 @@ import XCTest
 class SubscriptionTests: AbstractUITests {
 	func testSubscribeToSYS() {
 		let brokers = Brokers(app: app)
-		
+
 		let alias = "Example"
 		app.launch()
 
@@ -19,7 +19,7 @@ class SubscriptionTests: AbstractUITests {
 		brokers.addSubscriptionToCurrentBroker(topic: "$SYS/#")
 		brokers.deleteSubscriptionFromCurrentBroker(topic: "#")
 		brokers.save()
-		
+
 		brokers.start(alias: alias)
 
 		let nav = Navigation(app: app, alias: alias)

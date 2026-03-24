@@ -74,7 +74,7 @@ struct DataSeriesCellView: View {
 	let path: DiagramPath
 	let topic: String
 	@ObservedObject var series: TimeSeriesModel
-	
+
 	var body: some View {
 		NavigationLink(destination: DataSeriesDetailsView(path: path, topic: topic, series: series)) {
 			HStack {
@@ -82,16 +82,16 @@ struct DataSeriesCellView: View {
 					Image(systemName: PropertyImageProvider.byName(property: path.lastSegment))
 						.font(.subheadline)
 						.foregroundColor(.blue)
-						
+
 				}
 				.frame(minWidth: 30, alignment: Alignment.center)
-				
+
 				VStack {
 					HStack {
 						Text(path.lastSegment)
 						Spacer()
 					}
-					
+
 					if path.hasSubpath {
 						HStack {
 							Text(path.parentPath)
@@ -101,16 +101,16 @@ struct DataSeriesCellView: View {
 						}
 					}
 				}
-				
+
 				Spacer()
-				
+
 				Text(lastValue())
 					.font(.subheadline)
 					.foregroundColor(.gray)
 			}
 		}
 	}
-	
+
 	func lastValue() -> String {
 		return series.getLastValue(path)
 			.map { $0.valueString } ?? "<no value>"

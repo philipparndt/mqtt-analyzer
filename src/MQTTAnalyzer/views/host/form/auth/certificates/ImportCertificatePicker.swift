@@ -14,7 +14,7 @@ import Dynamic
 struct ImportCertificatePickerView: View {
 	var refreshHandler: CertificateFilesRefresh
 	@State var shows = false
-	
+
 	var body: some View {
 		Group {
 		#if targetEnvironment(macCatalyst)
@@ -37,18 +37,18 @@ struct ImportCertificatePickerView: View {
 			}
 		#endif
 		}
-		
+
 	}
-	
+
 	func openFinder() {
 		#if targetEnvironment(macCatalyst)
-		
+
 		if let last = CloudDataManager.DocumentsDirectory.localDocumentsURL {
 			Dynamic.NSWorkspace.sharedWorkspace.activateFileViewerSelectingURLs([last])
 		}
 		#endif
 	}
-	
+
 	func toggle() {
 		self.shows.toggle()
 	}

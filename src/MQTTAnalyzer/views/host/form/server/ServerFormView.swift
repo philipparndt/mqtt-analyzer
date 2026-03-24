@@ -53,9 +53,9 @@ struct ServerFormView: View {
 				Text("Alias")
 					.foregroundColor(.secondary)
 					.font(.headline)
-				
+
 				Spacer()
-				
+
 				TextField("", text: $host.alias, prompt: Text("optional").foregroundColor(.secondary))
 					.multilineTextAlignment(.trailing)
 					.disableAutocorrection(true)
@@ -64,7 +64,7 @@ struct ServerFormView: View {
 			}
 			HStack {
 				FormFieldInvalidMark(invalid: hostnameInvalid)
-				
+
 				Text("Hostname")
 					.font(.headline)
 
@@ -79,11 +79,11 @@ struct ServerFormView: View {
 					.accessibilityLabel("hostname")
 					.font(.body)
 			}
-			
+
 			if host.isAWS() {
 				AWSIoTHelpView(host: $host)
 			}
-			
+
 			VStack(alignment: .leading, spacing: 4) {
 				HStack {
 					FormFieldInvalidMark(invalid: portInvalid)
@@ -124,7 +124,7 @@ struct ServerFormView: View {
 					}
 				}
 			}
-			
+
 			HStack {
 				Text("Protocol")
 					.font(.headline)
@@ -134,7 +134,7 @@ struct ServerFormView: View {
 
 				ProtocolPicker(type: $host.protocolMethod)
 			}
-			
+
 			HStack {
 				Text("Version")
 					.font(.headline)
@@ -144,7 +144,7 @@ struct ServerFormView: View {
 
 				ProtocolVersionPicker(version: $host.protocolVersion)
 			}
-			
+
 			if host.protocolMethod == .websocket {
 				HStack {
 					Text("Basepath")
@@ -163,5 +163,5 @@ struct ServerFormView: View {
 			}
 		}
 	}
-	
+
 }

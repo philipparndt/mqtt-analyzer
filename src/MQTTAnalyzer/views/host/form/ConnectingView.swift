@@ -10,11 +10,11 @@ import SwiftUI
 
 struct ConnectingView: View {
 	var host: Host
-	
+
 	var body: some View {
 		HStack {
 			Text(host.connectionMessage ?? "Connecting...")
-			
+
 			Spacer()
 		}
 		.padding()

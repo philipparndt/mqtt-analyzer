@@ -15,7 +15,7 @@ class HostFormValidatorTests: XCTestCase {
 	func testWithHostname() {
 		XCTAssertEqual(HostFormValidator.validateHostname(name: "pisvr"), "pisvr")
 	}
-	
+
 	func testUnicodeHostnameDoesWork() {
 		XCTAssertEqual(HostFormValidator.validateHostname(name: "pisvr💖"), "pisvr💖")
 	}
@@ -25,12 +25,12 @@ class HostFormValidatorTests: XCTestCase {
 		XCTAssertNil(HostFormValidator.validateHostname(name: "ssh://pisvr"))
 		XCTAssertNil(HostFormValidator.validateHostname(name: "mqtt://pisvr"))
 	}
-	
+
 	func testWithIP() {
 		XCTAssertEqual(HostFormValidator.validateHostname(name: "10.0.0.1")!, "10.0.0.1")
 		XCTAssertEqual(HostFormValidator.validateHostname(name: " 10.0.0.1 ")!, "10.0.0.1")
 	}
-	
+
 	func testWithDomainName() {
 		XCTAssertEqual(HostFormValidator.validateHostname(name: "test.mosquitto.org"), "test.mosquitto.org")
 		XCTAssertEqual(HostFormValidator.validateHostname(name: "test.mosquitto.org  "), "test.mosquitto.org")
@@ -44,30 +44,30 @@ class HostFormValidatorTests: XCTestCase {
 	func testClientIDEmptyNonRandom() {
 		XCTAssertNil(HostFormValidator.validateClientID(id: "", random: false))
 	}
-	
+
 	func testTrimClientID() {
 		XCTAssertEqual("myId", HostFormValidator.validateClientID(id: "  myId  ", random: false)!)
 	}
-	
+
 	func testInvalidClientID() {
 		XCTAssertNil(HostFormValidator.validateClientID(id: "abc/", random: false))
 	}
-	
+
 	func testValidatePort() {
 		XCTAssertEqual(1883, HostFormValidator.validatePort(port: "1883"))
 		XCTAssertEqual(1, HostFormValidator.validatePort(port: "1"))
 		XCTAssertEqual(65535, HostFormValidator.validatePort(port: "65535"))
 	}
-	
+
 	func testTrimPort() {
 		XCTAssertEqual(1883, HostFormValidator.validatePort(port: "  1883  "))
 	}
-	
+
 	func testPortOutOfRange() {
 		XCTAssertNil(HostFormValidator.validatePort(port: "65536"))
 		XCTAssertNil(HostFormValidator.validatePort(port: "-1"))
 	}
-	
+
 	func testNoPortNumer() {
 		XCTAssertNil(HostFormValidator.validatePort(port: "no-port-number"))
 	}

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ResumeConnectionView: View {
 	var host: Host
-	
+
 	var body: some View {
 		HStack {
 			Text("Connection paused")
@@ -20,14 +20,14 @@ struct ResumeConnectionView: View {
 			Button(action: resumeConnection) {
 				HStack {
 					Image(systemName: "play.fill")
-					
+
 					Text("Resume")
 				}
 			}
 		}
 		.padding()
 	}
-	
+
 	func resumeConnection() {
 		host.pause=false
 	}

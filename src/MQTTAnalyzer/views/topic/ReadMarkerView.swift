@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ReadMarkerView: View {
 	var read: Readstate
-	
+
 	var body: some View {
 		Image(systemName: "circle.fill")
 		.font(.subheadline)
@@ -22,7 +22,7 @@ struct ReadMarkerView: View {
 
 struct FolderReadMarkerView: View {
 	var read: Readstate
-	
+
 	var body: some View {
 		Image(systemName: read.read ? "folder.fill" : "circle.fill")
 		.font(.subheadline)

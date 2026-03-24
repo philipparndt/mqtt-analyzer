@@ -13,24 +13,24 @@ class BrokerTests: AbstractUITests {
 		let alias = "Example"
 
 		let brokers = Brokers(app: app)
-		
+
 		app.launch()
-		
+
 		let example = brokers.brokerCell(of: alias)
 		awaitAppear(element: example)
 		brokers.delete(alias: alias)
 		brokers.confirmDelete()
-		
+
 		awaitDisappear(element: example)
 	}
-	
+
 	func testCancelDeleteBroker() {
 		let alias = "Example"
 
 		let brokers = Brokers(app: app)
-		
+
 		app.launch()
-		
+
 		let example = brokers.brokerCell(of: alias)
 		awaitAppear(element: example)
 		brokers.delete(alias: alias)
@@ -38,30 +38,30 @@ class BrokerTests: AbstractUITests {
 		XCTAssertFalse(app.buttons["Delete"].exists)
 		XCTAssertTrue(example.exists, "Expected example to be still there")
 	}
-	
+
 	func testRenameBroker() {
 		let alias = "Example"
 		let newAlias = "Example-Renamed"
-		
+
 		let brokers = Brokers(app: app)
-		
+
 		app.launch()
-		
+
 		let old = brokers.brokerCell(of: alias)
 		awaitAppear(element: old)
 		brokers.edit(alias: alias, broker: Broker(alias: newAlias, hostname: nil))
 		awaitDisappear(element: app.staticTexts[alias])
 		awaitAppear(element: app.staticTexts[newAlias])
 	}
-	
+
 	func testCreateNewBrokerBasedOnOld() {
 		let alias = "Example"
 		let newAlias = "Example-Derived"
-		
+
 		let brokers = Brokers(app: app)
-		
+
 		app.launch()
-		
+
 		brokers.createBasedOn(alias: alias, broker: Broker(alias: newAlias, hostname: "other-hostname"))
 		awaitAppear(element: app.staticTexts["Example"])
 		awaitAppear(element: app.staticTexts["Example-Derived"])

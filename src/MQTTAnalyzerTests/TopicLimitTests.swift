@@ -15,7 +15,7 @@ class TopicLimitTests: XCTestCase {
 		for i in 0...10 {
 			XCTAssertNotNil(root.addTopic(topic: "\(i)"))
 		}
-		
+
 		root.topicLimitExceeded = true
 		for i in 0...10 {
 			// This will just get the topics created previously
@@ -27,7 +27,7 @@ class TopicLimitTests: XCTestCase {
 			XCTAssertNil(root.addTopic(topic: "\(i)"))
 		}
     }
-	
+
 	func testCannotAddMessageToNewTopic() throws {
 		let root = TopicTree()
 		for i in 0...10 {
@@ -36,7 +36,7 @@ class TopicLimitTests: XCTestCase {
 				payload: MsgPayload.from(text: "\(i)"),
 				to: "\(i)"))
 		}
-		
+
 		root.topicLimitExceeded = true
 		for i in 0...10 {
 			// This will just add messages to existing topics
@@ -54,17 +54,17 @@ class TopicLimitTests: XCTestCase {
 				to: "\(i)"))
 		}
 	}
-	
+
 	func testTotalTopicCounter() throws {
 		let root = TopicTree()
 		_ = root.addMessage(
 			metadata: MsgMetadata.stub(),
 			payload: MsgPayload.from(text: "msg1"),
 			to: "some/topic")
-		
+
 		XCTAssertEqual(1, root.topicCount)
 		XCTAssertEqual(1, root.totalTopicCounter)
-		
+
 		_ = root.addMessage(
 			metadata: MsgMetadata.stub(),
 			payload: MsgPayload.from(text: "msg1"),

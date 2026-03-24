@@ -17,7 +17,7 @@ class PropertyImageProviderTests: XCTestCase {
 		XCTAssertEqual("wifi", PropertyImageProvider.byName(property: "Connection"))
 		XCTAssertEqual("wifi", PropertyImageProvider.byName(property: "Wifi"))
 	}
-	
+
 	func testSubstring() {
 		XCTAssertEqual("wifi", PropertyImageProvider.byName(property: "wifiQuality"))
 		XCTAssertEqual("wifi", PropertyImageProvider.byName(property: "wifi_quality"))
@@ -25,7 +25,7 @@ class PropertyImageProviderTests: XCTestCase {
 		XCTAssertEqual("battery.100", PropertyImageProvider.byName(property: "battery_state"))
 		XCTAssertEqual("chart.bar", PropertyImageProvider.byName(property: "update_available"))
 	}
-	
+
 	func testOther() {
 		XCTAssertEqual("chart.bar", PropertyImageProvider.byName(property: "other"))
 	}

@@ -10,10 +10,10 @@ import Foundation
 
 protocol Persistence {
 	func delete(_ host: Host)
-	
+
 	func load()
-	
+
 	func create(_ host: Host)
-		
+
 	func update(_ host: Host)
 }

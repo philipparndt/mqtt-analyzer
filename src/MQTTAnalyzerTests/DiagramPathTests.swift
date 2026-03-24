@@ -17,7 +17,7 @@ class DiagramPathTests: XCTestCase {
 		XCTAssertEqual("bar", path.lastSegment)
 		XCTAssertEqual("foo", path.parentPath)
 	}
-	
+
 	func testEndWithDot() {
 		let path = DiagramPath("foo.bar.")
 		XCTAssertEqual("", path.lastSegment)

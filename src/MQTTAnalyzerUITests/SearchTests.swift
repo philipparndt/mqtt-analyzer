@@ -11,10 +11,10 @@ import XCTest
 class SearchTests: AbstractUITests {
 	func startSearch(id: String) -> Navigation {
 		let brokers = Brokers(app: app)
-		
+
 		let hostname = TestServer.getTestServer()
 		let alias = "Example"
-		
+
 		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname))
 		app.launch()
 

@@ -45,17 +45,17 @@ extension LogLevel: CustomStringConvertible {
 class Logger: ObservableObject {
 	var level: LogLevel
 	@Published var messages: [LogMessage] = []
-	
+
 	init(level: LogLevel) {
 		self.level = level
 	}
-	
+
 	func log(level: LogLevel, _ message: String) {
 		if level.rawValue <= self.level.rawValue {
 			messages.append(LogMessage(level: level, message: message))
 		}
 	}
-	
+
 	func error(_ message: String) {
 		log(level: .error, message)
 	}
@@ -67,11 +67,11 @@ class Logger: ObservableObject {
 	func info(_ message: String) {
 		log(level: .info, message)
 	}
-	
+
 	func debug(_ message: String) {
 		log(level: .debug, message)
 	}
-	
+
 	func trace(_ message: String) {
 		log(level: .trace, message)
 	}

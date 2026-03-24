@@ -18,7 +18,7 @@ class SearchIndexTests: XCTestCase {
 			to: topic
 		))
 	}
-	
+
 	func testSearch() {
 		let root = TopicTree()
 		message(to: root, topic: "home/example/a", payload: "some message")
@@ -31,7 +31,7 @@ class SearchIndexTests: XCTestCase {
 			"home/example/b"
 		])
 	}
-	
+
 	func testClear() {
 		let root = TopicTree()
 		message(to: root, topic: "home/example/a", payload: "some message")
@@ -39,28 +39,28 @@ class SearchIndexTests: XCTestCase {
 
 		root.clear()
 		XCTAssertEqual(0, root.children.count)
-		
+
 		XCTAssertEqual(root.search(text: "some"), [])
 		XCTAssertEqual(root.search(text: "another"), [])
 		XCTAssertEqual(root.search(text: "message"), [])
-		
+
 		XCTAssertEqual(0, root.children.count)
 	}
-	
+
 	func testCaseInsensitive() {
 		let root = TopicTree()
 		message(to: root, topic: "home/example/a", payload: "Some message")
-		
+
 		XCTAssertEqual(root.search(text: "sOME"), ["home/example/a"])
 	}
-	
+
 	func testMatchStart() {
 		let root = TopicTree()
 		message(to: root, topic: "home/example/a", payload: "Some message")
-		
+
 		XCTAssertEqual(root.search(text: "So*"), ["home/example/a"])
 	}
-	
+
 	func testReplace() {
 		let root = TopicTree()
 		message(to: root, topic: "home/example/a", payload: "Some message")
@@ -68,7 +68,7 @@ class SearchIndexTests: XCTestCase {
 
 		XCTAssertEqual(root.search(text: "So*"), [])
 	}
-	
+
 	func testFindTopic() {
 		let root = TopicTree()
 		message(to: root, topic: "home/some", payload: "a")

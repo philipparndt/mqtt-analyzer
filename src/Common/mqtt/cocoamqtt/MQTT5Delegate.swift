@@ -37,11 +37,11 @@ class MQTT5Delegate: CocoaMQTT5Delegate {
 	func mqtt5(_ mqtt5: CocoaMQTT5, didUnsubscribeTopics topics: [String], unsubAckData: MqttDecodeUnsubAck?) {
 		// currently not necessary, but required by protocol
 	}
-	
+
 	func mqtt5(_ mqtt5: CocoaMQTT5, didReceiveDisconnectReasonCode reasonCode: CocoaMQTTDISCONNECTReasonCode) {
 		// currently not necessary, but required by protocol
 	}
-	
+
 	func mqtt5(_ mqtt5: CocoaMQTT5, didReceiveAuthReasonCode reasonCode: CocoaMQTTAUTHReasonCode) {
 		// currently not necessary, but required by protocol
 	}
@@ -57,7 +57,7 @@ class MQTT5Delegate: CocoaMQTT5Delegate {
 	func mqtt5DidDisconnect(_ mqtt5: CocoaMQTT5, withError err: Error?) {
 		// currently not necessary, but required by protocol
 	}
-	
+
 	/// Manually validate SSL/TLS server certificate.
 	///
 	/// This method will be called if enable  `allowUntrustCACertificate`

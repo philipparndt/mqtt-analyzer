@@ -19,20 +19,20 @@ class AWSIOTPresetTests: XCTestCase {
 		model.hostname = "test.mosquitto.org"
 		XCTAssertFalse(model.suggestAWSIOTChanges())
 	}
-	
+
 	func testSuggestChange() {
 		var model = HostFormModel()
 		model.hostname = "1234-ats.iot.some.amazonaws.com"
 		XCTAssert(model.suggestAWSIOTChanges())
 	}
-	
+
 	func testNoSuggestChangeAfterApply() {
 		var model = HostFormModel()
 		model.hostname = "1234-ats.iot.some.amazonaws.com"
 		model.updateSettingsForAWSIOT()
 		XCTAssertFalse(model.suggestAWSIOTChanges())
 	}
-	
+
 	func testSettingsAfterApply() {
 		var model = HostFormModel()
 		model.hostname = "1234-ats.iot.some.amazonaws.com"
@@ -45,5 +45,5 @@ class AWSIOTPresetTests: XCTestCase {
 		XCTAssertEqual(true, model.certificateAuth)
 		XCTAssertEqual(HostProtocolVersion.mqtt3, model.protocolVersion)
 	}
-	
+
 }

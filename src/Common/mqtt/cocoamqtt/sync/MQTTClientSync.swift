@@ -50,7 +50,7 @@ func transformQos(qos: Int) -> CocoaMQTTQoS {
 
 class MQTTClientSync {
 	class func publish(host: Host, topic: String, message: String, retain: Bool, qos: Int) throws {
-		
+
 		if host.settings.protocolVersion == .mqtt5 {
 			try MQTT5ClientSync.publish(
 				host: host,
@@ -70,7 +70,7 @@ class MQTTClientSync {
 			)
 		}
 	}
-	
+
 	class func receiveFirst(host: Host, topic: String, timeout: Int) throws -> String? {
 		if host.settings.protocolVersion == .mqtt5 {
 			return try MQTT5ClientSync.receiveFirst(
@@ -87,7 +87,7 @@ class MQTTClientSync {
 			)
 		}
 	}
-	
+
 	class func requestResponse(host: Host, requestTopic: String, requestPayload: String, qos: Int, responseTopic: String, timeout: Int) throws -> String? {
 		if host.settings.protocolVersion == .mqtt5 {
 			return try MQTT5ClientSync.requestResponse(
@@ -110,7 +110,7 @@ class MQTTClientSync {
 			)
 		}
 	}
-	
+
 }
 
 func wait(for expectation: @escaping () -> Bool, timeout seconds: Int = 10) -> Bool {

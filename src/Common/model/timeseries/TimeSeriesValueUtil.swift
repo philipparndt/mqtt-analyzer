@@ -9,16 +9,16 @@
 import Foundation
 
 class TimeSeriesValueUtil {
-	
+
 	static let numberFormatter = TimeSeriesValueUtil.createNumberFormat()
-	
+
 	private class func createNumberFormat() -> NumberFormatter {
 		let formatter = NumberFormatter()
 		formatter.numberStyle = .decimal
 		formatter.locale = Locale(identifier: "en")
 		return formatter
 	}
-	
+
 	class func createStringValue(value: AnyHashable) -> String {
 		if let num = value as? NSNumber {
 			return numberFormatter.string(from: num) ?? ""

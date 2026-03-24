@@ -11,7 +11,7 @@ import Foundation
 @objc(Certificates)
 public class Certificates: NSObject {
 	var files: [CertificateFile]
-	
+
 	init(_ files: [CertificateFile] = []) {
 		self.files = files
 	}
@@ -28,21 +28,21 @@ public final class CertificateValueTransformer: ValueTransformer {
 	public override class func allowsReverseTransformation() -> Bool {
 		return true
 	}
-	
+
 	public override func transformedValue(_ value: Any?) -> Any? {
 		guard let certificates = value as? Certificates else {
 			return nil
 		}
-		
+
 		return CertificateValueTransformer.encode(certificates: certificates.files)
 	}
-	
+
 	public override func reverseTransformedValue(_ value: Any?) -> Any? {
 		guard let data = value as? Data else { return nil }
-		
+
 		return Certificates(CertificateValueTransformer.decode(certificates: data))
 	}
-		
+
 	static func encode(certificates: [CertificateFile]) -> Data {
 		 do {
 			 return try JSONEncoder().encode(certificates)
@@ -57,7 +57,7 @@ public final class CertificateValueTransformer: ValueTransformer {
 			 if certificates.isEmpty {
 				 return []
 			 }
-			 
+
 			 return try JSONDecoder().decode([CertificateFile].self, from: certificates)
 		 } catch {
 			 NSLog("Unexpected error decoding certificate files: \(error).")

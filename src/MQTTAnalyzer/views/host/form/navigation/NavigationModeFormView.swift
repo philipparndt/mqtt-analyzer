@@ -13,7 +13,7 @@ struct NavigationModeFormView: View {
 	var maxMessagesOfSubFoldersInvalid: Bool {
 		return HostFormValidator.validateMaxMessagesOfSubFolders(value: host.maxMessagesOfSubFolders) == nil
 	}
-	
+
 	var body: some View {
 		return Section(header: Text("View")) {
 			HStack {
@@ -25,7 +25,7 @@ struct NavigationModeFormView: View {
 
 				NavigationPicker(type: $host.navigation)
 			}
-			
+
 			if host.navigation == .folders {
 				HStack {
 					FormFieldInvalidMark(invalid: maxMessagesOfSubFoldersInvalid)
@@ -43,7 +43,7 @@ struct NavigationModeFormView: View {
 			}
 		}
 	}
-	
+
 	func updateSettingsForAWSIOT() {
 		self.host.updateSettingsForAWSIOT()
 	}

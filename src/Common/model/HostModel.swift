@@ -60,7 +60,7 @@ extension Host: Hashable {
 	static func == (lhs: Host, rhs: Host) -> Bool {
 		return lhs.ID == rhs.ID
 	}
-	
+
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(self.ID)
 	}
@@ -84,37 +84,37 @@ enum NavigationMode {
 }
 
 class Host: Identifiable, ObservableObject {
-	
+
 	let ID: String
-	
+
 	var subscriptionsReadable: String {
 		return settings.subscriptions?
 			.subscriptions
 			.map { $0.topic }
 			.joined(separator: ", ") ?? "<no subscription>"
 	}
-	
+
 	let settings: BrokerSetting
-	
+
 	init(settings: BrokerSetting) {
 		self.settings = settings
 		self.ID = settings.id?.uuidString ?? ""
 	}
-	
+
 	var computeClientID: String {
 		let trimmed = settings.clientID?.trimmingCharacters(in: [" "]) ?? ""
 		return trimmed.isBlank ? Host.randomClientId() : trimmed
 	}
-	
+
 	@Published var usernameNonpersistent: String?
 	@Published var passwordNonpersistent: String?
-	
+
 	@Published var connectionMessage: String?
 	@Published var connectionErrorDetails: String?
 
 	weak var reconnectDelegate: ReconnectDelegate?
 	weak var disconnectDelegate: DisconnectDelegate?
-	
+
 	@Published var state: MQTTConnectionState = .disconnected {
 		didSet {
 			if state == .connected {
@@ -122,9 +122,9 @@ class Host: Identifiable, ObservableObject {
 			}
 		}
 	}
-	
+
 	@Published var pause = false
-	
+
 	var wasConnected = false
 	/// Set to true during intentional disconnect to suppress error messages from the MQTT callback
 	var intentionalDisconnect = false
@@ -157,7 +157,7 @@ extension Host {
 
 class HostsModel: ObservableObject {
 	let initMethod: InitHost
-	
+
 	@Published var hosts: [Host] {
 		willSet {
 			for host in newValue {
@@ -165,7 +165,7 @@ class HostsModel: ObservableObject {
 			}
 		}
 	}
-	
+
 	var hostsSorted: [Host] {
 		return self.hosts.sorted {
 			if $0.settings.alias != $1.settings.alias {
@@ -176,10 +176,10 @@ class HostsModel: ObservableObject {
 			}
 		}
 	}
-	
+
 	var hostsGroupedByCategory: [String: [Host]] {
 		var groupedHosts: [String: [Host]] = [:]
-		
+
 		for host in hostsSorted {
 			let category = host.settings.category ?? "Uncategorized"
 			if groupedHosts[category] != nil {
@@ -188,15 +188,15 @@ class HostsModel: ObservableObject {
 				groupedHosts[category] = [host]
 			}
 		}
-		
+
 		return groupedHosts
 	}
-		
+
 	init(hosts: [Host] = [], initMethod: InitHost) {
 		self.initMethod = initMethod
 		self.hosts = hosts
 	}
-	
+
 	func getBroker(at offsets: IndexSet) -> Host? {
 		if let first = offsets.first {
 			return hostsSorted[first]

@@ -19,7 +19,7 @@ struct FolderNavigationView: View {
 			return "no topics available using the current filter"
 		}
 	}
-	
+
     var body: some View {
 		Section(header: Text("Children")) {
 			if model.childrenDisplay.isEmpty {
@@ -42,14 +42,14 @@ struct FolderCellView: View {
 	@ObservedObject var model: TopicTree
 	@EnvironmentObject var root: RootModel
 	let host: Host
-	
+
 	var body: some View {
 		HStack {
 			FolderReadMarkerView(read: model.readState)
-			
+
 			Text(model.name.isBlank ? "<empty>" : model.name)
 				.foregroundColor(model.name.isBlank ? .gray : .primary)
-			
+
 			Spacer()
 
 			CounterCellView(model: model)
@@ -57,7 +57,7 @@ struct FolderCellView: View {
 		.contextMenu {
 			MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
 			MenuButton(title: "Copy name", systemImage: "doc.on.doc", action: copyName)
-			
+
 			Menu {
 				DestructiveMenuButton(title: "Delete retained messages from broker", systemImage: "trash.fill", action: deleteAllReatined)
 					.accessibilityIdentifier("confirm-delete-retained")
@@ -67,7 +67,7 @@ struct FolderCellView: View {
 			.accessibilityIdentifier("delete-retained")
 	    }
 	}
-	
+
 	func copyTopic() {
 		Pasteboard.copy(model.nameQualified)
 	}
@@ -75,10 +75,10 @@ struct FolderCellView: View {
 	func copyName() {
 		Pasteboard.copy(model.name)
 	}
-	
+
 	func deleteAllReatined() {
 		model.pauseAcceptEmptyFor(seconds: 5)
-		
+
 		let messages = model.allRetainedMessages
 		for message in messages {
 			root.publish(message: MsgMessage(
@@ -86,7 +86,7 @@ struct FolderCellView: View {
 				payload: MsgPayload(data: []),
 				metadata: MsgMetadata(qos: message.metadata.qos, retain: true)), on: host)
 		}
-		
+
 		for message in messages {
 			message.topic.delete(message: message)
 		}

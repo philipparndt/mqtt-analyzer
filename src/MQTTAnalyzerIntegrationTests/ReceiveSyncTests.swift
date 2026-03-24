@@ -15,7 +15,7 @@ private let host = "test.mqtt.rnd7.de"
 class ReceiveSyncTests: XCTestCase {
 	private let topic = "integration/receive/\(String.random(length: 8))"
 	private let message = String.random(length: 8)
-	
+
 	override func setUp() {
 		super.setUp()
 
@@ -30,15 +30,15 @@ class ReceiveSyncTests: XCTestCase {
 			retain: true,
 			qos: 1)
 	}
-	
+
 	func assertReceive(with broker: Host) throws {
 		let message = try MQTTClientSync.receiveFirst(host: broker, topic: topic, timeout: 5)
-		
+
 		guard message != nil else {
 			XCTAssertTrue(false, "Expected message")
 			return
 		}
-		
+
 		XCTAssertEqual(message, self.message)
 	}
 
@@ -58,7 +58,7 @@ class ReceiveSyncTests: XCTestCase {
 
 		try assertReceive(with: broker)
 	}
-	
+
 	func testMQTTPersistedAuth() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -70,7 +70,7 @@ class ReceiveSyncTests: XCTestCase {
 
 		try assertReceive(with: broker)
 	}
-	
+
 	func testMQTTLetsEncryptTraefik() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -80,7 +80,7 @@ class ReceiveSyncTests: XCTestCase {
 
 		try assertReceive(with: broker)
 	}
-	
+
 	func testWebSocket() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -90,7 +90,7 @@ class ReceiveSyncTests: XCTestCase {
 
 		try assertReceive(with: broker)
 	}
-	
+
 	func testWebSocketMQTT5() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -102,7 +102,7 @@ class ReceiveSyncTests: XCTestCase {
 
 		try assertReceive(with: broker)
 	}
-	
+
 	func testWebSocketPersistedAuth() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
@@ -115,7 +115,7 @@ class ReceiveSyncTests: XCTestCase {
 
 		try assertReceive(with: broker)
 	}
-	
+
 	func testWebSocketLetsEncryptTraefik() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host

@@ -12,7 +12,7 @@ extension HostFormModel {
 	func isClientCerts() -> Bool {
 		return certificateAuth
 	}
-	
+
 	func suggestClientCertsTLSChanges() -> Bool {
 		if isClientCerts() {
 			if !ssl {
@@ -21,7 +21,7 @@ extension HostFormModel {
 		}
 		return false
 	}
-	
+
 	mutating func updateSettingsForClientCertsTLS() {
 		self.ssl = true
 		self.untrustedSSL = true

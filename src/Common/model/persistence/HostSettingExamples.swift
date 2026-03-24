@@ -13,7 +13,7 @@ class HostSettingExamples {
 		if isWritten() {
 			return
 		}
-		
+
 		let controller = PersistenceController.shared
 		guard let container = controller.container else { return }
 
@@ -24,10 +24,10 @@ class HostSettingExamples {
 				example2()
 			])
 		}
-		
+
 		setWritten()
 	}
-		
+
 	class func create(alias: String, hostname: String, port: Int = 1883, limitTopic: Int = 0, category: String, ssl: Bool = false, subscriptions: [TopicSubscription]) -> SQLiteBrokerSetting {
 		return SQLiteBrokerSetting(
 			id: UUID().uuidString,
@@ -42,7 +42,7 @@ class HostSettingExamples {
 			untrustedSSL: false,
 			protocolVersion: 0,
 			authType: 0,
-			
+
 			username: "",
 			password: "",
 			certificates: CertificateValueTransformer.encode(certificates: []),
@@ -51,11 +51,11 @@ class HostSettingExamples {
 			limitTopic: limitTopic,
 			limitMessagesBatch: 1000,
 			deleted: false,
-			
+
 			category: category
 		)
 	}
-	
+
 	class func example1() -> SQLiteBrokerSetting {
 		return create(
 			alias: "Revspace sensors",
@@ -66,7 +66,7 @@ class HostSettingExamples {
 				TopicSubscription(topic: "revspace/sensors/#", qos: 0)
 		 ])
 	}
-	
+
 	class func example2() -> SQLiteBrokerSetting {
 		return create(
 			alias: "MQTTAnalyzer Mosquitto",
@@ -78,7 +78,7 @@ class HostSettingExamples {
 			]
 		)
 	}
-	
+
 	class func exampleRnd7() -> SQLiteBrokerSetting {
 		return create(
 			alias: "Example",
@@ -91,7 +91,7 @@ class HostSettingExamples {
 			]
 		)
 	}
-	
+
 	class func exampleLocalhost() -> SQLiteBrokerSetting {
 		return create(
 			alias: "localhost",
@@ -102,12 +102,12 @@ class HostSettingExamples {
 			]
 		)
 	}
-	
+
 	private class func isWritten() -> Bool {
 		let defaults = UserDefaults.standard
 		return defaults.bool(forKey: "HostSettingExamplesWritten")
 	}
-	
+
 	private class func setWritten() {
 		let defaults = UserDefaults.standard
 		defaults.set(true, forKey: "HostSettingExamplesWritten")

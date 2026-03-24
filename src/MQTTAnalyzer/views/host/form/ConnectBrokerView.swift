@@ -10,15 +10,15 @@ import SwiftUI
 
 struct ConnectBrokerView: View {
 	let connect: () -> Void
-	
+
 	var body: some View {
 		HStack {
 			Spacer()
-			
+
 			Button(action: connect) {
 				HStack {
 					Image(systemName: "play.fill")
-					
+
 					Text("Connect")
 				}
 			}

@@ -15,7 +15,7 @@ class StringUtilsTests: XCTestCase {
 	func testHexString() {
 		XCTAssertEqual("0102", Data([1, 2]).hexStringEncoded())
 	}
-	
+
 	func testHexBlockString() {
 		let expected = """
 0000: 0102 0304 0506 0708
@@ -33,12 +33,12 @@ class StringUtilsTests: XCTestCase {
 """
 		XCTAssertEqual(expected, Data([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]).hexBlockEncoded(len: 16))
 	}
-	
+
 	func testTruncate() {
 		XCTAssertEqual("ab…", "abcde".truncate(length: 2))
 		XCTAssertEqual("ab...", "abcde".truncate(length: 2, trailing: "..."))
 	}
-	
+
 	func testPathUp() {
 		XCTAssertEqual("/a/b/c", "/a/b/c/d".pathUp())
 		XCTAssertEqual("/a/b", "/a/b/c/d".pathUp().pathUp())
@@ -46,17 +46,17 @@ class StringUtilsTests: XCTestCase {
 		XCTAssertEqual("/a", "/a/b/c/d".pathUp().pathUp().pathUp().pathUp())
 		XCTAssertEqual("/a", "/a/b/c/d".pathUp().pathUp().pathUp().pathUp().pathUp())
 	}
-	
+
 	func testPathUpNoPath() {
 		XCTAssertEqual("", "foo".pathUp())
 	}
-	
+
 	func testBlank() {
 		XCTAssertTrue("".isBlank)
 		XCTAssertTrue(" ".isBlank)
 		XCTAssertTrue(" \t\r\n\n".isBlank)
 	}
-	
+
 	func testNonBlank() {
 		XCTAssertFalse(" huhu".isBlank)
 	}

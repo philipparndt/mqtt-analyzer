@@ -11,7 +11,7 @@ import Combine
 
 class FileLister {
 	static var logger = Logger(level: .none)
-	
+
 	class func getUrl(on location: CertificateLocation) -> URL? {
 		if location == .cloud {
 			return CloudDataManager.instance.getCloudDocumentDiretoryURL()
@@ -19,7 +19,7 @@ class FileLister {
 
 		return CloudDataManager.instance.getLocalDocumentDiretoryURL()
 	}
-	
+
 	class func downloadUbiquitousItems(folder url: URL, contents: [URL]) throws {
 		try contents
 			.filter { $0.lastPathComponent.lowercased()
@@ -27,7 +27,7 @@ class FileLister {
 			.forEach {
 				if FileManager.default.isUbiquitousItem(at: $0) {
 					FileLister.logger.debug("Downloading ubiquitous item <\($0)>")
-					
+
 					try FileManager.default.startDownloadingUbiquitousItem(at: $0)
 				}
 				else {
@@ -35,7 +35,7 @@ class FileLister {
 				}
 			}
 	}
-	
+
 	class func listFiles(on location: CertificateLocation) -> [CertificateFileModel] {
 		do {
 			if let url = FileLister.getUrl(on: location) {
@@ -43,12 +43,12 @@ class FileLister {
 				FileLister.logger.debug(url.absoluteString)
 
 				CloudDataManager.instance.initDocumentsDirectory()
-				
+
 				let directoryContents = try FileManager.default
 					.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
-				
+
 				try downloadUbiquitousItems(folder: url, contents: directoryContents)
-							
+
 				let files = directoryContents
 					.map {
 						FileLister.logger.trace("Element <\($0.lastPathComponent)>")

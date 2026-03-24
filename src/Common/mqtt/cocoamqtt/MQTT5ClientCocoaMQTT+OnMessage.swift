@@ -16,7 +16,7 @@ extension MQTT5ClientCocoaMQTT {
 	func payload(of message: CocoaMQTT5Message) -> MsgPayload {
 		return MsgPayload(data: message.payload)
 	}
-	
+
 	func topic(of message: CocoaMQTT5Message) -> String {
 		return message.topic
 	}

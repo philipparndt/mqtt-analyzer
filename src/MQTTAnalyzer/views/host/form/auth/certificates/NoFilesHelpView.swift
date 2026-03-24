@@ -10,14 +10,14 @@ import SwiftUI
 
 struct NoFilesHelpView: View {
 	@Binding var certificateLocation: CertificateLocation
-	
+
 	var body: some View {
 		VStack(alignment: .leading) {
 			Text("No certificate files here yet.")
 				.font(.headline)
-			
+
 			Spacer()
-			
+
 			if certificateLocation == .cloud {
 				Text("Add new *.p12 / *.pfx or *.crt and *.key files to iCloud drive (MQTTAnalyzer folder)")
 				Spacer()

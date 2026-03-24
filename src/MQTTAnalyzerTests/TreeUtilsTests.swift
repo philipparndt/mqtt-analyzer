@@ -14,11 +14,11 @@ class TreeUtilsTests: XCTestCase {
     func testEmpty() throws {
 		XCTAssertEqual("", TreeUtils.commomPrefix(subscriptions: []))
     }
-	
+
 	func testSubscribeAll() throws {
 		XCTAssertEqual("", TreeUtils.commomPrefix(subscriptions: ["#"]))
 	}
-	
+
 	func testRemoveHash() {
 		XCTAssertEqual("some/topic", TreeUtils.commomPrefix(subscriptions: ["some/topic/#"]))
 	}
@@ -34,7 +34,7 @@ class TreeUtilsTests: XCTestCase {
 			"some/topic/c/#"
 		]))
 	}
-	
+
 	func testDifferentPaths() {
 		XCTAssertEqual("", TreeUtils.commomPrefix(subscriptions: [
 			"sonos/#",
@@ -53,5 +53,5 @@ class TreeUtilsTests: XCTestCase {
 			"some/topic/c/#"
 		]))
 	}
-	
+
 }
