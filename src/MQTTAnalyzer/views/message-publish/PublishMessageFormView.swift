@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftUI
-import SwiftyJSON
 
 enum PublishMessagePropertyType {
 	case boolean
@@ -82,7 +81,7 @@ struct PublishMessageProperty: Identifiable {
 	let id: String = NSUUID().uuidString
 	let name: String
 	let pathName: String
-	let path: [JSONSubscriptType]
+	let path: [String]
 	var value: PublishMessagePropertyValue
 }
 

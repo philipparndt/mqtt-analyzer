@@ -211,7 +211,7 @@ This project is open source. Contributions are welcome. Feel free to open an iss
 						.font(.callout)
 						.fontWeight(.semibold)
 
-					Text("[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), [GRDB](https://github.com/groue/GRDB.swift)")
+					Text("[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [GRDB](https://github.com/groue/GRDB.swift)")
 						.font(.callout)
 						.foregroundColor(.secondary)
 				}

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct MTimeSeriesValue {
 	let value: AnyHashable
@@ -101,18 +100,20 @@ class TimeSeriesModel: ObservableObject {
 		.suffix(30)
 	}
 
-	func collect(date: Date, json: JSON, path: [String], dateFormatted: String) {
-		json.dictionaryValue
-		.forEach {
-			let child = $0.value
-			var nextPath = path
-			nextPath += [$0.key]
-
-			collect(date: date, json: child, path: nextPath, dateFormatted: dateFormatted)
+	func collect(date: Date, json: Any, path: [String], dateFormatted: String) {
+		if let dict = json as? [String: Any] {
+			for (key, child) in dict {
+				var nextPath = path
+				nextPath += [key]
+				collect(date: date, json: child, path: nextPath, dateFormatted: dateFormatted)
+			}
 		}
 
 		let path = DiagramPath(path.joined(separator: "."))
-		if let value = json.rawValue as? AnyHashable {
+		if json is [String: Any] || json is [Any] {
+			return
+		}
+		if let value = json as? AnyHashable {
 			self.timeSeries.put(key: path, value: TimeSeriesValue(value: value, at: date, dateFormatted: dateFormatted))
 
 			let val = MTimeSeriesValue(value: value, timestamp: date)

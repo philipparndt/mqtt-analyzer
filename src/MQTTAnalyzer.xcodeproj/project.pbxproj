@@ -338,8 +338,6 @@
 		22FD7D0522C8D2820078795F /* DataSeriesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */; };
 		22GRDB00327C50000SWIFT03 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00227C50000SWIFT02 /* GRDB */; };
 		22GRDB00527C50000SWIFT05 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00427C50000SWIFT04 /* GRDB */; };
-		22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0227C30000JSON02 /* SwiftyJSON */; };
-		22SWIFTY0427C30000JSON04 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 22SWIFTY0527C30000JSON05 /* SwiftyJSON */; };
 		22TLS00100000000000001 /* TLSFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22TLS00000000000000001 /* TLSFormView.swift */; };
 		22TLS00200000000000002 /* TLSFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22TLS00000000000000001 /* TLSFormView.swift */; };
 		28CB1C523C43B2D99F6549B4 /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2E27A6CDB800D4327F /* Welcome.swift */; };
@@ -906,7 +904,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22SWIFTY0327C30000JSON03 /* SwiftyJSON in Frameworks */,
 				22GRDB00327C50000SWIFT03 /* GRDB in Frameworks */,
 				22COCOA0327C60000MQTT03 /* CocoaMQTT in Frameworks */,
 				22COCOA0527C60000MQTT05 /* CocoaMQTTWebSocket in Frameworks */,
@@ -927,7 +924,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22SWIFTY0427C30000JSON04 /* SwiftyJSON in Frameworks */,
 				22GRDB00527C50000SWIFT05 /* GRDB in Frameworks */,
 				22COCOA0727C60000MQTT07 /* CocoaMQTT in Frameworks */,
 				22COCOA0927C60000MQTT09 /* CocoaMQTTWebSocket in Frameworks */,
@@ -1728,7 +1724,6 @@
 			);
 			name = MQTTAnalyzer;
 			packageProductDependencies = (
-				22SWIFTY0227C30000JSON02 /* SwiftyJSON */,
 				22GRDB00227C50000SWIFT02 /* GRDB */,
 				22COCOA0227C60000MQTT02 /* CocoaMQTT */,
 				22COCOA0427C60000MQTT04 /* CocoaMQTTWebSocket */,
@@ -1774,7 +1769,6 @@
 			);
 			name = MQTTAnalyzerIntent;
 			packageProductDependencies = (
-				22SWIFTY0527C30000JSON05 /* SwiftyJSON */,
 				22GRDB00427C50000SWIFT04 /* GRDB */,
 				22COCOA0627C60000MQTT06 /* CocoaMQTT */,
 				22COCOA0827C60000MQTT08 /* CocoaMQTTWebSocket */,
@@ -1900,7 +1894,6 @@
 			);
 			mainGroup = 2253F8C922C8C007007E35A2;
 			packageReferences = (
-				22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */,
 				22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */,
 			);
@@ -3264,16 +3257,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
-		};
-		22SWIFTY0227C30000JSON02 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
-		22SWIFTY0527C30000JSON05 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 22SWIFTY0127C30000JSON01 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
 		};
 /* End XCSwiftPackageProductDependency section */
 

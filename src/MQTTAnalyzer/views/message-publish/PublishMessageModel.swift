@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 import SwiftUI
 
 enum TopicSuffix: String, CaseIterable {
@@ -25,7 +24,7 @@ class PublishMessageFormModel: ObservableObject {
 	@Published var messageType: PublishMessageType = .plain
 	@Published var properties: [PublishMessageProperty] = []
 
-	var jsonData: JSON?
+	var jsonData: Any?
 
 	private var _topicSuffix: TopicSuffix = .none
 	var topicSuffix: TopicSuffix {
@@ -65,13 +64,25 @@ class PublishMessageFormModel: ObservableObject {
 	func updateMessageFromJsonData() {
 		if var json = jsonData {
 			for property in properties {
-				json[property.path] = JSON(property.value.getTypedValue())
+				json = PublishMessageFormModel.setNestedValue(in: json, at: property.path, value: property.value.getTypedValue())
 			}
 
-			if let message = json.rawString(options: []) {
+			if let data = try? JSONSerialization.data(withJSONObject: json, options: []),
+			   let message = String(data: data, encoding: .utf8) {
 				self.message = message
 			}
 		}
+	}
+
+	private static func setNestedValue(in object: Any, at path: [String], value: Any) -> Any {
+		guard !path.isEmpty else { return value }
+		var dict = (object as? [String: Any]) ?? [:]
+		if path.count == 1 {
+			dict[path[0]] = value
+		} else {
+			dict[path[0]] = setNestedValue(in: dict[path[0]] ?? [String: Any](), at: Array(path.dropFirst()), value: value)
+		}
+		return dict
 	}
 }
 
@@ -94,12 +105,12 @@ func of(message: MsgMessage) -> PublishMessageFormModel {
 	return model
 }
 
-func createJsonProperties(json: JSON, path: [String]) -> [PublishMessageProperty] {
+func createJsonProperties(json: Any, path: [String]) -> [PublishMessageProperty] {
 	var result: [PublishMessageProperty] = []
-	json.dictionaryValue
-	.forEach {
-		let child = $0.value
-		result += createJsonProperties(json: child, path: path + [$0.key])
+	if let dict = json as? [String: Any] {
+		for (key, child) in dict {
+			result += createJsonProperties(json: child, path: path + [key])
+		}
 	}
 
 	if let property = createProperty(json: json, path: path) {
@@ -109,7 +120,7 @@ func createJsonProperties(json: JSON, path: [String]) -> [PublishMessageProperty
 	return result
 }
 
-func createProperty(json: JSON, path: [String]) -> PublishMessageProperty? {
+func createProperty(json: Any, path: [String]) -> PublishMessageProperty? {
 	if path.isEmpty {
 		return nil
 	}
@@ -117,31 +128,28 @@ func createProperty(json: JSON, path: [String]) -> PublishMessageProperty? {
 	let name = path[path.count - 1]
 	let pathName = path.joined(separator: ".")
 
-	let raw = json.rawString() ?? ""
-	let isInt = Int(raw.trimmingCharacters(in: .whitespaces)) != nil
-	let isOnOff = raw.lowercased() == "on" || raw.lowercased() == "off"
-
-	if let value = json.bool {
+	if let value = json as? Bool {
 		return PublishMessageProperty(name: name, pathName: pathName,
 								   path: path,
 								   value: PublishMessagePropertyValueBoolean(value: value))
 	}
-	else if isOnOff {
+	else if let str = json as? String {
+		let lower = str.lowercased()
+		if lower == "on" || lower == "off" {
+			return PublishMessageProperty(name: name, pathName: pathName,
+									   path: path,
+									   value: PublishMessagePropertyValueOnOff(value: lower == "on"))
+		}
 		return PublishMessageProperty(name: name, pathName: pathName,
-								   path: path,
-								   value: PublishMessagePropertyValueOnOff(value: raw.lowercased() == "on"))
+								   path: path, value: PublishMessagePropertyValueText(value: str))
 	}
-	else if isInt {
-		return PublishMessageProperty(name: name, pathName: pathName,
-								   path: path, value: PublishMessagePropertyValueNumber(value: "\(json.intValue)"))
-	}
-	else if let value = json.double {
+	else if let value = json as? Int {
 		return PublishMessageProperty(name: name, pathName: pathName,
 								   path: path, value: PublishMessagePropertyValueNumber(value: "\(value)"))
 	}
-	else if let value = json.string {
+	else if let value = json as? Double {
 		return PublishMessageProperty(name: name, pathName: pathName,
-								   path: path, value: PublishMessagePropertyValueText(value: value))
+								   path: path, value: PublishMessagePropertyValueNumber(value: "\(value)"))
 	}
 	else {
 		return nil

@@ -37,7 +37,7 @@ Thank you! This project would not be possible without your great work! Thanks fo
 [Xploder](https://github.com/Xploder), [Ed Gauthier](https://github.com/edgauthier)
 
 **Dependencies**
-[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON), [GRDB](https://github.com/groue/GRDB.swift)
+[CocoaMQTT](https://github.com/emqx/CocoaMQTT), [GRDB](https://github.com/groue/GRDB.swift)
 
 """).foregroundColor(.secondary)
 					.font(.footnote)
