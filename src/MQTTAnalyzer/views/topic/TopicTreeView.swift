@@ -348,6 +348,15 @@ struct TreeNavigationView: View {
 		}
 	}
 
+	@ViewBuilder
+	func destinationView(for node: TopicTree) -> some View {
+		if node.children.isEmpty && !node.messages.isEmpty {
+			MessagesView(node: node, host: host)
+		} else {
+			TopicsView(model: node, host: host)
+		}
+	}
+
 	var body: some View {
 		Section(header: Text("Topics")) {
 			if model.childrenDisplay.isEmpty {
@@ -358,7 +367,7 @@ struct TreeNavigationView: View {
 					model.childrenDisplay.sorted { $0.name < $1.name },
 					children: \.treeChildren
 				) { node in
-					NavigationLink(destination: TopicsView(model: node, host: host)) {
+					NavigationLink(destination: destinationView(for: node)) {
 						TreeNodeCellView(
 							model: node,
 							host: host,
