@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/philipparndt/mqtt-analyzer/docs/mqttbroker-schema.json",
+  "title": "MQTT Broker Configuration",
+  "description": "Schema for .mqttbroker files used to exchange MQTT broker configurations between apps.",
+  "type": "object",
+  "required": ["version", "broker"],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version. Currently always 1."
+    },
+    "broker": {
+      "type": "object",
+      "required": [
+        "alias",
+        "hostname",
+        "port",
+        "protocolMethod",
+        "protocolVersion",
+        "ssl",
+        "untrustedSSL",
+        "authType",
+        "subscriptions",
+        "limitTopic",
+        "limitMessagesBatch"
+      ],
+      "properties": {
+        "alias": {
+          "type": "string",
+          "description": "User-friendly display name for the broker."
+        },
+        "hostname": {
+          "type": "string",
+          "description": "Broker hostname or IP address."
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "Broker port number."
+        },
+        "protocolMethod": {
+          "type": "string",
+          "enum": ["mqtt", "websocket"],
+          "description": "Transport protocol. 'mqtt' for native MQTT, 'websocket' for MQTT over WebSocket."
+        },
+        "protocolVersion": {
+          "type": "string",
+          "enum": ["mqtt3", "mqtt5"],
+          "description": "MQTT protocol version. 'mqtt3' for MQTT 3.1.1, 'mqtt5' for MQTT 5.0."
+        },
+        "basePath": {
+          "type": ["string", "null"],
+          "description": "WebSocket base path (e.g. '/mqtt'). Only relevant when protocolMethod is 'websocket'."
+        },
+        "ssl": {
+          "type": "boolean",
+          "description": "Whether to use TLS/SSL for the connection."
+        },
+        "untrustedSSL": {
+          "type": "boolean",
+          "description": "Whether to allow untrusted/self-signed SSL certificates."
+        },
+        "alpn": {
+          "type": ["string", "null"],
+          "description": "ALPN (Application-Layer Protocol Negotiation) protocol list. Used by some cloud providers (e.g. AWS IoT)."
+        },
+        "authType": {
+          "type": "string",
+          "enum": ["none", "usernamePassword", "certificate", "both"],
+          "description": "Authentication method. 'both' means username/password combined with client certificate."
+        },
+        "username": {
+          "type": ["string", "null"],
+          "description": "MQTT username for authentication."
+        },
+        "password": {
+          "type": ["string", "null"],
+          "description": "MQTT password for authentication. WARNING: stored in plain text."
+        },
+        "clientID": {
+          "type": ["string", "null"],
+          "description": "MQTT client identifier. If empty or null, a random client ID will be generated."
+        },
+        "subscriptions": {
+          "type": "array",
+          "description": "List of topic subscriptions to activate on connect.",
+          "items": {
+            "type": "object",
+            "required": ["topic", "qos"],
+            "properties": {
+              "topic": {
+                "type": "string",
+                "description": "MQTT topic filter (may include wildcards: + and #)."
+              },
+              "qos": {
+                "type": "integer",
+                "enum": [0, 1, 2],
+                "description": "Quality of Service level."
+              }
+            }
+          }
+        },
+        "certificates": {
+          "type": ["array", "null"],
+          "description": "TLS/mTLS certificate files embedded as base64.",
+          "items": {
+            "type": "object",
+            "required": ["name", "type"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Original filename of the certificate (e.g. 'ca.pem', 'client.p12')."
+              },
+              "type": {
+                "type": "string",
+                "enum": ["serverCA", "client", "clientKey", "p12", "undefined"],
+                "description": "Certificate purpose. 'serverCA' = server CA certificate, 'client' = client certificate, 'clientKey' = client private key, 'p12' = PKCS#12 bundle."
+              },
+              "data": {
+                "type": ["string", "null"],
+                "description": "Base64-encoded certificate file contents. May be null if the file could not be read during export."
+              }
+            }
+          }
+        },
+        "certClientKeyPassword": {
+          "type": ["string", "null"],
+          "description": "Password for the client key or PKCS#12 file. WARNING: stored in plain text."
+        },
+        "category": {
+          "type": ["string", "null"],
+          "description": "Optional category/group name for organizing brokers."
+        },
+        "limitTopic": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum number of topics to track. 0 means unlimited."
+        },
+        "limitMessagesBatch": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum number of messages to keep per topic."
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "version": 1,
+      "broker": {
+        "alias": "Test Mosquitto",
+        "hostname": "test.mosquitto.org",
+        "port": 1883,
+        "protocolMethod": "mqtt",
+        "protocolVersion": "mqtt3",
+        "basePath": null,
+        "ssl": false,
+        "untrustedSSL": false,
+        "alpn": null,
+        "authType": "none",
+        "username": null,
+        "password": null,
+        "clientID": null,
+        "subscriptions": [
+          { "topic": "#", "qos": 0 }
+        ],
+        "certificates": null,
+        "certClientKeyPassword": null,
+        "category": "Public",
+        "limitTopic": 1000,
+        "limitMessagesBatch": 1000
+      }
+    },
+    {
+      "version": 1,
+      "broker": {
+        "alias": "AWS IoT",
+        "hostname": "xxxx.iot.eu-west-1.amazonaws.com",
+        "port": 443,
+        "protocolMethod": "mqtt",
+        "protocolVersion": "mqtt3",
+        "basePath": null,
+        "ssl": true,
+        "untrustedSSL": false,
+        "alpn": "x-amzn-mqtt-ca",
+        "authType": "certificate",
+        "username": null,
+        "password": null,
+        "clientID": "my-device",
+        "subscriptions": [
+          { "topic": "sensors/#", "qos": 1 }
+        ],
+        "certificates": [
+          {
+            "name": "AmazonRootCA1.pem",
+            "type": "serverCA",
+            "data": "base64-encoded-ca-cert..."
+          },
+          {
+            "name": "device.p12",
+            "type": "p12",
+            "data": "base64-encoded-p12..."
+          }
+        ],
+        "certClientKeyPassword": "my-p12-password",
+        "category": "Cloud",
+        "limitTopic": 500,
+        "limitMessagesBatch": 1000
+      }
+    }
+  ]
+}

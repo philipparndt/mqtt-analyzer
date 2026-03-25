@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 enum HostsSheetType {
 	case none
@@ -38,6 +39,10 @@ struct HostsView: View {
 	@State private var showDeleteConfirmation = false
 	@State private var brokersToMove: [BrokerSetting] = []
 	#endif
+
+	@State private var showImportPicker = false
+	@State private var importAlertMessage: String?
+	@State private var showImportAlert = false
 
 	@Environment(\.managedObjectContext) private var viewContext
 
@@ -81,10 +86,17 @@ struct HostsView: View {
 			.navigationTitle("Brokers")
 			.toolbar {
 				ToolbarItem(placement: .cancellationAction) {
-					Button(action: showAbout) {
-						Image(systemName: "info.circle")
+					HStack {
+						Button(action: showAbout) {
+							Image(systemName: "info.circle")
+						}
+						.accessibilityLabel("About")
+
+						Button(action: { showImportPicker = true }) {
+							Image(systemName: "square.and.arrow.down")
+						}
+						.accessibilityLabel("Import Broker")
 					}
-					.accessibilityLabel("About")
 				}
 
 				ToolbarItem(placement: .primaryAction) {
@@ -102,6 +114,18 @@ struct HostsView: View {
 			if !isEditing {
 				floatingAddButton
 			}
+		}
+		.fileImporter(
+			isPresented: $showImportPicker,
+			allowedContentTypes: [.mqttBroker],
+			allowsMultipleSelection: false
+		) { result in
+			handleImportResult(result)
+		}
+		.alert("Import", isPresented: $showImportAlert) {
+			Button("OK") {}
+		} message: {
+			Text(importAlertMessage ?? "")
 		}
 		.sheet(isPresented: $presented, onDismiss: { self.presented = false }, content: {
 			HostsViewSheetDelegate(model: self.model,
@@ -150,6 +174,13 @@ struct HostsView: View {
 		}
 		.toolbar {
 			ToolbarItem(placement: .automatic) {
+				Button(action: { showImportPicker = true }) {
+					Label("Import Broker", systemImage: "square.and.arrow.down")
+				}
+				.help("Import broker from .mqttbroker file")
+			}
+
+			ToolbarItem(placement: .automatic) {
 				Button {
 					brokersToMove = Array(macSelection)
 					showMoveToCategory = true
@@ -169,6 +200,18 @@ struct HostsView: View {
 				.disabled(macSelection.isEmpty)
 				.help("Delete selected brokers")
 			}
+		}
+		.fileImporter(
+			isPresented: $showImportPicker,
+			allowedContentTypes: [.mqttBroker],
+			allowsMultipleSelection: false
+		) { result in
+			handleImportResult(result)
+		}
+		.alert("Import", isPresented: $showImportAlert) {
+			Button("OK") {}
+		} message: {
+			Text(importAlertMessage ?? "")
 		}
 		.onChange(of: macSelection) {
 			if macSelection.count == 1 {
@@ -401,6 +444,24 @@ extension HostsView {
 	func showAbout() {
 		sheetType = .about
 		presented = true
+	}
+
+	func handleImportResult(_ result: Result<[URL], Error>) {
+		switch result {
+		case .success(let urls):
+			guard let url = urls.first else { return }
+			do {
+				let broker = try BrokerImportExport.importBroker(from: url, context: viewContext)
+				importAlertMessage = "Broker '\(broker.aliasOrHost)' was imported successfully."
+				showImportAlert = true
+			} catch {
+				importAlertMessage = "Failed to import broker: \(error.localizedDescription)"
+				showImportAlert = true
+			}
+		case .failure(let error):
+			importAlertMessage = "Failed to open file: \(error.localizedDescription)"
+			showImportAlert = true
+		}
 	}
 }
 

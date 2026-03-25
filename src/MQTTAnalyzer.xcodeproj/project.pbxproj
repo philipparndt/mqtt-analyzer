@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BRKEXP01IOS0000000000001 /* BrokerExportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKEXP00FILE000000000001 /* BrokerExportModel.swift */; };
+		BRKEXP01MAC0000000000002 /* BrokerExportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKEXP00FILE000000000001 /* BrokerExportModel.swift */; };
+		BRKEXP01INT0000000000003 /* BrokerExportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKEXP00FILE000000000001 /* BrokerExportModel.swift */; };
+		BRKFTY01IOS0000000000001 /* BrokerFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKFTY00FILE000000000001 /* BrokerFileType.swift */; };
+		BRKFTY01MAC0000000000002 /* BrokerFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKFTY00FILE000000000001 /* BrokerFileType.swift */; };
+		BRKFTY01INT0000000000003 /* BrokerFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKFTY00FILE000000000001 /* BrokerFileType.swift */; };
+		BRKIEX01IOS0000000000001 /* BrokerImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKIEX00FILE000000000001 /* BrokerImportExport.swift */; };
+		BRKIEX01MAC0000000000002 /* BrokerImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKIEX00FILE000000000001 /* BrokerImportExport.swift */; };
+		BRKIEX01INT0000000000003 /* BrokerImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKIEX00FILE000000000001 /* BrokerImportExport.swift */; };
+		BRKSHR01IOS0000000000001 /* BrokerShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKSHR00FILE000000000001 /* BrokerShareView.swift */; };
+		BRKSHR01MAC0000000000002 /* BrokerShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKSHR00FILE000000000001 /* BrokerShareView.swift */; };
 		0031B4429B91FFD077CFB8CD /* CertificateEKUChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B14C2D0D4C3322294C1D9ED /* CertificateEKUChecker.swift */; };
 		01E3C0713F3E4C4350151A91 /* ReachabilityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BA556235C776AAF2BBA8B2 /* ReachabilityCheck.swift */; };
 		0332D470EDCC0893FCD4B886 /* TopicTree+ReadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0B27A57DF400D4327F /* TopicTree+ReadState.swift */; };
@@ -611,6 +622,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BRKEXP00FILE000000000001 /* BrokerExportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerExportModel.swift; sourceTree = "<group>"; };
+		BRKFTY00FILE000000000001 /* BrokerFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerFileType.swift; sourceTree = "<group>"; };
+		BRKIEX00FILE000000000001 /* BrokerImportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerImportExport.swift; sourceTree = "<group>"; };
+		BRKSHR00FILE000000000001 /* BrokerShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerShareView.swift; sourceTree = "<group>"; };
 		02E7660F41E62F20DC013185 /* CertificateValidator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; };
 		031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerDetailsView.swift; sourceTree = "<group>"; };
 		04E99CEB15F647436B4E790C /* SyntaxTokenizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SyntaxTokenizer.swift; sourceTree = "<group>"; };
@@ -1303,6 +1318,7 @@
 				M0V3CAT0F1E2D3C4B5A6G7H8 /* MoveToCategoryView.swift */,
 				031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */,
 				ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */,
+				BRKSHR00FILE000000000001 /* BrokerShareView.swift */,
 				228104972381796B00112F24 /* HostCellView.swift */,
 			);
 			path = host;
@@ -1368,6 +1384,9 @@
 				2202F0F7285B4E6000AEAE4C /* Host+Certificates.swift */,
 				2202F0FA285B4F9B00AEAE4C /* Host+AliasOrHost.swift */,
 				2282DA56281127C800F79E65 /* Handlers.swift */,
+				BRKEXP00FILE000000000001 /* BrokerExportModel.swift */,
+				BRKFTY00FILE000000000001 /* BrokerFileType.swift */,
+				BRKIEX00FILE000000000001 /* BrokerImportExport.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2181,6 +2200,10 @@
 				B7022B97C49058728317AB8A /* DiagnosticResultView.swift in Sources */,
 				6E30C3581DD59D3C9B4DB850 /* DiagnosticPanelView.swift in Sources */,
 				896AEAF4B05D26C066B4C8D5 /* DiagnosticsView.swift in Sources */,
+				BRKEXP01IOS0000000000001 /* BrokerExportModel.swift in Sources */,
+				BRKFTY01IOS0000000000001 /* BrokerFileType.swift in Sources */,
+				BRKIEX01IOS0000000000001 /* BrokerImportExport.swift in Sources */,
+				BRKSHR01IOS0000000000001 /* BrokerShareView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2298,6 +2321,9 @@
 				CDE32B14DF638BEE0C22B743 /* CertificateValidator.swift in Sources */,
 				5D45CB5AE08440B6198B6CF5 /* CertificateDiagnostics.swift in Sources */,
 				0031B4429B91FFD077CFB8CD /* CertificateEKUChecker.swift in Sources */,
+				BRKEXP01INT0000000000003 /* BrokerExportModel.swift in Sources */,
+				BRKFTY01INT0000000000003 /* BrokerFileType.swift in Sources */,
+				BRKIEX01INT0000000000003 /* BrokerImportExport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2548,6 +2574,10 @@
 				A7BD68B83FBB0632204BFB3E /* CertificateExpiryCheck.swift in Sources */,
 				E78D6853903FF53AF91CB57A /* SANCheck.swift in Sources */,
 				324B208F63B3BF08086A1097 /* EKUCheck.swift in Sources */,
+				BRKEXP01MAC0000000000002 /* BrokerExportModel.swift in Sources */,
+				BRKFTY01MAC0000000000002 /* BrokerFileType.swift in Sources */,
+				BRKIEX01MAC0000000000002 /* BrokerImportExport.swift in Sources */,
+				BRKSHR01MAC0000000000002 /* BrokerShareView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
