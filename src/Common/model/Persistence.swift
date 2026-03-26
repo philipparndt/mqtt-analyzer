@@ -60,8 +60,6 @@ class PersistenceController: ObservableObject {
 					storeDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.de.rnd7.MQTTAnalyzer")
 				}
 				container.persistentStoreDescriptions = [storeDescription]
-
-				handleCloudInit(container: container)
 			}
 			else {
 				NSLog("no storeURL, stick with in memory db")
@@ -89,6 +87,14 @@ class PersistenceController: ObservableObject {
     }
 
 	private func activateContainer(_ container: NSPersistentCloudKitContainer, synchronous: Bool) {
+		#if DEBUG
+		do {
+			try container.initializeCloudKitSchema(options: [])
+		} catch {
+			NSLog("Unexpected error while initializeCloudKitSchema \(error)")
+		}
+		#endif
+
 		if synchronous {
 			container.viewContext.automaticallyMergesChangesFromParent = true
 			_container = container
@@ -165,17 +171,6 @@ class PersistenceController: ObservableObject {
 		} else {
 			return false
 		}
-	}
-
-	func handleCloudInit(container: NSPersistentCloudKitContainer) {
-		#if DEBUG
-		do {
-			// Use the container to initialize the development schema.
-			try container.initializeCloudKitSchema(options: [])
-		} catch {
-			NSLog("Unexpected error while initializeCloudKitSchema \(error)")
-		}
-		#endif
 	}
 
 	func createStubs() {
