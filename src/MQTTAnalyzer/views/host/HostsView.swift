@@ -43,6 +43,9 @@ struct HostsView: View {
 	@State private var showImportPicker = false
 	@State private var importAlertMessage: String?
 	@State private var showImportAlert = false
+	#if os(macOS)
+	@State private var showExportOptions = false
+	#endif
 
 	@Environment(\.managedObjectContext) private var viewContext
 
@@ -181,6 +184,14 @@ struct HostsView: View {
 			}
 
 			ToolbarItem(placement: .automatic) {
+				Button(action: { showExportOptions = true }) {
+					Label("Export", systemImage: "square.and.arrow.up")
+				}
+				.disabled(macSelection.isEmpty)
+				.help("Export selected brokers to .mqttbroker files")
+			}
+
+			ToolbarItem(placement: .automatic) {
 				Button {
 					brokersToMove = Array(macSelection)
 					showMoveToCategory = true
@@ -212,6 +223,21 @@ struct HostsView: View {
 			Button("OK") {}
 		} message: {
 			Text(importAlertMessage ?? "")
+		}
+		.confirmationDialog(
+			"Export \(macSelection.count) Broker\(macSelection.count == 1 ? "" : "s")",
+			isPresented: $showExportOptions,
+			titleVisibility: .visible
+		) {
+			Button("Include Secrets") {
+				performMacExport(includeSecrets: true)
+			}
+			Button("Without Secrets") {
+				performMacExport(includeSecrets: false)
+			}
+			Button("Cancel", role: .cancel) {}
+		} message: {
+			Text("Include passwords and certificates in the export files?")
 		}
 		.onChange(of: macSelection) {
 			if macSelection.count == 1 {
@@ -426,6 +452,42 @@ extension HostsView {
 		}
 		macSelection.removeAll()
 		selectedBroker = nil
+	}
+
+	func performMacExport(includeSecrets: Bool) {
+		let brokersToExport = Array(macSelection)
+		guard !brokersToExport.isEmpty else { return }
+
+		let panel = NSOpenPanel()
+		panel.canChooseFiles = false
+		panel.canChooseDirectories = true
+		panel.canCreateDirectories = true
+		panel.prompt = "Export Here"
+		panel.message = "Choose a folder to export \(brokersToExport.count) broker\(brokersToExport.count == 1 ? "" : "s")"
+
+		panel.begin { response in
+			guard response == .OK, let directory = panel.url else { return }
+
+			var exported = 0
+			for broker in brokersToExport {
+				do {
+					let tempURL = try BrokerImportExport.exportBroker(broker, includeSecrets: includeSecrets)
+					let destination = directory.appendingPathComponent(tempURL.lastPathComponent)
+					if FileManager.default.fileExists(atPath: destination.path) {
+						try FileManager.default.removeItem(at: destination)
+					}
+					try FileManager.default.copyItem(at: tempURL, to: destination)
+					exported += 1
+				} catch {
+					NSLog("Failed to export broker '\(broker.aliasOrHost)': \(error)")
+				}
+			}
+
+			DispatchQueue.main.async {
+				importAlertMessage = "Exported \(exported) broker\(exported == 1 ? "" : "s") successfully."
+				showImportAlert = true
+			}
+		}
 	}
 	#endif
 
