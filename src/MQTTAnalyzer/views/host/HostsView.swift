@@ -43,9 +43,7 @@ struct HostsView: View {
 	@State private var showImportPicker = false
 	@State private var importAlertMessage: String?
 	@State private var showImportAlert = false
-	#if os(macOS)
 	@State private var showExportOptions = false
-	#endif
 
 	@Environment(\.managedObjectContext) private var viewContext
 
@@ -89,33 +87,49 @@ struct HostsView: View {
 			.navigationTitle("Brokers")
 			.toolbar {
 				ToolbarItem(placement: .cancellationAction) {
-					HStack {
+					if isEditing {
+						Button {
+							showExportOptions = true
+						} label: {
+							Image(systemName: "square.and.arrow.up")
+						}
+						.disabled(editSelection.isEmpty)
+						.accessibilityLabel("Export")
+					} else {
 						Button(action: showAbout) {
 							Image(systemName: "info.circle")
 						}
 						.accessibilityLabel("About")
-
-						Button(action: { showImportPicker = true }) {
-							Image(systemName: "square.and.arrow.down")
-						}
-						.accessibilityLabel("Import Broker")
 					}
 				}
 
 				ToolbarItem(placement: .primaryAction) {
-					Button(action: toggleEditMode) {
-						Text(isEditing ? "Done" : "Edit")
+					if isEditing {
+						Button(action: toggleEditMode) {
+							Text("Done")
+						}
+						.accessibilityIdentifier("edit-broker-list")
+					} else {
+						Menu {
+							Button(action: { showImportPicker = true }) {
+								Label("Import", systemImage: "square.and.arrow.down")
+							}
+							Button(action: toggleEditMode) {
+								Label("Edit", systemImage: "pencil")
+							}
+							Button(action: createHost) {
+								Label("Add Broker", systemImage: "plus")
+							}
+						} label: {
+							Image(systemName: "line.3.horizontal")
+						}
+						.accessibilityIdentifier("edit-broker-list")
 					}
-					.accessibilityIdentifier("edit-broker-list")
 				}
 			}
 
 			if isEditing && !editSelection.isEmpty {
 				editToolbar
-			}
-
-			if !isEditing {
-				floatingAddButton
 			}
 		}
 		.fileImporter(
@@ -129,6 +143,21 @@ struct HostsView: View {
 			Button("OK") {}
 		} message: {
 			Text(importAlertMessage ?? "")
+		}
+		.confirmationDialog(
+			"Export \(editSelection.count) Broker\(editSelection.count == 1 ? "" : "s")",
+			isPresented: $showExportOptions,
+			titleVisibility: .visible
+		) {
+			Button("Include Secrets") {
+				performIOSExport(includeSecrets: true)
+			}
+			Button("Without Secrets") {
+				performIOSExport(includeSecrets: false)
+			}
+			Button("Cancel", role: .cancel) {}
+		} message: {
+			Text("Include passwords and certificates in the export files?")
 		}
 		.sheet(isPresented: $presented, onDismiss: { self.presented = false }, content: {
 			HostsViewSheetDelegate(model: self.model,
@@ -166,31 +195,17 @@ struct HostsView: View {
 		.scrollContentBackground(.hidden)
 		.background(.clear)
 		.searchable(text: $searchText, placement: .sidebar)
-		.toolbar(removing: .title)
+		.navigationTitle("Brokers")
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				Button(action: createHost) {
 					Image(systemName: "plus")
 				}
 				.accessibilityLabel("Add Broker")
+				.help("Add a new broker")
 			}
 		}
 		.toolbar {
-			ToolbarItem(placement: .automatic) {
-				Button(action: { showImportPicker = true }) {
-					Label("Import Broker", systemImage: "square.and.arrow.down")
-				}
-				.help("Import broker from .mqttbroker file")
-			}
-
-			ToolbarItem(placement: .automatic) {
-				Button(action: { showExportOptions = true }) {
-					Label("Export", systemImage: "square.and.arrow.up")
-				}
-				.disabled(macSelection.isEmpty)
-				.help("Export selected brokers to .mqttbroker files")
-			}
-
 			ToolbarItem(placement: .automatic) {
 				Button {
 					brokersToMove = Array(macSelection)
@@ -210,6 +225,17 @@ struct HostsView: View {
 				}
 				.disabled(macSelection.isEmpty)
 				.help("Delete selected brokers")
+			}
+		}
+		.onReceive(NotificationCenter.default.publisher(for: .menuNewBroker)) { _ in
+			createHost()
+		}
+		.onReceive(NotificationCenter.default.publisher(for: .menuImportBroker)) { _ in
+			showImportPicker = true
+		}
+		.onReceive(NotificationCenter.default.publisher(for: .menuExportBroker)) { _ in
+			if !macSelection.isEmpty {
+				showExportOptions = true
 			}
 		}
 		.fileImporter(
@@ -308,21 +334,6 @@ struct HostsView: View {
 		.padding(.horizontal, 20)
 		.padding(.vertical, 12)
 		.background(.ultraThinMaterial)
-	}
-
-	private var floatingAddButton: some View {
-		HStack {
-			Spacer()
-			Button(action: createHost) {
-				Image(systemName: "plus")
-					.font(.body.weight(.semibold))
-					.frame(width: 40, height: 40)
-					.modifier(GlassCircleModifier())
-			}
-			.accessibilityLabel("Add Broker")
-			.padding(.trailing, UIDevice.current.userInterfaceIdiom == .pad ? 20 : 40)
-		}
-		.padding(.bottom, 16)
 	}
 
 	private func toggleEditMode() {
@@ -426,6 +437,34 @@ extension HostsView {
 	}
 
 	#if os(iOS)
+	func performIOSExport(includeSecrets: Bool) {
+		let brokersToExport = Array(editSelection)
+		guard !brokersToExport.isEmpty else { return }
+
+		var exportedURLs: [URL] = []
+		for broker in brokersToExport {
+			do {
+				let url = try BrokerImportExport.exportBroker(broker, includeSecrets: includeSecrets)
+				exportedURLs.append(url)
+			} catch {
+				NSLog("Failed to export broker '\(broker.aliasOrHost)': \(error)")
+			}
+		}
+
+		guard !exportedURLs.isEmpty else { return }
+
+		let activityVC = UIActivityViewController(activityItems: exportedURLs, applicationActivities: nil)
+		if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+		   let rootVC = windowScene.windows.first?.rootViewController {
+			if let popover = activityVC.popoverPresentationController {
+				popover.sourceView = rootVC.view
+				popover.sourceRect = CGRect(x: rootVC.view.bounds.midX, y: rootVC.view.bounds.midY, width: 0, height: 0)
+				popover.permittedArrowDirections = []
+			}
+			rootVC.present(activityVC, animated: true)
+		}
+	}
+
 	func deleteSelectedBrokers() {
 		for broker in editSelection {
 			viewContext.delete(broker)

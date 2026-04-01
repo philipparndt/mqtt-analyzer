@@ -9,6 +9,14 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
+#if os(macOS)
+extension Notification.Name {
+	static let menuNewBroker = Notification.Name("menuNewBroker")
+	static let menuImportBroker = Notification.Name("menuImportBroker")
+	static let menuExportBroker = Notification.Name("menuExportBroker")
+}
+#endif
+
 @main
 struct MQTTAnalyzerApp: App {
 	@StateObject private var persistenceController = PersistenceController.shared
@@ -85,12 +93,30 @@ struct MQTTAnalyzerApp: App {
 		}
 		#if os(macOS)
 		.defaultSize(width: 1100, height: 700)
-		.windowToolbarStyle(.unified(showsTitle: false))
+		.windowToolbarStyle(.unified)
 		.commands {
 			CommandGroup(replacing: .appInfo) {
 				Button("About MQTTAnalyzer") {
 					openWindow(id: "about")
 				}
+			}
+			CommandGroup(replacing: .newItem) {
+				Button("New Broker") {
+					NotificationCenter.default.post(name: .menuNewBroker, object: nil)
+				}
+				.keyboardShortcut("n", modifiers: .command)
+
+				Divider()
+
+				Button("Import Broker...") {
+					NotificationCenter.default.post(name: .menuImportBroker, object: nil)
+				}
+				.keyboardShortcut("i", modifiers: [.command, .shift])
+
+				Button("Export Selected...") {
+					NotificationCenter.default.post(name: .menuExportBroker, object: nil)
+				}
+				.keyboardShortcut("e", modifiers: [.command, .shift])
 			}
 		}
 		#endif

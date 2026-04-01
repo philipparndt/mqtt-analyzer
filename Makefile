@@ -1,4 +1,7 @@
-.PHONY: screenshots screenshots-refresh screenshots-mac screenshots-mac-messages publish publish-skip-tests test test-ui release-brew help
+.PHONY: screenshots screenshots-refresh screenshots-mac screenshots-mac-messages publish publish-skip-tests test test-ui release-brew bump-major bump-minor bump-patch help
+
+PBXPROJ := src/MQTTAnalyzer.xcodeproj/project.pbxproj
+CURRENT_VERSION := $(shell grep -m1 'MARKETING_VERSION' $(PBXPROJ) | sed 's/.*= *\(.*\);/\1/')
 
 help:
 	@echo "Available targets:"
@@ -12,6 +15,9 @@ help:
 	@echo "  test-ui                - Run UI tests"
 	@echo "  test-integration       - Run integration tests"
 	@echo "  release-brew TAG=v1.0  - Release to Homebrew tap (requires: Developer ID cert, notarytool profile, gh CLI)"
+	@echo "  bump-major             - Bump major version (X.0.0)"
+	@echo "  bump-minor             - Bump minor version (x.X.0)"
+	@echo "  bump-patch             - Bump patch version (x.x.X)"
 
 screenshots:
 	./scripts/create-screenshots.sh
@@ -71,3 +77,24 @@ test-integration:
 		-scheme MQTTAnalyzer \
 		-destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
 		-only-testing:MQTTAnalyzerIntegrationTests
+
+bump-major:
+	@MAJOR=$$(echo $(CURRENT_VERSION) | cut -d. -f1); \
+	NEW_VERSION=$$((MAJOR + 1)).0.0; \
+	sed -i '' "s/MARKETING_VERSION = $(CURRENT_VERSION)/MARKETING_VERSION = $$NEW_VERSION/g" $(PBXPROJ); \
+	echo "Version bumped: $(CURRENT_VERSION) -> $$NEW_VERSION"
+
+bump-minor:
+	@MINOR=$$(echo $(CURRENT_VERSION) | cut -d. -f2); \
+	MAJOR=$$(echo $(CURRENT_VERSION) | cut -d. -f1); \
+	NEW_VERSION=$$MAJOR.$$((MINOR + 1)).0; \
+	sed -i '' "s/MARKETING_VERSION = $(CURRENT_VERSION)/MARKETING_VERSION = $$NEW_VERSION/g" $(PBXPROJ); \
+	echo "Version bumped: $(CURRENT_VERSION) -> $$NEW_VERSION"
+
+bump-patch:
+	@PATCH=$$(echo $(CURRENT_VERSION) | cut -d. -f3); \
+	MAJOR=$$(echo $(CURRENT_VERSION) | cut -d. -f1); \
+	MINOR=$$(echo $(CURRENT_VERSION) | cut -d. -f2); \
+	NEW_VERSION=$$MAJOR.$$MINOR.$$((PATCH + 1)); \
+	sed -i '' "s/MARKETING_VERSION = $(CURRENT_VERSION)/MARKETING_VERSION = $$NEW_VERSION/g" $(PBXPROJ); \
+	echo "Version bumped: $(CURRENT_VERSION) -> $$NEW_VERSION"
