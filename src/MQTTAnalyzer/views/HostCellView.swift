@@ -314,8 +314,11 @@ struct HostCellView: View {
 		}
 	}
 
-	// MARK: - Actions
+}
 
+// MARK: - Actions
+
+extension HostCellView {
 	func diagnose() {
 		showDiagnostics = true
 	}
