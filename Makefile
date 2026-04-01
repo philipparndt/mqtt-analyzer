@@ -14,7 +14,7 @@ help:
 	@echo "  test                   - Run unit tests"
 	@echo "  test-ui                - Run UI tests"
 	@echo "  test-integration       - Run integration tests"
-	@echo "  release-brew TAG=v1.0  - Release to Homebrew tap (requires: Developer ID cert, notarytool profile, gh CLI)"
+	@echo "  release-brew           - Release to Homebrew tap using current version (or TAG=v1.0 to override)"
 	@echo "  bump-major             - Bump major version (X.0.0)"
 	@echo "  bump-minor             - Bump minor version (x.X.0)"
 	@echo "  bump-patch             - Bump patch version (x.x.X)"
@@ -66,10 +66,12 @@ test-ui:
 		-only-testing:MQTTAnalyzerUITests
 
 release-brew:
-ifndef TAG
-	$(error TAG is required. Usage: make release-brew TAG=v3.0.0)
-endif
-	./scripts/release-brew.sh $(TAG)
+	@TAG=$${TAG:-v$(CURRENT_VERSION)}; \
+	if git tag -l "$$TAG" | grep -q "$$TAG"; then \
+		echo "Error: Tag $$TAG already exists. Bump the version first with make bump-major/bump-minor/bump-patch."; \
+		exit 1; \
+	fi; \
+	./scripts/release-brew.sh $$TAG
 
 test-integration:
 	cd src && xcodebuild test \
