@@ -52,12 +52,6 @@ struct HostsView: View {
 		animation: .default)
 	private var brokers: FetchedResults<BrokerSetting>
 
-	var categorizedBrokers: [String: [BrokerSetting]] {
-		Dictionary(grouping: searchBroker) { broker in
-			broker.category?.isEmpty == true ? "Uncategorized" : (broker.category ?? "Uncategorized")
-		}
-	}
-
 	var body: some View {
 		buildView()
 	}
@@ -111,7 +105,9 @@ struct HostsView: View {
 						.accessibilityIdentifier("edit-broker-list")
 					} else {
 						Menu {
-							Button(action: { showImportPicker = true }) {
+							Button {
+								showImportPicker = true
+							} label: {
 								Label("Import", systemImage: "square.and.arrow.down")
 							}
 							Button(action: toggleEditMode) {
@@ -307,8 +303,19 @@ struct HostsView: View {
 		#endif
 	}
 
+}
+
+// MARK: - View Helpers
+
+extension HostsView {
+	var categorizedBrokers: [String: [BrokerSetting]] {
+		Dictionary(grouping: searchBroker) { broker in
+			broker.category?.isEmpty == true ? "Uncategorized" : (broker.category ?? "Uncategorized")
+		}
+	}
+
 	#if os(iOS)
-	private var editToolbar: some View {
+	var editToolbar: some View {
 		HStack(spacing: 20) {
 			Button {
 				brokersToMove = Array(editSelection)
@@ -336,7 +343,7 @@ struct HostsView: View {
 		.background(.ultraThinMaterial)
 	}
 
-	private func toggleEditMode() {
+	func toggleEditMode() {
 		withAnimation {
 			isEditing.toggle()
 			if !isEditing {
@@ -347,7 +354,7 @@ struct HostsView: View {
 	#endif
 
 	@ViewBuilder
-	private var brokerListContent: some View {
+	var brokerListContent: some View {
 		if let uncategorizedBrokers = categorizedBrokers["Uncategorized"] {
 			ForEach(uncategorizedBrokers, id: \.self) { broker in
 				HostCellView(host: model.getConnectionModel(broker: broker),
@@ -401,7 +408,7 @@ struct HostsView: View {
 		#endif
 	}
 
-	private var existingCategories: [String] {
+	var existingCategories: [String] {
 		let categories = brokers.compactMap { $0.category }
 			.filter { !$0.isEmpty }
 		return Array(Set(categories)).sorted()

@@ -78,7 +78,10 @@ extension BrokerExportModel {
 		self.subscriptions = (setting.subscriptions?.subscriptions ?? []).map {
 			BrokerExportSubscription(topic: $0.topic, qos: $0.qos)
 		}
-		self.certificates = includeSecrets ? Self.exportCertificates(setting.certificates?.files ?? []) : Self.exportCertificateMetadata(setting.certificates?.files ?? [])
+		let files = setting.certificates?.files ?? []
+		self.certificates = includeSecrets
+			? Self.exportCertificates(files)
+			: Self.exportCertificateMetadata(files)
 		self.certClientKeyPassword = includeSecrets ? setting.certClientKeyPassword : nil
 		self.category = setting.category
 		self.limitTopic = Int(setting.limitTopic)

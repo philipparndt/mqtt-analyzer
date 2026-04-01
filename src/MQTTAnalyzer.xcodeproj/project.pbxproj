@@ -7,17 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BRKEXP01IOS0000000000001 /* BrokerExportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKEXP00FILE000000000001 /* BrokerExportModel.swift */; };
-		BRKEXP01MAC0000000000002 /* BrokerExportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKEXP00FILE000000000001 /* BrokerExportModel.swift */; };
-		BRKEXP01INT0000000000003 /* BrokerExportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKEXP00FILE000000000001 /* BrokerExportModel.swift */; };
-		BRKFTY01IOS0000000000001 /* BrokerFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKFTY00FILE000000000001 /* BrokerFileType.swift */; };
-		BRKFTY01MAC0000000000002 /* BrokerFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKFTY00FILE000000000001 /* BrokerFileType.swift */; };
-		BRKFTY01INT0000000000003 /* BrokerFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKFTY00FILE000000000001 /* BrokerFileType.swift */; };
-		BRKIEX01IOS0000000000001 /* BrokerImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKIEX00FILE000000000001 /* BrokerImportExport.swift */; };
-		BRKIEX01MAC0000000000002 /* BrokerImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKIEX00FILE000000000001 /* BrokerImportExport.swift */; };
-		BRKIEX01INT0000000000003 /* BrokerImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKIEX00FILE000000000001 /* BrokerImportExport.swift */; };
-		BRKSHR01IOS0000000000001 /* BrokerShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKSHR00FILE000000000001 /* BrokerShareView.swift */; };
-		BRKSHR01MAC0000000000002 /* BrokerShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKSHR00FILE000000000001 /* BrokerShareView.swift */; };
 		0031B4429B91FFD077CFB8CD /* CertificateEKUChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B14C2D0D4C3322294C1D9ED /* CertificateEKUChecker.swift */; };
 		01E3C0713F3E4C4350151A91 /* ReachabilityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BA556235C776AAF2BBA8B2 /* ReachabilityCheck.swift */; };
 		0332D470EDCC0893FCD4B886 /* TopicTree+ReadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0B27A57DF400D4327F /* TopicTree+ReadState.swift */; };
@@ -488,6 +477,17 @@
 		BCB62E58381EF7427EB2FB8C /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82027872D46008DA37D /* JSONUtils.swift */; };
 		BCD9CDB5F508A02F2C8DF26B /* PublishMessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73023B78F9700892C4B /* PublishMessageFormView.swift */; };
 		BEB3EA61B1557BE097CA18AF /* DiagnosticPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BB4CA51F4083D448D3F5D /* DiagnosticPanelView.swift */; };
+		BRKEXP01INT0000000000003 /* BrokerExportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKEXP00FILE000000000001 /* BrokerExportModel.swift */; };
+		BRKEXP01IOS0000000000001 /* BrokerExportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKEXP00FILE000000000001 /* BrokerExportModel.swift */; };
+		BRKEXP01MAC0000000000002 /* BrokerExportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKEXP00FILE000000000001 /* BrokerExportModel.swift */; };
+		BRKFTY01INT0000000000003 /* BrokerFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKFTY00FILE000000000001 /* BrokerFileType.swift */; };
+		BRKFTY01IOS0000000000001 /* BrokerFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKFTY00FILE000000000001 /* BrokerFileType.swift */; };
+		BRKFTY01MAC0000000000002 /* BrokerFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKFTY00FILE000000000001 /* BrokerFileType.swift */; };
+		BRKIEX01INT0000000000003 /* BrokerImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKIEX00FILE000000000001 /* BrokerImportExport.swift */; };
+		BRKIEX01IOS0000000000001 /* BrokerImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKIEX00FILE000000000001 /* BrokerImportExport.swift */; };
+		BRKIEX01MAC0000000000002 /* BrokerImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKIEX00FILE000000000001 /* BrokerImportExport.swift */; };
+		BRKSHR01IOS0000000000001 /* BrokerShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKSHR00FILE000000000001 /* BrokerShareView.swift */; };
+		BRKSHR01MAC0000000000002 /* BrokerShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BRKSHR00FILE000000000001 /* BrokerShareView.swift */; };
 		C0D7EEC63C681BCAC26B0C83 /* CertificateLocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2856124759FD40000C1E8 /* CertificateLocationPicker.swift */; };
 		C240EAD6259BD9667F959BC5 /* CertificateLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F24C1164AEAF46601A3399 /* CertificateLoader.swift */; };
 		C2B3DB8DBF213B0E43337C56 /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFB22C8D2650078795F /* RootModel.swift */; };
@@ -622,10 +622,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BRKEXP00FILE000000000001 /* BrokerExportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerExportModel.swift; sourceTree = "<group>"; };
-		BRKFTY00FILE000000000001 /* BrokerFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerFileType.swift; sourceTree = "<group>"; };
-		BRKIEX00FILE000000000001 /* BrokerImportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerImportExport.swift; sourceTree = "<group>"; };
-		BRKSHR00FILE000000000001 /* BrokerShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerShareView.swift; sourceTree = "<group>"; };
 		02E7660F41E62F20DC013185 /* CertificateValidator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; };
 		031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerDetailsView.swift; sourceTree = "<group>"; };
 		04E99CEB15F647436B4E790C /* SyntaxTokenizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SyntaxTokenizer.swift; sourceTree = "<group>"; };
@@ -901,6 +897,10 @@
 		A84AF683FFDE3298F497D9D2 /* DiagnosticCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticCheck.swift; sourceTree = "<group>"; };
 		B90DF93A0982418C83208CBC /* EKUCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EKUCheck.swift; sourceTree = "<group>"; };
 		BBD7069C065C2B3768088FC8 /* DERParserTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DERParserTests.swift; sourceTree = "<group>"; };
+		BRKEXP00FILE000000000001 /* BrokerExportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerExportModel.swift; sourceTree = "<group>"; };
+		BRKFTY00FILE000000000001 /* BrokerFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerFileType.swift; sourceTree = "<group>"; };
+		BRKIEX00FILE000000000001 /* BrokerImportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerImportExport.swift; sourceTree = "<group>"; };
+		BRKSHR00FILE000000000001 /* BrokerShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerShareView.swift; sourceTree = "<group>"; };
 		C59488FF35D08E9E2C5F72ED /* SANCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SANCheck.swift; sourceTree = "<group>"; };
 		C7BA556235C776AAF2BBA8B2 /* ReachabilityCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReachabilityCheck.swift; sourceTree = "<group>"; };
 		CEC394D0FF5E80E2C847C91E /* DERParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DERParser.swift; sourceTree = "<group>"; };
@@ -1874,8 +1874,9 @@
 		2253F8CA22C8C007007E35A2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 2640;
 				ORGANIZATIONNAME = "Philipp Arndt";
 				TargetAttributes = {
 					2253F8D122C8C007007E35A2 = {
@@ -2666,8 +2667,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 643R6YSRER;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2687,6 +2690,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -2727,8 +2731,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 643R6YSRER;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2741,6 +2747,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -2750,13 +2757,11 @@
 		2253F90022C8C008007E35A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 161;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MQTTAnalyzer/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
@@ -2779,13 +2784,11 @@
 		2253F90122C8C008007E35A2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzer/MQTTAnalyzer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 161;
 				DEVELOPMENT_ASSET_PATHS = "MQTTAnalyzer/Preview\\ Content";
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MQTTAnalyzer/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
@@ -2808,10 +2811,8 @@
 		2253F90322C8C008007E35A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				INFOPLIST_FILE = MQTTAnalyzerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2832,10 +2833,8 @@
 		2253F90422C8C008007E35A2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				INFOPLIST_FILE = MQTTAnalyzerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2860,7 +2859,6 @@
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntent/MQTTAnalyzerIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 161;
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntent;
@@ -2889,7 +2887,6 @@
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntent/MQTTAnalyzerIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 161;
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MQTTAnalyzerIntent/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntent;
@@ -2918,7 +2915,6 @@
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntentUI/MQTTAnalyzerIntentUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 161;
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntentUI;
@@ -2947,7 +2943,6 @@
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerIntentUI/MQTTAnalyzerIntentUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 161;
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MQTTAnalyzerIntentUI/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MQTTAnalyzerIntentUI;
@@ -2973,7 +2968,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2996,7 +2990,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				INFOPLIST_FILE = MQTTAnalyzerUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3022,7 +3015,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 161;
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 3.2.1;
@@ -3045,7 +3037,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 161;
-				DEVELOPMENT_TEAM = 643R6YSRER;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 3.2.1;
@@ -3070,7 +3061,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 161;
-				DEVELOPMENT_TEAM = 643R6YSRER;
+				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_FILE = "MQTTAnalyzer-macOS/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3081,6 +3072,7 @@
 				MARKETING_VERSION = 3.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.2020-11.philipp.MQTTAnalyzer.macos";
 				PRODUCT_NAME = MQTTAnalyzer;
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -3095,7 +3087,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 161;
-				DEVELOPMENT_TEAM = 643R6YSRER;
+				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_FILE = "MQTTAnalyzer-macOS/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3106,6 +3098,7 @@
 				MARKETING_VERSION = 3.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer;
 				PRODUCT_NAME = MQTTAnalyzer;
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
