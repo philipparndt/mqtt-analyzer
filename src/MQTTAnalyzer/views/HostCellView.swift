@@ -7,6 +7,10 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
+#if os(macOS)
+import AppKit
+#endif
 
 enum HostCellViewSheetType: Identifiable {
 	case edit
@@ -30,6 +34,9 @@ struct HostCellView: View {
 
 	@State private var activeSheet: HostCellViewSheetType?
 	@State private var showDiagnostics = false
+	@State private var showExportShare = false
+	@State private var showExportOptions = false
+	@State private var exportFileURL: URL?
 
 	@State private var loginData = LoginData()
 
@@ -124,6 +131,28 @@ struct HostCellView: View {
 				isPresented: $showDiagnostics,
 				connectionError: host.connectionMessage
 			)
+		}
+		#if os(iOS)
+		.sheet(isPresented: $showExportShare) {
+			if let url = exportFileURL {
+				BrokerShareSheet(fileURL: url)
+			}
+		}
+		#endif
+		.confirmationDialog(
+			"Export Broker",
+			isPresented: $showExportOptions,
+			titleVisibility: .visible
+		) {
+			Button("Include Secrets") {
+				performExport(includeSecrets: true)
+			}
+			Button("Without Secrets") {
+				performExport(includeSecrets: false)
+			}
+			Button("Cancel", role: .cancel) {}
+		} message: {
+			Text("Include passwords and certificates in the export file?")
 		}
 		.onAppear {
 			if self.host.needsAuth {
@@ -267,6 +296,10 @@ struct HostCellView: View {
 
 			Divider()
 
+			MenuButton(title: "Export", systemImage: "square.and.arrow.up", action: exportBroker)
+
+			Divider()
+
 			Menu {
 				DestructiveMenuButton(
 					title: "Delete broker",
@@ -335,6 +368,31 @@ struct HostCellView: View {
 	func login() {
 		activeSheet = nil
 		model.connect(to: self.host)
+	}
+
+	func exportBroker() {
+		showExportOptions = true
+	}
+
+	func performExport(includeSecrets: Bool) {
+		do {
+			let url = try BrokerImportExport.exportBroker(host.settings, includeSecrets: includeSecrets)
+			#if os(iOS)
+			exportFileURL = url
+			showExportShare = true
+			#elseif os(macOS)
+			let panel = NSSavePanel()
+			panel.allowedContentTypes = [.mqttBroker]
+			panel.nameFieldStringValue = url.lastPathComponent
+			panel.begin { response in
+				if response == .OK, let destination = panel.url {
+					try? FileManager.default.copyItem(at: url, to: destination)
+				}
+			}
+			#endif
+		} catch {
+			NSLog("Failed to export broker: \(error)")
+		}
 	}
 
 	func dismissSheet() {

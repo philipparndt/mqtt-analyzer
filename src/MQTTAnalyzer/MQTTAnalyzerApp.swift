@@ -7,12 +7,15 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 @main
 struct MQTTAnalyzerApp: App {
 	@StateObject private var persistenceController = PersistenceController.shared
 	let root = RootModel()
 	@Environment(\.scenePhase) var scenePhase
+	@State private var importAlert: String?
+	@State private var showImportAlert = false
 
 	static let disableAnimations = CommandLine.arguments.contains("--disable-animations")
 
@@ -68,6 +71,14 @@ struct MQTTAnalyzerApp: App {
 						}
 						#endif
 					}
+					.onOpenURL { url in
+						handleOpenURL(url)
+					}
+					.alert("Broker Imported", isPresented: $showImportAlert) {
+						Button("OK") {}
+					} message: {
+						Text(importAlert ?? "Broker was imported successfully.")
+					}
 			} else {
 				LoadingView()
 			}
@@ -101,6 +112,20 @@ struct MQTTAnalyzerApp: App {
 		.windowResizability(.contentSize)
 		.windowStyle(.hiddenTitleBar)
 		#endif
+	}
+
+	private func handleOpenURL(_ url: URL) {
+		guard url.pathExtension == "mqttbroker" else { return }
+		guard let context = persistenceController.container?.viewContext else { return }
+
+		do {
+			let broker = try BrokerImportExport.importBroker(from: url, context: context)
+			importAlert = "Broker '\(broker.aliasOrHost)' was imported successfully."
+			showImportAlert = true
+		} catch {
+			importAlert = "Failed to import broker: \(error.localizedDescription)"
+			showImportAlert = true
+		}
 	}
 }
 
