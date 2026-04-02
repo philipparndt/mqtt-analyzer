@@ -24,6 +24,12 @@ struct MQTTAnalyzerApp: App {
 	@Environment(\.scenePhase) var scenePhase
 	@State private var importAlert: String?
 	@State private var showImportAlert = false
+	#if os(macOS)
+	@State private var cliAlert: String?
+	@State private var showCLIAlert = false
+	@State private var cliManualCommand: CLIManualCommand?
+	@State private var cliInstalled = CLIInstaller.isInstalled
+	#endif
 
 	static let disableAnimations = CommandLine.arguments.contains("--disable-animations")
 
@@ -87,6 +93,21 @@ struct MQTTAnalyzerApp: App {
 					} message: {
 						Text(importAlert ?? "Broker was imported successfully.")
 					}
+					#if os(macOS)
+					.alert("Command Line Tool", isPresented: $showCLIAlert) {
+						Button("OK") {
+							cliInstalled = CLIInstaller.isInstalled
+						}
+					} message: {
+						Text(cliAlert ?? "")
+					}
+					.sheet(item: $cliManualCommand) { item in
+						CLICommandView(command: item.command) {
+							cliManualCommand = nil
+							cliInstalled = CLIInstaller.isInstalled
+						}
+					}
+					#endif
 			} else {
 				LoadingView()
 			}
@@ -117,6 +138,41 @@ struct MQTTAnalyzerApp: App {
 					NotificationCenter.default.post(name: .menuExportBroker, object: nil)
 				}
 				.keyboardShortcut("e", modifiers: [.command, .shift])
+			}
+			CommandGroup(after: .appSettings) {
+				Divider()
+				Button(cliInstalled ? "Reinstall Command Line Tool..." : "Install Command Line Tool...") {
+					CLIInstaller.install { result in
+						switch result {
+						case .success:
+							cliInstalled = true
+							cliAlert = "Command line tool installed at \(CLIInstaller.installPath)"
+							showCLIAlert = true
+						case .needsManualInstall(let command):
+							cliManualCommand = CLIManualCommand(command: command)
+						case .error(let message):
+							cliAlert = message
+							showCLIAlert = true
+						}
+					}
+				}
+				if cliInstalled {
+					Button("Uninstall Command Line Tool...") {
+						CLIInstaller.uninstall { result in
+							switch result {
+							case .success:
+								cliInstalled = false
+								cliAlert = "Command line tool removed from \(CLIInstaller.installPath)"
+								showCLIAlert = true
+							case .needsManualUninstall(let command):
+								cliManualCommand = CLIManualCommand(command: command)
+							case .error(let message):
+								cliAlert = message
+								showCLIAlert = true
+							}
+						}
+					}
+				}
 			}
 		}
 		#endif
