@@ -12,11 +12,16 @@
 		0332D470EDCC0893FCD4B886 /* TopicTree+ReadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0B27A57DF400D4327F /* TopicTree+ReadState.swift */; };
 		03E1FDBA129BE8C934FA61AC /* ClientCertsHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B32280A92D8000F8F37 /* ClientCertsHelpView.swift */; };
 		03FB8FA6E8281F226CF3AAE8 /* CustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224AFEAA27AEF98700DFD09F /* CustomListView.swift */; };
+		04B391A19F42E449100C9E8F /* MQTTAnalyzerCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B56B14590686EB7F1DA834 /* MQTTAnalyzerCommand.swift */; };
+		06BE5ADA88861EA6E9C6237E /* CLIInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569D9CA098908B22DA20CCD9 /* CLIInstaller.swift */; };
 		07DBFB151CA56092DE53BFDF /* HostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104972381796B00112F24 /* HostCellView.swift */; };
 		084B2DFD1C363EBD4BC7B9C4 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291424B23BF78000086C251 /* AboutView.swift */; };
+		0870DC4D9928BDAC1E381593 /* SubscribeCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA648081D65A9D0E550E0615 /* SubscribeCommand.swift */; };
+		087825A2273797E3A384D412 /* CLIMQTTHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0EBC477F82B671C7478A26 /* CLIMQTTHandler.swift */; };
 		0B73EEBFCF6DDFA81DD03086 /* ResumeConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81127841C72008DA37D /* ResumeConnectionView.swift */; };
 		0B965FF173BC17A3D7434054 /* FileLister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D02477D575009810E6 /* FileLister.swift */; };
 		0E444EE1D40EF9A0EF12A076 /* DERParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC394D0FF5E80E2C847C91E /* DERParser.swift */; };
+		10D334F089ACB26CDA6229B0 /* CoreDataTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3B054FEB8678B40B6A729 /* CoreDataTransformers.swift */; };
 		122B370A7621A1613FE82714 /* SyntaxTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E99CEB15F647436B4E790C /* SyntaxTokenizer.swift */; };
 		12D4B720200BBA2459AE4A54 /* Host+Certificates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F7285B4E6000AEAE4C /* Host+Certificates.swift */; };
 		1335563575027645EE7FCBDE /* HostSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EF0052387084D002ADF3E /* HostSetting.swift */; };
@@ -339,6 +344,7 @@
 		22GRDB00527C50000SWIFT05 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00427C50000SWIFT04 /* GRDB */; };
 		22TLS00100000000000001 /* TLSFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22TLS00000000000000001 /* TLSFormView.swift */; };
 		22TLS00200000000000002 /* TLSFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22TLS00000000000000001 /* TLSFormView.swift */; };
+		2688D1A6D86E24361A16A0DC /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 45F49BADF6B84BA4053B9800 /* CocoaMQTT */; };
 		28CB1C523C43B2D99F6549B4 /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2E27A6CDB800D4327F /* Welcome.swift */; };
 		29F757F81242FCC03C406C8A /* LimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C8092781E89B008DA37D /* LimitReachedView.swift */; };
 		2A0A584EFDC7A96F28AD575A /* QOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73923B8CCCC00892C4B /* QOSView.swift */; };
@@ -347,6 +353,7 @@
 		2AD43C76689890CD4F3BD43F /* MqttClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B4F244457E100ACDFC3 /* MqttClient.swift */; };
 		2AD8E4567C333E3E775DA74D /* EditHostFormDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE8238885AF001D9F87 /* EditHostFormDialog.swift */; };
 		2CA720B6622D9E511DD091AF /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104892381740000112F24 /* MessageView.swift */; };
+		2E9F28CFBF4D7222B8836D0C /* MQTTAnalyzerCLI in Embed CLI Tool */ = {isa = PBXBuildFile; fileRef = 92F56339F599C39578CFB429 /* MQTTAnalyzerCLI */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2EB54BCE6C460222B94AB41A /* DERParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC394D0FF5E80E2C847C91E /* DERParser.swift */; };
 		2EE669E92B62D7BD972F600B /* CertificateValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3CFF7F0707B8959B422FF /* CertificateValidatorTests.swift */; };
 		2F02C41418F7C2277626DF47 /* EKUCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90DF93A0982418C83208CBC /* EKUCheck.swift */; };
@@ -356,18 +363,24 @@
 		324B208F63B3BF08086A1097 /* EKUCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90DF93A0982418C83208CBC /* EKUCheck.swift */; };
 		3452A78A218318B0CAA627E5 /* SyncMQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E342814254400A4F627 /* SyncMQTTDelegate.swift */; };
 		360020FDA8256FCC25626811 /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FCAEC247D67BC00490628 /* DocumentPickerView.swift */; };
+		3634E194E66FC2DF43F8D74B /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 3008872BD482F48069158E5A /* ArgumentParser */; };
 		37BC5FB329E5EEEEACE31713 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
+		37C2D020CF1EFCA774C207F6 /* MQTTAnalyzer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2290894D2854AF4D00C7499A /* MQTTAnalyzer.xcdatamodeld */; };
 		38D86911EB554D273136293C /* TopicTree+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2215118C27C923EB0000E385 /* TopicTree+Search.swift */; };
 		397DF5A96397199076BBCC76 /* CocoaMQTTCertificateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203571E2445852800A98CD3 /* CocoaMQTTCertificateFiles.swift */; };
 		3AA4B28D8CC3FE26229A2AFD /* ClientUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38938280E885A00D23022 /* ClientUtils.swift */; };
 		3AAA94B7A3AE22F96EBA7AA1 /* TopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2281048B2381744300112F24 /* TopicView.swift */; };
 		3B4EE031A207F78326DCCD85 /* ConnectBrokerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB627A3CDEB000E37AF /* ConnectBrokerView.swift */; };
+		3B95EE7E4BC0C13B1ED82182 /* CLIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F085A7AA232847DB4B8181 /* CLIIntegrationTests.swift */; };
 		3BE2D184CC5D120764E806FD /* BrokerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ZGII6DSJ8E14WJ6BQ10MIC8Z /* BrokerContentView.swift */; };
 		3D812FB56343764DAE5D1582 /* MsgPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1327A6667000D4327F /* MsgPayload.swift */; };
 		3E32D973321A8850F9890E82 /* HostFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5C2445748500ACDFC3 /* HostFormModel.swift */; };
+		3E6B90AAC33F920F80E9C562 /* CLIMQTTHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0EBC477F82B671C7478A26 /* CLIMQTTHandler.swift */; };
 		3F456163536D45E94E375FAF /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2627A6BB7C00D4327F /* WelcomeView.swift */; };
+		3F813CA4A7A56DE9AAED84AB /* CLICommandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4D7E3F23A919274058ADB /* CLICommandView.swift */; };
 		41AF0C36599150F7FD7B41A2 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5E2445754D00ACDFC3 /* ServerFormView.swift */; };
 		42E1B57D5F6AD856A6C1FAD3 /* HostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C9F73D23BB5E5C00892C4B /* HostModel.swift */; };
+		46932A4725A3C76B9CAC1E4F /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 08F59FB5EA634AF890270790 /* CocoaMQTT */; };
 		497F89689D302BA8C9B4CD34 /* PropertyImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EAAB227A31849000E37AF /* PropertyImageProvider.swift */; };
 		4A322F5BE372628E6EDAD5D7 /* InformationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF2A27A6BC1C00D4327F /* InformationDetailView.swift */; };
 		4BB57415FA977ADCD496751B /* ImportCertificatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FCAEE247D6E2700490628 /* ImportCertificatePicker.swift */; };
@@ -379,6 +392,7 @@
 		5539B538B8AD19467DEE0593 /* ClientIDFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B622445759600ACDFC3 /* ClientIDFormView.swift */; };
 		55E31447AAB0CE922CA7A2FC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2253F8E122C8C008007E35A2 /* Preview Assets.xcassets */; };
 		560AA4838D5E375761AEC60C /* SyntaxToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE5B5FB7C1A4F3595D574E5 /* SyntaxToken.swift */; };
+		575833715730ECA22CBE4044 /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = B0CF8F19D36778510A5298FA /* CocoaMQTTWebSocket */; };
 		590CD6A71C6F2904B9CAA7C3 /* PortCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2C5A8D0C995C34B71B1563 /* PortCheck.swift */; };
 		590CD6A71C6F2904B9CAA7C4 /* MQTTProtocolCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2C5A8D0C995C34B71B15A0 /* MQTTProtocolCheck.swift */; };
 		5B4FE3B5A5AF4F03968BD69D /* CertificateFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263C1D824813B0C00FF14E8 /* CertificateFilesModel.swift */; };
@@ -390,6 +404,7 @@
 		60193002974979DB5789F6D8 /* NoFilesHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D82477D620009810E6 /* NoFilesHelpView.swift */; };
 		618CFC08C7EF55423A48D5E4 /* SyntaxTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E99CEB15F647436B4E790C /* SyntaxTokenizer.swift */; };
 		6200820DA5E8E3795A42C869 /* TLSVersionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C93E04A7F0E74E74F58F /* TLSVersionCheck.swift */; };
+		6496D69134C93069DECE4464 /* ListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9DC4C49CDE3E389FB7E718 /* ListCommand.swift */; };
 		673953FAB23CE81B1780645C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223EF00723870AA5002ADF3E /* CloudKit.framework */; };
 		675ED6BB900E53B7B15D5375 /* CertificateEKUChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B14C2D0D4C3322294C1D9ED /* CertificateEKUChecker.swift */; };
 		67D2EE36E94E186F0D474EE3 /* TimeSeriesValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE64352412637A00C2C4FE /* TimeSeriesValue.swift */; };
@@ -403,13 +418,16 @@
 		6E30C3581DD59D3C9B4DB850 /* DiagnosticPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BB4CA51F4083D448D3F5D /* DiagnosticPanelView.swift */; };
 		6E96B01EDB2EDB62A9F157A8 /* JsonTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF7A4AFFE0320AD8ED7FE7 /* JsonTokenizer.swift */; };
 		6F33AB39AEE48924D3CFC2DE /* DiagnosticContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B97634C9E65F061AEEB225 /* DiagnosticContext.swift */; };
+		70B2B19194C436C67A79E076 /* BrokerLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3711BA8AC328E83455BFB4DC /* BrokerLoaderTests.swift */; };
 		70C007131F1FABFCEF99FFC8 /* ReachabilityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BA556235C776AAF2BBA8B2 /* ReachabilityCheck.swift */; };
+		7212469E0B04E7F0D6D8EF5B /* CoreDataTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3B054FEB8678B40B6A729 /* CoreDataTransformers.swift */; };
 		75F771C35B8B4FD160ECC07C /* DiagnosticRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9742F07336962E9F89430E0B /* DiagnosticRunner.swift */; };
 		75F771C35B8B4FD160ECC08A /* DiagnosticTLSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9742F07336962E9F89430E1A /* DiagnosticTLSHelper.swift */; };
 		7650D2B562FAC134C75F8D7D /* MQTTSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF822C8D2650078795F /* MQTTSessionController.swift */; };
 		781234C01BE05CA1E349D950 /* MQTTClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5124445BA400ACDFC3 /* MQTTClientCocoaMQTT.swift */; };
 		79F58796A66D7CD24A02F341 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF622C8D2650078795F /* MessagesView.swift */; };
 		7AE7BFD2D61E86E8C19404CA /* DiagnosticContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B97634C9E65F061AEEB225 /* DiagnosticContext.swift */; };
+		7BCE8AC4A7A379FB098EE332 /* SubscribeCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA648081D65A9D0E550E0615 /* SubscribeCommand.swift */; };
 		7BFDE9D73F25A543C024B165 /* LoginDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEEB23C7871F00422BFF /* LoginDialog.swift */; };
 		7E634F4ECBACD8CD7D40A254 /* CertificateLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F24C1164AEAF46601A3399 /* CertificateLoader.swift */; };
 		7E7048DEB31B73A4F0C99E92 /* TopicPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BF177AE777375FBC115DB4 /* TopicPathView.swift */; };
@@ -419,6 +437,7 @@
 		7FA0C24E07E186D25BA9D67D /* MQTTClientCocoaMQTT+OnMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893C280EAA9300D23022 /* MQTTClientCocoaMQTT+OnMessage.swift */; };
 		80EFDE3DCD1942343DFAD788 /* TopicPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BF177AE777375FBC115DB4 /* TopicPathView.swift */; };
 		8135605BA2AF505282DD6DF3 /* BrokerSetting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F22858C66500AEAE4C /* BrokerSetting+CoreDataProperties.swift */; };
+		836ECFD9712033E1B08620C4 /* ListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9DC4C49CDE3E389FB7E718 /* ListCommand.swift */; };
 		8405E0BFD083B80D63F4C29D /* EditHostFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CF922C8D2650078795F /* EditHostFormView.swift */; };
 		85DA6BFE4FBAB3BFBAEF877E /* DataSeriesChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F101285DC55200AEAE4C /* DataSeriesChartView.swift */; };
 		86760339AA4C32DF64C97BB8 /* BrokerSetting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F0F12858C66500AEAE4C /* BrokerSetting+CoreDataClass.swift */; };
@@ -426,15 +445,18 @@
 		890D51938E74D6437ABED1EF /* MessageDetailsJsonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104822381723D00112F24 /* MessageDetailsJsonView.swift */; };
 		896AEAF4B05D26C066B4C8D5 /* DiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E06AB3B855947B9B06841B6 /* DiagnosticsView.swift */; };
 		89AC2804B33AD98483FDE677 /* MessageLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1D27A6981900D4327F /* MessageLimitReachedView.swift */; };
+		8A6F91E747943F9485450659 /* PublishCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B4F65D1AC74E9B5D3B3 /* PublishCommand.swift */; };
 		8AE6F3C21CCCE5EEF0B20FAE /* CertInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFB2BA522BD8D02D427F1B /* CertInfo.swift */; };
 		8B0E29A551DA5D5CD649F408 /* ReadMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */; };
 		8B6596119391E64101B2D108 /* DiagnosticCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84AF683FFDE3298F497D9D2 /* DiagnosticCheck.swift */; };
 		8B978E965E66A242A8F3BD83 /* ConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81727842115008DA37D /* ConnectingView.swift */; };
+		8DD11B460E1676EACC19CE92 /* BrokerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8705E154D89FCDAC0788B /* BrokerLoader.swift */; };
 		8DDDAF2CF1447936DD6312D9 /* ProtocolVersionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38946280ED79000D23022 /* ProtocolVersionPicker.swift */; };
 		8E8664D2BDE5DD53E6637CBF /* MetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81B27847786008DA37D /* MetadataView.swift */; };
 		92021AF6E0CF3F637697F640 /* MQTT5ClientCocoaMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B37280AEDC0000F8F37 /* MQTT5ClientCocoaMQTT.swift */; };
 		928452DDF2CE1BFCCB5ADE54 /* MQTT5ClientCocoaMQTT+OnMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893A280EA9FB00D23022 /* MQTT5ClientCocoaMQTT+OnMessage.swift */; };
 		9369F6AFA8A89FD439E0334D /* MQTTDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220357202445B2ED00A98CD3 /* MQTTDelegate.swift */; };
+		93DCD0056D9E29036860B203 /* CLICommandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4D7E3F23A919274058ADB /* CLICommandView.swift */; };
 		943A97ADC919C02A730E3637 /* MQTT3ClientSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E3A28142C9A00A4F627 /* MQTT3ClientSync.swift */; };
 		9446D285A6BF3B2269E3DC4B /* TopicsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B602445757900ACDFC3 /* TopicsFormView.swift */; };
 		954C6DC678383C2E4CC55F1E /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F8BEE623C24A5800422BFF /* String+Utils.swift */; };
@@ -445,6 +467,7 @@
 		A13FCE87A90ABEB0B2A00CD9 /* SyntaxToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE5B5FB7C1A4F3595D574E5 /* SyntaxToken.swift */; };
 		A25FC4AD04F07DE51FD59F97 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C81327841CA1008DA37D /* LoginView.swift */; };
 		A26362C1731B2DBB9C05F582 /* PKCS12HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5D62477D60A009810E6 /* PKCS12HelpView.swift */; };
+		A42AC6168E5A33DD7B06A8D2 /* MQTTAnalyzerCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B56B14590686EB7F1DA834 /* MQTTAnalyzerCommand.swift */; };
 		A5551D4FFD154C37483FB26F /* HostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFC22C8D2660078795F /* HostsView.swift */; };
 		A58A9D13B2A54F1BB490C2F4 /* MQTTClientCocoaMQTT+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38940280ECCDE00D23022 /* MQTTClientCocoaMQTT+Client.swift */; };
 		A603AC8BF59D380565494F56 /* DiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E06AB3B855947B9B06841B6 /* DiagnosticsView.swift */; };
@@ -455,6 +478,7 @@
 		A8CF5B3CFE9305FF511C859E /* TopicTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2250D7602F58B59C003938FF /* TopicTreeView.swift */; };
 		A8CF5B3CFE9305FF511C8600 /* StatisticsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2250D7622F59E8A0003938FF /* StatisticsPanel.swift */; };
 		AD6445F7529D3FBE2D6FAA46 /* CertificateChainCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40379F8971C71DCE0104B948 /* CertificateChainCheck.swift */; };
+		ADAE325EED8A4808F834AA9F /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 692B9BA67F244871BE8F2032 /* CocoaMQTTWebSocket */; };
 		AF1AC67DFE744BA6E2623386 /* CertificateFilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A386FA240941B600DF8F94 /* CertificateFilePickerView.swift */; };
 		AF35CF14B786A1B7F76BCEC9 /* TopicToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228104942381779000112F24 /* TopicToolsView.swift */; };
 		AF9FDAD448C2EBD8EB9B1620 /* DiagnosticCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84AF683FFDE3298F497D9D2 /* DiagnosticCheck.swift */; };
@@ -462,6 +486,9 @@
 		B0B6F51C8965856CA43DE462 /* MQTTAnalyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229089582854C85B00C7499A /* MQTTAnalyzerApp.swift */; };
 		B0D51D1D6E9FECAE6095C74B /* SANCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59488FF35D08E9E2C5F72ED /* SANCheck.swift */; };
 		B0F3B226BCCDE71C0EDCBC0F /* MQTT5ClientCocoaMQTT+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B3893E280EACCB00D23022 /* MQTT5ClientCocoaMQTT+Client.swift */; };
+		B13B67FFEDA77663C3FBCDDD /* SignalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E76C553E1FCE46828F16EF /* SignalHandler.swift */; };
+		B256F967210484D716EDE609 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F511F20AD2C23A782996AC1 /* Cocoa.framework */; };
+		B2BD0C8BF7D68FB9ADAAC924 /* BrokerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8705E154D89FCDAC0788B /* BrokerLoader.swift */; };
 		B33F255F045C18F313275BED /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283D24682494006F8256 /* TopicCell.swift */; };
 		B4C4C252606C28AD8FEB1657 /* NewHostFormDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AE62388858B001D9F87 /* NewHostFormDialog.swift */; };
 		B51CDD1602AB073D98BF4D0E /* DiagnosticStatusIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A9BFF17CFAC64C9602032B /* DiagnosticStatusIcon.swift */; };
@@ -491,6 +518,7 @@
 		C0D7EEC63C681BCAC26B0C83 /* CertificateLocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2856124759FD40000C1E8 /* CertificateLocationPicker.swift */; };
 		C240EAD6259BD9667F959BC5 /* CertificateLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F24C1164AEAF46601A3399 /* CertificateLoader.swift */; };
 		C2B3DB8DBF213B0E43337C56 /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7CFB22C8D2650078795F /* RootModel.swift */; };
+		C2C66A86A51DDA232701D609 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 584F3A5C2B99BC379DB4D038 /* ArgumentParser */; };
 		C2EBD4CDD27F340445F6F4DD /* TopicTree+Deletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF1127A65EE100D4327F /* TopicTree+Deletion.swift */; };
 		C5F384BF87778EA834BA2CEE /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291283B24681CAD006F8256 /* SubscriptionDetailsView.swift */; };
 		C78BBA30D41522F02B34E209 /* HostSettingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AF3AEA23891267001D9F87 /* HostSettingExamples.swift */; };
@@ -499,6 +527,7 @@
 		C9DC6F4F692849C19F60E558 /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA56281127C800F79E65 /* Handlers.swift */; };
 		CCA3D504133CD2BB0062A1D0 /* TopicLimitReachedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C80A2781E89B008DA37D /* TopicLimitReachedView.swift */; };
 		CDA6977521FF0B9791F7D5CE /* Multimap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D50F9622CE4C4300F37EAF /* Multimap.swift */; };
+		CDC2B50D1311C7D1181CAC33 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F57192BB6E3E16AEA0B467 /* main.swift */; };
 		CDE32B14DF638BEE0C22B743 /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7660F41E62F20DC013185 /* CertificateValidator.swift */; };
 		CE29A20B7BC18514DB4E3484 /* AuthFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B66244575DB00ACDFC3 /* AuthFormView.swift */; };
 		CF26EA3177BAE2C18EA9E06A /* CertificateExpiryCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DC057D3443F349E9614A20 /* CertificateExpiryCheck.swift */; };
@@ -507,6 +536,7 @@
 		D1B65AA9E0B4424E1E8D22C8 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200D98027C91DCA00E63E89 /* SearchIndex.swift */; };
 		D4E39296FC6C4C1BF184D8A6 /* PersistenceTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E13281177B600A4F627 /* PersistenceTransformer.swift */; };
 		D6A494510A097FD7B9E0F79A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C386A222CB84900054C385 /* RootView.swift */; };
+		D70244C553EFCCBB4B6AA2CD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F511F20AD2C23A782996AC1 /* Cocoa.framework */; };
 		D7C70F761C641B7D45A02B54 /* TopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2253F8DC22C8C007007E35A2 /* TopicsView.swift */; };
 		D7DFFE4C72F23150D9C8606F /* LimitsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B64244575AF00ACDFC3 /* LimitsFormView.swift */; };
 		D91A25D264F5117E7EFA5A41 /* MQTTAnalyzer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2290894D2854AF4D00C7499A /* MQTTAnalyzer.xcdatamodeld */; };
@@ -517,6 +547,8 @@
 		DC5422135F246BB6BFE77F0E /* CertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7660F41E62F20DC013185 /* CertificateValidator.swift */; };
 		DC86EAFD9413A929A15A805D /* TreeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF0D27A650CE00D4327F /* TreeUtils.swift */; };
 		DCCF1921257510BE78316438 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229089512854B5AD00C7499A /* Persistence.swift */; };
+		DD5DDBEEBD622133F0269A9C /* CLIArgumentParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8673546D5355A5CE929EDC1B /* CLIArgumentParsingTests.swift */; };
+		DDCD2A7E9A41F818F979541A /* SignalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E76C553E1FCE46828F16EF /* SignalHandler.swift */; };
 		DF70F94CBC83782F5A3253B4 /* ProtocolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A6B5524449F5400ACDFC3 /* ProtocolPicker.swift */; };
 		DFC8E7E7BA2122014DB3547B /* JsonTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF7A4AFFE0320AD8ED7FE7 /* JsonTokenizer.swift */; };
 		DFD3A4F8FB1D548CF6C0CD17 /* SyncMQTT5Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C96E372814299000A4F627 /* SyncMQTT5Delegate.swift */; };
@@ -524,11 +556,13 @@
 		E0E6B82C1C963B234001B42E /* DataSeriesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FD7D0422C8D2810078795F /* DataSeriesDetailsView.swift */; };
 		E3AEBE55CFE24AB71B7067CD /* DERParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD7069C065C2B3768088FC8 /* DERParserTests.swift */; };
 		E4B6A061806E77D7CCDC17F5 /* CertificateFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AF5DA2477D64B009810E6 /* CertificateFileModel.swift */; };
+		E5C85B2030D8F0024D3CAC70 /* MQTTAnalyzer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2290894D2854AF4D00C7499A /* MQTTAnalyzer.xcdatamodeld */; };
 		E76EF6CFD835C27A05652332 /* DiagnosticRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9742F07336962E9F89430E0B /* DiagnosticRunner.swift */; };
 		E76EF6CFD835C27A0565234A /* DiagnosticTLSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9742F07336962E9F89430E1A /* DiagnosticTLSHelper.swift */; };
 		E78D6853903FF53AF91CB57A /* SANCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59488FF35D08E9E2C5F72ED /* SANCheck.swift */; };
 		EB84AAA8EDC3091775152B11 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B38948280EEC6900D23022 /* ReceivedMessage.swift */; };
 		EED3AAAAB035EC5AAFC7C039 /* HostModel+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282DA522811276000F79E65 /* HostModel+Delete.swift */; };
+		EED501376DE9560A8AA5957F /* PublishCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B4F65D1AC74E9B5D3B3 /* PublishCommand.swift */; };
 		EED7431A1DB6D7D7C715A001 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205E5E0238A7EE2001638DF /* ButtonStyle.swift */; };
 		EF9CF343D0F67707FA01D6EE /* TimeSeriesValueUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A38706240BD9E600DF8F94 /* TimeSeriesValueUtil.swift */; };
 		EF9FCF17BEBC2640E908772B /* DataProtocol+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230FF3227A830C900D4327F /* DataProtocol+Hex.swift */; };
@@ -544,6 +578,7 @@
 		F7763519F3B773BAD4E05E76 /* DERParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC394D0FF5E80E2C847C91E /* DERParser.swift */; };
 		F98274C4089E43D902D4D355 /* TopicSuffixPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2285C82427887F79008DA37D /* TopicSuffixPickerView.swift */; };
 		FB12455E67373F1787A25B58 /* CertificateDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D200612EE526A6BB47653F5 /* CertificateDiagnostics.swift */; };
+		FB178064B5738B5672E5E874 /* CLIInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569D9CA098908B22DA20CCD9 /* CLIInstaller.swift */; };
 		FCB0F13D4310962C7A8BD794 /* SyntaxHighlightedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE224B5E26468F48727D88 /* SyntaxHighlightedTextView.swift */; };
 		FD8DF0A731981C72C5969FDB /* CategoryFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221093992C0B469100290825 /* CategoryFormView.swift */; };
 		FD94D9FB4F59284753025487 /* HostFormModel+ClientCerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22953B30280A9206000F8F37 /* HostFormModel+ClientCerts.swift */; };
@@ -594,6 +629,13 @@
 			remoteGlobalIDString = 2253F8D122C8C007007E35A2;
 			remoteInfo = MQTTAnalyzer;
 		};
+		DAEC5E9C10CCEAC58E5FFC4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19097DD56A61267315E1BF26;
+			remoteInfo = MQTTAnalyzerCLI;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -619,12 +661,24 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		992F9AC662E162C0BB2B5841 /* Embed CLI Tool */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				2E9F28CFBF4D7222B8836D0C /* MQTTAnalyzerCLI in Embed CLI Tool */,
+			);
+			name = "Embed CLI Tool";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		02E7660F41E62F20DC013185 /* CertificateValidator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateValidator.swift; sourceTree = "<group>"; };
 		031XQRI10S1W48UNH6C3VCTF /* BrokerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerDetailsView.swift; sourceTree = "<group>"; };
 		04E99CEB15F647436B4E790C /* SyntaxTokenizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SyntaxTokenizer.swift; sourceTree = "<group>"; };
+		06F085A7AA232847DB4B8181 /* CLIIntegrationTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLIIntegrationTests.swift; sourceTree = "<group>"; };
 		0DE5B5FB7C1A4F3595D574E5 /* SyntaxToken.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SyntaxToken.swift; sourceTree = "<group>"; };
 		1CA3DD18EECBEABFB9D0C39A /* CertificateLoaderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateLoaderTests.swift; sourceTree = "<group>"; };
 		2200D96527C0C3BF00E63E89 /* PublishTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTests.swift; sourceTree = "<group>"; };
@@ -875,11 +929,14 @@
 		2F2C5A8D0C995C34B71B1563 /* PortCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PortCheck.swift; sourceTree = "<group>"; };
 		2F2C5A8D0C995C34B71B15A0 /* MQTTProtocolCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MQTTProtocolCheck.swift; sourceTree = "<group>"; };
 		32EF7A4AFFE0320AD8ED7FE7 /* JsonTokenizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JsonTokenizer.swift; sourceTree = "<group>"; };
+		3711BA8AC328E83455BFB4DC /* BrokerLoaderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BrokerLoaderTests.swift; sourceTree = "<group>"; };
 		40379F8971C71DCE0104B948 /* CertificateChainCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateChainCheck.swift; sourceTree = "<group>"; };
 		47A9BFF17CFAC64C9602032B /* DiagnosticStatusIcon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticStatusIcon.swift; sourceTree = "<group>"; };
 		490F02665AF738D4E8C4A75A /* DNSResolutionCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DNSResolutionCheck.swift; sourceTree = "<group>"; };
 		5107C93E04A7F0E74E74F58F /* TLSVersionCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TLSVersionCheck.swift; sourceTree = "<group>"; };
+		569D9CA098908B22DA20CCD9 /* CLIInstaller.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLIInstaller.swift; sourceTree = "<group>"; };
 		56F24C1164AEAF46601A3399 /* CertificateLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateLoader.swift; sourceTree = "<group>"; };
+		5A9DC4C49CDE3E389FB7E718 /* ListCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ListCommand.swift; sourceTree = "<group>"; };
 		5ADE224B5E26468F48727D88 /* SyntaxHighlightedTextView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SyntaxHighlightedTextView.swift; sourceTree = "<group>"; };
 		5B14C2D0D4C3322294C1D9ED /* CertificateEKUChecker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateEKUChecker.swift; sourceTree = "<group>"; };
 		5D200612EE526A6BB47653F5 /* CertificateDiagnostics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateDiagnostics.swift; sourceTree = "<group>"; };
@@ -887,25 +944,37 @@
 		630CEA549212E560C3771A48 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BF177AE777375FBC115DB4 /* TopicPathView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TopicPathView.swift; sourceTree = "<group>"; };
 		6C9BB4CA51F4083D448D3F5D /* DiagnosticPanelView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticPanelView.swift; sourceTree = "<group>"; };
+		833EFDD6BBC29B58F52FFD5A /* MQTTAnalyzerCLITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerCLITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		84F57192BB6E3E16AEA0B467 /* main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8673546D5355A5CE929EDC1B /* CLIArgumentParsingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLIArgumentParsingTests.swift; sourceTree = "<group>"; };
 		8DD3CFF7F0707B8959B422FF /* CertificateValidatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateValidatorTests.swift; sourceTree = "<group>"; };
 		8E06AB3B855947B9B06841B6 /* DiagnosticsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticsView.swift; sourceTree = "<group>"; };
+		92F56339F599C39578CFB429 /* MQTTAnalyzerCLI */ = {isa = PBXFileReference; includeInIndex = 0; path = MQTTAnalyzerCLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B97634C9E65F061AEEB225 /* DiagnosticContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticContext.swift; sourceTree = "<group>"; };
+		96A4D7E3F23A919274058ADB /* CLICommandView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLICommandView.swift; sourceTree = "<group>"; };
 		9742F07336962E9F89430E0B /* DiagnosticRunner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticRunner.swift; sourceTree = "<group>"; };
 		9742F07336962E9F89430E1A /* DiagnosticTLSHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticTLSHelper.swift; sourceTree = "<group>"; };
 		9ECFB2BA522BD8D02D427F1B /* CertInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertInfo.swift; sourceTree = "<group>"; };
 		9F511F20AD2C23A782996AC1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		A84AF683FFDE3298F497D9D2 /* DiagnosticCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticCheck.swift; sourceTree = "<group>"; };
+		ABB8705E154D89FCDAC0788B /* BrokerLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BrokerLoader.swift; sourceTree = "<group>"; };
+		B4E76C553E1FCE46828F16EF /* SignalHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignalHandler.swift; sourceTree = "<group>"; };
 		B90DF93A0982418C83208CBC /* EKUCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EKUCheck.swift; sourceTree = "<group>"; };
 		BBD7069C065C2B3768088FC8 /* DERParserTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DERParserTests.swift; sourceTree = "<group>"; };
+		BD0EBC477F82B671C7478A26 /* CLIMQTTHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLIMQTTHandler.swift; sourceTree = "<group>"; };
 		BRKEXP00FILE000000000001 /* BrokerExportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerExportModel.swift; sourceTree = "<group>"; };
 		BRKFTY00FILE000000000001 /* BrokerFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerFileType.swift; sourceTree = "<group>"; };
 		BRKIEX00FILE000000000001 /* BrokerImportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerImportExport.swift; sourceTree = "<group>"; };
 		BRKSHR00FILE000000000001 /* BrokerShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerShareView.swift; sourceTree = "<group>"; };
+		C4EF3B4F65D1AC74E9B5D3B3 /* PublishCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PublishCommand.swift; sourceTree = "<group>"; };
 		C59488FF35D08E9E2C5F72ED /* SANCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SANCheck.swift; sourceTree = "<group>"; };
 		C7BA556235C776AAF2BBA8B2 /* ReachabilityCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReachabilityCheck.swift; sourceTree = "<group>"; };
 		CEC394D0FF5E80E2C847C91E /* DERParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DERParser.swift; sourceTree = "<group>"; };
 		D0D0925C600F310BEA40483B /* DiagnosticResultView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticResultView.swift; sourceTree = "<group>"; };
 		DA45D7313076E1A74E2C02D4 /* LimitsSettingsDialog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LimitsSettingsDialog.swift; sourceTree = "<group>"; };
+		DA648081D65A9D0E550E0615 /* SubscribeCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SubscribeCommand.swift; sourceTree = "<group>"; };
+		DAB3B054FEB8678B40B6A729 /* CoreDataTransformers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoreDataTransformers.swift; sourceTree = "<group>"; };
+		F5B56B14590686EB7F1DA834 /* MQTTAnalyzerCommand.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MQTTAnalyzerCommand.swift; sourceTree = "<group>"; };
 		F5DC057D3443F349E9614A20 /* CertificateExpiryCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateExpiryCheck.swift; sourceTree = "<group>"; };
 		GC1A2B3C4D5E6F7081920A1C /* GlassCircleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCircleModifier.swift; sourceTree = "<group>"; };
 		M0V3CAT0F1E2D3C4B5A6G7H8 /* MoveToCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToCategoryView.swift; sourceTree = "<group>"; };
@@ -969,6 +1038,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		472AC0F596F88BF00222583F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B256F967210484D716EDE609 /* Cocoa.framework in Frameworks */,
+				C2C66A86A51DDA232701D609 /* ArgumentParser in Frameworks */,
+				2688D1A6D86E24361A16A0DC /* CocoaMQTT in Frameworks */,
+				575833715730ECA22CBE4044 /* CocoaMQTTWebSocket in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D1D24573110169F782DBEDF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D70244C553EFCCBB4B6AA2CD /* Cocoa.framework in Frameworks */,
+				3634E194E66FC2DF43F8D74B /* ArgumentParser in Frameworks */,
+				46932A4725A3C76B9CAC1E4F /* CocoaMQTT in Frameworks */,
+				ADAE325EED8A4808F834AA9F /* CocoaMQTTWebSocket in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E8A8A2D9E7F8B755CC9510B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -984,6 +1075,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0EC505411630FC25C72CB6DA /* MQTTAnalyzerCLITests */ = {
+			isa = PBXGroup;
+			children = (
+				3711BA8AC328E83455BFB4DC /* BrokerLoaderTests.swift */,
+				8673546D5355A5CE929EDC1B /* CLIArgumentParsingTests.swift */,
+				06F085A7AA232847DB4B8181 /* CLIIntegrationTests.swift */,
+			);
+			name = MQTTAnalyzerCLITests;
+			path = MQTTAnalyzerCLITests;
+			sourceTree = "<group>";
+		};
 		2200D96927C1122200E63E89 /* logger */ = {
 			isa = PBXGroup;
 			children = (
@@ -1091,6 +1193,8 @@
 				2253F8D322C8C007007E35A2 /* Products */,
 				45E8AFAA8B14B8DFB865D13B /* Frameworks */,
 				22B46BCB27CA640A0077FB83 /* Recovered References */,
+				89F9F9CA399420F83DDEF64D /* MQTTAnalyzerCLI */,
+				0EC505411630FC25C72CB6DA /* MQTTAnalyzerCLITests */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -1105,6 +1209,8 @@
 				2282D9E828102EB100F79E65 /* MQTTAnalyzerIntentUI.appex */,
 				22C96E2728141B9900A4F627 /* MQTTAnalyzerIntegrationTests.xctest */,
 				630CEA549212E560C3771A48 /* MQTTAnalyzer.app */,
+				92F56339F599C39578CFB429 /* MQTTAnalyzerCLI */,
+				833EFDD6BBC29B58F52FFD5A /* MQTTAnalyzerCLITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1122,6 +1228,7 @@
 				2253F8E322C8C008007E35A2 /* LaunchScreen.storyboard */,
 				2253F8E622C8C008007E35A2 /* Info.plist */,
 				2253F8E022C8C008007E35A2 /* Preview Content */,
+				569D9CA098908B22DA20CCD9 /* CLIInstaller.swift */,
 			);
 			path = MQTTAnalyzer;
 			sourceTree = "<group>";
@@ -1254,6 +1361,7 @@
 				222EAAB227A31849000E37AF /* PropertyImageProvider.swift */,
 				2231894A27F08BAB001177F4 /* ViewSelection.swift */,
 				FD626AD540E8ED0C4AA56BD6 /* diagnostics */,
+				9A408A668014EDAC49B2EB75 /* cli */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1697,6 +1805,32 @@
 			name = "OS X";
 			sourceTree = "<group>";
 		};
+		89F9F9CA399420F83DDEF64D /* MQTTAnalyzerCLI */ = {
+			isa = PBXGroup;
+			children = (
+				ABB8705E154D89FCDAC0788B /* BrokerLoader.swift */,
+				BD0EBC477F82B671C7478A26 /* CLIMQTTHandler.swift */,
+				5A9DC4C49CDE3E389FB7E718 /* ListCommand.swift */,
+				C4EF3B4F65D1AC74E9B5D3B3 /* PublishCommand.swift */,
+				B4E76C553E1FCE46828F16EF /* SignalHandler.swift */,
+				DA648081D65A9D0E550E0615 /* SubscribeCommand.swift */,
+				84F57192BB6E3E16AEA0B467 /* main.swift */,
+				F5B56B14590686EB7F1DA834 /* MQTTAnalyzerCommand.swift */,
+				DAB3B054FEB8678B40B6A729 /* CoreDataTransformers.swift */,
+			);
+			name = MQTTAnalyzerCLI;
+			path = MQTTAnalyzerCLI;
+			sourceTree = "<group>";
+		};
+		9A408A668014EDAC49B2EB75 /* cli */ = {
+			isa = PBXGroup;
+			children = (
+				96A4D7E3F23A919274058ADB /* CLICommandView.swift */,
+			);
+			name = cli;
+			path = cli;
+			sourceTree = "<group>";
+		};
 		D34E12E7143C40C35D6872EB /* diagnostics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1723,6 +1857,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		19097DD56A61267315E1BF26 /* MQTTAnalyzerCLI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C39B70DBFE49DE17FA5F8D35 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerCLI" */;
+			buildPhases = (
+				85ED05884870DD91B27C32C4 /* Sources */,
+				5D1D24573110169F782DBEDF /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MQTTAnalyzerCLI;
+			packageProductDependencies = (
+				3008872BD482F48069158E5A /* ArgumentParser */,
+				08F59FB5EA634AF890270790 /* CocoaMQTT */,
+				692B9BA67F244871BE8F2032 /* CocoaMQTTWebSocket */,
+			);
+			productName = MQTTAnalyzerCLI;
+			productReference = 92F56339F599C39578CFB429 /* MQTTAnalyzerCLI */;
+			productType = "com.apple.product-type.tool";
+		};
 		2253F8D122C8C007007E35A2 /* MQTTAnalyzer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2253F8FF22C8C008007E35A2 /* Build configuration list for PBXNativeTarget "MQTTAnalyzer" */;
@@ -1851,6 +2006,28 @@
 			productReference = 22C96E2728141B9900A4F627 /* MQTTAnalyzerIntegrationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		3FBCE08525DE05FCE1EE0815 /* MQTTAnalyzerCLITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F6EC4E86006E6FEB07D1E60 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerCLITests" */;
+			buildPhases = (
+				BDE0DC63EF5B13FFA91C6E7E /* Sources */,
+				472AC0F596F88BF00222583F /* Frameworks */,
+				DA48CABB16428AC9EA774860 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MQTTAnalyzerCLITests;
+			packageProductDependencies = (
+				584F3A5C2B99BC379DB4D038 /* ArgumentParser */,
+				45F49BADF6B84BA4053B9800 /* CocoaMQTT */,
+				B0CF8F19D36778510A5298FA /* CocoaMQTTWebSocket */,
+			);
+			productName = MQTTAnalyzerCLITests;
+			productReference = 833EFDD6BBC29B58F52FFD5A /* MQTTAnalyzerCLITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CE912A11F9A5DE33BF183696 /* MQTTAnalyzer-macOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 16BC91015DAC16879E0981CC /* Build configuration list for PBXNativeTarget "MQTTAnalyzer-macOS" */;
@@ -1858,10 +2035,12 @@
 				D368AC53AE45BFC6A2B8B2C6 /* Sources */,
 				9E8A8A2D9E7F8B755CC9510B /* Frameworks */,
 				7954002347D8BA3EDE0A660C /* Resources */,
+				992F9AC662E162C0BB2B5841 /* Embed CLI Tool */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				08267E05923B849060ED865F /* PBXTargetDependency */,
 			);
 			name = "MQTTAnalyzer-macOS";
 			productName = "MQTTAnalyzer-macOS";
@@ -1912,8 +2091,9 @@
 			);
 			mainGroup = 2253F8C922C8C007007E35A2;
 			packageReferences = (
-				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */,
+				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
 				22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */,
+				08B1C977709A6CD8AAE921D6 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 			);
 			productRefGroup = 2253F8D322C8C007007E35A2 /* Products */;
 			projectDirPath = "";
@@ -1926,6 +2106,8 @@
 				2282D9DC28102EB000F79E65 /* MQTTAnalyzerIntent */,
 				2282D9E728102EB100F79E65 /* MQTTAnalyzerIntentUI */,
 				CE912A11F9A5DE33BF183696 /* MQTTAnalyzer-macOS */,
+				19097DD56A61267315E1BF26 /* MQTTAnalyzerCLI */,
+				3FBCE08525DE05FCE1EE0815 /* MQTTAnalyzerCLITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1984,6 +2166,13 @@
 			files = (
 				55E31447AAB0CE922CA7A2FC /* Preview Assets.xcassets in Resources */,
 				B88A99B01D4664734C394368 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA48CABB16428AC9EA774860 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2205,6 +2394,8 @@
 				BRKFTY01IOS0000000000001 /* BrokerFileType.swift in Sources */,
 				BRKIEX01IOS0000000000001 /* BrokerImportExport.swift in Sources */,
 				BRKSHR01IOS0000000000001 /* BrokerShareView.swift in Sources */,
+				FB178064B5738B5672E5E874 /* CLIInstaller.swift in Sources */,
+				93DCD0056D9E29036860B203 /* CLICommandView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2382,6 +2573,42 @@
 			files = (
 				22C96E3028141BBB00A4F627 /* PublishSyncTests.swift in Sources */,
 				22C96E32281422F200A4F627 /* ReceiveSyncTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85ED05884870DD91B27C32C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD11B460E1676EACC19CE92 /* BrokerLoader.swift in Sources */,
+				087825A2273797E3A384D412 /* CLIMQTTHandler.swift in Sources */,
+				6496D69134C93069DECE4464 /* ListCommand.swift in Sources */,
+				8A6F91E747943F9485450659 /* PublishCommand.swift in Sources */,
+				B13B67FFEDA77663C3FBCDDD /* SignalHandler.swift in Sources */,
+				0870DC4D9928BDAC1E381593 /* SubscribeCommand.swift in Sources */,
+				CDC2B50D1311C7D1181CAC33 /* main.swift in Sources */,
+				E5C85B2030D8F0024D3CAC70 /* MQTTAnalyzer.xcdatamodeld in Sources */,
+				A42AC6168E5A33DD7B06A8D2 /* MQTTAnalyzerCommand.swift in Sources */,
+				10D334F089ACB26CDA6229B0 /* CoreDataTransformers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDE0DC63EF5B13FFA91C6E7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70B2B19194C436C67A79E076 /* BrokerLoaderTests.swift in Sources */,
+				DD5DDBEEBD622133F0269A9C /* CLIArgumentParsingTests.swift in Sources */,
+				B2BD0C8BF7D68FB9ADAAC924 /* BrokerLoader.swift in Sources */,
+				3E6B90AAC33F920F80E9C562 /* CLIMQTTHandler.swift in Sources */,
+				836ECFD9712033E1B08620C4 /* ListCommand.swift in Sources */,
+				EED501376DE9560A8AA5957F /* PublishCommand.swift in Sources */,
+				DDCD2A7E9A41F818F979541A /* SignalHandler.swift in Sources */,
+				7BCE8AC4A7A379FB098EE332 /* SubscribeCommand.swift in Sources */,
+				37C2D020CF1EFCA774C207F6 /* MQTTAnalyzer.xcdatamodeld in Sources */,
+				04B391A19F42E449100C9E8F /* MQTTAnalyzerCommand.swift in Sources */,
+				7212469E0B04E7F0D6D8EF5B /* CoreDataTransformers.swift in Sources */,
+				3B95EE7E4BC0C13B1ED82182 /* CLIIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2579,12 +2806,20 @@
 				BRKFTY01MAC0000000000002 /* BrokerFileType.swift in Sources */,
 				BRKIEX01MAC0000000000002 /* BrokerImportExport.swift in Sources */,
 				BRKSHR01MAC0000000000002 /* BrokerShareView.swift in Sources */,
+				06BE5ADA88861EA6E9C6237E /* CLIInstaller.swift in Sources */,
+				3F813CA4A7A56DE9AAED84AB /* CLICommandView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		08267E05923B849060ED865F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MQTTAnalyzerCLI;
+			target = 19097DD56A61267315E1BF26 /* MQTTAnalyzerCLI */;
+			targetProxy = DAEC5E9C10CCEAC58E5FFC4C /* PBXContainerItemProxy */;
+		};
 		2253F8ED22C8C008007E35A2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
@@ -3052,6 +3287,22 @@
 			};
 			name = Release;
 		};
+		3AE43E2DF72E5447FCDBD16E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_NAME = "mqtt-analyzer";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		8062676E9C83346A693D0F95 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3073,6 +3324,38 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.2020-11.philipp.MQTTAnalyzer.macos";
 				PRODUCT_NAME = MQTTAnalyzer;
 				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9FBA0F0DD8DE983B06AA7867 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzerCLITests;
+				PRODUCT_MODULE_NAME = MQTTAnalyzerCLITests;
+				PRODUCT_NAME = MQTTAnalyzerCLITests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "";
+			};
+			name = Release;
+		};
+		C54CA3D7F39B745A8B2E7AA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_NAME = "mqtt-analyzer";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -3103,6 +3386,22 @@
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
+		};
+		D5A83293FD6859D7091FD5E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzerCLITests;
+				PRODUCT_MODULE_NAME = MQTTAnalyzerCLITests;
+				PRODUCT_NAME = MQTTAnalyzerCLITests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "";
+			};
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -3179,9 +3478,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		4F6EC4E86006E6FEB07D1E60 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerCLITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FBA0F0DD8DE983B06AA7867 /* Release */,
+				D5A83293FD6859D7091FD5E4 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C39B70DBFE49DE17FA5F8D35 /* Build configuration list for PBXNativeTarget "MQTTAnalyzerCLI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AE43E2DF72E5447FCDBD16E /* Release */,
+				C54CA3D7F39B745A8B2E7AA7 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		08B1C977709A6CD8AAE921D6 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 		22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/philipparndt/CocoaMQTT.git";
@@ -3190,7 +3515,7 @@
 				version = "2.2.5-apple-network";
 			};
 		};
-		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */ = {
+		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/GRDB.swift";
 			requirement = {
@@ -3201,9 +3526,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		08F59FB5EA634AF890270790 /* CocoaMQTT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTT;
+		};
 		228466D42F59586600027A13 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
 		};
 		228466D62F59586600027A13 /* CocoaMQTT */ = {
@@ -3258,13 +3588,38 @@
 		};
 		22GRDB00227C50000SWIFT02 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
 		};
 		22GRDB00427C50000SWIFT04 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
+		};
+		3008872BD482F48069158E5A /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08B1C977709A6CD8AAE921D6 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
+		45F49BADF6B84BA4053B9800 /* CocoaMQTT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTT;
+		};
+		584F3A5C2B99BC379DB4D038 /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08B1C977709A6CD8AAE921D6 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
+		692B9BA67F244871BE8F2032 /* CocoaMQTTWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTTWebSocket;
+		};
+		B0CF8F19D36778510A5298FA /* CocoaMQTTWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
+			productName = CocoaMQTTWebSocket;
 		};
 /* End XCSwiftPackageProductDependency section */
 

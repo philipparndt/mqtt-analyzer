@@ -30,8 +30,49 @@ To update to the latest version:
 brew upgrade mqtt-analyzer
 ```
 
+### Command Line Tool (macOS)
+
+The macOS app includes a bundled CLI tool for subscribing to topics and publishing messages from the terminal.
+
+**Install via the app:** Open MQTTAnalyzer, go to the app menu and select "Install Command Line Tool...". This creates a symlink at `/usr/local/bin/mqtt-analyzer`.
+
+**Usage:**
+
+```bash
+# List configured brokers
+mqtt-analyzer list
+
+# Subscribe using the broker's configured subscriptions
+mqtt-analyzer sub -b "My Broker"
+
+# Subscribe to a specific topic
+mqtt-analyzer sub -b "My Broker" "home/sensors/#"
+
+# Subscribe with JSON output (includes topic, payload, qos, retain, timestamp)
+mqtt-analyzer sub -b "My Broker" -j
+
+# Subscribe with unwrapped JSON payloads (parses JSON payloads as nested objects)
+mqtt-analyzer sub -b "My Broker" -u
+
+# Override QoS for subscriptions
+mqtt-analyzer sub -b "My Broker" --qos 2
+
+# Publish a message
+mqtt-analyzer pub -b "My Broker" "home/light" "on"
+
+# Publish with QoS and retain
+mqtt-analyzer pub -b "My Broker" "home/light" "on" --qos 1 --retain
+
+# Publish from stdin
+echo '{"state":"ON"}' | mqtt-analyzer pub -b "My Broker" "home/light" -
+
+# Use a .mqttbroker file instead of a configured broker
+mqtt-analyzer sub -f broker.mqttbroker "home/#"
+```
+
 ### Features:
 - Native macOS and iOS app
+- Command line tool for subscribe and publish
 - Authentication with username/password and/or client certificates
 - Connect using MQTT or Websocket
 - Support for SSL/TLS with ALPN

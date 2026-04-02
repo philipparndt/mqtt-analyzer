@@ -105,6 +105,9 @@ struct HostsView: View {
 						.accessibilityIdentifier("edit-broker-list")
 					} else {
 						Menu {
+							Button(action: createHost) {
+								Label("Add Broker", systemImage: "plus")
+							}
 							Button {
 								showImportPicker = true
 							} label: {
@@ -112,9 +115,6 @@ struct HostsView: View {
 							}
 							Button(action: toggleEditMode) {
 								Label("Edit", systemImage: "pencil")
-							}
-							Button(action: createHost) {
-								Label("Add Broker", systemImage: "plus")
 							}
 						} label: {
 							Image(systemName: "line.3.horizontal")
