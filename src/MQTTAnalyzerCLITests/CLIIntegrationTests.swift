@@ -36,7 +36,10 @@ final class CLIIntegrationTests: XCTestCase {
                 "limitMessagesBatch": 500
             ]
         ]
-        let data = try! JSONSerialization.data(withJSONObject: brokerJSON, options: .prettyPrinted)
+        guard let data = try? JSONSerialization.data(withJSONObject: brokerJSON, options: .prettyPrinted) else {
+            XCTFail("Failed to serialize broker JSON")
+            return
+        }
         brokerFilePath = NSTemporaryDirectory() + "cli-test-\(UUID().uuidString).mqttbroker"
         FileManager.default.createFile(atPath: brokerFilePath, contents: data)
     }
