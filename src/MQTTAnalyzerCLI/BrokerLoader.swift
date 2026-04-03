@@ -2,7 +2,7 @@
 //  BrokerLoader.swift
 //  MQTTAnalyzerCLI
 //
-//  Copyright © 2024 Philipp Arndt. All rights reserved.
+//  Copyright © 2026 Philipp Arndt. All rights reserved.
 //
 
 import Foundation
