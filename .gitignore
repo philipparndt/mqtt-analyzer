@@ -41,3 +41,4 @@ Pods
 
 # Decrypted sops files
 *.dec
+*.afdesign~lock~
