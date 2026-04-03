@@ -201,28 +201,6 @@ struct HostsView: View {
 				.help("Add a new broker")
 			}
 		}
-		.toolbar {
-			ToolbarItem(placement: .automatic) {
-				Button {
-					brokersToMove = Array(macSelection)
-					showMoveToCategory = true
-				} label: {
-					Label("Move to Category", systemImage: "folder")
-				}
-				.disabled(macSelection.isEmpty)
-				.help("Move selected brokers to a category")
-			}
-
-			ToolbarItem(placement: .automatic) {
-				Button {
-					showDeleteConfirmation = true
-				} label: {
-					Label("Delete", systemImage: "trash")
-				}
-				.disabled(macSelection.isEmpty)
-				.help("Delete selected brokers")
-			}
-		}
 		.onReceive(NotificationCenter.default.publisher(for: .menuNewBroker)) { _ in
 			createHost()
 		}
@@ -357,15 +335,7 @@ extension HostsView {
 	var brokerListContent: some View {
 		if let uncategorizedBrokers = categorizedBrokers["Uncategorized"] {
 			ForEach(uncategorizedBrokers, id: \.self) { broker in
-				HostCellView(host: model.getConnectionModel(broker: broker),
-							 hostsModel: hostsModel,
-							 messageModel: (
-								self.model.getMessageModel(model.getConnectionModel(broker: broker))
-							 ),
-							 cloneHostHandler: self.cloneHost,
-							 isSelected: selectedBroker == broker)
-					.accessibilityIdentifier("broker: \(broker.aliasOrHost)")
-					.tag(broker)
+				brokerCell(broker: broker)
 			}
 			#if os(iOS)
 			.onDelete { offsets in
@@ -380,15 +350,7 @@ extension HostsView {
 				Divider()
 			}) {
 				ForEach(categorizedBrokers[category] ?? [], id: \.self) { broker in
-					HostCellView(host: model.getConnectionModel(broker: broker),
-								 hostsModel: hostsModel,
-								 messageModel: (
-									self.model.getMessageModel(model.getConnectionModel(broker: broker))
-								 ),
-								 cloneHostHandler: self.cloneHost,
-								 isSelected: selectedBroker == broker)
-						.accessibilityIdentifier("broker: \(broker.aliasOrHost)")
-						.tag(broker)
+					brokerCell(broker: broker)
 				}
 				#if os(iOS)
 				.onDelete { offsets in
@@ -406,6 +368,37 @@ extension HostsView {
 		}
 		.listSectionSeparator(.hidden)
 		#endif
+	}
+
+	func brokerCell(broker: BrokerSetting) -> some View {
+		HostCellView(host: model.getConnectionModel(broker: broker),
+					 hostsModel: hostsModel,
+					 messageModel: (
+						self.model.getMessageModel(model.getConnectionModel(broker: broker))
+					 ),
+					 cloneHostHandler: self.cloneHost,
+					 isSelected: selectedBroker == broker)
+			.accessibilityIdentifier("broker: \(broker.aliasOrHost)")
+			.tag(broker)
+			#if os(macOS)
+			.contextMenu {
+				Button {
+					brokersToMove = [broker]
+					showMoveToCategory = true
+				} label: {
+					Label("Move to Category", systemImage: "folder")
+				}
+
+				Divider()
+
+				Button(role: .destructive) {
+					macSelection = [broker]
+					showDeleteConfirmation = true
+				} label: {
+					Label("Delete", systemImage: "trash")
+				}
+			}
+			#endif
 	}
 
 	var existingCategories: [String] {
