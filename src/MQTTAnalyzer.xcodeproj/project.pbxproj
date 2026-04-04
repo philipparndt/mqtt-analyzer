@@ -3293,6 +3293,7 @@
 		3AE43E2DF72E5447FCDBD16E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerCLI/MQTTAnalyzerCLI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3352,6 +3353,7 @@
 		C54CA3D7F39B745A8B2E7AA7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerCLI/MQTTAnalyzerCLI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
