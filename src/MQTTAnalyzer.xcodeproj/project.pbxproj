@@ -327,6 +327,8 @@
 		22E04D302F68766300E0E3D1 /* PlatformCompat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E04D2C2F68766300E0E3D1 /* PlatformCompat.swift */; };
 		22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */; };
 		22E469D7237FC03500D72BD6 /* Readstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E469D6237FC03500D72BD6 /* Readstate.swift */; };
+		22E84D442F802E83009DBA15 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 22E84D432F802E83009DBA15 /* AppIcon.icon */; };
+		22E84D452F802E83009DBA15 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 22E84D432F802E83009DBA15 /* AppIcon.icon */; };
 		22E8971722CFBFED00A4B8A3 /* TimeSeriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */; };
 		22E914DF25A8420700BEC599 /* HostFormModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E914DE25A8420700BEC599 /* HostFormModelTests.swift */; };
 		22EC325E285603550000DAED /* ModelMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EC325D285603550000DAED /* ModelMigration.swift */; };
@@ -912,6 +914,7 @@
 		22E04D2C2F68766300E0E3D1 /* PlatformCompat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformCompat.swift; sourceTree = "<group>"; };
 		22E469D4237FBEC500D72BD6 /* ReadMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMarkerView.swift; sourceTree = "<group>"; };
 		22E469D6237FC03500D72BD6 /* Readstate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Readstate.swift; sourceTree = "<group>"; };
+		22E84D432F802E83009DBA15 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		22E8971622CFBFED00A4B8A3 /* TimeSeriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesModel.swift; sourceTree = "<group>"; };
 		22E914DE25A8420700BEC599 /* HostFormModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFormModelTests.swift; sourceTree = "<group>"; };
 		22EC325D285603550000DAED /* ModelMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMigration.swift; sourceTree = "<group>"; };
@@ -949,7 +952,7 @@
 		8673546D5355A5CE929EDC1B /* CLIArgumentParsingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLIArgumentParsingTests.swift; sourceTree = "<group>"; };
 		8DD3CFF7F0707B8959B422FF /* CertificateValidatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CertificateValidatorTests.swift; sourceTree = "<group>"; };
 		8E06AB3B855947B9B06841B6 /* DiagnosticsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticsView.swift; sourceTree = "<group>"; };
-		92F56339F599C39578CFB429 /* MQTTAnalyzerCLI */ = {isa = PBXFileReference; includeInIndex = 0; path = MQTTAnalyzerCLI; sourceTree = BUILT_PRODUCTS_DIR; };
+		92F56339F599C39578CFB429 /* MQTTAnalyzerCLI */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = text; name = MQTTAnalyzerCLI; path = "mqtt-analyzer"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B97634C9E65F061AEEB225 /* DiagnosticContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticContext.swift; sourceTree = "<group>"; };
 		96A4D7E3F23A919274058ADB /* CLICommandView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLICommandView.swift; sourceTree = "<group>"; };
 		9742F07336962E9F89430E0B /* DiagnosticRunner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagnosticRunner.swift; sourceTree = "<group>"; };
@@ -1082,7 +1085,6 @@
 				8673546D5355A5CE929EDC1B /* CLIArgumentParsingTests.swift */,
 				06F085A7AA232847DB4B8181 /* CLIIntegrationTests.swift */,
 			);
-			name = MQTTAnalyzerCLITests;
 			path = MQTTAnalyzerCLITests;
 			sourceTree = "<group>";
 		};
@@ -1182,6 +1184,7 @@
 			isa = PBXGroup;
 			children = (
 				2240834827AC533A00AA4A42 /* SnapshotHelper.swift */,
+				22E84D432F802E83009DBA15 /* AppIcon.icon */,
 				22C9F72E23B7486E00892C4B /* .swiftlint.yml */,
 				2282DA112811249300F79E65 /* Common */,
 				2253F8D422C8C007007E35A2 /* MQTTAnalyzer */,
@@ -1818,7 +1821,6 @@
 				F5B56B14590686EB7F1DA834 /* MQTTAnalyzerCommand.swift */,
 				DAB3B054FEB8678B40B6A729 /* CoreDataTransformers.swift */,
 			);
-			name = MQTTAnalyzerCLI;
 			path = MQTTAnalyzerCLI;
 			sourceTree = "<group>";
 		};
@@ -1827,7 +1829,6 @@
 			children = (
 				96A4D7E3F23A919274058ADB /* CLICommandView.swift */,
 			);
-			name = cli;
 			path = cli;
 			sourceTree = "<group>";
 		};
@@ -2091,7 +2092,7 @@
 			);
 			mainGroup = 2253F8C922C8C007007E35A2;
 			packageReferences = (
-				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */,
 				22COCOA0127C60000MQTT01 /* XCRemoteSwiftPackageReference "CocoaMQTT" */,
 				08B1C977709A6CD8AAE921D6 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 			);
@@ -2118,6 +2119,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2253F8E522C8C008007E35A2 /* LaunchScreen.storyboard in Resources */,
+				22E84D452F802E83009DBA15 /* AppIcon.icon in Resources */,
 				2253F8E222C8C008007E35A2 /* Preview Assets.xcassets in Resources */,
 				2253F8DF22C8C008007E35A2 /* Assets.xcassets in Resources */,
 			);
@@ -2166,6 +2168,7 @@
 			files = (
 				55E31447AAB0CE922CA7A2FC /* Preview Assets.xcassets in Resources */,
 				B88A99B01D4664734C394368 /* Assets.xcassets in Resources */,
+				22E84D442F802E83009DBA15 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3515,7 +3518,7 @@
 				version = "2.2.5-apple-network";
 			};
 		};
-		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/GRDB.swift";
 			requirement = {
@@ -3533,7 +3536,7 @@
 		};
 		228466D42F59586600027A13 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
 		};
 		228466D62F59586600027A13 /* CocoaMQTT */ = {
@@ -3588,12 +3591,12 @@
 		};
 		22GRDB00227C50000SWIFT02 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
 		};
 		22GRDB00427C50000SWIFT04 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			package = 22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
 		};
 		3008872BD482F48069158E5A /* ArgumentParser */ = {
