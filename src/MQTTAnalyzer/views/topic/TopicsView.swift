@@ -168,8 +168,14 @@ struct TopicsView: View {
 			}
 
 			ToolbarItem(placement: .secondaryAction) {
-				Button(action: pauseConnection) {
-					Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
+				if host.state == .disconnected {
+					Button(action: connect) {
+						Label("Connect", systemImage: "play.fill")
+					}
+				} else {
+					Button(action: pauseConnection) {
+						Label(host.pause ? "Resume" : "Pause", systemImage: host.pause ? "play.fill" : "pause.fill")
+					}
 				}
 			}
 

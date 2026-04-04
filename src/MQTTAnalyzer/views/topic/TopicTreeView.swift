@@ -152,7 +152,7 @@ struct TopicTreeSidebarView: View {
 			ToolbarItem(placement: .secondaryAction) {
 				if host.state == .disconnected {
 					Button(
-						action: { host.reconnect() },
+						action: { rootModel.connect(to: host) },
 						label: { Label("Connect", systemImage: "play.fill") }
 					)
 				} else {
