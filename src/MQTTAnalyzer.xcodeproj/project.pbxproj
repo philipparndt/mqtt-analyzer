@@ -3295,12 +3295,16 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerCLI/MQTTAnalyzerCLI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEAD_CODE_STRIPPING = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.cli;
 				PRODUCT_NAME = "mqtt-analyzer";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -3355,12 +3359,16 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MQTTAnalyzerCLI/MQTTAnalyzerCLI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEAD_CODE_STRIPPING = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rnd7.MQTTAnalyzer.cli;
 				PRODUCT_NAME = "mqtt-analyzer";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
