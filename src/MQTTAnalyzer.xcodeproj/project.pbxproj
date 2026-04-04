@@ -3302,6 +3302,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_NAME = "mqtt-analyzer";
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -3360,6 +3361,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_NAME = "mqtt-analyzer";
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
