@@ -48,8 +48,8 @@ public class Subscriptions: NSObject {
 
 @objc(SubscriptionValueTransformer)
 public final class SubscriptionValueTransformer: ValueTransformer {
-    public override class func transformedValueClass() -> AnyClass { Subscriptions.self }
-    public override class func allowsReverseTransformation() -> Bool { true }
+    public override static func transformedValueClass() -> AnyClass { Subscriptions.self }
+    public override static func allowsReverseTransformation() -> Bool { true }
 
     public override func transformedValue(_ value: Any?) -> Any? {
         guard let subscriptions = value as? Subscriptions else { return nil }
@@ -76,8 +76,8 @@ public class Certificates: NSObject {
 
 @objc(CertificateValueTransformer)
 public final class CertificateValueTransformer: ValueTransformer {
-    public override class func transformedValueClass() -> AnyClass { Certificates.self }
-    public override class func allowsReverseTransformation() -> Bool { true }
+    public override static func transformedValueClass() -> AnyClass { Certificates.self }
+    public override static func allowsReverseTransformation() -> Bool { true }
 
     public override func transformedValue(_ value: Any?) -> Any? {
         guard let certificates = value as? Certificates else { return nil }
