@@ -271,6 +271,9 @@
 		22B46BDA27CA652B0077FB83 /* Brokers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BD327CA652B0077FB83 /* Brokers.swift */; };
 		22B46BDF27CA65750077FB83 /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B46BDE27CA65750077FB83 /* SearchTests.swift */; };
 		22B90E882805B2DE0083C6E5 /* SubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B90E872805B2DE0083C6E5 /* SubscriptionTests.swift */; };
+		22BB9A8D2F81A51B007DE024 /* NetworkPermissionProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB9A8C2F81A51B007DE024 /* NetworkPermissionProbe.swift */; };
+		22BB9A8E2F81A51B007DE024 /* NetworkPermissionProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB9A8C2F81A51B007DE024 /* NetworkPermissionProbe.swift */; };
+		22BB9A8F2F81A51B007DE024 /* NetworkPermissionProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB9A8C2F81A51B007DE024 /* NetworkPermissionProbe.swift */; };
 		22C100292F67146B00774932 /* BinaryPayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C100282F67146B00774932 /* BinaryPayloadView.swift */; };
 		22C1002A2F67146B00774932 /* BinaryPayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C100282F67146B00774932 /* BinaryPayloadView.swift */; };
 		22C131262855F1ED00AEFC0A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229089512854B5AD00C7499A /* Persistence.swift */; };
@@ -881,6 +884,7 @@
 		22B46BD327CA652B0077FB83 /* Brokers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brokers.swift; sourceTree = "<group>"; };
 		22B46BDE27CA65750077FB83 /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
 		22B90E872805B2DE0083C6E5 /* SubscriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionTests.swift; sourceTree = "<group>"; };
+		22BB9A8C2F81A51B007DE024 /* NetworkPermissionProbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPermissionProbe.swift; sourceTree = "<group>"; };
 		22C100282F67146B00774932 /* BinaryPayloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryPayloadView.swift; sourceTree = "<group>"; };
 		22C2856124759FD40000C1E8 /* CertificateLocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateLocationPicker.swift; sourceTree = "<group>"; };
 		22C386A222CB84900054C385 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -1780,6 +1784,7 @@
 		332564AC304F42FEA1C9AC83 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				22BB9A8C2F81A51B007DE024 /* NetworkPermissionProbe.swift */,
 				30F1288CEB4A1046C3C6E391 /* certs */,
 			);
 			path = utils;
@@ -2253,6 +2258,7 @@
 				2281048A2381740000112F24 /* MessageView.swift in Sources */,
 				22E469D5237FBEC500D72BD6 /* ReadMarkerView.swift in Sources */,
 				2291283C24681CAD006F8256 /* SubscriptionDetailsView.swift in Sources */,
+				22BB9A8E2F81A51B007DE024 /* NetworkPermissionProbe.swift in Sources */,
 				22FD7CFF22C8D2660078795F /* MQTTSessionController.swift in Sources */,
 				2200D98127C91DCA00E63E89 /* SearchIndex.swift in Sources */,
 				2230FF2227A6AEC800D4327F /* TopicTree+Flatten.swift in Sources */,
@@ -2478,6 +2484,7 @@
 				228AB89F281706EF00F6E714 /* RequestResponseHandler.swift in Sources */,
 				22C96E0828112B6700A4F627 /* HostSettingExamples.swift in Sources */,
 				2282D9E228102EB100F79E65 /* IntentHandler.swift in Sources */,
+				22BB9A8D2F81A51B007DE024 /* NetworkPermissionProbe.swift in Sources */,
 				22C96E0B28112BE700A4F627 /* MQTTClientSync.swift in Sources */,
 				2282DA642811290400F79E65 /* Host+ActualUserPassword.swift in Sources */,
 				2282DA59281127D800F79E65 /* Handlers.swift in Sources */,
@@ -2665,6 +2672,7 @@
 				2CA720B6622D9E511DD091AF /* MessageView.swift in Sources */,
 				8B0E29A551DA5D5CD649F408 /* ReadMarkerView.swift in Sources */,
 				C5F384BF87778EA834BA2CEE /* SubscriptionDetailsView.swift in Sources */,
+				22BB9A8F2F81A51B007DE024 /* NetworkPermissionProbe.swift in Sources */,
 				7650D2B562FAC134C75F8D7D /* MQTTSessionController.swift in Sources */,
 				D1B65AA9E0B4424E1E8D22C8 /* SearchIndex.swift in Sources */,
 				30C84136AA05E9D7AA1F11A0 /* TopicTree+Flatten.swift in Sources */,
