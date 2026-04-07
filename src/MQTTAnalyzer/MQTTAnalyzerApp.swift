@@ -61,6 +61,8 @@ struct MQTTAnalyzerApp: App {
 		DispatchQueue.global(qos: .utility).async {
 			CloudDataManager.instance.initDocumentsDirectory()
 		}
+
+		NetworkPermissionProbe.trigger()
 	}
 
 	#if os(macOS)
