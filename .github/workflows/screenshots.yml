@@ -17,7 +17,7 @@ jobs:
     - name: Remove Package.resolve 
       working-directory: src
       run: |
-        rm ./MQTTAnalyzer.xcworkspace/xcshareddata/swiftpm/Package.resolved
+        rm -f ./MQTTAnalyzer.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 
     - name: Install Dependences
       working-directory: src
@@ -37,7 +37,7 @@ jobs:
     - name: Remove Package.resolve 
       working-directory: src
       run: |
-        rm ./MQTTAnalyzer.xcworkspace/xcshareddata/swiftpm/Package.resolved
+        rm -f ./MQTTAnalyzer.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 
     - name: Create screenshots
       run: |

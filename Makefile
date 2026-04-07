@@ -28,7 +28,7 @@ screenshots-refresh:
 screenshots-mac:
 	@echo "Building macOS app..."
 	cd src && xcodebuild build \
-		-workspace MQTTAnalyzer.xcworkspace \
+		-project MQTTAnalyzer.xcodeproj \
 		-scheme MQTTAnalyzer-macOS \
 		-configuration Debug \
 		-derivedDataPath build/DerivedData-macOS \
@@ -53,14 +53,14 @@ publish-skip-tests:
 
 test:
 	cd src && xcodebuild test \
-		-workspace MQTTAnalyzer.xcworkspace \
+		-project MQTTAnalyzer.xcodeproj \
 		-scheme MQTTAnalyzer \
 		-destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
 		-testPlan UnitTestPlan
 
 test-ui:
 	cd src && xcodebuild test \
-		-workspace MQTTAnalyzer.xcworkspace \
+		-project MQTTAnalyzer.xcodeproj \
 		-scheme MQTTAnalyzer \
 		-destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
 		-only-testing:MQTTAnalyzerUITests
@@ -75,7 +75,7 @@ release-brew:
 
 test-integration:
 	cd src && xcodebuild test \
-		-workspace MQTTAnalyzer.xcworkspace \
+		-project MQTTAnalyzer.xcodeproj \
 		-scheme MQTTAnalyzer \
 		-destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
 		-only-testing:MQTTAnalyzerIntegrationTests

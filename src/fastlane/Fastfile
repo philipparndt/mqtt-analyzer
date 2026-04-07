@@ -61,7 +61,7 @@ platform :ios do
 
 
   lane :screenshots do
-    capture_screenshots(workspace: "MQTTAnalyzer.xcworkspace", scheme: "MQTTAnalyzer")
+    capture_screenshots(project: "MQTTAnalyzer.xcodeproj", scheme: "MQTTAnalyzer")
   end
 end
 
@@ -100,6 +100,6 @@ platform :mac do
   end
 
   lane :screenshots do
-    capture_screenshots(workspace: "MQTTAnalyzer.xcworkspace", scheme: "MQTTAnalyzer")
+    capture_screenshots(project: "MQTTAnalyzer.xcodeproj", scheme: "MQTTAnalyzer")
   end
 end

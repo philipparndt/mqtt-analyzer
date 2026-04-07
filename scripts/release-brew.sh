@@ -14,7 +14,7 @@ fi
 
 APP_NAME="MQTTAnalyzer"
 SCHEME="MQTTAnalyzer-macOS"
-WORKSPACE="src/MQTTAnalyzer.xcworkspace"
+PROJECT="src/MQTTAnalyzer.xcodeproj"
 PBXPROJ="src/MQTTAnalyzer.xcodeproj/project.pbxproj"
 
 # Verify TAG matches MARKETING_VERSION in the Xcode project
@@ -55,7 +55,7 @@ mkdir -p build/brew
 echo ""
 echo "--- Archiving ${APP_NAME} (macOS) ---"
 xcodebuild archive \
-    -workspace "${WORKSPACE}" \
+    -project "${PROJECT}" \
     -scheme "${SCHEME}" \
     -destination "generic/platform=macOS" \
     -archivePath "${ARCHIVE_PATH}" \

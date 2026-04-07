@@ -2,6 +2,6 @@
 cd src
 xcodebuild test \
 -enableCodeCoverage YES \
--workspace MQTTAnalyzer.xcworkspace \
+-project MQTTAnalyzer.xcodeproj \
 -scheme MQTTAnalyzer \
 -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.4'
