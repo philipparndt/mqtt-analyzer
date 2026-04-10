@@ -42,6 +42,8 @@ struct HostCellView: View {
 
 	var cloneHostHandler: (Host) -> Void
 	var isSelected: Bool
+	var moveToCategoryHandler: (() -> Void)?
+	var deleteWithConfirmationHandler: (() -> Void)?
 
 	var body: some View {
 		HStack(spacing: 12) {
@@ -106,11 +108,10 @@ struct HostCellView: View {
 			if isSelected || host.state != .disconnected {
 				actionButton
 			}
-
-			contextMenu()
 		}
 		.padding(.vertical, 6)
 		.contentShape(Rectangle())
+		.contextMenu { contextMenuContent() }
 		.sheet(item: $activeSheet) { sheetType in
 			switch sheetType {
 			case .edit:
@@ -263,43 +264,59 @@ struct HostCellView: View {
 
 	// MARK: - Context Menu
 
-	func contextMenu() -> some View {
-		return Text("").contextMenu {
-			MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
-				.accessibilityIdentifier("edit-broker")
-			MenuButton(
-				title: "Create new based on this",
-				systemImage: "pencil.circle",
-				action: cloneHost
-			)
-			if host.state != .disconnected {
-				Menu {
-					MenuButton(
-						title: "Disconnect",
-						systemImage: "stop.circle",
-						action: disconnect
-					)
+	@ViewBuilder
+	func contextMenuContent() -> some View {
+		MenuButton(title: "Edit", systemImage: "pencil.circle", action: editHost)
+			.accessibilityIdentifier("edit-broker")
+		MenuButton(
+			title: "Create new based on this",
+			systemImage: "pencil.circle",
+			action: cloneHost
+		)
+		if host.state != .disconnected {
+			Menu {
+				MenuButton(
+					title: "Disconnect",
+					systemImage: "stop.circle",
+					action: disconnect
+				)
 
-					DestructiveMenuButton(
-						title: "Disconnect and clean",
-						systemImage: "stop.circle",
-						action: disconnectClean
-					)
-				} label: {
-					Label("Disconnect", systemImage: "stop.circle")
-				}
-			} else {
-				MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
+				DestructiveMenuButton(
+					title: "Disconnect and clean",
+					systemImage: "stop.circle",
+					action: disconnectClean
+				)
+			} label: {
+				Label("Disconnect", systemImage: "stop.circle")
 			}
+		} else {
+			MenuButton(title: "Connect", systemImage: "play.circle", action: connect)
+		}
 
-			MenuButton(title: "Diagnose", systemImage: "stethoscope", action: diagnose)
+		MenuButton(title: "Diagnose", systemImage: "stethoscope", action: diagnose)
 
-			Divider()
+		Divider()
 
-			MenuButton(title: "Export", systemImage: "square.and.arrow.up", action: exportBroker)
+		MenuButton(title: "Export", systemImage: "square.and.arrow.up", action: exportBroker)
 
-			Divider()
+		if let moveToCategoryHandler = moveToCategoryHandler {
+			Button {
+				moveToCategoryHandler()
+			} label: {
+				Label("Move to Category", systemImage: "folder")
+			}
+		}
 
+		Divider()
+
+		if let deleteWithConfirmationHandler = deleteWithConfirmationHandler {
+			Button(role: .destructive) {
+				deleteWithConfirmationHandler()
+			} label: {
+				Label("Delete", systemImage: "trash.fill")
+			}
+			.accessibilityIdentifier("delete-broker")
+		} else {
 			Menu {
 				DestructiveMenuButton(
 					title: "Delete broker",
