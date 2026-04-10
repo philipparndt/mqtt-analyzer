@@ -371,34 +371,30 @@ extension HostsView {
 	}
 
 	func brokerCell(broker: BrokerSetting) -> some View {
-		HostCellView(host: model.getConnectionModel(broker: broker),
+		let moveHandler: (() -> Void)? = {
+			brokersToMove = [broker]
+			showMoveToCategory = true
+		}
+		#if os(macOS)
+		let deleteHandler: (() -> Void)? = {
+			macSelection = [broker]
+			showDeleteConfirmation = true
+		}
+		#else
+		let deleteHandler: (() -> Void)? = nil
+		#endif
+
+		return HostCellView(host: model.getConnectionModel(broker: broker),
 					 hostsModel: hostsModel,
 					 messageModel: (
 						self.model.getMessageModel(model.getConnectionModel(broker: broker))
 					 ),
 					 cloneHostHandler: self.cloneHost,
-					 isSelected: selectedBroker == broker)
+					 isSelected: selectedBroker == broker,
+					 moveToCategoryHandler: moveHandler,
+					 deleteWithConfirmationHandler: deleteHandler)
 			.accessibilityIdentifier("broker: \(broker.aliasOrHost)")
 			.tag(broker)
-			#if os(macOS)
-			.contextMenu {
-				Button {
-					brokersToMove = [broker]
-					showMoveToCategory = true
-				} label: {
-					Label("Move to Category", systemImage: "folder")
-				}
-
-				Divider()
-
-				Button(role: .destructive) {
-					macSelection = [broker]
-					showDeleteConfirmation = true
-				} label: {
-					Label("Delete", systemImage: "trash")
-				}
-			}
-			#endif
 	}
 
 	var existingCategories: [String] {
