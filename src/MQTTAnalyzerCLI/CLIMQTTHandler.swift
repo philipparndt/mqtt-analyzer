@@ -72,12 +72,16 @@ class CLIMQTTHandler: NSObject {
     }
 
     func publish(topic: String, message: String, qos: Int, retain: Bool) {
+        publishData(topic: topic, payload: [UInt8](message.utf8), qos: qos, retain: retain)
+    }
+
+    func publishData(topic: String, payload: [UInt8], qos: Int, retain: Bool) {
         let cocoaQos = convertQoS(qos)
         if broker.protocolVersion == .mqtt5 {
-            let msg = CocoaMQTT5Message(topic: topic, string: message, qos: cocoaQos, retained: retain)
+            let msg = CocoaMQTT5Message(topic: topic, payload: payload, qos: cocoaQos, retained: retain)
             mqtt5?.publish(msg, properties: MqttPublishProperties())
         } else {
-            let msg = CocoaMQTTMessage(topic: topic, string: message, qos: cocoaQos, retained: retain)
+            let msg = CocoaMQTTMessage(topic: topic, payload: payload, qos: cocoaQos, retained: retain)
             mqtt3?.publish(msg)
         }
     }
@@ -105,7 +109,18 @@ class CLIMQTTHandler: NSObject {
                 self?.onError?("Connection rejected: \(ack)")
             }
         }
-        client.didPublishMessage = { [weak self] _, _, _ in
+        client.didPublishMessage = { [weak self] _, msg, _ in
+            // QoS 0 has no ACK, so signal onPublished here
+            if msg.qos == .qos0 {
+                self?.onPublished?()
+            }
+        }
+        client.didPublishAck = { [weak self] _, _ in
+            // QoS 1: PUBACK received
+            self?.onPublished?()
+        }
+        client.didCompletePublish = { [weak self] _, _ in
+            // QoS 2: PUBCOMP received (full handshake complete)
             self?.onPublished?()
         }
         client.didDisconnect = { [weak self] _, error in
@@ -139,7 +154,18 @@ class CLIMQTTHandler: NSObject {
                 self?.onError?("Connection rejected: \(ack)")
             }
         }
-        client.didPublishMessage = { [weak self] _, _, _ in
+        client.didPublishMessage = { [weak self] _, msg, _ in
+            // QoS 0 has no ACK, so signal onPublished here
+            if msg.qos == .qos0 {
+                self?.onPublished?()
+            }
+        }
+        client.didPublishAck = { [weak self] _, _, _ in
+            // QoS 1: PUBACK received
+            self?.onPublished?()
+        }
+        client.didCompletePublish = { [weak self] _, _, _ in
+            // QoS 2: PUBCOMP received (full handshake complete)
             self?.onPublished?()
         }
         client.didDisconnect = { [weak self] _, error in

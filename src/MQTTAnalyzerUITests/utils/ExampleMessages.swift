@@ -13,36 +13,30 @@ import UIKit
 #if canImport(AppKit)
 import AppKit
 #endif
-import CocoaMQTT
-import CocoaMQTTWebSocket
 import XCTest
-
-func randomClientId() -> String {
-	return "mqtt-analyzer-\(String.random(length: 8))"
-}
 
 // MARK: - Logo Loading Helpers
 
 enum LogoLoader {
-	static func loadAppLogo(from bundle: Bundle) -> [UInt8]? {
+	static func loadAppLogo(from bundle: Bundle) -> Data? {
 		// First try: Load TestLogo.png from the UI test bundle (most reliable)
 		if let logoPath = bundle.path(forResource: "TestLogo", ofType: "png"),
 		   let data = try? Data(contentsOf: URL(fileURLWithPath: logoPath)) {
-			return [UInt8](data)
+			return data
 		}
 
 		#if canImport(UIKit)
 		// Second try: Load directly from the main app's asset catalog
 		if let image = UIImage(named: "AppIcon"),
 		   let pngData = image.pngData() {
-			return [UInt8](pngData)
+			return pngData
 		}
 		#elseif canImport(AppKit)
 		if let image = NSImage(named: "AppIcon"),
 		   let tiffData = image.tiffRepresentation,
 		   let bitmap = NSBitmapImageRep(data: tiffData),
 		   let pngData = bitmap.representation(using: .png, properties: [:]) {
-			return [UInt8](pngData)
+			return pngData
 		}
 		#endif
 
@@ -50,7 +44,7 @@ enum LogoLoader {
 		if let appBundle = Bundle(identifier: "de.rnd7.MQTTAnalyzer"),
 		   let iconPath = appBundle.path(forResource: "AppIcon60x60@2x", ofType: "png"),
 		   let data = try? Data(contentsOf: URL(fileURLWithPath: iconPath)) {
-			return [UInt8](data)
+			return data
 		}
 
 		// Fourth try: Walk up from the test bundle to find the project
@@ -62,7 +56,7 @@ enum LogoLoader {
 		return generateLogoImage()
 	}
 
-	static func loadLogoFromSourceTree(bundle: Bundle) -> [UInt8]? {
+	static func loadLogoFromSourceTree(bundle: Bundle) -> Data? {
 		var searchPath = bundle.bundleURL
 
 		for _ in 0..<15 {
@@ -70,14 +64,14 @@ enum LogoLoader {
 				.appendingPathComponent("src/MQTTAnalyzer/Assets.xcassets/AppIcon.appiconset/App-Store-iOS.png")
 			if FileManager.default.fileExists(atPath: assetPath.path),
 			   let data = try? Data(contentsOf: assetPath) {
-				return [UInt8](data)
+				return data
 			}
 
 			let altPath = searchPath
 				.appendingPathComponent("MQTTAnalyzer/Assets.xcassets/AppIcon.appiconset/App-Store-iOS.png")
 			if FileManager.default.fileExists(atPath: altPath.path),
 			   let data = try? Data(contentsOf: altPath) {
-				return [UInt8](data)
+				return data
 			}
 
 			searchPath = searchPath.deletingLastPathComponent()
@@ -86,7 +80,7 @@ enum LogoLoader {
 		return nil
 	}
 
-	static func generateLogoImage() -> [UInt8] {
+	static func generateLogoImage() -> Data {
 		let size = CGSize(width: 128, height: 128)
 
 		#if canImport(UIKit)
@@ -94,7 +88,7 @@ enum LogoLoader {
 		defer { UIGraphicsEndImageContext() }
 
 		guard let context = UIGraphicsGetCurrentContext() else {
-			return createMinimalPNG()
+			return Data(createMinimalPNG())
 		}
 
 		let rect = CGRect(origin: .zero, size: size)
@@ -126,17 +120,17 @@ enum LogoLoader {
 
 		guard let image = UIGraphicsGetImageFromCurrentImageContext(),
 			  let pngData = image.pngData() else {
-			return createMinimalPNG()
+			return Data(createMinimalPNG())
 		}
 
-		return [UInt8](pngData)
+		return pngData
 		#elseif canImport(AppKit)
 		let image = NSImage(size: size)
 		image.lockFocus()
 
 		guard let context = NSGraphicsContext.current?.cgContext else {
 			image.unlockFocus()
-			return createMinimalPNG()
+			return Data(createMinimalPNG())
 		}
 
 		let rect = CGRect(origin: .zero, size: size)
@@ -171,10 +165,10 @@ enum LogoLoader {
 		guard let tiffData = image.tiffRepresentation,
 			  let bitmap = NSBitmapImageRep(data: tiffData),
 			  let pngData = bitmap.representation(using: .png, properties: [:]) else {
-			return createMinimalPNG()
+			return Data(createMinimalPNG())
 		}
 
-		return [UInt8](pngData)
+		return pngData
 		#endif
 	}
 
@@ -198,86 +192,109 @@ enum LogoLoader {
 	}
 }
 
-class MQTTCLient {
-	let client: CocoaMQTT
-
-	init(broker: Broker, credentials: Credentials?) {
-		client = MQTTCLient.connect(broker: broker, credentials: credentials)
-	}
-
-	class func createClient(broker: Broker) -> CocoaMQTT {
-		let host = broker.hostname ?? "localhost"
-		let port = broker.port ?? 1883
-		let clientId = randomClientId()
-
-		if broker.connectionProtocol == .websocket {
-			let websocket = CocoaMQTTWebSocket(uri: "")
-			return CocoaMQTT(clientID: clientId,
-								  host: host,
-								  port: port,
-								  socket: websocket)
-
-		}
-		else {
-			return CocoaMQTT(clientID: clientId,
-										  host: host,
-										  port: port)
-		}
-	}
-
-	class func connect(broker: Broker, credentials: Credentials?) -> CocoaMQTT {
-		let result = createClient(broker: broker)
-
-		if let tls = broker.tls {
-			result.enableSSL = tls
-		}
-
-		result.username = broker.username ?? credentials?.username
-		result.password = broker.password ?? credentials?.password
-
-		result.keepAlive = 60
-		result.autoReconnect = false
-
-		if !result.connect() {
-			XCTFail("MQTT Connection failed")
-		}
-
-		return result
-	}
-
-	func publish(_ topic: String, _ payload: String) {
-		client.publish(CocoaMQTTMessage(
-			topic: topic,
-			string: payload,
-			qos: CocoaMQTTQoS.qos2,
-			retained: false)
-		)
-	}
-
-	func publish(_ topic: String, data: [UInt8]) {
-		client.publish(CocoaMQTTMessage(
-			topic: topic,
-			payload: data,
-			qos: CocoaMQTTQoS.qos2,
-			retained: false)
-		)
-	}
-}
+// MARK: - CLI-based MQTT Publisher
 
 class ExampleMessages {
-	let client: MQTTCLient
+	private let brokerFilePath: String
+	private let cliBinaryPath: String
+
 	init(broker: Broker, credentials: Credentials? = nil) {
-		self.client = MQTTCLient(broker: broker, credentials: credentials)
+		// Create temporary .mqttbroker file
+		let brokerJSON: [String: Any] = [
+			"version": 1,
+			"broker": [
+				"alias": "UI Test Broker",
+				"hostname": broker.hostname ?? "localhost",
+				"port": Int(broker.port ?? 1883),
+				"protocolMethod": broker.connectionProtocol == .websocket ? "websocket" : "mqtt",
+				"protocolVersion": broker.protocolVersion == .mqtt5 ? "mqtt5" : "mqtt3",
+				"basePath": "",
+				"ssl": broker.tls ?? false,
+				"untrustedSSL": false,
+				"authType": ExampleMessages.authTypeString(broker.authType),
+				"username": broker.username ?? credentials?.username as Any,
+				"password": broker.password ?? credentials?.password as Any,
+				"subscriptions": [["topic": "#", "qos": 0]],
+				"limitTopic": 0,
+				"limitMessagesBatch": 500
+			]
+		]
+
+		guard let data = try? JSONSerialization.data(withJSONObject: brokerJSON, options: .prettyPrinted) else {
+			fatalError("[ExampleMessages] Failed to serialize broker JSON")
+		}
+		let path = NSTemporaryDirectory() + "uitest-\(UUID().uuidString).mqttbroker"
+		FileManager.default.createFile(atPath: path, contents: data)
+		self.brokerFilePath = path
+
+		// Find CLI binary in the build products directory.
+		// Test bundle is at: .../Build/Products/Debug/MQTTAnalyzerUITests-Runner.app/Contents/PlugIns/MQTTAnalyzerUITests.xctest
+		// CLI binary is at:  .../Build/Products/Debug/mqtt-analyzer
+		// So we walk up from the test bundle to the products directory.
+		let testBundle = Bundle(for: type(of: self))
+		self.cliBinaryPath = ExampleMessages.findCLIBinary(from: testBundle)
+
+		NSLog("[ExampleMessages] CLI binary: \(cliBinaryPath)")
+		NSLog("[ExampleMessages] Broker file: \(brokerFilePath)")
+	}
+
+	private static func authTypeString(_ authType: AuthType?) -> String {
+		switch authType {
+		case .userPassword: return "usernamePassword"
+		case .certificate: return "certificate"
+		default: return "none"
+		}
+	}
+
+	private static func findCLIBinary(from bundle: Bundle) -> String {
+		var searchDir = bundle.bundleURL
+
+		// Walk up from the test bundle looking for the mqtt-analyzer binary
+		for _ in 0..<10 {
+			searchDir = searchDir.deletingLastPathComponent()
+
+			// Direct product: mqtt-analyzer in products dir
+			let directPath = searchDir.appendingPathComponent("mqtt-analyzer").path
+			if FileManager.default.fileExists(atPath: directPath) {
+				return directPath
+			}
+
+			// Inside app bundle
+			let appBundlePath = searchDir.appendingPathComponent("MQTTAnalyzer.app/Contents/MacOS/mqtt-analyzer").path
+			if FileManager.default.fileExists(atPath: appBundlePath) {
+				return appBundlePath
+			}
+		}
+
+		// Last resort: return expected path for error messaging
+		let productsGuess = bundle.bundleURL
+			.deletingLastPathComponent()
+			.deletingLastPathComponent()
+			.deletingLastPathComponent()
+			.deletingLastPathComponent()
+		let expectedPath = productsGuess.appendingPathComponent("mqtt-analyzer").path
+		NSLog("[ExampleMessages] WARNING: CLI binary not found, expected at \(expectedPath)")
+		return expectedPath
 	}
 
 	func publish(_ topic: String, _ payload: String) {
-		client.publish(topic, payload
-						.replacingOccurrences(of: "\t", with: "")
-						.replacingOccurrences(of: "\n", with: ""))
+		let cleanPayload = payload
+			.replacingOccurrences(of: "\t", with: "")
+			.replacingOccurrences(of: "\n", with: "")
+
+		NSLog("[ExampleMessages] Publishing to \(topic) (\(cleanPayload.count) chars)")
+		runCLI(args: ["publish", "-f", brokerFilePath, "--qos", "1", topic, cleanPayload])
 	}
 
-	func publish(_ topic: String, data: [UInt8]) {
-		client.publish(topic, data: data)
+	func publish(_ topic: String, data: Data) {
+		NSLog("[ExampleMessages] Publishing binary to \(topic) (\(data.count) bytes)")
+
+		// Write binary data to a temp file and use --payload-file
+		let tempFile = NSTemporaryDirectory() + "uitest-payload-\(UUID().uuidString).bin"
+		FileManager.default.createFile(atPath: tempFile, contents: data)
+		defer { try? FileManager.default.removeItem(atPath: tempFile) }
+
+		runCLI(args: ["publish", "-f", brokerFilePath, "--qos", "1", "--payload-file", tempFile, topic])
 	}
 
 	/// Publishes vacuum bot map as PNG image
@@ -500,6 +517,49 @@ class ExampleMessages {
 	}
 
 	func disconnect() {
-		self.client.client.disconnect()
+		// Clean up the temporary broker file
+		try? FileManager.default.removeItem(atPath: brokerFilePath)
+	}
+
+	// MARK: - CLI Process Runner
+
+	private func runCLI(args: [String]) {
+		let binary = cliBinaryPath
+		guard FileManager.default.fileExists(atPath: binary) else {
+			XCTFail("[ExampleMessages] CLI binary not found at \(binary)")
+			return
+		}
+
+		let process = Process()
+		process.executableURL = URL(fileURLWithPath: binary)
+		process.arguments = args
+
+		let stdoutPipe = Pipe()
+		let stderrPipe = Pipe()
+		process.standardOutput = stdoutPipe
+		process.standardError = stderrPipe
+
+		do {
+			try process.run()
+		} catch {
+			XCTFail("[ExampleMessages] Failed to launch CLI: \(error)")
+			return
+		}
+
+		// Timeout after 15 seconds
+		DispatchQueue.global().asyncAfter(deadline: .now() + 15) {
+			if process.isRunning {
+				NSLog("[ExampleMessages] CLI timed out, terminating")
+				process.terminate()
+			}
+		}
+
+		process.waitUntilExit()
+
+		if process.terminationStatus != 0 {
+			let stderrData = stderrPipe.fileHandleForReading.readDataToEndOfFile()
+			let stderrStr = String(data: stderrData, encoding: .utf8) ?? ""
+			NSLog("[ExampleMessages] CLI exited with status \(process.terminationStatus): \(stderrStr)")
+		}
 	}
 }

@@ -18,7 +18,6 @@ class ScreenshotTests: AbstractUITests {
 		// Use empty prefix for nice-looking screenshots
 		let id = ""
 
-		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname, port: port, tls: tls))
 		let brokers = Brokers(app: app)
 
 		app.launch()
@@ -51,6 +50,9 @@ class ScreenshotTests: AbstractUITests {
 
 		brokers.start(alias: alias)
 
+		// Create ExampleMessages after app has connected to avoid
+		// potential network initialization issues in the test runner
+		let examples = ExampleMessages(broker: Broker(alias: nil, hostname: hostname, port: port, tls: tls))
 		examples.publish(prefix: id)
 		examples.publishVacuumMap(prefix: id)
 

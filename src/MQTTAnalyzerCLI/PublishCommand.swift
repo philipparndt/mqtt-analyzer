@@ -7,7 +7,6 @@
 
 import Foundation
 import ArgumentParser
-import CocoaMQTT
 
 struct PublishCommand: ParsableCommand {
     static let configuration = CommandConfiguration(
@@ -25,8 +24,11 @@ struct PublishCommand: ParsableCommand {
     @Argument(help: "Topic to publish to")
     var topic: String
 
-    @Argument(help: "Message payload (use '-' to read from stdin)")
-    var message: String
+    @Argument(help: "Message payload (use '-' to read from stdin, omit when using --payload-file)")
+    var message: String?
+
+    @Option(name: .customLong("payload-file"), help: "Path to a file whose raw bytes become the message payload")
+    var payloadFile: String?
 
     @Option(help: "QoS level (0, 1, or 2)")
     var qos: Int = 0
@@ -41,6 +43,9 @@ struct PublishCommand: ParsableCommand {
         guard (0...2).contains(qos) else {
             throw ValidationError("QoS must be 0, 1, or 2")
         }
+        if message == nil && payloadFile == nil {
+            throw ValidationError("Either a message argument or --payload-file must be provided")
+        }
     }
 
     func run() throws {
@@ -51,13 +56,19 @@ struct PublishCommand: ParsableCommand {
             brokerInfo = try BrokerLoader.findBroker(name: broker!)
         }
 
-        var payload = message
-        if message == "-" {
+        // Determine payload: --payload-file takes precedence, then message arg, then stdin
+        let payloadData: Data
+        if let payloadFile = payloadFile {
+            let url = URL(fileURLWithPath: payloadFile)
+            payloadData = try Data(contentsOf: url)
+        } else if let message = message, message != "-" {
+            payloadData = Data(message.utf8)
+        } else {
             let stdinData = FileHandle.standardInput.availableData
-            guard let stdinStr = String(data: stdinData, encoding: .utf8) else {
+            guard !stdinData.isEmpty else {
                 throw CLIMQTTError.stdinReadFailed
             }
-            payload = stdinStr.trimmingCharacters(in: .newlines)
+            payloadData = stdinData
         }
 
         let handler = CLIMQTTHandler(broker: brokerInfo)
@@ -79,7 +90,7 @@ struct PublishCommand: ParsableCommand {
         }
 
         handler.onConnected = {
-            handler.publish(topic: topic, message: payload, qos: qos, retain: retain)
+            handler.publishData(topic: topic, payload: [UInt8](payloadData), qos: qos, retain: retain)
         }
 
         handler.onPublished = {

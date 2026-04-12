@@ -106,4 +106,17 @@ final class CLIArgumentParsingTests: XCTestCase {
     func testPublishCommandMissingArguments() {
         XCTAssertThrowsError(try MQTTAnalyzerCommand.parseAsRoot(["publish", "-b", "Broker"]))
     }
+
+    func testPublishCommandWithPayloadFile() throws {
+        let command = try MQTTAnalyzerCommand.parseAsRoot([
+            "publish", "-b", "MyBroker", "--payload-file", "/tmp/data.bin", "home/image"
+        ])
+        guard let publish = command as? PublishCommand else {
+            XCTFail("Expected PublishCommand")
+            return
+        }
+        XCTAssertEqual(publish.topic, "home/image")
+        XCTAssertNil(publish.message)
+        XCTAssertEqual(publish.payloadFile, "/tmp/data.bin")
+    }
 }
