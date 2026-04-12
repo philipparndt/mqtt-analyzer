@@ -55,19 +55,20 @@ class ScreenshotTests: AbstractUITests {
 		examples.publishVacuumMap(prefix: id)
 
 		// Wait for messages to be received before navigating
-		let firstTopic = app.descendants(matching: .any)["folder: \(id)dishwasher"].firstMatch
-		XCTAssertTrue(firstTopic.waitForExistence(timeout: 15), "Expected topics to appear after publishing")
+		let firstTopic = app.elementContainingIdentifier("folder: \(id)dishwasher")
+        let exist = firstTopic.waitForExistence(timeout: 15)
+		XCTAssertTrue(exist, "Expected topics to appear after publishing")
 
 		// Expand tree nodes to demonstrate tree navigation
 		nav.expandTreeNode(topic: "\(id)dishwasher")
 
 		// Wait for children to appear after expansion
-		let dishwasherChild = app.descendants(matching: .any)["folder: \(id)dishwasher/000123456789"].firstMatch
+		let dishwasherChild = app.elementContainingIdentifier("folder: \(id)dishwasher/000123456789")
 		XCTAssertTrue(dishwasherChild.waitForExistence(timeout: 5), "Expected dishwasher/000123456789 to appear after expanding")
 
 		// Also expand the nested topic for a bigger tree
 		nav.expandTreeNode(topic: "\(id)dishwasher/000123456789")
-		let nestedTopic = app.descendants(matching: .any)["folder: \(id)dishwasher/000123456789/full"].firstMatch
+		let nestedTopic = app.elementContainingIdentifier("folder: \(id)dishwasher/000123456789/full")
 		XCTAssertTrue(nestedTopic.waitForExistence(timeout: 5), "Expected nested topic to appear after expanding")
 
 		// Take screenshot of the tree view with expanded nodes
@@ -85,29 +86,34 @@ class ScreenshotTests: AbstractUITests {
 		snapshot(ScreenshotIds.JSON_DATA)
 
 		nav.navigate(to: "\(id)dishwasher/000123456789/full")
-		nav.openMessageGroup()
 		nav.openMessage()
 		snapshot(ScreenshotIds.JSON_DETAILS)
 
 		// Vacuum map - image view
 		nav.navigateToRoot()
 		nav.navigate(to: "\(id)vacuum/map")
-		nav.openMessageGroup()
 		nav.openMessage()
 		snapshot(ScreenshotIds.IMAGE_VIEW)
 
 		// Switch to Hex tab on the same vacuum map image
+		#if os(macOS)
+		let hexTab = app.radioButtons["Hex"].firstMatch
+		#else
 		let hexTab = app.buttons["Hex"].firstMatch
-		XCTAssertTrue(hexTab.waitForExistence(timeout: 5), "Expected Hex tab to exist")
+		#endif
+        let hexTabExist = hexTab.waitForExistence(timeout: 5)
+		XCTAssertTrue(hexTabExist, "Expected Hex tab to exist")
 		hexTab.tap()
 		snapshot(ScreenshotIds.BINARY_HEX)
 
-		// Navigate to the light section for flat view
+		// Navigate to the light section for flat view (not available on macOS tree layout)
 		nav.navigateToRoot()
 		nav.navigate(to: "\(id)light")
+		#if !os(macOS)
 		nav.flatView(tc: self)
 		snapshot(ScreenshotIds.FLAT_VIEW)
 		nav.flatViewOff(tc: self)
+		#endif
 
 		nav.navigate(to: "\(id)light/kitchen")
 		snapshot(ScreenshotIds.LIGHTS)
@@ -116,7 +122,7 @@ class ScreenshotTests: AbstractUITests {
 		if nav.isThreeColumnLayout {
 			nav.expandTreeNode(topic: "\(id)light/kitchen")
 
-			let coffeeSpot = app.descendants(matching: .any)["folder: \(id)light/kitchen/coffee-spot"].firstMatch
+			let coffeeSpot = app.elementContainingIdentifier("folder: \(id)light/kitchen/coffee-spot")
 			XCTAssertTrue(coffeeSpot.waitForExistence(timeout: 5), "Expected coffee-spot to appear after expanding")
 		}
 

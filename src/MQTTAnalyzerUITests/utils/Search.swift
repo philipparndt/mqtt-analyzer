@@ -18,7 +18,7 @@ class Search {
 	}
 
 	func searchFor(text: String) {
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		let searchField = app.searchFields.firstMatch
 		searchField.tap()
 		searchField.typeText(text)
@@ -31,7 +31,7 @@ class Search {
 	}
 
 	func disableWholeWord() {
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		let whole = app.checkBoxes[WHOLE_WORD]
 		if whole.isChecked() {
 			whole.click()
@@ -45,7 +45,7 @@ class Search {
 	}
 
 	func enableWholeWord() {
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		let whole = app.checkBoxes[WHOLE_WORD]
 		if !whole.isChecked() {
 			whole.click()

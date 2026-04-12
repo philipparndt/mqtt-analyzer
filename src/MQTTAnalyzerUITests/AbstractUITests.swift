@@ -22,7 +22,7 @@ class AbstractUITests: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		Snapshot.cacheDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
 		#endif
 		app.launchArguments.append("--ui-testing")

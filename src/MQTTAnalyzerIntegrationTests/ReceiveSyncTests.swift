@@ -21,7 +21,7 @@ class ReceiveSyncTests: XCTestCase {
 
 		let setting = BrokerSetting()
 		setting.hostname = host
-		let broker = Host(settings: setting)
+		let broker = MQTTAnalyzer.Host(settings: setting)
 
 		try? MQTTClientSync.publish(
 			host: broker,
@@ -31,7 +31,7 @@ class ReceiveSyncTests: XCTestCase {
 			qos: 1)
 	}
 
-	func assertReceive(with broker: Host) throws {
+	func assertReceive(with broker: MQTTAnalyzer.Host) throws {
 		let message = try MQTTClientSync.receiveFirst(host: broker, topic: topic, timeout: 5)
 
 		guard message != nil else {
@@ -45,7 +45,7 @@ class ReceiveSyncTests: XCTestCase {
 	func testMQTT3() throws {
 		let setting = BrokerSetting()
 		setting.hostname = host
-		let broker = Host(settings: setting)
+		let broker = MQTTAnalyzer.Host(settings: setting)
 
 		try assertReceive(with: broker)
 	}
@@ -54,7 +54,7 @@ class ReceiveSyncTests: XCTestCase {
 		let setting = BrokerSetting()
 		setting.hostname = host
 		setting.protocolVersion = .mqtt5
-		let broker = Host(settings: setting)
+		let broker = MQTTAnalyzer.Host(settings: setting)
 
 		try assertReceive(with: broker)
 	}
@@ -66,7 +66,7 @@ class ReceiveSyncTests: XCTestCase {
 		setting.authType = .usernamePassword
 		setting.username = "admin"
 		setting.password = "password"
-		let broker = Host(settings: setting)
+		let broker = MQTTAnalyzer.Host(settings: setting)
 
 		try assertReceive(with: broker)
 	}
@@ -76,7 +76,7 @@ class ReceiveSyncTests: XCTestCase {
 		setting.hostname = host
 		setting.port = 8883
 		setting.ssl = true
-		let broker = Host(settings: setting)
+		let broker = MQTTAnalyzer.Host(settings: setting)
 
 		try assertReceive(with: broker)
 	}
@@ -86,7 +86,7 @@ class ReceiveSyncTests: XCTestCase {
 		setting.hostname = host
 		setting.port = 9001
 		setting.protocolMethod = .websocket
-		let broker = Host(settings: setting)
+		let broker = MQTTAnalyzer.Host(settings: setting)
 
 		try assertReceive(with: broker)
 	}
@@ -98,7 +98,7 @@ class ReceiveSyncTests: XCTestCase {
 		setting.protocolMethod = .websocket
 		setting.protocolVersion = .mqtt5
 
-		let broker = Host(settings: setting)
+		let broker = MQTTAnalyzer.Host(settings: setting)
 
 		try assertReceive(with: broker)
 	}
@@ -111,7 +111,7 @@ class ReceiveSyncTests: XCTestCase {
 		setting.authType = .usernamePassword
 		setting.username = "admin"
 		setting.password = "password"
-		let broker = Host(settings: setting)
+		let broker = MQTTAnalyzer.Host(settings: setting)
 
 		try assertReceive(with: broker)
 	}
@@ -123,7 +123,7 @@ class ReceiveSyncTests: XCTestCase {
 		setting.protocolMethod = .websocket
 		setting.ssl = true
 
-		let broker = Host(settings: setting)
+		let broker = MQTTAnalyzer.Host(settings: setting)
 		try assertReceive(with: broker)
 	}
 }

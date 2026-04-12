@@ -68,21 +68,26 @@ struct RootView: View {
 				.navigationSplitViewColumnWidth(min: 200, ideal: 250, max: 350)
 				#endif
 		} content: {
-			if let broker = selectedBroker {
-				let host = model.getConnectionModel(broker: broker)
-				let messageModel = model.getMessageModel(host)
-				TopicTreeSidebarView(
-					host: host,
-					model: messageModel,
-					selectedTopic: $selectedTopic
-				)
-			} else {
-				ContentUnavailableView(
-					"No Broker Selected",
-					systemImage: "network",
-					description: Text("Select a broker from the sidebar.")
-				)
+			Group {
+				if let broker = selectedBroker {
+					let host = model.getConnectionModel(broker: broker)
+					let messageModel = model.getMessageModel(host)
+					TopicTreeSidebarView(
+						host: host,
+						model: messageModel,
+						selectedTopic: $selectedTopic
+					)
+				} else {
+					ContentUnavailableView(
+						"No Broker Selected",
+						systemImage: "network",
+						description: Text("Select a broker from the sidebar.")
+					)
+				}
 			}
+			#if os(macOS)
+			.navigationSplitViewColumnWidth(min: 180, ideal: 300, max: 500)
+			#endif
 		} detail: {
 			NavigationStack {
 				if let topic = selectedTopic, let broker = selectedBroker {

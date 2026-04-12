@@ -43,8 +43,12 @@ extension XCUIElement {
 		// Tap to focus the field
 		self.tap()
 
-		// Triple-tap to select all text (works reliably in iOS 15+)
+		// Select all text
+		#if os(macOS)
+		self.typeKey("a", modifierFlags: .command)
+		#else
 		self.tap(withNumberOfTaps: 3, numberOfTouches: 1)
+		#endif
 
 		// Delete the selected text
 		self.typeText(XCUIKeyboardKey.delete.rawValue)

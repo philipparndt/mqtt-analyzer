@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 import XCTest
 
 class Navigation {
@@ -17,9 +19,11 @@ class Navigation {
 
 	/// Returns true if running on iPad with three-column layout (no folder navigation)
 	var isThreeColumnLayout: Bool {
-		// On iPad, we use three-column NavigationSplitView layout
-		// Check device idiom directly instead of relying on UI elements that may be hidden
+		#if os(macOS)
+		return true
+		#else
 		return UIDevice.current.userInterfaceIdiom == .pad
+		#endif
 	}
 
 	init(app: XCUIApplication, alias: String) {
@@ -127,11 +131,11 @@ class Navigation {
 		// Expand all parent nodes to reveal the target
 		for i in 0 ..< split.count - 1 {
 			let parentTopic = split[0...i].joined(separator: "/")
-			let parentCell = app.descendants(matching: .any)["folder: \(parentTopic)"].firstMatch
+			let parentCell = app.elementContainingIdentifier("folder: \(parentTopic)")
 			if parentCell.waitForExistence(timeout: 5) {
 				// Check if already expanded by looking for child
 				let childTopic = split[0...i+1].joined(separator: "/")
-				let childCell = app.descendants(matching: .any)["folder: \(childTopic)"].firstMatch
+				let childCell = app.elementContainingIdentifier("folder: \(childTopic)")
 				if !childCell.exists {
 					// Need to expand - tap the disclosure button
 					expandTreeNode(topic: parentTopic)
@@ -142,7 +146,7 @@ class Navigation {
 		}
 
 		// Select the target topic
-		let targetCell = app.descendants(matching: .any)["folder: \(topic)"].firstMatch
+		let targetCell = app.elementContainingIdentifier("folder: \(topic)")
 		XCTAssertTrue(targetCell.waitForExistence(timeout: 5), "Expected folder \(topic) to exist")
 		targetCell.tap()
 
@@ -183,8 +187,7 @@ class Navigation {
 	}
 
 	func folderCell(topic: String) -> XCUIElement {
-		let identifier = "folder: \(topic)"
-		let cell = app.descendants(matching: .any)[identifier].firstMatch
+		let cell = app.elementContainingIdentifier("folder: \(topic)")
 		XCTAssertTrue(cell.waitForExistence(timeout: 5), "Expected folder cell \(topic) to exist")
 		return cell
 	}
@@ -207,7 +210,7 @@ class Navigation {
 		// Expand each level, checking if children are already visible
 		for i in 0..<parts.count {
 			let currentPath = parts[0...i].joined(separator: "/")
-			let folder = app.descendants(matching: .any)["folder: \(currentPath)"].firstMatch
+			let folder = app.elementContainingIdentifier("folder: \(currentPath)")
 
 			// Make sure this node is visible (expand parent if needed)
 			if !folder.exists {
@@ -233,19 +236,33 @@ class Navigation {
 
 	/// Taps the chevron of a tree node (internal helper)
 	private func tapChevron(topic: String) {
-		let folderIdentifier = "folder: \(topic)"
-		let folder = app.descendants(matching: .any)[folderIdentifier].firstMatch
+		let folder = app.elementContainingIdentifier("folder: \(topic)")
 		guard folder.waitForExistence(timeout: 5) else { return }
 
+		#if os(macOS)
+		// On macOS, find the disclosure triangle near this folder element
+		// The disclosure triangle shares the same Y position in the outline view
+		let folderFrame = folder.frame
+		let disclosures = app.disclosureTriangles.allElementsBoundByIndex
+		for disclosure in disclosures {
+			if disclosure.exists && abs(disclosure.frame.midY - folderFrame.midY) < 5 {
+				disclosure.tap()
+				return
+			}
+		}
+		// Fallback: double-click the folder to toggle expansion
+		folder.doubleClick()
+		#else
 		let cellFrame = folder.frame
 		let tapPoint = CGPoint(x: cellFrame.maxX - 20, y: cellFrame.midY)
 		app.coordinate(withNormalizedOffset: .zero)
 			.withOffset(CGVector(dx: tapPoint.x, dy: tapPoint.y))
 			.tap()
+		#endif
 	}
 
 	func flatView(tc: XCTestCase) {
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		app.checkBoxes["flatview"].click()
 		#else
 		let flatview = app.switches["flatview"]
@@ -257,7 +274,7 @@ class Navigation {
 	}
 
 	func flatViewOff(tc: XCTestCase) {
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		app.checkBoxes["flatview"].click()
 		#else
 		let flatview = app.switches["flatview"]
@@ -289,15 +306,26 @@ class Navigation {
 	}
 
 	@MainActor func publishNew(topic: String) {
-		let groupCell = app.descendants(matching: .any)["folder: \(topic)"].firstMatch
+		let groupCell = app.elementContainingIdentifier("folder: \(topic)")
 		XCTAssertTrue(groupCell.waitForExistence(timeout: 5), "Expected folder cell \(topic) to exist")
 
 		// Scroll to make sure the cell is visible
+		#if !os(macOS)
 		app.scrollToElement(element: groupCell)
+		#endif
 
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		groupCell.rightClick()
-		app.menuItems["Publish new message"].tap()
+		// Context menu has a "Publish" submenu containing "New message"
+		let publishMenu = app.menuItems["Publish"]
+		if publishMenu.waitForExistence(timeout: 3) {
+			publishMenu.tap()
+			let newMessage = app.menuItems["New message"]
+			if newMessage.waitForExistence(timeout: 3) {
+				snapshot(ScreenshotIds.CONTEXT_MENU)
+				newMessage.tap()
+			}
+		}
 		#else
 		// Long press on the LEFT side of the cell to avoid hitting the chevron (which would collapse the tree)
 		let cellFrame = groupCell.frame
@@ -347,12 +375,23 @@ class Navigation {
 		publishNewButton?.tap()
 		#endif
 
+		#if os(macOS)
+		let setButton = app.radioButtons["set"]
+		#else
 		let setButton = app.buttons["set"]
+		#endif
 		XCTAssertTrue(setButton.waitForExistence(timeout: 3), "Expected set button in topic picker")
 		setButton.tap()
 		snapshot(ScreenshotIds.PUBLISH)
 
 		// Submit the publish dialog
+		#if os(macOS)
+		// On macOS, the sheet may not have a navigation bar — look for the Publish button directly
+		let publishButton = app.buttons["Publish"].firstMatch
+		XCTAssertTrue(publishButton.waitForExistence(timeout: 3), "Expected Publish button")
+		publishButton.tap()
+		#else
 		app.navigationBars["Publish message"].buttons["Publish"].tap()
+		#endif
 	}
 }

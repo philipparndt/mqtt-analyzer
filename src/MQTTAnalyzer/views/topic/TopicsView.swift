@@ -203,7 +203,7 @@ struct TopicsView: View {
 			)
 		}
 		.onAppear {
-			#if !targetEnvironment(macCatalyst)
+			#if !os(macOS)
 			if self.host.needsAuth {
 				self.loginData.username = self.host.settings.username ?? ""
 				self.loginData.password = self.host.settings.password ?? ""

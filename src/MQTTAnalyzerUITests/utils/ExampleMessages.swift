@@ -7,7 +7,12 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
+#if canImport(AppKit)
+import AppKit
+#endif
 import CocoaMQTT
 import CocoaMQTTWebSocket
 import XCTest
@@ -26,11 +31,20 @@ enum LogoLoader {
 			return [UInt8](data)
 		}
 
+		#if canImport(UIKit)
 		// Second try: Load directly from the main app's asset catalog
 		if let image = UIImage(named: "AppIcon"),
 		   let pngData = image.pngData() {
 			return [UInt8](pngData)
 		}
+		#elseif canImport(AppKit)
+		if let image = NSImage(named: "AppIcon"),
+		   let tiffData = image.tiffRepresentation,
+		   let bitmap = NSBitmapImageRep(data: tiffData),
+		   let pngData = bitmap.representation(using: .png, properties: [:]) {
+			return [UInt8](pngData)
+		}
+		#endif
 
 		// Third try: Access the app bundle directly
 		if let appBundle = Bundle(identifier: "de.rnd7.MQTTAnalyzer"),
@@ -74,6 +88,8 @@ enum LogoLoader {
 
 	static func generateLogoImage() -> [UInt8] {
 		let size = CGSize(width: 128, height: 128)
+
+		#if canImport(UIKit)
 		UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
 		defer { UIGraphicsEndImageContext() }
 
@@ -114,6 +130,52 @@ enum LogoLoader {
 		}
 
 		return [UInt8](pngData)
+		#elseif canImport(AppKit)
+		let image = NSImage(size: size)
+		image.lockFocus()
+
+		guard let context = NSGraphicsContext.current?.cgContext else {
+			image.unlockFocus()
+			return createMinimalPNG()
+		}
+
+		let rect = CGRect(origin: .zero, size: size)
+		let cornerRadius: CGFloat = 28
+		let path = NSBezierPath(roundedRect: rect, xRadius: cornerRadius, yRadius: cornerRadius)
+
+		context.saveGState()
+		path.addClip()
+
+		let colors = [
+			NSColor(red: 0.2, green: 0.5, blue: 0.9, alpha: 1.0).cgColor,
+			NSColor(red: 0.1, green: 0.3, blue: 0.7, alpha: 1.0).cgColor
+		]
+		if let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
+									 colors: colors as CFArray, locations: nil) {
+			context.drawLinearGradient(gradient, start: .zero,
+									   end: CGPoint(x: 0, y: size.height), options: [])
+		}
+		context.restoreGState()
+
+		let paragraphStyle = NSMutableParagraphStyle()
+		paragraphStyle.alignment = .center
+		let attrs: [NSAttributedString.Key: Any] = [
+			.font: NSFont.boldSystemFont(ofSize: 72),
+			.foregroundColor: NSColor.white,
+			.paragraphStyle: paragraphStyle
+		]
+		"M".draw(in: CGRect(x: 0, y: 28, width: size.width, height: size.height), withAttributes: attrs)
+
+		image.unlockFocus()
+
+		guard let tiffData = image.tiffRepresentation,
+			  let bitmap = NSBitmapImageRep(data: tiffData),
+			  let pngData = bitmap.representation(using: .png, properties: [:]) else {
+			return createMinimalPNG()
+		}
+
+		return [UInt8](pngData)
+		#endif
 	}
 
 	static func createMinimalPNG() -> [UInt8] {

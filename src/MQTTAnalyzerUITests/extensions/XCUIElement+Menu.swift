@@ -10,7 +10,7 @@ import XCTest
 
 extension XCUIApplication {
 	func openMenu(on element: XCUIElement) {
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		element.rightClick()
 		#else
 		element.press(forDuration: 1)
@@ -18,16 +18,27 @@ extension XCUIApplication {
 	}
 
 	func tapMenuItem(label: String) {
-		#if targetEnvironment(macCatalyst)
-		menuItems[label].tap()
+		#if os(macOS)
+		let item = menuItems[label]
+		if item.waitForExistence(timeout: 3) {
+			item.tap()
+		} else {
+			// Fallback: try as button (some SwiftUI context menus use buttons)
+			buttons[label].tap()
+		}
 		#else
 		buttons[label].tap()
 		#endif
 	}
 
 	func tapMenuItem(identifier: String) {
-		#if targetEnvironment(macCatalyst)
-		menuItems[identifier].tap()
+		#if os(macOS)
+		let item = menuItems[identifier]
+		if item.waitForExistence(timeout: 3) {
+			item.tap()
+		} else {
+			buttons[identifier].tap()
+		}
 		#else
 		buttons[identifier].tap()
 		#endif
@@ -41,6 +52,18 @@ extension XCUIApplication {
 	func launchMenuAction(on element: XCUIElement, identifier: String) {
 		openMenu(on: element)
 		tapMenuItem(identifier: identifier)
+	}
+
+	/// Finds an element by accessibility identifier, handling macOS OutlineView
+	/// identifier concatenation (e.g. "folder: X-folder: X-folder: X" instead of "folder: X")
+	func elementContainingIdentifier(_ identifier: String) -> XCUIElement {
+		#if os(macOS)
+		return descendants(matching: .any).matching(
+			NSPredicate(format: "identifier CONTAINS %@", identifier)
+		).firstMatch
+		#else
+		return descendants(matching: .any)[identifier].firstMatch
+		#endif
 	}
 
 }

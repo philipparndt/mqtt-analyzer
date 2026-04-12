@@ -41,7 +41,7 @@ class Brokers {
 	}
 
 	func cancelDelete(alias: String) {
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		app.typeKey("\u{1B}", modifierFlags: [])
 		#else
 		app.staticTexts["Port"].tap()
@@ -89,7 +89,7 @@ class Brokers {
 
 		if let tls = broker.tls {
 			if tls {
-				#if targetEnvironment(macCatalyst)
+				#if os(macOS)
 				let field = app.checkBoxes["tls"]
 				field.click()
 				#else
@@ -211,8 +211,11 @@ class Brokers {
 	func start(alias: String, waitConnected: Bool = true) {
 		brokerCell(of: alias).tap()
 
-		#if targetEnvironment(macCatalyst)
-		app.buttons["Play"].tap()
+		#if os(macOS)
+		let connectButton = app.toolbars.buttons["Connect"]
+		if connectButton.waitForExistence(timeout: 3) {
+			connectButton.tap()
+		}
 		#endif
 
 		if waitConnected {
@@ -222,7 +225,7 @@ class Brokers {
 
 	func waitUntilConnected() {
 		let flatView: XCUIElement
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		flatView = app.checkBoxes["flatview"]
 		#else
 		flatView = app.switches["flatview"]

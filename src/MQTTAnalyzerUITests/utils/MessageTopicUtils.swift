@@ -10,7 +10,7 @@ import XCTest
 
 class MessageTopicUtils {
 	class func markAllAsRead(app: XCUIApplication) {
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		app.buttons["Mark all as read"].tap()
 		#else
 		let cell = app.buttons["Filter"]
@@ -20,7 +20,7 @@ class MessageTopicUtils {
 	}
 
 	class func clearAll(app: XCUIApplication) {
-		#if targetEnvironment(macCatalyst)
+		#if os(macOS)
 		app.buttons["Clear"].tap()
 		#else
 

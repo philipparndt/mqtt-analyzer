@@ -23,7 +23,7 @@ struct TopicsToolsView: View {
 					.background(Color.accentColor.opacity(0.15))
 					.cornerRadius(8)
 
-				#if !targetEnvironment(macCatalyst)
+				#if !os(macOS)
 				Button(action: model.markRead) {
 					Button(action: noAction) {
 						Image(systemName: "line.horizontal.3.decrease.circle")

@@ -40,6 +40,11 @@ struct MQTTAnalyzerApp: App {
 			UIView.setAnimationsEnabled(false)
 			#endif
 
+			// Reset persisted split view column widths for consistent screenshots
+			for key in UserDefaults.standard.dictionaryRepresentation().keys where key.contains("NSSplitView") {
+				UserDefaults.standard.removeObject(forKey: key)
+			}
+
 			PersistenceController.shared.createStubs()
 		}
 

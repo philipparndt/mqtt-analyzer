@@ -10,12 +10,12 @@ import XCTest
 @testable import MQTTAnalyzer
 
 extension XCTestCase {
-	func rootWithLocalhost() -> (RootModel, Host) {
+	func rootWithLocalhost() -> (RootModel, MQTTAnalyzer.Host) {
 		let model = RootModel()
 		let hostsModel = model.hostsModel
 		let setting = BrokerSetting.stub()
 		setting.hostname = "localhost"
-		let host = Host(settings: setting)
+		let host = MQTTAnalyzer.Host(settings: setting)
 
 		hostsModel.hosts += [host]
 		return (model, host)
