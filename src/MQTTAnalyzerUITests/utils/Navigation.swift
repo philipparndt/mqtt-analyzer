@@ -386,9 +386,9 @@ class Navigation {
 
 		// Submit the publish dialog
 		#if os(macOS)
-		// On macOS, the sheet may not have a navigation bar — look for the Publish button directly
-		let publishButton = app.buttons["Publish"].firstMatch
-		XCTAssertTrue(publishButton.waitForExistence(timeout: 3), "Expected Publish button")
+		// On macOS, the submit button is inside a sheet — scope to avoid hitting the toolbar Publish button
+		let publishButton = app.sheets.buttons["Publish"].firstMatch
+		XCTAssertTrue(publishButton.waitForExistence(timeout: 3), "Expected Publish button in sheet")
 		publishButton.tap()
 		#else
 		app.navigationBars["Publish message"].buttons["Publish"].tap()

@@ -192,14 +192,27 @@ enum LogoLoader {
 	}
 }
 
-// MARK: - CLI-based MQTT Publisher
+// MARK: - MQTT Publisher
 
+// swiftlint:disable:next type_body_length
 class ExampleMessages {
+	private let broker: Broker
+	private let credentials: Credentials?
+
+	#if os(macOS)
 	private let brokerFilePath: String
 	private let cliBinaryPath: String
+	private var existingTopics: Set<String> = []
+	#else
+	private var mqttClient: MiniMQTTClient?
+	#endif
 
 	init(broker: Broker, credentials: Credentials? = nil) {
-		// Create temporary .mqttbroker file
+		self.broker = broker
+		self.credentials = credentials
+
+		#if os(macOS)
+		// Create temporary .mqttbroker file for CLI
 		let brokerJSON: [String: Any] = [
 			"version": 1,
 			"broker": [
@@ -227,15 +240,12 @@ class ExampleMessages {
 		FileManager.default.createFile(atPath: path, contents: data)
 		self.brokerFilePath = path
 
-		// Find CLI binary in the build products directory.
-		// Test bundle is at: .../Build/Products/Debug/MQTTAnalyzerUITests-Runner.app/Contents/PlugIns/MQTTAnalyzerUITests.xctest
-		// CLI binary is at:  .../Build/Products/Debug/mqtt-analyzer
-		// So we walk up from the test bundle to the products directory.
 		let testBundle = Bundle(for: type(of: self))
 		self.cliBinaryPath = ExampleMessages.findCLIBinary(from: testBundle)
 
 		NSLog("[ExampleMessages] CLI binary: \(cliBinaryPath)")
 		NSLog("[ExampleMessages] Broker file: \(brokerFilePath)")
+		#endif
 	}
 
 	private static func authTypeString(_ authType: AuthType?) -> String {
@@ -246,27 +256,24 @@ class ExampleMessages {
 		}
 	}
 
+	#if os(macOS)
 	private static func findCLIBinary(from bundle: Bundle) -> String {
 		var searchDir = bundle.bundleURL
 
-		// Walk up from the test bundle looking for the mqtt-analyzer binary
 		for _ in 0..<10 {
 			searchDir = searchDir.deletingLastPathComponent()
 
-			// Direct product: mqtt-analyzer in products dir
 			let directPath = searchDir.appendingPathComponent("mqtt-analyzer").path
 			if FileManager.default.fileExists(atPath: directPath) {
 				return directPath
 			}
 
-			// Inside app bundle
 			let appBundlePath = searchDir.appendingPathComponent("MQTTAnalyzer.app/Contents/MacOS/mqtt-analyzer").path
 			if FileManager.default.fileExists(atPath: appBundlePath) {
 				return appBundlePath
 			}
 		}
 
-		// Last resort: return expected path for error messaging
 		let productsGuess = bundle.bundleURL
 			.deletingLastPathComponent()
 			.deletingLastPathComponent()
@@ -276,25 +283,41 @@ class ExampleMessages {
 		NSLog("[ExampleMessages] WARNING: CLI binary not found, expected at \(expectedPath)")
 		return expectedPath
 	}
+	#endif
 
 	func publish(_ topic: String, _ payload: String) {
 		let cleanPayload = payload
 			.replacingOccurrences(of: "\t", with: "")
 			.replacingOccurrences(of: "\n", with: "")
 
+		#if os(macOS)
+		if existingTopics.contains(topic) {
+			NSLog("[ExampleMessages] Skipping \(topic) (already retained)")
+			return
+		}
 		NSLog("[ExampleMessages] Publishing to \(topic) (\(cleanPayload.count) chars)")
-		runCLI(args: ["publish", "-f", brokerFilePath, "--qos", "1", topic, cleanPayload])
+		runCLI(args: ["publish", "-f", brokerFilePath, "--qos", "1", "--retain", topic, cleanPayload])
+		#else
+		NSLog("[ExampleMessages] Publishing to \(topic) (\(cleanPayload.count) chars)")
+		publishViaMQTT(topic: topic, payload: Data(cleanPayload.utf8))
+		#endif
 	}
 
 	func publish(_ topic: String, data: Data) {
+		#if os(macOS)
+		if existingTopics.contains(topic) {
+			NSLog("[ExampleMessages] Skipping \(topic) (already retained)")
+			return
+		}
 		NSLog("[ExampleMessages] Publishing binary to \(topic) (\(data.count) bytes)")
-
-		// Write binary data to a temp file and use --payload-file
 		let tempFile = NSTemporaryDirectory() + "uitest-payload-\(UUID().uuidString).bin"
 		FileManager.default.createFile(atPath: tempFile, contents: data)
 		defer { try? FileManager.default.removeItem(atPath: tempFile) }
-
-		runCLI(args: ["publish", "-f", brokerFilePath, "--qos", "1", "--payload-file", tempFile, topic])
+		runCLI(args: ["publish", "-f", brokerFilePath, "--qos", "1", "--retain", "--payload-file", tempFile, topic])
+		#else
+		NSLog("[ExampleMessages] Publishing binary to \(topic) (\(data.count) bytes)")
+		publishViaMQTT(topic: topic, payload: data)
+		#endif
 	}
 
 	/// Publishes vacuum bot map as PNG image
@@ -305,7 +328,36 @@ class ExampleMessages {
 		}
 	}
 
+	#if os(macOS)
+	/// Subscribes briefly to collect topics that already have retained messages on the broker.
+	func fetchExistingTopics(prefix: String) {
+		NSLog("[ExampleMessages] Checking for existing retained messages...")
+		let output = runCLIWithOutput(
+			args: ["subscribe", "-f", brokerFilePath, "-j", "\(prefix)#"],
+			timeout: 3
+		)
+
+		for line in output.split(separator: "\n") {
+			if let data = String(line).data(using: .utf8),
+			   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+			   let topic = json["topic"] as? String {
+				existingTopics.insert(topic)
+			}
+		}
+
+		if existingTopics.isEmpty {
+			NSLog("[ExampleMessages] No existing retained messages found")
+		} else {
+			NSLog("[ExampleMessages] Found \(existingTopics.count) existing retained topics")
+		}
+	}
+	#endif
+
 	func publish(prefix: String) {
+		#if os(macOS)
+		fetchExistingTopics(prefix: prefix)
+		#endif
+
 		// Dishwasher
 		publish("\(prefix)dishwasher/000123456789",
 """
@@ -517,11 +569,49 @@ class ExampleMessages {
 	}
 
 	func disconnect() {
-		// Clean up the temporary broker file
+		#if os(macOS)
 		try? FileManager.default.removeItem(atPath: brokerFilePath)
+		#else
+		mqttClient?.disconnect()
+		mqttClient = nil
+		#endif
 	}
 
-	// MARK: - CLI Process Runner
+	// MARK: - macOS: CLI Process Runner
+
+	#if os(macOS)
+	/// Runs the CLI and returns stdout. Used for subscribe to check existing topics.
+	private func runCLIWithOutput(args: [String], timeout: TimeInterval) -> String {
+		let binary = cliBinaryPath
+		guard FileManager.default.fileExists(atPath: binary) else {
+			NSLog("[ExampleMessages] CLI binary not found at \(binary)")
+			return ""
+		}
+
+		let process = Process()
+		process.executableURL = URL(fileURLWithPath: binary)
+		process.arguments = args
+
+		let stdoutPipe = Pipe()
+		process.standardOutput = stdoutPipe
+		process.standardError = FileHandle.nullDevice
+
+		do {
+			try process.run()
+		} catch {
+			NSLog("[ExampleMessages] Failed to launch CLI: \(error)")
+			return ""
+		}
+
+		DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
+			if process.isRunning { process.terminate() }
+		}
+
+		let data = stdoutPipe.fileHandleForReading.readDataToEndOfFile()
+		process.waitUntilExit()
+
+		return String(data: data, encoding: .utf8) ?? ""
+	}
 
 	private func runCLI(args: [String]) {
 		let binary = cliBinaryPath
@@ -546,7 +636,6 @@ class ExampleMessages {
 			return
 		}
 
-		// Timeout after 15 seconds
 		DispatchQueue.global().asyncAfter(deadline: .now() + 15) {
 			if process.isRunning {
 				NSLog("[ExampleMessages] CLI timed out, terminating")
@@ -562,4 +651,270 @@ class ExampleMessages {
 			NSLog("[ExampleMessages] CLI exited with status \(process.terminationStatus): \(stderrStr)")
 		}
 	}
+	#endif
+
+	// MARK: - iOS: Minimal MQTT Client
+
+	#if !os(macOS)
+	private func publishViaMQTT(topic: String, payload: Data) {
+		if mqttClient == nil {
+			let host = broker.hostname ?? "localhost"
+			let port = broker.port ?? 1883
+			let useTLS = broker.tls ?? false
+			mqttClient = MiniMQTTClient(host: host, port: port, useTLS: useTLS,
+										username: broker.username ?? credentials?.username,
+										password: broker.password ?? credentials?.password)
+			mqttClient?.connect()
+		}
+		mqttClient?.publish(topic: topic, payload: payload, qos: 1)
+	}
+	#endif
 }
+
+// MARK: - Minimal MQTT 3.1.1 Client (iOS only, using Network framework)
+
+#if !os(macOS)
+import Network
+
+class MiniMQTTClient {
+	private let host: String
+	private let port: UInt16
+	private let useTLS: Bool
+	private let username: String?
+	private let password: String?
+	private var connection: NWConnection?
+	private let queue = DispatchQueue(label: "MiniMQTTClient")
+	private var isConnected = false
+	private var packetId: UInt16 = 0
+	private let connectSemaphore = DispatchSemaphore(value: 0)
+
+	init(host: String, port: UInt16, useTLS: Bool, username: String? = nil, password: String? = nil) {
+		self.host = host
+		self.port = port
+		self.useTLS = useTLS
+		self.username = username
+		self.password = password
+	}
+
+	func connect() {
+		let params: NWParameters
+		if useTLS {
+			params = NWParameters(tls: .init())
+		} else {
+			params = .tcp
+		}
+
+		connection = NWConnection(host: NWEndpoint.Host(host), port: NWEndpoint.Port(rawValue: port)!, using: params)
+
+		connection?.stateUpdateHandler = { [weak self] state in
+			switch state {
+			case .ready:
+				NSLog("[MiniMQTT] TCP connected, sending CONNECT")
+				self?.sendConnect()
+			case .failed(let error):
+				NSLog("[MiniMQTT] Connection failed: \(error)")
+				self?.connectSemaphore.signal()
+			case .cancelled:
+				NSLog("[MiniMQTT] Connection cancelled")
+			default:
+				break
+			}
+		}
+
+		connection?.start(queue: queue)
+
+		let result = connectSemaphore.wait(timeout: .now() + 10)
+		if result == .timedOut {
+			NSLog("[MiniMQTT] Connect timed out")
+		}
+	}
+
+	func publish(topic: String, payload: Data, qos: UInt8 = 0) {
+		guard isConnected, let connection = connection else {
+			NSLog("[MiniMQTT] Not connected, cannot publish to \(topic)")
+			return
+		}
+
+		packetId += 1
+		let currentPacketId = packetId
+
+		var packet = Data()
+
+		// Fixed header: PUBLISH, QoS
+		let flags: UInt8 = (3 << 4) | ((qos & 0x03) << 1)
+		packet.append(flags)
+
+		// Variable header + payload length
+		let topicData = Data(topic.utf8)
+		var remainingLength = 2 + topicData.count + payload.count
+		if qos > 0 { remainingLength += 2 }
+
+		packet.append(contentsOf: encodeRemainingLength(remainingLength))
+
+		// Topic
+		packet.append(UInt8((topicData.count >> 8) & 0xFF))
+		packet.append(UInt8(topicData.count & 0xFF))
+		packet.append(topicData)
+
+		// Packet ID (for QoS > 0)
+		if qos > 0 {
+			packet.append(UInt8((currentPacketId >> 8) & 0xFF))
+			packet.append(UInt8(currentPacketId & 0xFF))
+		}
+
+		// Payload
+		packet.append(payload)
+
+		let sem = DispatchSemaphore(value: 0)
+
+		connection.send(content: packet, completion: .contentProcessed { error in
+			if let error = error {
+				NSLog("[MiniMQTT] Publish send error: \(error)")
+			}
+			sem.signal()
+		})
+
+		let result = sem.wait(timeout: .now() + 10)
+		if result == .timedOut {
+			NSLog("[MiniMQTT] Publish send timed out for \(topic)")
+		}
+
+		// For QoS 1, wait for PUBACK
+		if qos > 0 {
+			waitForPuback()
+		}
+	}
+
+	func disconnect() {
+		guard let connection = connection else { return }
+
+		// Send DISCONNECT packet
+		let packet = Data([0xE0, 0x00])
+		connection.send(content: packet, completion: .contentProcessed { _ in })
+
+		// Give it a moment to send
+		Thread.sleep(forTimeInterval: 0.1)
+		connection.cancel()
+		self.connection = nil
+		isConnected = false
+	}
+
+	// MARK: - Private
+
+	private func sendConnect() {
+		var packet = Data()
+
+		// Variable header
+		// Protocol Name: "MQTT"
+		let protocolName = Data([0x00, 0x04, 0x4D, 0x51, 0x54, 0x54])
+		// Protocol Level: 4 (MQTT 3.1.1)
+		let protocolLevel: UInt8 = 4
+
+		// Connect flags
+		var connectFlags: UInt8 = 0x02 // Clean Session
+		if username != nil { connectFlags |= 0x80 }
+		if password != nil { connectFlags |= 0x40 }
+
+		// Keep alive: 60 seconds
+		let keepAlive: UInt16 = 60
+
+		// Payload
+		let clientId = "mqtt-analyzer-\(String(UUID().uuidString.prefix(8)))"
+		let clientIdData = Data(clientId.utf8)
+
+		var variableHeader = Data()
+		variableHeader.append(protocolName)
+		variableHeader.append(protocolLevel)
+		variableHeader.append(connectFlags)
+		variableHeader.append(UInt8((keepAlive >> 8) & 0xFF))
+		variableHeader.append(UInt8(keepAlive & 0xFF))
+
+		var payload = Data()
+		payload.append(UInt8((clientIdData.count >> 8) & 0xFF))
+		payload.append(UInt8(clientIdData.count & 0xFF))
+		payload.append(clientIdData)
+
+		if let username = username {
+			let usernameData = Data(username.utf8)
+			payload.append(UInt8((usernameData.count >> 8) & 0xFF))
+			payload.append(UInt8(usernameData.count & 0xFF))
+			payload.append(usernameData)
+		}
+		if let password = password {
+			let passwordData = Data(password.utf8)
+			payload.append(UInt8((passwordData.count >> 8) & 0xFF))
+			payload.append(UInt8(passwordData.count & 0xFF))
+			payload.append(passwordData)
+		}
+
+		// Fixed header
+		let remainingLength = variableHeader.count + payload.count
+		packet.append(0x10) // CONNECT
+		packet.append(contentsOf: encodeRemainingLength(remainingLength))
+		packet.append(variableHeader)
+		packet.append(payload)
+
+		connection?.send(content: packet, completion: .contentProcessed { [weak self] error in
+			if let error = error {
+				NSLog("[MiniMQTT] CONNECT send error: \(error)")
+				self?.connectSemaphore.signal()
+				return
+			}
+			self?.waitForConnack()
+		})
+	}
+
+	private func waitForConnack() {
+		connection?.receive(minimumIncompleteLength: 4, maximumLength: 4) { [weak self] content, _, _, error in
+			guard let self = self else { return }
+			if let error = error {
+				NSLog("[MiniMQTT] CONNACK receive error: \(error)")
+				self.connectSemaphore.signal()
+				return
+			}
+			guard let data = content, data.count >= 4 else {
+				NSLog("[MiniMQTT] CONNACK invalid response")
+				self.connectSemaphore.signal()
+				return
+			}
+
+			let packetType = (data[0] >> 4) & 0x0F
+			let returnCode = data[3]
+
+			if packetType == 2 && returnCode == 0 {
+				NSLog("[MiniMQTT] Connected successfully")
+				self.isConnected = true
+			} else {
+				NSLog("[MiniMQTT] CONNACK failed: type=\(packetType) rc=\(returnCode)")
+			}
+			self.connectSemaphore.signal()
+		}
+	}
+
+	private func waitForPuback() {
+		let sem = DispatchSemaphore(value: 0)
+		connection?.receive(minimumIncompleteLength: 4, maximumLength: 4) { _, _, _, error in
+			if let error = error {
+				NSLog("[MiniMQTT] PUBACK receive error: \(error)")
+			}
+			sem.signal()
+		}
+		let result = sem.wait(timeout: .now() + 5)
+		if result == .timedOut {
+			NSLog("[MiniMQTT] PUBACK timed out")
+		}
+	}
+
+	private func encodeRemainingLength(_ length: Int) -> [UInt8] {
+		var bytes: [UInt8] = []
+		var value = length
+		repeat {
+			var byte = UInt8(value % 128)
+			value /= 128
+			if value > 0 { byte |= 0x80 }
+			bytes.append(byte)
+		} while value > 0
+		return bytes
+	}
+}
+#endif

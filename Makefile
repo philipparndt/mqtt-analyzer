@@ -1,4 +1,4 @@
-.PHONY: screenshots screenshots-refresh screenshots-mac screenshots-mac-messages publish publish-skip-tests test test-ui release-brew bump-major bump-minor bump-patch help
+.PHONY: screenshots screenshots-refresh screenshots-mac screenshots-mac-messages publish-examples publish publish-skip-tests test test-ui release-brew bump-major bump-minor bump-patch help
 
 PBXPROJ := src/MQTTAnalyzer.xcodeproj/project.pbxproj
 CURRENT_VERSION := $(shell grep -m1 'MARKETING_VERSION' $(PBXPROJ) | sed 's/.*= *\(.*\);/\1/')
@@ -8,7 +8,8 @@ help:
 	@echo "  screenshots            - Create screenshots for App Store (dark and light mode)"
 	@echo "  screenshots-refresh    - Create screenshots and refresh device frames"
 	@echo "  screenshots-mac        - Launch macOS app with Example broker for manual screenshots"
-	@echo "  screenshots-mac-messages - Publish example messages to test broker (requires mosquitto)"
+	@echo "  screenshots-mac-messages - Publish retained example messages to test broker (uses mqtt-analyzer CLI)"
+	@echo "  publish-examples         - Publish retained example messages to test broker (uses mqtt-analyzer CLI)"
 	@echo "  publish                - Build and publish to App Store (with tests)"
 	@echo "  publish-skip-tests     - Build and publish to App Store (without tests)"
 	@echo "  test                   - Run unit tests"
@@ -42,7 +43,9 @@ screenshots-mac:
 	@osascript -e 'tell application "System Events" to tell process "MQTTAnalyzer" to set position of window 1 to {0, 0}' \
 		-e 'tell application "System Events" to tell process "MQTTAnalyzer" to set size of window 1 to {1200, 720}'
 
-screenshots-mac-messages:
+screenshots-mac-messages: publish-examples
+
+publish-examples:
 	@./scripts/publish-example-messages.sh
 
 publish:
