@@ -106,6 +106,35 @@ struct TopicTreeSidebarView: View {
 						createNewTopic: setTopic
 					)
 						.tag(node)
+						#if os(iOS)
+						// On iPadOS, OutlineGroup parent rows consume taps for disclosure
+						// toggle, so the row never becomes selected and the system
+						// highlight isn't drawn. Force-set selection in parallel and
+						// paint a custom pill on every selected row (parents and
+						// leaves), suppressing the system selection highlight so all
+						// rows look identical and the workaround is invisible.
+						.padding(.vertical, 16)
+						.padding(.leading, 12)
+						.padding(.trailing, node.treeChildren != nil ? 32 : 12)
+						.frame(maxWidth: .infinity, alignment: .leading)
+						.background(
+							selectedTopic == node
+								? Color(.tertiarySystemFill)
+								: Color.clear,
+							in: Capsule()
+						)
+						.padding(.vertical, -16)
+						.padding(.leading, -12)
+						.padding(.trailing, node.treeChildren != nil ? -32 : -12)
+						.foregroundStyle(
+							selectedTopic == node ? Color.accentColor : Color.primary
+						)
+						.listRowBackground(Color.clear)
+						.contentShape(Rectangle())
+						.simultaneousGesture(
+							TapGesture().onEnded { selectedTopic = node }
+						)
+						#endif
 				}
 				.animation(nil, value: model.childrenDisplay.count)
 			}
