@@ -39,6 +39,7 @@ struct TopicTreeSidebarView: View {
 	@StateObject private var publishMessageModel = PublishMessageFormModel()
 	@State private var limitsSettingsPresented = false
 	@State private var limitsSettingsType: LimitType = .topicLimit
+	@State private var expandedTopics: Set<UUID> = []
 
 	var isSearching: Bool {
 		!model.filterText.trimmingCharacters(in: .whitespaces).isEmpty
@@ -94,47 +95,23 @@ struct TopicTreeSidebarView: View {
 				)
 				.accessibilityIdentifier(host.state == .connected ? "tree_wait_messages" : "tree_not_connected")
 			} else {
-				OutlineGroup(
-					model.childrenDisplay.sorted { $0.name < $1.name },
-					children: \.treeChildren
-				) { node in
-					TreeNodeCellView(
-						model: node,
+				ForEach(
+					flattenTopicTree(
+						roots: model.childrenDisplay,
+						expanded: expandedTopics
+					)
+				) { item in
+					TreeFlatRow(
+						node: item.node,
+						depth: item.depth,
+						hasChildren: item.hasChildren,
 						host: host,
+						expandedTopics: $expandedTopics,
+						selectedTopic: $selectedTopic,
 						publishMessagePresented: $publishMessageModel.isPresented,
 						selectMessage: selectMessage,
 						createNewTopic: setTopic
 					)
-						.tag(node)
-						#if os(iOS)
-						// On iPadOS, OutlineGroup parent rows consume taps for disclosure
-						// toggle, so the row never becomes selected and the system
-						// highlight isn't drawn. Force-set selection in parallel and
-						// paint a custom pill on every selected row (parents and
-						// leaves), suppressing the system selection highlight so all
-						// rows look identical and the workaround is invisible.
-						.padding(.vertical, 16)
-						.padding(.leading, 12)
-						.padding(.trailing, node.treeChildren != nil ? 32 : 12)
-						.frame(maxWidth: .infinity, alignment: .leading)
-						.background(
-							selectedTopic == node
-								? Color(.tertiarySystemFill)
-								: Color.clear,
-							in: Capsule()
-						)
-						.padding(.vertical, -16)
-						.padding(.leading, -12)
-						.padding(.trailing, node.treeChildren != nil ? -32 : -12)
-						.foregroundStyle(
-							selectedTopic == node ? Color.accentColor : Color.primary
-						)
-						.listRowBackground(Color.clear)
-						.contentShape(Rectangle())
-						.simultaneousGesture(
-							TapGesture().onEnded { selectedTopic = node }
-						)
-						#endif
 				}
 				.animation(nil, value: model.childrenDisplay.count)
 			}
@@ -416,6 +393,104 @@ struct TreeNavigationView: View {
 			}
 		}
 	}
+}
+
+// MARK: - Tree row (manual flatten)
+/// Single row in the manually-flattened topic tree. Each row is a flat List
+/// row with its own accessibility identifier so XCUITest can locate it
+/// (DisclosureGroup merges its label, hiding the inner identifier).
+private struct TreeFlatRow: View {
+	@ObservedObject var node: TopicTree
+	let depth: Int
+	let hasChildren: Bool
+	let host: Host
+	@Binding var expandedTopics: Set<UUID>
+	@Binding var selectedTopic: TopicTree?
+	@Binding var publishMessagePresented: Bool
+	let selectMessage: (MsgMessage) -> Void
+	let createNewTopic: (String) -> Void
+
+	private var isExpanded: Bool {
+		expandedTopics.contains(node.id)
+	}
+
+	var body: some View {
+		HStack(spacing: 4) {
+			if depth > 0 {
+				Spacer().frame(width: CGFloat(depth) * 16)
+			}
+			if hasChildren {
+				Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+					.font(.caption.weight(.semibold))
+					.foregroundStyle(.secondary)
+					.frame(width: 14)
+			} else {
+				Spacer().frame(width: 14)
+			}
+			TreeNodeCellView(
+				model: node,
+				host: host,
+				publishMessagePresented: $publishMessagePresented,
+				selectMessage: selectMessage,
+				createNewTopic: createNewTopic
+			)
+		}
+		.tag(node)
+		#if os(iOS)
+		.padding(.vertical, 8)
+		.padding(.horizontal, 12)
+		.frame(maxWidth: .infinity, alignment: .leading)
+		.background(
+			selectedTopic == node
+				? Color(.tertiarySystemFill)
+				: Color.clear,
+			in: Capsule()
+		)
+		.padding(.vertical, -8)
+		.padding(.horizontal, -12)
+		.foregroundStyle(
+			selectedTopic == node ? Color.accentColor : Color.primary
+		)
+		.listRowBackground(Color.clear)
+		.contentShape(Rectangle())
+		.onTapGesture {
+			selectedTopic = node
+			// One-way expand: tap-to-expand only, never collapse, so
+			// repeated navigation taps don't toggle state. Use the chevron
+			// (or future explicit collapse affordance) to collapse.
+			if hasChildren && !isExpanded {
+				let id = node.id
+				DispatchQueue.main.async {
+					expandedTopics.insert(id)
+				}
+			}
+		}
+		#endif
+	}
+}
+
+struct FlatTreeRow: Identifiable {
+	let node: TopicTree
+	let depth: Int
+	let hasChildren: Bool
+	var id: UUID { node.id }
+}
+
+/// Flatten the tree based on current expansion state. Returns visible nodes
+/// in display order with their depth so the row view can indent.
+func flattenTopicTree(roots: [TopicTree], expanded: Set<UUID>) -> [FlatTreeRow] {
+	var result: [FlatTreeRow] = []
+	func visit(_ nodes: [TopicTree], depth: Int) {
+		for n in nodes.sorted(by: { $0.name < $1.name }) {
+			let hasChildren = n.treeChildren != nil
+			result.append(FlatTreeRow(node: n, depth: depth, hasChildren: hasChildren))
+			if hasChildren && expanded.contains(n.id), let children = n.treeChildren {
+				visit(children, depth: depth + 1)
+			}
+		}
+	}
+	visit(roots, depth: 0)
+	return result
 }
 
 // MARK: - Tree Node Cell View

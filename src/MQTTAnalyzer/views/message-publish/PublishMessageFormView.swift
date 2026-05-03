@@ -226,11 +226,16 @@ struct PublishMessageFormJSONView: View {
 	@ObservedObject var model: PublishMessageFormModel
 	var body: some View {
 		Group {
-			ForEach(model.properties.indices, id: \.self) { index in
+			// Iterate by binding-to-element (not indices) so each row's child
+			// bindings stay attached to the correct PublishMessageProperty by
+			// identity. Index-based ForEach captures Int indices that go stale
+			// when `properties` changes, causing Toggle/Switch updateUIView to
+			// crash with "Index out of range" on `$model.properties[i]`.
+			ForEach($model.properties) { $property in
 				HStack {
-					Text(self.model.properties[index].pathName)
+					Text(property.pathName)
 					Spacer()
-					MessageProperyView(property: self.$model.properties[index])
+					MessageProperyView(property: $property)
 				}
 			}
 		}
