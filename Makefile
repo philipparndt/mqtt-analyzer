@@ -86,14 +86,14 @@ test-integration:
 bump-major:
 	@MAJOR=$$(echo $(CURRENT_VERSION) | cut -d. -f1); \
 	NEW_VERSION=$$((MAJOR + 1)).0.0; \
-	sed -i '' "s/MARKETING_VERSION = $(CURRENT_VERSION)/MARKETING_VERSION = $$NEW_VERSION/g" $(PBXPROJ); \
+	/usr/bin/sed -i '' "s/MARKETING_VERSION = $(CURRENT_VERSION)/MARKETING_VERSION = $$NEW_VERSION/g" $(PBXPROJ); \
 	echo "Version bumped: $(CURRENT_VERSION) -> $$NEW_VERSION"
 
 bump-minor:
 	@MINOR=$$(echo $(CURRENT_VERSION) | cut -d. -f2); \
 	MAJOR=$$(echo $(CURRENT_VERSION) | cut -d. -f1); \
 	NEW_VERSION=$$MAJOR.$$((MINOR + 1)).0; \
-	sed -i '' "s/MARKETING_VERSION = $(CURRENT_VERSION)/MARKETING_VERSION = $$NEW_VERSION/g" $(PBXPROJ); \
+	/usr/bin/sed -i '' "s/MARKETING_VERSION = $(CURRENT_VERSION)/MARKETING_VERSION = $$NEW_VERSION/g" $(PBXPROJ); \
 	echo "Version bumped: $(CURRENT_VERSION) -> $$NEW_VERSION"
 
 bump-patch:
@@ -101,5 +101,5 @@ bump-patch:
 	MAJOR=$$(echo $(CURRENT_VERSION) | cut -d. -f1); \
 	MINOR=$$(echo $(CURRENT_VERSION) | cut -d. -f2); \
 	NEW_VERSION=$$MAJOR.$$MINOR.$$((PATCH + 1)); \
-	sed -i '' "s/MARKETING_VERSION = $(CURRENT_VERSION)/MARKETING_VERSION = $$NEW_VERSION/g" $(PBXPROJ); \
+	/usr/bin/sed -i '' "s/MARKETING_VERSION = $(CURRENT_VERSION)/MARKETING_VERSION = $$NEW_VERSION/g" $(PBXPROJ); \
 	echo "Version bumped: $(CURRENT_VERSION) -> $$NEW_VERSION"
