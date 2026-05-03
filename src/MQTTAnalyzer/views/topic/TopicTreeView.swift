@@ -131,7 +131,7 @@ struct TopicTreeSidebarView: View {
 		.scrollContentBackground(.hidden)
 		.visualEffectBackground(material: .sidebar)
 		#endif
-		.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelPublishDialog, content: {
+		.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: resetPublishDialog, content: {
 			PublishMessageFormModalView(
 				closeCallback: self.cancelPublishDialog,
 				root: self.rootModel,
@@ -232,13 +232,16 @@ struct TopicTreeSidebarView: View {
 	}
 
 	func cancelPublishDialog() {
-		// Don't reset the model here. `reset()` empties `properties`, and if
-		// called while the sheet is dismissing (or right after, before the
-		// sheet's view tree is fully torn down), Toggle's
-		// `Binding<Array<PublishMessageProperty>>[i]` reads against the now-
-		// empty array and crashes with "Index out of range" inside
-		// `Switch.updateUIView`. Form fields are reseeded on each open.
+		// Only flip presentation here. Resetting the model (which empties
+		// `properties`) MUST wait for `.sheet(onDismiss:)` — otherwise the
+		// sheet, mid-dismiss, tries to commit Toggle/Switch updates against
+		// `Binding<Array>[i]` on an array we just emptied, crashing with
+		// "Index out of range".
 		publishMessageModel.isPresented = false
+	}
+
+	func resetPublishDialog() {
+		publishMessageModel.reset()
 	}
 
 	@ViewBuilder
