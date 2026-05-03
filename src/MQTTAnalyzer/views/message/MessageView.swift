@@ -46,8 +46,13 @@ struct MessageView: View {
 	}
 
 	func cancelPublishMessageCreation() {
+		// Don't reset the model here. `reset()` empties `properties`, and if
+		// called while the sheet is dismissing (or right after, before the
+		// sheet's view tree is fully torn down), Toggle's
+		// `Binding<Array<PublishMessageProperty>>[i]` reads against the now-
+		// empty array and crashes with "Index out of range" inside
+		// `Switch.updateUIView`. Form fields are reseeded on each open.
 		self.publishMessageFormModel.isPresented = false
-		self.publishMessageFormModel.reset()
 	}
 }
 
