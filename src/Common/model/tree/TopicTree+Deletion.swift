@@ -41,4 +41,17 @@ extension TopicTree {
 			node = current.parent
 		}
 	}
+
+	func remove() {
+		guard let parent = parent else {
+			clear()
+			return
+		}
+
+		// Search index lives on the root; clear entries for this subtree.
+		findRoot().index?.clear(topicStartsWith: nameQualified)
+
+		parent.children.removeValue(forKey: name)
+		parent.recomputeReadState()
+	}
 }
