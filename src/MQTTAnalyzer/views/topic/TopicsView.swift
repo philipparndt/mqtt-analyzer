@@ -22,8 +22,8 @@ struct TopicsView: View {
 		VStack(spacing: 0) {
 			if model.messageCount == 0 && model.children.keys.isEmpty {
 				AwaitMessagesView(model: model, host: host)
-				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
-					PublishMessageFormModalView(closeCallback: self.cancelDialog,
+				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelPublishDialog, content: {
+					PublishMessageFormModalView(closeCallback: self.cancelPublishDialog,
 												root: self.rootModel,
 												host: self.host,
 												model: publishMessageModel)
@@ -140,8 +140,8 @@ struct TopicsView: View {
 				}
 				.searchable(text: $model.filterText)
 				.disableAutocorrection(true)
-				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelDialog, content: {
-					PublishMessageFormModalView(closeCallback: self.cancelDialog,
+				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: cancelPublishDialog, content: {
+					PublishMessageFormModalView(closeCallback: self.cancelPublishDialog,
 												root: self.rootModel,
 												host: self.host,
 												model: publishMessageModel)
@@ -280,6 +280,11 @@ struct TopicsView: View {
 
 	func pauseConnection() {
 		host.pause.toggle()
+	}
+
+	func cancelPublishDialog() {
+		self.publishMessageModel.isPresented = false
+		self.publishMessageModel.reset()
 	}
 
 	func cancelDialog() {

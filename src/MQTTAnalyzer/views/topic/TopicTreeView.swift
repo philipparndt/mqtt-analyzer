@@ -256,6 +256,7 @@ struct TopicTreeSidebarView: View {
 
 	func cancelPublishDialog() {
 		publishMessageModel.isPresented = false
+		publishMessageModel.reset()
 	}
 
 	@ViewBuilder
