@@ -61,6 +61,16 @@ class PublishMessageFormModel: ObservableObject {
 		}
 	}
 
+	func reset() {
+		message = ""
+		qos = 2
+		retain = false
+		messageType = .plain
+		properties = []
+		jsonData = nil
+		topic = ""
+	}
+
 	func updateMessageFromJsonData() {
 		if var json = jsonData {
 			for property in properties {

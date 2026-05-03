@@ -47,6 +47,7 @@ struct MessageView: View {
 
 	func cancelPublishMessageCreation() {
 		self.publishMessageFormModel.isPresented = false
+		self.publishMessageFormModel.reset()
 	}
 }
 
