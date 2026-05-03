@@ -446,6 +446,9 @@ struct TreeNodeCellView: View {
 			MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
 			MenuButton(title: "Copy name", systemImage: "doc.on.doc", action: copyName)
 
+			MenuButton(title: "Mark as read", systemImage: "circlebadge", action: markRead)
+				.accessibilityIdentifier("mark-as-read")
+
 			if createNewTopic != nil {
 				Menu {
 					if !model.messages.isEmpty {
@@ -466,6 +469,13 @@ struct TreeNodeCellView: View {
 					action: deleteAllRetained
 				)
 				.accessibilityIdentifier("confirm-delete-retained")
+
+				MenuButton(
+					title: "Remove from view",
+					systemImage: "eye.slash.fill",
+					action: removeFromView
+				)
+				.accessibilityIdentifier("confirm-remove-from-view")
 			} label: {
 				Label("Delete", systemImage: "trash.fill")
 			}
@@ -516,5 +526,13 @@ struct TreeNodeCellView: View {
 		for message in messages {
 			message.topic.delete(message: message)
 		}
+	}
+
+	func markRead() {
+		model.markRead()
+	}
+
+	func removeFromView() {
+		model.remove()
 	}
 }
