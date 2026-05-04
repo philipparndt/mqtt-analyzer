@@ -26,6 +26,8 @@
 		22COCOA1127C60000MQTT11 /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 22COCOA1027C60000MQTT10 /* CocoaMQTTWebSocket */; };
 		22E84D442F802E83009DBA15 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 22E84D432F802E83009DBA15 /* AppIcon.icon */; };
 		22E84D452F802E83009DBA15 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 22E84D432F802E83009DBA15 /* AppIcon.icon */; };
+		22F298C42FA73FC500917080 /* UITestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 22F298C32FA73FC500917080 /* UITestPlan.xctestplan */; };
+		22F298C52FA73FC500917080 /* UITestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 22F298C32FA73FC500917080 /* UITestPlan.xctestplan */; };
 		22GRDB00327C50000SWIFT03 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00227C50000SWIFT02 /* GRDB */; };
 		22GRDB00527C50000SWIFT05 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 22GRDB00427C50000SWIFT04 /* GRDB */; };
 		2688D1A6D86E24361A16A0DC /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 45F49BADF6B84BA4053B9800 /* CocoaMQTT */; };
@@ -137,6 +139,7 @@
 		22C96E2728141B9900A4F627 /* MQTTAnalyzerIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C9F72E23B7486E00892C4B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		22E84D432F802E83009DBA15 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		22F298C32FA73FC500917080 /* UITestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UITestPlan.xctestplan; path = MQTTAnalyzerUITests/UITestPlan.xctestplan; sourceTree = "<group>"; };
 		630CEA549212E560C3771A48 /* MQTTAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		833EFDD6BBC29B58F52FFD5A /* MQTTAnalyzerCLITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MQTTAnalyzerCLITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F56339F599C39578CFB429 /* MQTTAnalyzerCLI */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = text; name = MQTTAnalyzerCLI; path = "mqtt-analyzer"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -367,6 +370,7 @@
 		2253F8C922C8C007007E35A2 = {
 			isa = PBXGroup;
 			children = (
+				22F298C32FA73FC500917080 /* UITestPlan.xctestplan */,
 				22E84D432F802E83009DBA15 /* AppIcon.icon */,
 				22C9F72E23B7486E00892C4B /* .swiftlint.yml */,
 				22BB9C122F8443D9007DE024 /* Common */,
@@ -715,6 +719,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22E84D452F802E83009DBA15 /* AppIcon.icon in Resources */,
+				22F298C52FA73FC500917080 /* UITestPlan.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,6 +763,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22E84D442F802E83009DBA15 /* AppIcon.icon in Resources */,
+				22F298C42FA73FC500917080 /* UITestPlan.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

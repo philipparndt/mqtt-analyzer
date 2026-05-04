@@ -108,13 +108,19 @@ class Navigation {
 			// iPad three-column: expand tree nodes and select the target
 			navigateTreeColumn(to: topic, split: split)
 		} else {
-			// iPhone two-column: navigate folder-by-folder
+			// iPhone two-column: navigate folder-by-folder.
+			// Sleep generously after each push/pop so SwiftUI commits the
+			// transition before the next query/tap — without this, an
+			// in-flight Switch.updateUIView can read a stale Binding<Array>[i]
+			// and crash with Index out of range.
 			while !split.starts(with: currentFolder) {
 				navigateUp()
+				Thread.sleep(forTimeInterval: 1.0)
 			}
 
 			for i in currentFolder.count ..< split.count {
 				open(topic: split[0...i].joined(separator: "/"))
+				Thread.sleep(forTimeInterval: 1.0)
 			}
 
 			currentFolder = split
@@ -165,19 +171,20 @@ class Navigation {
 			// iPad three-column: no navigation, just update tracking
 			currentFolder = Array(currentFolder.dropLast())
 		} else {
-			// iPhone two-column: use Back button
-			let backButton = app.navigationBars.buttons["Back"]
-			if backButton.exists {
+			// iPhone two-column: use Back button. The system back button has
+			// identifier "BackButton" and a label that's the previous screen
+			// name (e.g. "dishwasher"), so don't look it up by the label "Back".
+			let backButton = app.navigationBars.buttons["BackButton"]
+			if backButton.waitForExistence(timeout: 3) {
 				backButton.tap()
 			} else {
-				// Try the first button in the navigation bar (usually back button)
+				// Fall back to the first button in the navigation bar.
 				let firstNavButton = app.navigationBars.buttons.element(boundBy: 0)
-				if firstNavButton.exists {
+				if firstNavButton.waitForExistence(timeout: 2) {
 					firstNavButton.tap()
 				}
 			}
 
-			// Update currentFolder
 			currentFolder = Array(currentFolder.dropLast())
 		}
 	}
@@ -204,6 +211,15 @@ class Navigation {
 	/// Automatically expands parent nodes if needed.
 	/// Only expands nodes that aren't already expanded (checks if children are visible).
 	func expandTreeNode(topic: String) {
+		// On iPhone (two-column) there's no inline tree expansion — rows are
+		// NavigationLinks that push into the topic's TopicsView. Navigate
+		// instead, so currentFolder tracks the actual app state for any
+		// subsequent navigate(to:) calls.
+		if !isThreeColumnLayout {
+			navigate(to: topic)
+			return
+		}
+
 		let parts = topic.split(separator: "/").map { String($0) }
 		guard !parts.isEmpty else { return }
 
@@ -240,24 +256,27 @@ class Navigation {
 		guard folder.waitForExistence(timeout: 5) else { return }
 
 		#if os(macOS)
-		// On macOS, find the disclosure triangle near this folder element
-		// The disclosure triangle shares the same Y position in the outline view
-		let folderFrame = folder.frame
-		let disclosures = app.disclosureTriangles.allElementsBoundByIndex
-		for disclosure in disclosures {
-			if disclosure.exists && abs(disclosure.frame.midY - folderFrame.midY) < 5 {
+		// TreeFlatRow renders the chevron as a Button with this identifier;
+		// tap it to toggle expansion.
+		let chevron = app.buttons["chevron: \(topic)"]
+		if chevron.waitForExistence(timeout: 5) {
+			chevron.click()
+		} else {
+			// Fallback for any view that still uses native disclosure triangles.
+			let folderFrame = folder.frame
+			let disclosures = app.disclosureTriangles.allElementsBoundByIndex
+			for disclosure in disclosures
+				where disclosure.exists && abs(disclosure.frame.midY - folderFrame.midY) < 5 {
 				disclosure.tap()
 				return
 			}
+			folder.doubleClick()
 		}
-		// Fallback: double-click the folder to toggle expansion
-		folder.doubleClick()
 		#else
-		let cellFrame = folder.frame
-		let tapPoint = CGPoint(x: cellFrame.maxX - 20, y: cellFrame.midY)
-		app.coordinate(withNormalizedOffset: .zero)
-			.withOffset(CGVector(dx: tapPoint.x, dy: tapPoint.y))
-			.tap()
+		// On iOS the row-tap selection gesture also toggles expansion for
+		// parent rows (TreeFlatRow), so a plain tap on the folder cell
+		// expands it.
+		folder.tap()
 		#endif
 	}
 

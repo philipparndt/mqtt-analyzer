@@ -53,6 +53,9 @@
             reference = "container:ReleaseTestPlan.xctestplan"
             default = "YES">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:MQTTAnalyzerUITests/UITestPlan.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
