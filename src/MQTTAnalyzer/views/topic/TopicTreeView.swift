@@ -131,7 +131,7 @@ struct TopicTreeSidebarView: View {
 		.scrollContentBackground(.hidden)
 		.visualEffectBackground(material: .sidebar)
 		#endif
-		.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: resetPublishDialog, content: {
+		.sheet(isPresented: $publishMessageModel.isPresented, content: {
 			PublishMessageFormModalView(
 				closeCallback: self.cancelPublishDialog,
 				root: self.rootModel,
@@ -232,16 +232,13 @@ struct TopicTreeSidebarView: View {
 	}
 
 	func cancelPublishDialog() {
-		// Only flip presentation here. Resetting the model (which empties
-		// `properties`) MUST wait for `.sheet(onDismiss:)` — otherwise the
-		// sheet, mid-dismiss, tries to commit Toggle/Switch updates against
-		// `Binding<Array>[i]` on an array we just emptied, crashing with
-		// "Index out of range".
+		// Don't reset the model in the dismiss path. `reset()` empties
+		// `properties`, and even from `.sheet(onDismiss:)` the dismissed
+		// sheet's view tree can still receive a Toggle/Switch updateUIView
+		// that reads `Binding<Array<PublishMessageProperty>>[i]` against the
+		// emptied array, crashing with "Index out of range". Form fields are
+		// reseeded on each open by the openers instead.
 		publishMessageModel.isPresented = false
-	}
-
-	func resetPublishDialog() {
-		publishMessageModel.reset()
 	}
 
 	@ViewBuilder
@@ -417,16 +414,29 @@ private struct TreeFlatRow: View {
 		expandedTopics.contains(node.id)
 	}
 
+	private func toggleExpansion() {
+		if expandedTopics.contains(node.id) {
+			expandedTopics.remove(node.id)
+		} else {
+			expandedTopics.insert(node.id)
+		}
+	}
+
 	var body: some View {
 		HStack(spacing: 4) {
 			if depth > 0 {
 				Spacer().frame(width: CGFloat(depth) * 16)
 			}
 			if hasChildren {
-				Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
-					.font(.caption.weight(.semibold))
-					.foregroundStyle(.secondary)
-					.frame(width: 14)
+				Button(action: toggleExpansion) {
+					Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+						.font(.caption.weight(.semibold))
+						.foregroundStyle(.secondary)
+						.frame(width: 14)
+						.contentShape(Rectangle())
+				}
+				.buttonStyle(.plain)
+				.accessibilityIdentifier("chevron: \(node.nameQualified)")
 			} else {
 				Spacer().frame(width: 14)
 			}

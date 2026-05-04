@@ -22,7 +22,7 @@ struct MessageView: View {
 				MessageCellView(message: $0,
 								selectMessage: self.selectMessage,
 								host: self.host)
-					.sheet(isPresented: $publishMessageFormModel.isPresented, onDismiss: resetPublishMessageForm, content: {
+					.sheet(isPresented: $publishMessageFormModel.isPresented, content: {
 						PublishMessageFormModalView(closeCallback: self.cancelPublishMessageCreation,
 							 root: self.rootModel,
 							 host: self.host,
@@ -46,14 +46,13 @@ struct MessageView: View {
 	}
 
 	func cancelPublishMessageCreation() {
-		// Only flip presentation here. Reset (which empties `properties`) is
-		// deferred to `.sheet(onDismiss:)` to avoid Toggle Binding<Array>[i]
-		// crashes during the dismiss animation.
+		// Don't reset the model in the dismiss path. `reset()` empties
+		// `properties`, and even from `.sheet(onDismiss:)` the dismissed
+		// sheet's view tree can still receive a Toggle/Switch updateUIView
+		// that reads `Binding<Array<PublishMessageProperty>>[i]` against the
+		// emptied array, crashing with "Index out of range". Form fields are
+		// reseeded on each open by the openers instead.
 		self.publishMessageFormModel.isPresented = false
-	}
-
-	func resetPublishMessageForm() {
-		self.publishMessageFormModel.reset()
 	}
 }
 

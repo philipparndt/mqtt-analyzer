@@ -22,7 +22,7 @@ struct TopicsView: View {
 		VStack(spacing: 0) {
 			if model.messageCount == 0 && model.children.keys.isEmpty {
 				AwaitMessagesView(model: model, host: host)
-				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: resetPublishDialog, content: {
+				.sheet(isPresented: $publishMessageModel.isPresented, content: {
 					PublishMessageFormModalView(closeCallback: self.cancelPublishDialog,
 												root: self.rootModel,
 												host: self.host,
@@ -140,7 +140,7 @@ struct TopicsView: View {
 				}
 				.searchable(text: $model.filterText)
 				.disableAutocorrection(true)
-				.sheet(isPresented: $publishMessageModel.isPresented, onDismiss: resetPublishDialog, content: {
+				.sheet(isPresented: $publishMessageModel.isPresented, content: {
 					PublishMessageFormModalView(closeCallback: self.cancelPublishDialog,
 												root: self.rootModel,
 												host: self.host,
@@ -283,16 +283,13 @@ struct TopicsView: View {
 	}
 
 	func cancelPublishDialog() {
-		// Only flip presentation here. Resetting the model (which empties
-		// `properties`) MUST wait for `.sheet(onDismiss:)` — otherwise the
-		// sheet, mid-dismiss, tries to commit Toggle/Switch updates against
-		// `Binding<Array>[i]` on an array we just emptied, crashing with
-		// "Index out of range".
+		// Don't reset the model in the dismiss path. `reset()` empties
+		// `properties`, and even from `.sheet(onDismiss:)` the dismissed
+		// sheet's view tree can still receive a Toggle/Switch updateUIView
+		// that reads `Binding<Array<PublishMessageProperty>>[i]` against the
+		// emptied array, crashing with "Index out of range". Form fields are
+		// reseeded on each open by the openers instead.
 		self.publishMessageModel.isPresented = false
-	}
-
-	func resetPublishDialog() {
-		self.publishMessageModel.reset()
 	}
 
 	func cancelDialog() {

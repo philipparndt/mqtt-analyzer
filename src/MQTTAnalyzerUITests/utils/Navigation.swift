@@ -256,21 +256,25 @@ class Navigation {
 		guard folder.waitForExistence(timeout: 5) else { return }
 
 		#if os(macOS)
-		// On macOS, find the disclosure triangle near this folder element
-		// The disclosure triangle shares the same Y position in the outline view
-		let folderFrame = folder.frame
-		let disclosures = app.disclosureTriangles.allElementsBoundByIndex
-		for disclosure in disclosures {
-			if disclosure.exists && abs(disclosure.frame.midY - folderFrame.midY) < 5 {
+		// TreeFlatRow renders the chevron as a Button with this identifier;
+		// tap it to toggle expansion.
+		let chevron = app.buttons["chevron: \(topic)"]
+		if chevron.waitForExistence(timeout: 5) {
+			chevron.click()
+		} else {
+			// Fallback for any view that still uses native disclosure triangles.
+			let folderFrame = folder.frame
+			let disclosures = app.disclosureTriangles.allElementsBoundByIndex
+			for disclosure in disclosures
+				where disclosure.exists && abs(disclosure.frame.midY - folderFrame.midY) < 5 {
 				disclosure.tap()
 				return
 			}
+			folder.doubleClick()
 		}
-		// Fallback: double-click the folder to toggle expansion
-		folder.doubleClick()
 		#else
 		// On iOS the row-tap selection gesture also toggles expansion for
-		// parent rows (TreeOutlineRow), so a plain tap on the folder cell
+		// parent rows (TreeFlatRow), so a plain tap on the folder cell
 		// expands it.
 		folder.tap()
 		#endif
