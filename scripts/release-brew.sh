@@ -13,7 +13,7 @@ if [ -z "$TAG" ]; then
 fi
 
 APP_NAME="MQTTAnalyzer"
-SCHEME="MQTTAnalyzer-macOS"
+SCHEME="MQTTAnalyzer"
 PROJECT="src/MQTTAnalyzer.xcodeproj"
 PBXPROJ="src/MQTTAnalyzer.xcodeproj/project.pbxproj"
 
