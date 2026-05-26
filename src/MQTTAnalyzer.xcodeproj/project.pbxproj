@@ -218,6 +218,7 @@
 				diagnostics/checks/DNSResolutionCheck.swift,
 				diagnostics/checks/EKUCheck.swift,
 				diagnostics/checks/MQTTProtocolCheck.swift,
+				"diagnostics/checks/MQTTProtocolCheck+WebSocket.swift",
 				diagnostics/checks/PortCheck.swift,
 				diagnostics/checks/ReachabilityCheck.swift,
 				diagnostics/checks/SANCheck.swift,
