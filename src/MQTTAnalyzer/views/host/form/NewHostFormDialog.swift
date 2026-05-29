@@ -113,6 +113,7 @@ struct NewHostFormModalView: View {
 					ssl: host.ssl,
 					untrustedSSL: host.untrustedSSL,
 					protocolMethod: host.protocolMethod,
+					basePath: host.basePath,
 					isPresented: $showDiagnostics,
 					formModel: $host
 				)
@@ -133,7 +134,8 @@ struct NewHostFormModalView: View {
 			port: Int(host.port) ?? 1883,
 			tlsEnabled: host.ssl,
 			allowUntrusted: host.untrustedSSL,
-			useWebSocket: host.protocolMethod == .websocket
+			useWebSocket: host.protocolMethod == .websocket,
+			basePath: host.basePath
 		))
 		diagnosticRunner = runner
 

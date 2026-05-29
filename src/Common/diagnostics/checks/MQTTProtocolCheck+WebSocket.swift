@@ -20,7 +20,7 @@ extension MQTTProtocolCheck {
 		startTime: CFAbsoluteTime,
 		onComplete: @escaping (DiagnosticResult) -> Void
 	) {
-		let path = normalizedWebSocketPath(context.host?.settings.basePath)
+		let path = normalizedWebSocketPath(context.basePath)
 		let request = buildWebSocketUpgradeRequest(
 			hostname: context.hostname, port: context.port, path: path
 		)
@@ -520,7 +520,7 @@ extension MQTTProtocolCheck {
 				status: .error("WebSocket configured but server speaks raw MQTT"),
 				summary: "Wrong protocol — server speaks raw MQTT",
 				detailItems: [
-					.field(label: "Broker", value: "\(hostname):\(port)"),
+					.field(label: "Broker", value: context.brokerDisplay),
 					.text("The server responded to a raw MQTT CONNECT but did not complete "
 						+ "the WebSocket upgrade. The connection is configured to use WebSocket, "
 						+ "which is likely the cause of connection failures.")
@@ -543,7 +543,7 @@ extension MQTTProtocolCheck {
 				status: .error("MQTT configured but server speaks WebSocket"),
 				summary: "Wrong protocol — server speaks MQTT over WebSocket",
 				detailItems: [
-					.field(label: "Broker", value: "\(hostname):\(port)"),
+					.field(label: "Broker", value: context.brokerDisplay),
 					.text("The server completed a WebSocket upgrade handshake but did not respond "
 						+ "to a raw MQTT CONNECT. The connection is configured to use raw MQTT, "
 						+ "which is likely the cause of connection failures.")
@@ -610,7 +610,7 @@ extension MQTTProtocolCheck {
 		context: DiagnosticContext, timeout: TimeInterval = 3.0
 	) async -> Bool {
 		let connection = makeProbeConnection(context: context)
-		let path = normalizedWebSocketPath(context.host?.settings.basePath)
+		let path = normalizedWebSocketPath(context.basePath)
 		let request = buildWebSocketUpgradeRequest(
 			hostname: context.hostname, port: context.port, path: path
 		)

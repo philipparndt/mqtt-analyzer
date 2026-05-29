@@ -378,7 +378,7 @@ extension MQTTProtocolCheck {
 				summary: "MQTT broker confirmed",
 				detailItems: [
 					.field(label: "Response", value: "CONNACK (Connection Accepted)"),
-					.field(label: "Broker", value: "\(hostname):\(port)")
+					.field(label: "Broker", value: context.brokerDisplay)
 				],
 				duration: duration
 			)

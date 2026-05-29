@@ -23,6 +23,9 @@ class DiagnosticContext {
 	/// Whether the connection uses WebSocket transport
 	var useWebSocket: Bool
 
+	/// WebSocket base path (only meaningful when `useWebSocket` is true)
+	var basePath: String
+
 	/// Whether untrusted certificates are allowed.
 	/// Reads from the host settings if available, otherwise uses the stored value.
 	var allowUntrusted: Bool {
@@ -59,24 +62,39 @@ class DiagnosticContext {
 
 	init(hostname: String, port: Int, tlsEnabled: Bool,
 	     allowUntrusted: Bool = false, useWebSocket: Bool = false,
+	     basePath: String = "",
 	     host: Host? = nil) {
 		self.hostname = hostname
 		self.port = port
 		self.tlsEnabled = tlsEnabled
 		self._allowUntrusted = allowUntrusted
 		self.useWebSocket = useWebSocket
+		self.basePath = basePath
 		self.host = host
 	}
 
 	/// Update context from a form model's current values
 	func update(hostname: String, port: Int,
 	            tlsEnabled: Bool, allowUntrusted: Bool,
-	            useWebSocket: Bool) {
+	            useWebSocket: Bool, basePath: String) {
 		self.hostname = hostname
 		self.port = port
 		self.tlsEnabled = tlsEnabled
 		self._allowUntrusted = allowUntrusted
 		self.useWebSocket = useWebSocket
+		self.basePath = basePath
+	}
+
+	/// Human-readable broker address: `hostname:port` for raw MQTT,
+	/// `hostname:port/path` for WebSocket.
+	var brokerDisplay: String {
+		let base = "\(hostname):\(port)"
+		guard useWebSocket else { return base }
+		let trimmed = basePath.trimmingCharacters(in: .whitespaces)
+		let path = trimmed.isEmpty
+			? "/"
+			: (trimmed.hasPrefix("/") ? trimmed : "/" + trimmed)
+		return base + path
 	}
 
 	/// Create context from a Host object
@@ -87,6 +105,7 @@ class DiagnosticContext {
 			tlsEnabled: host.settings.ssl,
 			allowUntrusted: host.settings.untrustedSSL,
 			useWebSocket: host.settings.protocolMethod == .websocket,
+			basePath: host.settings.basePath ?? "",
 			host: host
 		)
 	}
