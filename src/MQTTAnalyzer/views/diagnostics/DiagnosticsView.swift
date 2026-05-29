@@ -34,6 +34,7 @@ struct DiagnosticsView: View {
 	init(hostname: String, port: Int,
 	     ssl: Bool, untrustedSSL: Bool,
 	     protocolMethod: HostProtocol = .mqtt,
+	     basePath: String = "",
 	     isPresented: Binding<Bool>,
 	     formModel: Binding<HostFormModel>? = nil) {
 		self.hostname = hostname
@@ -48,7 +49,8 @@ struct DiagnosticsView: View {
 			port: port,
 			tlsEnabled: ssl,
 			allowUntrusted: untrustedSSL,
-			useWebSocket: protocolMethod == .websocket
+			useWebSocket: protocolMethod == .websocket,
+			basePath: basePath
 		)))
 	}
 
@@ -136,7 +138,8 @@ struct DiagnosticsView: View {
 			port: Int(form.port) ?? 1883,
 			tlsEnabled: form.ssl,
 			allowUntrusted: form.untrustedSSL,
-			useWebSocket: form.protocolMethod == .websocket
+			useWebSocket: form.protocolMethod == .websocket,
+			basePath: form.basePath
 		)
 	}
 

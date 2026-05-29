@@ -72,9 +72,10 @@ class DiagnosticRunner: ObservableObject {
 	/// Update context and re-register checks if needed (e.g. after quick fixes)
 	func updateContext(hostname: String, port: Int,
 	                   tlsEnabled: Bool, allowUntrusted: Bool,
-	                   useWebSocket: Bool) {
+	                   useWebSocket: Bool, basePath: String) {
 		context.update(hostname: hostname, port: port, tlsEnabled: tlsEnabled,
-					   allowUntrusted: allowUntrusted, useWebSocket: useWebSocket)
+					   allowUntrusted: allowUntrusted, useWebSocket: useWebSocket,
+					   basePath: basePath)
 		// Re-register checks since TLS checks depend on tlsEnabled
 		checks = []
 		registerChecks()
