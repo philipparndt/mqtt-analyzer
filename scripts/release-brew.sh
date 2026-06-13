@@ -130,7 +130,7 @@ CASK_CONTENT="cask \"mqtt-analyzer\" do
   desc \"MQTT client for monitoring and debugging MQTT brokers\"
   homepage \"https://github.com/${GITHUB_REPO}\"
 
-  depends_on macos: \">= :ventura\"
+  depends_on macos: :ventura
 
   app \"${APP_NAME}.app\"
 
