@@ -516,6 +516,10 @@ struct TreeNodeCellView: View {
 	var createNewTopic: ((String) -> Void)?
 	var showFullPath: Bool = false
 
+	@State private var exportDocument: TopicExportFileDocument?
+	@State private var exportFormat: TopicExportFormat = .json
+	@State private var showExporter = false
+
 	var displayName: String {
 		if showFullPath {
 			return model.nameQualified.isEmpty ? "<empty>" : model.nameQualified
@@ -538,6 +542,16 @@ struct TreeNodeCellView: View {
 		.contextMenu {
 			MenuButton(title: "Copy topic", systemImage: "doc.on.doc", action: copyTopic)
 			MenuButton(title: "Copy name", systemImage: "doc.on.doc", action: copyName)
+
+			Menu {
+				MenuButton(title: "Copy as JSON", systemImage: "doc.on.doc", action: { copySubtree(.json) })
+				MenuButton(title: "Copy as YAML", systemImage: "doc.on.doc", action: { copySubtree(.yaml) })
+				MenuButton(title: "Export as JSON…", systemImage: "square.and.arrow.up", action: { exportSubtree(.json) })
+				MenuButton(title: "Export as YAML…", systemImage: "square.and.arrow.up", action: { exportSubtree(.yaml) })
+			} label: {
+				Label("Export subtree", systemImage: "square.and.arrow.up.on.square")
+			}
+			.accessibilityIdentifier("export-subtree")
 
 			MenuButton(title: "Mark as read", systemImage: "circlebadge", action: markRead)
 				.accessibilityIdentifier("mark-as-read")
@@ -575,6 +589,12 @@ struct TreeNodeCellView: View {
 			.accessibilityIdentifier("delete-retained")
 		}
 		.accessibilityIdentifier("folder: \(model.nameQualified)")
+		.fileExporter(
+			isPresented: $showExporter,
+			document: exportDocument,
+			contentType: exportFormat.contentType,
+			defaultFilename: TopicExportNaming.filename(for: model.nameQualified)
+		) { _ in }
 	}
 
 	func copyTopic() {
@@ -583,6 +603,18 @@ struct TreeNodeCellView: View {
 
 	func copyName() {
 		Pasteboard.copy(model.name)
+	}
+
+	func copySubtree(_ format: TopicExportFormat) {
+		Pasteboard.copy(TopicTreeExporter.serialize(node: model, format: format))
+	}
+
+	func exportSubtree(_ format: TopicExportFormat) {
+		exportFormat = format
+		exportDocument = TopicExportFileDocument(
+			text: TopicTreeExporter.serialize(node: model, format: format)
+		)
+		showExporter = true
 	}
 
 	func publish() {

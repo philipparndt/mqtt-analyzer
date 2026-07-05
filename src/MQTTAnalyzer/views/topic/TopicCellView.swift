@@ -19,6 +19,10 @@ struct TopicCellView: View {
 	/// Maximum characters for preview
 	private let previewLimit = 5_000
 
+	@State private var exportDocument: TopicExportFileDocument?
+	@State private var exportFormat: TopicExportFormat = .json
+	@State private var showExporter = false
+
 	var body: some View {
 		NavigationLink(destination: MessagesView(node: messages, host: host)) {
 			HStack {
@@ -41,6 +45,16 @@ struct TopicCellView: View {
 			MenuButton(title: "Copy recent message", systemImage: "doc.on.doc", action: copyMessage)
 
 			Menu {
+				MenuButton(title: "Copy as JSON", systemImage: "doc.on.doc", action: { copySubtree(.json) })
+				MenuButton(title: "Copy as YAML", systemImage: "doc.on.doc", action: { copySubtree(.yaml) })
+				MenuButton(title: "Export as JSON…", systemImage: "square.and.arrow.up", action: { exportSubtree(.json) })
+				MenuButton(title: "Export as YAML…", systemImage: "square.and.arrow.up", action: { exportSubtree(.yaml) })
+			} label: {
+				Label("Export subtree", systemImage: "square.and.arrow.up.on.square")
+			}
+			.accessibilityIdentifier("export-subtree")
+
+			Menu {
 				MenuButton(title: "Message again", systemImage: "paperplane.fill", action: publish)
 				MenuButton(title: "New message", systemImage: "paperplane.fill", action: publishManually)
 					.accessibilityIdentifier("publish new")
@@ -58,6 +72,24 @@ struct TopicCellView: View {
 			.accessibilityIdentifier("delete-retained")
 		}
 		.accessibilityIdentifier("group: \(messages.nameQualified)")
+		.fileExporter(
+			isPresented: $showExporter,
+			document: exportDocument,
+			contentType: exportFormat.contentType,
+			defaultFilename: TopicExportNaming.filename(for: messages.nameQualified)
+		) { _ in }
+	}
+
+	func copySubtree(_ format: TopicExportFormat) {
+		Pasteboard.copy(TopicTreeExporter.serialize(node: messages, format: format))
+	}
+
+	func exportSubtree(_ format: TopicExportFormat) {
+		exportFormat = format
+		exportDocument = TopicExportFileDocument(
+			text: TopicTreeExporter.serialize(node: messages, format: format)
+		)
+		showExporter = true
 	}
 
 	func publish() {
