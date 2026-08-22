@@ -86,7 +86,8 @@ struct RootView: View {
 				}
 			}
 			#if os(macOS)
-			.navigationSplitViewColumnWidth(min: 180, ideal: 300, max: 500)
+			// Wide enough for the full topic paths the flat view shows
+			.navigationSplitViewColumnWidth(min: 180, ideal: 300, max: 900)
 			#endif
 		} detail: {
 			NavigationStack {
