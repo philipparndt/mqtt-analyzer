@@ -102,6 +102,8 @@ struct TopicTreeSidebarView: View {
 		.onChange(of: isSearching) { refreshFlatRows() }
 		.onChange(of: model.childrenDisplay.count) { refreshFlatRowsIfShrunk() }
 		.onReceive(flatRefresh) { _ in refreshFlatRows() }
+		.onKeyPress(.rightArrow) { expandSelection() }
+		.onKeyPress(.leftArrow) { collapseSelection() }
 		.disableAutocorrection(true)
 		.transaction { transaction in
 			transaction.animation = nil
@@ -287,6 +289,42 @@ struct TopicTreeSidebarView: View {
 
 // MARK: - Actions
 extension TopicTreeSidebarView {
+	/// Right arrow expands the selected topic, or steps into it when it is already
+	/// expanded. The tree is a manually flattened list, so the disclosure handling a
+	/// real outline view would do has to be done here.
+	func expandSelection() -> KeyPress.Result {
+		guard !model.flatView, let node = selectedTopic, let children = node.treeChildren else {
+			return .ignored
+		}
+
+		if expandedTopics.contains(node.id) {
+			selectedTopic = children.first
+		} else {
+			expandedTopics.insert(node.id)
+		}
+
+		return .handled
+	}
+
+	/// Left arrow collapses the selected topic, or steps out to its parent.
+	func collapseSelection() -> KeyPress.Result {
+		guard !model.flatView, let node = selectedTopic else {
+			return .ignored
+		}
+
+		if node.treeChildren != nil && expandedTopics.contains(node.id) {
+			expandedTopics.remove(node.id)
+			return .handled
+		}
+
+		guard let parent = node.parent, parent !== model || !model.messages.isEmpty else {
+			return .ignored
+		}
+
+		selectedTopic = parent
+		return .handled
+	}
+
 	/// Take a fresh snapshot of the flat row set, at most as often as the timer fires.
 	func refreshFlatRows() {
 		guard model.flatView else {
