@@ -1582,7 +1582,7 @@
 			repositoryURL = "https://github.com/philipparndt/CocoaMQTT.git";
 			requirement = {
 				kind = exactVersion;
-				version = "2.2.5-apple-network";
+				version = "2.2.6-apple-network";
 			};
 		};
 		22GRDB00127C50000SWIFT01 /* XCRemoteSwiftPackageReference "GRDB" */ = {
