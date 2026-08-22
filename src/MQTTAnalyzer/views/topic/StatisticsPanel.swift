@@ -119,8 +119,12 @@ struct ToolToggle: View {
 		return .primary.opacity(isHovered ? 0.1 : 0)
 	}
 
+	private func toggle() {
+		isOn.toggle()
+	}
+
 	var body: some View {
-		Button(action: { isOn.toggle() }) {
+		Button(action: toggle) {
 			Image(systemName: icon)
 				.font(.callout)
 				.foregroundStyle(foreground)

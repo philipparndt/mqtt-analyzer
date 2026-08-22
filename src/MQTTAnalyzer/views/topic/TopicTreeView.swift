@@ -69,102 +69,18 @@ struct TopicTreeSidebarView: View {
 		#endif
 	}
 
-	private var topicList: some View {
-		List(selection: $selectedTopic) {
-			if isSearching {
-				// Show search results
-				if model.searchResultDisplay.isEmpty {
-					ContentUnavailableView(
-						"No Results",
-						systemImage: "magnifyingglass",
-						description: Text("No topics match '\(model.filterText)'")
-					)
-				} else {
-					ForEach(model.searchResultDisplay) { node in
-						TreeNodeCellView(
-							model: node,
-							host: host,
-							publishMessagePresented: $publishMessageModel.isPresented,
-							selectMessage: selectMessage,
-							createNewTopic: setTopic,
-							showFullPath: true
-						)
-						.tag(node)
-					}
-				}
-			} else if model.childrenDisplay.isEmpty && model.children.isEmpty && model.messages.isEmpty {
-				ContentUnavailableView(
-					"No Topics",
-					systemImage: "antenna.radiowaves.left.and.right",
-					description: Text(host.state == .connected ? "Waiting for messages..." : "Connect to receive messages.")
-				)
-				.accessibilityIdentifier(host.state == .connected ? "tree_wait_messages" : "tree_not_connected")
-			} else if model.flatView {
-				let nodes = flatTopics
-				if nodes.isEmpty {
-					ContentUnavailableView(
-						"No Messages",
-						systemImage: "envelope",
-						description: Text("No messages received yet.")
-					)
-					.accessibilityIdentifier("tree_flat_empty")
-				} else {
-					ForEach(nodes) { node in
-						TreeFlatRow(
-							node: node,
-							depth: 0,
-							hasChildren: false,
-							host: host,
-							expandedTopics: $expandedTopics,
-							selectedTopic: $selectedTopic,
-							publishMessagePresented: $publishMessageModel.isPresented,
-							selectMessage: selectMessage,
-							createNewTopic: setTopic,
-							showFullPath: true
-						)
-					}
-				}
-			} else {
-				// The root of the displayed tree is the common prefix of the subscriptions,
-				// so it receives messages itself whenever a topic is subscribed exactly
-				// (`test`) or a wildcard also matches its own level (`test/#` matches `test`).
-				if !model.messages.isEmpty {
-					TreeFlatRow(
-						node: model,
-						depth: 0,
-						hasChildren: false,
-						host: host,
-						expandedTopics: $expandedTopics,
-						selectedTopic: $selectedTopic,
-						publishMessagePresented: $publishMessageModel.isPresented,
-						selectMessage: selectMessage,
-						createNewTopic: setTopic,
-						showFullPath: true
-					)
-				}
+	private var hasTopics: Bool {
+		!(model.childrenDisplay.isEmpty && model.children.isEmpty && model.messages.isEmpty)
+	}
 
-				ForEach(
-					flattenTopicTree(
-						roots: model.childrenDisplay,
-						expanded: expandedTopics
-					)
-				) { item in
-					TreeFlatRow(
-						node: item.node,
-						depth: item.depth,
-						hasChildren: item.hasChildren,
-						host: host,
-						expandedTopics: $expandedTopics,
-						selectedTopic: $selectedTopic,
-						publishMessagePresented: $publishMessageModel.isPresented,
-						selectMessage: selectMessage,
-						createNewTopic: setTopic
-					)
-				}
-				.animation(nil, value: model.childrenDisplay.count)
+	private var topicList: some View {
+		Group {
+			if model.flatView && !isSearching && hasTopics {
+				flatList
+			} else {
+				treeList
 			}
 		}
-		.listStyle(.sidebar)
 		.searchable(text: $model.filterText)
 		.disableAutocorrection(true)
 		.transaction { transaction in
@@ -256,6 +172,117 @@ struct TopicTreeSidebarView: View {
 		#endif
 	}
 
+	/// The flat list deliberately avoids `List`: it realizes every row whenever the
+	/// topic set changes, which freezes for seconds on brokers with many topics.
+	private var flatList: some View {
+		let nodes = flatTopics
+
+		return Group {
+			if nodes.isEmpty {
+				ContentUnavailableView(
+					"No Messages",
+					systemImage: "envelope",
+					description: Text("No messages received yet.")
+				)
+				.accessibilityIdentifier("tree_flat_empty")
+			} else {
+				ScrollView {
+					LazyVStack(alignment: .leading, spacing: 1) {
+						ForEach(nodes) { node in
+							FlatTopicRow(
+								node: node,
+								host: host,
+								selectedTopic: $selectedTopic,
+								publishMessagePresented: $publishMessageModel.isPresented,
+								selectMessage: selectMessage,
+								createNewTopic: setTopic
+							)
+						}
+					}
+					.padding(.horizontal, 8)
+					.padding(.vertical, 6)
+				}
+			}
+		}
+	}
+
+	private var treeList: some View {
+		List(selection: $selectedTopic) {
+			if isSearching {
+				// Show search results
+				if model.searchResultDisplay.isEmpty {
+					ContentUnavailableView(
+						"No Results",
+						systemImage: "magnifyingglass",
+						description: Text("No topics match '\(model.filterText)'")
+					)
+				} else {
+					ForEach(model.searchResultDisplay) { node in
+						TreeNodeCellView(
+							model: node,
+							host: host,
+							publishMessagePresented: $publishMessageModel.isPresented,
+							selectMessage: selectMessage,
+							createNewTopic: setTopic,
+							showFullPath: true
+						)
+						.tag(node)
+					}
+				}
+			} else if model.childrenDisplay.isEmpty && model.children.isEmpty && model.messages.isEmpty {
+				ContentUnavailableView(
+					"No Topics",
+					systemImage: "antenna.radiowaves.left.and.right",
+					description: Text(host.state == .connected ? "Waiting for messages..." : "Connect to receive messages.")
+				)
+				.accessibilityIdentifier(host.state == .connected ? "tree_wait_messages" : "tree_not_connected")
+			} else {
+				// The root of the displayed tree is the common prefix of the subscriptions,
+				// so it receives messages itself whenever a topic is subscribed exactly
+				// (`test`) or a wildcard also matches its own level (`test/#` matches `test`).
+				if !model.messages.isEmpty {
+					TreeFlatRow(
+						node: model,
+						depth: 0,
+						hasChildren: false,
+						host: host,
+						expandedTopics: $expandedTopics,
+						selectedTopic: $selectedTopic,
+						publishMessagePresented: $publishMessageModel.isPresented,
+						selectMessage: selectMessage,
+						createNewTopic: setTopic,
+						showFullPath: true
+					)
+				}
+
+				ForEach(
+					flattenTopicTree(
+						roots: model.childrenDisplay,
+						expanded: expandedTopics
+					)
+				) { item in
+					TreeFlatRow(
+						node: item.node,
+						depth: item.depth,
+						hasChildren: item.hasChildren,
+						host: host,
+						expandedTopics: $expandedTopics,
+						selectedTopic: $selectedTopic,
+						publishMessagePresented: $publishMessageModel.isPresented,
+						selectMessage: selectMessage,
+						createNewTopic: setTopic
+					)
+				}
+				.animation(nil, value: model.childrenDisplay.count)
+			}
+		}
+		.listStyle(.sidebar)
+	}
+
+}
+
+// MARK: - Actions
+extension TopicTreeSidebarView {
 	func togglePause() {
 		host.pause.toggle()
 	}
@@ -453,6 +480,45 @@ struct TreeNavigationView: View {
 					.accessibilityIdentifier("folder: \(node.nameQualified)")
 				}
 			}
+		}
+	}
+}
+
+// MARK: - Flat list row
+/// Row of the flat topic list. It draws its own selection because the flat list is
+/// a `LazyVStack` rather than a `List`: `List` realizes and measures every row on
+/// each update of the row set, which stalls the app on brokers with many topics.
+private struct FlatTopicRow: View {
+	@ObservedObject var node: TopicTree
+	let host: Host
+	@Binding var selectedTopic: TopicTree?
+	@Binding var publishMessagePresented: Bool
+	let selectMessage: (MsgMessage) -> Void
+	let createNewTopic: (String) -> Void
+
+	private var isSelected: Bool {
+		selectedTopic == node
+	}
+
+	var body: some View {
+		TreeNodeCellView(
+			model: node,
+			host: host,
+			publishMessagePresented: $publishMessagePresented,
+			selectMessage: selectMessage,
+			createNewTopic: createNewTopic,
+			showFullPath: true
+		)
+		.padding(.horizontal, 8)
+		.padding(.vertical, 3)
+		.frame(maxWidth: .infinity, alignment: .leading)
+		.contentShape(Rectangle())
+		.background(
+			RoundedRectangle(cornerRadius: 6)
+				.fill(isSelected ? Color.accentColor.opacity(0.25) : Color.clear)
+		)
+		.onTapGesture {
+			selectedTopic = node
 		}
 	}
 }
