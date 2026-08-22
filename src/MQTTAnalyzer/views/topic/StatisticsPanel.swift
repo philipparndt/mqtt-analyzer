@@ -16,8 +16,8 @@ struct StatisticsPanel: View {
 
 	var body: some View {
 		HStack(spacing: 14) {
-			StatItem(icon: "number.square", label: "Topics", value: "\(model.topicCount)")
-			StatItem(icon: "envelope", label: "Messages", value: "\(model.messageCount)")
+			StatItem(icon: "number.square", label: "Topics", value: "\(model.topicCountDisplay)")
+			StatItem(icon: "envelope", label: "Messages", value: "\(model.messageCountDisplay)")
 
 			Divider()
 				.frame(height: 24)

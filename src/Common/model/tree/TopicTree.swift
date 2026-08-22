@@ -11,8 +11,17 @@ import Foundation
 class TopicTree: Identifiable, ObservableObject {
 	let id = UUID()
 	let name: String
+	private var _nameQualified: String?
+	/// Derived from `name` and `parent`, both immutable, so the walk up the tree
+	/// and the string building only ever happen once per node.
 	var nameQualified: String {
-		return TopicTree.toQualifiedName(node: self)
+		if let cached = _nameQualified {
+			return cached
+		}
+
+		let qualified = TopicTree.toQualifiedName(node: self)
+		_nameQualified = qualified
+		return qualified
 	}
 
 	let parent: TopicTree?
@@ -23,8 +32,13 @@ class TopicTree: Identifiable, ObservableObject {
 			updateSearchResult()
 			updateChildrenToDisplay()
 			markMessageCountDirty()
+			invalidateFlatMessageNodes()
 		}
 	}
+
+	/// Cached result of `recusiveAllMessages`, dropped whenever the set of topics
+	/// carrying messages changes.
+	var flatMessageNodes: [TopicTree]?
 
 	var totalTopicCounter = 0
 
@@ -70,6 +84,9 @@ class TopicTree: Identifiable, ObservableObject {
 	}
 	@Published var messages: [MsgMessage] = [] {
 		didSet {
+			if oldValue.isEmpty != messages.isEmpty {
+				invalidateFlatMessageNodes()
+			}
 			parent?.recomputeReadState()
 		}
 	}
@@ -169,9 +186,17 @@ class TopicTree: Identifiable, ObservableObject {
 		timeSeriesProcessedCount = 0
 	}
 
-	private func markMessageCountDirty() {
+	func markMessageCountDirty() {
 		messageCountDirty = true
 		parent?.markMessageCountDirty()
+	}
+
+	func invalidateFlatMessageNodes() {
+		var node: TopicTree? = self
+		while let current = node {
+			current.flatMessageNodes = nil
+			node = current.parent
+		}
 	}
 
 	func updateMessageCount() {

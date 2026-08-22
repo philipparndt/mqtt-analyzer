@@ -25,6 +25,7 @@ extension TopicTree {
 	func delete(at offsets: IndexSet) {
 		messages.remove(atOffsets: offsets)
 		resetTimeSeries()
+		markMessageCountDirty()
 	}
 
 	func delete(message: MsgMessage) {
@@ -32,14 +33,7 @@ extension TopicTree {
 			messages.remove(at: index)
 		}
 		resetTimeSeries()
-
-		var node: TopicTree? = self
-		while node != nil {
-			let current = node!
-			current.messageCountDirty = true
-
-			node = current.parent
-		}
+		markMessageCountDirty()
 	}
 
 	func remove() {

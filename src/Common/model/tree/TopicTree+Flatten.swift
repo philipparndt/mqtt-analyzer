@@ -10,12 +10,19 @@ import Foundation
 
 extension TopicTree {
 	var recusiveAllMessages: [TopicTree] {
+		if let cached = flatMessageNodes {
+			return cached
+		}
+
 		var result = children.values.flatMap { $0.recusiveAllMessages }
 		result.append(self)
 
-		return result
+		let nodes = result
 			.filter { !$0.messages.isEmpty }
 			.sorted { $0.nameQualified < $1.nameQualified }
+
+		flatMessageNodes = nodes
+		return nodes
 	}
 
 	var childrenWithMessages: [TopicTree] {
