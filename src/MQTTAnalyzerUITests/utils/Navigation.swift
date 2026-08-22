@@ -282,24 +282,34 @@ class Navigation {
 
 	func flatView(tc: XCTestCase) {
 		#if os(macOS)
-		app.checkBoxes["flatview"].click()
+		app.buttons["flatview"].click()
 		#else
 		let flatview = app.switches["flatview"]
-		// On iPad three-column layout, flatview doesn't exist - skip silently
 		if flatview.waitForExistence(timeout: 2) {
 			tc.turnSwitchOn(flatview)
+			return
+		}
+		// Three-column layout (iPad): the toolbar button toggles the mode
+		let button = app.buttons["flatview"]
+		if button.waitForExistence(timeout: 2) {
+			button.tap()
 		}
 		#endif
 	}
 
 	func flatViewOff(tc: XCTestCase) {
 		#if os(macOS)
-		app.checkBoxes["flatview"].click()
+		app.buttons["flatview"].click()
 		#else
 		let flatview = app.switches["flatview"]
-		// On iPad three-column layout, flatview doesn't exist - skip silently
 		if flatview.exists {
 			tc.turnSwitchOff(flatview)
+			return
+		}
+		// Three-column layout (iPad): the toolbar button toggles the mode
+		let button = app.buttons["flatview"]
+		if button.exists {
+			button.tap()
 		}
 		#endif
 	}

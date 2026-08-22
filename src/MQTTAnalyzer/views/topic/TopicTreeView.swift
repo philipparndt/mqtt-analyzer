@@ -45,6 +45,11 @@ struct TopicTreeSidebarView: View {
 		!model.filterText.trimmingCharacters(in: .whitespaces).isEmpty
 	}
 
+	/// Every topic that carries messages, the root included, sorted by full path.
+	var flatTopics: [TopicTree] {
+		model.recusiveAllMessages
+	}
+
 	var body: some View {
 		#if os(macOS)
 		VStack(spacing: 0) {
@@ -94,6 +99,31 @@ struct TopicTreeSidebarView: View {
 					description: Text(host.state == .connected ? "Waiting for messages..." : "Connect to receive messages.")
 				)
 				.accessibilityIdentifier(host.state == .connected ? "tree_wait_messages" : "tree_not_connected")
+			} else if model.flatView {
+				let nodes = flatTopics
+				if nodes.isEmpty {
+					ContentUnavailableView(
+						"No Messages",
+						systemImage: "envelope",
+						description: Text("No messages received yet.")
+					)
+					.accessibilityIdentifier("tree_flat_empty")
+				} else {
+					ForEach(nodes) { node in
+						TreeFlatRow(
+							node: node,
+							depth: 0,
+							hasChildren: false,
+							host: host,
+							expandedTopics: $expandedTopics,
+							selectedTopic: $selectedTopic,
+							publishMessagePresented: $publishMessageModel.isPresented,
+							selectMessage: selectMessage,
+							createNewTopic: setTopic,
+							showFullPath: true
+						)
+					}
+				}
 			} else {
 				// The root of the displayed tree is the common prefix of the subscriptions,
 				// so it receives messages itself whenever a topic is subscribed exactly
@@ -170,7 +200,7 @@ struct TopicTreeSidebarView: View {
 		.toolbar(removing: .title)
 		.toolbar {
 			ToolbarItem(placement: .principal) {
-				StatisticsPanel(model: model, onPublish: createTopic)
+				StatisticsPanel(model: model, flatView: $model.flatView, onPublish: createTopic)
 			}
 
 			ToolbarItem(placement: .secondaryAction) {
@@ -188,6 +218,16 @@ struct TopicTreeSidebarView: View {
 		}
 		#else
 		.toolbar {
+			ToolbarItem(placement: .primaryAction) {
+				Button(action: toggleFlatView) {
+					Label(
+						model.flatView ? "Tree view" : "Flat view",
+						systemImage: model.flatView ? "list.bullet" : "list.bullet.indent"
+					)
+				}
+				.accessibilityIdentifier("flatview")
+			}
+
 			ToolbarItem(placement: .primaryAction) {
 				Button(action: createTopic) {
 					Label("Publish", systemImage: "paperplane.fill")
@@ -218,6 +258,10 @@ struct TopicTreeSidebarView: View {
 
 	func togglePause() {
 		host.pause.toggle()
+	}
+
+	func toggleFlatView() {
+		model.flatView.toggle()
 	}
 
 	func createTopic() {
