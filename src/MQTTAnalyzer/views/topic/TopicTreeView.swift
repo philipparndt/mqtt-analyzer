@@ -40,6 +40,7 @@ struct TopicTreeSidebarView: View {
 	@State private var limitsSettingsPresented = false
 	@State private var limitsSettingsType: LimitType = .topicLimit
 	@State private var expandedTopics: Set<UUID> = []
+	@FocusState private var flatListFocused: Bool
 
 	var isSearching: Bool {
 		!model.filterText.trimmingCharacters(in: .whitespaces).isEmpty
@@ -75,13 +76,12 @@ struct TopicTreeSidebarView: View {
 
 	private var topicList: some View {
 		Group {
-			if model.flatView && !isSearching && hasTopics {
+			if model.flatView && hasTopics {
 				flatList
 			} else {
 				treeList
 			}
 		}
-		.searchable(text: $model.filterText)
 		.disableAutocorrection(true)
 		.transaction { transaction in
 			transaction.animation = nil
@@ -175,32 +175,50 @@ struct TopicTreeSidebarView: View {
 	/// The flat list deliberately avoids `List`: it realizes every row whenever the
 	/// topic set changes, which freezes for seconds on brokers with many topics.
 	private var flatList: some View {
-		let nodes = flatTopics
+		let nodes = isSearching ? model.searchResultDisplay : flatTopics
 
 		return Group {
 			if nodes.isEmpty {
-				ContentUnavailableView(
-					"No Messages",
-					systemImage: "envelope",
-					description: Text("No messages received yet.")
-				)
-				.accessibilityIdentifier("tree_flat_empty")
+				if isSearching {
+					ContentUnavailableView(
+						"No Results",
+						systemImage: "magnifyingglass",
+						description: Text("No topics match '\(model.filterText)'")
+					)
+				} else {
+					ContentUnavailableView(
+						"No Messages",
+						systemImage: "envelope",
+						description: Text("No messages received yet.")
+					)
+					.accessibilityIdentifier("tree_flat_empty")
+				}
 			} else {
-				ScrollView {
-					LazyVStack(alignment: .leading, spacing: 1) {
-						ForEach(nodes) { node in
-							FlatTopicRow(
-								node: node,
-								host: host,
-								selectedTopic: $selectedTopic,
-								publishMessagePresented: $publishMessageModel.isPresented,
-								selectMessage: selectMessage,
-								createNewTopic: setTopic
-							)
+				ScrollViewReader { proxy in
+					ScrollView {
+						LazyVStack(alignment: .leading, spacing: 1) {
+							ForEach(nodes) { node in
+								FlatTopicRow(
+									node: node,
+									host: host,
+									selectedTopic: $selectedTopic,
+									listFocused: $flatListFocused,
+									publishMessagePresented: $publishMessageModel.isPresented,
+									selectMessage: selectMessage,
+									createNewTopic: setTopic
+								)
+								.id(node.id)
+							}
 						}
+						.padding(.horizontal, 8)
+						.padding(.vertical, 6)
 					}
-					.padding(.horizontal, 8)
-					.padding(.vertical, 6)
+					.focusable()
+					.focused($flatListFocused)
+					.focusEffectDisabled()
+					.onKeyPress(.upArrow) { moveSelection(by: -1, in: nodes, using: proxy) }
+					.onKeyPress(.downArrow) { moveSelection(by: 1, in: nodes, using: proxy) }
+					.searchable(text: $model.filterText)
 				}
 			}
 		}
@@ -277,12 +295,33 @@ struct TopicTreeSidebarView: View {
 			}
 		}
 		.listStyle(.sidebar)
+		.searchable(text: $model.filterText)
 	}
 
 }
 
 // MARK: - Actions
 extension TopicTreeSidebarView {
+	/// Arrow key navigation for the flat list. `List` does this on its own, the
+	/// LazyVStack the flat list is built from does not.
+	func moveSelection(by offset: Int, in nodes: [TopicTree], using proxy: ScrollViewProxy) -> KeyPress.Result {
+		guard !nodes.isEmpty else {
+			return .ignored
+		}
+
+		let index: Int
+		if let selected = selectedTopic, let current = nodes.firstIndex(of: selected) {
+			index = min(max(current + offset, 0), nodes.count - 1)
+		} else {
+			index = offset > 0 ? 0 : nodes.count - 1
+		}
+
+		let node = nodes[index]
+		selectedTopic = node
+		proxy.scrollTo(node.id)
+		return .handled
+	}
+
 	func togglePause() {
 		host.pause.toggle()
 	}
@@ -492,12 +531,22 @@ private struct FlatTopicRow: View {
 	@ObservedObject var node: TopicTree
 	let host: Host
 	@Binding var selectedTopic: TopicTree?
+	@FocusState.Binding var listFocused: Bool
 	@Binding var publishMessagePresented: Bool
 	let selectMessage: (MsgMessage) -> Void
 	let createNewTopic: (String) -> Void
 
 	private var isSelected: Bool {
 		selectedTopic == node
+	}
+
+	/// Matches how a List dims its selection while another view holds the focus.
+	private var selectionColor: Color {
+		guard isSelected else {
+			return .clear
+		}
+
+		return listFocused ? Color.accentColor.opacity(0.25) : Color.secondary.opacity(0.2)
 	}
 
 	var body: some View {
@@ -515,10 +564,11 @@ private struct FlatTopicRow: View {
 		.contentShape(Rectangle())
 		.background(
 			RoundedRectangle(cornerRadius: 6)
-				.fill(isSelected ? Color.accentColor.opacity(0.25) : Color.clear)
+				.fill(selectionColor)
 		)
 		.onTapGesture {
 			selectedTopic = node
+			listFocused = true
 		}
 	}
 }
