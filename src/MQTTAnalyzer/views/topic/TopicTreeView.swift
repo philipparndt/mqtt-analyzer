@@ -87,7 +87,7 @@ struct TopicTreeSidebarView: View {
 						.tag(node)
 					}
 				}
-			} else if model.childrenDisplay.isEmpty && model.children.isEmpty {
+			} else if model.childrenDisplay.isEmpty && model.children.isEmpty && model.messages.isEmpty {
 				ContentUnavailableView(
 					"No Topics",
 					systemImage: "antenna.radiowaves.left.and.right",
@@ -95,6 +95,24 @@ struct TopicTreeSidebarView: View {
 				)
 				.accessibilityIdentifier(host.state == .connected ? "tree_wait_messages" : "tree_not_connected")
 			} else {
+				// The root of the displayed tree is the common prefix of the subscriptions,
+				// so it receives messages itself whenever a topic is subscribed exactly
+				// (`test`) or a wildcard also matches its own level (`test/#` matches `test`).
+				if !model.messages.isEmpty {
+					TreeFlatRow(
+						node: model,
+						depth: 0,
+						hasChildren: false,
+						host: host,
+						expandedTopics: $expandedTopics,
+						selectedTopic: $selectedTopic,
+						publishMessagePresented: $publishMessageModel.isPresented,
+						selectMessage: selectMessage,
+						createNewTopic: setTopic,
+						showFullPath: true
+					)
+				}
+
 				ForEach(
 					flattenTopicTree(
 						roots: model.childrenDisplay,
@@ -409,6 +427,7 @@ private struct TreeFlatRow: View {
 	@Binding var publishMessagePresented: Bool
 	let selectMessage: (MsgMessage) -> Void
 	let createNewTopic: (String) -> Void
+	var showFullPath: Bool = false
 
 	private var isExpanded: Bool {
 		expandedTopics.contains(node.id)
@@ -445,7 +464,8 @@ private struct TreeFlatRow: View {
 				host: host,
 				publishMessagePresented: $publishMessagePresented,
 				selectMessage: selectMessage,
-				createNewTopic: createNewTopic
+				createNewTopic: createNewTopic,
+				showFullPath: showFullPath
 			)
 		}
 		.tag(node)
