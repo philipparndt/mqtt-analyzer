@@ -58,13 +58,6 @@ class MQTT5Delegate: CocoaMQTT5Delegate {
 		// currently not necessary, but required by protocol
 	}
 
-	/// Manually validate SSL/TLS server certificate.
-	///
-	/// This method will be called if enable  `allowUntrustCACertificate`
-	func mqtt5(_ mqtt5: CocoaMQTT5, didReceive trust: SecTrust, completionHandler: @escaping (Bool) -> Void) {
-		completionHandler(true)
-	}
-
 	func mqtt5(_ mqtt5: CocoaMQTT5, didPublishComplete id: UInt16, pubCompData: MqttDecodePubComp?) {
 		// currently not necessary, but required by protocol
 	}
