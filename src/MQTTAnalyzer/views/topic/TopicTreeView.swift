@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 // MARK: - Tree Children Extension
 extension TopicTree {
@@ -46,6 +47,9 @@ struct TopicTreeSidebarView: View {
 	@ObservedObject var host: Host
 	@ObservedObject var model: TopicTree
 	@Binding var selectedTopic: TopicTree?
+	/// Only the scroll follower observes this, so a selection change does not
+	/// re-render the list itself.
+	var selection: TopicSelection?
 
 	@StateObject private var publishMessageModel = PublishMessageFormModel()
 	@State private var limitsSettingsPresented = false
@@ -90,6 +94,13 @@ struct TopicTreeSidebarView: View {
 		#endif
 	}
 
+	@ViewBuilder
+	private func scrollFollower(proxy: ScrollViewProxy) -> some View {
+		if let selection = selection {
+			SelectionScrollFollower(selection: selection, proxy: proxy)
+		}
+	}
+
 	private var hasTopics: Bool {
 		!(model.childrenDisplay.isEmpty && model.children.isEmpty && model.messages.isEmpty)
 	}
@@ -97,14 +108,8 @@ struct TopicTreeSidebarView: View {
 	private var topicList: some View {
 		ScrollViewReader { proxy in
 			listContent
-				// The table does not always follow the selection when the keys move it
-				.onChange(of: selectedTopic) { _, node in
-					guard let node = node else {
-						return
-					}
+				.background(scrollFollower(proxy: proxy))
 
-					proxy.scrollTo(node.id)
-				}
 		}
 	}
 
@@ -526,6 +531,27 @@ extension TopicTreeSidebarView {
 	func openLimitsSettings(type: LimitType) {
 		limitsSettingsType = type
 		limitsSettingsPresented = true
+	}
+}
+
+/// Scrolls the list to the selected topic.
+///
+/// A leaf of its own so that following the selection re-renders this and nothing
+/// else: the list holds thousands of rows and rebuilding them for a selection
+/// change costs tens of milliseconds.
+private struct SelectionScrollFollower: View {
+	@ObservedObject var selection: TopicSelection
+	let proxy: ScrollViewProxy
+
+	var body: some View {
+		Color.clear
+			.onChange(of: selection.topic) { _, topic in
+				guard let topic = topic else {
+					return
+				}
+
+				proxy.scrollTo(topic.id)
+			}
 	}
 }
 
