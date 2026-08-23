@@ -78,6 +78,13 @@
 			remoteGlobalIDString = 2253F8D122C8C007007E35A2;
 			remoteInfo = MQTTAnalyzer;
 		};
+		22CE10032F90000100AA0003 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19097DD56A61267315E1BF26;
+			remoteInfo = MQTTAnalyzerCLI;
+		};
 		DAEC5E9C10CCEAC58E5FFC4C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2253F8CA22C8C007007E35A2 /* Project object */;
@@ -464,12 +471,14 @@
 				2253F8D022C8C007007E35A2 /* Resources */,
 				22C9F72D23B747E800892C4B /* ShellScript */,
 				2282D9FA28102EB100F79E65 /* Embed Foundation Extensions */,
+				22CE10022F90000100AA0002 /* Embed CLI Tool */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				2282D9F328102EB100F79E65 /* PBXTargetDependency */,
 				2282D9F728102EB100F79E65 /* PBXTargetDependency */,
+				22CE10042F90000100AA0004 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				22BB9C122F8443D9007DE024 /* Common */,
@@ -796,6 +805,25 @@
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"/opt/homebrew/bin:$PATH\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, install via: brew install swiftlint\"\nfi\n";
 		};
+		22CE10022F90000100AA0002 /* Embed CLI Tool */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Embed CLI Tool";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\n# This target builds for both iOS and macOS. MQTTAnalyzerCLI is macOS-only,\n# so embed it only when building the Mac app -- an iOS bundle must not\n# contain a macOS Mach-O.\nif [ \"${PLATFORM_NAME}\" != \"macosx\" ]; then\n    echo \"note: skipping CLI embed for platform ${PLATFORM_NAME}\"\n    exit 0\nfi\n\nSRC=\"${BUILT_PRODUCTS_DIR}/mqtt-analyzer\"\nDST_DIR=\"${TARGET_BUILD_DIR}/${EXECUTABLE_FOLDER_PATH}\"\n\nif [ ! -f \"${SRC}\" ]; then\n    echo \"error: mqtt-analyzer CLI not found at ${SRC}\"\n    exit 1\nfi\n\nmkdir -p \"${DST_DIR}\"\ncp -f \"${SRC}\" \"${DST_DIR}/mqtt-analyzer\"\n\n# Re-sign with the app's identity, keeping the CLI's own entitlements\n# (app sandbox, app group) and hardened runtime flags intact.\nif [ \"${CODE_SIGNING_ALLOWED}\" = \"YES\" ] && [ -n \"${EXPANDED_CODE_SIGN_IDENTITY}\" ]; then\n    codesign --force --sign \"${EXPANDED_CODE_SIGN_IDENTITY}\" --preserve-metadata=identifier,entitlements,flags \"${DST_DIR}/mqtt-analyzer\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -897,6 +925,12 @@
 			isa = PBXTargetDependency;
 			target = 2253F8D122C8C007007E35A2 /* MQTTAnalyzer */;
 			targetProxy = 22C96E2B28141B9900A4F627 /* PBXContainerItemProxy */;
+		};
+		22CE10042F90000100AA0004 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MQTTAnalyzerCLI;
+			target = 19097DD56A61267315E1BF26 /* MQTTAnalyzerCLI */;
+			targetProxy = 22CE10032F90000100AA0003 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
