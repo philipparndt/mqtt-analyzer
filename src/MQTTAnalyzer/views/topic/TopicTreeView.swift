@@ -115,7 +115,18 @@ struct TopicTreeSidebarView: View {
 		.searchable(text: $model.filterText)
 		.onAppear { refreshFlatRows() }
 		.onChange(of: model.flatView) { refreshFlatRows() }
-		.onChange(of: isSearching) { refreshFlatRows() }
+		.onChange(of: isSearching) { _, searching in
+			// Clearing the filter otherwise diffs the search results against the full
+			// topic set, and the resulting batched insert measures every row it adds.
+			// Dropping the rows while the search results are on screen means the list
+			// is filled into an empty table instead, which is the same cheap path the
+			// switch between tree and flat view takes.
+			if searching {
+				applyFlatRows([])
+			} else {
+				DispatchQueue.main.async { refreshFlatRows() }
+			}
+		}
 		.onChange(of: model.childrenDisplay.count) { refreshFlatRowsIfShrunk() }
 		.onReceive(flatRefresh) { _ in refreshFlatRows() }
 		.onKeyPress(.rightArrow) { expandSelection() }
@@ -344,6 +355,10 @@ extension TopicTreeSidebarView {
 	/// Take a fresh snapshot of the flat row set, at most as often as the timer fires.
 	func refreshFlatRows() {
 		guard model.flatView else {
+			return
+		}
+
+		guard !isSearching else {
 			return
 		}
 
