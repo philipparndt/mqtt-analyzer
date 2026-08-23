@@ -8,6 +8,9 @@
 
 import SwiftUI
 
+/// Deliberately not animated: one of these is drawn per row, arriving messages
+/// flip the read state constantly, and an animating row keeps the whole list
+/// inside an AppKit animation group, re-laying it out on every frame.
 struct ReadMarkerView: View {
 	var read: Readstate
 
@@ -16,7 +19,6 @@ struct ReadMarkerView: View {
 		.font(.subheadline)
 		.foregroundColor(.blue)
 		.opacity(read.read ? 0 : 1)
-		.animation(.easeInOut, value: read.read)
 	}
 }
 
@@ -29,6 +31,5 @@ struct FolderReadMarkerView: View {
 		.foregroundColor(read.read ? .primary : .blue)
 		.opacity(read.read ? 0.5 : 1)
 		.frame(width: 25, alignment: .center)
-		.animation(Animation.easeInOut(duration: 0.5), value: read.read)
 	}
 }
