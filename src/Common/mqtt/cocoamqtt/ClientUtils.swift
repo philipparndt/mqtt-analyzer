@@ -7,9 +7,13 @@
 //
 
 import Foundation
+import Combine
 import CocoaMQTT
 
 class ClientUtils<T, M> {
+	/// How long arriving messages are collected before the model is updated.
+	static var messageBatchInterval: DispatchQueue.SchedulerTimeType.Stride { .seconds(0.5) }
+
 	let connectionStateQueue = DispatchQueue(label: "connection.state.lock.queue")
 	var connectionState = ConnectionState()
 	let messageSubject = MsgSubject<ReceivedMessage<M>>()
@@ -203,7 +207,10 @@ extension ClientUtils {
 	func installMessageDispatch(metadata: @escaping ((M) -> MsgMetadata), payload: @escaping ((M) -> MsgPayload), topic: @escaping ((M) -> String)) {
 		let queue = DispatchQueue(label: "Message Dispatch queue")
 		messageSubject.cancellable = messageSubject.subject.eraseToAnyPublisher()
-			.collect(.byTime(queue, 0.1))
+			// Each batch redraws the topic list, and a list of a few thousand topics
+			// takes tens of milliseconds to lay out. Ten batches a second leave no
+			// time for anything else, keys included.
+			.collect(.byTime(queue, Self.messageBatchInterval))
 			.receive(on: DispatchQueue.main)
 			.sink(receiveValue: {
 				self.onMessages(messages: $0, metadata: metadata, payload: payload, topic: topic)
