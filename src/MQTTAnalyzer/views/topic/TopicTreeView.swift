@@ -95,6 +95,20 @@ struct TopicTreeSidebarView: View {
 	}
 
 	private var topicList: some View {
+		ScrollViewReader { proxy in
+			listContent
+				// The table does not always follow the selection when the keys move it
+				.onChange(of: selectedTopic) { _, node in
+					guard let node = node else {
+						return
+					}
+
+					proxy.scrollTo(node.id)
+				}
+		}
+	}
+
+	private var listContent: some View {
 		List(selection: $selectedTopic) {
 			if isSearching {
 				searchResultRows
