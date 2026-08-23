@@ -118,13 +118,23 @@ struct TopicTreeSidebarView: View {
 
 						proxy.scrollTo(node.id)
 					}
-					// A table scrolls on the page keys without moving its selection
+					// A table scrolls on the page keys without moving its selection, and
+					// correcting that afterwards makes the list jump away and back, so
+					// the keys are taken from the table before it acts on them.
+					#if os(macOS)
+					.background(
+						ListPageKeyHandler { direction in
+							_ = movePage(by: direction, in: geometry.size.height, using: proxy)
+						}
+					)
+					#else
 					.onKeyPress(.pageDown, phases: [.down, .repeat]) { _ in
 						movePage(by: 1, in: geometry.size.height, using: proxy)
 					}
 					.onKeyPress(.pageUp, phases: [.down, .repeat]) { _ in
 						movePage(by: -1, in: geometry.size.height, using: proxy)
 					}
+					#endif
 			}
 		}
 	}
