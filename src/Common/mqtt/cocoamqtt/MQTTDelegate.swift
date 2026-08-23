@@ -11,10 +11,6 @@ import CocoaMQTT
 
 class MQTTDelegate: CocoaMQTTDelegate {
 
-	func mqtt(_ mqtt: CocoaMQTT, didReceive trust: SecTrust, completionHandler: @escaping (Bool) -> Void) {
-		completionHandler(true)
-	}
-
 	func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
 		// currently not necessary, but required by protocol
 	}
