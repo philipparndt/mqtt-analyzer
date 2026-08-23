@@ -22,7 +22,7 @@ extension TopicTree {
 	}
 
 	func markRead() {
-		readState = Readstate(read: true)
+		setRead(true)
 
 		for child in children.values {
 			child.markRead()
@@ -30,19 +30,35 @@ extension TopicTree {
 	}
 
 	func markUnread() {
-		readState = Readstate(read: false)
+		// Marking always walks up to the root, so an already unread node has
+		// already unread parents. Stopping there keeps a message on a known topic
+		// from publishing on every node up to the root — the topic list observes
+		// the root, and a publish there redraws all of its rows.
+		guard setRead(false) else {
+			return
+		}
 
-		var current: TopicTree? = parent
-		while current != nil {
-			current?.readState = Readstate(read: false)
-			current = current?.parent
+		var current = parent
+		while let node = current, node.setRead(false) {
+			current = node.parent
 		}
 	}
 
 	func recomputeReadState() {
 		if messages.isEmpty && childrenRead() {
-			readState = Readstate(read: true)
+			setRead(true)
 		}
+	}
+
+	/// Assigns the read state, and reports whether that changed anything.
+	@discardableResult
+	private func setRead(_ read: Bool) -> Bool {
+		guard readState.read != read else {
+			return false
+		}
+
+		readState = Readstate(read: read)
+		return true
 	}
 
 	func childrenRead() -> Bool {

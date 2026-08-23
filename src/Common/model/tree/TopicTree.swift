@@ -97,7 +97,10 @@ class TopicTree: Identifiable, ObservableObject {
 		updateTimeSeriesIfNeeded()
 		return _timeSeries
 	}
-	@Published var readState = Readstate(read: false) {
+	/// A node without messages has nothing to read, which is also what
+	/// `recomputeReadState` concludes for one. Starting unread would leave a newly
+	/// created node indistinguishable from one carrying unread messages.
+	@Published var readState = Readstate(read: true) {
 		didSet {
 			if readState.read {
 				parent?.recomputeReadState()
