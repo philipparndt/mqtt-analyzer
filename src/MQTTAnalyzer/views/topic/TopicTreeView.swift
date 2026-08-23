@@ -30,17 +30,6 @@ extension TopicTree: Hashable {
 	}
 }
 
-/// Bookkeeping for revealing the flat list in chunks.
-///
-/// Held by reference because the reveal continues across run loop turns, and a
-/// closure that captures the view value reads state as it was when the closure
-/// was made.
-final class FlatRowReveal: ObservableObject {
-	/// Bumped whenever a new row set supersedes the one being revealed.
-	var generation = 0
-	var renderedCount = 0
-}
-
 // MARK: - Topic Tree Sidebar (for three-column layout on macOS/iPad)
 struct TopicTreeSidebarView: View {
 	@EnvironmentObject var rootModel: RootModel
@@ -60,11 +49,6 @@ struct TopicTreeSidebarView: View {
 	/// stalls the app; coalescing the bursts keeps the row set stable instead.
 	@State private var flatRows: [TopicTree] = []
 	@State private var flatRefresh = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
-	@StateObject private var reveal = FlatRowReveal()
-
-	/// Rows handed to List at once. Everything beyond this follows a run loop turn
-	/// later, so a large row set never blocks the main thread in one go.
-	private static let revealChunk = 250
 
 	var isSearching: Bool {
 		!model.filterText.trimmingCharacters(in: .whitespaces).isEmpty
@@ -141,7 +125,7 @@ struct TopicTreeSidebarView: View {
 			// is filled into an empty table instead, which is the same cheap path the
 			// switch between tree and flat view takes.
 			if searching {
-				applyFlatRows([])
+				flatRows = []
 			} else {
 				DispatchQueue.main.async { refreshFlatRows() }
 			}
@@ -382,60 +366,21 @@ extension TopicTreeSidebarView {
 		}
 
 		let current = flatTopics
-		guard current.count != reveal.renderedCount
+		guard current.count != flatRows.count
 			|| !zip(current, flatRows).allSatisfy({ $0 === $1 }) else {
 			return
 		}
 
-		applyFlatRows(current)
+		flatRows = current
 	}
 
 	/// Removing topics has to show up right away; only additions are coalesced.
 	func refreshFlatRowsIfShrunk() {
-		guard model.flatView, flatTopics.count < reveal.renderedCount else {
+		guard model.flatView, flatTopics.count < flatRows.count else {
 			return
 		}
 
-		applyFlatRows(flatTopics)
-	}
-
-	/// Hand the rows to List, in chunks when there are many of them.
-	///
-	/// Clearing the search filter puts the whole topic set back at once, and List
-	/// realizes and measures every row it is given before it draws anything. Filling
-	/// it a chunk per run loop turn keeps each of those passes short.
-	func applyFlatRows(_ target: [TopicTree]) {
-		reveal.generation += 1
-
-		guard target.count > reveal.renderedCount + Self.revealChunk else {
-			setFlatRows(target)
-			return
-		}
-
-		revealFlatRows(target, upTo: Self.revealChunk, generation: reveal.generation)
-	}
-
-	private func revealFlatRows(_ target: [TopicTree], upTo count: Int, generation: Int) {
-		guard reveal.generation == generation else {
-			// A newer row set took over while this one was still being revealed
-			return
-		}
-
-		let next = min(count, target.count)
-		setFlatRows(next == target.count ? target : Array(target.prefix(next)))
-
-		guard next < target.count else {
-			return
-		}
-
-		DispatchQueue.main.async {
-			revealFlatRows(target, upTo: next + Self.revealChunk, generation: generation)
-		}
-	}
-
-	private func setFlatRows(_ rows: [TopicTree]) {
-		reveal.renderedCount = rows.count
-		flatRows = rows
+		flatRows = flatTopics
 	}
 
 	func togglePause() {
