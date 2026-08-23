@@ -40,6 +40,16 @@ final class FlatRowReveal: ObservableObject {
 	var renderedCount = 0
 }
 
+/// Rows and selection as the key handlers see them.
+///
+/// `onKeyPress` captures the view value once, so state read through `self` inside
+/// its closure stays at the value it had when the closure was made. Held by
+/// reference to stay current.
+final class ListNavigation: ObservableObject {
+	var rows: [TopicTree] = []
+	var selection: TopicTree?
+}
+
 // MARK: - Topic Tree Sidebar (for three-column layout on macOS/iPad)
 struct TopicTreeSidebarView: View {
 	@EnvironmentObject var rootModel: RootModel
@@ -57,6 +67,7 @@ struct TopicTreeSidebarView: View {
 	@State private var flatRows: [TopicTree] = []
 	@State private var flatRefresh = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
 	@StateObject private var reveal = FlatRowReveal()
+	@StateObject private var navigation = ListNavigation()
 
 	/// Rows handed to List at once. Everything beyond this follows a run loop turn
 	/// later, so a large row set never blocks the main thread in one go.
@@ -95,16 +106,26 @@ struct TopicTreeSidebarView: View {
 	}
 
 	private var topicList: some View {
-		ScrollViewReader { proxy in
-			listContent
-				// The table does not always follow the selection when the keys move it
-				.onChange(of: selectedTopic) { _, node in
-					guard let node = node else {
-						return
-					}
+		GeometryReader { geometry in
+			ScrollViewReader { proxy in
+				listContent
+					// The table does not always follow the selection when the keys move it
+					.onChange(of: selectedTopic) { _, node in
+						navigation.selection = node
+						guard let node = node else {
+							return
+						}
 
-					proxy.scrollTo(node.id)
-				}
+						proxy.scrollTo(node.id)
+					}
+					// A table scrolls on the page keys without moving its selection
+					.onKeyPress(.pageDown, phases: [.down, .repeat]) { _ in
+						movePage(by: 1, in: geometry.size.height, using: proxy)
+					}
+					.onKeyPress(.pageUp, phases: [.down, .repeat]) { _ in
+						movePage(by: -1, in: geometry.size.height, using: proxy)
+					}
+			}
 		}
 	}
 
@@ -127,8 +148,9 @@ struct TopicTreeSidebarView: View {
 		}
 		.listStyle(.sidebar)
 		.searchable(text: $model.filterText)
-		.onAppear { refreshFlatRows() }
-		.onChange(of: model.flatView) { refreshFlatRows() }
+		.onAppear { refreshFlatRows(); syncNavigationRows() }
+		.onChange(of: model.flatView) { refreshFlatRows(); syncNavigationRows() }
+		.onChange(of: expandedTopics) { syncNavigationRows() }
 		.onChange(of: isSearching) { _, searching in
 			// Clearing the filter otherwise diffs the search results against the full
 			// topic set, and the resulting batched insert measures every row it adds.
@@ -141,7 +163,10 @@ struct TopicTreeSidebarView: View {
 				DispatchQueue.main.async { refreshFlatRows() }
 			}
 		}
-		.onChange(of: model.childrenDisplay.count) { refreshFlatRowsIfShrunk() }
+		.onChange(of: model.childrenDisplay.count) {
+			refreshFlatRowsIfShrunk()
+			syncNavigationRows()
+		}
 		.onReceive(flatRefresh) { _ in refreshFlatRows() }
 		.onKeyPress(.rightArrow) { expandSelection() }
 		.onKeyPress(.leftArrow) { collapseSelection() }
@@ -366,6 +391,44 @@ extension TopicTreeSidebarView {
 		return .handled
 	}
 
+	/// The rows in the order they are drawn, for the key handlers to step through.
+	func syncNavigationRows() {
+		navigation.selection = selectedTopic
+
+		guard !model.flatView else {
+			navigation.rows = flatRows
+			return
+		}
+
+		var rows: [TopicTree] = model.messages.isEmpty ? [] : [model]
+		rows += flattenTopicTree(roots: model.childrenDisplay, expanded: expandedTopics).map { $0.node }
+		navigation.rows = rows
+	}
+
+	/// Move the selection by a page and take the list along.
+	func movePage(by direction: Int, in height: CGFloat, using proxy: ScrollViewProxy) -> KeyPress.Result {
+		let rows = navigation.rows
+		guard !rows.isEmpty else {
+			return .ignored
+		}
+
+		let rowHeight: CGFloat = 28
+		let page = max(1, Int(height / rowHeight) - 1)
+
+		let index: Int
+		if let selected = navigation.selection, let current = rows.firstIndex(of: selected) {
+			index = min(max(current + direction * page, 0), rows.count - 1)
+		} else {
+			index = direction > 0 ? 0 : rows.count - 1
+		}
+
+		let node = rows[index]
+		navigation.selection = node
+		selectedTopic = node
+		proxy.scrollTo(node.id)
+		return .handled
+	}
+
 	/// Take a fresh snapshot of the flat row set, at most as often as the timer fires.
 	func refreshFlatRows() {
 		guard model.flatView else {
@@ -431,6 +494,10 @@ extension TopicTreeSidebarView {
 	private func setFlatRows(_ rows: [TopicTree]) {
 		reveal.renderedCount = rows.count
 		flatRows = rows
+
+		if model.flatView {
+			navigation.rows = rows
+		}
 	}
 
 	func togglePause() {
