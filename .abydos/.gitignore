@@ -1,0 +1,12 @@
+# What this app keeps beside the project.
+#
+# The run configurations belong to everybody working on it, so they are
+# committed, and so is the backlog: what is left to do is the project's,
+# not one machine's. Everything else — which files were open, where the
+# caret was — is state and is not.
+*
+!.gitignore
+!run/
+!run/**
+!backlog/
+!backlog/**
