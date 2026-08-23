@@ -55,6 +55,10 @@ struct MQTTAnalyzerApp: App {
 		}
 		#endif
 
+		#if os(macOS)
+		ListFocusRestorer.install()
+		#endif
+
 		if CommandLine.arguments.contains("--no-welcome") {
 			let defaults = UserDefaults.standard
 			defaults.set(false, forKey: Welcome.key)

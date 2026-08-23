@@ -8,6 +8,39 @@
 
 import SwiftUI
 
+/// The selected topic, so that following it does not mean re-rendering the
+/// columns that only need to write to it.
+final class TopicSelection: ObservableObject {
+	@Published var topic: TopicTree?
+
+	var binding: Binding<TopicTree?> {
+		Binding(get: { self.topic }, set: { self.topic = $0 })
+	}
+}
+
+/// Shows the messages of the selected topic. The only view that observes the
+/// selection, so a selection change redraws this and nothing else.
+struct TopicDetailColumn: View {
+	@ObservedObject var selection: TopicSelection
+	let broker: BrokerSetting?
+	let rootModel: RootModel
+
+	var body: some View {
+		NavigationStack {
+			if let topic = selection.topic, let broker = broker {
+				MessagesView(node: topic, host: rootModel.getConnectionModel(broker: broker))
+			} else {
+				ContentUnavailableView(
+					"No Topic Selected",
+					systemImage: "doc.text",
+					description: Text("Select a topic from the tree to view messages.")
+				)
+			}
+		}
+		.id(selection.topic?.id)
+	}
+}
+
 struct RootView: View {
 	@EnvironmentObject var model: RootModel
 	@Environment(\.managedObjectContext) private var viewContext
@@ -16,7 +49,10 @@ struct RootView: View {
 	@AppStorage(Welcome.key) var welcome: Bool = true
 
 	@State private var selectedBroker: BrokerSetting?
-	@State private var selectedTopic: TopicTree?
+	/// Held by reference rather than as state of this view: reading it here would
+	/// re-render every column on every selection change, and re-rendering the topic
+	/// list costs tens of milliseconds once it holds a few thousand rows.
+	@State private var selection = TopicSelection()
 	@State private var columnVisibility: NavigationSplitViewVisibility = .all
 
 	var body: some View {
@@ -75,7 +111,8 @@ struct RootView: View {
 					TopicTreeSidebarView(
 						host: host,
 						model: messageModel,
-						selectedTopic: $selectedTopic
+						selectedTopic: selection.binding,
+						selection: selection
 					)
 				} else {
 					ContentUnavailableView(
@@ -86,22 +123,15 @@ struct RootView: View {
 				}
 			}
 			#if os(macOS)
-			.navigationSplitViewColumnWidth(min: 180, ideal: 300, max: 500)
+			// Wide enough for the full topic paths the flat view shows
+			.navigationSplitViewColumnWidth(min: 180, ideal: 300, max: 900)
 			#endif
 		} detail: {
-			NavigationStack {
-				if let topic = selectedTopic, let broker = selectedBroker {
-					let host = model.getConnectionModel(broker: broker)
-					MessagesView(node: topic, host: host)
-				} else {
-					ContentUnavailableView(
-						"No Topic Selected",
-						systemImage: "doc.text",
-						description: Text("Select a topic from the tree to view messages.")
-					)
-				}
-			}
-			.id(selectedTopic?.id)
+			TopicDetailColumn(
+				selection: selection,
+				broker: selectedBroker,
+				rootModel: model
+			)
 		}
 		#if os(iOS)
 		.navigationSplitViewStyle(.balanced)

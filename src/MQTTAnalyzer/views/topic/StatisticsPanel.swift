@@ -11,16 +11,25 @@ import SwiftUI
 // MARK: - Statistics Panel with Glass Effect
 struct StatisticsPanel: View {
 	@ObservedObject var model: TopicTree
+	var flatView: Binding<Bool>?
 	var onPublish: (() -> Void)?
 
 	var body: some View {
 		HStack(spacing: 14) {
-			StatItem(icon: "number.square", label: "Topics", value: "\(model.topicCount)")
-			StatItem(icon: "envelope", label: "Messages", value: "\(model.messageCount)")
+			StatItem(icon: "number.square", label: "Topics", value: "\(model.topicCountDisplay)")
+			StatItem(icon: "envelope", label: "Messages", value: "\(model.messageCountDisplay)")
 
 			Divider()
 				.frame(height: 24)
 
+			if let flatView = flatView {
+				ToolToggle(
+					isOn: flatView,
+					icon: "list.bullet",
+					help: "Flat view",
+					identifier: "flatview"
+				)
+			}
 			if let onPublish = onPublish {
 				ToolButton(icon: "paperplane.fill", help: "Publish message", action: onPublish, identifier: "Publish")
 			}
@@ -84,6 +93,55 @@ struct ToolButton: View {
 		}
 		.help(help)
 		.accessibilityIdentifier(identifier ?? help)
+	}
+}
+
+/// Tool button that stays highlighted while its mode is active.
+struct ToolToggle: View {
+	@Binding var isOn: Bool
+	let icon: String
+	let help: String
+	var identifier: String?
+
+	@State private var isHovered = false
+
+	private var foreground: Color {
+		if isOn {
+			return .accentColor
+		}
+		return isHovered ? .primary : .secondary
+	}
+
+	private var background: Color {
+		if isOn {
+			return .accentColor.opacity(0.15)
+		}
+		return .primary.opacity(isHovered ? 0.1 : 0)
+	}
+
+	private func toggle() {
+		isOn.toggle()
+	}
+
+	var body: some View {
+		Button(action: toggle) {
+			Image(systemName: icon)
+				.font(.callout)
+				.foregroundStyle(foreground)
+				.frame(width: 24, height: 24)
+				.contentShape(Rectangle())
+				.background(
+					RoundedRectangle(cornerRadius: 5)
+						.fill(background)
+				)
+		}
+		.buttonStyle(.plain)
+		.onHover { hovering in
+			isHovered = hovering
+		}
+		.help(help)
+		.accessibilityIdentifier(identifier ?? help)
+		.accessibilityAddTraits(isOn ? .isSelected : [])
 	}
 }
 

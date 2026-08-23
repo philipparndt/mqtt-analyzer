@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 // MARK: - Tree Children Extension
 extension TopicTree {
@@ -35,14 +36,27 @@ struct TopicTreeSidebarView: View {
 	@ObservedObject var host: Host
 	@ObservedObject var model: TopicTree
 	@Binding var selectedTopic: TopicTree?
+	/// Only the scroll follower observes this, so a selection change does not
+	/// re-render the list itself.
+	var selection: TopicSelection?
 
 	@StateObject private var publishMessageModel = PublishMessageFormModel()
 	@State private var limitsSettingsPresented = false
 	@State private var limitsSettingsType: LimitType = .topicLimit
 	@State private var expandedTopics: Set<UUID> = []
+	/// Row set of the flat list, refreshed on a timer. Rebuilding it on every
+	/// arriving message batch makes List realize all of its rows again, which
+	/// stalls the app; coalescing the bursts keeps the row set stable instead.
+	@State private var flatRows: [TopicTree] = []
+	@State private var flatRefresh = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
 
 	var isSearching: Bool {
 		!model.filterText.trimmingCharacters(in: .whitespaces).isEmpty
+	}
+
+	/// Every topic that carries messages, the root included, sorted by full path.
+	var flatTopics: [TopicTree] {
+		model.recusiveAllMessages
 	}
 
 	var body: some View {
@@ -64,78 +78,62 @@ struct TopicTreeSidebarView: View {
 		#endif
 	}
 
+	@ViewBuilder
+	private func scrollFollower(proxy: ScrollViewProxy) -> some View {
+		if let selection = selection {
+			SelectionScrollFollower(selection: selection, proxy: proxy)
+		}
+	}
+
+	private var hasTopics: Bool {
+		!(model.childrenDisplay.isEmpty && model.children.isEmpty && model.messages.isEmpty)
+	}
+
 	private var topicList: some View {
+		ScrollViewReader { proxy in
+			listContent
+				.background(scrollFollower(proxy: proxy))
+
+		}
+	}
+
+	private var listContent: some View {
 		List(selection: $selectedTopic) {
 			if isSearching {
-				// Show search results
-				if model.searchResultDisplay.isEmpty {
-					ContentUnavailableView(
-						"No Results",
-						systemImage: "magnifyingglass",
-						description: Text("No topics match '\(model.filterText)'")
-					)
-				} else {
-					ForEach(model.searchResultDisplay) { node in
-						TreeNodeCellView(
-							model: node,
-							host: host,
-							publishMessagePresented: $publishMessageModel.isPresented,
-							selectMessage: selectMessage,
-							createNewTopic: setTopic,
-							showFullPath: true
-						)
-						.tag(node)
-					}
-				}
-			} else if model.childrenDisplay.isEmpty && model.children.isEmpty && model.messages.isEmpty {
+				searchResultRows
+			} else if !hasTopics {
 				ContentUnavailableView(
 					"No Topics",
 					systemImage: "antenna.radiowaves.left.and.right",
 					description: Text(host.state == .connected ? "Waiting for messages..." : "Connect to receive messages.")
 				)
 				.accessibilityIdentifier(host.state == .connected ? "tree_wait_messages" : "tree_not_connected")
+			} else if model.flatView {
+				flatRowsContent
 			} else {
-				// The root of the displayed tree is the common prefix of the subscriptions,
-				// so it receives messages itself whenever a topic is subscribed exactly
-				// (`test`) or a wildcard also matches its own level (`test/#` matches `test`).
-				if !model.messages.isEmpty {
-					TreeFlatRow(
-						node: model,
-						depth: 0,
-						hasChildren: false,
-						host: host,
-						expandedTopics: $expandedTopics,
-						selectedTopic: $selectedTopic,
-						publishMessagePresented: $publishMessageModel.isPresented,
-						selectMessage: selectMessage,
-						createNewTopic: setTopic,
-						showFullPath: true
-					)
-				}
-
-				ForEach(
-					flattenTopicTree(
-						roots: model.childrenDisplay,
-						expanded: expandedTopics
-					)
-				) { item in
-					TreeFlatRow(
-						node: item.node,
-						depth: item.depth,
-						hasChildren: item.hasChildren,
-						host: host,
-						expandedTopics: $expandedTopics,
-						selectedTopic: $selectedTopic,
-						publishMessagePresented: $publishMessageModel.isPresented,
-						selectMessage: selectMessage,
-						createNewTopic: setTopic
-					)
-				}
-				.animation(nil, value: model.childrenDisplay.count)
+				treeRows
 			}
 		}
 		.listStyle(.sidebar)
 		.searchable(text: $model.filterText)
+		.onAppear { refreshFlatRows() }
+		.onChange(of: model.flatView) { refreshFlatRows() }
+		.onChange(of: isSearching) { _, searching in
+			// Clearing the filter otherwise diffs the search results against the full
+			// topic set, and the resulting batched insert measures every row it adds.
+			// Dropping the rows while the search results are on screen means the list
+			// is filled into an empty table instead, which is the same cheap path the
+			// switch between tree and flat view takes.
+			if searching {
+				flatRows = []
+			} else {
+				DispatchQueue.main.async { refreshFlatRows() }
+			}
+		}
+		.onChange(of: model.childrenDisplay.count) { refreshFlatRowsIfShrunk() }
+		.onReceive(flatRefresh) { _ in refreshFlatRows() }
+		.onKeyPress(.rightArrow) { expandSelection() }
+		.onKeyPress(.leftArrow) { collapseSelection() }
 		.disableAutocorrection(true)
 		.transaction { transaction in
 			transaction.animation = nil
@@ -170,7 +168,7 @@ struct TopicTreeSidebarView: View {
 		.toolbar(removing: .title)
 		.toolbar {
 			ToolbarItem(placement: .principal) {
-				StatisticsPanel(model: model, onPublish: createTopic)
+				StatisticsPanel(model: model, flatView: $model.flatView, onPublish: createTopic)
 			}
 
 			ToolbarItem(placement: .secondaryAction) {
@@ -188,6 +186,16 @@ struct TopicTreeSidebarView: View {
 		}
 		#else
 		.toolbar {
+			ToolbarItem(placement: .primaryAction) {
+				Button(action: toggleFlatView) {
+					Label(
+						model.flatView ? "Tree view" : "Flat view",
+						systemImage: model.flatView ? "list.bullet" : "list.bullet.indent"
+					)
+				}
+				.accessibilityIdentifier("flatview")
+			}
+
 			ToolbarItem(placement: .primaryAction) {
 				Button(action: createTopic) {
 					Label("Publish", systemImage: "paperplane.fill")
@@ -216,8 +224,171 @@ struct TopicTreeSidebarView: View {
 		#endif
 	}
 
+	@ViewBuilder
+	private var searchResultRows: some View {
+		if model.searchResultDisplay.isEmpty {
+			ContentUnavailableView(
+				"No Results",
+				systemImage: "magnifyingglass",
+				description: Text("No topics match '\(model.filterText)'")
+			)
+		} else {
+			ForEach(model.searchResultDisplay) { node in
+				TreeNodeCellView(
+					model: node,
+					host: host,
+					publishMessagePresented: $publishMessageModel.isPresented,
+					selectMessage: selectMessage,
+					createNewTopic: setTopic,
+					showFullPath: true
+				)
+				.tag(node)
+			}
+		}
+	}
+
+	@ViewBuilder
+	private var flatRowsContent: some View {
+		if flatRows.isEmpty {
+			ContentUnavailableView(
+				"No Messages",
+				systemImage: "envelope",
+				description: Text("No messages received yet.")
+			)
+			.accessibilityIdentifier("tree_flat_empty")
+		} else {
+			ForEach(flatRows) { node in
+				TreeFlatRow(
+					node: node,
+					depth: 0,
+					hasChildren: false,
+					host: host,
+					expandedTopics: $expandedTopics,
+					selectedTopic: $selectedTopic,
+					publishMessagePresented: $publishMessageModel.isPresented,
+					selectMessage: selectMessage,
+					createNewTopic: setTopic,
+					showFullPath: true
+				)
+			}
+		}
+	}
+
+	@ViewBuilder
+	private var treeRows: some View {
+		// The root of the displayed tree is the common prefix of the subscriptions,
+		// so it receives messages itself whenever a topic is subscribed exactly
+		// (`test`) or a wildcard also matches its own level (`test/#` matches `test`).
+		if !model.messages.isEmpty {
+			TreeFlatRow(
+				node: model,
+				depth: 0,
+				hasChildren: false,
+				host: host,
+				expandedTopics: $expandedTopics,
+				selectedTopic: $selectedTopic,
+				publishMessagePresented: $publishMessageModel.isPresented,
+				selectMessage: selectMessage,
+				createNewTopic: setTopic,
+				showFullPath: true
+			)
+		}
+
+		ForEach(
+			flattenTopicTree(
+				roots: model.childrenDisplay,
+				expanded: expandedTopics
+			)
+		) { item in
+			TreeFlatRow(
+				node: item.node,
+				depth: item.depth,
+				hasChildren: item.hasChildren,
+				host: host,
+				expandedTopics: $expandedTopics,
+				selectedTopic: $selectedTopic,
+				publishMessagePresented: $publishMessageModel.isPresented,
+				selectMessage: selectMessage,
+				createNewTopic: setTopic
+			)
+		}
+		.animation(nil, value: model.childrenDisplay.count)
+	}
+
+}
+
+// MARK: - Actions
+extension TopicTreeSidebarView {
+	/// Right arrow expands the selected topic, or steps into it when it is already
+	/// expanded. The tree is a manually flattened list, so the disclosure handling a
+	/// real outline view would do has to be done here.
+	func expandSelection() -> KeyPress.Result {
+		guard !model.flatView, let node = selectedTopic, let children = node.treeChildren else {
+			return .ignored
+		}
+
+		if expandedTopics.contains(node.id) {
+			selectedTopic = children.first
+		} else {
+			expandedTopics.insert(node.id)
+		}
+
+		return .handled
+	}
+
+	/// Left arrow collapses the selected topic, or steps out to its parent.
+	func collapseSelection() -> KeyPress.Result {
+		guard !model.flatView, let node = selectedTopic else {
+			return .ignored
+		}
+
+		if node.treeChildren != nil && expandedTopics.contains(node.id) {
+			expandedTopics.remove(node.id)
+			return .handled
+		}
+
+		guard let parent = node.parent, parent !== model || !model.messages.isEmpty else {
+			return .ignored
+		}
+
+		selectedTopic = parent
+		return .handled
+	}
+
+	/// Take a fresh snapshot of the flat row set, at most as often as the timer fires.
+	func refreshFlatRows() {
+		guard model.flatView else {
+			return
+		}
+
+		guard !isSearching else {
+			return
+		}
+
+		let current = flatTopics
+		guard current.count != flatRows.count
+			|| !zip(current, flatRows).allSatisfy({ $0 === $1 }) else {
+			return
+		}
+
+		flatRows = current
+	}
+
+	/// Removing topics has to show up right away; only additions are coalesced.
+	func refreshFlatRowsIfShrunk() {
+		guard model.flatView, flatTopics.count < flatRows.count else {
+			return
+		}
+
+		flatRows = flatTopics
+	}
+
 	func togglePause() {
 		host.pause.toggle()
+	}
+
+	func toggleFlatView() {
+		model.flatView.toggle()
 	}
 
 	func createTopic() {
@@ -305,6 +476,27 @@ struct TopicTreeSidebarView: View {
 	func openLimitsSettings(type: LimitType) {
 		limitsSettingsType = type
 		limitsSettingsPresented = true
+	}
+}
+
+/// Scrolls the list to the selected topic.
+///
+/// A leaf of its own so that following the selection re-renders this and nothing
+/// else: the list holds thousands of rows and rebuilding them for a selection
+/// change costs tens of milliseconds.
+private struct SelectionScrollFollower: View {
+	@ObservedObject var selection: TopicSelection
+	let proxy: ScrollViewProxy
+
+	var body: some View {
+		Color.clear
+			.onChange(of: selection.topic) { _, topic in
+				guard let topic = topic else {
+					return
+				}
+
+				proxy.scrollTo(topic.id)
+			}
 	}
 }
 
