@@ -1,0 +1,9 @@
+{
+  "id" : "334f4ed7-dc0d-44a6-b44b-9d5e03f03cc6",
+  "targets" : [
+    {
+      "id" : "A5B127B9-5AFF-4DBB-B269-87999D215688",
+      "name" : "MQTTAnalyzer"
+    }
+  ]
+}
