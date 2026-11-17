@@ -45,7 +45,7 @@ services:
       - IONOS_API_KEY=${IONOS_API_KEY}
 
   mosquitto:
-    image: eclipse-mosquitto:2.0.22
+    image: eclipse-mosquitto:2.0.23
     volumes:
       - ./config/mosquitto/config:/mosquitto/config:rw
     ports:
